@@ -263,9 +263,15 @@ ASM_SRCS := $(wildcard $(ASM_SUBDIR)/*.s)
 ASM_OBJS := $(patsubst $(ASM_SUBDIR)/%.s,$(ASM_BUILDDIR)/%.o,$(ASM_SRCS))
 
 # get all the data/*.s files EXCEPT the ones with specific rules
+# Optionally exclude multiboot sources when NO_MULTIBOOT=1; a stub file will provide the symbols.
+MULTIBOOT_SRCS := $(DATA_ASM_SUBDIR)/multiboot_ereader.s $(DATA_ASM_SUBDIR)/multiboot_berry_glitch_fix.s $(DATA_ASM_SUBDIR)/multiboot_pokemon_colosseum.s
+ifeq ($(NO_MULTIBOOT),1)
+REGULAR_DATA_ASM_SRCS := $(filter-out $(DATA_ASM_SUBDIR)/maps.s $(DATA_ASM_SUBDIR)/map_events.s $(MULTIBOOT_SRCS), $(wildcard $(DATA_ASM_SUBDIR)/*.s))
+DATA_ASM_SRCS := $(filter-out $(MULTIBOOT_SRCS), $(wildcard $(DATA_ASM_SUBDIR)/*.s))
+else
 REGULAR_DATA_ASM_SRCS := $(filter-out $(DATA_ASM_SUBDIR)/maps.s $(DATA_ASM_SUBDIR)/map_events.s, $(wildcard $(DATA_ASM_SUBDIR)/*.s))
-
 DATA_ASM_SRCS := $(wildcard $(DATA_ASM_SUBDIR)/*.s)
+endif
 DATA_ASM_OBJS := $(patsubst $(DATA_ASM_SUBDIR)/%.s,$(DATA_ASM_BUILDDIR)/%.o,$(DATA_ASM_SRCS))
 
 SONG_SRCS := $(wildcard $(SONG_SUBDIR)/*.s)

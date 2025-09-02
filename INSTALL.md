@@ -78,6 +78,24 @@ Follow these steps to build `pokeemerald-expansion`.
     ```
     And the build ROM will be in the directory as `pokeemerald.gba`.
 
+## Multiboot/e-Reader blobs
+
+Some optional features (e-Reader transfers, Colosseum bonus content, Berry Glitch Fix) reference Nintendo-provided “multiboot” binaries that are not distributed with this repository:
+
+- `data/mb_ereader.gba`
+- `data/mb_berry_fix.gba`
+- `data/mb_colosseum.gba`
+
+If you legally possess these blobs, place them at the exact paths above before building and the features will be available in your ROM.
+
+If you do not have these blobs, you can still build by disabling multiboot with a flag that uses stub symbols during linking:
+
+```console
+make NO_MULTIBOOT=1
+```
+
+This keeps the project building cleanly while multiboot functionality is inert.
+
 # Building guidance
 
 ## Parallel builds
