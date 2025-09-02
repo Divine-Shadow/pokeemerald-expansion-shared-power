@@ -36,6 +36,14 @@ If you're new to git and GitHub, [Team Aqua's Asset Repo](https://github.com/Paw
 
 ## 📥 [Installing **`pokeemerald-expansion`**](INSTALL.md)
 ## 🏗️ [Building **`pokeemerald-expansion`**](INSTALL.md#Building-pokeemerald-expansion)
+> Prefer Docker? Build without a local toolchain:
+>
+> ```console
+> docker build -t pokeemerald-expansion:builder .
+> docker run --rm -u "$(id -u):$(id -g)" -v "$PWD:/workspace" -w /workspace pokeemerald-expansion:builder make -j"$(nproc)"
+> ```
+>
+> See more options (including Windows) in [INSTALL.md](INSTALL.md#building-pokeemerald-expansion).
 ## 🚚 [Migrating from **`pokeemerald`**](INSTALL.md#Migrating-from-pokeemerald)
 ## 🚀 [Updating **`pokeemerald-expansion`**](INSTALL.md#Updating-pokeemerald-expansion)
 

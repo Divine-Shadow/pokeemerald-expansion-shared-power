@@ -4,7 +4,7 @@ Lines to those can be found under each heading.
 This file only contains a short introduction to each supported system.
 If you run into trouble, ask for help on Discord (see [README.md](README.md)).
 
-After completing the install instructions for your OS, proceed to [Building pokeemerald-expansion](#building-pokeemerald-expansion).
+After completing the install instructions for your OS, proceed to [Building pokeemerald-expansion](#building-pokeemerald-expansion). If you prefer not to install a local toolchain, you can build with Docker instead (see the Docker option under the build section).
 
 ## Windows
 **Windows needs one of the systems to build the project**
@@ -77,6 +77,40 @@ Follow these steps to build `pokeemerald-expansion`.
     tools/gbafix/gbafix pokeemerald.gba -p --silent
     ```
     And the build ROM will be in the directory as `pokeemerald.gba`.
+
+## Alternative: Build with Docker (no local toolchain)
+
+If you don’t want to install devkitARM and other dependencies locally, you can use the provided Dockerfile to build in a container. This keeps your host environment clean and provides a reproducible toolchain.
+
+1. Build the image (from the project root):
+
+    ```console
+    docker build -t pokeemerald-expansion:builder .
+    ```
+
+2. Run builds using a bind mount so artifacts are written to your host workspace:
+
+    - Linux/macOS:
+      ```console
+      docker run --rm -u "$(id -u):$(id -g)" -v "$PWD:/workspace" -w /workspace pokeemerald-expansion:builder make -j"$(nproc)"
+      ```
+
+    - Windows PowerShell:
+      ```powershell
+      docker run --rm -v ${PWD}:/workspace -w /workspace pokeemerald-expansion:builder make -j4
+      ```
+
+3. Optional: Run the test suite inside the container:
+
+    ```console
+    docker run --rm -u "$(id -u):$(id -g)" -v "$PWD:/workspace" -w /workspace pokeemerald-expansion:builder make check
+    ```
+
+4. If you do not have the multiboot blobs, append `NO_MULTIBOOT=1` to your `make` command:
+
+    ```console
+    docker run --rm -u "$(id -u):$(id -g)" -v "$PWD:/workspace" -w /workspace pokeemerald-expansion:builder make NO_MULTIBOOT=1 -j"$(nproc)"
+    ```
 
 ## Multiboot/e-Reader blobs
 
