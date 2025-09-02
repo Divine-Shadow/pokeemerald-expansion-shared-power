@@ -112,6 +112,34 @@ If you don’t want to install devkitARM and other dependencies locally, you can
     docker run --rm -u "$(id -u):$(id -g)" -v "$PWD:/workspace" -w /workspace pokeemerald-expansion:builder make NO_MULTIBOOT=1 -j"$(nproc)"
     ```
 
+### Persistent dev container (interactive tests, repeated builds)
+
+If you prefer a long-running container you can exec into to run builds and tests repeatedly, use the `dev` target and compose file provided:
+
+1. Start the persistent container (bind-mounts your repo so artifacts appear on host):
+
+    ```console
+    bash dev_scripts/dev_up.sh
+    ```
+
+    This creates a container named `pokeemerald-dev` that stays running.
+
+2. Open a shell and work inside:
+
+    ```console
+    bash dev_scripts/dev_shell.sh
+    # Inside the container
+    make -j"$(nproc)" NO_MULTIBOOT=1
+    make check
+    ```
+
+3. Extract artifacts (if not using the bind mount or for packaging):
+
+    ```console
+    bash dev_scripts/extract_artifacts.sh
+    ls build_artifacts/
+    ```
+
 ## Multiboot/e-Reader blobs
 
 Some optional features (e-Reader transfers, Colosseum bonus content, Berry Glitch Fix) reference Nintendo-provided “multiboot” binaries that are not distributed with this repository:

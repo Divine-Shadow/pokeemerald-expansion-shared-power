@@ -1,4 +1,7 @@
-FROM ubuntu:22.04
+############################
+# Base toolchain image
+############################
+FROM ubuntu:22.04 AS base
 
 # Non-interactive apt
 ENV DEBIAN_FRONTEND=noninteractive
@@ -20,7 +23,12 @@ RUN apt-get update && apt-get install -y \
 
 WORKDIR /workspace
 
-# Copy source into image
+############################
+# Builder: one-shot CI image
+############################
+FROM base AS builder
+
+# Copy source into image to build artifacts in-layer (CI usage)
 COPY . /workspace
 
 # Build the project (tools + assets + ROM)
@@ -32,3 +40,12 @@ RUN set -eux; \
     make clean-tools; \
     make tools; \
     make -j"$(nproc)" NO_MULTIBOOT=1
+
+############################
+# Dev: persistent environment
+############################
+FROM base AS dev
+
+# No source copy here; prefer bind-mounting the workspace from host.
+# Keep the container alive for interactive use (exec/shell/make/test).
+CMD ["sleep", "infinity"]

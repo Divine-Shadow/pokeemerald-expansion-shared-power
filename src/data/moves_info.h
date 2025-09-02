@@ -444,7 +444,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT_ALL] =
             "critical-hit ratio."),
         .effect = EFFECT_TWO_TURNS_ATTACK,
         .power = 80,
-        .type = TYPE_NORMAL,
+        .type = TYPE_ROCK,
         .accuracy = 100,
         .criticalHitStage = 1,
         .pp = 10,
