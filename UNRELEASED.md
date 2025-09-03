@@ -7,6 +7,7 @@ Format: `- Area: short description (commit <short-hash>)`
 ## 2025-09-03
 
 
+- Docs: document audio asset formats and build steps (commit 7bb9f2c6).
 - Docs: add data directory guidelines (commit c9bb6915).
 - Docs: document test directory guidelines (commit TBD)
 - Docs: add tools contribution guidelines (commit c7bd2021ac).
