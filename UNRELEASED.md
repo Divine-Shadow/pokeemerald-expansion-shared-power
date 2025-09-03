@@ -14,5 +14,6 @@ Format: `- Area: short description (commit <short-hash>)`
 
 ## 2025-09-02
 
+- Docs: add graphics asset guidelines (commit 39bfd2d2).
 - Gameplay: Strength is now a Rock-type move (commit c78da96b3a).
 
