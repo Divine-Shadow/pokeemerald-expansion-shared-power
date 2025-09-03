@@ -6,7 +6,11 @@ Format: `- Area: short description (commit <short-hash>)`
 
 ## 2025-09-03
 
+
 - Docs: add contributor guidelines (commit 56680067).
+- Docs: add data directory guidelines (commit c9bb6915).
+- Docs: document test directory guidelines (commit TBD)
+- Docs: add tools contribution guidelines (commit c7bd2021ac).
 
 ## 2025-09-02
 
