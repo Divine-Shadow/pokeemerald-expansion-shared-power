@@ -6,6 +6,8 @@ Format: `- Area: short description (commit <short-hash>)`
 
 ## 2025-09-03
 
+
+- Docs: document test directory guidelines (commit TBD)
 - Docs: add tools contribution guidelines (commit c7bd2021ac).
 
 ## 2025-09-02
