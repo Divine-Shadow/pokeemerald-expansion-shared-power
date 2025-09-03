@@ -6,8 +6,8 @@
 
 **`pokeemerald-expansion`** is a GBA ROM hack base that equips developers with a comprehensive toolkit for creating Pokémon ROM hacks. **`pokeemerald-expansion`** is built on top of [pret's `pokeemerald`](https://github.com/pret/pokeemerald) decompilation project. **It is not a playable Pokémon game on its own.** 
 
-# Changelog: Update `UNRELEASED.md`
-- When making any code, data, or docs change, add a line to `UNRELEASED.md` describing the change and include the commit short hash. Keep newest entries at the top.
+# Patch Notes: Update `PATCH_NOTES.md`
+- When making any code, data, or docs change, add a line to `PATCH_NOTES.md` describing the change and include the commit short hash. Keep newest entries at the top.
 
 # [Features](FEATURES.md)
 

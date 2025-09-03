@@ -1,7 +1,7 @@
 # Repository Guidelines
 
-## Mandatory: Update `UNRELEASED.md`
-- After every change you make (code, data, or docs), add a concise entry to `UNRELEASED.md` at the top of the file.
+## Mandatory: Update `PATCH_NOTES.md`
+- After every change you make (code, data, or docs), add a concise entry to `PATCH_NOTES.md` at the top of the file.
 - Use the format: `- Area: short description (commit <short-hash>)`.
 - Example: `- Gameplay: Strength is now a Rock-type move (commit c78da96b3a).`
 - Keeping this file current is required for smooth reviews and release notes.

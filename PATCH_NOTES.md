@@ -1,4 +1,4 @@
-# Unreleased Changes
+# Patch Notes
 
 This file tracks changes merged into `main` that are not yet included in a versioned release. Whenever you make a change, add a concise entry at the top with a brief description and the commit hash.
 
@@ -7,6 +7,7 @@ Format: `- Area: short description (commit <short-hash>)`
 ## 2025-09-03
 
 
+- Docs: rename UNRELEASED.md to PATCH_NOTES.md (commit TBD)
 - Docs: document test directory guidelines (commit TBD)
 - Docs: document audio asset formats and build steps (commit 7bb9f2c6).
 - Docs: add data directory guidelines (commit c9bb6915).
