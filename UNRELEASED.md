@@ -4,6 +4,10 @@ This file tracks changes merged into `main` that are not yet included in a versi
 
 Format: `- Area: short description (commit <short-hash>)`
 
+## 2025-09-03
+
+- Docs: document test directory guidelines (commit TBD)
+
 ## 2025-09-02
 
 - Gameplay: Strength is now a Rock-type move (commit c78da96b3a).
