@@ -87,6 +87,7 @@
     - [Release Schedule and Process](team_procedures/schedule.md)
     - [Scope Guidelines](team_procedures/scope.md)
  - [Design]()
+   - [Agents Guide](design/AGENTS.md)
    - [Shared Power Mode](design/shared_power/README.md)
      - [Mode Scope](design/shared_power/scope.md)
      - [State Model](design/shared_power/state.md)
