@@ -1,5 +1,7 @@
 # Variant: Per-Side Ability Pool
 
+[Index](./README.md) · Related: [State](./state.md), [API](./api.md)
+
 This document explores making the Shared Power ability pool per-side (player side vs. opponent side) instead of per-trainer, and evaluates the impact on the existing plan.
 
 ## Summary of Change
@@ -69,4 +71,3 @@ This document explores making the Shared Power ability pool per-side (player sid
 - Docs/flagging: consider separate flag (e.g., `BATTLE_TYPE_SHARED_POWER_SIDE`) or a configuration knob (`SHARED_POWER_POOL_KIND = SIDE|TRAINER`).
 
 See also: [State Model](./state.md), [Core API](./api.md), [Acquisition & Switch-In Flow](./acquisition_switchin.md), [Events & Dispatchers](./events.md).
-

@@ -1,5 +1,7 @@
 # Shared Power — Game Mode Explainer
 
+[Index](./README.md) · Related: [Mode Scope](./scope.md), [Variants](./per_side_pool.md)
+
 Shared Power is a special battle mode where teammates accumulate and share abilities across the battle.
 
 ## Core Rules
@@ -30,4 +32,3 @@ Shared Power is a special battle mode where teammates accumulate and share abili
 - Intended to be toggled via a battle-type flag (e.g., `BATTLE_TYPE_SHARED_POWER`). See [Config & Tests](./config_tests.md).
 
 For implementation details, start at the [design overview](./README.md).
-

@@ -1,5 +1,7 @@
 # Implementation Map
 
+[Index](./README.md) · Related: [API](./api.md), [Events](./events.md), [Config & Tests](./config_tests.md)
+
 High-leverage, minimal changes with file-level pointers.
 
 ## New Module
@@ -44,4 +46,3 @@ High-leverage, minimal changes with file-level pointers.
   - Provide effective ability visibility; update consolidators to consult the effective set where they currently read abilities.
 
 See also: [Events & Dispatchers](./events.md), [Suppression & Edge Cases](./suppression_edge_cases.md).
-

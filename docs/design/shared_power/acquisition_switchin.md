@@ -1,5 +1,7 @@
 # Acquisition & Switch-In Flow
 
+[Index](./README.md) · Related: [API](./api.md), [Events](./events.md), [Activation & UX](./activation_ux.md)
+
 This file defines when abilities are added to pools and how switch-in effects run for all pooled abilities.
 
 ## Acquisition Timing
@@ -30,4 +32,3 @@ The engine uses `gSpecialStatuses[battler].switchInAbilityDone` to gate some cas
 - Alternative: stable ascending by ability ID for deterministic behavior; decide once and document.
 
 See also: [Events & Dispatchers](./events.md), [Activation Order & UX](./activation_ux.md).
-

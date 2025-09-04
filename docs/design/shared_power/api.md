@@ -1,5 +1,7 @@
 # Core API
 
+[Index](./README.md) · Related: [State](./state.md), [Events](./events.md), [Damage Calc](./damage_calc.md)
+
 The API exposes a virtual view of “effective abilities” (native + pool) without changing how `gBattleMons[battler].ability` is stored.
 
 ## Feature Gate
@@ -24,4 +26,3 @@ The API exposes a virtual view of “effective abilities” (native + pool) with
 - Append abilities from the trainer pool to `pending_switchin_abilities[battler]` and drain them through the regular `AbilityBattleEffects(ABILITYEFFECT_ON_SWITCHIN, ...)` path.
 
 See also: [Events & Dispatchers](./events.md), [Damage Calculation](./damage_calc.md).
-

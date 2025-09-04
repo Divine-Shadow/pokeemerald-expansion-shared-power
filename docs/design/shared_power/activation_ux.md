@@ -1,5 +1,7 @@
 # Activation Order & UX
 
+[Index](./README.md) · Related: [Acquisition & Switch-In](./acquisition_switchin.md), [Events](./events.md)
+
 ## Activation Order
 
 - Default: acquisition order — abilities activate in the order they were added to the trainer’s pool.
@@ -17,4 +19,3 @@ Choose one policy and document it here; the design assumes acquisition order.
 - Set `gLastUsedAbility` to the currently executing pooled ability when running scripts to keep messages accurate.
 
 See also: [Acquisition & Switch-In Flow](./acquisition_switchin.md), [Events & Dispatchers](./events.md).
-

@@ -1,5 +1,7 @@
 # Mode Scope
 
+[Index](./README.md) · Related: [State](./state.md), [Events](./events.md)
+
 Shared Power is a battle-only mode. It must not affect overworld ability checks or encounter systems.
 
 - Feature flag: enable via a dedicated battle-type flag (e.g., `BATTLE_TYPE_SHARED_POWER`).
@@ -8,4 +10,3 @@ Shared Power is a battle-only mode. It must not affect overworld ability checks 
 - Applicability: affects all ability categories — switch-in, continuous, prevention/redirect, on-hit, move-end, end-turn, and on-faint.
 
 See also: [State Model](./state.md), [Events & Dispatchers](./events.md).
-

@@ -1,5 +1,7 @@
 # AI Integration
 
+[Index](./README.md) · Related: [State](./state.md), [Damage Calc](./damage_calc.md), [Events](./events.md)
+
 Keep the AI coherent by exposing effective abilities with minimal changes.
 
 ## Short-Term Approach
@@ -17,4 +19,3 @@ Keep the AI coherent by exposing effective abilities with minimal changes.
 - Add deterministic tests covering AI move choice when Shared Power changes immunity/redirect or damage-boost expectations.
 
 See also: [State Model](./state.md), [Damage Calculation](./damage_calc.md).
-

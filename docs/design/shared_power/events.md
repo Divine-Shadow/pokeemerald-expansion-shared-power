@@ -1,5 +1,7 @@
 # Events & Dispatchers
 
+[Index](./README.md) · Related: [API](./api.md), [Acquisition & Switch-In](./acquisition_switchin.md), [Damage Calc](./damage_calc.md)
+
 Leverage centralized dispatchers to apply Shared Power with minimal edits.
 
 ## Field/Side Ability Queries
@@ -32,4 +34,3 @@ Sections in `battle_util.c` and `battle_script_commands.c` that run on-hit/move-
 Checks for global abilities (Aura Break, Ruin abilities, Lightning Rod/Storm Drain redirection) should rely on field/side queries updated to effective abilities.
 
 See also: [Damage Calculation](./damage_calc.md), [Suppression & Edge Cases](./suppression_edge_cases.md).
-

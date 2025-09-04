@@ -1,5 +1,7 @@
 # Damage Calculation & Continuous Effects
 
+[Index](./README.md) · Related: [API](./api.md), [Events](./events.md), [Suppression & Edge Cases](./suppression_edge_cases.md)
+
 Centralize Shared Power inside existing damage/path helpers to avoid touching every callsite.
 
 ## Offensive Modifiers
@@ -28,4 +30,3 @@ Apply if any effective ability on the attacker matches (stack where the base gam
 - If multiple effective abilities compete, preserve the engine’s order-of-operations.
 
 See also: [Events & Dispatchers](./events.md), [Suppression & Edge Cases](./suppression_edge_cases.md).
-

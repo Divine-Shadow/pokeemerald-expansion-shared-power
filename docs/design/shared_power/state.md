@@ -1,5 +1,7 @@
 # State Model
 
+[Index](./README.md) · Related: [API](./api.md), [Acquisition & Switch-In](./acquisition_switchin.md)
+
 Store Shared Power state inside the battle runtime to keep it ephemeral and localized.
 
 ## Data Structures
@@ -22,4 +24,3 @@ Define a helper that maps a battler to a trainer index consistent with multi bat
 - Clear on battle end (no persistence to save data).
 
 See also: [Core API](./api.md), [Acquisition & Switch-In Flow](./acquisition_switchin.md).
-

@@ -1,5 +1,7 @@
 # Config, Feature Flag & Tests
 
+[Index](./README.md) · Related: [Implementation Map](./implementation_map.md), [Events](./events.md)
+
 ## Feature Flag
 
 - Introduce `BATTLE_TYPE_SHARED_POWER` (or similar) as a battle-type bitflag.
@@ -23,4 +25,3 @@ Create deterministic tests under `test/battle/...` that mirror engine areas:
 - AI behavior: ensure expected move choice in scenarios with Shared Power immunity/redirect and damage boosts.
 
 See also: [State Model](./state.md), [Events & Dispatchers](./events.md).
-

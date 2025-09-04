@@ -1,5 +1,7 @@
 # Suppression, Eligibility & Edge Cases
 
+[Index](./README.md) · Related: [API](./api.md), [Damage Calc](./damage_calc.md)
+
 Shared Power must respect existing suppression/override rules and avoid nonsensical borrowed abilities.
 
 ## Suppression Rules
@@ -26,4 +28,3 @@ Some abilities should not apply when borrowed (species/form-bound or meaningless
 - When invoking a non-native pooled ability’s script, set `gLastUsedAbility` to the pooled ability so popups/messages remain accurate.
 
 See also: [Core API](./api.md), [Events & Dispatchers](./events.md).
-
