@@ -1,0 +1,29 @@
+# Exclude VCS and editor metadata
+.git
+.gitmodules
+.github
+.vscode
+.idea
+.DS_Store
+
+# Build artifacts and ROM outputs
+build/
+**/*.o
+**/*.d
+**/*.a
+**/*.so
+**/*.dll
+**/*.exe
+**/*.elf
+**/*.sym
+**/*.gba
+pokeemerald.gba
+pokeemerald.map
+
+# Tool outputs
+tools/*/bin/
+tools/*/out/
+
+# Caches
+**/.cache/
+**/__pycache__/

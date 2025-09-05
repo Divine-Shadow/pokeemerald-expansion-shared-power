@@ -1,0 +1,17 @@
+version: "3.8"
+
+services:
+  dev:
+    build:
+      context: .
+      target: dev
+    image: pokeemerald-expansion:dev
+    container_name: pokeemerald-dev
+    working_dir: /workspace
+    # On Linux/macOS this maps your user to avoid root-owned files.
+    user: "${UID:-1000}:${GID:-1000}"
+    volumes:
+      - ./:/workspace
+    command: ["sleep", "infinity"]
+    tty: true
+    stdin_open: true

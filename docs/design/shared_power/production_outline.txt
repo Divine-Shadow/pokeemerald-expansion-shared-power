@@ -1,0 +1,47 @@
+teps outline:
+1. establish shared power in vanilla game
+	a. see docs/design/shared_power for details
+2. implement modern mechanics
+	a. assess what adjustments we want/don't want from current gen
+		-ex. dynamic speed is good, non-infinite weather off of drizzle is bad, force healed in gym fights
+	b. write code as such
+	c. create QOL features expected from a good romhack
+		-ex. mobile pc, heal anywhere, ability to set hp and prestatus, hms usable outside of combat w/out learning, cap candy and candy bag
+3. Update game routing
+	a. determine what actions are necessary to complete the game
+	b. create a mostly linear route to completing those actions
+		- this route will later enforce that players fight our many "fun" mandatory trainer battles
+	c. add encounters options to areas w/out any
+	d. add additional locations for extra encounters where desirable
+4. Draft teams for all mandatory bosses
+	a. based off of 3.a, identify the order the bosses are fought in, singles/doubles, and if they have static field conditions
+	b. create teams for final version of each fight, scaled for how far in the final fight is
+	c. scale teams down for earlier boss fights
+5. Write trainer ai
+	- design for functional 4. boss battles, and clear deterministic outcomes (as much as fun permits)
+	- comprehensively includes switch ai, ai move selection, and double battle targeting rules
+	- it's okay to write special rules for specific fights later on as necessary such as "this fight prioritizes going for prankster tailwind over a kill", but it must be well documented and kept to a select few implementations
+5. Setup player strength curve
+	a. identify what pokemon and items should become available in each boss split
+		- try to take into account what the rival fights/adds to their team from those areas when relevant from 4.c
+	b. modify pokemon movesets and evolution levels to fit difficulty curve
+		-ex. slugma evolving at level 36 is a crime for how bad magcargo is
+	c. assign pokemon to an encounter pool, create static and gift encounters when interesting
+6. rebalance 4 and 5
+	a. create sample teams for players and test battle them
+	b. potentially create seperate showdown server for testing
+	c. get other people to try sample teams, and ideally try random teams from available pools
+7. Populate the many mandatory trainer fights with teams
+	- evil grunt teams and gym members should ideally thematically match their leader (no reason to put a sun team in the rock gym)
+	- use regular trainers for more diverse strats and even less directly thematic teams that just use good pokemon
+8. Optionals
+	a. Determine optional boss fight locations and create teams based on data learned from 6 playtesting
+	b. decide on what to do with other optional non-mandatory fights
+9. Documentation (with an eye on readability)
+	a. create spreadsheet for encounter pools
+	b. create showdown calc
+	c. create showdown dex
+	d. create item guide
+	e. create trainer guide
+	-see lucid/RNB for examples
+	
