@@ -6,6 +6,7 @@ Format: `- Area: short description (commit <short-hash>)`
 
 ## 2025-09-05
 
+- Planning: Add phased implementation plan focusing on de-risked core features and testability (commit fdfb4892e6).
 - Tooling: Add Docker dev setup; ignore build_artifacts; add multiboot stubs and design outline (commit db001f6794).
 
 ## 2025-09-03
