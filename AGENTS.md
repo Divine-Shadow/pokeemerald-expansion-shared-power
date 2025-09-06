@@ -30,17 +30,18 @@
 The Dockerfile provides a reproducible toolchain. Using the bind-mount approach ensures artifacts like `pokeemerald.gba` are written to your host workspace.
 
 ## Coding Style & Naming Conventions
-- Language: C (GNU17). Follow existing file layout and patterns.
-- Indentation: match surrounding code (tabs are common in this repo).
-- Naming: functions/vars `snake_case`; constants/macros `UPPER_SNAKE_CASE`.
+- Language: C (GNU17). Follow existing file layout and patterns; see `docs/STYLEGUIDE.md`.
+- Indentation: C/C headers use 4 spaces; ASM (`.s`) and scripts (`.inc`) use tabs.
+- Naming: functions/structs `PascalCase`; locals/fields `camelCase`; constants/macros `UPPER_SNAKE_CASE`.
+- Globals: prefix globals with `g` and file‑static variables with `s`.
 - Files: lowercase with underscores (e.g., `src/battle_main.c`, `include/pokemon.h`).
 - Warnings: treat as errors (`-Werror`). Keep changes minimal and consistent.
 
 ## Testing Guidelines
-- Framework: in-repo runner (`include/test/test.h`). Use `TEST("Suite/Case") { ... }` and `EXPECT_*` macros.
+- Frameworks: unit tests via `TEST("Suite/Case") { ... }` and `EXPECT_*` in `include/test/test.h`; battle tests via the DSL (`SINGLE_BATTLE_TEST`, `DOUBLE_BATTLE_TEST`, `AI_SINGLE_BATTLE_TEST`, etc.).
 - Location: place new tests under `test/` (mirror engine areas, e.g., `test/battle/...`).
-- Run: `make check` (optionally filter via runner args; see `test/test_runner.c`).
-- Aim for deterministic tests; prefer fast, isolated cases.
+- Run: `make check` (filter with `TESTS="substring"` or via runner args; see `test/test_runner.c`).
+- Philosophy: deterministic, fast, isolated; prefer observable outputs (messages/animations/HP bar) over internal state.
 
 ## Commit & Pull Request Guidelines
 - Commits: concise, imperative mood; reference PR/issue when relevant (e.g., `Fix Wonder Room interaction (#7626)`).

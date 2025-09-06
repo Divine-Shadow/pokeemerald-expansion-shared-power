@@ -4,6 +4,10 @@ This file tracks changes merged into `main` that are not yet included in a versi
 
 Format: `- Area: short description (commit <short-hash>)`
 
+## 2025-09-06
+
+- Docs: Align AGENTS.md style with STYLEGUIDE; add PATCH_NOTES policy to CONTRIBUTING (commit b1aee6f613).
+
 ## 2025-09-05
 
 - Planning: Add phased implementation plan focusing on de-risked core features and testability (commit fdfb4892e6).

@@ -4,6 +4,15 @@ First off, thanks for helping improve `pokeemerald-expansion`! ❤️
 
 All contributions are encouraged and valued. Please make sure to read the relevant section before making your contribution! It will make it a lot easier for you and the maintainers. We're excited to see your contributions. 🎉
 
+## Patch Notes (Mandatory)
+- After every change (code, data, or docs), add a concise entry to `PATCH_NOTES.md` at the top of the file.
+- Format: `- Area: short description (commit <short-hash>)`.
+- Example: `- Gameplay: Strength is now a Rock-type move (commit c78da96b3a).`
+
+## Style & Tests
+- Follow `docs/STYLEGUIDE.md` for naming and formatting (PascalCase functions, camelCase locals/fields, 4 spaces in C; tabs for ASM/scripts).
+- Add tests under `test/` using either `TEST("Suite/Case") ...` with `EXPECT_*` or the battle DSL (`SINGLE_BATTLE_TEST`, `DOUBLE_BATTLE_TEST`, `AI_*`). Keep tests deterministic and focused.
+
 ## Bug Reports
 
 We use [GitHub](https://github.com/rh-hideout/pokeemerald-expansion/issues?q=sort%3Aupdated-desc+is%3Aissue+is%3Aopen+label%3Abug) issues to track bugs. 
