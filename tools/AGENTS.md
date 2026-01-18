@@ -2,7 +2,7 @@
 
 ## Build & Style
 - Build new tools through the existing makefile: run `make tools` and follow patterns in `make_tools.mk`.
-- Tool code must follow the repository's C style: tabs for indentation, `snake_case` for functions and variables, and `UPPER_SNAKE_CASE` for macros and constants.
+- Tool code must follow the repository's C style: 4-space indentation, `PascalCase` for functions/structs, `camelCase` for locals/fields, `UPPER_SNAKE_CASE` for macros/constants, and `g`/`s` prefixes for globals/statics.
 
 ## Program Structure
 - Each tool should define an `int main(int argc, char **argv)` entry point.

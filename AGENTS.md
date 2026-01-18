@@ -12,6 +12,7 @@
 - Tests: `test/` (C tests using the in-repo test runner).
 - Tools: `tools/` (auto-built by `make`), linker scripts `ld_script_*.ld`.
 - Build artifacts: `build/modern*/` and final ROM `pokeemerald.gba`.
+- Documentation: `docs/` (tutorials live under `docs/tutorials/`).
 
 ## Build, Test, and Development Commands
 - `make` or `make rom`: Build tools, generate assets, and produce `pokeemerald.gba`.

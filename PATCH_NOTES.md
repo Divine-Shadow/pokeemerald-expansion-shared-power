@@ -6,6 +6,8 @@ Format: `- Area: short description (commit <short-hash>)`
 
 ## 2025-09-06
 
+- Docs: Add documentation guidance links in AGENTS files (commit TBD).
+- Docs: Align tools AGENTS style rules with STYLEGUIDE (commit TBD).
 - Docs: Align AGENTS.md style with STYLEGUIDE; add PATCH_NOTES policy to CONTRIBUTING (commit b1aee6f613).
 
 ## 2025-09-05
