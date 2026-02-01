@@ -19,6 +19,12 @@ static bool32 SharedPower_CanBreakThroughAbility(u32 battlerAtk, u32 battlerDef,
          && gCurrentTurnActionNumber < gBattlersCount);
 }
 
+static bool32 SharedPower_HasNativeAbilityActive(u32 battler, u16 ability)
+{
+    return gBattleMons[battler].ability == ability
+        && !IsAbilitySuppressedFor(battler, ability, FALSE, FALSE);
+}
+
 bool32 SharedPower_IsEnabled(void)
 {
 #if CONFIG_SHARED_POWER
@@ -37,6 +43,7 @@ bool32 SharedPower_AddToPool(u8 trainerIdx, u16 ability)
 {
     (void)trainerIdx;
     (void)ability;
+    // Phase 2: replace with per-trainer pool insertion.
     return FALSE;
 }
 
@@ -44,6 +51,7 @@ bool32 SharedPower_TrainerHasAbility(u8 trainerIdx, u16 ability)
 {
     (void)trainerIdx;
     (void)ability;
+    // Phase 2: replace with per-trainer pool membership test.
     return FALSE;
 }
 
@@ -83,6 +91,7 @@ bool32 SharedPower_IsEligibleFor(u32 battler, u16 ability)
 {
     (void)battler;
     (void)ability;
+    // Phase 2: replace with eligibility denylist checks.
     return TRUE;
 }
 
@@ -94,8 +103,7 @@ bool32 HasActiveAbility(u32 battler, u16 ability)
     if (!SharedPower_IsEnabled())
         return GetBattlerAbility(battler) == ability;
 
-    if (gBattleMons[battler].ability == ability
-     && !IsAbilitySuppressedFor(battler, ability, FALSE, FALSE))
+    if (SharedPower_HasNativeAbilityActive(battler, ability))
         return TRUE;
 
     if (!SharedPower_IsEligibleFor(battler, ability))
@@ -115,8 +123,10 @@ bool32 ForEachEffectiveAbility(u32 battler, bool32 (*cb)(u16 ability))
     if (!IsBattlerAlive(battler))
         return FALSE;
 
-    ability = GetBattlerAbility(battler);
-    if (ability != ABILITY_NONE && cb(ability))
+    ability = gBattleMons[battler].ability;
+    if (ability != ABILITY_NONE
+     && SharedPower_HasNativeAbilityActive(battler, ability)
+     && cb(ability))
         return TRUE;
 
     if (!SharedPower_IsEnabled())
