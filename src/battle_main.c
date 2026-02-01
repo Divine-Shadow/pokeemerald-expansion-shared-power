@@ -3866,7 +3866,7 @@ static void TryDoEventsBeforeFirstTurn(void)
 
             if (TryPrimalReversion(i))
                 return;
-            if (AbilityBattleEffects(ABILITYEFFECT_ON_SWITCHIN, i, 0, 0, 0) != 0)
+            if (SharedPower_TrySwitchInAbilities(i))
                 return;
             if (TryClearIllusion(i, ABILITYEFFECT_ON_SWITCHIN))
                 return;

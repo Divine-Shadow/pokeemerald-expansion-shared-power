@@ -15,6 +15,7 @@ RUN apt-get update && apt-get install -y \
     pkg-config \
     libpng-dev \
     zlib1g-dev \
+    libelf1 \
     gcc-arm-none-eabi \
     binutils-arm-none-eabi \
     libnewlib-arm-none-eabi \
