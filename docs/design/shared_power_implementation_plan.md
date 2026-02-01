@@ -64,6 +64,8 @@ Implementation
 - Add per-ability latch for switch-in to avoid double triggers.
 - Add/extend ability popup stack to preserve ability order.
 - Track pooled sources (party index) in the pool while switch-in processing dedupes per ability for that event.
+- Explicitly scope ability overrides during pooled switch-in effects to prevent leaking overrides across script pauses.
+- Provide unique vs all-sources effective ability iterators for Phase 3+.
 
 Friction observed
 - Switch-in scripts rely on a single `switchInAbilityDone` latch and `gLastUsedAbility`, so pooled abilities are skipped or show wrong popups.

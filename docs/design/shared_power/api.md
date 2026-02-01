@@ -19,7 +19,9 @@ The API exposes a virtual view of “effective abilities” (native + pool) with
 - `bool32 IsAbilitySuppressedFor(u8 battler, u16 ability, bool32 ignoreMoldBreaker, bool32 noAbilityShield)` — generalized suppression (Gastro Acid, Neutralizing Gas, ability flags, Ability Shield, Mold Breaker).
 - `bool32 SharedPower_IsEligibleFor(u8 battler, u16 ability)` — denylist for form/species-locked or nonsensical abilities when borrowed (default true).
 - `bool32 HasActiveAbility(u8 battler, u16 ability)` — true if the battler’s native ability equals `ability` (and not suppressed) OR the pool contains `ability` and it’s not suppressed and is eligible for this battler.
-- `bool32 ForEachEffectiveAbility(u8 battler, bool32 (*cb)(u16 ability))` — iterate native + pool (deduped), stop when callback returns true.
+- `bool32 ForEachEffectiveAbilityUnique(u8 battler, bool32 (*cb)(u16 ability))` — iterate native + pool (deduped), stop when callback returns true.
+- `bool32 ForEachEffectiveAbilityAllSources(u8 battler, bool32 (*cb)(u16 ability))` — iterate pooled abilities per source entry.
+- `bool32 ForEachEffectiveAbility(u8 battler, bool32 (*cb)(u16 ability))` — default to unique iteration.
 
 ## Switch-In Queue
 
