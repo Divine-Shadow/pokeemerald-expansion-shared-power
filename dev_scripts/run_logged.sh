@@ -15,8 +15,12 @@ mkdir -p "${log_dir}"
   echo ""
 } >> "${log_file}"
 
-# Stream to console and log file.
-"$@" 2>&1 | tee -a "${log_file}"
+# Stream to console and log file unless LOG_SILENT=1.
+if [[ "${LOG_SILENT:-0}" == "1" ]]; then
+  "$@" >> "${log_file}" 2>&1
+else
+  "$@" 2>&1 | tee -a "${log_file}"
+fi
 
 status=${PIPESTATUS[0]}
 echo "" >> "${log_file}"

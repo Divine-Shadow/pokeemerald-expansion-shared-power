@@ -6,3 +6,4 @@
 - Define test cases using the `TEST("Suite/Case")` macro from the in-repo test framework.
 - Run the full test suite with `make check`.
   - Keep all test cases deterministic and isolated.
+- Use `dev_scripts/run_logged.sh` to capture noisy build/test output under `build_artifacts/logs/` (set `LOG_SILENT=1` to avoid console spam).
