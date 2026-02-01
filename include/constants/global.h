@@ -7,6 +7,7 @@
 #include "config/item.h"
 #include "config/caps.h"
 #include "config/pokemon.h"
+#include "config/shared_power.h"
 #include "config/overworld.h"
 #include "config/dexnav.h"
 #include "config/summary_screen.h"
