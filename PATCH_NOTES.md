@@ -1,6 +1,6 @@
 # Patch Notes
 
-- Tests: Fix Shared Power gate test expectations (commit TBD)
+- Tests: Fix Shared Power gate test expectations (commit c179ab2730)
 - Battle: Add Shared Power scaffolding and gate (commit ca7d6dd2e4)
 - Docs: Add Shared Power implementation plan with incremental validation (commit 9ad232e3f6)
 - Docs: Add Shared Power landing map for Trait-System extraction (commit 0352e6b2ed)
