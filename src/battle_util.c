@@ -4,6 +4,7 @@
 #include "battle_arena.h"
 #include "battle_pyramid.h"
 #include "battle_util.h"
+#include "battle_shared_power.h"
 #include "battle_controllers.h"
 #include "battle_interface.h"
 #include "battle_setup.h"
@@ -5448,9 +5449,9 @@ u32 GetBattlerAbilityInternal(u32 battler, u32 ignoreMoldBreaker, u32 noAbilityS
 
 u32 IsAbilityOnSide(u32 battler, u32 ability)
 {
-    if (IsBattlerAlive(battler) && GetBattlerAbility(battler) == ability)
+    if (IsBattlerAlive(battler) && HasActiveAbility(battler, ability))
         return battler + 1;
-    else if (IsBattlerAlive(BATTLE_PARTNER(battler)) && GetBattlerAbility(BATTLE_PARTNER(battler)) == ability)
+    else if (IsBattlerAlive(BATTLE_PARTNER(battler)) && HasActiveAbility(BATTLE_PARTNER(battler), ability))
         return BATTLE_PARTNER(battler) + 1;
     else
         return 0;
@@ -5467,7 +5468,7 @@ u32 IsAbilityOnField(u32 ability)
 
     for (i = 0; i < gBattlersCount; i++)
     {
-        if (IsBattlerAlive(i) && GetBattlerAbility(i) == ability)
+        if (IsBattlerAlive(i) && HasActiveAbility(i, ability))
             return i + 1;
     }
 
@@ -5480,7 +5481,7 @@ u32 IsAbilityOnFieldExcept(u32 battler, u32 ability)
 
     for (i = 0; i < gBattlersCount; i++)
     {
-        if (i != battler && IsBattlerAlive(i) && GetBattlerAbility(i) == ability)
+        if (i != battler && IsBattlerAlive(i) && HasActiveAbility(i, ability))
             return i + 1;
     }
 
