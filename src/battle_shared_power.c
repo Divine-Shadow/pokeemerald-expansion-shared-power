@@ -22,6 +22,22 @@ static void SharedPower_SetAbilityInPool(u8 trainerIdx, u16 ability)
     gBattleStruct->sharedPowerPoolBits[trainerIdx][byteIdx] |= bitMask;
 }
 
+static bool32 SharedPower_IsSwitchInAbilityDone(u32 battler, u16 ability)
+{
+    u32 byteIdx = ability >> 3;
+    u32 bitMask = 1u << (ability & 7);
+
+    return (gBattleStruct->sharedPowerSwitchInDone[battler][byteIdx] & bitMask) != 0;
+}
+
+static void SharedPower_SetSwitchInAbilityDone(u32 battler, u16 ability)
+{
+    u32 byteIdx = ability >> 3;
+    u32 bitMask = 1u << (ability & 7);
+
+    gBattleStruct->sharedPowerSwitchInDone[battler][byteIdx] |= bitMask;
+}
+
 static bool32 SharedPower_IsBattlerEligibleForPool(u32 battler)
 {
     return gBattleMons[battler].hp != 0 && gBattleMons[battler].species != SPECIES_NONE;
@@ -100,9 +116,14 @@ void SharedPower_ClearBattleState(void)
     memset(gBattleStruct->sharedPowerSwitchInCount, 0, sizeof(gBattleStruct->sharedPowerSwitchInCount));
     memset(gBattleStruct->sharedPowerSwitchInIndex, 0, sizeof(gBattleStruct->sharedPowerSwitchInIndex));
     memset(gBattleStruct->sharedPowerPoolBits, 0, sizeof(gBattleStruct->sharedPowerPoolBits));
+    memset(gBattleStruct->sharedPowerSwitchInDone, 0, sizeof(gBattleStruct->sharedPowerSwitchInDone));
     memset(gBattleStruct->sharedPowerPoolOrder, 0, sizeof(gBattleStruct->sharedPowerPoolOrder));
     memset(gBattleStruct->sharedPowerSwitchInAbilities, 0, sizeof(gBattleStruct->sharedPowerSwitchInAbilities));
     memset(gBattleStruct->sharedPowerSwitchInQueued, 0, sizeof(gBattleStruct->sharedPowerSwitchInQueued));
+    memset(gBattleStruct->sharedPowerPopupAbility, 0, sizeof(gBattleStruct->sharedPowerPopupAbility));
+    memset(gBattleStruct->sharedPowerPopupActive, 0, sizeof(gBattleStruct->sharedPowerPopupActive));
+    memset(gBattleStruct->sharedPowerPopupOriginalAbility, 0, sizeof(gBattleStruct->sharedPowerPopupOriginalAbility));
+    memset(gBattleStruct->sharedPowerPopupOverrideActive, 0, sizeof(gBattleStruct->sharedPowerPopupOverrideActive));
 }
 
 void SharedPower_ResetSwitchInQueue(u32 battler)
@@ -110,6 +131,11 @@ void SharedPower_ResetSwitchInQueue(u32 battler)
     gBattleStruct->sharedPowerSwitchInCount[battler] = 0;
     gBattleStruct->sharedPowerSwitchInIndex[battler] = 0;
     gBattleStruct->sharedPowerSwitchInQueued[battler] = FALSE;
+    memset(gBattleStruct->sharedPowerSwitchInDone[battler], 0, sizeof(gBattleStruct->sharedPowerSwitchInDone[battler]));
+    gBattleStruct->sharedPowerPopupAbility[battler] = ABILITY_NONE;
+    gBattleStruct->sharedPowerPopupActive[battler] = FALSE;
+    gBattleStruct->sharedPowerPopupOriginalAbility[battler] = ABILITY_NONE;
+    gBattleStruct->sharedPowerPopupOverrideActive[battler] = FALSE;
 }
 
 bool32 IsAbilitySuppressedFor(u32 battler, u16 ability, bool32 ignoreMoldBreaker, bool32 noAbilityShield)
@@ -265,12 +291,26 @@ bool32 SharedPower_TrySwitchInAbilities(u32 battler)
         if (ability == ABILITY_NONE)
             continue;
 
+        if (SharedPower_IsSwitchInAbilityDone(battler, ability))
+            continue;
+
+        SharedPower_SetSwitchInAbilityDone(battler, ability);
+
+        gBattleStruct->sharedPowerPopupOriginalAbility[battler] = gBattleMons[battler].ability;
+        gBattleStruct->sharedPowerPopupOverrideActive[battler] = TRUE;
+        gBattleMons[battler].ability = ability;
+        gBattleStruct->sharedPowerPopupAbility[battler] = ability;
+        gBattleStruct->sharedPowerPopupActive[battler] = TRUE;
+
         gSpecialStatuses[battler].switchInAbilityDone = FALSE;
         if (AbilityBattleEffects(ABILITYEFFECT_ON_SWITCHIN, battler, ability, 0, 0))
         {
             gSpecialStatuses[battler].switchInAbilityDone = prevSwitchInDone;
             return TRUE;
         }
+        gBattleMons[battler].ability = gBattleStruct->sharedPowerPopupOriginalAbility[battler];
+        gBattleStruct->sharedPowerPopupOverrideActive[battler] = FALSE;
+        gBattleStruct->sharedPowerPopupActive[battler] = FALSE;
         gSpecialStatuses[battler].switchInAbilityDone = prevSwitchInDone;
     }
 

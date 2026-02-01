@@ -64,6 +64,15 @@ Implementation
 - Add per-ability latch for switch-in to avoid double triggers.
 - Add/extend ability popup stack to preserve ability order.
 
+Friction observed
+- Switch-in scripts rely on a single `switchInAbilityDone` latch and `gLastUsedAbility`, so pooled abilities are skipped or show wrong popups.
+- Tests fail with unmatched ability popups because the switch-in path assumes one ability per battler.
+
+Resolution path
+- Add per-ability switch-in latches (bitset) to prevent duplicates without blocking other pooled abilities.
+- Ensure `gLastUsedAbility` reflects the pooled ability when invoking `AbilityBattleEffects`.
+- (If needed) add a popup queue so `BS_ShowAbilityPopup` can display pooled abilities deterministically.
+
 Suggested tests
 - Intimidate/Drizzle are shared and trigger in order after switch-in.
 - Duplicate abilities trigger once.

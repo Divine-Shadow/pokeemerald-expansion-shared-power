@@ -786,9 +786,14 @@ struct BattleStruct
     u16 sharedPowerSwitchInCount[MAX_BATTLERS_COUNT];
     u16 sharedPowerSwitchInIndex[MAX_BATTLERS_COUNT];
     u8 sharedPowerPoolBits[SHARED_POWER_TRAINER_POOL_COUNT][SHARED_POWER_POOL_BYTES];
+    u8 sharedPowerSwitchInDone[MAX_BATTLERS_COUNT][SHARED_POWER_ABILITY_BITS_BYTES];
     u16 sharedPowerPoolOrder[SHARED_POWER_TRAINER_POOL_COUNT][SHARED_POWER_POOL_MAX];
     u16 sharedPowerSwitchInAbilities[MAX_BATTLERS_COUNT][SHARED_POWER_POOL_MAX];
     bool8 sharedPowerSwitchInQueued[MAX_BATTLERS_COUNT];
+    u16 sharedPowerPopupAbility[MAX_BATTLERS_COUNT];
+    bool8 sharedPowerPopupActive[MAX_BATTLERS_COUNT];
+    u16 sharedPowerPopupOriginalAbility[MAX_BATTLERS_COUNT];
+    bool8 sharedPowerPopupOverrideActive[MAX_BATTLERS_COUNT];
 };
 
 struct AiBattleData

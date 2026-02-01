@@ -17585,6 +17585,16 @@ void BS_ShowAbilityPopup(void)
 
     if (gBattleScripting.abilityPopupOverwrite)
         ability = gBattleScripting.abilityPopupOverwrite;
+    else if (SharedPower_IsEnabled() && gBattleStruct->sharedPowerPopupActive[gBattlerAbility])
+    {
+        ability = gBattleStruct->sharedPowerPopupAbility[gBattlerAbility];
+        gBattleStruct->sharedPowerPopupActive[gBattlerAbility] = FALSE;
+        if (gBattleStruct->sharedPowerPopupOverrideActive[gBattlerAbility])
+        {
+            gBattleMons[gBattlerAbility].ability = gBattleStruct->sharedPowerPopupOriginalAbility[gBattlerAbility];
+            gBattleStruct->sharedPowerPopupOverrideActive[gBattlerAbility] = FALSE;
+        }
+    }
     else if (SharedPower_IsEnabled() && gLastUsedAbility != ABILITY_NONE && gLastUsedAbility != ability)
         ability = gLastUsedAbility;
 
