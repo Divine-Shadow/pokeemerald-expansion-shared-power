@@ -1,5 +1,6 @@
 # Patch Notes
 
+- Battle/Docs: Refine Shared Power switch-in scaffolding (commit 2601803e58)
 - Battle: Add Shared Power switch-in pooling scaffolding (commit f2c8aafb1e)
 - Battle: Add Shared Power native-ability helper + Phase 2 stubs notes (commit f2e1701764)
 - Battle/Tests: Add Shared Power effective-ability query layer (commit 4e7b5d7bff)
