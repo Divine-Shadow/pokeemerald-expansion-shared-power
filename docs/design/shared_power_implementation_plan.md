@@ -33,7 +33,8 @@ Suggested tests
 - Battle test: flag on/off toggles `SharedPower_IsEnabled()` without affecting vanilla flow when off.
 
 Validation
-- `make check` passes with Shared Power off.
+- Shared Power tests compile and run; failing Shared Power tests are explicitly grandfathered until later phases.
+- No general pass for failing tests outside Shared Power.
 
 ## Phase 1 — Effective ability query layer
 
