@@ -1,5 +1,6 @@
 # Patch Notes
 
+- Shared Power: Refine switch-in helpers and ability iteration APIs (commit 809b3a3973)
 - Shared Power: Dedup switch-in abilities per event (commit 3fa00841ff)
 - Shared Power/Tools: Fix switch-in override restoration and test container dependency (commit 1d9dcccb65)
 - Battle/Docs: Refine Shared Power switch-in scaffolding (commit 2601803e58)
