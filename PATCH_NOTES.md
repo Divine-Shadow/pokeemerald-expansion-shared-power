@@ -1,5 +1,6 @@
 # Patch Notes
 
+- Tests/Docs: Align Shared Power tests with current DSL and plan (commit TBD)
 - Tests: Fix Shared Power gate test expectations (commit c179ab2730)
 - Battle: Add Shared Power scaffolding and gate (commit ca7d6dd2e4)
 - Docs: Add Shared Power implementation plan with incremental validation (commit 9ad232e3f6)

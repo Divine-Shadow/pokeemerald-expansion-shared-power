@@ -1671,6 +1671,9 @@
 #define TESTING_FLAG_UNUSED_5                   (TESTING_FLAGS_START + 0x5)
 #define TESTING_FLAG_UNUSED_6                   (TESTING_FLAGS_START + 0x6)
 #define TESTING_FLAG_UNUSED_7                   (TESTING_FLAGS_START + 0x7)
+
+// Test-only toggle for Shared Power scaffolding until battle-type flags are wired in tests.
+#define SHARED_POWER_FLAG                       TESTING_FLAG_UNUSED_2
 #endif // TESTING
 
 #endif // GUARD_CONSTANTS_FLAGS_H

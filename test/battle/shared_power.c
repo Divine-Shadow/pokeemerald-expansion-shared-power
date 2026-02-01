@@ -2,7 +2,7 @@
 #include "test/battle.h"
 
 //test that an active ability is shared
-SINGLE_BATTLE_TEST("Shared Power: Intimidate is fully shared with a switched in pokemon"){
+SINGLE_BATTLE_TEST("Shared Power: Intimidate is fully shared with a switched in pokemon", s16 damage){
 	u32 ability;
     PARAMETRIZE { ability = ABILITY_INTIMIDATE; }
     PARAMETRIZE { ability = ABILITY_SHED_SKIN; }
@@ -31,7 +31,7 @@ SINGLE_BATTLE_TEST("Shared Power: Intimidate is fully shared with a switched in 
     }
 }
 
-SINGLE_BATTLE_TEST("Shared Power: Active ability only triggers once with two copies"){
+SINGLE_BATTLE_TEST("Shared Power: Active ability only triggers once with two copies", s16 damage){
 	u32 ability;
     PARAMETRIZE { ability = ABILITY_INTIMIDATE; }
     PARAMETRIZE { ability = ABILITY_SHED_SKIN; }
@@ -66,7 +66,7 @@ SINGLE_BATTLE_TEST("Shared Power: Active ability only triggers once with two cop
 }
 
 //test that a passive ability is shared
-SINGLE_BATTLE_TEST("Shared Power: Adapatability is fully shared with a switched in pokemon"){
+SINGLE_BATTLE_TEST("Shared Power: Adapatability is fully shared with a switched in pokemon", s16 damage){
 	u32 ability;
     PARAMETRIZE { ability = ABILITY_HYPER_CUTTER; }
     PARAMETRIZE { ability = ABILITY_ADAPTABILITY; }
@@ -90,7 +90,7 @@ SINGLE_BATTLE_TEST("Shared Power: Adapatability is fully shared with a switched 
 }
 
 
-SINGLE_BATTLE_TEST("Shared Power: Passive ability duplicates don't apply"){
+SINGLE_BATTLE_TEST("Shared Power: Passive ability duplicates don't apply", s16 damage){
 	u32 ability;
     PARAMETRIZE { ability = ABILITY_HYPER_CUTTER; }
     PARAMETRIZE { ability = ABILITY_ADAPTABILITY; }
@@ -117,8 +117,8 @@ SINGLE_BATTLE_TEST("Shared Power: Passive ability duplicates don't apply"){
 SINGLE_BATTLE_TEST("Shared Power: Abilities are triggered in correct order in Singles"){
 	GIVEN{
 		FLAG_SET(SHARED_POWER_FLAG);
-		PLAYER(SPECIES_ARBOK) { ABILITY_INTIMIDATE; }
-		PLAYER(SPECIES_EXCADRILL) { ABILITY_MOLD_BREAKER; }
+        PLAYER(SPECIES_ARBOK) { Ability(ABILITY_INTIMIDATE); }
+        PLAYER(SPECIES_EXCADRILL) { Ability(ABILITY_MOLD_BREAKER); }
         OPPONENT(SPECIES_WOBBUFFET);
 	} WHEN{
         TURN { SWITCH(player, 1); }
@@ -142,7 +142,7 @@ DOUBLE_BATTLE_TEST("Shared Power: Switch-in abilities trigger in Speed and Share
 
     GIVEN {
 		FLAG_SET(SHARED_POWER_FLAG);
-        PLAYER(SPECIES_WO_CHIEN) { Speed(spdPlayer1); Ability(ABILITY_TABLET_OF_RUIN); }
+        PLAYER(SPECIES_WO_CHIEN) { Speed(spdPlayer1); Ability(ABILITY_TABLETS_OF_RUIN); }
         PLAYER(SPECIES_GYARADOS) { Speed(spdPlayer2); Ability(ABILITY_INTIMIDATE); }
         OPPONENT(SPECIES_PORYGON2) { Speed(spdOpponent1); Ability(ABILITY_DOWNLOAD); }
         OPPONENT(SPECIES_PINSIR) { Speed(spdOpponent2); Ability(ABILITY_MOLD_BREAKER); }
@@ -150,9 +150,9 @@ DOUBLE_BATTLE_TEST("Shared Power: Switch-in abilities trigger in Speed and Share
         TURN { ; }
     } SCENE {
         if (spdPlayer1 == 5) {
-            ABILITY_POPUP(playerLeft, ABILITY_TABLET_OF_RUIN);
+            ABILITY_POPUP(playerLeft, ABILITY_TABLETS_OF_RUIN);
             ABILITY_POPUP(playerLeft, ABILITY_INTIMIDATE);
-            ABILITY_POPUP(playerRight, ABILITY_TABLET_OF_RUIN);
+            ABILITY_POPUP(playerRight, ABILITY_TABLETS_OF_RUIN);
             ABILITY_POPUP(playerRight, ABILITY_INTIMIDATE);
             ABILITY_POPUP(opponentLeft, ABILITY_DOWNLOAD);
             ABILITY_POPUP(opponentLeft, ABILITY_MOLD_BREAKER);
@@ -163,16 +163,16 @@ DOUBLE_BATTLE_TEST("Shared Power: Switch-in abilities trigger in Speed and Share
             ABILITY_POPUP(opponentRight, ABILITY_MOLD_BREAKER);
             ABILITY_POPUP(opponentLeft, ABILITY_DOWNLOAD);
             ABILITY_POPUP(opponentLeft, ABILITY_MOLD_BREAKER);
-            ABILITY_POPUP(playerRight, ABILITY_TABLET_OF_RUIN);
+            ABILITY_POPUP(playerRight, ABILITY_TABLETS_OF_RUIN);
             ABILITY_POPUP(playerRight, ABILITY_INTIMIDATE);
-            ABILITY_POPUP(playerLeft, ABILITY_TABLET_OF_RUIN);
+            ABILITY_POPUP(playerLeft, ABILITY_TABLETS_OF_RUIN);
             ABILITY_POPUP(playerLeft, ABILITY_INTIMIDATE);
         } else {
             ABILITY_POPUP(opponentLeft, ABILITY_DOWNLOAD);
             ABILITY_POPUP(opponentLeft, ABILITY_MOLD_BREAKER);
-            ABILITY_POPUP(playerLeft, ABILITY_TABLET_OF_RUIN);
+            ABILITY_POPUP(playerLeft, ABILITY_TABLETS_OF_RUIN);
             ABILITY_POPUP(playerLeft, ABILITY_INTIMIDATE);
-            ABILITY_POPUP(playerRight, ABILITY_TABLET_OF_RUIN);
+            ABILITY_POPUP(playerRight, ABILITY_TABLETS_OF_RUIN);
             ABILITY_POPUP(playerRight, ABILITY_INTIMIDATE);
             ABILITY_POPUP(opponentRight, ABILITY_DOWNLOAD);
             ABILITY_POPUP(opponentRight, ABILITY_MOLD_BREAKER);
@@ -185,25 +185,25 @@ DOUBLE_BATTLE_TEST("Shared Power: Switch-in abilities get shared in Double Battl
 
     GIVEN {
 		FLAG_SET(SHARED_POWER_FLAG);
-        PLAYER(SPECIES_WO_CHIEN) { Speed(spdPlayer1); Ability(ABILITY_TABLET_OF_RUIN); }
-        PLAYER(SPECIES_GYARADOS) { Speed(spdPlayer2); Ability(ABILITY_INTIMIDATE); }
-        OPPONENT(SPECIES_PORYGON2) { Speed(spdOpponent1); Ability(ABILITY_DOWNLOAD); }
-        OPPONENT(SPECIES_PINSIR) { Speed(spdOpponent2); Ability(ABILITY_MOLD_BREAKER); }
+        PLAYER(SPECIES_WO_CHIEN) { Speed(5); Ability(ABILITY_TABLETS_OF_RUIN); }
+        PLAYER(SPECIES_GYARADOS) { Speed(4); Ability(ABILITY_INTIMIDATE); }
+        OPPONENT(SPECIES_PORYGON2) { Speed(3); Ability(ABILITY_DOWNLOAD); }
+        OPPONENT(SPECIES_PINSIR) { Speed(2); Ability(ABILITY_MOLD_BREAKER); }
     } WHEN {
         TURN { ; }
     } SCENE {
-            ABILITY_POPUP(playerRight, ABILITY_TABLET_OF_RUIN);
+            ABILITY_POPUP(playerRight, ABILITY_TABLETS_OF_RUIN);
     }
 }
 
-SINGLE_BATTLE_TEST("Shared Power: Passive abilities apply before active ones"){
+SINGLE_BATTLE_TEST("Shared Power: Passive abilities apply before active ones", s16 damage){
 	u32 ability;
     PARAMETRIZE { ability = ABILITY_INTREPID_SWORD; }
     PARAMETRIZE { ability = ABILITY_SHED_SKIN; }
 	GIVEN{
 		FLAG_SET(SHARED_POWER_FLAG);
-		PLAYER(SPECIES_ZACIAN) { Ability(ability); }
-		PLAYER(SPECIES_MALAMAR) { ABILITY_CONTRARY; }
+        PLAYER(SPECIES_ZACIAN) { Ability(ability); }
+        PLAYER(SPECIES_MALAMAR) { Ability(ABILITY_CONTRARY); }
         OPPONENT(SPECIES_WOBBUFFET);
 	} WHEN{
         TURN { SWITCH(player, 1); }
@@ -216,14 +216,14 @@ SINGLE_BATTLE_TEST("Shared Power: Passive abilities apply before active ones"){
 }
 
 
-SINGLE_BATTLE_TEST("Shared Power: Passive ability duplicates don't apply"){
+SINGLE_BATTLE_TEST("Shared Power: Passive ability duplicates don't apply", s16 damage){
 	u32 ability;
     PARAMETRIZE { ability = ABILITY_KEEN_EYE; }
     PARAMETRIZE { ability = ABILITY_DRIZZLE; }
     GIVEN {
 		FLAG_SET(SHARED_POWER_FLAG);
 		ASSUME(GetMoveType(MOVE_SCRATCH) == TYPE_NORMAL);
-		PLAYER(SPECIES_ZIGZAGOON) { ability = ABILITY_INTIMIDATE; } 
+        PLAYER(SPECIES_ZIGZAGOON) { Ability(ABILITY_INTIMIDATE); } 
         PLAYER(SPECIES_PELIPPER) { Ability(ability); }
         OPPONENT(SPECIES_WOBBUFFET);
     } WHEN {

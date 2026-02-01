@@ -25,6 +25,7 @@ Implementation
 - Add `include/battle_shared_power.h` and `src/battle_shared_power.c` with `SharedPower_IsEnabled()` stub.
 - Add config flag (e.g., `CONFIG_SHARED_POWER`) and battle-type flag (e.g., `BATTLE_TYPE_SHARED_POWER`).
 - Ensure Shared Power codepaths are compiled but gated.
+- Test scaffolding: keep `test/battle/shared_power.c` compiling by adding result fields for `captureDamage`, using valid DSL `Ability(...)` calls, and providing a temporary test-only flag alias while battle-type flags are wired into the DSL.
 
 Suggested tests
 - Unit test: Shared Power is off by default.
