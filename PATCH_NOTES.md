@@ -1,5 +1,6 @@
 # Patch Notes
 
+- Docs: Clarify Phase 0 validation expectations (commit 9c81ec0662)
 - Tools/Docs: Add Shared Power docker test wrapper (commit 1e68b16569)
 - Docs/Tests: Add logging notes for test runs (commit 66c0135b85)
 - Tests/Tools: Add log helper and battle-type DSL setter (commit c73b264fe2)
