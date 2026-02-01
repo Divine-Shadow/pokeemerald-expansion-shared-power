@@ -11,7 +11,7 @@ The API exposes a virtual view of “effective abilities” (native + pool) with
 ## Pool Operations
 
 - `u8 SharedPower_GetTrainerIndex(u8 battler)` — resolve battler → trainer index.
-- `bool32 SharedPower_AddToPool(u8 trainerIdx, u16 ability)` — insert (dedup), returns true if newly added.
+- `bool32 SharedPower_AddToPool(u8 trainerIdx, u16 ability, u8 sourcePartyIndex)` — insert (dedup), returns true if newly added; always records a source entry even when duplicates exist.
 - `bool32 SharedPower_TrainerHasAbility(u8 trainerIdx, u16 ability)` — membership test.
 
 ## Effective Ability Queries

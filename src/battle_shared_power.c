@@ -9,6 +9,13 @@
 #include "test/test.h"
 #endif
 
+#define SHARED_POWER_POOL_ABILITY_BITS 9
+#define SHARED_POWER_POOL_ABILITY_MASK ((1 << SHARED_POWER_POOL_ABILITY_BITS) - 1)
+#define SHARED_POWER_POOL_SOURCE_SHIFT SHARED_POWER_POOL_ABILITY_BITS
+
+STATIC_ASSERT(ABILITIES_COUNT <= (1 << SHARED_POWER_POOL_ABILITY_BITS), SharedPowerAbilityBitsTooSmall);
+STATIC_ASSERT(PARTY_SIZE <= (1 << (16 - SHARED_POWER_POOL_ABILITY_BITS)), SharedPowerPartyBitsTooSmall);
+
 static bool32 SharedPower_IsAbilityInPool(u8 trainerIdx, u16 ability)
 {
     u32 byteIdx = ability >> 3;
@@ -25,22 +32,6 @@ static void SharedPower_SetAbilityInPool(u8 trainerIdx, u16 ability)
     gBattleStruct->sharedPowerPoolBits[trainerIdx][byteIdx] |= bitMask;
 }
 
-static bool32 SharedPower_IsSwitchInAbilityDone(u32 battler, u16 ability)
-{
-    u32 byteIdx = ability >> 3;
-    u32 bitMask = 1u << (ability & 7);
-
-    return (gBattleStruct->sharedPowerSwitchInDone[battler][byteIdx] & bitMask) != 0;
-}
-
-static void SharedPower_SetSwitchInAbilityDone(u32 battler, u16 ability)
-{
-    u32 byteIdx = ability >> 3;
-    u32 bitMask = 1u << (ability & 7);
-
-    gBattleStruct->sharedPowerSwitchInDone[battler][byteIdx] |= bitMask;
-}
-
 static void SharedPower_RestoreOriginalAbility(u32 battler)
 {
     if (!gBattleStruct->sharedPowerPopupOverrideActive[battler])
@@ -51,6 +42,16 @@ static void SharedPower_RestoreOriginalAbility(u32 battler)
     gBattleStruct->sharedPowerPopupOverrideActive[battler] = FALSE;
     gBattleStruct->sharedPowerPopupOriginalAbility[battler] = ABILITY_NONE;
     gBattleStruct->sharedPowerPopupOriginalPartyIndex[battler] = PARTY_SIZE;
+}
+
+static u16 SharedPower_EncodePoolAllEntry(u16 ability, u8 sourcePartyIndex)
+{
+    return (u16)((sourcePartyIndex << SHARED_POWER_POOL_SOURCE_SHIFT) | (ability & SHARED_POWER_POOL_ABILITY_MASK));
+}
+
+static u16 SharedPower_DecodePoolAllAbility(u16 entry)
+{
+    return entry & SHARED_POWER_POOL_ABILITY_MASK;
 }
 
 static bool32 SharedPower_IsBattlerEligibleForPool(u32 battler)
@@ -105,7 +106,7 @@ u8 SharedPower_GetTrainerIndex(u8 battler)
     return battler;
 }
 
-bool32 SharedPower_AddToPool(u8 trainerIdx, u16 ability)
+bool32 SharedPower_AddToPool(u8 trainerIdx, u16 ability, u8 sourcePartyIndex)
 {
     u16 count;
     u16 allCount;
@@ -116,7 +117,7 @@ bool32 SharedPower_AddToPool(u8 trainerIdx, u16 ability)
     allCount = gBattleStruct->sharedPowerPoolAllCount[trainerIdx];
     if (allCount < SHARED_POWER_POOL_MAX)
     {
-        gBattleStruct->sharedPowerPoolAllOrder[trainerIdx][allCount] = ability;
+        gBattleStruct->sharedPowerPoolAllOrder[trainerIdx][allCount] = SharedPower_EncodePoolAllEntry(ability, sourcePartyIndex);
         gBattleStruct->sharedPowerPoolAllCount[trainerIdx] = allCount + 1;
         SHARED_POWER_DEBUG_LOG("SharedPower: pool all trainer %d ability %d index %d\n",
                                trainerIdx, ability, allCount);
@@ -285,21 +286,31 @@ static void SharedPower_BuildSwitchInQueue(u32 battler)
     u16 count = 0;
     u16 ability = gBattleMons[battler].ability;
     u16 poolCount;
+    u8 seenAbilities[SHARED_POWER_POOL_BYTES];
 
     SHARED_POWER_DEBUG_LOG("SharedPower: build queue battler %d trainer %d\n", battler, trainerIdx);
+    memset(seenAbilities, 0, sizeof(seenAbilities));
     if (SharedPower_IsBattlerEligibleForPool(battler))
     {
         SHARED_POWER_DEBUG_LOG("SharedPower: pool add battler %d ability %d\n", battler, gBattleMons[battler].ability);
-        SharedPower_AddToPool(trainerIdx, gBattleMons[battler].ability);
+        SharedPower_AddToPool(trainerIdx, gBattleMons[battler].ability, gBattlerPartyIndexes[battler]);
     }
 
     poolCount = gBattleStruct->sharedPowerPoolAllCount[trainerIdx];
     SHARED_POWER_DEBUG_LOG("SharedPower: pool all count %d trainer %d\n", poolCount, trainerIdx);
     for (index = 0; index < poolCount; index++)
     {
-        ability = gBattleStruct->sharedPowerPoolAllOrder[trainerIdx][index];
+        u32 byteIdx;
+        u32 bitMask;
+
+        ability = SharedPower_DecodePoolAllAbility(gBattleStruct->sharedPowerPoolAllOrder[trainerIdx][index]);
         if (ability == ABILITY_NONE)
             continue;
+        byteIdx = ability >> 3;
+        bitMask = 1u << (ability & 7);
+        if (seenAbilities[byteIdx] & bitMask)
+            continue;
+        seenAbilities[byteIdx] |= bitMask;
         if (!SharedPower_IsEligibleFor(battler, ability))
             continue;
         if (IsAbilitySuppressedFor(battler, ability, FALSE, FALSE))

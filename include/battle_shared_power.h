@@ -12,7 +12,7 @@
 
 bool32 SharedPower_IsEnabled(void);
 u8 SharedPower_GetTrainerIndex(u8 battler);
-bool32 SharedPower_AddToPool(u8 trainerIdx, u16 ability);
+bool32 SharedPower_AddToPool(u8 trainerIdx, u16 ability, u8 sourcePartyIndex);
 bool32 SharedPower_TrainerHasAbility(u8 trainerIdx, u16 ability);
 void SharedPower_ClearBattleState(void);
 void SharedPower_ResetSwitchInQueue(u32 battler);

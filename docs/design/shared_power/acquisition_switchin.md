@@ -6,7 +6,7 @@ This file defines when abilities are added to pools and how switch-in effects ru
 
 ## Acquisition Timing
 
-- On every send-out/switch-in (including replacement after fainting), add the entering mon’s native ability to its trainer’s pool via `SharedPower_AddToPool`.
+- On every send-out/switch-in (including replacement after fainting), add the entering mon’s native ability to its trainer’s pool via `SharedPower_AddToPool`, recording the source party index for per-switch-in dedup.
 - Membership is independent of current suppression; suppression is applied at activation time per battler.
 
 ## Switch-In Effects

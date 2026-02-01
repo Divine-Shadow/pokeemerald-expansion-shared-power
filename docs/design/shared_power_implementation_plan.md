@@ -63,6 +63,7 @@ Implementation
 - Add pending switch-in queue per battler; enqueue pooled abilities on switch-in.
 - Add per-ability latch for switch-in to avoid double triggers.
 - Add/extend ability popup stack to preserve ability order.
+- Track pooled sources (party index) in the pool while switch-in processing dedupes per ability for that event.
 
 Friction observed
 - Switch-in scripts rely on a single `switchInAbilityDone` latch and `gLastUsedAbility`, so pooled abilities are skipped or show wrong popups.
