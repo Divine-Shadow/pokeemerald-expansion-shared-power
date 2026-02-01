@@ -7,3 +7,4 @@
 - Run the full test suite with `make check`.
   - Keep all test cases deterministic and isolated.
 - Use `dev_scripts/run_logged.sh` to capture noisy build/test output under `build_artifacts/logs/` (set `LOG_SILENT=1` to avoid console spam). For Docker runs as root, add `git config --global --add safe.directory /workspace`.
+- `dev_scripts/run_shared_power_tests.sh` is a ready-made wrapper for Shared Power runs under Docker.

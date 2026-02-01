@@ -1,5 +1,6 @@
 # Patch Notes
 
+- Tools/Docs: Add Shared Power docker test wrapper (commit TBD)
 - Docs/Tests: Add logging notes for test runs (commit 66c0135b85)
 - Tests/Tools: Add log helper and battle-type DSL setter (commit c73b264fe2)
 - Tests/Docs: Align Shared Power tests with current DSL and plan (commit 6b2eb8b405)
