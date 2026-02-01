@@ -11,6 +11,7 @@
 #include "battle_message.h"
 #include "battle_pyramid.h"
 #include "battle_scripts.h"
+#include "battle_shared_power.h"
 #include "battle_setup.h"
 #include "battle_tower.h"
 #include "battle_util.h"
@@ -3021,6 +3022,7 @@ static void BattleStartClearSetData(void)
     memset(&gWishFutureKnock, 0, sizeof(gWishFutureKnock));
     memset(&gBattleResults, 0, sizeof(gBattleResults));
     ClearSetBScriptingStruct();
+    SharedPower_ClearBattleState();
 
     for (i = 0; i < MAX_BATTLERS_COUNT; i++)
     {
@@ -3138,6 +3140,7 @@ void SwitchInClearSetData(u32 battler, struct Volatiles *volatilesCopy)
     struct DisableStruct disableStructCopy = gDisableStructs[battler];
 
     ClearIllusionMon(battler);
+    SharedPower_ResetSwitchInQueue(battler);
     if (effect != EFFECT_BATON_PASS)
     {
         for (i = 0; i < NUM_BATTLE_STATS; i++)

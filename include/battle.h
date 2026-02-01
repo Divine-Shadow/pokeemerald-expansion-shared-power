@@ -5,6 +5,7 @@
 #include "constants/battle.h"
 #include "constants/form_change_types.h"
 #include "battle_main.h"
+#include "battle_shared_power.h"
 #include "battle_message.h"
 #include "battle_util.h"
 #include "battle_script_commands.h"
@@ -781,6 +782,13 @@ struct BattleStruct
     u8 numHazards[NUM_BATTLE_SIDES];
     u8 hazardsCounter:4; // Counter for applying hazard on switch in
     u8 padding2:4;
+    u16 sharedPowerPoolCount[SHARED_POWER_TRAINER_POOL_COUNT];
+    u16 sharedPowerSwitchInCount[MAX_BATTLERS_COUNT];
+    u16 sharedPowerSwitchInIndex[MAX_BATTLERS_COUNT];
+    u8 sharedPowerPoolBits[SHARED_POWER_TRAINER_POOL_COUNT][SHARED_POWER_POOL_BYTES];
+    u16 sharedPowerPoolOrder[SHARED_POWER_TRAINER_POOL_COUNT][SHARED_POWER_POOL_MAX];
+    u16 sharedPowerSwitchInAbilities[MAX_BATTLERS_COUNT][SHARED_POWER_POOL_MAX];
+    bool8 sharedPowerSwitchInQueued[MAX_BATTLERS_COUNT];
 };
 
 struct AiBattleData

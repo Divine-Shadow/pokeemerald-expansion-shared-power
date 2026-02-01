@@ -2,6 +2,6 @@
 #define GUARD_CONFIG_SHARED_POWER_H
 
 // Shared Power battle mode feature toggle. Default off to preserve vanilla behavior.
-#define CONFIG_SHARED_POWER FALSE
+#define CONFIG_SHARED_POWER TRUE
 
 #endif // GUARD_CONFIG_SHARED_POWER_H
