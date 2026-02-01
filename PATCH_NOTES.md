@@ -1,5 +1,6 @@
 # Patch Notes
 
+- Battle: Add Shared Power native-ability helper + Phase 2 stubs notes (commit f2e1701764)
 - Battle/Tests: Add Shared Power effective-ability query layer (commit 4e7b5d7bff)
 - Docs: Clarify Phase 0 validation expectations (commit 9c81ec0662)
 - Tools/Docs: Add Shared Power docker test wrapper (commit 1e68b16569)
