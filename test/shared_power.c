@@ -10,13 +10,13 @@ TEST("Shared Power is gated by config and battle flag")
 
     gBattleTypeFlags = BATTLE_TYPE_SHARED_POWER;
 #if CONFIG_SHARED_POWER
-    EXPECT_TRUE(SharedPower_IsEnabled());
+    EXPECT(SharedPower_IsEnabled());
 #else
-    EXPECT_FALSE(SharedPower_IsEnabled());
+    EXPECT(!SharedPower_IsEnabled());
 #endif
 
     gBattleTypeFlags = 0;
-    EXPECT_FALSE(SharedPower_IsEnabled());
+    EXPECT(!SharedPower_IsEnabled());
 
     gBattleTypeFlags = prevBattleTypeFlags;
 }
