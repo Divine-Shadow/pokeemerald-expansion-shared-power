@@ -16,6 +16,7 @@ This plan turns the Shared Power design into phased, testable steps. Each phase 
 - Config/tests: `docs/design/shared_power/config_tests.md`
 - Implementation map: `docs/design/shared_power/implementation_map.md`
 - Trait-System extraction map: `docs/design/shared_power/trait_system_extraction_map.md`
+- Test logging helper: `docs/engineering/test_logging.md`
 
 ## Phase 0 — Scaffolding and gating
 
@@ -25,7 +26,7 @@ Implementation
 - Add `include/battle_shared_power.h` and `src/battle_shared_power.c` with `SharedPower_IsEnabled()` stub.
 - Add config flag (e.g., `CONFIG_SHARED_POWER`) and battle-type flag (e.g., `BATTLE_TYPE_SHARED_POWER`).
 - Ensure Shared Power codepaths are compiled but gated.
-- Test scaffolding: keep `test/battle/shared_power.c` compiling by adding result fields for `captureDamage`, using valid DSL `Ability(...)` calls, and providing a temporary test-only flag alias while battle-type flags are wired into the DSL.
+- Test scaffolding: keep `test/battle/shared_power.c` compiling by adding result fields for `captureDamage`, using valid DSL `Ability(...)` calls, and use a test DSL helper to set `BATTLE_TYPE_SHARED_POWER`.
 
 Suggested tests
 - Unit test: Shared Power is off by default.

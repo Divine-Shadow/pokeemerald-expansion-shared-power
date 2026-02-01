@@ -1523,6 +1523,12 @@ void SetFlagForTest(u32 sourceLine, u16 flagId)
     FlagSet(flagId);
 }
 
+void BattleTypeFlags_(u32 sourceLine, u32 flags)
+{
+    INVALID_IF(!STATE->runGiven, "BATTLE_TYPE outside of GIVEN");
+    DATA.recordedBattle.battleFlags |= flags;
+}
+
 void TestSetConfig(u32 sourceLine, enum GenConfigTag configTag, u32 value)
 {
     INVALID_IF(!STATE->runGiven, "WITH_CONFIG outside of GIVEN");

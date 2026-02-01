@@ -7,7 +7,7 @@ SINGLE_BATTLE_TEST("Shared Power: Intimidate is fully shared with a switched in 
     PARAMETRIZE { ability = ABILITY_INTIMIDATE; }
     PARAMETRIZE { ability = ABILITY_SHED_SKIN; }
     GIVEN {
-		FLAG_SET(SHARED_POWER_FLAG);
+        BATTLE_TYPE(BATTLE_TYPE_SHARED_POWER);
         PLAYER(SPECIES_WOBBUFFET);
         OPPONENT(SPECIES_ARBOK) { Ability(ability); }
         OPPONENT(SPECIES_WOBBUFFET);
@@ -36,7 +36,7 @@ SINGLE_BATTLE_TEST("Shared Power: Active ability only triggers once with two cop
     PARAMETRIZE { ability = ABILITY_INTIMIDATE; }
     PARAMETRIZE { ability = ABILITY_SHED_SKIN; }
     GIVEN {
-		FLAG_SET(SHARED_POWER_FLAG);
+        BATTLE_TYPE(BATTLE_TYPE_SHARED_POWER);
         PLAYER(SPECIES_WOBBUFFET);
         OPPONENT(SPECIES_ARBOK) { Ability(ability); }
         OPPONENT(SPECIES_WOBBUFFET) { Ability(ability); }
@@ -71,7 +71,7 @@ SINGLE_BATTLE_TEST("Shared Power: Adapatability is fully shared with a switched 
     PARAMETRIZE { ability = ABILITY_HYPER_CUTTER; }
     PARAMETRIZE { ability = ABILITY_ADAPTABILITY; }
     GIVEN {
-		FLAG_SET(SHARED_POWER_FLAG);
+        BATTLE_TYPE(BATTLE_TYPE_SHARED_POWER);
 		ASSUME(GetMoveType(MOVE_SCRATCH) == TYPE_NORMAL);
         PLAYER(SPECIES_CRAWDAUNT) { Ability(ability); }
 		PLAYER(SPECIES_ZIGZAGOON); 
@@ -95,7 +95,7 @@ SINGLE_BATTLE_TEST("Shared Power: Passive ability duplicates don't apply", s16 d
     PARAMETRIZE { ability = ABILITY_HYPER_CUTTER; }
     PARAMETRIZE { ability = ABILITY_ADAPTABILITY; }
     GIVEN {
-		FLAG_SET(SHARED_POWER_FLAG);
+        BATTLE_TYPE(BATTLE_TYPE_SHARED_POWER);
 		ASSUME(GetMoveType(MOVE_SCRATCH) == TYPE_NORMAL);
         PLAYER(SPECIES_CRAWDAUNT) { Ability(ability); }
 		PLAYER(SPECIES_ZIGZAGOON) { Ability(ability); } 
@@ -116,7 +116,7 @@ SINGLE_BATTLE_TEST("Shared Power: Passive ability duplicates don't apply", s16 d
 
 SINGLE_BATTLE_TEST("Shared Power: Abilities are triggered in correct order in Singles"){
 	GIVEN{
-		FLAG_SET(SHARED_POWER_FLAG);
+        BATTLE_TYPE(BATTLE_TYPE_SHARED_POWER);
         PLAYER(SPECIES_ARBOK) { Ability(ABILITY_INTIMIDATE); }
         PLAYER(SPECIES_EXCADRILL) { Ability(ABILITY_MOLD_BREAKER); }
         OPPONENT(SPECIES_WOBBUFFET);
@@ -141,7 +141,7 @@ DOUBLE_BATTLE_TEST("Shared Power: Switch-in abilities trigger in Speed and Share
     PARAMETRIZE { spdPlayer1 = 4; spdPlayer2 = 3; spdOpponent1 = 5; spdOpponent2 = 2; }
 
     GIVEN {
-		FLAG_SET(SHARED_POWER_FLAG);
+        BATTLE_TYPE(BATTLE_TYPE_SHARED_POWER);
         PLAYER(SPECIES_WO_CHIEN) { Speed(spdPlayer1); Ability(ABILITY_TABLETS_OF_RUIN); }
         PLAYER(SPECIES_GYARADOS) { Speed(spdPlayer2); Ability(ABILITY_INTIMIDATE); }
         OPPONENT(SPECIES_PORYGON2) { Speed(spdOpponent1); Ability(ABILITY_DOWNLOAD); }
@@ -184,7 +184,7 @@ DOUBLE_BATTLE_TEST("Shared Power: Switch-in abilities get shared in Double Battl
 {
 
     GIVEN {
-		FLAG_SET(SHARED_POWER_FLAG);
+        BATTLE_TYPE(BATTLE_TYPE_SHARED_POWER);
         PLAYER(SPECIES_WO_CHIEN) { Speed(5); Ability(ABILITY_TABLETS_OF_RUIN); }
         PLAYER(SPECIES_GYARADOS) { Speed(4); Ability(ABILITY_INTIMIDATE); }
         OPPONENT(SPECIES_PORYGON2) { Speed(3); Ability(ABILITY_DOWNLOAD); }
@@ -201,7 +201,7 @@ SINGLE_BATTLE_TEST("Shared Power: Passive abilities apply before active ones", s
     PARAMETRIZE { ability = ABILITY_INTREPID_SWORD; }
     PARAMETRIZE { ability = ABILITY_SHED_SKIN; }
 	GIVEN{
-		FLAG_SET(SHARED_POWER_FLAG);
+        BATTLE_TYPE(BATTLE_TYPE_SHARED_POWER);
         PLAYER(SPECIES_ZACIAN) { Ability(ability); }
         PLAYER(SPECIES_MALAMAR) { Ability(ABILITY_CONTRARY); }
         OPPONENT(SPECIES_WOBBUFFET);
@@ -221,7 +221,7 @@ SINGLE_BATTLE_TEST("Shared Power: Passive ability duplicates don't apply", s16 d
     PARAMETRIZE { ability = ABILITY_KEEN_EYE; }
     PARAMETRIZE { ability = ABILITY_DRIZZLE; }
     GIVEN {
-		FLAG_SET(SHARED_POWER_FLAG);
+        BATTLE_TYPE(BATTLE_TYPE_SHARED_POWER);
 		ASSUME(GetMoveType(MOVE_SCRATCH) == TYPE_NORMAL);
         PLAYER(SPECIES_ZIGZAGOON) { Ability(ABILITY_INTIMIDATE); } 
         PLAYER(SPECIES_PELIPPER) { Ability(ability); }

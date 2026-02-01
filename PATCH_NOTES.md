@@ -1,5 +1,6 @@
 # Patch Notes
 
+- Tests/Tools: Add log helper and battle-type DSL setter (commit TBD)
 - Tests/Docs: Align Shared Power tests with current DSL and plan (commit 6b2eb8b405)
 - Tests: Fix Shared Power gate test expectations (commit c179ab2730)
 - Battle: Add Shared Power scaffolding and gate (commit ca7d6dd2e4)

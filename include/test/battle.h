@@ -849,6 +849,7 @@ struct moveWithPP {
 #define AI_LOG AILogScores(__LINE__)
 
 #define FLAG_SET(flagId) SetFlagForTest(__LINE__, flagId)
+#define BATTLE_TYPE(flags) BattleTypeFlags_(__LINE__, flags)
 #define WITH_CONFIG(configTag, value) TestSetConfig(__LINE__, configTag, value)
 
 #define PLAYER(species) for (OpenPokemon(__LINE__, B_SIDE_PLAYER, species); gBattleTestRunnerState->data.currentMon; ClosePokemon(__LINE__))
@@ -883,6 +884,7 @@ struct moveWithPP {
 #define Shadow(isShadow) Shadow_(__LINE__, shadow)
 
 void SetFlagForTest(u32 sourceLine, u16 flagId);
+void BattleTypeFlags_(u32 sourceLine, u32 flags);
 void TestSetConfig(u32 sourceLine, enum GenConfigTag configTag, u32 value);
 void ClearFlagAfterTest(void);
 void OpenPokemon(u32 sourceLine, u32 side, u32 species);
