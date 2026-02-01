@@ -1,6 +1,6 @@
 # Patch Notes
 
-- Docs/Tests: Add logging notes for test runs (commit 4f0d35755c)
+- Docs/Tests: Add logging notes for test runs (commit TBD)
 - Tests/Tools: Add log helper and battle-type DSL setter (commit c73b264fe2)
 - Tests/Docs: Align Shared Power tests with current DSL and plan (commit 6b2eb8b405)
 - Tests: Fix Shared Power gate test expectations (commit c179ab2730)
