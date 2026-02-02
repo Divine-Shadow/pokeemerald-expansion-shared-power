@@ -5,6 +5,7 @@
 #include "battle_anim.h"
 #include "battle_ai_field_statuses.h"
 #include "battle_ai_util.h"
+#include "battle_shared_power.h"
 #include "battle_ai_main.h"
 #include "battle_ai_switch_items.h"
 #include "battle_factory.h"
@@ -1597,9 +1598,12 @@ bool32 CanTargetFaintAiWithMod(u32 battlerDef, u32 battlerAtk, s32 hpMod, s32 dm
 
 bool32 AI_IsAbilityOnSide(u32 battlerId, u32 ability)
 {
-    if (IsBattlerAlive(battlerId) && gAiLogicData->abilities[battlerId] == ability)
+    if (IsBattlerAlive(battlerId) && (SharedPower_IsEnabled() ? HasActiveAbility(battlerId, ability) : gAiLogicData->abilities[battlerId] == ability))
         return TRUE;
-    else if (IsBattlerAlive(BATTLE_PARTNER(battlerId)) && gAiLogicData->abilities[BATTLE_PARTNER(battlerId)] == ability)
+    else if (IsBattlerAlive(BATTLE_PARTNER(battlerId))
+          && (SharedPower_IsEnabled()
+              ? HasActiveAbility(BATTLE_PARTNER(battlerId), ability)
+              : gAiLogicData->abilities[BATTLE_PARTNER(battlerId)] == ability))
         return TRUE;
     else
         return FALSE;
@@ -3360,9 +3364,70 @@ bool32 IsBattlerIncapacitated(u32 battler, u32 ability)
     return FALSE;
 }
 
+static bool32 AI_HasActiveAbility(u32 battler, u32 ability)
+{
+    if (!SharedPower_IsEnabled())
+        return gAiLogicData->abilities[battler] == ability;
+
+    return HasActiveAbility(battler, ability);
+}
+
+static u32 AI_GetStatusAbility(u32 battlerDef, enum MoveEffect effect)
+{
+    if (!SharedPower_IsEnabled())
+        return gAiLogicData->abilities[battlerDef];
+
+    switch (effect)
+    {
+    case MOVE_EFFECT_POISON:
+    case MOVE_EFFECT_TOXIC:
+        if (AI_HasActiveAbility(battlerDef, ABILITY_IMMUNITY))
+            return ABILITY_IMMUNITY;
+        break;
+    case MOVE_EFFECT_PARALYSIS:
+        if (AI_HasActiveAbility(battlerDef, ABILITY_LIMBER))
+            return ABILITY_LIMBER;
+        break;
+    case MOVE_EFFECT_BURN:
+        if (AI_HasActiveAbility(battlerDef, ABILITY_WATER_VEIL))
+            return ABILITY_WATER_VEIL;
+        if (AI_HasActiveAbility(battlerDef, ABILITY_WATER_BUBBLE))
+            return ABILITY_WATER_BUBBLE;
+        if (AI_HasActiveAbility(battlerDef, ABILITY_THERMAL_EXCHANGE))
+            return ABILITY_THERMAL_EXCHANGE;
+        break;
+    case MOVE_EFFECT_SLEEP:
+        if (AI_HasActiveAbility(battlerDef, ABILITY_VITAL_SPIRIT))
+            return ABILITY_VITAL_SPIRIT;
+        if (AI_HasActiveAbility(battlerDef, ABILITY_INSOMNIA))
+            return ABILITY_INSOMNIA;
+        break;
+    case MOVE_EFFECT_FREEZE:
+    case MOVE_EFFECT_FROSTBITE:
+        if (AI_HasActiveAbility(battlerDef, ABILITY_MAGMA_ARMOR))
+            return ABILITY_MAGMA_ARMOR;
+        break;
+    default:
+        break;
+    }
+
+    if (AI_HasActiveAbility(battlerDef, ABILITY_COMATOSE))
+        return ABILITY_COMATOSE;
+    if (AI_HasActiveAbility(battlerDef, ABILITY_SHIELDS_DOWN))
+        return ABILITY_SHIELDS_DOWN;
+    if (AI_HasActiveAbility(battlerDef, ABILITY_PURIFYING_SALT))
+        return ABILITY_PURIFYING_SALT;
+    if (AI_HasActiveAbility(battlerDef, ABILITY_LEAF_GUARD))
+        return ABILITY_LEAF_GUARD;
+
+    return ABILITY_NONE;
+}
+
 bool32 AI_CanPutToSleep(u32 battlerAtk, u32 battlerDef, u32 defAbility, u32 move, u32 partnerMove)
 {
-    if (!CanBeSlept(battlerAtk, battlerDef, defAbility, BLOCKED_BY_SLEEP_CLAUSE)
+    u32 abilityDef = SharedPower_IsEnabled() ? AI_GetStatusAbility(battlerDef, MOVE_EFFECT_SLEEP) : defAbility;
+
+    if (!CanBeSlept(battlerAtk, battlerDef, abilityDef, BLOCKED_BY_SLEEP_CLAUSE)
       || DoesSubstituteBlockMove(battlerAtk, battlerDef, move)
       || PartnerMoveEffectIsStatusSameTarget(BATTLE_PARTNER(battlerAtk), battlerDef, partnerMove))   // shouldn't try to sleep mon that partner is trying to make sleep
         return FALSE;
@@ -3383,9 +3448,17 @@ static inline bool32 DoesBattlerBenefitFromAllVolatileStatus(u32 battler, u32 ab
 
 bool32 ShouldPoison(u32 battlerAtk, u32 battlerDef)
 {
+    u32 abilityAtk = gAiLogicData->abilities[battlerAtk];
     u32 abilityDef = gAiLogicData->abilities[battlerDef];
+
+    if (SharedPower_IsEnabled())
+    {
+        abilityDef = AI_GetStatusAbility(battlerDef, MOVE_EFFECT_TOXIC);
+        if (AI_HasActiveAbility(battlerAtk, ABILITY_CORROSION))
+            abilityAtk = ABILITY_CORROSION;
+    }
     // Battler can be poisoned and has move/ability that synergizes with being poisoned
-    if (CanBePoisoned(battlerAtk, battlerDef, gAiLogicData->abilities[battlerAtk], abilityDef) && (
+    if (CanBePoisoned(battlerAtk, battlerDef, abilityAtk, abilityDef) && (
         DoesBattlerBenefitFromAllVolatileStatus(battlerDef, abilityDef)
         || abilityDef == ABILITY_POISON_HEAL
         || (abilityDef == ABILITY_TOXIC_BOOST && HasMoveWithCategory(battlerDef, DAMAGE_CATEGORY_PHYSICAL))))
@@ -3403,6 +3476,9 @@ bool32 ShouldPoison(u32 battlerAtk, u32 battlerDef)
 
 bool32 ShouldBurn(u32 battlerAtk, u32 battlerDef, u32 abilityDef)
 {
+    if (SharedPower_IsEnabled())
+        abilityDef = AI_GetStatusAbility(battlerDef, MOVE_EFFECT_BURN);
+
     // Battler can be burned and has move/ability that synergizes with being burned
     if (CanBeBurned(battlerAtk, battlerDef, abilityDef) && (
         DoesBattlerBenefitFromAllVolatileStatus(battlerDef, abilityDef)
@@ -3423,6 +3499,9 @@ bool32 ShouldBurn(u32 battlerAtk, u32 battlerDef, u32 abilityDef)
 
 bool32 ShouldFreezeOrFrostbite(u32 battlerAtk, u32 battlerDef, u32 abilityDef)
 {
+    if (SharedPower_IsEnabled())
+        abilityDef = AI_GetStatusAbility(battlerDef, MOVE_EFFECT_FROSTBITE);
+
     if (!B_USE_FROSTBITE)
     {
         if (CanBeFrozen(battlerAtk, battlerDef, abilityDef))
@@ -3455,6 +3534,9 @@ bool32 ShouldFreezeOrFrostbite(u32 battlerAtk, u32 battlerDef, u32 abilityDef)
 
 bool32 ShouldParalyze(u32 battlerAtk, u32 battlerDef, u32 abilityDef)
 {
+    if (SharedPower_IsEnabled())
+        abilityDef = AI_GetStatusAbility(battlerDef, MOVE_EFFECT_PARALYSIS);
+
     // Battler can be paralyzed and has move/ability that synergizes with being paralyzed
     if (CanBeParalyzed(battlerAtk, battlerDef, abilityDef) && (
         DoesBattlerBenefitFromAllVolatileStatus(battlerDef, abilityDef)))
@@ -3472,7 +3554,17 @@ bool32 ShouldParalyze(u32 battlerAtk, u32 battlerDef, u32 abilityDef)
 
 bool32 AI_CanPoison(u32 battlerAtk, u32 battlerDef, u32 defAbility, u32 move, u32 partnerMove)
 {
-    if (!CanBePoisoned(battlerAtk, battlerDef, gAiLogicData->abilities[battlerAtk], defAbility)
+    u32 abilityAtk = gAiLogicData->abilities[battlerAtk];
+    u32 abilityDef = defAbility;
+
+    if (SharedPower_IsEnabled())
+    {
+        abilityDef = AI_GetStatusAbility(battlerDef, MOVE_EFFECT_TOXIC);
+        if (AI_HasActiveAbility(battlerAtk, ABILITY_CORROSION))
+            abilityAtk = ABILITY_CORROSION;
+    }
+
+    if (!CanBePoisoned(battlerAtk, battlerDef, abilityAtk, abilityDef)
       || gAiLogicData->effectiveness[battlerAtk][battlerDef][gAiThinkingStruct->movesetIndex] == UQ_4_12(0.0)
       || DoesSubstituteBlockMove(battlerAtk, battlerDef, move)
       || PartnerMoveEffectIsStatusSameTarget(BATTLE_PARTNER(battlerAtk), battlerDef, partnerMove))
@@ -3483,7 +3575,9 @@ bool32 AI_CanPoison(u32 battlerAtk, u32 battlerDef, u32 defAbility, u32 move, u3
 
 bool32 AI_CanParalyze(u32 battlerAtk, u32 battlerDef, u32 defAbility, u32 move, u32 partnerMove)
 {
-    if (!CanBeParalyzed(battlerAtk, battlerDef, defAbility)
+    u32 abilityDef = SharedPower_IsEnabled() ? AI_GetStatusAbility(battlerDef, MOVE_EFFECT_PARALYSIS) : defAbility;
+
+    if (!CanBeParalyzed(battlerAtk, battlerDef, abilityDef)
       || gAiLogicData->effectiveness[battlerAtk][battlerDef][gAiThinkingStruct->movesetIndex] == UQ_4_12(0.0)
       || DoesSubstituteBlockMove(battlerAtk, battlerDef, move)
       || PartnerMoveEffectIsStatusSameTarget(BATTLE_PARTNER(battlerAtk), battlerDef, partnerMove))
@@ -3493,6 +3587,9 @@ bool32 AI_CanParalyze(u32 battlerAtk, u32 battlerDef, u32 defAbility, u32 move, 
 
 bool32 AI_CanBeConfused(u32 battlerAtk, u32 battlerDef, u32 move, u32 ability)
 {
+    if (SharedPower_IsEnabled())
+        ability = AI_HasActiveAbility(battlerDef, ABILITY_OWN_TEMPO) ? ABILITY_OWN_TEMPO : ability;
+
     if (gBattleMons[battlerDef].volatiles.confusionTurns > 0
      || (ability == ABILITY_OWN_TEMPO && !DoesBattlerIgnoreAbilityChecks(battlerAtk, gAiLogicData->abilities[battlerAtk], move))
      || IsBattlerTerrainAffected(battlerDef, STATUS_FIELD_MISTY_TERRAIN)
@@ -3504,6 +3601,9 @@ bool32 AI_CanBeConfused(u32 battlerAtk, u32 battlerDef, u32 move, u32 ability)
 
 bool32 AI_CanConfuse(u32 battlerAtk, u32 battlerDef, u32 defAbility, u32 battlerAtkPartner, u32 move, u32 partnerMove)
 {
+    if (SharedPower_IsEnabled())
+        defAbility = AI_HasActiveAbility(battlerDef, ABILITY_OWN_TEMPO) ? ABILITY_OWN_TEMPO : defAbility;
+
     if (GetBattlerMoveTargetType(battlerAtk, move) == MOVE_TARGET_FOES_AND_ALLY
      && AI_CanBeConfused(battlerAtk, battlerDef, move, defAbility)
      && !AI_CanBeConfused(battlerAtk, BATTLE_PARTNER(battlerDef), move, gAiLogicData->abilities[BATTLE_PARTNER(battlerDef)]))
@@ -3518,7 +3618,9 @@ bool32 AI_CanConfuse(u32 battlerAtk, u32 battlerDef, u32 defAbility, u32 battler
 
 bool32 AI_CanBurn(u32 battlerAtk, u32 battlerDef, u32 defAbility, u32 battlerAtkPartner, u32 move, u32 partnerMove)
 {
-    if (!CanBeBurned(battlerAtk, battlerDef, defAbility)
+    u32 abilityDef = SharedPower_IsEnabled() ? AI_GetStatusAbility(battlerDef, MOVE_EFFECT_BURN) : defAbility;
+
+    if (!CanBeBurned(battlerAtk, battlerDef, abilityDef)
       || gAiLogicData->effectiveness[battlerAtk][battlerDef][gAiThinkingStruct->movesetIndex] == UQ_4_12(0.0)
       || DoesSubstituteBlockMove(battlerAtk, battlerDef, move)
       || PartnerMoveEffectIsStatusSameTarget(battlerAtkPartner, battlerDef, partnerMove))
@@ -3530,7 +3632,9 @@ bool32 AI_CanBurn(u32 battlerAtk, u32 battlerDef, u32 defAbility, u32 battlerAtk
 
 bool32 AI_CanGiveFrostbite(u32 battlerAtk, u32 battlerDef, u32 defAbility, u32 battlerAtkPartner, u32 move, u32 partnerMove)
 {
-    if (!CanBeFrozen(battlerAtk, battlerDef, defAbility)
+    u32 abilityDef = SharedPower_IsEnabled() ? AI_GetStatusAbility(battlerDef, MOVE_EFFECT_FROSTBITE) : defAbility;
+
+    if (!CanBeFrozen(battlerAtk, battlerDef, abilityDef)
       || gAiLogicData->effectiveness[battlerAtk][battlerDef][gAiThinkingStruct->movesetIndex] == UQ_4_12(0.0)
       || DoesSubstituteBlockMove(battlerAtk, battlerDef, move)
       || PartnerMoveEffectIsStatusSameTarget(battlerAtkPartner, battlerDef, partnerMove))
@@ -3542,6 +3646,9 @@ bool32 AI_CanGiveFrostbite(u32 battlerAtk, u32 battlerDef, u32 defAbility, u32 b
 
 bool32 AI_CanBeInfatuated(u32 battlerAtk, u32 battlerDef, u32 defAbility)
 {
+    if (SharedPower_IsEnabled())
+        defAbility = AI_HasActiveAbility(battlerDef, ABILITY_OBLIVIOUS) ? ABILITY_OBLIVIOUS : defAbility;
+
     if (gBattleMons[battlerDef].volatiles.infatuation
       || gAiLogicData->effectiveness[battlerAtk][battlerDef][gAiThinkingStruct->movesetIndex] == UQ_4_12(0.0)
       || defAbility == ABILITY_OBLIVIOUS
@@ -3554,7 +3661,10 @@ bool32 AI_CanBeInfatuated(u32 battlerAtk, u32 battlerDef, u32 defAbility)
 u32 ShouldTryToFlinch(u32 battlerAtk, u32 battlerDef, u32 atkAbility, u32 defAbility, u32 move)
 {
     u32 predictedMoveSpeedCheck = GetIncomingMoveSpeedCheck(battlerAtk, battlerDef, gAiLogicData);
-    if (((!IsMoldBreakerTypeAbility(battlerAtk, gAiLogicData->abilities[battlerAtk]) && (defAbility == ABILITY_SHIELD_DUST || defAbility == ABILITY_INNER_FOCUS))
+    if (((!IsMoldBreakerTypeAbility(battlerAtk, gAiLogicData->abilities[battlerAtk])
+      && (defAbility == ABILITY_SHIELD_DUST || defAbility == ABILITY_INNER_FOCUS
+       || (SharedPower_IsEnabled()
+           && (AI_HasActiveAbility(battlerDef, ABILITY_SHIELD_DUST) || AI_HasActiveAbility(battlerDef, ABILITY_INNER_FOCUS)))))
       || gAiLogicData->holdEffects[battlerDef] == HOLD_EFFECT_COVERT_CLOAK
       || DoesSubstituteBlockMove(battlerAtk, battlerDef, move)
       || AI_IsSlower(battlerAtk, battlerDef, move, predictedMoveSpeedCheck, CONSIDER_PRIORITY))) // Opponent goes first
@@ -5284,6 +5394,15 @@ bool32 IsBattlerItemEnabled(u32 battler)
 
 bool32 HasBattlerSideAbility(u32 battler, u32 ability, struct AiLogicData *aiData)
 {
+    if (SharedPower_IsEnabled())
+    {
+        if (AI_HasActiveAbility(battler, ability))
+            return TRUE;
+        if (HasPartnerIgnoreFlags(battler) && AI_HasActiveAbility(BATTLE_PARTNER(battler), ability))
+            return TRUE;
+        return FALSE;
+    }
+
     if (aiData->abilities[battler] == ability)
         return TRUE;
     if (HasPartnerIgnoreFlags(battler) && gAiLogicData->abilities[BATTLE_PARTNER(battler)] == ability)
