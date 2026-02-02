@@ -214,6 +214,8 @@ void SharedPower_ClearBattleState(void)
     memset(gBattleStruct->sharedPowerPopupActive, 0, sizeof(gBattleStruct->sharedPowerPopupActive));
     memset(gBattleStruct->sharedPowerPopupOriginalAbility, 0, sizeof(gBattleStruct->sharedPowerPopupOriginalAbility));
     memset(gBattleStruct->sharedPowerPopupOverrideActive, 0, sizeof(gBattleStruct->sharedPowerPopupOverrideActive));
+    memset(gBattleStruct->sharedPowerMoveEndCaseId, 0, sizeof(gBattleStruct->sharedPowerMoveEndCaseId));
+    memset(gBattleStruct->sharedPowerMoveEndIndex, 0, sizeof(gBattleStruct->sharedPowerMoveEndIndex));
     gBattleStruct->sharedPowerPoolSeeded = FALSE;
     for (u32 battler = 0; battler < MAX_BATTLERS_COUNT; battler++)
         gBattleStruct->sharedPowerPopupOriginalPartyIndex[battler] = PARTY_SIZE;
