@@ -1086,7 +1086,7 @@ static s32 AI_CheckBadMove(u32 battlerAtk, u32 battlerDef, u32 move, s32 score)
     u32 predictedMoveSpeedCheck = GetIncomingMoveSpeedCheck(battlerAtk, battlerDef, gAiLogicData);
     u32 abilityAtk = aiData->abilities[battlerAtk];
     u32 abilityDef = aiData->abilities[battlerDef];
-    s32 atkPriority = GetBattleMovePriority(battlerAtk, abilityAtk, move);
+    s32 atkPriority = AI_GetBattleMovePriority(battlerAtk, move);
 
     SetTypeBeforeUsingMove(move, battlerAtk);
     moveType = GetBattleMoveType(move);
@@ -1131,7 +1131,8 @@ static s32 AI_CheckBadMove(u32 battlerAtk, u32 battlerDef, u32 move, s32 score)
     if (effectiveness == UQ_4_12(0.0))
         RETURN_SCORE_MINUS(20);
 
-    if (DoesBattlerIgnoreAbilityChecks(battlerAtk, abilityAtk, move))
+    bool32 ignoreDefAbilities = DoesBattlerIgnoreAbilityChecks(battlerAtk, abilityAtk, move);
+    if (ignoreDefAbilities)
         abilityDef = ABILITY_NONE;
 
     // If a pokemon can be guaranteed flinched, don't target the pokemon that can't be flinched.
@@ -1143,11 +1144,14 @@ static s32 AI_CheckBadMove(u32 battlerAtk, u32 battlerDef, u32 move, s32 score)
     // check non-user target
     if (!(moveTarget & MOVE_TARGET_USER))
     {
-        if (CanAbilityBlockMove(battlerAtk, battlerDef, abilityAtk, abilityDef, move, AI_CHECK))
-            RETURN_SCORE_MINUS(20);
+        if (!ignoreDefAbilities)
+        {
+            if (AI_CanAbilityBlockMove(battlerAtk, battlerDef, move, AI_CHECK))
+                RETURN_SCORE_MINUS(20);
 
-        if (CanAbilityAbsorbMove(battlerAtk, battlerDef, abilityDef, move, moveType, AI_CHECK))
-            RETURN_SCORE_MINUS(20);
+            if (AI_CanAbilityAbsorbMove(battlerAtk, battlerDef, move, moveType, AI_CHECK))
+                RETURN_SCORE_MINUS(20);
+        }
 
         switch (abilityDef)
         {
@@ -1327,7 +1331,7 @@ static s32 AI_CheckBadMove(u32 battlerAtk, u32 battlerDef, u32 move, s32 score)
     switch (moveEffect)
     {
         case EFFECT_HIT: // only applies to Vital Throw
-            if (GetBattleMovePriority(battlerAtk, aiData->abilities[battlerAtk], move) < 0 && AI_IsFaster(battlerAtk, battlerDef, move, predictedMoveSpeedCheck, CONSIDER_PRIORITY) && aiData->hpPercents[battlerAtk] < 40)
+            if (AI_GetBattleMovePriority(battlerAtk, move) < 0 && AI_IsFaster(battlerAtk, battlerDef, move, predictedMoveSpeedCheck, CONSIDER_PRIORITY) && aiData->hpPercents[battlerAtk] < 40)
                 ADJUST_SCORE(-2);    // don't want to move last
             break;
         default:
@@ -2902,7 +2906,7 @@ static s32 AI_CheckBadMove(u32 battlerAtk, u32 battlerDef, u32 move, s32 score)
             break;
         case EFFECT_UPPER_HAND:
             {
-                u32 defPrio = GetBattleMovePriority(battlerDef, aiData->abilities[battlerDef], predictedMove);
+                u32 defPrio = AI_GetBattleMovePriority(battlerDef, predictedMove);
                 if (predictedMove == MOVE_NONE
                  || IsBattleMoveStatus(predictedMove)
                  || AI_IsSlower(battlerAtk, battlerDef, move, predictedMoveSpeedCheck, CONSIDER_PRIORITY)
@@ -3001,7 +3005,7 @@ static s32 AI_TryToFaint(u32 battlerAtk, u32 battlerDef, u32 move, s32 score)
     }
     else if (CanTargetFaintAi(battlerDef, battlerAtk)
             && GetWhichBattlerFasterOrTies(battlerAtk, battlerDef, TRUE) != AI_IS_FASTER
-            && GetBattleMovePriority(battlerAtk, gAiLogicData->abilities[battlerAtk], move) > 0)
+            && AI_GetBattleMovePriority(battlerAtk, move) > 0)
     {
         if (RandomPercentage(RNG_AI_PRIORITIZE_LAST_CHANCE, PRIORITIZE_LAST_CHANCE_CHANCE))
             ADJUST_SCORE(SLOW_KILL + 2); // Don't outscore Fast Kill (which gets a bonus point in AI_CompareDamagingMoves), but do outscore Slow Kill getting the same
@@ -5710,7 +5714,7 @@ static s32 AI_ForceSetupFirstTurn(u32 battlerAtk, u32 battlerDef, u32 move, s32 
     if (gAiThinkingStruct->aiFlags[battlerAtk] & AI_FLAG_SMART_SWITCHING
       && AI_IsSlower(battlerAtk, battlerDef, move, predictedMoveSpeedCheck, CONSIDER_PRIORITY)
       && CanTargetFaintAi(battlerDef, battlerAtk)
-      && GetBattleMovePriority(battlerAtk, gAiLogicData->abilities[battlerAtk], move) == 0)
+      && AI_GetBattleMovePriority(battlerAtk, move) == 0)
     {
         RETURN_SCORE_MINUS(20);    // No point in setting up if you will faint. Should just switch if possible..
     }

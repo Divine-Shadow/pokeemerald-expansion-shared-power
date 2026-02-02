@@ -447,7 +447,7 @@ static enum FieldEffectOutcome BenefitsFromTrickRoom(u32 battler)
         for (int i = 0; i < MAX_MON_MOVES; i++)
         {
             u16 move = aiMoves[i];
-            if (GetBattleMovePriority(battler, gAiLogicData->abilities[battler], move) > 0 && !(GetMovePriority(move) > 0 && IsBattleMoveStatus(move)))
+            if (AI_GetBattleMovePriority(battler, move) > 0 && !(GetMovePriority(move) > 0 && IsBattleMoveStatus(move)))
             {
                 return FIELD_EFFECT_POSITIVE;
             }
@@ -460,5 +460,4 @@ static enum FieldEffectOutcome BenefitsFromTrickRoom(u32 battler)
 
     return FIELD_EFFECT_POSITIVE;
 }
-
 

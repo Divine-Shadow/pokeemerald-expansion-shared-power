@@ -238,7 +238,7 @@ static bool32 ShouldSwitchIfHasBadOdds(u32 battler)
                 maxDamageTaken = damageTaken;
                 bestPlayerMove = playerMove;
             }
-            if (GetBattleMovePriority(opposingBattler, gAiLogicData->abilities[opposingBattler], playerMove) > 0 && damageTaken > maxDamageTakenPriority && !AI_DoesChoiceEffectBlockMove(opposingBattler, playerMove))
+            if (AI_GetBattleMovePriority(opposingBattler, playerMove) > 0 && damageTaken > maxDamageTakenPriority && !AI_DoesChoiceEffectBlockMove(opposingBattler, playerMove))
             {
                 maxDamageTakenPriority = damageTaken;
                 bestPlayerPriorityMove = playerMove;
@@ -420,8 +420,8 @@ static bool32 ShouldSwitchIfAllMovesBad(u32 battler)
         {
             aiMove = gBattleMons[battler].moves[moveIndex];
             if (AI_GetMoveEffectiveness(aiMove, battler, opposingBattler) > UQ_4_12(0.0) && aiMove != MOVE_NONE
-                && !CanAbilityAbsorbMove(battler, opposingBattler, gAiLogicData->abilities[opposingBattler], aiMove, GetBattleMoveType(aiMove), AI_CHECK)
-                && !CanAbilityBlockMove(battler, opposingBattler, gBattleMons[battler].ability, gAiLogicData->abilities[opposingBattler], aiMove, AI_CHECK)
+                && !AI_CanAbilityAbsorbMove(battler, opposingBattler, aiMove, GetBattleMoveType(aiMove), AI_CHECK)
+                && !AI_CanAbilityBlockMove(battler, opposingBattler, aiMove, AI_CHECK)
                 && (!ALL_MOVES_BAD_STATUS_MOVES_BAD || gMovesInfo[aiMove].power != 0)) // If using ALL_MOVES_BAD_STATUS_MOVES_BAD, then need power to be non-zero
                 return FALSE;
         }
@@ -1037,8 +1037,8 @@ static bool32 ShouldSwitchIfBadChoiceLock(u32 battler)
     bool32 moveAffectsTarget = TRUE;
 
     if (lastUsedMove != MOVE_NONE && (AI_GetMoveEffectiveness(lastUsedMove, battler, opposingBattler) == UQ_4_12(0.0)
-        || CanAbilityAbsorbMove(battler, opposingBattler, gAiLogicData->abilities[opposingBattler], lastUsedMove, CheckDynamicMoveType(GetBattlerMon(battler), lastUsedMove, battler, MON_IN_BATTLE), AI_CHECK)
-        || CanAbilityBlockMove(battler, opposingBattler, gAiLogicData->abilities[battler], gAiLogicData->abilities[opposingBattler], lastUsedMove, AI_CHECK)))
+        || AI_CanAbilityAbsorbMove(battler, opposingBattler, lastUsedMove, CheckDynamicMoveType(GetBattlerMon(battler), lastUsedMove, battler, MON_IN_BATTLE), AI_CHECK)
+        || AI_CanAbilityBlockMove(battler, opposingBattler, lastUsedMove, AI_CHECK)))
         moveAffectsTarget = FALSE;
 
     if (IsHoldEffectChoice(holdEffect) && IsBattlerItemEnabled(battler))
@@ -2015,7 +2015,7 @@ static s32 GetMaxPriorityDamagePlayerCouldDealToSwitchin(u32 battler, u32 opposi
     for (i = 0; i < MAX_MON_MOVES; i++)
     {
         playerMove = SMART_SWITCHING_OMNISCIENT ? gBattleMons[opposingBattler].moves[i] : playerMoves[i];
-        if (GetBattleMovePriority(opposingBattler, gAiLogicData->abilities[opposingBattler], playerMove) > 0
+        if (AI_GetBattleMovePriority(opposingBattler, playerMove) > 0
             && playerMove != MOVE_NONE && !IsBattleMoveStatus(playerMove) && GetMoveEffect(playerMove) != EFFECT_FOCUS_PUNCH && gBattleMons[opposingBattler].pp[i] > 0)
         {
             damageTaken = AI_CalcPartyMonDamage(playerMove, opposingBattler, battler, battleMon, AI_DEFENDING);
