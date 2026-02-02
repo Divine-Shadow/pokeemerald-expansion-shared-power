@@ -111,6 +111,41 @@ SINGLE_BATTLE_TEST("Shared Power: Inner Focus prevents pooled Intimidate")
     }
 }
 
+DOUBLE_BATTLE_TEST("Shared Power: Inner Focus prevents Fake Out flinch after switch-in")
+{
+    GIVEN {
+        BATTLE_TYPE(BATTLE_TYPE_SHARED_POWER);
+        PLAYER(SPECIES_WOBBUFFET) { Speed(6); }
+        PLAYER(SPECIES_WYNAUT) { Speed(5); }
+        PLAYER(SPECIES_ZUBAT) { Ability(ABILITY_INNER_FOCUS); Speed(7); }
+        OPPONENT(SPECIES_SABLEYE) { Speed(4); }
+        OPPONENT(SPECIES_WOBBUFFET) { Speed(3); }
+    } WHEN {
+        TURN {
+            SWITCH(playerLeft, 2);
+            MOVE(opponentLeft, MOVE_FAKE_OUT, target: playerLeft);
+            MOVE(opponentRight, MOVE_TACKLE, target: playerRight);
+        }
+    } THEN {
+        EXPECT(!playerLeft->volatiles.flinched);
+    }
+}
+
+DOUBLE_BATTLE_TEST("Shared Power: Inner Focus + Contrary vs Intimidate (document current behavior)")
+{
+    GIVEN {
+        BATTLE_TYPE(BATTLE_TYPE_SHARED_POWER);
+        PLAYER(SPECIES_ZUBAT) { Ability(ABILITY_INNER_FOCUS); Speed(10); }
+        PLAYER(SPECIES_MALAMAR) { Ability(ABILITY_CONTRARY); Speed(8); }
+        OPPONENT(SPECIES_ARBOK) { Ability(ABILITY_INTIMIDATE); Speed(6); }
+        OPPONENT(SPECIES_WOBBUFFET) { Speed(3); }
+    } WHEN {
+        TURN { ; }
+    } THEN {
+        EXPECT_EQ(playerLeft->statStages[STAT_ATK], DEFAULT_STAT_STAGE);
+    }
+}
+
 //test that a passive ability is shared
 SINGLE_BATTLE_TEST("Shared Power: Adapatability is fully shared with a switched in pokemon", s16 damage){
 	u32 ability;
