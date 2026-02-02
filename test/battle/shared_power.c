@@ -10,10 +10,10 @@ SINGLE_BATTLE_TEST("Shared Power: Intimidate is fully shared with a switched in 
         BATTLE_TYPE(BATTLE_TYPE_SHARED_POWER);
         PLAYER(SPECIES_WOBBUFFET);
         OPPONENT(SPECIES_ARBOK) { Ability(ability); }
-        OPPONENT(SPECIES_WOBBUFFET);
+        OPPONENT(SPECIES_WOBBUFFET) { Moves(MOVE_SCRATCH, MOVE_SPLASH); }
     } WHEN {
-        TURN { SWITCH(opponent, 1); }
-        TURN { MOVE(player, MOVE_SCRATCH); }
+        TURN { SWITCH(opponent, 1); MOVE(player, MOVE_CELEBRATE); }
+        TURN { MOVE(player, MOVE_SCRATCH); MOVE(opponent, MOVE_SPLASH); }
     } SCENE {
         if (ability == ABILITY_INTIMIDATE)
         {
@@ -554,6 +554,78 @@ SINGLE_BATTLE_TEST("Shared Power: Poison Puppeteer triggers from pooled ability"
         ABILITY_POPUP(player, ABILITY_POISON_PUPPETEER);
         ANIMATION(ANIM_TYPE_STATUS, B_ANIM_STATUS_CONFUSION, opponent);
         MESSAGE("The opposing Wobbuffet became confused!");
+    }
+}
+
+SINGLE_BATTLE_TEST("Shared Power: Gooey triggers from pooled ability")
+{
+    GIVEN {
+        BATTLE_TYPE(BATTLE_TYPE_SHARED_POWER);
+        ASSUME(MoveMakesContact(MOVE_SCRATCH));
+        PLAYER(SPECIES_GOOMY) { Ability(ABILITY_GOOEY); }
+        PLAYER(SPECIES_WOBBUFFET);
+        OPPONENT(SPECIES_WOBBUFFET);
+    } WHEN {
+        TURN { SWITCH(player, 1); MOVE(opponent, MOVE_SPLASH); }
+        TURN { MOVE(player, MOVE_SPLASH); MOVE(opponent, MOVE_SCRATCH); }
+    } THEN {
+        EXPECT_EQ(opponent->statStages[STAT_SPEED], DEFAULT_STAT_STAGE - 1);
+    }
+}
+
+SINGLE_BATTLE_TEST("Shared Power: Tangling Hair triggers from pooled ability")
+{
+    GIVEN {
+        BATTLE_TYPE(BATTLE_TYPE_SHARED_POWER);
+        ASSUME(MoveMakesContact(MOVE_SCRATCH));
+        PLAYER(SPECIES_DIGLETT_ALOLA) { Ability(ABILITY_TANGLING_HAIR); }
+        PLAYER(SPECIES_WOBBUFFET);
+        OPPONENT(SPECIES_WOBBUFFET);
+    } WHEN {
+        TURN { SWITCH(player, 1); MOVE(opponent, MOVE_SPLASH); }
+        TURN { MOVE(player, MOVE_SPLASH); MOVE(opponent, MOVE_SCRATCH); }
+    } THEN {
+        EXPECT_EQ(opponent->statStages[STAT_SPEED], DEFAULT_STAT_STAGE - 1);
+    }
+}
+
+SINGLE_BATTLE_TEST("Shared Power: Cursed Body triggers from pooled ability")
+{
+    GIVEN {
+        BATTLE_TYPE(BATTLE_TYPE_SHARED_POWER);
+        ASSUME(GetMovePower(MOVE_SCRATCH) > 0);
+        PLAYER(SPECIES_DUSKULL) { Ability(ABILITY_CURSED_BODY); }
+        PLAYER(SPECIES_WOBBUFFET);
+        OPPONENT(SPECIES_WOBBUFFET);
+    } WHEN {
+        TURN { SWITCH(player, 1); MOVE(opponent, MOVE_SPLASH); }
+        TURN { MOVE(player, MOVE_SPLASH); MOVE(opponent, MOVE_SCRATCH, WITH_RNG(RNG_CURSED_BODY, TRUE)); }
+    } SCENE {
+        ANIMATION(ANIM_TYPE_MOVE, MOVE_SCRATCH, opponent);
+        ABILITY_POPUP(player, ABILITY_CURSED_BODY);
+    }
+}
+
+SINGLE_BATTLE_TEST("Shared Power: Effect Spore triggers from pooled ability")
+{
+    PASSES_RANDOMLY(3, 10, RNG_EFFECT_SPORE);
+    GIVEN {
+        BATTLE_TYPE(BATTLE_TYPE_SHARED_POWER);
+        ASSUME(MoveMakesContact(MOVE_SCRATCH));
+        PLAYER(SPECIES_SHROOMISH) { Ability(ABILITY_EFFECT_SPORE); }
+        PLAYER(SPECIES_WOBBUFFET);
+        OPPONENT(SPECIES_WOBBUFFET);
+    } WHEN {
+        TURN { SWITCH(player, 1); MOVE(opponent, MOVE_SPLASH); }
+        TURN { MOVE(player, MOVE_SPLASH); MOVE(opponent, MOVE_SCRATCH); }
+    } SCENE {
+        ANIMATION(ANIM_TYPE_MOVE, MOVE_SCRATCH, opponent);
+        ABILITY_POPUP(player, ABILITY_EFFECT_SPORE);
+        ONE_OF {
+            STATUS_ICON(opponent, poison: TRUE);
+            STATUS_ICON(opponent, paralysis: TRUE);
+            STATUS_ICON(opponent, sleep: TRUE);
+        }
     }
 }
 
