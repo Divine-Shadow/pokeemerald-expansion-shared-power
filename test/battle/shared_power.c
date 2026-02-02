@@ -320,4 +320,241 @@ SINGLE_BATTLE_TEST("Shared Power: Passive ability duplicates don't apply", s16 d
     }
 }
 
+SINGLE_BATTLE_TEST("Shared Power: Rough Skin triggers from pooled ability")
+{
+    GIVEN {
+        BATTLE_TYPE(BATTLE_TYPE_SHARED_POWER);
+        ASSUME(MoveMakesContact(MOVE_SCRATCH));
+        PLAYER(SPECIES_GARCHOMP) { Ability(ABILITY_ROUGH_SKIN); }
+        PLAYER(SPECIES_WOBBUFFET);
+        OPPONENT(SPECIES_WOBBUFFET);
+    } WHEN {
+        TURN { SWITCH(player, 1); MOVE(opponent, MOVE_SPLASH); }
+        TURN { MOVE(player, MOVE_SPLASH); MOVE(opponent, MOVE_SCRATCH); }
+    } SCENE {
+        ANIMATION(ANIM_TYPE_MOVE, MOVE_SCRATCH, opponent);
+        HP_BAR(player);
+        ABILITY_POPUP(player, ABILITY_ROUGH_SKIN);
+        HP_BAR(opponent);
+    } THEN {
+        EXPECT_LT(opponent->hp, opponent->maxHP);
+    }
+}
+
+SINGLE_BATTLE_TEST("Shared Power: Aftermath triggers from pooled ability")
+{
+    GIVEN {
+        BATTLE_TYPE(BATTLE_TYPE_SHARED_POWER);
+        PLAYER(SPECIES_VOLTORB) { Ability(ABILITY_AFTERMATH); }
+        PLAYER(SPECIES_WOBBUFFET) { HP(1); }
+        OPPONENT(SPECIES_WOBBUFFET);
+    } WHEN {
+        TURN { SWITCH(player, 1); MOVE(opponent, MOVE_SPLASH); }
+        TURN { MOVE(player, MOVE_SPLASH); MOVE(opponent, MOVE_SCRATCH); SEND_OUT(player, 0); }
+    } SCENE {
+        ANIMATION(ANIM_TYPE_MOVE, MOVE_SCRATCH, opponent);
+        HP_BAR(player);
+        MESSAGE("Wobbuffet fainted!");
+        ABILITY_POPUP(player, ABILITY_AFTERMATH);
+        HP_BAR(opponent);
+    } THEN {
+        EXPECT_LT(opponent->hp, opponent->maxHP);
+    }
+}
+
+SINGLE_BATTLE_TEST("Shared Power: Innards Out triggers from pooled ability")
+{
+    u16 hp;
+    PARAMETRIZE { hp = 10; }
+    PARAMETRIZE { hp = 40; }
+    GIVEN {
+        BATTLE_TYPE(BATTLE_TYPE_SHARED_POWER);
+        PLAYER(SPECIES_PYUKUMUKU) { Ability(ABILITY_INNARDS_OUT); }
+        PLAYER(SPECIES_WOBBUFFET) { HP(hp); }
+        OPPONENT(SPECIES_WOBBUFFET) { HP(70); SpAttack(200); }
+        OPPONENT(SPECIES_WOBBUFFET);
+        ASSUME(!IsBattleMoveStatus(MOVE_PSYCHIC));
+        ASSUME(GetMoveCategory(MOVE_PSYCHIC) == DAMAGE_CATEGORY_SPECIAL);
+    } WHEN {
+        TURN { SWITCH(player, 1); }
+        TURN { MOVE(opponent, MOVE_PSYCHIC); SEND_OUT(player, 0); }
+    } SCENE {
+        MESSAGE("The opposing Wobbuffet used Psychic!");
+        HP_BAR(player, hp);
+        ABILITY_POPUP(player, ABILITY_INNARDS_OUT);
+        HP_BAR(opponent, hp);
+    }
+}
+
+SINGLE_BATTLE_TEST("Shared Power: Stamina triggers from pooled ability")
+{
+    GIVEN {
+        BATTLE_TYPE(BATTLE_TYPE_SHARED_POWER);
+        PLAYER(SPECIES_MUDSDALE) { Ability(ABILITY_STAMINA); }
+        PLAYER(SPECIES_WOBBUFFET);
+        OPPONENT(SPECIES_WOBBUFFET);
+    } WHEN {
+        TURN { SWITCH(player, 1); }
+        TURN { MOVE(opponent, MOVE_TACKLE); }
+    } THEN {
+        EXPECT_EQ(player->statStages[STAT_DEF], DEFAULT_STAT_STAGE + 1);
+    }
+}
+
+SINGLE_BATTLE_TEST("Shared Power: Moxie triggers from pooled ability")
+{
+    GIVEN {
+        BATTLE_TYPE(BATTLE_TYPE_SHARED_POWER);
+        PLAYER(SPECIES_WOBBUFFET) { Ability(ABILITY_MOXIE); }
+        PLAYER(SPECIES_SALAMENCE) { Ability(ABILITY_INTIMIDATE); Attack(200); }
+        OPPONENT(SPECIES_WOBBUFFET) { HP(1); }
+        OPPONENT(SPECIES_WOBBUFFET);
+    } WHEN {
+        TURN { SWITCH(player, 1); MOVE(opponent, MOVE_SPLASH); }
+        TURN { MOVE(player, MOVE_TACKLE); MOVE(opponent, MOVE_SPLASH); SEND_OUT(opponent, 1); }
+    } THEN {
+        EXPECT_EQ(player->statStages[STAT_ATK], DEFAULT_STAT_STAGE + 1);
+    }
+}
+
+SINGLE_BATTLE_TEST("Shared Power: Grim Neigh triggers from pooled ability")
+{
+    GIVEN {
+        BATTLE_TYPE(BATTLE_TYPE_SHARED_POWER);
+        PLAYER(SPECIES_SPECTRIER) { Ability(ABILITY_GRIM_NEIGH); }
+        PLAYER(SPECIES_WOBBUFFET) { SpAttack(200); }
+        OPPONENT(SPECIES_WOBBUFFET) { HP(1); }
+        OPPONENT(SPECIES_WOBBUFFET);
+        ASSUME(!IsBattleMoveStatus(MOVE_PSYCHIC));
+        ASSUME(GetMoveCategory(MOVE_PSYCHIC) == DAMAGE_CATEGORY_SPECIAL);
+    } WHEN {
+        TURN { SWITCH(player, 1); MOVE(opponent, MOVE_SPLASH); }
+        TURN { MOVE(player, MOVE_PSYCHIC); MOVE(opponent, MOVE_SPLASH); SEND_OUT(opponent, 1); }
+    } THEN {
+        EXPECT_EQ(player->statStages[STAT_SPATK], DEFAULT_STAT_STAGE + 1);
+    }
+}
+
+SINGLE_BATTLE_TEST("Shared Power: Chilling Neigh triggers from pooled ability")
+{
+    GIVEN {
+        BATTLE_TYPE(BATTLE_TYPE_SHARED_POWER);
+        PLAYER(SPECIES_GLASTRIER) { Ability(ABILITY_CHILLING_NEIGH); }
+        PLAYER(SPECIES_WOBBUFFET) { Attack(200); }
+        OPPONENT(SPECIES_WOBBUFFET) { HP(1); }
+        OPPONENT(SPECIES_WOBBUFFET);
+    } WHEN {
+        TURN { SWITCH(player, 1); MOVE(opponent, MOVE_SPLASH); }
+        TURN { MOVE(player, MOVE_TACKLE); MOVE(opponent, MOVE_SPLASH); SEND_OUT(opponent, 1); }
+    } THEN {
+        EXPECT_EQ(player->statStages[STAT_ATK], DEFAULT_STAT_STAGE + 1);
+    }
+}
+
+SINGLE_BATTLE_TEST("Shared Power: As One triggers from pooled ability")
+{
+    u16 ability;
+    u32 move;
+    u16 stat;
+
+    PARAMETRIZE { ability = ABILITY_AS_ONE_ICE_RIDER; move = MOVE_TACKLE; stat = STAT_ATK; }
+    PARAMETRIZE { ability = ABILITY_AS_ONE_SHADOW_RIDER; move = MOVE_PSYCHIC; stat = STAT_SPATK; }
+
+    GIVEN {
+        BATTLE_TYPE(BATTLE_TYPE_SHARED_POWER);
+        PLAYER(SPECIES_CALYREX_ICE) { Ability(ability); }
+        PLAYER(SPECIES_WOBBUFFET) { Attack(200); SpAttack(200); }
+        OPPONENT(SPECIES_WOBBUFFET) { HP(1); }
+        OPPONENT(SPECIES_WOBBUFFET);
+        ASSUME(GetMovePower(move) > 0);
+    } WHEN {
+        TURN { SWITCH(player, 1); MOVE(opponent, MOVE_SPLASH); }
+        TURN { MOVE(player, move); MOVE(opponent, MOVE_SPLASH); SEND_OUT(opponent, 1); }
+    } THEN {
+        EXPECT_EQ(player->statStages[stat], DEFAULT_STAT_STAGE + 1);
+    }
+}
+
+SINGLE_BATTLE_TEST("Shared Power: Soul-Heart triggers from pooled ability")
+{
+    GIVEN {
+        BATTLE_TYPE(BATTLE_TYPE_SHARED_POWER);
+        PLAYER(SPECIES_MAGEARNA) { Ability(ABILITY_SOUL_HEART); }
+        PLAYER(SPECIES_WOBBUFFET) { SpAttack(200); }
+        OPPONENT(SPECIES_WOBBUFFET) { HP(1); }
+        OPPONENT(SPECIES_WOBBUFFET);
+        ASSUME(!IsBattleMoveStatus(MOVE_PSYCHIC));
+    } WHEN {
+        TURN { SWITCH(player, 1); MOVE(opponent, MOVE_SPLASH); }
+        TURN { MOVE(player, MOVE_PSYCHIC); MOVE(opponent, MOVE_SPLASH); SEND_OUT(opponent, 1); }
+    } THEN {
+        EXPECT_EQ(player->statStages[STAT_SPATK], DEFAULT_STAT_STAGE + 1);
+    }
+}
+
+SINGLE_BATTLE_TEST("Shared Power: Poison Touch triggers from pooled ability")
+{
+    PASSES_RANDOMLY(3, 10, RNG_POISON_TOUCH);
+    GIVEN {
+        BATTLE_TYPE(BATTLE_TYPE_SHARED_POWER);
+        ASSUME(GetMovePower(MOVE_SCRATCH) > 0);
+        ASSUME(MoveMakesContact(MOVE_SCRATCH));
+        PLAYER(SPECIES_WOBBUFFET) { Ability(ABILITY_POISON_TOUCH); }
+        PLAYER(SPECIES_GRIMER) { Ability(ABILITY_KEEN_EYE); }
+        OPPONENT(SPECIES_WOBBUFFET);
+    } WHEN {
+        TURN { SWITCH(player, 1); }
+        TURN { MOVE(player, MOVE_SCRATCH); }
+    } SCENE {
+        ANIMATION(ANIM_TYPE_MOVE, MOVE_SCRATCH, player);
+        ABILITY_POPUP(player, ABILITY_POISON_TOUCH);
+        ANIMATION(ANIM_TYPE_STATUS, B_ANIM_STATUS_PSN, opponent);
+        MESSAGE("The opposing Wobbuffet was poisoned by Grimer's Poison Touch!");
+        STATUS_ICON(opponent, poison: TRUE);
+    }
+}
+
+SINGLE_BATTLE_TEST("Shared Power: Toxic Chain triggers from pooled ability")
+{
+    PASSES_RANDOMLY(3, 10, RNG_TOXIC_CHAIN);
+    GIVEN {
+        BATTLE_TYPE(BATTLE_TYPE_SHARED_POWER);
+        ASSUME(GetMoveCategory(MOVE_SCRATCH) != DAMAGE_CATEGORY_STATUS);
+        ASSUME(GetMovePower(MOVE_SCRATCH) > 0);
+        PLAYER(SPECIES_WOBBUFFET) { Ability(ABILITY_TOXIC_CHAIN); }
+        PLAYER(SPECIES_OKIDOGI) { Ability(ABILITY_KEEN_EYE); }
+        OPPONENT(SPECIES_WOBBUFFET);
+    } WHEN {
+        TURN { SWITCH(player, 1); }
+        TURN { MOVE(player, MOVE_SCRATCH); }
+    } SCENE {
+        ABILITY_POPUP(player, ABILITY_TOXIC_CHAIN);
+        ANIMATION(ANIM_TYPE_STATUS, B_ANIM_STATUS_PSN, opponent);
+        MESSAGE("The opposing Wobbuffet was badly poisoned!");
+        STATUS_ICON(opponent, badPoison: TRUE);
+    }
+}
+
+SINGLE_BATTLE_TEST("Shared Power: Poison Puppeteer triggers from pooled ability")
+{
+    GIVEN {
+        BATTLE_TYPE(BATTLE_TYPE_SHARED_POWER);
+        ASSUME(MoveHasAdditionalEffect(MOVE_POISON_STING, MOVE_EFFECT_POISON) == TRUE);
+        PLAYER(SPECIES_PECHARUNT) { Ability(ABILITY_POISON_PUPPETEER); }
+        PLAYER(SPECIES_PECHARUNT) { Ability(ABILITY_KEEN_EYE); }
+        OPPONENT(SPECIES_WOBBUFFET);
+    } WHEN {
+        TURN { SWITCH(player, 1); }
+        TURN { MOVE(player, MOVE_POISON_STING); }
+    } SCENE {
+        ANIMATION(ANIM_TYPE_MOVE, MOVE_POISON_STING, player);
+        HP_BAR(opponent);
+        ANIMATION(ANIM_TYPE_STATUS, B_ANIM_STATUS_PSN, opponent);
+        STATUS_ICON(opponent, poison: TRUE);
+        ABILITY_POPUP(player, ABILITY_POISON_PUPPETEER);
+        ANIMATION(ANIM_TYPE_STATUS, B_ANIM_STATUS_CONFUSION, opponent);
+        MESSAGE("The opposing Wobbuffet became confused!");
+    }
+}
+
 //TODO: write checks for AI visibility of abilities, cloud nine functionality, and 

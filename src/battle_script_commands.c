@@ -34,6 +34,7 @@
 #include "task.h"
 #include "naming_screen.h"
 #include "battle_setup.h"
+#include "battle_shared_power.h"
 #include "overworld.h"
 #include "wild_encounter.h"
 #include "rtc.h"
@@ -5551,11 +5552,21 @@ static inline bool32 CanEjectPackTrigger(u32 battlerAtk, u32 battlerDef, enum Ba
     return FALSE;
 }
 
-static bool32 HandleMoveEndAbilityBlock(u32 battlerAtk, u32 battlerDef, u32 move)
+struct MoveEndAbilityBlockCtx
+{
+    u32 battlerAtk;
+    u32 battlerDef;
+    u32 move;
+    bool32 effect;
+};
+
+static struct MoveEndAbilityBlockCtx *sMoveEndAbilityBlockCtx;
+
+static bool32 TryMoveEndAbilityBlockForAbility(u32 battlerAtk, u32 battlerDef, u32 move, u32 abilityAtk)
 {
     bool32 effect = FALSE;
-    u32 abilityAtk = GetBattlerAbility(battlerAtk);
 
+    gLastUsedAbility = abilityAtk;
     switch (abilityAtk)
     {
     case ABILITY_MAGICIAN:
@@ -5668,6 +5679,43 @@ static bool32 HandleMoveEndAbilityBlock(u32 battlerAtk, u32 battlerDef, u32 move
     }
 
     return effect;
+}
+
+static bool32 TryMoveEndAbilityBlockCallback(u16 ability)
+{
+    if (sMoveEndAbilityBlockCtx == NULL)
+        return FALSE;
+
+    if (TryMoveEndAbilityBlockForAbility(sMoveEndAbilityBlockCtx->battlerAtk,
+                                         sMoveEndAbilityBlockCtx->battlerDef,
+                                         sMoveEndAbilityBlockCtx->move,
+                                         ability))
+    {
+        sMoveEndAbilityBlockCtx->effect = TRUE;
+        return TRUE;
+    }
+
+    return FALSE;
+}
+
+static bool32 HandleMoveEndAbilityBlock(u32 battlerAtk, u32 battlerDef, u32 move)
+{
+    if (!SharedPower_IsEnabled())
+        return TryMoveEndAbilityBlockForAbility(battlerAtk, battlerDef, move, GetBattlerAbility(battlerAtk));
+
+    struct MoveEndAbilityBlockCtx ctx =
+    {
+        .battlerAtk = battlerAtk,
+        .battlerDef = battlerDef,
+        .move = move,
+        .effect = FALSE,
+    };
+
+    sMoveEndAbilityBlockCtx = &ctx;
+    ForEachEffectiveAbilityUnique(battlerAtk, TryMoveEndAbilityBlockCallback);
+    sMoveEndAbilityBlockCtx = NULL;
+
+    return ctx.effect;
 }
 
 static bool32 HandleMoveEndMoveBlock(u32 moveEffect)
@@ -17301,11 +17349,12 @@ void BS_TryActivateSoulheart(void)
     while (gBattleStruct->soulheartBattlerId < gBattlersCount)
     {
         gBattleScripting.battler = gBattleStruct->soulheartBattlerId++;
-        if (GetBattlerAbility(gBattleScripting.battler) == ABILITY_SOUL_HEART
+        if (HasActiveAbility(gBattleScripting.battler, ABILITY_SOUL_HEART)
             && IsBattlerAlive(gBattleScripting.battler)
             && !NoAliveMonsForEitherParty()
             && CompareStat(gBattleScripting.battler, STAT_SPATK, MAX_STAT_STAGE, CMP_LESS_THAN))
         {
+            gLastUsedAbility = ABILITY_SOUL_HEART;
             SET_STATCHANGER(STAT_SPATK, 1, FALSE);
             PREPARE_STAT_BUFFER(gBattleTextBuff1, STAT_SPATK);
             BattleScriptCall(BattleScript_ScriptingAbilityStatRaise);
