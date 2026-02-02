@@ -1,5 +1,6 @@
 # Patch Notes
 
+- Shared Power/AI: Pool move blocking, absorption, and priority checks (commit 489b89fad2).
 - Tests/Battle: Add Shared Power off-path smoke checks (commit d1571d10f8).
 - Shared Power/AI: Teach AI to respect pooled status immunities (commit ab29e887ff).
 - Shared Power: Add pooled end-turn handling and tests (commit a1263835b2).
