@@ -52,3 +52,4 @@ Format: `- Area: short description (commit <short-hash>)`
 - Battle: Refactor shared power damage helpers and switch-in ordering (commit 4801c865fa).
 - Battle: Add shared power stat reaction coverage (commit cd7960fe18).
 - Tests: Add shared power flinch/stat interaction coverage (commit 7a5851a102).
+- Battle: Centralize stat-drop reactions and guard shared power pool seeding (commit f5c8ce0775).
