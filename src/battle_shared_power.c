@@ -101,6 +101,9 @@ static bool32 SharedPower_IsBattlerEligibleForPool(u32 battler)
 
 static void SharedPower_SeedPoolsForActiveBattlers(void)
 {
+    if (gBattleStruct->sharedPowerPoolSeeded)
+        return;
+
     for (u32 battler = 0; battler < gBattlersCount; battler++)
     {
         if (!SharedPower_IsBattlerEligibleForPool(battler))
@@ -110,6 +113,8 @@ static void SharedPower_SeedPoolsForActiveBattlers(void)
                               gBattleMons[battler].ability,
                               gBattlerPartyIndexes[battler]);
     }
+
+    gBattleStruct->sharedPowerPoolSeeded = TRUE;
 }
 
 static bool32 SharedPower_CanBreakThroughAbility(u32 battlerAtk, u32 battlerDef, u32 attackerAbility, u32 targetAbility, bool32 hasAbilityShield, bool32 ignoreMoldBreaker)
@@ -209,6 +214,7 @@ void SharedPower_ClearBattleState(void)
     memset(gBattleStruct->sharedPowerPopupActive, 0, sizeof(gBattleStruct->sharedPowerPopupActive));
     memset(gBattleStruct->sharedPowerPopupOriginalAbility, 0, sizeof(gBattleStruct->sharedPowerPopupOriginalAbility));
     memset(gBattleStruct->sharedPowerPopupOverrideActive, 0, sizeof(gBattleStruct->sharedPowerPopupOverrideActive));
+    gBattleStruct->sharedPowerPoolSeeded = FALSE;
     for (u32 battler = 0; battler < MAX_BATTLERS_COUNT; battler++)
         gBattleStruct->sharedPowerPopupOriginalPartyIndex[battler] = PARTY_SIZE;
 }

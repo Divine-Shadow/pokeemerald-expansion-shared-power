@@ -797,6 +797,7 @@ struct BattleStruct
     u16 sharedPowerPopupOriginalAbility[MAX_BATTLERS_COUNT];
     u8 sharedPowerPopupOriginalPartyIndex[MAX_BATTLERS_COUNT];
     bool8 sharedPowerPopupOverrideActive[MAX_BATTLERS_COUNT];
+    bool8 sharedPowerPoolSeeded;
 };
 
 struct AiBattleData
