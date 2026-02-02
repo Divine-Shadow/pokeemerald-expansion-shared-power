@@ -230,12 +230,12 @@ SINGLE_BATTLE_TEST("Shared Power: Passive ability duplicates don't apply", s16 d
         TURN { SWITCH(player, 1); }
         TURN { MOVE(opponent, MOVE_WATER_GUN); }
     } SCENE {
-        MESSAGE("Zigzagoon used Water Gun!");
+        MESSAGE("The opposing Wobbuffet used Water Gun!");
         ANIMATION(ANIM_TYPE_MOVE, MOVE_WATER_GUN, opponent);
         HP_BAR(player, captureDamage: &results[i].damage);
     } FINALLY {
-        // The jump from 1.5x STAB to 2.0x STAB is a 1.33x boost.
-        EXPECT_MUL_EQ(results[0].damage, Q_4_12(1.33), results[1].damage);
+        // Rain boosts Water moves by 1.5x.
+        EXPECT_MUL_EQ(results[0].damage, Q_4_12(1.5), results[1].damage);
     }
 }
 

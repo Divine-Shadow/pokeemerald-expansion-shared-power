@@ -10155,25 +10155,27 @@ static u32 ChangeStatBuffs(u32 battler, s8 statValue, u32 statId, union StatChan
 {
     u32 index, battlerAbility;
     enum ItemHoldEffect battlerHoldEffect;
+    bool32 hasContrary = HasActiveAbility(battler, ABILITY_CONTRARY);
+    bool32 hasSimple = HasActiveAbility(battler, ABILITY_SIMPLE);
     battlerAbility = GetBattlerAbility(battler);
     battlerHoldEffect = GetBattlerHoldEffect(battler, TRUE);
     gSpecialStatuses[battler].changedStatsBattlerId = gBattlerAttacker;
 
-    if (battlerAbility == ABILITY_CONTRARY)
+    if (hasContrary)
     {
         statValue ^= STAT_BUFF_NEGATIVE;
         if (!flags.onlyChecking)
         {
             gBattleScripting.statChanger ^= STAT_BUFF_NEGATIVE;
-            RecordAbilityBattle(battler, battlerAbility);
+            RecordAbilityBattle(battler, ABILITY_CONTRARY);
             if (flags.updateMoveEffect)
                 gBattleScripting.moveEffect = ReverseStatChangeMoveEffect(gBattleScripting.moveEffect);
         }
     }
-    else if (battlerAbility == ABILITY_SIMPLE && !flags.onlyChecking)
+    else if (hasSimple && !flags.onlyChecking)
     {
         statValue = (SET_STAT_BUFF_VALUE(GET_STAT_BUFF_VALUE(statValue) * 2)) | ((statValue <= -1) ? STAT_BUFF_NEGATIVE : 0);
-        RecordAbilityBattle(battler, battlerAbility);
+        RecordAbilityBattle(battler, ABILITY_SIMPLE);
     }
 
     PREPARE_STAT_BUFFER(gBattleTextBuff1, statId);

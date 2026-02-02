@@ -8280,6 +8280,19 @@ struct BasePowerAbilityCtx
 
 static struct BasePowerAbilityCtx *sBasePowerAbilityCtx;
 
+static void ForEachEffectiveAbilityUniqueWithCtx(u32 battler, void *ctx, void **ctxSlot, bool32 (*cb)(u16 ability))
+{
+    *ctxSlot = ctx;
+    ForEachEffectiveAbilityUnique(battler, cb);
+    *ctxSlot = NULL;
+}
+
+static void RecordAbilityIfNeeded(struct DamageContext *ctx, u32 battler, u16 ability)
+{
+    if (ctx->updateFlags)
+        RecordAbilityBattle(battler, ability);
+}
+
 static bool32 ApplyAttackerBasePowerAbility(u16 ability)
 {
     struct BasePowerAbilityCtx *ctx = sBasePowerAbilityCtx;
@@ -8396,8 +8409,7 @@ static bool32 ApplyDefenderBasePowerAbility(u16 ability)
         if (ctx->moveType == TYPE_FIRE)
         {
             *ctx->modifier = uq4_12_multiply(*ctx->modifier, UQ_4_12(0.5));
-            if (ctx->ctx->updateFlags)
-                RecordAbilityBattle(ctx->battlerDef, ability);
+            RecordAbilityIfNeeded(ctx->ctx, ctx->battlerDef, ability);
         }
         break;
     case ABILITY_DRY_SKIN:
@@ -8513,9 +8525,7 @@ static inline u32 CalcMoveBasePowerAfterModifiers(struct DamageContext *ctx)
             .moveType = moveType,
             .moveEffect = moveEffect,
         };
-        sBasePowerAbilityCtx = &abilityCtx;
-        ForEachEffectiveAbilityUnique(battlerAtk, ApplyAttackerBasePowerAbility);
-        sBasePowerAbilityCtx = NULL;
+        ForEachEffectiveAbilityUniqueWithCtx(battlerAtk, &abilityCtx, (void **)&sBasePowerAbilityCtx, ApplyAttackerBasePowerAbility);
     }
 
     // field abilities
@@ -8559,9 +8569,7 @@ static inline u32 CalcMoveBasePowerAfterModifiers(struct DamageContext *ctx)
             .moveType = moveType,
             .moveEffect = moveEffect,
         };
-        sBasePowerAbilityCtx = &abilityCtx;
-        ForEachEffectiveAbilityUnique(battlerDef, ApplyDefenderBasePowerAbility);
-        sBasePowerAbilityCtx = NULL;
+        ForEachEffectiveAbilityUniqueWithCtx(battlerDef, &abilityCtx, (void **)&sBasePowerAbilityCtx, ApplyDefenderBasePowerAbility);
     }
 
     holdEffectParamAtk = GetBattlerHoldEffectParam(battlerAtk);
@@ -8791,16 +8799,14 @@ static bool32 ApplyDefenderAttackStatAbility(u16 ability)
         if (ctx->moveType == TYPE_FIRE || ctx->moveType == TYPE_ICE)
         {
             *ctx->modifier = uq4_12_multiply_half_down(*ctx->modifier, UQ_4_12(0.5));
-            if (ctx->ctx->updateFlags)
-                RecordAbilityBattle(ctx->battlerDef, ABILITY_THICK_FAT);
+            RecordAbilityIfNeeded(ctx->ctx, ctx->battlerDef, ABILITY_THICK_FAT);
         }
         break;
     case ABILITY_PURIFYING_SALT:
         if (ctx->moveType == TYPE_GHOST)
         {
             *ctx->modifier = uq4_12_multiply_half_down(*ctx->modifier, UQ_4_12(0.5));
-            if (ctx->ctx->updateFlags)
-                RecordAbilityBattle(ctx->battlerDef, ABILITY_PURIFYING_SALT);
+            RecordAbilityIfNeeded(ctx->ctx, ctx->battlerDef, ABILITY_PURIFYING_SALT);
         }
         break;
     }
@@ -8889,9 +8895,7 @@ static inline u32 CalcAttackStat(struct DamageContext *ctx)
             .move = move,
             .moveType = moveType,
         };
-        sAttackStatAbilityCtx = &abilityCtx;
-        ForEachEffectiveAbilityUnique(battlerAtk, ApplyAttackerAttackStatAbility);
-        sAttackStatAbilityCtx = NULL;
+        ForEachEffectiveAbilityUniqueWithCtx(battlerAtk, &abilityCtx, (void **)&sAttackStatAbilityCtx, ApplyAttackerAttackStatAbility);
     }
 
     // target's abilities
@@ -8904,9 +8908,7 @@ static inline u32 CalcAttackStat(struct DamageContext *ctx)
             .move = move,
             .moveType = moveType,
         };
-        sAttackStatAbilityCtx = &abilityCtx;
-        ForEachEffectiveAbilityUnique(battlerDef, ApplyDefenderAttackStatAbility);
-        sAttackStatAbilityCtx = NULL;
+        ForEachEffectiveAbilityUniqueWithCtx(battlerDef, &abilityCtx, (void **)&sAttackStatAbilityCtx, ApplyDefenderAttackStatAbility);
     }
 
     // ally's abilities
@@ -9001,24 +9003,21 @@ static bool32 ApplyDefenderDefenseStatAbility(u16 ability)
         if (gBattleMons[ctx->battlerDef].status1 & STATUS1_ANY && ctx->usesDefStat)
         {
             *ctx->modifier = uq4_12_multiply_half_down(*ctx->modifier, UQ_4_12(1.5));
-            if (ctx->ctx->updateFlags)
-                RecordAbilityBattle(ctx->battlerDef, ABILITY_MARVEL_SCALE);
+            RecordAbilityIfNeeded(ctx->ctx, ctx->battlerDef, ABILITY_MARVEL_SCALE);
         }
         break;
     case ABILITY_FUR_COAT:
         if (ctx->usesDefStat)
         {
             *ctx->modifier = uq4_12_multiply_half_down(*ctx->modifier, UQ_4_12(2.0));
-            if (ctx->ctx->updateFlags)
-                RecordAbilityBattle(ctx->battlerDef, ABILITY_FUR_COAT);
+            RecordAbilityIfNeeded(ctx->ctx, ctx->battlerDef, ABILITY_FUR_COAT);
         }
         break;
     case ABILITY_GRASS_PELT:
         if (gFieldStatuses & STATUS_FIELD_GRASSY_TERRAIN && ctx->usesDefStat)
         {
             *ctx->modifier = uq4_12_multiply_half_down(*ctx->modifier, UQ_4_12(1.5));
-            if (ctx->ctx->updateFlags)
-                RecordAbilityBattle(ctx->battlerDef, ABILITY_GRASS_PELT);
+            RecordAbilityIfNeeded(ctx->ctx, ctx->battlerDef, ABILITY_GRASS_PELT);
         }
         break;
     case ABILITY_FLOWER_GIFT:
@@ -9102,9 +9101,7 @@ static inline u32 CalcDefenseStat(struct DamageContext *ctx)
             .move = move,
             .usesDefStat = usesDefStat,
         };
-        sDefenseStatAbilityCtx = &abilityCtx;
-        ForEachEffectiveAbilityUnique(battlerDef, ApplyDefenderDefenseStatAbility);
-        sDefenseStatAbilityCtx = NULL;
+        ForEachEffectiveAbilityUniqueWithCtx(battlerDef, &abilityCtx, (void **)&sDefenseStatAbilityCtx, ApplyDefenderDefenseStatAbility);
     }
 
     // ally's abilities
@@ -9312,8 +9309,7 @@ static inline uq4_12_t GetScreensModifier(struct DamageContext *ctx)
     }
     if (HasActiveAbility(ctx->battlerAtk, ABILITY_INFILTRATOR))
     {
-        if (ctx->updateFlags)
-            RecordAbilityBattle(ctx->battlerAtk, ABILITY_INFILTRATOR);
+        RecordAbilityIfNeeded(ctx, ctx->battlerAtk, ABILITY_INFILTRATOR);
         return UQ_4_12(1.0);
     }
     if (reflect || lightScreen || auroraVeil)
@@ -9370,9 +9366,7 @@ static inline uq4_12_t GetAttackerAbilitiesModifier(struct DamageContext *ctx)
         .modifier = &modifier,
     };
 
-    sAttackerDamageAbilityCtx = &abilityCtx;
-    ForEachEffectiveAbilityUnique(ctx->battlerAtk, ApplyAttackerDamageAbility);
-    sAttackerDamageAbilityCtx = NULL;
+    ForEachEffectiveAbilityUniqueWithCtx(ctx->battlerAtk, &abilityCtx, (void **)&sAttackerDamageAbilityCtx, ApplyAttackerDamageAbility);
 
     return modifier;
 }
@@ -9439,8 +9433,8 @@ static bool32 ApplyDefenderDamageAbility(u16 ability)
         break;
     }
 
-    if (recordAbility && dmgCtx->updateFlags)
-        RecordAbilityBattle(dmgCtx->battlerDef, ability);
+    if (recordAbility)
+        RecordAbilityIfNeeded(dmgCtx, dmgCtx->battlerDef, ability);
 
     *ctx->modifier = uq4_12_multiply(*ctx->modifier, modifier);
     return FALSE;
@@ -9454,9 +9448,7 @@ static inline uq4_12_t GetDefenderAbilitiesModifier(struct DamageContext *ctx)
         .modifier = &modifier,
     };
 
-    sDefenderDamageAbilityCtx = &abilityCtx;
-    ForEachEffectiveAbilityUnique(ctx->battlerDef, ApplyDefenderDamageAbility);
-    sDefenderDamageAbilityCtx = NULL;
+    ForEachEffectiveAbilityUniqueWithCtx(ctx->battlerDef, &abilityCtx, (void **)&sDefenderDamageAbilityCtx, ApplyDefenderDamageAbility);
 
     return modifier;
 }
@@ -10916,7 +10908,7 @@ bool32 CompareStat(u32 battler, u8 statId, u8 cmpTo, u8 cmpKind)
 
     // Because this command is used as a way of checking if a stat can be lowered/raised,
     // we need to do some modification at run-time.
-    if (GetBattlerAbility(battler) == ABILITY_CONTRARY)
+    if (HasActiveAbility(battler, ABILITY_CONTRARY))
     {
         if (cmpKind == CMP_GREATER_THAN)
             cmpKind = CMP_LESS_THAN;
@@ -10962,7 +10954,7 @@ bool32 CompareStat(u32 battler, u8 statId, u8 cmpTo, u8 cmpKind)
 
 void BufferStatChange(u32 battler, u8 statId, enum StringID stringId)
 {
-    bool32 hasContrary = (GetBattlerAbility(battler) == ABILITY_CONTRARY);
+    bool32 hasContrary = HasActiveAbility(battler, ABILITY_CONTRARY);
 
     PREPARE_STAT_BUFFER(gBattleTextBuff1, statId);
     if (stringId == STRINGID_STATFELL)

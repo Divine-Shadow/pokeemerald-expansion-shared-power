@@ -80,6 +80,20 @@ static u16 SharedPower_DecodePoolAllAbility(u16 entry)
     return entry & SHARED_POWER_POOL_ABILITY_MASK;
 }
 
+static bool32 SharedPower_IsPoolAllEntryPresent(u8 trainerIdx, u16 ability, u8 sourcePartyIndex)
+{
+    u16 count = gBattleStruct->sharedPowerPoolAllCount[trainerIdx];
+    u16 entry = SharedPower_EncodePoolAllEntry(ability, sourcePartyIndex);
+
+    for (u16 index = 0; index < count; index++)
+    {
+        if (gBattleStruct->sharedPowerPoolAllOrder[trainerIdx][index] == entry)
+            return TRUE;
+    }
+
+    return FALSE;
+}
+
 static bool32 SharedPower_IsBattlerEligibleForPool(u32 battler)
 {
     return gBattleMons[battler].hp != 0 && gBattleMons[battler].species != SPECIES_NONE;
@@ -130,12 +144,15 @@ struct SharedPowerPoolAddResult SharedPower_AddToPool(u8 trainerIdx, u16 ability
     if (ability == ABILITY_NONE || ability >= ABILITIES_COUNT)
         return result;
 
-    allCount = gBattleStruct->sharedPowerPoolAllCount[trainerIdx];
-    if (allCount < SHARED_POWER_POOL_MAX)
+    if (!SharedPower_IsPoolAllEntryPresent(trainerIdx, ability, sourcePartyIndex))
     {
-        gBattleStruct->sharedPowerPoolAllOrder[trainerIdx][allCount] = SharedPower_EncodePoolAllEntry(ability, sourcePartyIndex);
-        gBattleStruct->sharedPowerPoolAllCount[trainerIdx] = allCount + 1;
-        result.addedAll = TRUE;
+        allCount = gBattleStruct->sharedPowerPoolAllCount[trainerIdx];
+        if (allCount < SHARED_POWER_POOL_MAX)
+        {
+            gBattleStruct->sharedPowerPoolAllOrder[trainerIdx][allCount] = SharedPower_EncodePoolAllEntry(ability, sourcePartyIndex);
+            gBattleStruct->sharedPowerPoolAllCount[trainerIdx] = allCount + 1;
+            result.addedAll = TRUE;
+        }
     }
 
     if (SharedPower_IsAbilityInPool(trainerIdx, ability))
@@ -339,9 +356,12 @@ static void SharedPower_BuildSwitchInQueue(u32 battler)
     u8 seenAbilities[SHARED_POWER_POOL_BYTES];
 
     memset(seenAbilities, 0, sizeof(seenAbilities));
-    if (SharedPower_IsBattlerEligibleForPool(battler))
+    for (u32 poolBattler = 0; poolBattler < gBattlersCount; poolBattler++)
     {
-        SharedPower_AddToPool(trainerIdx, gBattleMons[battler].ability, gBattlerPartyIndexes[battler]);
+        if (SharedPower_GetTrainerIndex(poolBattler) != trainerIdx)
+            continue;
+        if (SharedPower_IsBattlerEligibleForPool(poolBattler))
+            SharedPower_AddToPool(trainerIdx, gBattleMons[poolBattler].ability, gBattlerPartyIndexes[poolBattler]);
     }
 
     poolCount = gBattleStruct->sharedPowerPoolAllCount[trainerIdx];
@@ -410,6 +430,8 @@ bool32 SharedPower_TrySwitchInAbilities(u32 battler)
         {
             SharedPower_SetSwitchInAbilityDone(battler, ability);
             gSpecialStatuses[battler].switchInAbilityDone = prevSwitchInDone;
+            if (index < count && gBattleStruct->switchInBattlerCounter > 0)
+                gBattleStruct->switchInBattlerCounter--;
             return TRUE;
         }
         SharedPower_PopAbilityOverride(battler);
