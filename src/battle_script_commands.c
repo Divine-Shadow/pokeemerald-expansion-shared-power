@@ -16556,15 +16556,26 @@ void BS_JumpIfIntimidateAbilityPrevented(void)
     NATIVE_ARGS();
 
     u32 hasAbility = FALSE;
-    u32 ability = GetBattlerAbility(gBattlerTarget);
+    u32 ability = ABILITY_NONE;
 
-    switch (ability)
+    if (HasActiveAbility(gBattlerTarget, ABILITY_GUARD_DOG))
     {
-    case ABILITY_INNER_FOCUS:
-    case ABILITY_SCRAPPY:
-    case ABILITY_OWN_TEMPO:
-    case ABILITY_OBLIVIOUS:
-        if (B_UPDATED_INTIMIDATE >= GEN_8)
+        hasAbility = TRUE;
+        ability = ABILITY_GUARD_DOG;
+        gBattlescriptCurrInstr = BattleScript_IntimidateInReverse;
+    }
+    else if (B_UPDATED_INTIMIDATE >= GEN_8)
+    {
+        if (HasActiveAbility(gBattlerTarget, ABILITY_INNER_FOCUS))
+            ability = ABILITY_INNER_FOCUS;
+        else if (HasActiveAbility(gBattlerTarget, ABILITY_SCRAPPY))
+            ability = ABILITY_SCRAPPY;
+        else if (HasActiveAbility(gBattlerTarget, ABILITY_OWN_TEMPO))
+            ability = ABILITY_OWN_TEMPO;
+        else if (HasActiveAbility(gBattlerTarget, ABILITY_OBLIVIOUS))
+            ability = ABILITY_OBLIVIOUS;
+
+        if (ability != ABILITY_NONE)
         {
             hasAbility = TRUE;
             gBattlescriptCurrInstr = BattleScript_IntimidatePrevented;
@@ -16573,14 +16584,10 @@ void BS_JumpIfIntimidateAbilityPrevented(void)
         {
             gBattlescriptCurrInstr = cmd->nextInstr;
         }
-        break;
-    case ABILITY_GUARD_DOG:
-        hasAbility = TRUE;
-        gBattlescriptCurrInstr = BattleScript_IntimidateInReverse;
-        break;
-    default:
+    }
+    else
+    {
         gBattlescriptCurrInstr = cmd->nextInstr;
-        break;
     }
 
     if (hasAbility)

@@ -93,10 +93,12 @@ Goal: make passive and damage modifiers read the effective ability set.
 Implementation
 - Route damage calc and continuous modifiers through `ForEachEffectiveAbility`.
 - Update consolidated helpers in `src/battle_util.c`.
+- Stat-change reactions (e.g. Defiant/Competitive/Inner Focus) should respect pooled abilities.
 
 Suggested tests
 - Adaptability/Technician/Tough Claws apply when pooled.
 - Duplicates don’t stack beyond existing rules.
+- Defiant/Competitive/Inner Focus interact correctly with pooled Intimidate.
 
 Validation
 - Damage ratios match expectations with pooled abilities on.

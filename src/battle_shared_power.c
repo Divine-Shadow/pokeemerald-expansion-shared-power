@@ -99,6 +99,19 @@ static bool32 SharedPower_IsBattlerEligibleForPool(u32 battler)
     return gBattleMons[battler].hp != 0 && gBattleMons[battler].species != SPECIES_NONE;
 }
 
+static void SharedPower_SeedPoolsForActiveBattlers(void)
+{
+    for (u32 battler = 0; battler < gBattlersCount; battler++)
+    {
+        if (!SharedPower_IsBattlerEligibleForPool(battler))
+            continue;
+
+        SharedPower_AddToPool(SharedPower_GetTrainerIndex(battler),
+                              gBattleMons[battler].ability,
+                              gBattlerPartyIndexes[battler]);
+    }
+}
+
 static bool32 SharedPower_CanBreakThroughAbility(u32 battlerAtk, u32 battlerDef, u32 attackerAbility, u32 targetAbility, bool32 hasAbilityShield, bool32 ignoreMoldBreaker)
 {
     if (hasAbilityShield || ignoreMoldBreaker)
@@ -399,6 +412,7 @@ bool32 SharedPower_TrySwitchInAbilities(u32 battler)
     if (!SharedPower_IsEnabled())
         return AbilityBattleEffects(ABILITYEFFECT_ON_SWITCHIN, battler, 0, 0, 0);
 
+    SharedPower_SeedPoolsForActiveBattlers();
     SharedPower_RestoreOriginalAbility(battler);
     if (!gBattleStruct->sharedPowerSwitchInQueued[battler])
         SharedPower_BuildSwitchInQueue(battler);

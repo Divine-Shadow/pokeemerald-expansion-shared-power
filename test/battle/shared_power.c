@@ -65,6 +65,52 @@ SINGLE_BATTLE_TEST("Shared Power: Active ability only triggers once with two cop
     }
 }
 
+SINGLE_BATTLE_TEST("Shared Power: Defiant reacts to pooled Intimidate")
+{
+    GIVEN {
+        BATTLE_TYPE(BATTLE_TYPE_SHARED_POWER);
+        PLAYER(SPECIES_BRAVIARY) { Ability(ABILITY_DEFIANT); Speed(10); }
+        PLAYER(SPECIES_WOBBUFFET) { Speed(7); }
+        OPPONENT(SPECIES_WOBBUFFET) { Speed(5); }
+        OPPONENT(SPECIES_ARBOK) { Ability(ABILITY_INTIMIDATE); Speed(3); }
+    } WHEN {
+        TURN { SWITCH(player, 1); SWITCH(opponent, 1); }
+    } THEN {
+        EXPECT_EQ(player->statStages[STAT_ATK], DEFAULT_STAT_STAGE + 1);
+    }
+}
+
+SINGLE_BATTLE_TEST("Shared Power: Competitive reacts to pooled Intimidate")
+{
+    GIVEN {
+        BATTLE_TYPE(BATTLE_TYPE_SHARED_POWER);
+        PLAYER(SPECIES_MILOTIC) { Ability(ABILITY_COMPETITIVE); Speed(10); }
+        PLAYER(SPECIES_WOBBUFFET) { Speed(7); }
+        OPPONENT(SPECIES_WOBBUFFET) { Speed(5); }
+        OPPONENT(SPECIES_ARBOK) { Ability(ABILITY_INTIMIDATE); Speed(3); }
+    } WHEN {
+        TURN { SWITCH(player, 1); SWITCH(opponent, 1); }
+    } THEN {
+        EXPECT_EQ(player->statStages[STAT_ATK], DEFAULT_STAT_STAGE - 1);
+        EXPECT_EQ(player->statStages[STAT_SPATK], DEFAULT_STAT_STAGE + 2);
+    }
+}
+
+SINGLE_BATTLE_TEST("Shared Power: Inner Focus prevents pooled Intimidate")
+{
+    GIVEN {
+        BATTLE_TYPE(BATTLE_TYPE_SHARED_POWER);
+        PLAYER(SPECIES_ZUBAT) { Ability(ABILITY_INNER_FOCUS); Speed(10); }
+        PLAYER(SPECIES_WOBBUFFET) { Speed(7); }
+        OPPONENT(SPECIES_WOBBUFFET) { Speed(5); }
+        OPPONENT(SPECIES_ARBOK) { Ability(ABILITY_INTIMIDATE); Speed(3); }
+    } WHEN {
+        TURN { SWITCH(player, 1); SWITCH(opponent, 1); }
+    } THEN {
+        EXPECT_EQ(player->statStages[STAT_ATK], DEFAULT_STAT_STAGE);
+    }
+}
+
 //test that a passive ability is shared
 SINGLE_BATTLE_TEST("Shared Power: Adapatability is fully shared with a switched in pokemon", s16 damage){
 	u32 ability;

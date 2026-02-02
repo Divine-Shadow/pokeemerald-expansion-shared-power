@@ -1176,8 +1176,10 @@ bool32 ShouldDefiantCompetitiveActivate(u32 battler, u32 ability)
 
 void PrepareStringBattle(enum StringID stringId, u32 battler)
 {
-    u16 battlerAbility = GetBattlerAbility(battler);
     u16 targetAbility = GetBattlerAbility(gBattlerTarget);
+    bool32 hasContrary = HasActiveAbility(battler, ABILITY_CONTRARY);
+    bool32 hasDefiant = HasActiveAbility(gBattlerTarget, ABILITY_DEFIANT);
+    bool32 hasCompetitive = HasActiveAbility(gBattlerTarget, ABILITY_COMPETITIVE);
     // Support for Contrary ability.
     // If a move attempted to raise stat - print "won't increase".
     // If a move attempted to lower stat - print "won't decrease".
@@ -1186,21 +1188,26 @@ void PrepareStringBattle(enum StringID stringId, u32 battler)
     else if (stringId == STRINGID_STATSWONTINCREASE && gBattleScripting.statChanger & STAT_BUFF_NEGATIVE)
         stringId = STRINGID_STATSWONTDECREASE;
 
-    else if (stringId == STRINGID_STATSWONTDECREASE2 && battlerAbility == ABILITY_CONTRARY)
+    else if (stringId == STRINGID_STATSWONTDECREASE2 && hasContrary)
         stringId = STRINGID_STATSWONTINCREASE2;
-    else if (stringId == STRINGID_STATSWONTINCREASE2 && battlerAbility == ABILITY_CONTRARY)
+    else if (stringId == STRINGID_STATSWONTINCREASE2 && hasContrary)
         stringId = STRINGID_STATSWONTDECREASE2;
 
     // Check Defiant and Competitive stat raise whenever a stat is lowered.
     else if ((stringId == STRINGID_DEFENDERSSTATFELL || stringId == STRINGID_PKMNCUTSATTACKWITH)
-              && ShouldDefiantCompetitiveActivate(gBattlerTarget, targetAbility))
+              && (hasDefiant || hasCompetitive))
     {
-        gBattlerAbility = gBattlerTarget;
-        BattleScriptCall(BattleScript_AbilityRaisesDefenderStat);
-        if (targetAbility == ABILITY_DEFIANT)
-            SET_STATCHANGER(STAT_ATK, 2, FALSE);
-        else
-            SET_STATCHANGER(STAT_SPATK, 2, FALSE);
+        u16 ability = hasDefiant ? ABILITY_DEFIANT : ABILITY_COMPETITIVE;
+        if (ShouldDefiantCompetitiveActivate(gBattlerTarget, ability))
+        {
+            gBattlerAbility = gBattlerTarget;
+            gLastUsedAbility = ability;
+            BattleScriptCall(BattleScript_AbilityRaisesDefenderStat);
+            if (ability == ABILITY_DEFIANT)
+                SET_STATCHANGER(STAT_ATK, 2, FALSE);
+            else
+                SET_STATCHANGER(STAT_SPATK, 2, FALSE);
+        }
     }
     else if (B_UPDATED_INTIMIDATE >= GEN_8 && stringId == STRINGID_PKMNCUTSATTACKWITH && targetAbility == ABILITY_RATTLED
             && CompareStat(gBattlerTarget, STAT_SPEED, MAX_STAT_STAGE, CMP_LESS_THAN))
