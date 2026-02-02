@@ -1,5 +1,6 @@
 # Patch Notes
 
+- Tests/Battle: Add Shared Power Phase 4 coverage (commit f74c176eeb)
 - Shared Power: Implement pooled move-end ability iteration (commit 8af5c80cf4)
 - Shared Power: Refine switch-in helpers and ability iteration APIs (commit 809b3a3973)
 - Shared Power: Dedup switch-in abilities per event (commit 3fa00841ff)
