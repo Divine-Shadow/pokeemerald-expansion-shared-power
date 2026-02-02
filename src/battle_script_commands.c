@@ -16551,51 +16551,45 @@ void BS_SetSteelsurge(void)
     }
 }
 
-void BS_JumpIfIntimidateAbilityPrevented(void)
+static bool32 TryHandleIntimidatePrevention(u32 battler)
 {
-    NATIVE_ARGS();
-
-    u32 hasAbility = FALSE;
     u32 ability = ABILITY_NONE;
 
-    if (HasActiveAbility(gBattlerTarget, ABILITY_GUARD_DOG))
+    if (HasActiveAbility(battler, ABILITY_GUARD_DOG))
     {
-        hasAbility = TRUE;
         ability = ABILITY_GUARD_DOG;
         gBattlescriptCurrInstr = BattleScript_IntimidateInReverse;
     }
     else if (B_UPDATED_INTIMIDATE >= GEN_8)
     {
-        if (HasActiveAbility(gBattlerTarget, ABILITY_INNER_FOCUS))
+        if (HasActiveAbility(battler, ABILITY_INNER_FOCUS))
             ability = ABILITY_INNER_FOCUS;
-        else if (HasActiveAbility(gBattlerTarget, ABILITY_SCRAPPY))
+        else if (HasActiveAbility(battler, ABILITY_SCRAPPY))
             ability = ABILITY_SCRAPPY;
-        else if (HasActiveAbility(gBattlerTarget, ABILITY_OWN_TEMPO))
+        else if (HasActiveAbility(battler, ABILITY_OWN_TEMPO))
             ability = ABILITY_OWN_TEMPO;
-        else if (HasActiveAbility(gBattlerTarget, ABILITY_OBLIVIOUS))
+        else if (HasActiveAbility(battler, ABILITY_OBLIVIOUS))
             ability = ABILITY_OBLIVIOUS;
 
         if (ability != ABILITY_NONE)
-        {
-            hasAbility = TRUE;
             gBattlescriptCurrInstr = BattleScript_IntimidatePrevented;
-        }
-        else
-        {
-            gBattlescriptCurrInstr = cmd->nextInstr;
-        }
-    }
-    else
-    {
-        gBattlescriptCurrInstr = cmd->nextInstr;
     }
 
-    if (hasAbility)
-    {
-        gLastUsedAbility = ability;
-        gBattlerAbility = gBattlerTarget;
-        RecordAbilityBattle(gBattlerTarget, gLastUsedAbility);
-    }
+    if (ability == ABILITY_NONE)
+        return FALSE;
+
+    gLastUsedAbility = ability;
+    gBattlerAbility = battler;
+    RecordAbilityBattle(battler, gLastUsedAbility);
+    return TRUE;
+}
+
+void BS_JumpIfIntimidateAbilityPrevented(void)
+{
+    NATIVE_ARGS();
+
+    if (!TryHandleIntimidatePrevention(gBattlerTarget))
+        gBattlescriptCurrInstr = cmd->nextInstr;
 }
 
 void BS_JumpIfCanGigantamax(void)
