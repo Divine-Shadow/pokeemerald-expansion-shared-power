@@ -1,5 +1,6 @@
 # Patch Notes
 
+- Shared Power: Add pooled end-turn handling and tests (commit a1263835b2).
 - Tests/Battle: Add pooled on-hit Shared Power coverage (commit dadd2e433c)
 - Tests/Battle: Add Shared Power Phase 4 coverage (commit f74c176eeb)
 - Shared Power: Implement pooled move-end ability iteration (commit 8af5c80cf4)
