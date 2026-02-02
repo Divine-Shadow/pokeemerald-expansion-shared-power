@@ -48,3 +48,4 @@ Format: `- Area: short description (commit <short-hash>)`
 
 - Docs: add graphics asset guidelines (commit 39bfd2d2).
 - Gameplay: Strength is now a Rock-type move (commit c78da96b3a).
+- Battle: Route shared power damage modifiers through pooled abilities (commit f8e5436834).
