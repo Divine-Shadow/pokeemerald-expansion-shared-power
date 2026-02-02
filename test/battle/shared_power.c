@@ -629,4 +629,59 @@ SINGLE_BATTLE_TEST("Shared Power: Effect Spore triggers from pooled ability")
     }
 }
 
+SINGLE_BATTLE_TEST("Shared Power: Rain Dish heals from pooled ability")
+{
+    GIVEN {
+        BATTLE_TYPE(BATTLE_TYPE_SHARED_POWER);
+        ASSUME(GetMoveEffect(MOVE_RAIN_DANCE) == EFFECT_RAIN_DANCE);
+        PLAYER(SPECIES_LUDICOLO) { Ability(ABILITY_RAIN_DISH); }
+        PLAYER(SPECIES_WOBBUFFET) { HP(1); MaxHP(100); }
+        OPPONENT(SPECIES_WOBBUFFET);
+    } WHEN {
+        TURN { SWITCH(player, 1); MOVE(opponent, MOVE_SPLASH); }
+        TURN { MOVE(player, MOVE_SPLASH); MOVE(opponent, MOVE_RAIN_DANCE); }
+    } SCENE {
+        ABILITY_POPUP(player, ABILITY_RAIN_DISH);
+        HP_BAR(player, damage: -(100 / 16));
+    }
+}
+
+SINGLE_BATTLE_TEST("Shared Power: Dry Skin damages from pooled ability in sun")
+{
+    GIVEN {
+        BATTLE_TYPE(BATTLE_TYPE_SHARED_POWER);
+        ASSUME(GetMoveEffect(MOVE_SUNNY_DAY) == EFFECT_SUNNY_DAY);
+        PLAYER(SPECIES_PARASECT) { Ability(ABILITY_DRY_SKIN); }
+        PLAYER(SPECIES_WOBBUFFET) { HP(100); MaxHP(100); }
+        OPPONENT(SPECIES_WOBBUFFET);
+    } WHEN {
+        TURN { SWITCH(player, 1); MOVE(opponent, MOVE_SPLASH); }
+        TURN { MOVE(player, MOVE_SPLASH); MOVE(opponent, MOVE_SUNNY_DAY); }
+    } SCENE {
+        ABILITY_POPUP(player, ABILITY_DRY_SKIN);
+        HP_BAR(player, damage: (100 / 8));
+    }
+}
+
+SINGLE_BATTLE_TEST("Shared Power: Magic Guard prevents poison damage from pooled ability")
+{
+    GIVEN {
+        BATTLE_TYPE(BATTLE_TYPE_SHARED_POWER);
+        PLAYER(SPECIES_CLEFABLE) { Ability(ABILITY_MAGIC_GUARD); }
+        PLAYER(SPECIES_WOBBUFFET) { HP(10); MaxHP(100); Status1(STATUS1_POISON); }
+        OPPONENT(SPECIES_WOBBUFFET);
+    } WHEN {
+        TURN { SWITCH(player, 1); MOVE(opponent, MOVE_SPLASH); }
+        TURN { MOVE(player, MOVE_SPLASH); MOVE(opponent, MOVE_SPLASH); }
+    } SCENE {
+        MESSAGE("The opposing Wobbuffet used Splash!");
+        NONE_OF {
+            MESSAGE("Wobbuffet is hurt by poison!");
+            HP_BAR(player);
+        }
+    } THEN {
+        EXPECT_EQ(player->hp, 10);
+    }
+}
+
 //TODO: write checks for AI visibility of abilities, cloud nine functionality, and 

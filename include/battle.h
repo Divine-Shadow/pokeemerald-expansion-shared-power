@@ -787,6 +787,7 @@ struct BattleStruct
     u16 sharedPowerSwitchInIndex[MAX_BATTLERS_COUNT];
     u8 sharedPowerPoolBits[SHARED_POWER_TRAINER_POOL_COUNT][SHARED_POWER_POOL_BYTES];
     u8 sharedPowerSwitchInDone[MAX_BATTLERS_COUNT][SHARED_POWER_ABILITY_BITS_BYTES];
+    u8 sharedPowerEndTurnDone[MAX_BATTLERS_COUNT][SHARED_POWER_ABILITY_BITS_BYTES];
     u16 sharedPowerPoolOrder[SHARED_POWER_TRAINER_POOL_COUNT][SHARED_POWER_POOL_MAX];
     u16 sharedPowerPoolAllCount[SHARED_POWER_TRAINER_POOL_COUNT];
     u16 sharedPowerPoolAllOrder[SHARED_POWER_TRAINER_POOL_COUNT][SHARED_POWER_POOL_MAX];
@@ -800,6 +801,8 @@ struct BattleStruct
     bool8 sharedPowerPoolSeeded;
     u8 sharedPowerMoveEndCaseId[MAX_BATTLERS_COUNT];
     u16 sharedPowerMoveEndIndex[MAX_BATTLERS_COUNT];
+    u8 sharedPowerEndTurnCaseId[MAX_BATTLERS_COUNT];
+    u16 sharedPowerEndTurnIndex[MAX_BATTLERS_COUNT];
 };
 
 struct AiBattleData

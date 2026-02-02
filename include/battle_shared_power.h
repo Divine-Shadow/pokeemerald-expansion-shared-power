@@ -24,10 +24,13 @@ void SharedPower_ClearBattleState(void);
 void SharedPower_ResetSwitchInQueue(u32 battler);
 bool32 IsAbilitySuppressedFor(u32 battler, u16 ability, bool32 ignoreMoldBreaker, bool32 noAbilityShield);
 bool32 SharedPower_IsEligibleFor(u32 battler, u16 ability);
+bool32 SharedPower_IsEndTurnAbilityDone(u32 battler, u16 ability);
+void SharedPower_SetEndTurnAbilityDone(u32 battler, u16 ability);
 bool32 HasActiveAbility(u32 battler, u16 ability);
 bool32 ForEachEffectiveAbilityUnique(u32 battler, bool32 (*cb)(u16 ability));
 bool32 ForEachEffectiveAbilityAllSources(u32 battler, bool32 (*cb)(u16 ability));
 bool32 ForEachEffectiveAbility(u32 battler, bool32 (*cb)(u16 ability));
 bool32 SharedPower_TrySwitchInAbilities(u32 battler);
+void SharedPower_EnsurePoolsSeeded(void);
 
 #endif // GUARD_BATTLE_SHARED_POWER_H

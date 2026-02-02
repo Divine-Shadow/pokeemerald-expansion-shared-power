@@ -45,6 +45,22 @@ static void SharedPower_SetSwitchInAbilityDone(u32 battler, u16 ability)
     gBattleStruct->sharedPowerSwitchInDone[battler][byteIdx] |= bitMask;
 }
 
+bool32 SharedPower_IsEndTurnAbilityDone(u32 battler, u16 ability)
+{
+    u32 byteIdx = ability >> 3;
+    u32 bitMask = 1u << (ability & 7);
+
+    return (gBattleStruct->sharedPowerEndTurnDone[battler][byteIdx] & bitMask) != 0;
+}
+
+void SharedPower_SetEndTurnAbilityDone(u32 battler, u16 ability)
+{
+    u32 byteIdx = ability >> 3;
+    u32 bitMask = 1u << (ability & 7);
+
+    gBattleStruct->sharedPowerEndTurnDone[battler][byteIdx] |= bitMask;
+}
+
 static void SharedPower_RestoreOriginalAbility(u32 battler)
 {
     if (!gBattleStruct->sharedPowerPopupOverrideActive[battler])
@@ -145,6 +161,14 @@ bool32 SharedPower_IsEnabled(void)
 #endif
 }
 
+void SharedPower_EnsurePoolsSeeded(void)
+{
+    if (!SharedPower_IsEnabled())
+        return;
+
+    SharedPower_SeedPoolsForActiveBattlers();
+}
+
 u8 SharedPower_GetTrainerIndex(u8 battler)
 {
     if (IsPartnerMonFromSameTrainer(battler))
@@ -206,6 +230,7 @@ void SharedPower_ClearBattleState(void)
     memset(gBattleStruct->sharedPowerSwitchInIndex, 0, sizeof(gBattleStruct->sharedPowerSwitchInIndex));
     memset(gBattleStruct->sharedPowerPoolBits, 0, sizeof(gBattleStruct->sharedPowerPoolBits));
     memset(gBattleStruct->sharedPowerSwitchInDone, 0, sizeof(gBattleStruct->sharedPowerSwitchInDone));
+    memset(gBattleStruct->sharedPowerEndTurnDone, 0, sizeof(gBattleStruct->sharedPowerEndTurnDone));
     memset(gBattleStruct->sharedPowerPoolOrder, 0, sizeof(gBattleStruct->sharedPowerPoolOrder));
     memset(gBattleStruct->sharedPowerPoolAllOrder, 0, sizeof(gBattleStruct->sharedPowerPoolAllOrder));
     memset(gBattleStruct->sharedPowerSwitchInAbilities, 0, sizeof(gBattleStruct->sharedPowerSwitchInAbilities));
@@ -216,6 +241,8 @@ void SharedPower_ClearBattleState(void)
     memset(gBattleStruct->sharedPowerPopupOverrideActive, 0, sizeof(gBattleStruct->sharedPowerPopupOverrideActive));
     memset(gBattleStruct->sharedPowerMoveEndCaseId, 0, sizeof(gBattleStruct->sharedPowerMoveEndCaseId));
     memset(gBattleStruct->sharedPowerMoveEndIndex, 0, sizeof(gBattleStruct->sharedPowerMoveEndIndex));
+    memset(gBattleStruct->sharedPowerEndTurnCaseId, 0, sizeof(gBattleStruct->sharedPowerEndTurnCaseId));
+    memset(gBattleStruct->sharedPowerEndTurnIndex, 0, sizeof(gBattleStruct->sharedPowerEndTurnIndex));
     gBattleStruct->sharedPowerPoolSeeded = FALSE;
     for (u32 battler = 0; battler < MAX_BATTLERS_COUNT; battler++)
         gBattleStruct->sharedPowerPopupOriginalPartyIndex[battler] = PARTY_SIZE;
