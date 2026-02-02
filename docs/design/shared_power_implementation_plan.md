@@ -162,3 +162,4 @@ Suggested tests
 
 Validation
 - `make check` clean with Shared Power disabled.
+- Off-path smoke tests confirm pooled abilities do not apply without `BATTLE_TYPE_SHARED_POWER` (e.g. no pooled Rain Dish or Intimidate).

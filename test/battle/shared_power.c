@@ -684,4 +684,41 @@ SINGLE_BATTLE_TEST("Shared Power: Magic Guard prevents poison damage from pooled
     }
 }
 
+SINGLE_BATTLE_TEST("Shared Power off: Bench ability does not grant pooled end-turn effects")
+{
+    GIVEN {
+        ASSUME(GetMoveEffect(MOVE_RAIN_DANCE) == EFFECT_RAIN_DANCE);
+        PLAYER(SPECIES_LUDICOLO) { Ability(ABILITY_RAIN_DISH); }
+        PLAYER(SPECIES_WOBBUFFET) { HP(1); MaxHP(100); }
+        OPPONENT(SPECIES_WOBBUFFET);
+    } WHEN {
+        TURN { SWITCH(player, 1); MOVE(opponent, MOVE_SPLASH); }
+        TURN { MOVE(player, MOVE_SPLASH); MOVE(opponent, MOVE_RAIN_DANCE); }
+    } SCENE {
+        NONE_OF {
+            ABILITY_POPUP(player, ABILITY_RAIN_DISH);
+            HP_BAR(player);
+        }
+    } THEN {
+        EXPECT_EQ(player->hp, 1);
+    }
+}
+
+SINGLE_BATTLE_TEST("Shared Power off: Bench ability does not grant pooled switch-in effects")
+{
+    GIVEN {
+        PLAYER(SPECIES_WOBBUFFET);
+        PLAYER(SPECIES_ARBOK) { Ability(ABILITY_INTIMIDATE); }
+        PLAYER(SPECIES_WOBBUFFET);
+        OPPONENT(SPECIES_WOBBUFFET);
+    } WHEN {
+        TURN { SWITCH(player, 2); MOVE(opponent, MOVE_SPLASH); }
+    } SCENE {
+        NONE_OF {
+            ABILITY_POPUP(player, ABILITY_INTIMIDATE);
+            MESSAGE("Wobbuffet's Intimidate cuts the opposing Wobbuffet's Attack!");
+        }
+    }
+}
+
 //TODO: write checks for AI visibility of abilities, cloud nine functionality, and 
