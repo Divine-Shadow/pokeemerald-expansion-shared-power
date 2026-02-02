@@ -50,3 +50,4 @@ Format: `- Area: short description (commit <short-hash>)`
 - Gameplay: Strength is now a Rock-type move (commit c78da96b3a).
 - Battle: Route shared power damage modifiers through pooled abilities (commit f8e5436834).
 - Battle: Refactor shared power damage helpers and switch-in ordering (commit 4801c865fa).
+- Battle: Add shared power stat reaction coverage (commit cd7960fe18).
