@@ -1,5 +1,7 @@
 # Patch Notes
 
+- Battle: Force Shared Power flag globally for all battles for testing (commit 7d03446de7).
+- Battle: Force Shared Power flag on all trainer battles for testing (commit 7d03446de7).
 - Shared Power/AI: Pool move blocking, absorption, and priority checks (commit 489b89fad2).
 - Tests/Battle: Add Shared Power off-path smoke checks (commit d1571d10f8).
 - Shared Power/AI: Teach AI to respect pooled status immunities (commit ab29e887ff).
