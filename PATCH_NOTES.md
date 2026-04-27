@@ -1,5 +1,6 @@
 # Patch Notes
 
+- Docs/Automation: Add retrospective on beacon automation learnings and next architecture ideas (commit pending).
 - Docs/Automation: Add ExecPlan for beacon-gated mGBA reproduction from clean boot through female `A` truck proof and first Pokemon selection (commit pending).
 - Docs/Automation: Add design doc for deterministic mGBA reproduction pipeline and beacon-gated stage automation strategy; add docs summary link (commit pending).
 - Docs/Process: Add repository-adapted `.agent/PLANS.md` with milestone-continuity policy (exec plans continue until success or escalation) (commit pending).
