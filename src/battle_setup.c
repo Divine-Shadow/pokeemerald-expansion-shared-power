@@ -51,6 +51,7 @@
 #include "constants/trainers.h"
 #include "constants/trainer_hill.h"
 #include "constants/weather.h"
+#include "config/shared_power.h"
 #include "wild_encounter.h"
 
 enum {
@@ -98,6 +99,21 @@ static const u8 sBattleTransitionTable_Wild[][2] =
     [TRANSITION_TYPE_FLASH]  = {B_TRANSITION_BLUR,           B_TRANSITION_GRID_SQUARES},
     [TRANSITION_TYPE_WATER]  = {B_TRANSITION_WAVE,           B_TRANSITION_RIPPLE},
 };
+
+static u32 ApplySharedPowerToWildBattleFlags(u32 battleTypeFlags)
+{
+#if CONFIG_SHARED_POWER
+    battleTypeFlags |= BATTLE_TYPE_SHARED_POWER;
+#endif
+    return battleTypeFlags;
+}
+
+#if TESTING
+u32 BattleSetup_ApplySharedPowerToWildBattleFlags(u32 battleTypeFlags)
+{
+    return ApplySharedPowerToWildBattleFlags(battleTypeFlags);
+}
+#endif
 
 static const u8 sBattleTransitionTable_Trainer[][2] =
 {
@@ -329,7 +345,7 @@ static void DoStandardWildBattle(bool32 isDouble)
     FreezeObjectEvents();
     StopPlayerAvatar();
     gMain.savedCallback = CB2_EndWildBattle;
-    gBattleTypeFlags = 0;
+    gBattleTypeFlags = ApplySharedPowerToWildBattleFlags(0);
     if (IsNPCFollowerWildBattle())
     {
         gBattleTypeFlags |= BATTLE_TYPE_MULTI | BATTLE_TYPE_INGAME_PARTNER | BATTLE_TYPE_DOUBLE;
@@ -354,7 +370,7 @@ void DoStandardWildBattle_Debug(void)
     FreezeObjectEvents();
     StopPlayerAvatar();
     gMain.savedCallback = CB2_EndWildBattle;
-    gBattleTypeFlags = 0;
+    gBattleTypeFlags = ApplySharedPowerToWildBattleFlags(0);
     if (CurrentBattlePyramidLocation() != PYRAMID_LOCATION_NONE)
     {
         VarSet(VAR_TEMP_PLAYING_PYRAMID_MUSIC, 0);
@@ -373,7 +389,7 @@ void BattleSetup_StartRoamerBattle(void)
     FreezeObjectEvents();
     StopPlayerAvatar();
     gMain.savedCallback = CB2_EndWildBattle;
-    gBattleTypeFlags = BATTLE_TYPE_ROAMER;
+    gBattleTypeFlags = ApplySharedPowerToWildBattleFlags(BATTLE_TYPE_ROAMER);
     CreateBattleStartTask(GetWildBattleTransition(), 0);
     IncrementGameStat(GAME_STAT_TOTAL_BATTLES);
     IncrementGameStat(GAME_STAT_WILD_BATTLES);
@@ -387,7 +403,7 @@ static void DoSafariBattle(void)
     FreezeObjectEvents();
     StopPlayerAvatar();
     gMain.savedCallback = CB2_EndSafariBattle;
-    gBattleTypeFlags = BATTLE_TYPE_SAFARI;
+    gBattleTypeFlags = ApplySharedPowerToWildBattleFlags(BATTLE_TYPE_SAFARI);
     CreateBattleStartTask(GetWildBattleTransition(), 0);
 }
 
@@ -397,7 +413,7 @@ static void DoBattlePikeWildBattle(void)
     FreezeObjectEvents();
     StopPlayerAvatar();
     gMain.savedCallback = CB2_EndWildBattle;
-    gBattleTypeFlags = BATTLE_TYPE_PIKE;
+    gBattleTypeFlags = ApplySharedPowerToWildBattleFlags(BATTLE_TYPE_PIKE);
     CreateBattleStartTask(GetWildBattleTransition(), 0);
     IncrementGameStat(GAME_STAT_TOTAL_BATTLES);
     IncrementGameStat(GAME_STAT_WILD_BATTLES);
@@ -439,7 +455,7 @@ void BattleSetup_StartScriptedWildBattle(void)
 {
     LockPlayerFieldControls();
     gMain.savedCallback = CB2_EndScriptedWildBattle;
-    gBattleTypeFlags = 0;
+    gBattleTypeFlags = ApplySharedPowerToWildBattleFlags(0);
     CreateBattleStartTask(GetWildBattleTransition(), 0);
     IncrementGameStat(GAME_STAT_TOTAL_BATTLES);
     IncrementGameStat(GAME_STAT_WILD_BATTLES);
@@ -451,7 +467,7 @@ void BattleSetup_StartScriptedDoubleWildBattle(void)
 {
     LockPlayerFieldControls();
     gMain.savedCallback = CB2_EndScriptedWildBattle;
-    gBattleTypeFlags = BATTLE_TYPE_DOUBLE;
+    gBattleTypeFlags = ApplySharedPowerToWildBattleFlags(BATTLE_TYPE_DOUBLE);
     CreateBattleStartTask(GetWildBattleTransition(), 0);
     IncrementGameStat(GAME_STAT_TOTAL_BATTLES);
     IncrementGameStat(GAME_STAT_WILD_BATTLES);
@@ -463,7 +479,7 @@ void BattleSetup_StartLatiBattle(void)
 {
     LockPlayerFieldControls();
     gMain.savedCallback = CB2_EndScriptedWildBattle;
-    gBattleTypeFlags = BATTLE_TYPE_LEGENDARY;
+    gBattleTypeFlags = ApplySharedPowerToWildBattleFlags(BATTLE_TYPE_LEGENDARY);
     CreateBattleStartTask(GetWildBattleTransition(), 0);
     IncrementGameStat(GAME_STAT_TOTAL_BATTLES);
     IncrementGameStat(GAME_STAT_WILD_BATTLES);
@@ -475,7 +491,7 @@ void BattleSetup_StartLegendaryBattle(void)
 {
     LockPlayerFieldControls();
     gMain.savedCallback = CB2_EndScriptedWildBattle;
-    gBattleTypeFlags = BATTLE_TYPE_LEGENDARY;
+    gBattleTypeFlags = ApplySharedPowerToWildBattleFlags(BATTLE_TYPE_LEGENDARY);
 
     switch (GetMonData(&gEnemyParty[0], MON_DATA_SPECIES, NULL))
     {
@@ -517,7 +533,7 @@ void StartGroudonKyogreBattle(void)
 {
     LockPlayerFieldControls();
     gMain.savedCallback = CB2_EndScriptedWildBattle;
-    gBattleTypeFlags = BATTLE_TYPE_LEGENDARY;
+    gBattleTypeFlags = ApplySharedPowerToWildBattleFlags(BATTLE_TYPE_LEGENDARY);
 
     if (gGameVersion == VERSION_RUBY)
         CreateBattleStartTask(B_TRANSITION_ANGLED_WIPES, MUS_VS_KYOGRE_GROUDON); // GROUDON
@@ -537,7 +553,7 @@ void StartRegiBattle(void)
 
     LockPlayerFieldControls();
     gMain.savedCallback = CB2_EndScriptedWildBattle;
-    gBattleTypeFlags = BATTLE_TYPE_LEGENDARY;
+    gBattleTypeFlags = ApplySharedPowerToWildBattleFlags(BATTLE_TYPE_LEGENDARY);
 
     species = GetMonData(&gEnemyParty[0], MON_DATA_SPECIES);
     switch (species)

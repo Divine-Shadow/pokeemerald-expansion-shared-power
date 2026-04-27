@@ -1,6 +1,7 @@
 #include "global.h"
 #include "battle.h"
 #include "battle_shared_power.h"
+#include "battle_setup.h"
 #include "constants/abilities.h"
 #include "constants/battle.h"
 #include "test/test.h"
@@ -49,4 +50,21 @@ TEST("HasActiveAbility respects suppression for native abilities")
     gBattlerAttacker = prevBattlerAttacker;
     gBattlersCount = prevBattlersCount;
     gBattleTypeFlags = prevBattleTypeFlags;
+}
+
+TEST("Wild battle setup enables Shared Power")
+{
+    u32 wildFlags = BattleSetup_ApplySharedPowerToWildBattleFlags(0);
+    u32 doubleWildFlags = BattleSetup_ApplySharedPowerToWildBattleFlags(BATTLE_TYPE_DOUBLE);
+    u32 roamerFlags = BattleSetup_ApplySharedPowerToWildBattleFlags(BATTLE_TYPE_ROAMER);
+
+#if CONFIG_SHARED_POWER
+    EXPECT_EQ(wildFlags, BATTLE_TYPE_SHARED_POWER);
+    EXPECT_EQ(doubleWildFlags, BATTLE_TYPE_DOUBLE | BATTLE_TYPE_SHARED_POWER);
+    EXPECT_EQ(roamerFlags, BATTLE_TYPE_ROAMER | BATTLE_TYPE_SHARED_POWER);
+#else
+    EXPECT_EQ(wildFlags, 0);
+    EXPECT_EQ(doubleWildFlags, BATTLE_TYPE_DOUBLE);
+    EXPECT_EQ(roamerFlags, BATTLE_TYPE_ROAMER);
+#endif
 }

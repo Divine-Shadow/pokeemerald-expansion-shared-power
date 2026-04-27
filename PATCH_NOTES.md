@@ -1,5 +1,38 @@
 # Patch Notes
 
+- Docs/Process: Add repository-adapted `.agent/PLANS.md` with milestone-continuity policy (exec plans continue until success or escalation) (commit pending).
+- Tools/AHK: Tune intro flow near gender/name by lowering pre-gender advance, switching gender nudge to `Right`, trimming pre-name presses, and extending post-name truck advance window (commit pending).
+- Tools/AHK: Increase bounded dialogue-advance limits to carry the deterministic flow past Birch scenes into gender/name/truck phases without reverting to endless key spam (commit pending).
+- Tools/AHK: Revert mGBA key dispatch to foreground `Send` under full-run input block after `ControlSend` failed to advance title/menu state (commit pending).
+- Tools/AHK: Retune intro step timings and key cadence to avoid premature title input and reduce over-advance spam during gender/name/truck progression (commit pending).
+- Tools/AHK: Capture mGBA client area via `GetClientRect` + `CopyFromScreen` to remove noisy title-bar/frame pixels from checkpoint matching (commit pending).
+- Tools/AHK: Make checkpoint compare fail-closed by requiring parsed numeric diff scores and rejecting missing/unparsable references (commit pending).
+- Tools/AHK: Harden mGBA intro input isolation with full-run `BlockInput` and PID-targeted `ControlSend` fallback delivery (commit pending).
+- Tools/AHK: Switch intro automation to `SendMode Event` and disable per-key input blocking to improve mGBA key consumption reliability (commit 5c8400f03d).
+- Tools/AHK: Fix PowerShell capture helper PID argument collision (`$PID`) by renaming to `-TargetPid` and updating caller (commit 5c8400f03d).
+- Tools/AHK: Fix checkpoint capture on UNC workspaces by staging captures/comparisons through local temp files before copying into repo paths (commit 5c8400f03d).
+- Tools/AHK: Fix AHK v1 command-context interpolation bug for object fields in checkpoint error dialog (`step.id`) (commit 5c8400f03d).
+- Tools/AHK: Add working-directory path fallback for ROM/helper resolution so local temp script copies can still target repo artifacts on UNC setups (commit 5c8400f03d).
+- Tools/AHK: Fix deterministic intro script startup on AutoHotkey v1 by removing invalid top-level `global` declarations (commit 5c8400f03d).
+- Tools/AHK: Rebuild mGBA intro automation into deterministic `map`/`run` workflow with per-step captures, checkpoint image gating, and helper PowerShell capture/compare utilities (commit 5c8400f03d).
+- Tools/AHK: Add gender-confirmation fallback to force "No", return to selector, and re-pick GIRL before naming flow (commit 5c8400f03d).
+- Tools/AHK: Correct gender-selection input from `Right` to `Down` for Emerald’s BOY/GIRL menu navigation (commit 5c8400f03d).
+- Tools/AHK: Strengthen intro automation to bias and force GIRL selection before name/truck progression (commit 5c8400f03d).
+- Tools/AHK: Isolate mGBA macro input via targeted window `PostMessage` key events (no global keystroke injection) (commit 5c8400f03d).
+- Tools/AHK: Remove held fast-forward key from intro macro to avoid dropped gameplay input during automation (commit 5c8400f03d).
+- Tools/AHK: Switch intro macro input back to foreground `Send` after `ControlSend` proved ineffective on mGBA gameplay input (commit 5c8400f03d).
+- Tools/AHK: Remove stray invalid line from mGBA intro macro that caused AutoHotkey parse failure at runtime (commit 5c8400f03d).
+- Tools/AHK: Align mGBA intro macro with local keymap (`A=X`, `B=Z`) so confirmation inputs register correctly (commit 5c8400f03d).
+- Tools/AHK: Route mGBA macro inputs via PID-targeted ControlSend for focus-independent key delivery (commit 5c8400f03d).
+- Tools/AHK: Add execution logging to mGBA intro macro (`C:\Temp\mgba_macro_log.txt`) for startup diagnostics (commit 5c8400f03d).
+- Tools/AHK: Use PID-based mGBA window targeting in intro macro for reliable activation on startup (commit 5c8400f03d).
+- Tools/AHK: Enable mGBA fast-forward hold during intro macro to fit automated execution windows (commit 5c8400f03d).
+- Tools/AHK: Port mGBA intro macro to AutoHotkey v1 syntax for local execution compatibility (commit 5c8400f03d).
+- Tools/AHK: Add mGBA macro to start a new game as girl named A and reach truck verification flow (commit 5c8400f03d).
+- Summary/Battle: Guard summary sprite-manager ownership and null sprite buffers to prevent in-battle summary black-screen hangs (commit 5c8400f03d).
+- Summary/Battle: Switch summary isolation to manager A to avoid in-battle black-screen regressions from manager B usage (commit 5c8400f03d).
+- Summary/Battle: Isolate in-battle summary sprite loads into a dedicated manager to avoid shared battle gfx buffer corruption (commit 5c8400f03d).
+- Tests/Battle: Validate wild Shared Power pooled Intimidate via resulting stat stage instead of message text (commit 5c8400f03d).
 - Battle: Force Shared Power flag globally for all battles for testing (commit 7d03446de7).
 - Battle: Force Shared Power flag on all trainer battles for testing (commit 7d03446de7).
 - Shared Power/AI: Pool move blocking, absorption, and priority checks (commit 489b89fad2).

@@ -14,6 +14,7 @@
 #include "decompress.h"
 #include "dynamic_placeholder_text_util.h"
 #include "event_data.h"
+#include "caps.h"
 #include "gpu_regs.h"
 #include "graphics.h"
 #include "international_string_util.h"
@@ -195,6 +196,7 @@ EWRAM_DATA u8 gLastViewedMonIndex = 0;
 static EWRAM_DATA u8 sMoveSlotToReplace = 0;
 ALIGNED(4) static EWRAM_DATA u8 sAnimDelayTaskId = 0;
 EWRAM_DATA MainCallback gInitialSummaryScreenCallback = NULL; // stores callback from the first time the screen is opened from the party or PC menu
+static EWRAM_DATA bool8 sCreatedSummarySpriteManager = FALSE;
 
 // forward declarations
 static bool8 LoadGraphics(void);
@@ -1221,8 +1223,14 @@ void ShowPokemonSummaryScreen(u8 mode, void *mons, u8 monIndex, u8 maxMonIndex, 
     sMonSummaryScreen->categoryIconSpriteId = 0xFF;
     SummaryScreen_SetAnimDelayTaskId(TASK_NONE);
 
-    if (gMonSpritesGfxPtr == NULL)
+    // Ensure summary has an isolated sprite manager, even in battle.
+    // Only create/destroy it when this screen created it.
+    sCreatedSummarySpriteManager = FALSE;
+    if (MonSpritesGfxManager_GetSpritePtr(MON_SPR_GFX_MANAGER_A, B_POSITION_OPPONENT_LEFT) == NULL)
+    {
         CreateMonSpritesGfxManager(MON_SPR_GFX_MANAGER_A, MON_SPR_GFX_MODE_NORMAL);
+        sCreatedSummarySpriteManager = TRUE;
+    }
 
     SetMainCallback2(CB2_InitSummaryScreen);
 }
@@ -1625,8 +1633,9 @@ static void CloseSummaryScreen(u8 taskId)
         FreeAllSpritePalettes();
         StopCryAndClearCrySongs();
         m4aMPlayVolumeControl(&gMPlayInfo_BGM, TRACKS_ALL, 0x100);
-        if (gMonSpritesGfxPtr == NULL)
+        if (sCreatedSummarySpriteManager)
             DestroyMonSpritesGfxManager(MON_SPR_GFX_MANAGER_A);
+        sCreatedSummarySpriteManager = FALSE;
         FreeSummaryScreen();
         DestroyTask(taskId);
     }
@@ -1768,7 +1777,20 @@ static u8 IncrementSkillsStatsMode(u8 mode)
     switch (mode)
     {
     case SUMMARY_SKILLS_MODE_STATS:
-        if (P_SUMMARY_SCREEN_EV_ONLY)
+        if (EVS_DISABLED)
+        {
+            if (P_SUMMARY_SCREEN_EV_ONLY || P_SUMMARY_SCREEN_IV_ONLY)
+            {
+                sMonSummaryScreen->skillsPageMode = SUMMARY_SKILLS_MODE_STATS;
+                return SUMMARY_SKILLS_MODE_STATS;
+            }
+            else
+            {
+                sMonSummaryScreen->skillsPageMode = SUMMARY_SKILLS_MODE_IVS;
+                return SUMMARY_SKILLS_MODE_IVS;
+            }
+        }
+        else if (P_SUMMARY_SCREEN_EV_ONLY)
         {
             sMonSummaryScreen->skillsPageMode = SUMMARY_SKILLS_MODE_EVS;
             return SUMMARY_SKILLS_MODE_EVS;
@@ -1780,7 +1802,7 @@ static u8 IncrementSkillsStatsMode(u8 mode)
         }
 
     case SUMMARY_SKILLS_MODE_IVS:
-        if (P_SUMMARY_SCREEN_IV_ONLY)
+        if (EVS_DISABLED || P_SUMMARY_SCREEN_IV_ONLY)
         {
             sMonSummaryScreen->skillsPageMode = SUMMARY_SKILLS_MODE_STATS;
             return SUMMARY_SKILLS_MODE_STATS;
@@ -1874,12 +1896,13 @@ void ExtractMonSkillIvData(struct Pokemon *mon, struct PokeSummary *sum)
 
 void ExtractMonSkillEvData(struct Pokemon *mon, struct PokeSummary *sum)
 {
-    sum->currentHP = GetMonData(mon, MON_DATA_HP_EV);
-    sum->atk = GetMonData(mon, MON_DATA_ATK_EV);
-    sum->def = GetMonData(mon, MON_DATA_DEF_EV);
-    sum->spatk = GetMonData(mon, MON_DATA_SPATK_EV);
-    sum->spdef = GetMonData(mon, MON_DATA_SPDEF_EV);
-    sum->speed = GetMonData(mon, MON_DATA_SPEED_EV);
+    (void)mon;
+    sum->currentHP = 0;
+    sum->atk = 0;
+    sum->def = 0;
+    sum->spatk = 0;
+    sum->spdef = 0;
+    sum->speed = 0;
 }
 
 static void ChangeSummaryPokemon(u8 taskId, s8 delta)
@@ -4383,18 +4406,24 @@ static void SwapMovesTypeSprites(u8 moveIndex1, u8 moveIndex2)
 static u8 LoadMonGfxAndSprite(struct Pokemon *mon, s16 *state)
 {
     struct PokeSummary *summary = &sMonSummaryScreen->summary;
+    u8 *summarySpriteGfx = MonSpritesGfxManager_GetSpritePtr(MON_SPR_GFX_MANAGER_A, B_POSITION_OPPONENT_LEFT);
+    u8 *fallbackSpriteGfx = NULL;
 
     switch (*state)
     {
     default:
         return CreateMonSprite(mon);
     case 0:
-        if (gMain.inBattle)
+        if (summarySpriteGfx != NULL)
         {
-            HandleLoadSpecialPokePic(TRUE,
-                                     gMonSpritesGfxPtr->spritesGfx[B_POSITION_OPPONENT_LEFT],
-                                     summary->species2,
-                                     summary->pid);
+            HandleLoadSpecialPokePic(TRUE, summarySpriteGfx, summary->species2, summary->pid);
+        }
+        else if (gMain.inBattle)
+        {
+            if (gMonSpritesGfxPtr != NULL)
+                HandleLoadSpecialPokePic(TRUE, gMonSpritesGfxPtr->spritesGfx[B_POSITION_OPPONENT_LEFT], summary->species2, summary->pid);
+            else
+                return SPRITE_NONE;
         }
         else
         {
@@ -4407,17 +4436,18 @@ static u8 LoadMonGfxAndSprite(struct Pokemon *mon, s16 *state)
             }
             else
             {
-                HandleLoadSpecialPokePic(TRUE,
-                                         MonSpritesGfxManager_GetSpritePtr(MON_SPR_GFX_MANAGER_A, B_POSITION_OPPONENT_LEFT),
-                                         summary->species2,
-                                         summary->pid);
+                fallbackSpriteGfx = MonSpritesGfxManager_GetSpritePtr(MON_SPR_GFX_MANAGER_A, B_POSITION_OPPONENT_LEFT);
+                if (fallbackSpriteGfx != NULL)
+                    HandleLoadSpecialPokePic(TRUE, fallbackSpriteGfx, summary->species2, summary->pid);
+                else
+                    return SPRITE_NONE;
             }
         }
         (*state)++;
         return 0xFF;
     case 1:
         LoadSpritePaletteWithTag(GetMonSpritePalFromSpeciesAndPersonality(summary->species2, summary->isShiny, summary->pid), summary->species2);
-        SetMultiuseSpriteTemplateToPokemon(summary->species2, B_POSITION_OPPONENT_LEFT);
+        SetMultiuseSpriteTemplateToPokemonFromManager(summary->species2, B_POSITION_OPPONENT_LEFT, MON_SPR_GFX_MANAGER_A);
         (*state)++;
         return 0xFF;
     }
@@ -4672,6 +4702,9 @@ static inline bool32 ShouldShowRename(void)
 
 static inline bool32 ShouldShowIvEvPrompt(void)
 {
+    if (EVS_DISABLED && P_SUMMARY_SCREEN_EV_ONLY)
+        return FALSE;
+
     if (P_SUMMARY_SCREEN_IV_EV_BOX_ONLY)
     {
         return (P_SUMMARY_SCREEN_IV_EV_INFO || FlagGet(P_FLAG_SUMMARY_SCREEN_IV_EV_INFO))
@@ -4704,14 +4737,14 @@ static inline void ShowUtilityPrompt(s16 mode)
         {
             if (mode == SUMMARY_SKILLS_MODE_STATS)
             {
-                if (P_SUMMARY_SCREEN_EV_ONLY)
+                if (!EVS_DISABLED && P_SUMMARY_SCREEN_EV_ONLY)
                     promptText = gText_SkillPageEvs;
                 else
                     promptText = gText_SkillPageIvs;
             }
             else if (mode == SUMMARY_SKILLS_MODE_IVS)
             {
-                if (P_SUMMARY_SCREEN_IV_ONLY)
+                if (EVS_DISABLED || P_SUMMARY_SCREEN_IV_ONLY)
                     promptText = gText_SkillPageStats;
                 else
                     promptText = gText_SkillPageEvs;

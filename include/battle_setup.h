@@ -106,6 +106,9 @@ void TrainerBattleLoadArgsSecondTrainer(const u8 *data);
 
 void DoStandardWildBattle_Debug(void);
 void BattleSetup_StartTrainerBattle_Debug(void);
+#if TESTING
+u32 BattleSetup_ApplySharedPowerToWildBattleFlags(u32 battleTypeFlags);
+#endif
 s32 TrainerIdToRematchTableId(const struct RematchTrainer *table, u16 trainerId);
 s32 FirstBattleTrainerIdToRematchTableId(const struct RematchTrainer *table, u16 trainerId);
 u16 GetRematchTrainerIdFromTable(const struct RematchTrainer *table, u16 firstBattleTrainerId);

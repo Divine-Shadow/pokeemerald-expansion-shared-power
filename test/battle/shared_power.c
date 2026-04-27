@@ -704,6 +704,20 @@ SINGLE_BATTLE_TEST("Shared Power off: Bench ability does not grant pooled end-tu
     }
 }
 
+WILD_BATTLE_TEST("Shared Power: wild battles pool switch-in abilities")
+{
+    GIVEN {
+        BATTLE_TYPE(BATTLE_TYPE_SHARED_POWER);
+        PLAYER(SPECIES_WOBBUFFET) { Speed(10); }
+        OPPONENT(SPECIES_ARBOK) { Ability(ABILITY_INTIMIDATE); Speed(8); }
+        OPPONENT(SPECIES_WOBBUFFET) { Speed(6); }
+    } WHEN {
+        TURN { MOVE(player, MOVE_CELEBRATE); SWITCH(opponent, 1); }
+    } THEN {
+        EXPECT_EQ(player->statStages[STAT_ATK], DEFAULT_STAT_STAGE - 1);
+    }
+}
+
 SINGLE_BATTLE_TEST("Shared Power off: Bench ability does not grant pooled switch-in effects")
 {
     GIVEN {

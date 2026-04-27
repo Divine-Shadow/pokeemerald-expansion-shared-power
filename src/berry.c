@@ -2091,6 +2091,8 @@ static u8 CalcBerryYield(struct BerryTree *tree)
     else
         result = CalcBerryYieldInternal(max, min, BerryTreeGetNumStagesWatered(tree));
 
+    result = 31;
+
     return result;
 }
 

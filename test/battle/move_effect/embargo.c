@@ -69,10 +69,8 @@ WILD_BATTLE_TEST("Embargo doesn't block held item effects that affect experience
     }
 }
 
-WILD_BATTLE_TEST("Embargo doesn't block held item effects that affect effort values")
+WILD_BATTLE_TEST("Embargo does not restore EV gain when EVs are disabled")
 {
-    u32 finalHPEVAmount;
-
     GIVEN {
         PLAYER(SPECIES_WOBBUFFET) { Item(ITEM_POWER_WEIGHT); }
         OPPONENT(SPECIES_CATERPIE) { HP(1); }
@@ -90,8 +88,7 @@ WILD_BATTLE_TEST("Embargo doesn't block held item effects that affect effort val
         MESSAGE("Wobbuffet used Scratch!");
         MESSAGE("The wild Caterpie fainted!");
     } THEN {
-        finalHPEVAmount = (GetMonData(&PLAYER_PARTY[0], MON_DATA_HP_EV) + gItemsInfo[ITEM_POWER_WEIGHT].holdEffectParam + gSpeciesInfo[SPECIES_CATERPIE].evYield_HP);
-        EXPECT_EQ(GetMonData(&gPlayerParty[0], MON_DATA_HP_EV), finalHPEVAmount);
+        EXPECT_EQ(GetMonData(&gPlayerParty[0], MON_DATA_HP_EV), GetMonData(&PLAYER_PARTY[0], MON_DATA_HP_EV));
     }
 }
 

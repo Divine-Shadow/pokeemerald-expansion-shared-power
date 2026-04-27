@@ -872,6 +872,22 @@ static const s8 sFriendshipEventModifiers[][3] =
     [FRIENDSHIP_EVENT_FAINT_LARGE]     = {-5, -5, -10},
 };
 
+static bool8 IsEvItemEffectType(u8 effectType)
+{
+    switch (effectType)
+    {
+    case ITEM_EFFECT_HP_EV:
+    case ITEM_EFFECT_ATK_EV:
+    case ITEM_EFFECT_DEF_EV:
+    case ITEM_EFFECT_SPEED_EV:
+    case ITEM_EFFECT_SPATK_EV:
+    case ITEM_EFFECT_SPDEF_EV:
+        return TRUE;
+    default:
+        return FALSE;
+    }
+}
+
 static const struct SpeciesItem sAlteringCaveWildMonHeldItems[] =
 {
     {SPECIES_NONE,      ITEM_NONE},
@@ -1706,17 +1722,17 @@ void CalculateMonStats(struct Pokemon *mon)
     s32 oldMaxHP = GetMonData(mon, MON_DATA_MAX_HP, NULL);
     s32 currentHP = GetMonData(mon, MON_DATA_HP, NULL);
     s32 hpIV = GetMonData(mon, MON_DATA_HYPER_TRAINED_HP) ? MAX_PER_STAT_IVS : GetMonData(mon, MON_DATA_HP_IV, NULL);
-    s32 hpEV = GetMonData(mon, MON_DATA_HP_EV, NULL);
+    s32 hpEV = EVS_DISABLED ? 0 : GetMonData(mon, MON_DATA_HP_EV, NULL);
     s32 attackIV = GetMonData(mon, MON_DATA_HYPER_TRAINED_ATK) ? MAX_PER_STAT_IVS : GetMonData(mon, MON_DATA_ATK_IV, NULL);
-    s32 attackEV = GetMonData(mon, MON_DATA_ATK_EV, NULL);
+    s32 attackEV = EVS_DISABLED ? 0 : GetMonData(mon, MON_DATA_ATK_EV, NULL);
     s32 defenseIV = GetMonData(mon, MON_DATA_HYPER_TRAINED_DEF) ? MAX_PER_STAT_IVS : GetMonData(mon, MON_DATA_DEF_IV, NULL);
-    s32 defenseEV = GetMonData(mon, MON_DATA_DEF_EV, NULL);
+    s32 defenseEV = EVS_DISABLED ? 0 : GetMonData(mon, MON_DATA_DEF_EV, NULL);
     s32 speedIV = GetMonData(mon, MON_DATA_HYPER_TRAINED_SPEED) ? MAX_PER_STAT_IVS : GetMonData(mon, MON_DATA_SPEED_IV, NULL);
-    s32 speedEV = GetMonData(mon, MON_DATA_SPEED_EV, NULL);
+    s32 speedEV = EVS_DISABLED ? 0 : GetMonData(mon, MON_DATA_SPEED_EV, NULL);
     s32 spAttackIV = GetMonData(mon, MON_DATA_HYPER_TRAINED_SPATK) ? MAX_PER_STAT_IVS : GetMonData(mon, MON_DATA_SPATK_IV, NULL);
-    s32 spAttackEV = GetMonData(mon, MON_DATA_SPATK_EV, NULL);
+    s32 spAttackEV = EVS_DISABLED ? 0 : GetMonData(mon, MON_DATA_SPATK_EV, NULL);
     s32 spDefenseIV = GetMonData(mon, MON_DATA_HYPER_TRAINED_SPDEF) ? MAX_PER_STAT_IVS : GetMonData(mon, MON_DATA_SPDEF_IV, NULL);
-    s32 spDefenseEV = GetMonData(mon, MON_DATA_SPDEF_EV, NULL);
+    s32 spDefenseEV = EVS_DISABLED ? 0 : GetMonData(mon, MON_DATA_SPDEF_EV, NULL);
     u16 species = GetMonData(mon, MON_DATA_SPECIES, NULL);
     u8 friendship = GetMonData(mon, MON_DATA_FRIENDSHIP, NULL);
     s32 level = GetLevelFromMonExp(mon);
@@ -2158,6 +2174,37 @@ void SetMultiuseSpriteTemplateToPokemon(u16 speciesTag, u8 battlerPosition)
         gMultiuseSpriteTemplate = sMonSpritesGfxManagers[MON_SPR_GFX_MANAGER_B]->templates[battlerPosition];
     else
         gMultiuseSpriteTemplate = gBattlerSpriteTemplates[battlerPosition];
+
+    gMultiuseSpriteTemplate.paletteTag = speciesTag;
+    if (battlerPosition == B_POSITION_PLAYER_LEFT || battlerPosition == B_POSITION_PLAYER_RIGHT)
+        gMultiuseSpriteTemplate.anims = gAnims_MonPic;
+    else
+    {
+        if (speciesTag > SPECIES_SHINY_TAG)
+            speciesTag = speciesTag - SPECIES_SHINY_TAG;
+
+        speciesTag = SanitizeSpeciesId(speciesTag);
+        if (gSpeciesInfo[speciesTag].frontAnimFrames != NULL)
+            gMultiuseSpriteTemplate.anims = gSpeciesInfo[speciesTag].frontAnimFrames;
+        else
+            gMultiuseSpriteTemplate.anims = gSpeciesInfo[SPECIES_NONE].frontAnimFrames;
+    }
+}
+
+void SetMultiuseSpriteTemplateToPokemonFromManager(u16 speciesTag, u8 battlerPosition, u8 managerId)
+{
+    struct MonSpritesGfxManager *gfx = sMonSpritesGfxManagers[managerId % MON_SPR_GFX_MANAGERS_COUNT];
+    const u8 activeMarker = 0xA3; // Matches internal manager active sentinel.
+
+    if (gfx != NULL && gfx->active == activeMarker)
+    {
+        gMultiuseSpriteTemplate = gfx->templates[battlerPosition];
+    }
+    else
+    {
+        SetMultiuseSpriteTemplateToPokemon(speciesTag, battlerPosition);
+        return;
+    }
 
     gMultiuseSpriteTemplate.paletteTag = speciesTag;
     if (battlerPosition == B_POSITION_PLAYER_LEFT || battlerPosition == B_POSITION_PLAYER_RIGHT)
@@ -3773,6 +3820,9 @@ bool8 PokemonUseItemEffects(struct Pokemon *mon, u16 item, u8 partyIndex, u8 mov
     // Get item effect
     itemEffect = GetItemEffect(item);
 
+    if (EVS_DISABLED && IsEvItemEffectType(GetItemEffectType(item)))
+        return TRUE;
+
     // Do item effect
     for (i = 0; i < ITEM_EFFECT_ARG_START; i++)
     {
@@ -5302,6 +5352,9 @@ void MonGainEVs(struct Pokemon *mon, u16 defeatedSpecies)
     u8 bonus;
     u32 currentEVCap = GetCurrentEVCap();
 
+    if (EVS_DISABLED)
+        return;
+
     heldItem = GetMonData(mon, MON_DATA_HELD_ITEM, 0);
     if (heldItem == ITEM_ENIGMA_BERRY_E_READER)
     {
@@ -6535,7 +6588,7 @@ void DestroyMonSpritesGfxManager(u8 managerId)
 u8 *MonSpritesGfxManager_GetSpritePtr(u8 managerId, u8 spriteNum)
 {
     struct MonSpritesGfxManager *gfx = sMonSpritesGfxManagers[managerId % MON_SPR_GFX_MANAGERS_COUNT];
-    if (gfx->active != GFX_MANAGER_ACTIVE)
+    if (gfx == NULL || gfx->active != GFX_MANAGER_ACTIVE)
     {
         return NULL;
     }

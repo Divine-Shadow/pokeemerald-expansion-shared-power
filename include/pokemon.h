@@ -726,6 +726,7 @@ u8 GetGenderFromSpeciesAndPersonality(u16 species, u32 personality);
 bool32 IsPersonalityFemale(u16 species, u32 personality);
 u32 GetUnownSpeciesId(u32 personality);
 void SetMultiuseSpriteTemplateToPokemon(u16 speciesTag, u8 battlerPosition);
+void SetMultiuseSpriteTemplateToPokemonFromManager(u16 speciesTag, u8 battlerPosition, u8 managerId);
 void SetMultiuseSpriteTemplateToTrainerBack(u16 trainerPicId, u8 battlerPosition);
 void SetMultiuseSpriteTemplateToTrainerFront(u16 trainerPicId, u8 battlerPosition);
 

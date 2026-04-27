@@ -123,6 +123,76 @@ TEST("Hyper Training increases stats without affecting IVs")
     EXPECT_EQ(spdef - 3 + MAX_PER_STAT_IVS, GetMonData(&mon, MON_DATA_SPDEF));
 }
 
+TEST("EVs do not affect calculated stats when EVs are disabled")
+{
+    u32 friendship = 0;
+    u8 hpEv = 252;
+    u8 atkEv = 252;
+    u8 defEv = 252;
+    u8 speedEv = 252;
+    u8 spAtkEv = 252;
+    u8 spDefEv = 252;
+    u32 maxHp, atk, def, speed, spAtk, spDef;
+    struct Pokemon mon;
+
+    CreateMon(&mon, SPECIES_WOBBUFFET, 100, 31, FALSE, 0, OT_ID_PRESET, 0);
+    SetMonData(&mon, MON_DATA_FRIENDSHIP, &friendship);
+    CalculateMonStats(&mon);
+
+    maxHp = GetMonData(&mon, MON_DATA_MAX_HP);
+    atk = GetMonData(&mon, MON_DATA_ATK);
+    def = GetMonData(&mon, MON_DATA_DEF);
+    speed = GetMonData(&mon, MON_DATA_SPEED);
+    spAtk = GetMonData(&mon, MON_DATA_SPATK);
+    spDef = GetMonData(&mon, MON_DATA_SPDEF);
+
+    SetMonData(&mon, MON_DATA_HP_EV, &hpEv);
+    SetMonData(&mon, MON_DATA_ATK_EV, &atkEv);
+    SetMonData(&mon, MON_DATA_DEF_EV, &defEv);
+    SetMonData(&mon, MON_DATA_SPEED_EV, &speedEv);
+    SetMonData(&mon, MON_DATA_SPATK_EV, &spAtkEv);
+    SetMonData(&mon, MON_DATA_SPDEF_EV, &spDefEv);
+    CalculateMonStats(&mon);
+
+    EXPECT_EQ(maxHp, GetMonData(&mon, MON_DATA_MAX_HP));
+    EXPECT_EQ(atk, GetMonData(&mon, MON_DATA_ATK));
+    EXPECT_EQ(def, GetMonData(&mon, MON_DATA_DEF));
+    EXPECT_EQ(speed, GetMonData(&mon, MON_DATA_SPEED));
+    EXPECT_EQ(spAtk, GetMonData(&mon, MON_DATA_SPATK));
+    EXPECT_EQ(spDef, GetMonData(&mon, MON_DATA_SPDEF));
+}
+
+TEST("EV items have no effect when EVs are disabled")
+{
+    u32 friendship = 100;
+    u8 hpEv = 100;
+    struct Pokemon mon;
+
+    CreateMon(&mon, SPECIES_WOBBUFFET, 50, 0, FALSE, 0, OT_ID_PRESET, 0);
+    SetMonData(&mon, MON_DATA_FRIENDSHIP, &friendship);
+    SetMonData(&mon, MON_DATA_HP_EV, &hpEv);
+
+    EXPECT_EQ(TRUE, ExecuteTableBasedItemEffect(&mon, ITEM_HP_UP, 0, 0));
+    EXPECT_EQ(TRUE, ExecuteTableBasedItemEffect(&mon, ITEM_POMEG_BERRY, 0, 0));
+    EXPECT_EQ(TRUE, ExecuteTableBasedItemEffect(&mon, ITEM_HEALTH_FEATHER, 0, 0));
+    EXPECT_EQ(100, GetMonData(&mon, MON_DATA_HP_EV));
+    EXPECT_EQ(friendship, GetMonData(&mon, MON_DATA_FRIENDSHIP));
+}
+
+TEST("Battles do not award EVs when EVs are disabled")
+{
+    u8 hpEv = 12;
+    struct Pokemon mon;
+
+    CreateMon(&mon, SPECIES_WOBBUFFET, 50, 0, FALSE, 0, OT_ID_PRESET, 0);
+    SetMonData(&mon, MON_DATA_HP_EV, &hpEv);
+
+    MonGainEVs(&mon, SPECIES_CATERPIE);
+
+    EXPECT_EQ(12, GetMonData(&mon, MON_DATA_HP_EV));
+    EXPECT_EQ(12, GetMonEVCount(&mon));
+}
+
 TEST("Status1 round-trips through BoxPokemon")
 {
     u32 status1;
