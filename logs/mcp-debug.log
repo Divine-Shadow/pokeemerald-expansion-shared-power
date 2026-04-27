@@ -1,0 +1,58 @@
+# AutoHotkey MCP debug log
+# Shows recent high-level actions to assist with troubleshooting
+[2026-04-27T01:38:14.067Z] | server.initialize | START | Loading AutoHotkey documentation
+[2026-04-27T01:38:14.082Z] | server.initialize | SUCCESS | Documentation cache ready
+[2026-04-27T01:38:14.092Z] | server.start | START | Launching stdio transport (Claude Desktop)
+[2026-04-27T01:38:14.102Z] | server.start | SUCCESS | Stdio transport ready (Claude Desktop)
+[2026-04-27T01:38:14.123Z] | tools.list | START | Standard tool listing
+[2026-04-27T01:38:14.132Z] | tools.list | SUCCESS | Returned 32 tools | mode="stdio"
+[2026-04-27T01:38:20.938Z] | server.initialize | START | Loading AutoHotkey documentation
+[2026-04-27T01:38:21.011Z] | server.initialize | SUCCESS | Documentation cache ready
+[2026-04-27T01:38:21.075Z] | server.start | START | Launching stdio transport (Claude Desktop)
+[2026-04-27T01:38:21.147Z] | server.start | SUCCESS | Stdio transport ready (Claude Desktop)
+[2026-04-27T01:38:21.231Z] | tools.list | START | Standard tool listing
+[2026-04-27T01:38:21.308Z] | tools.list | SUCCESS | Returned 32 tools | mode="stdio"
+[2026-04-27T01:38:33.314Z] | server.initialize | START | Loading AutoHotkey documentation
+[2026-04-27T01:38:33.400Z] | server.initialize | SUCCESS | Documentation cache ready
+[2026-04-27T01:38:33.473Z] | server.start | START | Launching stdio transport (Claude Desktop)
+[2026-04-27T01:38:33.529Z] | server.start | SUCCESS | Stdio transport ready (Claude Desktop)
+[2026-04-27T01:38:33.604Z] | tools.list | START | Standard tool listing
+[2026-04-27T01:38:33.679Z] | tools.list | SUCCESS | Returned 32 tools | mode="stdio"
+[2026-04-27T01:39:04.549Z] | server.initialize | START | Loading AutoHotkey documentation
+[2026-04-27T01:39:04.597Z] | server.initialize | SUCCESS | Documentation cache ready
+[2026-04-27T01:39:04.636Z] | server.start | START | Launching stdio transport (Claude Desktop)
+[2026-04-27T01:39:04.666Z] | server.start | SUCCESS | Stdio transport ready (Claude Desktop)
+[2026-04-27T01:39:04.702Z] | tools.list | START | Standard tool listing
+[2026-04-27T01:39:04.728Z] | tools.list | SUCCESS | Returned 32 tools | mode="stdio"
+[2026-04-27T01:41:51.015Z] | resources.list | START | Enumerating exposed resources
+[2026-04-27T01:41:51.022Z] | resources.list | SUCCESS | Returned 11 resources
+[2026-04-27T01:44:09.749Z] | server.initialize | START | Loading AutoHotkey documentation
+[2026-04-27T01:44:09.762Z] | server.initialize | SUCCESS | Documentation cache ready
+[2026-04-27T01:44:09.771Z] | server.start | START | Launching stdio transport (Claude Desktop)
+[2026-04-27T01:44:09.779Z] | server.start | SUCCESS | Stdio transport ready (Claude Desktop)
+[2026-04-27T01:44:09.797Z] | tools.list | START | Standard tool listing
+[2026-04-27T01:44:09.804Z] | tools.list | SUCCESS | Returned 32 tools | mode="stdio"
+[2026-04-27T01:47:41.853Z] | server.initialize | START | Loading AutoHotkey documentation
+[2026-04-27T01:47:41.868Z] | server.initialize | SUCCESS | Documentation cache ready
+[2026-04-27T01:47:41.876Z] | server.start | START | Launching stdio transport (Claude Desktop)
+[2026-04-27T01:47:41.885Z] | server.start | SUCCESS | Stdio transport ready (Claude Desktop)
+[2026-04-27T01:47:41.902Z] | tools.list | START | Standard tool listing
+[2026-04-27T01:47:41.911Z] | tools.list | SUCCESS | Returned 32 tools | mode="stdio"
+[2026-04-27T01:47:55.083Z] | server.initialize | START | Loading AutoHotkey documentation
+[2026-04-27T01:47:55.095Z] | server.initialize | SUCCESS | Documentation cache ready
+[2026-04-27T01:47:55.103Z] | server.start | START | Launching stdio transport (Claude Desktop)
+[2026-04-27T01:47:55.113Z] | server.start | SUCCESS | Stdio transport ready (Claude Desktop)
+[2026-04-27T01:47:55.129Z] | tools.list | START | Standard tool listing
+[2026-04-27T01:47:55.137Z] | tools.list | SUCCESS | Returned 32 tools | mode="stdio"
+[2026-04-27T01:48:37.942Z] | server.initialize | START | Loading AutoHotkey documentation
+[2026-04-27T01:48:37.977Z] | server.initialize | SUCCESS | Documentation cache ready
+[2026-04-27T01:48:38.005Z] | server.start | START | Launching stdio transport (Claude Desktop)
+[2026-04-27T01:48:38.056Z] | server.start | SUCCESS | Stdio transport ready (Claude Desktop)
+[2026-04-27T01:48:38.140Z] | tools.list | START | Standard tool listing
+[2026-04-27T01:48:38.210Z] | tools.list | SUCCESS | Returned 32 tools | mode="stdio"
+[2026-04-27T02:12:02.737Z] | server.initialize | START | Loading AutoHotkey documentation
+[2026-04-27T02:12:02.753Z] | server.initialize | SUCCESS | Documentation cache ready
+[2026-04-27T02:12:02.765Z] | server.start | START | Launching stdio transport (Claude Desktop)
+[2026-04-27T02:12:02.778Z] | server.start | SUCCESS | Stdio transport ready (Claude Desktop)
+[2026-04-27T02:12:02.798Z] | tools.list | START | Standard tool listing
+[2026-04-27T02:12:02.811Z] | tools.list | SUCCESS | Returned 32 tools | mode="stdio"

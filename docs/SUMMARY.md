@@ -88,6 +88,7 @@
     - [Scope Guidelines](team_procedures/scope.md)
  - [Design]()
    - [Agents Guide](design/AGENTS.md)
+   - [Automation Reproduction Pipeline](design/automation_repro_pipeline.md)
    - [Shared Power Mode](design/shared_power/README.md)
      - [Mode Scope](design/shared_power/scope.md)
      - [State Model](design/shared_power/state.md)

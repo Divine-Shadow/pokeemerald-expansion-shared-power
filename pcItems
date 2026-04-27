@@ -1,0 +1,1530 @@
+src/pokeblock_feed.c:726:    u8 colorId = GetPokeblockData(&gSaveBlock1Ptr->pokeblocks[pokeblockCaseId], PBLOCK_COLOR);
+src/pokeblock_feed.c:792:    struct Pokeblock *pokeblock = &gSaveBlock1Ptr->pokeblocks[gSpecialVar_ItemId];
+src/mystery_gift.c:34:    CpuFill32(0, &gSaveBlock1Ptr->mysteryGift, sizeof(gSaveBlock1Ptr->mysteryGift));
+src/mystery_gift.c:43:    return &gSaveBlock1Ptr->mysteryGift.news;
+src/mystery_gift.c:52:    return &gSaveBlock1Ptr->mysteryGift.card;
+src/mystery_gift.c:61:    return &gSaveBlock1Ptr->mysteryGift.cardMetadata;
+src/mystery_gift.c:70:    return &gSaveBlock1Ptr->mysteryGift.newsMetadata;
+src/mystery_gift.c:79:    return gSaveBlock1Ptr->mysteryGift.questionnaireWords;
+src/mystery_gift.c:98:    gSaveBlock1Ptr->mysteryGift.news = *news;
+src/mystery_gift.c:99:    gSaveBlock1Ptr->mysteryGift.newsCrc = CALC_CRC(gSaveBlock1Ptr->mysteryGift.news);
+src/mystery_gift.c:109:    if (CALC_CRC(gSaveBlock1Ptr->mysteryGift.news) != gSaveBlock1Ptr->mysteryGift.newsCrc)
+src/mystery_gift.c:111:    if (!ValidateWonderNews(&gSaveBlock1Ptr->mysteryGift.news))
+src/mystery_gift.c:133:    const struct WonderNews *news = &gSaveBlock1Ptr->mysteryGift.news;
+src/mystery_gift.c:146:    CpuFill32(0, GetSavedWonderNews(), sizeof(gSaveBlock1Ptr->mysteryGift.news));
+src/mystery_gift.c:147:    gSaveBlock1Ptr->mysteryGift.newsCrc = 0;
+src/mystery_gift.c:154:    CpuFill32(0, GetSavedWonderNewsMetadata(), sizeof(gSaveBlock1Ptr->mysteryGift.newsMetadata));
+src/mystery_gift.c:162:    const u8 *savedNews = (const u8 *)&gSaveBlock1Ptr->mysteryGift.news;
+src/mystery_gift.c:167:    for (i = 0; i < sizeof(gSaveBlock1Ptr->mysteryGift.news); i++)
+src/mystery_gift.c:202:    memcpy(&gSaveBlock1Ptr->mysteryGift.card, card, sizeof(struct WonderCard));
+src/mystery_gift.c:203:    gSaveBlock1Ptr->mysteryGift.cardCrc = CALC_CRC(gSaveBlock1Ptr->mysteryGift.card);
+src/mystery_gift.c:204:    metadata = &gSaveBlock1Ptr->mysteryGift.cardMetadata;
+src/mystery_gift.c:205:    metadata->iconSpecies = (&gSaveBlock1Ptr->mysteryGift.card)->iconSpecies;
+src/mystery_gift.c:215:    if (gSaveBlock1Ptr->mysteryGift.cardCrc != CALC_CRC(gSaveBlock1Ptr->mysteryGift.card))
+src/mystery_gift.c:217:    if (!ValidateWonderCard(&gSaveBlock1Ptr->mysteryGift.card))
+src/mystery_gift.c:251:    const struct WonderCard *card = &gSaveBlock1Ptr->mysteryGift.card;
+src/mystery_gift.c:264:    CpuFill32(0, &gSaveBlock1Ptr->mysteryGift.card, sizeof(gSaveBlock1Ptr->mysteryGift.card));
+src/mystery_gift.c:265:    gSaveBlock1Ptr->mysteryGift.cardCrc = 0;
+src/mystery_gift.c:270:    CpuFill32(0, GetSavedWonderCardMetadata(), sizeof(gSaveBlock1Ptr->mysteryGift.cardMetadata));
+src/mystery_gift.c:271:    gSaveBlock1Ptr->mysteryGift.cardMetadataCrc = 0;
+src/mystery_gift.c:279:        return gSaveBlock1Ptr->mysteryGift.card.flagId;
+src/mystery_gift.c:381:    card = &gSaveBlock1Ptr->mysteryGift.card;
+src/mystery_gift.c:385:    return GetNumStampsInMetadata(&gSaveBlock1Ptr->mysteryGift.cardMetadata, card->maxStamps);
+src/mystery_gift.c:392:    struct WonderCard *card = &gSaveBlock1Ptr->mysteryGift.card;
+src/mystery_gift.c:398:    if (IsStampInMetadata(&gSaveBlock1Ptr->mysteryGift.cardMetadata, stamp, maxStamps))
+src/mystery_gift.c:403:        if (gSaveBlock1Ptr->mysteryGift.cardMetadata.stampData[STAMP_ID][i] == 0
+src/mystery_gift.c:404:         && gSaveBlock1Ptr->mysteryGift.cardMetadata.stampData[STAMP_SPECIES][i] == SPECIES_NONE)
+src/mystery_gift.c:406:            gSaveBlock1Ptr->mysteryGift.cardMetadata.stampData[STAMP_ID][i] = stamp[STAMP_ID];
+src/mystery_gift.c:407:            gSaveBlock1Ptr->mysteryGift.cardMetadata.stampData[STAMP_SPECIES][i] = stamp[STAMP_SPECIES];
+src/mystery_gift.c:454:        data->questionnaireWords[i] = gSaveBlock1Ptr->mysteryGift.questionnaireWords[i];
+src/mystery_gift.c:459:        data->easyChatProfile[i] = gSaveBlock1Ptr->easyChatProfile[i];
+src/mystery_gift.c:565:    struct WonderCard *card = &gSaveBlock1Ptr->mysteryGift.card;
+src/mystery_gift.c:572:            stat = &gSaveBlock1Ptr->mysteryGift.cardMetadata.battlesWon;
+src/mystery_gift.c:575:            stat = &gSaveBlock1Ptr->mysteryGift.cardMetadata.battlesLost;
+src/mystery_gift.c:578:            stat = &gSaveBlock1Ptr->mysteryGift.cardMetadata.numTrades;
+src/mystery_gift.c:604:        struct WonderCard *card = &gSaveBlock1Ptr->mysteryGift.card;
+src/mystery_gift.c:607:            struct WonderCardMetadata *metadata = &gSaveBlock1Ptr->mysteryGift.cardMetadata;
+src/mystery_gift.c:614:        struct WonderCard *card = &gSaveBlock1Ptr->mysteryGift.card;
+src/mystery_gift.c:617:            struct WonderCardMetadata *metadata = &gSaveBlock1Ptr->mysteryGift.cardMetadata;
+src/mystery_gift.c:624:        struct WonderCard *card = &gSaveBlock1Ptr->mysteryGift.card;
+src/mystery_gift.c:627:            struct WonderCardMetadata *metadata = &gSaveBlock1Ptr->mysteryGift.cardMetadata;
+src/mystery_gift.c:634:        struct WonderCard *card = &gSaveBlock1Ptr->mysteryGift.card;
+src/mystery_gift.c:641:        struct WonderCard *card = &gSaveBlock1Ptr->mysteryGift.card;
+src/mystery_gift.c:668:    if (gSaveBlock1Ptr->mysteryGift.card.flagId != flagId)
+src/mystery_gift.c:686:                                            gSaveBlock1Ptr->mysteryGift.trainerIds[1],
+src/mystery_gift.c:687:                                            ARRAY_COUNT(gSaveBlock1Ptr->mysteryGift.trainerIds[1]));
+src/mystery_gift.c:692:                                            gSaveBlock1Ptr->mysteryGift.trainerIds[0],
+src/mystery_gift.c:693:                                            ARRAY_COUNT(gSaveBlock1Ptr->mysteryGift.trainerIds[0]));
+src/mystery_gift.c:698:                                            gSaveBlock1Ptr->mysteryGift.trainerIds[0],
+src/mystery_gift.c:699:                                            ARRAY_COUNT(gSaveBlock1Ptr->mysteryGift.trainerIds[0]));
+src/mystery_gift.c:712:    CpuFill32(0, gSaveBlock1Ptr->mysteryGift.trainerIds, sizeof(gSaveBlock1Ptr->mysteryGift.trainerIds));
+src/field_tasks.c:900:    mapId = (gSaveBlock1Ptr->location.mapGroup << 8) | gSaveBlock1Ptr->location.mapNum;
+src/safari_zone.c:140:        if (gSaveBlock1Ptr->location.mapNum == sPokeblockFeeders[i].mapNum
+src/safari_zone.c:162:        if (gSaveBlock1Ptr->location.mapNum == sPokeblockFeeders[i].mapNum)
+src/safari_zone.c:217:            sPokeblockFeeders[i].mapNum = gSaveBlock1Ptr->location.mapNum;
+src/safari_zone.c:218:            sPokeblockFeeders[i].pokeblock = gSaveBlock1Ptr->pokeblocks[pkblId];
+src/union_room_chat.c:936:        StringCopy(chat->registeredTexts[i], gSaveBlock1Ptr->registeredTexts[i]);
+src/union_room_chat.c:1774:        StringCopy(gSaveBlock1Ptr->registeredTexts[i], sChat->registeredTexts[i]);
+src/union_room_chat.c:2020:    StringCopy(gSaveBlock1Ptr->registeredTexts[0], gText_Hello);
+src/union_room_chat.c:2021:    StringCopy(gSaveBlock1Ptr->registeredTexts[1], gText_Pokemon2);
+src/union_room_chat.c:2022:    StringCopy(gSaveBlock1Ptr->registeredTexts[2], gText_Trade);
+src/union_room_chat.c:2023:    StringCopy(gSaveBlock1Ptr->registeredTexts[3], gText_Battle);
+src/union_room_chat.c:2024:    StringCopy(gSaveBlock1Ptr->registeredTexts[4], gText_Lets);
+src/union_room_chat.c:2025:    StringCopy(gSaveBlock1Ptr->registeredTexts[5], gText_Ok);
+src/union_room_chat.c:2026:    StringCopy(gSaveBlock1Ptr->registeredTexts[6], gText_Sorry);
+src/union_room_chat.c:2027:    StringCopy(gSaveBlock1Ptr->registeredTexts[7], gText_YaySmileEmoji);
+src/union_room_chat.c:2028:    StringCopy(gSaveBlock1Ptr->registeredTexts[8], gText_ThankYou);
+src/union_room_chat.c:2029:    StringCopy(gSaveBlock1Ptr->registeredTexts[9], gText_ByeBye);
+src/event_data.c:53:    memset(gSaveBlock1Ptr->flags, 0, sizeof(gSaveBlock1Ptr->flags));
+src/event_data.c:54:    memset(gSaveBlock1Ptr->vars, 0, sizeof(gSaveBlock1Ptr->vars));
+src/event_data.c:60:    memset(&gSaveBlock1Ptr->flags[TEMP_FLAGS_START / 8], 0, TEMP_FLAGS_SIZE);
+src/event_data.c:61:    memset(&gSaveBlock1Ptr->vars[TEMP_VARS_START - VARS_START], 0, TEMP_VARS_SIZE);
+src/event_data.c:71:    memset(&gSaveBlock1Ptr->flags[DAILY_FLAGS_START / 8], 0, DAILY_FLAGS_SIZE);
+src/event_data.c:188:        return &gSaveBlock1Ptr->vars[id - VARS_START];
+src/event_data.c:232:        return &gSaveBlock1Ptr->flags[id / 8];
+src/player_pc.c:167:static void ItemStorage_Init(void);
+src/player_pc.c:235:static const u16 sNewGamePCItems[][2] =
+src/player_pc.c:372:    CpuFastFill(0, gSaveBlock1Ptr->pcItems, sizeof(gSaveBlock1Ptr->pcItems));
+src/player_pc.c:376:        if (sNewGamePCItems[i][0] == ITEM_NONE || sNewGamePCItems[i][1] == 0)
+src/player_pc.c:378:        if (AddPCItem(sNewGamePCItems[i][0], sNewGamePCItems[i][1]) != TRUE)
+src/player_pc.c:647:    ItemStorage_Init();
+src/player_pc.c:685:        if (gSaveBlock1Ptr->mail[i].itemId != ITEM_NONE)
+src/player_pc.c:700:            if (gSaveBlock1Ptr->mail[i].itemId == ITEM_NONE)
+src/player_pc.c:701:                SWAP(gSaveBlock1Ptr->mail[i], gSaveBlock1Ptr->mail[j], temp);
+src/player_pc.c:750:    StringCopy(gStringVar1, gSaveBlock1Ptr->mail[gPlayerPCItemPageInfo.itemsAbove + PARTY_SIZE + gPlayerPCItemPageInfo.cursorPos].playerName);
+src/player_pc.c:808:        ReadMail(&gSaveBlock1Ptr->mail[gPlayerPCItemPageInfo.itemsAbove + PARTY_SIZE + gPlayerPCItemPageInfo.cursorPos], Mailbox_ReturnToFieldFromReadMail, TRUE);
+src/player_pc.c:869:    struct Mail *mail = &gSaveBlock1Ptr->mail[gPlayerPCItemPageInfo.itemsAbove + PARTY_SIZE + gPlayerPCItemPageInfo.cursorPos];
+src/player_pc.c:955:static void ItemStorage_Init(void)
+src/player_pc.c:1003:        CopyItemName_PlayerPC(&sItemStorageMenu->itemNames[i][0], gSaveBlock1Ptr->pcItems[i].itemId);
+src/player_pc.c:1034:            ItemStorage_DrawItemIcon(gSaveBlock1Ptr->pcItems[id].itemId);
+src/player_pc.c:1052:        ConvertIntToDecimalStringN(gStringVar1, gSaveBlock1Ptr->pcItems[id].quantity, STR_CONV_MODE_RIGHT_ALIGN, 3);
+src/player_pc.c:1065:        description = (u8 *)GetItemDescription(gSaveBlock1Ptr->pcItems[id].itemId);
+src/player_pc.c:1141:    SetItemListPerPageCount(gSaveBlock1Ptr->pcItems, PC_ITEMS_COUNT, &gPlayerPCItemPageInfo.pageItems, &gPlayerPCItemPageInfo.count, 8);
+src/player_pc.c:1291:    CopyItemName(gSaveBlock1Ptr->pcItems[sItemStorageMenu->toSwapPos].itemId, gStringVar1);
+src/player_pc.c:1337:        MoveItemSlotInPC(gSaveBlock1Ptr->pcItems, sItemStorageMenu->toSwapPos, newPos);
+src/player_pc.c:1373:        if (gSaveBlock1Ptr->pcItems[pos].quantity == 1)
+src/player_pc.c:1381:        end = CopyItemNameHandlePlural(gSaveBlock1Ptr->pcItems[pos].itemId, gStringVar1, 2);
+src/player_pc.c:1387:        if (gSaveBlock1Ptr->pcItems[pos].quantity == 1)
+src/player_pc.c:1395:        end = CopyItemNameHandlePlural(gSaveBlock1Ptr->pcItems[pos].itemId, gStringVar1, 2);
+src/player_pc.c:1410:    if (AdjustQuantityAccordingToDPadInput(&tQuantity, gSaveBlock1Ptr->pcItems[pos].quantity) == TRUE)
+src/player_pc.c:1431:            ItemStorage_PrintMessage(ItemStorage_GetMessage(gSaveBlock1Ptr->pcItems[pos].itemId));
+src/player_pc.c:1442:    if (AddBagItem(gSaveBlock1Ptr->pcItems[pos].itemId, tQuantity) == TRUE)
+src/player_pc.c:1445:        u8 *end = CopyItemNameHandlePlural(gSaveBlock1Ptr->pcItems[pos].itemId, gStringVar1, tQuantity);
+src/player_pc.c:1465:    if (!GetItemImportance(gSaveBlock1Ptr->pcItems[pos].itemId))
+src/player_pc.c:1468:        u8 *end = CopyItemNameHandlePlural(gSaveBlock1Ptr->pcItems[pos].itemId, gStringVar1, tQuantity);
+src/player_pc.c:1491:    ItemStorage_PrintMessage(ItemStorage_GetMessage(gSaveBlock1Ptr->pcItems[gPlayerPCItemPageInfo.itemsAbove + gPlayerPCItemPageInfo.cursorPos].itemId));
+src/player_pc.c:1501:        RemovePCItem(gPlayerPCItemPageInfo.cursorPos + gPlayerPCItemPageInfo.itemsAbove, tQuantity);
+src/player_pc.c:1515:        ItemStorage_PrintMessage(ItemStorage_GetMessage(gSaveBlock1Ptr->pcItems[gPlayerPCItemPageInfo.itemsAbove + gPlayerPCItemPageInfo.cursorPos].itemId));
+src/battle_factory.c:220:    SetDynamicWarp(0, gSaveBlock1Ptr->location.mapGroup, gSaveBlock1Ptr->location.mapNum, WARP_ID_NONE);
+src/dexnav.c:459:    if (sDexNavSearchDataPtr->tileY > (gSaveBlock1Ptr->pos.y + 7))
+src/dexnav.c:594:    u16 deltaX = abs(x - (gSaveBlock1Ptr->pos.x + 7));
+src/dexnav.c:595:    u16 deltaY = abs(y - (gSaveBlock1Ptr->pos.y + 7));
+src/dexnav.c:608:    s16 topX = gSaveBlock1Ptr->pos.x - SCANSTART_X + (smallScan * 5);
+src/dexnav.c:609:    s16 topY = gSaveBlock1Ptr->pos.y - SCANSTART_Y + (smallScan * 5);
+src/dexnav.c:708:        topX = gSaveBlock1Ptr->pos.x - SCANSTART_X + (smallScan * 5);
+src/dexnav.c:935:    u16 playerX = gSaveBlock1Ptr->pos.x + 7;
+src/dexnav.c:936:    u16 playerY = gSaveBlock1Ptr->pos.y + 7;
+src/dexnav.c:2617:        gFieldEffectArguments[0] = gSaveBlock1Ptr->pos.x;
+src/dexnav.c:2618:        gFieldEffectArguments[1] = gSaveBlock1Ptr->pos.y;
+include/item.h:220:bool32 AddPCItem(u16 itemId, u16 count);
+include/item.h:221:void RemovePCItem(u8 index, u16 count);
+src/battle_setup.c:696:    if (gSaveBlock1Ptr->location.mapGroup == MAP_GROUP(MAP_ROUTE113) && gSaveBlock1Ptr->location.mapNum == MAP_NUM(MAP_ROUTE113))
+src/battle_setup.c:1026:        gSelectedObjectEvent = GetObjectEventIdByLocalIdAndMap(TRAINER_BATTLE_PARAM.objEventLocalIdA, gSaveBlock1Ptr->location.mapNum, gSaveBlock1Ptr->location.mapGroup);
+src/battle_setup.c:1035:        gSelectedObjectEvent = GetObjectEventIdByLocalIdAndMap(TRAINER_BATTLE_PARAM.objEventLocalIdB, gSaveBlock1Ptr->location.mapNum, gSaveBlock1Ptr->location.mapGroup);
+src/battle_setup.c:1598:    gSaveBlock1Ptr->trainerRematches[tableId] = i;
+src/battle_setup.c:1625:        if (gSaveBlock1Ptr->trainerRematches[i] != 0)
+src/battle_setup.c:1655:        if (table[i].mapGroup == mapGroup && table[i].mapNum == mapNum && gSaveBlock1Ptr->trainerRematches[i] != 0)
+src/battle_setup.c:1685:    if (gSaveBlock1Ptr->trainerRematches[tableId] == 0)
+src/battle_setup.c:1701:    if (gSaveBlock1Ptr->trainerRematches[tableId] == 0)
+src/battle_setup.c:1756:        gSaveBlock1Ptr->trainerRematches[tableId] = 0;
+src/battle_setup.c:1824:    if (gSaveBlock1Ptr->trainerRematchStepCounter >= STEP_COUNTER_MAX)
+src/battle_setup.c:1825:        gSaveBlock1Ptr->trainerRematchStepCounter = STEP_COUNTER_MAX;
+src/battle_setup.c:1827:        gSaveBlock1Ptr->trainerRematchStepCounter++;
+src/battle_setup.c:1834:    if (HasAtLeastFiveBadges() && gSaveBlock1Ptr->trainerRematchStepCounter >= STEP_COUNTER_MAX)
+src/battle_setup.c:1843:        gSaveBlock1Ptr->trainerRematchStepCounter = 0;
+src/mail_data.c:16:        ClearMail(&gSaveBlock1Ptr->mail[i]);
+src/mail_data.c:57:        if (gSaveBlock1Ptr->mail[id].itemId == ITEM_NONE)
+src/mail_data.c:60:                gSaveBlock1Ptr->mail[id].words[i] = EC_EMPTY_WORD;
+src/mail_data.c:63:                gSaveBlock1Ptr->mail[id].playerName[i] = gSaveBlock2Ptr->playerName[i];
+src/mail_data.c:64:            gSaveBlock1Ptr->mail[id].playerName[i] = EOS;
+src/mail_data.c:65:            PadNameString(gSaveBlock1Ptr->mail[id].playerName, CHAR_SPACE);
+src/mail_data.c:68:                gSaveBlock1Ptr->mail[id].trainerId[i] = gSaveBlock2Ptr->playerTrainerId[i];
+src/mail_data.c:72:            gSaveBlock1Ptr->mail[id].species = SpeciesToMailSpecies(species, personality);
+src/mail_data.c:73:            gSaveBlock1Ptr->mail[id].itemId = itemId;
+src/mail_data.c:120:    gSaveBlock1Ptr->mail[mailId] = *mail;
+src/mail_data.c:145:        gSaveBlock1Ptr->mail[mailId].itemId = ITEM_NONE;
+src/mail_data.c:156:    gSaveBlock1Ptr->mail[mailId].itemId = ITEM_NONE;
+src/mail_data.c:171:        if (gSaveBlock1Ptr->mail[i].itemId == ITEM_NONE)
+src/mail_data.c:173:            memcpy(&gSaveBlock1Ptr->mail[i], &gSaveBlock1Ptr->mail[GetMonData(mon, MON_DATA_MAIL)], sizeof(struct Mail));
+src/mail_data.c:174:            gSaveBlock1Ptr->mail[GetMonData(mon, MON_DATA_MAIL)].itemId = ITEM_NONE;
+src/trainer_hill.c:301:    gSaveBlock1Ptr->trainerHill.bestTime = 0;
+src/trainer_hill.c:303:        SetTimerValue(&gSaveBlock1Ptr->trainerHillTimes[i], HILL_MAX_TIME);
+src/trainer_hill.c:355:    SetTrainerHillVBlankCounter(&gSaveBlock1Ptr->trainerHill.timer);
+src/trainer_hill.c:373:    CpuCopy32(sChallengeData[gSaveBlock1Ptr->trainerHill.mode], &sHillData->challenge, sizeof(sHillData->challenge));
+src/trainer_hill.c:374:    CpuCopy32(sFloorData[gSaveBlock1Ptr->trainerHill.mode], &sHillData->floors, sizeof(sHillData->floors));
+src/trainer_hill.c:415:        gSaveBlock1Ptr->trainerHill.field_3D6E_0f = 1;
+src/trainer_hill.c:417:        gSaveBlock1Ptr->trainerHill.field_3D6E_0f = 0;
+src/trainer_hill.c:419:    gSaveBlock1Ptr->trainerHill.unk_3D6C = 0;
+src/trainer_hill.c:420:    SetTrainerHillVBlankCounter(&gSaveBlock1Ptr->trainerHill.timer);
+src/trainer_hill.c:421:    gSaveBlock1Ptr->trainerHill.timer = 0;
+src/trainer_hill.c:422:    gSaveBlock1Ptr->trainerHill.spokeToOwner = 0;
+src/trainer_hill.c:423:    gSaveBlock1Ptr->trainerHill.checkedFinalTime = 0;
+src/trainer_hill.c:424:    gSaveBlock1Ptr->trainerHill.maybeECardScanDuringChallenge = 0;
+src/trainer_hill.c:427:    gSaveBlock1Ptr->trainerHill.receivedPrize = 0;
+src/trainer_hill.c:436:    if (gSaveBlock1Ptr->trainerHill.spokeToOwner)
+src/trainer_hill.c:438:    if (gSaveBlock1Ptr->trainerHill.receivedPrize && gSaveBlock1Ptr->trainerHill.checkedFinalTime)
+src/trainer_hill.c:441:    gSaveBlock1Ptr->trainerHill.spokeToOwner = TRUE;
+src/trainer_hill.c:450:    if (sHillData->challenge.numFloors != NUM_TRAINER_HILL_FLOORS || gSaveBlock1Ptr->trainerHill.receivedPrize)
+src/trainer_hill.c:457:        gSaveBlock1Ptr->trainerHill.receivedPrize = TRUE;
+src/trainer_hill.c:473:    if (gSaveBlock1Ptr->trainerHill.checkedFinalTime)
+src/trainer_hill.c:477:    else if (GetTimerValue(&gSaveBlock1Ptr->trainerHill.bestTime) > gSaveBlock1Ptr->trainerHill.timer)
+src/trainer_hill.c:479:        SetTimerValue(&gSaveBlock1Ptr->trainerHill.bestTime, gSaveBlock1Ptr->trainerHill.timer);
+src/trainer_hill.c:480:        gSaveBlock1Ptr->trainerHillTimes[gSaveBlock1Ptr->trainerHill.mode] = gSaveBlock1Ptr->trainerHill.bestTime;
+src/trainer_hill.c:488:    gSaveBlock1Ptr->trainerHill.checkedFinalTime = TRUE;
+src/trainer_hill.c:495:    if (!gSaveBlock1Ptr->trainerHill.spokeToOwner)
+src/trainer_hill.c:497:        if (gSaveBlock1Ptr->trainerHill.timer >= HILL_MAX_TIME)
+src/trainer_hill.c:498:            gSaveBlock1Ptr->trainerHill.timer = HILL_MAX_TIME;
+src/trainer_hill.c:500:            SetTrainerHillVBlankCounter(&gSaveBlock1Ptr->trainerHill.timer);
+src/trainer_hill.c:508:    gSaveBlock1Ptr->trainerHill.hasLost = TRUE;
+src/trainer_hill.c:515:    if (gSaveBlock1Ptr->trainerHill.hasLost)
+src/trainer_hill.c:518:        gSaveBlock1Ptr->trainerHill.hasLost = FALSE;
+src/trainer_hill.c:521:    else if (gSaveBlock1Ptr->trainerHill.maybeECardScanDuringChallenge)
+src/trainer_hill.c:524:        gSaveBlock1Ptr->trainerHill.maybeECardScanDuringChallenge = 0;
+src/trainer_hill.c:540:    total = gSaveBlock1Ptr->trainerHill.timer;
+src/trainer_hill.c:589:    else if (gSaveBlock1Ptr->trainerHill.spokeToOwner)
+src/trainer_hill.c:634:        total = GetTimerValue(&gSaveBlock1Ptr->trainerHillTimes[i]);
+src/trainer_hill.c:672:    struct ObjectEventTemplate *eventTemplates = gSaveBlock1Ptr->objectEventTemplates;
+src/trainer_hill.c:680:    CpuFill32(0, gSaveBlock1Ptr->objectEventTemplates, sizeof(gSaveBlock1Ptr->objectEventTemplates));
+src/trainer_hill.c:1026:    if (gSaveBlock1Ptr->trainerHill.hasLost)
+src/trainer_hill.c:1036:    gSaveBlock1Ptr->trainerHill.mode = gSpecialVar_0x8005;
+src/trainer_hill.c:1037:    gSaveBlock1Ptr->trainerHill.bestTime = gSaveBlock1Ptr->trainerHillTimes[gSpecialVar_0x8005];
+src/trainer_hill.c:1098:    if (gSaveBlock1Ptr->trainerHill.mode == HILL_MODE_EXPERT)
+src/trainer_hill.c:1118:    minutes = (signed)(gSaveBlock1Ptr->trainerHill.timer) / (60 * 60);
+src/pokemon.c:3778:        holdEffect = gSaveBlock1Ptr->enigmaBerry.holdEffect;
+src/pokemon.c:4378:            itemEffect = gSaveBlock1Ptr->enigmaBerry.itemEffect;
+src/pokemon.c:4475:            partnerHoldEffect = gSaveBlock1Ptr->enigmaBerry.holdEffect;
+src/pokemon.c:4596:            if (params[i].arg1 == ((gSaveBlock1Ptr->location.mapGroup) << 8 | gSaveBlock1Ptr->location.mapNum))
+src/pokemon.c:4784:        holdEffect = gSaveBlock1Ptr->enigmaBerry.holdEffect;
+src/pokemon.c:5251:            holdEffect = gSaveBlock1Ptr->enigmaBerry.holdEffect;
+src/pokemon.c:5334:            holdEffect = gSaveBlock1Ptr->enigmaBerry.holdEffect;
+src/pokemon.c:7199:    return &gSaveBlock1Ptr->playerParty[index];
+src/pokemon.c:7204:    return &gSaveBlock1Ptr->playerPartyCount;
+src/pokemon.c:7209:    gSaveBlock1Ptr->playerParty[index] = *mon;
+src/union_room_player_avatar.c:175:    TrySpawnObjectEvent(sUnionRoomLocalIds[leaderId], gSaveBlock1Ptr->location.mapNum, gSaveBlock1Ptr->location.mapGroup);
+src/union_room_player_avatar.c:180:    RemoveObjectEventByLocalIdAndMap(sUnionRoomLocalIds[leaderId], gSaveBlock1Ptr->location.mapNum, gSaveBlock1Ptr->location.mapGroup);
+src/union_room_player_avatar.c:187:    if (TryGetObjectEventIdByLocalIdAndMap(sUnionRoomLocalIds[leaderId], gSaveBlock1Ptr->location.mapNum, gSaveBlock1Ptr->location.mapGroup, &objectId))
+src/union_room_player_avatar.c:201:    if (TryGetObjectEventIdByLocalIdAndMap(sUnionRoomLocalIds[leaderId], gSaveBlock1Ptr->location.mapNum, gSaveBlock1Ptr->location.mapGroup, &objectId))
+src/field_effect_helpers.c:461:    if (gCamera.active && (gSaveBlock1Ptr->location.mapNum != mapNum || gSaveBlock1Ptr->location.mapGroup != mapGroup))
+src/field_effect_helpers.c:465:        sprite->sCurrentMap = ((u8)gSaveBlock1Ptr->location.mapNum << 8) | (u8)gSaveBlock1Ptr->location.mapGroup;
+src/field_effect_helpers.c:565:    if (gCamera.active && (gSaveBlock1Ptr->location.mapNum != mapNum || gSaveBlock1Ptr->location.mapGroup != mapGroup))
+src/field_effect_helpers.c:569:        sprite->sCurrentMap = ((u8)gSaveBlock1Ptr->location.mapNum << 8) | (u8)gSaveBlock1Ptr->location.mapGroup;
+src/battle_main.c:646:            battleBerry->name[i] = gSaveBlock1Ptr->enigmaBerry.berry.name[i];
+src/battle_main.c:650:            battleBerry->itemEffect[i] = gSaveBlock1Ptr->enigmaBerry.itemEffect[i];
+src/battle_main.c:652:        battleBerry->holdEffect = gSaveBlock1Ptr->enigmaBerry.holdEffect;
+src/battle_main.c:653:        battleBerry->holdEffectParam = gSaveBlock1Ptr->enigmaBerry.holdEffectParam;
+src/battle_main.c:683:                gEnigmaBerries[0].name[i] = gSaveBlock1Ptr->enigmaBerry.berry.name[i];
+src/battle_main.c:684:                gEnigmaBerries[2].name[i] = gSaveBlock1Ptr->enigmaBerry.berry.name[i];
+src/battle_main.c:691:                gEnigmaBerries[0].itemEffect[i] = gSaveBlock1Ptr->enigmaBerry.itemEffect[i];
+src/battle_main.c:692:                gEnigmaBerries[2].itemEffect[i] = gSaveBlock1Ptr->enigmaBerry.itemEffect[i];
+src/battle_main.c:695:            gEnigmaBerries[0].holdEffect = gSaveBlock1Ptr->enigmaBerry.holdEffect;
+src/battle_main.c:696:            gEnigmaBerries[2].holdEffect = gSaveBlock1Ptr->enigmaBerry.holdEffect;
+src/battle_main.c:697:            gEnigmaBerries[0].holdEffectParam = gSaveBlock1Ptr->enigmaBerry.holdEffectParam;
+src/battle_main.c:698:            gEnigmaBerries[2].holdEffectParam = gSaveBlock1Ptr->enigmaBerry.holdEffectParam;
+src/battle_tower.c:825:    SetDynamicWarp(0, gSaveBlock1Ptr->location.mapGroup, gSaveBlock1Ptr->location.mapNum, WARP_ID_NONE);
+src/battle_tower.c:2153:        playerRecord->greeting[i] = gSaveBlock1Ptr->easyChatBattleStart[i];
+src/battle_tower.c:2154:        playerRecord->speechWon[i] = gSaveBlock1Ptr->easyChatBattleWon[i];
+src/battle_tower.c:2155:        playerRecord->speechLost[i] = gSaveBlock1Ptr->easyChatBattleLost[i];
+src/battle_tower.c:2261:    objEventTemplates = gSaveBlock1Ptr->objectEventTemplates;
+src/battle_tower.c:2828:        ereaderTrainer->greeting[i] = gSaveBlock1Ptr->easyChatBattleStart[i];
+src/berry.c:1698:    u8 *dest = (u8 *)&gSaveBlock1Ptr->enigmaBerry;
+src/berry.c:1700:    for (i = 0; i < sizeof(gSaveBlock1Ptr->enigmaBerry); i++)
+src/berry.c:1714:    for (i = 0; i < sizeof(gSaveBlock1Ptr->enigmaBerry) - sizeof(gSaveBlock1Ptr->enigmaBerry.checksum); i++)
+src/berry.c:1724:    if (!gSaveBlock1Ptr->enigmaBerry.berry.growthDuration)
+src/berry.c:1726:    if (!gSaveBlock1Ptr->enigmaBerry.berry.maxYield)
+src/berry.c:1728:    if (GetEnigmaBerryChecksum(&gSaveBlock1Ptr->enigmaBerry) != gSaveBlock1Ptr->enigmaBerry.checksum)
+src/berry.c:1741:        return (struct Berry *)(&gSaveBlock1Ptr->enigmaBerry.berry);
+src/berry.c:1756:    return &gSaveBlock1Ptr->berryTrees[id];
+src/berry.c:1817:        gSaveBlock1Ptr->berryTrees[i] = gBlankBerryTree;
+src/berry.c:1879:        tree = &gSaveBlock1Ptr->berryTrees[i];
+src/berry.c:1981:    gSaveBlock1Ptr->berryTrees[id] = gBlankBerryTree;
+src/berry.c:1986:    return gSaveBlock1Ptr->berryTrees[id].berry;
+src/berry.c:1991:    return gSaveBlock1Ptr->berryTrees[id].stage;
+src/berry.c:1996:    return gSaveBlock1Ptr->berryTrees[id].mulch;
+src/berry.c:2101:    return gSaveBlock1Ptr->berryTrees[id].berryYield;
+src/berry.c:2135:    return (gSaveBlock1Ptr->berryTrees[GetObjectEventBerryTreeId(gSelectedObjectEvent)].moistureLevel == 0);
+src/berry.c:2150:    num = gSaveBlock1Ptr->location.mapNum;
+src/berry.c:2151:    group = gSaveBlock1Ptr->location.mapGroup;
+src/berry.c:2213:    gSaveBlock1Ptr->berryTrees[GetObjectEventBerryTreeId(gSelectedObjectEvent)].mulch = mulch;
+src/berry.c:2239:    SetBerryTreeJustPicked(gSpecialVar_LastTalked, gSaveBlock1Ptr->location.mapNum, gSaveBlock1Ptr->location.mapGroup);
+src/berry.c:2263:    return gSaveBlock1Ptr->berryTrees[GetObjectEventBerryTreeId(gSelectedObjectEvent)].weeds;
+src/berry.c:2269:    if (!OW_BERRY_PESTS || !gSaveBlock1Ptr->berryTrees[GetObjectEventBerryTreeId(gSelectedObjectEvent)].pests)
+src/berry.c:2271:    species = GetBerryPestSpecies(gSaveBlock1Ptr->berryTrees[GetObjectEventBerryTreeId(gSelectedObjectEvent)].berry);
+src/berry.c:2275:    gSaveBlock1Ptr->berryTrees[GetObjectEventBerryTreeId(gSelectedObjectEvent)].pests = FALSE;
+src/berry.c:2393:                return GetMutationOutcome(berry, gSaveBlock1Ptr->berryTrees[GetObjectEventBerryTreeId(j)].berry);
+src/trade.c:1122:        Trade_Memcpy(gBlockSendBuffer, gSaveBlock1Ptr->mail, PARTY_SIZE * sizeof(struct Mail) + 4);
+src/trade.c:1139:        Trade_Memcpy(gBlockSendBuffer, gSaveBlock1Ptr->giftRibbons, sizeof(sTradeMenu->giftRibbons));
+src/trade.c:2374:        if (gSaveBlock1Ptr->giftRibbons[i] == 0 && sTradeMenu->giftRibbons[i] != 0)
+src/trade.c:2377:                gSaveBlock1Ptr->giftRibbons[i] = sTradeMenu->giftRibbons[i];
+src/trade.c:3087:        ClearMail(&gSaveBlock1Ptr->mail[playerMail]);
+src/pokenav_ribbons_summary.c:837:        ribbonId = gSaveBlock1Ptr->giftRibbons[ribbonId - FIRST_GIFT_RIBBON];
+src/region_map.c:987:    if (gSaveBlock1Ptr->location.mapGroup == MAP_GROUP(MAP_SS_TIDAL_CORRIDOR)
+src/region_map.c:988:        && (gSaveBlock1Ptr->location.mapNum == MAP_NUM(MAP_SS_TIDAL_CORRIDOR)
+src/region_map.c:989:            || gSaveBlock1Ptr->location.mapNum == MAP_NUM(MAP_SS_TIDAL_LOWER_DECK)
+src/region_map.c:990:            || gSaveBlock1Ptr->location.mapNum == MAP_NUM(MAP_SS_TIDAL_ROOMS)))
+src/region_map.c:996:    switch (GetMapTypeByGroupAndId(gSaveBlock1Ptr->location.mapGroup, gSaveBlock1Ptr->location.mapNum))
+src/region_map.c:1008:        x = gSaveBlock1Ptr->pos.x;
+src/region_map.c:1009:        y = gSaveBlock1Ptr->pos.y;
+src/region_map.c:1017:            mapHeader = Overworld_GetMapHeaderByGroupAndId(gSaveBlock1Ptr->escapeWarp.mapGroup, gSaveBlock1Ptr->escapeWarp.mapNum);
+src/region_map.c:1022:            x = gSaveBlock1Ptr->escapeWarp.x;
+src/region_map.c:1023:            y = gSaveBlock1Ptr->escapeWarp.y;
+src/region_map.c:1036:        mapHeader = Overworld_GetMapHeaderByGroupAndId((u16)gSaveBlock1Ptr->dynamicWarp.mapGroup, (u16)gSaveBlock1Ptr->dynamicWarp.mapNum);
+src/region_map.c:1041:        x = gSaveBlock1Ptr->dynamicWarp.x;
+src/region_map.c:1042:        y = gSaveBlock1Ptr->dynamicWarp.y;
+src/region_map.c:1048:            warp = &gSaveBlock1Ptr->escapeWarp;
+src/region_map.c:1053:            warp = &gSaveBlock1Ptr->dynamicWarp;
+src/region_map.c:1103:        if (gSaveBlock1Ptr->pos.x > 32)
+src/region_map.c:1105:        if (gSaveBlock1Ptr->pos.x > 51)
+src/region_map.c:1109:        if (gSaveBlock1Ptr->pos.y > 37)
+src/region_map.c:1111:        if (gSaveBlock1Ptr->pos.y > 56)
+src/load_save.c:205:        gSaveBlock1Ptr->objectEvents[i] = gObjectEvents[i];
+src/load_save.c:210:        gSaveBlock1Ptr->objectEvents[i].graphicsId = (graphicsId >> 8) | (graphicsId << 8);
+src/load_save.c:211:        gSaveBlock1Ptr->objectEvents[i].spriteId = 127; // magic number
+src/load_save.c:214:            gSaveBlock1Ptr->objectEvents[i].active = FALSE;
+src/load_save.c:225:        gObjectEvents[i] = gSaveBlock1Ptr->objectEvents[i];
+src/load_save.c:259:    memcpy(&gLoadedSaveData.bag, &gSaveBlock1Ptr->bag, sizeof(struct Bag));
+src/load_save.c:263:        gLoadedSaveData.mail[i] = gSaveBlock1Ptr->mail[i];
+src/load_save.c:274:    memcpy(&gSaveBlock1Ptr->bag, &gLoadedSaveData.bag, sizeof(struct Bag));
+src/load_save.c:278:        gSaveBlock1Ptr->mail[i] = gLoadedSaveData.mail[i];
+src/load_save.c:303:    ApplyNewEncryptionKeyToWord(&gSaveBlock1Ptr->money, encryptionKey);
+src/load_save.c:304:    ApplyNewEncryptionKeyToHword(&gSaveBlock1Ptr->coins, encryptionKey);
+src/pokenav_match_call_data.c:865:    return gSaveBlock1Ptr->trainerRematches[matchCall.trainer->rematchTableIdx] ? TRUE : FALSE;
+src/pokenav_match_call_data.c:874:    return gSaveBlock1Ptr->trainerRematches[matchCall.wally->rematchTableIdx] ? TRUE : FALSE;
+src/pokenav_match_call_data.c:1055:                if (gSaveBlock1Ptr->trainerRematches[idx])
+src/item.c:28:    .itemSlots = gSaveBlock1Ptr->pcItems,   \
+src/item.c:144:    gBagPockets[POCKET_ITEMS].itemSlots = gSaveBlock1Ptr->bag.items;
+src/item.c:148:    gBagPockets[POCKET_KEY_ITEMS].itemSlots = gSaveBlock1Ptr->bag.keyItems;
+src/item.c:152:    gBagPockets[POCKET_POKE_BALLS].itemSlots = gSaveBlock1Ptr->bag.pokeBalls;
+src/item.c:156:    gBagPockets[POCKET_TM_HM].itemSlots = gSaveBlock1Ptr->bag.TMsHMs;
+src/item.c:160:    gBagPockets[POCKET_BERRIES].itemSlots = gSaveBlock1Ptr->bag.berries;
+src/item.c:451:bool32 AddPCItem(u16 itemId, u16 count)
+src/item.c:477:void RemovePCItem(u8 index, u16 count)
+src/item.c:500:    switch (gSaveBlock1Ptr->registeredItem)
+src/item.c:503:        gSaveBlock1Ptr->registeredItem = ITEM_ACRO_BIKE;
+src/item.c:506:        gSaveBlock1Ptr->registeredItem = ITEM_MACH_BIKE;
+src/item.c:549:    CpuFastFill(0, &gSaveBlock1Ptr->bag, sizeof(struct Bag));
+src/item.c:807:        return gSaveBlock1Ptr->enigmaBerry.itemEffect;
+src/money.c:124:    return IsEnoughMoney(&gSaveBlock1Ptr->money, gSpecialVar_0x8005);
+src/money.c:129:    RemoveMoney(&gSaveBlock1Ptr->money, gSpecialVar_0x8005);
+src/match_call.c:1465:    return gSaveBlock1Ptr->trainerRematches[matchCallId] > 0;
+src/match_call.c:1873:    dewfordRand = gSaveBlock1Ptr->dewfordTrends[0].rand;
+src/coins.c:43:    return gSaveBlock1Ptr->coins ^ gSaveBlock2Ptr->encryptionKey;
+src/coins.c:48:    gSaveBlock1Ptr->coins = coinAmount ^ gSaveBlock2Ptr->encryptionKey;
+src/roamer.c:17:#define ROAMER(index) (&gSaveBlock1Ptr->roamer[index])
+src/roamer.c:170:        sLocationHistory[i][0][MAP_GRP] = gSaveBlock1Ptr->location.mapGroup;
+src/roamer.c:171:        sLocationHistory[i][0][MAP_NUM] = gSaveBlock1Ptr->location.mapNum;
+src/roamer.c:263:        if (IsRoamerAt(i, gSaveBlock1Ptr->location.mapGroup, gSaveBlock1Ptr->location.mapNum) == TRUE && (Random() % 4) == 0)
+src/ereader_helpers.c:379:    return (gSaveBlock1Ptr->trainerHill.unused + 1) % 256;
+src/rotating_gate.c:627:    if (gSaveBlock1Ptr->location.mapGroup == MAP_GROUP(MAP_FORTREE_CITY_GYM) &&
+src/rotating_gate.c:628:        gSaveBlock1Ptr->location.mapNum == MAP_NUM(MAP_FORTREE_CITY_GYM))
+src/rotating_gate.c:633:    if (gSaveBlock1Ptr->location.mapGroup == MAP_GROUP(MAP_ROUTE110_TRICK_HOUSE_PUZZLE6) &&
+src/rotating_gate.c:634:        gSaveBlock1Ptr->location.mapNum == MAP_NUM(MAP_ROUTE110_TRICK_HOUSE_PUZZLE6))
+src/rotating_gate.c:710:    s16 x = gSaveBlock1Ptr->pos.x - 2;
+src/rotating_gate.c:711:    s16 x2 = gSaveBlock1Ptr->pos.x + MAP_OFFSET_W + 2;
+src/rotating_gate.c:712:    s16 y = gSaveBlock1Ptr->pos.y - 2;
+src/rotating_gate.c:713:    s16 y2 = gSaveBlock1Ptr->pos.y + MAP_OFFSET_H;
+src/rotating_gate.c:828:    s16 x = gSaveBlock1Ptr->pos.x - 2;
+src/rotating_gate.c:829:    s16 x2 = gSaveBlock1Ptr->pos.x + MAP_OFFSET_W + 2;
+src/rotating_gate.c:830:    s16 y = gSaveBlock1Ptr->pos.y - 2;
+src/rotating_gate.c:831:    s16 y2 = gSaveBlock1Ptr->pos.y + MAP_OFFSET_H;
+src/faraway_island.c:40:    TryGetObjectEventIdByLocalIdAndMap(LOCALID_FARAWAY_ISLAND_MEW, gSaveBlock1Ptr->location.mapNum, gSaveBlock1Ptr->location.mapGroup, &objectEventId);
+src/faraway_island.c:324:    if (gSaveBlock1Ptr->location.mapNum == MAP_NUM(MAP_FARAWAY_ISLAND_INTERIOR)
+src/faraway_island.c:325:     && gSaveBlock1Ptr->location.mapGroup == MAP_GROUP(MAP_FARAWAY_ISLAND_INTERIOR))
+src/faraway_island.c:337:    if (gSaveBlock1Ptr->location.mapNum == MAP_NUM(MAP_FARAWAY_ISLAND_INTERIOR)
+src/faraway_island.c:338:     && gSaveBlock1Ptr->location.mapGroup == MAP_GROUP(MAP_FARAWAY_ISLAND_INTERIOR))
+src/faraway_island.c:349:    if (gSaveBlock1Ptr->location.mapNum == MAP_NUM(MAP_FARAWAY_ISLAND_INTERIOR)
+src/faraway_island.c:350:     && gSaveBlock1Ptr->location.mapGroup == MAP_GROUP(MAP_FARAWAY_ISLAND_INTERIOR))
+src/contest.c:5656:        gSaveBlock1Ptr->contestWinners[id].personality = gContestMons[i].personality;
+src/contest.c:5657:        gSaveBlock1Ptr->contestWinners[id].species = gContestMons[i].species;
+src/contest.c:5658:        gSaveBlock1Ptr->contestWinners[id].trainerId = gContestMons[i].otId;
+src/contest.c:5659:        StringCopyN(gSaveBlock1Ptr->contestWinners[id].monName, gContestMons[i].nickname, VANILLA_POKEMON_NAME_LENGTH);
+src/contest.c:5660:        StringCopy(gSaveBlock1Ptr->contestWinners[id].trainerName, gContestMons[i].trainerName);
+src/contest.c:5662:            gSaveBlock1Ptr->contestWinners[id].contestRank = CONTEST_RANK_LINK;
+src/contest.c:5664:            gSaveBlock1Ptr->contestWinners[id].contestRank = gSpecialVar_ContestRank;
+src/contest.c:5667:            gSaveBlock1Ptr->contestWinners[id].contestCategory = gSpecialVar_ContestCategory;
+src/contest.c:5669:            gSaveBlock1Ptr->contestWinners[id].contestCategory = captionId;
+src/contest.c:5702:                memcpy(&gSaveBlock1Ptr->contestWinners[i], &gSaveBlock1Ptr->contestWinners[i - 1], sizeof(struct ContestWinner));
+src/contest.c:5730:        gSaveBlock1Ptr->contestWinners[i] = gDefaultContestWinners[i];
+src/pokeblock.c:744:    struct Pokeblock *pkblock = &gSaveBlock1Ptr->pokeblocks[pkblId];
+src/pokeblock.c:777:        pokeblock = &gSaveBlock1Ptr->pokeblocks[pkblId];
+src/pokeblock.c:831:            if (gSaveBlock1Ptr->pokeblocks[i].color == PBLOCK_CLR_NONE)
+src/pokeblock.c:833:                struct Pokeblock temp = gSaveBlock1Ptr->pokeblocks[i];
+src/pokeblock.c:834:                gSaveBlock1Ptr->pokeblocks[i] = gSaveBlock1Ptr->pokeblocks[j];
+src/pokeblock.c:835:                gSaveBlock1Ptr->pokeblocks[j] = temp;
+src/pokeblock.c:844:    struct Pokeblock *pokeblocks = gSaveBlock1Ptr->pokeblocks;
+src/pokeblock.c:883:        if (gSaveBlock1Ptr->pokeblocks[i].color != PBLOCK_CLR_NONE)
+src/pokeblock.c:1197:    ChooseMonToGivePokeblock(&gSaveBlock1Ptr->pokeblocks[gSpecialVar_ItemId], ReturnToPokeblockCaseOnField);
+src/pokeblock.c:1210:    StringCopy(gStringVar1, gPokeblockNames[gSaveBlock1Ptr->pokeblocks[gSpecialVar_ItemId].color]);
+src/pokeblock.c:1264:    s16 gain = PokeblockGetGain(nature, &gSaveBlock1Ptr->pokeblocks[gSpecialVar_ItemId]);
+src/pokeblock.c:1265:    StringCopy(gBattleTextBuff1, gPokeblockNames[gSaveBlock1Ptr->pokeblocks[gSpecialVar_ItemId].color]);
+src/pokeblock.c:1268:    gSpecialVar_ItemId = gSaveBlock1Ptr->pokeblocks[gSpecialVar_ItemId].color << 8;
+src/pokeblock.c:1282:    StringCopy(gStringVar1, gPokeblockNames[gSaveBlock1Ptr->pokeblocks[gSpecialVar_ItemId].color]);
+src/pokeblock.c:1291:    gSpecialVar_0x8004 = GivePokeblockToContestLady(&gSaveBlock1Ptr->pokeblocks[gSpecialVar_ItemId]);
+src/pokeblock.c:1310:    gSaveBlock1Ptr->pokeblocks[pkblId].color = 0;
+src/pokeblock.c:1311:    gSaveBlock1Ptr->pokeblocks[pkblId].spicy = 0;
+src/pokeblock.c:1312:    gSaveBlock1Ptr->pokeblocks[pkblId].dry = 0;
+src/pokeblock.c:1313:    gSaveBlock1Ptr->pokeblocks[pkblId].sweet = 0;
+src/pokeblock.c:1314:    gSaveBlock1Ptr->pokeblocks[pkblId].bitter = 0;
+src/pokeblock.c:1315:    gSaveBlock1Ptr->pokeblocks[pkblId].sour = 0;
+src/pokeblock.c:1316:    gSaveBlock1Ptr->pokeblocks[pkblId].feel = 0;
+src/pokeblock.c:1357:        if (gSaveBlock1Ptr->pokeblocks[i].color == PBLOCK_CLR_NONE)
+src/pokeblock.c:1374:        gSaveBlock1Ptr->pokeblocks[slot] = *pokeblock;
+src/pokeblock.c:1381:    if (gSaveBlock1Ptr->pokeblocks[pkblId].color == PBLOCK_CLR_NONE)
+src/frontier_pass.c:1658:        s8 mapNum = gSaveBlock1Ptr->location.mapNum;
+src/frontier_pass.c:1663:            x += gSaveBlock1Ptr->pos.x;
+src/frontier_pass.c:1664:            y = gSaveBlock1Ptr->pos.y;
+src/frontier_pass.c:1682:                if (gSaveBlock1Ptr->escapeWarp.mapNum == MAP_NUM(MAP_BATTLE_FRONTIER_OUTSIDE_EAST))
+src/frontier_pass.c:1683:                    x = gSaveBlock1Ptr->escapeWarp.x + 55;
+src/frontier_pass.c:1685:                    x = gSaveBlock1Ptr->escapeWarp.x;
+src/frontier_pass.c:1687:                y = gSaveBlock1Ptr->escapeWarp.y;
+src/new_game.c:109:    memset(&gSaveBlock1Ptr->dexCaught, 0, sizeof(gSaveBlock1Ptr->dexCaught));
+src/new_game.c:110:    memset(&gSaveBlock1Ptr->dexSeen, 0, sizeof(gSaveBlock1Ptr->dexSeen));
+src/new_game.c:121:        gSaveBlock1Ptr->contestWinners[i] = sContestWinnerPicDummy;
+src/new_game.c:178:    SetMoney(&gSaveBlock1Ptr->money, 3000);
+src/new_game.c:190:    gSaveBlock1Ptr->registeredItem = ITEM_NONE;
+src/field_door.c:565:        if (gSaveBlock1Ptr->location.mapGroup == MAP_GROUP(MAP_BATTLE_FRONTIER_BATTLE_TOWER_MULTI_CORRIDOR)
+src/field_door.c:566:            && gSaveBlock1Ptr->location.mapNum == MAP_NUM(MAP_BATTLE_FRONTIER_BATTLE_TOWER_MULTI_CORRIDOR))
+src/field_camera.c:96:    DrawWholeMapViewInternal(gSaveBlock1Ptr->pos.x, gSaveBlock1Ptr->pos.y, gMapHeader.mapLayout);
+src/field_camera.c:153:        DrawMetatileAt(mapLayout, r7 + temp, gSaveBlock1Ptr->pos.x + i / 2, gSaveBlock1Ptr->pos.y + 14);
+src/field_camera.c:168:        DrawMetatileAt(mapLayout, r7 + temp, gSaveBlock1Ptr->pos.x + i / 2, gSaveBlock1Ptr->pos.y);
+src/field_camera.c:183:        DrawMetatileAt(mapLayout, temp * 32 + r6, gSaveBlock1Ptr->pos.x, gSaveBlock1Ptr->pos.y + i / 2);
+src/field_camera.c:200:        DrawMetatileAt(mapLayout, temp * 32 + r5, gSaveBlock1Ptr->pos.x + 14, gSaveBlock1Ptr->pos.y + i / 2);
+src/field_camera.c:314:    x -= gSaveBlock1Ptr->pos.x;
+src/field_camera.c:322:    y = (y - gSaveBlock1Ptr->pos.y) * 2;
+src/berry_blender.c:3441:    if (gSaveBlock1Ptr->berryBlenderRecords[sBerryBlender->numPlayers - 2] < sBerryBlender->maxRPM)
+src/berry_blender.c:3442:        gSaveBlock1Ptr->berryBlenderRecords[sBerryBlender->numPlayers - 2] = sBerryBlender->maxRPM;
+src/berry_blender.c:3766:        record = gSaveBlock1Ptr->berryBlenderRecords[i];
+src/menu_specialized.c:253:    StringCopy(buffer, gSaveBlock1Ptr->mail[PARTY_SIZE + itemId].playerName);
+src/field_specials.c:544:        x = gSaveBlock1Ptr->pos.x - 1;
+src/field_specials.c:545:        y = gSaveBlock1Ptr->pos.y;
+src/field_specials.c:549:        x = gSaveBlock1Ptr->pos.x;
+src/field_specials.c:550:        y = gSaveBlock1Ptr->pos.y - 1;
+src/field_specials.c:553:        x = gSaveBlock1Ptr->pos.x + 1;
+src/field_specials.c:554:        y = gSaveBlock1Ptr->pos.y;
+src/field_specials.c:558:        x = gSaveBlock1Ptr->pos.x;
+src/field_specials.c:559:        y = gSaveBlock1Ptr->pos.y + 1;
+src/field_specials.c:606:        u8 obj = GetObjectEventIdByLocalIdAndMap(localEventId, gSaveBlock1Ptr->location.mapNum, gSaveBlock1Ptr->location.mapGroup);
+src/field_specials.c:918:    gSpecialVar_0x8004 = gSaveBlock1Ptr->pos.x;
+src/field_specials.c:919:    gSpecialVar_0x8005 = gSaveBlock1Ptr->pos.y;
+src/field_specials.c:1101:    MapGridSetMetatileIdAt(gSaveBlock1Ptr->pos.x + dx + MAP_OFFSET, gSaveBlock1Ptr->pos.y + dy + MAP_OFFSET, metatileId | MAPGRID_IMPASSABLE);
+src/field_specials.c:1144:    MapGridSetMetatileIdAt(gSaveBlock1Ptr->pos.x + dx + MAP_OFFSET, gSaveBlock1Ptr->pos.y + dy + MAP_OFFSET, metatileId | MAPGRID_IMPASSABLE);
+src/field_specials.c:1291:                                                  gSaveBlock1Ptr->pos.x + MAP_OFFSET,
+src/field_specials.c:1292:                                                  gSaveBlock1Ptr->pos.y + MAP_OFFSET,
+src/field_specials.c:1301:    RemoveObjectEventByLocalIdAndMap(LOCALID_CAMERA, gSaveBlock1Ptr->location.mapNum, gSaveBlock1Ptr->location.mapGroup);
+src/field_specials.c:1356:    u32 rnd = gSaveBlock1Ptr->dewfordTrends[0].trendiness + gSaveBlock1Ptr->dewfordTrends[0].rand + sSlotMachineRandomSeeds[gSpecialVar_0x8004];
+src/field_specials.c:1436:        && gSaveBlock1Ptr->location.mapGroup == MAP_GROUP(MAP_RUSTURF_TUNNEL)
+src/field_specials.c:1437:        && gSaveBlock1Ptr->location.mapNum == MAP_NUM(MAP_RUSTURF_TUNNEL))
+src/field_specials.c:1700:    if (gSaveBlock1Ptr->location.mapGroup == MAP_GROUP(MAP_BATTLE_FRONTIER_BATTLE_TOWER_MULTI_PARTNER_ROOM)
+src/field_specials.c:1701:        && gSaveBlock1Ptr->location.mapNum == MAP_NUM(MAP_BATTLE_FRONTIER_BATTLE_TOWER_MULTI_PARTNER_ROOM) &&
+src/field_specials.c:1785:    switch (gSaveBlock1Ptr->dynamicWarp.mapNum)
+src/field_specials.c:1817:    if (gSaveBlock1Ptr->dynamicWarp.mapGroup == MAP_GROUP(MAP_LILYCOVE_CITY_DEPARTMENT_STORE_1F))
+src/field_specials.c:1819:        switch (gSaveBlock1Ptr->dynamicWarp.mapNum)
+src/field_specials.c:2082:    if (gSaveBlock1Ptr->location.mapGroup == MAP_GROUP(MAP_TRAINER_HILL_ENTRANCE) && gSaveBlock1Ptr->location.mapNum == MAP_NUM(MAP_TRAINER_HILL_ENTRANCE))
+src/field_specials.c:3322:    if (gSaveBlock1Ptr->location.mapNum == MAP_NUM(MAP_BIRTH_ISLAND_EXTERIOR) && gSaveBlock1Ptr->location.mapGroup == MAP_GROUP(MAP_BIRTH_ISLAND_EXTERIOR))
+src/field_specials.c:3478:        if (gSaveBlock1Ptr->location.mapGroup == MAP_GROUP(MAP_UNDERWATER_MARINE_CAVE))
+src/field_specials.c:3480:            switch (gSaveBlock1Ptr->location.mapNum)
+src/field_specials.c:3494:        if (gSaveBlock1Ptr->location.mapGroup == MAP_GROUP(MAP_UNDERWATER_ROUTE127))
+src/field_specials.c:3496:            switch (gSaveBlock1Ptr->location.mapNum)
+src/field_specials.c:3509:        if (gSaveBlock1Ptr->location.mapNum == sAbnormalWeatherMapNumbers[abnormalWeather - 1] &&
+src/field_specials.c:3510:            gSaveBlock1Ptr->location.mapGroup == 0)
+src/field_specials.c:3554:        if (gSaveBlock1Ptr->location.mapGroup == sPokeMarts[i][0])
+src/field_specials.c:3556:            if (gSaveBlock1Ptr->location.mapNum == sPokeMarts[i][1])
+src/field_specials.c:3798:                MapGridSetMetatileIdAt(gSaveBlock1Ptr->pos.x + x + MAP_OFFSET - 1,
+src/field_specials.c:3799:                                       gSaveBlock1Ptr->pos.y + y + MAP_OFFSET - 3,
+src/field_specials.c:3828:    if (gSaveBlock1Ptr->lastHealLocation.mapGroup == MAP_GROUP(MAP_DEWFORD_TOWN) && gSaveBlock1Ptr->lastHealLocation.mapNum == MAP_NUM(MAP_DEWFORD_TOWN))
+src/field_specials.c:3861:    u16 map = (gSaveBlock1Ptr->location.mapGroup << 8) + gSaveBlock1Ptr->location.mapNum;
+src/field_specials.c:3902:#define FANCLUB_BITFIELD (gSaveBlock1Ptr->vars[VAR_FANCLUB_FAN_COUNTER - VARS_START])
+src/field_specials.c:3916:    gSaveBlock1Ptr->vars[VAR_FANCLUB_FAN_COUNTER - VARS_START] = 0;
+src/field_specials.c:3917:    gSaveBlock1Ptr->vars[VAR_FANCLUB_LOSE_FAN_TIMER - VARS_START] = 0;
+src/field_specials.c:3925:        gSaveBlock1Ptr->vars[VAR_FANCLUB_LOSE_FAN_TIMER - VARS_START] = gSaveBlock2Ptr->playTimeHours;
+src/field_specials.c:3935:        gSaveBlock1Ptr->vars[VAR_FANCLUB_LOSE_FAN_TIMER - VARS_START] = gSaveBlock2Ptr->playTimeHours;
+src/field_specials.c:4085:                gSaveBlock1Ptr->vars[VAR_FANCLUB_LOSE_FAN_TIMER - VARS_START] = gSaveBlock2Ptr->playTimeHours;
+src/field_specials.c:4092:            else if (gSaveBlock2Ptr->playTimeHours - gSaveBlock1Ptr->vars[VAR_FANCLUB_LOSE_FAN_TIMER - VARS_START] < 12)
+src/field_specials.c:4097:            gSaveBlock1Ptr->vars[VAR_FANCLUB_LOSE_FAN_TIMER - VARS_START] += 12;
+src/field_specials.c:4149:    BufferFanClubTrainerName_(&gSaveBlock1Ptr->linkBattleRecords, whichLinkTrainer, whichNPCTrainer);
+src/field_specials.c:4302:        const struct ObjectEventTemplate *objTemplate = FindObjectEventTemplateByLocalId(localId, gSaveBlock1Ptr->objectEventTemplates, gMapHeader.events->objectEventCount);
+src/pokemon_size_record.c:215:        gSaveBlock1Ptr->giftRibbons[index] = ribbonId;
+src/shop.c:780:    PrintMoneyAmountInMoneyBoxWithBorder(WIN_MONEY, 1, 13, GetMoney(&gSaveBlock1Ptr->money));
+src/shop.c:1010:            else if (!IsEnoughMoney(&gSaveBlock1Ptr->money, sShopData->totalCost))
+src/shop.c:1075:        maxQuantity = GetMoney(&gSaveBlock1Ptr->money) / sShopData->totalCost;
+src/shop.c:1164:    RemoveMoney(&gSaveBlock1Ptr->money, sShopData->totalCost);
+src/shop.c:1166:    PrintMoneyAmountInMoneyBox(WIN_MONEY, GetMoney(&gSaveBlock1Ptr->money), 0);
+src/daycare.c:197:        u16 moveLearnerSpecies = GetBoxMonData(&gSaveBlock1Ptr->daycare.mons[i].mon, MON_DATA_SPECIES);
+src/daycare.c:200:        if (!GetBoxMonData(&gSaveBlock1Ptr->daycare.mons[i].mon, MON_DATA_SANITY_HAS_SPECIES))
+src/daycare.c:223:                u16 moveTeacherSpecies = GetBoxMonData(&gSaveBlock1Ptr->daycare.mons[k].mon, MON_DATA_SPECIES);
+src/daycare.c:225:                if (k == i || !GetBoxMonData(&gSaveBlock1Ptr->daycare.mons[k].mon, MON_DATA_SANITY_HAS_SPECIES))
+src/daycare.c:230:                    && (P_EGG_MOVE_TRANSFER < GEN_9 || GetBoxMonData(&gSaveBlock1Ptr->daycare.mons[i].mon, MON_DATA_HELD_ITEM) != ITEM_MIRROR_HERB)
+src/daycare.c:236:                    if (GetBoxMonData(&gSaveBlock1Ptr->daycare.mons[k].mon, MON_DATA_MOVE1 + l) != sHatchedEggEggMoves[j])
+src/daycare.c:239:                    if (GiveMoveToBoxMon(&gSaveBlock1Ptr->daycare.mons[i].mon, sHatchedEggEggMoves[j]) == MON_HAS_MAX_MOVES)
+src/daycare.c:259:        daycareMon->mail.message = gSaveBlock1Ptr->mail[mailId];
+src/daycare.c:289:    StorePokemonInEmptyDaycareSlot(&gPlayerParty[monId], &gSaveBlock1Ptr->daycare);
+src/daycare.c:396:    return TakeSelectedPokemonMonFromDaycareShiftSlots(&gSaveBlock1Ptr->daycare, gSpecialVar_0x8004);
+src/daycare.c:446:    gSpecialVar_0x8005 = GetDaycareCostForMon(&gSaveBlock1Ptr->daycare, gSpecialVar_0x8004);
+src/daycare.c:451:    gSaveBlock1Ptr->daycare.mons[0].steps += numSteps;
+src/daycare.c:452:    gSaveBlock1Ptr->daycare.mons[1].steps += numSteps;
+src/daycare.c:457:    if (GetBoxMonData(&gSaveBlock1Ptr->daycare.mons[gSpecialVar_0x8004].mon, MON_DATA_SPECIES) != 0)
+src/daycare.c:458:        return GetNumLevelsGainedForDaycareMon(&gSaveBlock1Ptr->daycare.mons[gSpecialVar_0x8004]);
+src/daycare.c:601:    _TriggerPendingDaycareEgg(&gSaveBlock1Ptr->daycare);
+src/daycare.c:606:    _TriggerPendingDaycareMaleEgg(&gSaveBlock1Ptr->daycare);
+src/daycare.c:946:    RemoveEggFromDayCare(&gSaveBlock1Ptr->daycare);
+src/daycare.c:1153:    _GiveEggFromDaycare(&gSaveBlock1Ptr->daycare);
+src/daycare.c:1216:    return TryProduceOrHatchEgg(&gSaveBlock1Ptr->daycare);
+src/daycare.c:1251:    _GetDaycareMonNicknames(&gSaveBlock1Ptr->daycare);
+src/daycare.c:1257:    if (IsEggPending(&gSaveBlock1Ptr->daycare))
+src/daycare.c:1262:    numMons = CountPokemonInDaycare(&gSaveBlock1Ptr->daycare);
+src/daycare.c:1273:    u8 ret = CountPokemonInDaycare(&gSaveBlock1Ptr->daycare);
+src/daycare.c:1363:    gSpecialVar_Result = GetDaycareCompatibilityScore(&gSaveBlock1Ptr->daycare);
+src/daycare.c:1514:        DaycarePrintMonNickname(&gSaveBlock1Ptr->daycare, windowId, daycareSlotId, y);
+src/daycare.c:1515:        DaycarePrintMonLvl(&gSaveBlock1Ptr->daycare, windowId, daycareSlotId, y);
+src/fieldmap.c:430:    mapView = gSaveBlock1Ptr->mapView;
+src/fieldmap.c:432:    x = gSaveBlock1Ptr->pos.x;
+src/fieldmap.c:433:    y = gSaveBlock1Ptr->pos.y;
+src/fieldmap.c:449:        marker |= gSaveBlock1Ptr->mapView[i];
+src/fieldmap.c:452:    for (i = 0; i < ARRAY_COUNT(gSaveBlock1Ptr->mapView); i++)
+src/fieldmap.c:453:        marker |= gSaveBlock1Ptr->mapView[i];
+src/fieldmap.c:465:    CpuFill16(0, gSaveBlock1Ptr->mapView, sizeof(gSaveBlock1Ptr->mapView));
+src/fieldmap.c:475:    mapView = gSaveBlock1Ptr->mapView;
+src/fieldmap.c:479:        x = gSaveBlock1Ptr->pos.x;
+src/fieldmap.c:480:        y = gSaveBlock1Ptr->pos.y;
+src/fieldmap.c:519:    mapView = gSaveBlock1Ptr->mapView;
+src/fieldmap.c:523:    x0 = gSaveBlock1Ptr->pos.x;
+src/fieldmap.c:524:    y0 = gSaveBlock1Ptr->pos.y;
+src/fieldmap.c:605:    return GetMapBorderIdAt(gSaveBlock1Ptr->pos.x + MAP_OFFSET + x, gSaveBlock1Ptr->pos.y + MAP_OFFSET + y);
+src/fieldmap.c:611:    x = gSaveBlock1Ptr->pos.x + MAP_OFFSET + gDirectionToVectors[direction].x;
+src/fieldmap.c:612:    y = gSaveBlock1Ptr->pos.y + MAP_OFFSET + gDirectionToVectors[direction].y;
+src/fieldmap.c:627:        gSaveBlock1Ptr->pos.x = -x;
+src/fieldmap.c:628:        gSaveBlock1Ptr->pos.y -= connection->offset;
+src/fieldmap.c:631:        gSaveBlock1Ptr->pos.x = mapHeader->mapLayout->width;
+src/fieldmap.c:632:        gSaveBlock1Ptr->pos.y -= connection->offset;
+src/fieldmap.c:635:        gSaveBlock1Ptr->pos.x -= connection->offset;
+src/fieldmap.c:636:        gSaveBlock1Ptr->pos.y = -y;
+src/fieldmap.c:639:        gSaveBlock1Ptr->pos.x -= connection->offset;
+src/fieldmap.c:640:        gSaveBlock1Ptr->pos.y = mapHeader->mapLayout->height;
+src/fieldmap.c:657:        gSaveBlock1Ptr->pos.x += x;
+src/fieldmap.c:658:        gSaveBlock1Ptr->pos.y += y;
+src/fieldmap.c:664:        old_x = gSaveBlock1Ptr->pos.x;
+src/fieldmap.c:665:        old_y = gSaveBlock1Ptr->pos.y;
+src/fieldmap.c:666:        connection = GetIncomingConnection(direction, gSaveBlock1Ptr->pos.x, gSaveBlock1Ptr->pos.y);
+src/fieldmap.c:672:            gCamera.x = old_x - gSaveBlock1Ptr->pos.x;
+src/fieldmap.c:673:            gCamera.y = old_y - gSaveBlock1Ptr->pos.y;
+src/fieldmap.c:674:            gSaveBlock1Ptr->pos.x += x;
+src/fieldmap.c:675:            gSaveBlock1Ptr->pos.y += y;
+src/fieldmap.c:801:    gSaveBlock1Ptr->pos.x = x - MAP_OFFSET;
+src/fieldmap.c:802:    gSaveBlock1Ptr->pos.y = y - MAP_OFFSET;
+src/fieldmap.c:807:    *x = gSaveBlock1Ptr->pos.x + MAP_OFFSET;
+src/fieldmap.c:808:    *y = gSaveBlock1Ptr->pos.y + MAP_OFFSET;
+src/fieldmap.c:813:    gSaveBlock1Ptr->pos.x = x;
+src/fieldmap.c:814:    gSaveBlock1Ptr->pos.y = y;
+src/fieldmap.c:819:    *x = gSaveBlock1Ptr->pos.x;
+src/fieldmap.c:820:    *y = gSaveBlock1Ptr->pos.y;
+src/battle_records.c:228:    ClearLinkBattleRecords(gSaveBlock1Ptr->linkBattleRecords.entries);
+src/battle_records.c:272:            &gSaveBlock1Ptr->linkBattleRecords,
+src/battle_records.c:337:    PrintLinkBattleWinsLossesDraws(gSaveBlock1Ptr->linkBattleRecords.entries);
+src/battle_records.c:344:        PrintLinkBattleRecord(&gSaveBlock1Ptr->linkBattleRecords.entries[i], 7 + (i * 2), gSaveBlock1Ptr->linkBattleRecords.languages[i]);
+src/battle_tent.c:115:    SetDynamicWarp(0, gSaveBlock1Ptr->location.mapGroup, gSaveBlock1Ptr->location.mapNum, WARP_ID_NONE);
+src/battle_tent.c:178:    SetDynamicWarp(0, gSaveBlock1Ptr->location.mapGroup, gSaveBlock1Ptr->location.mapNum, WARP_ID_NONE);
+src/battle_tent.c:234:    SetDynamicWarp(0, gSaveBlock1Ptr->location.mapGroup, gSaveBlock1Ptr->location.mapNum, WARP_ID_NONE);
+src/battle_arena.c:476:    SetDynamicWarp(0, gSaveBlock1Ptr->location.mapGroup, gSaveBlock1Ptr->location.mapNum, WARP_ID_NONE);
+src/pokedex_area_screen.c:363:        roamer = &gSaveBlock1Ptr->roamer[i];
+src/dewford_trend.c:44:    Each time a potential trendy phrase is submitted, it is saved in gSaveBlock1Ptr->dewfordTrends[].
+src/dewford_trend.c:47:    gSaveBlock1Ptr->dewfordTrends[0]. If the player mixes records with another player, their own
+src/dewford_trend.c:77:        gSaveBlock1Ptr->dewfordTrends[i].words[0] = GetRandomEasyChatWordFromGroup(EC_GROUP_CONDITIONS);
+src/dewford_trend.c:80:            gSaveBlock1Ptr->dewfordTrends[i].words[1] = GetRandomEasyChatWordFromGroup(EC_GROUP_LIFESTYLE);
+src/dewford_trend.c:82:            gSaveBlock1Ptr->dewfordTrends[i].words[1] = GetRandomEasyChatWordFromGroup(EC_GROUP_HOBBIES);
+src/dewford_trend.c:84:        gSaveBlock1Ptr->dewfordTrends[i].gainingTrendiness = Random() & 1;
+src/dewford_trend.c:85:        SeedTrendRng(&(gSaveBlock1Ptr->dewfordTrends[i]));
+src/dewford_trend.c:87:    SortTrends(gSaveBlock1Ptr->dewfordTrends, SAVED_TRENDS_COUNT, SORT_MODE_NORMAL);
+src/dewford_trend.c:102:            struct DewfordTrend *trend = &gSaveBlock1Ptr->dewfordTrends[i];
+src/dewford_trend.c:143:        SortTrends(gSaveBlock1Ptr->dewfordTrends, SAVED_TRENDS_COUNT, SORT_MODE_NORMAL);
+src/dewford_trend.c:150:// phrase is always saved in gSaveBlock1Ptr->dewfordTrends
+src/dewford_trend.c:167:                gSaveBlock1Ptr->dewfordTrends[0].words[0] = phrase[0];
+src/dewford_trend.c:168:                gSaveBlock1Ptr->dewfordTrends[0].words[1] = phrase[1];
+src/dewford_trend.c:181:            if (CompareTrends(&trend, &(gSaveBlock1Ptr->dewfordTrends[i]), SORT_MODE_NORMAL))
+src/dewford_trend.c:188:                    gSaveBlock1Ptr->dewfordTrends[j] = gSaveBlock1Ptr->dewfordTrends[j - 1];
+src/dewford_trend.c:191:                gSaveBlock1Ptr->dewfordTrends[i] = trend;
+src/dewford_trend.c:202:        gSaveBlock1Ptr->dewfordTrends[SAVED_TRENDS_COUNT - 1] = trend;
+src/dewford_trend.c:282:    dst = gSaveBlock1Ptr->dewfordTrends;
+src/dewford_trend.c:292:    struct DewfordTrend *trend = &gSaveBlock1Ptr->dewfordTrends[gSpecialVar_0x8004];
+src/dewford_trend.c:304:        if (gSaveBlock1Ptr->dewfordTrends[0].trendiness - gSaveBlock1Ptr->dewfordTrends[1].trendiness > 1)
+src/dewford_trend.c:306:        if (gSaveBlock1Ptr->dewfordTrends[0].gainingTrendiness)
+src/dewford_trend.c:308:        if (!gSaveBlock1Ptr->dewfordTrends[1].gainingTrendiness)
+src/dewford_trend.c:322:    gSpecialVar_Result = (gSaveBlock1Ptr->dewfordTrends[0].words[0] + gSaveBlock1Ptr->dewfordTrends[0].words[1]) & 7;
+src/dewford_trend.c:391:        if (IsEasyChatPairEqual(phrase, gSaveBlock1Ptr->dewfordTrends[i].words))
+src/mirage_tower.c:265:    if (!(gSaveBlock1Ptr->location.mapGroup == MAP_GROUP(MAP_ROUTE111) && gSaveBlock1Ptr->location.mapNum == MAP_NUM(MAP_ROUTE111)))
+src/mirage_tower.c:288:    if (gSaveBlock1Ptr->location.mapGroup != MAP_GROUP(MAP_ROUTE111)
+src/mirage_tower.c:289:     || gSaveBlock1Ptr->location.mapNum != MAP_NUM(MAP_ROUTE111)
+src/mirage_tower.c:302:    if (gSaveBlock1Ptr->location.mapGroup != MAP_GROUP(MAP_ROUTE111)
+src/mirage_tower.c:303:     || gSaveBlock1Ptr->location.mapNum   != MAP_NUM(MAP_ROUTE111)
+src/mirage_tower.c:356:    TryGetObjectEventIdByLocalIdAndMap(LOCALID_ROUTE111_PLAYER_FALLING, gSaveBlock1Ptr->location.mapNum, gSaveBlock1Ptr->location.mapGroup, &objectEventId);
+src/item_menu.c:1019:            if (gSaveBlock1Ptr->registeredItem != ITEM_NONE && gSaveBlock1Ptr->registeredItem == itemSlot.itemId)
+src/item_menu.c:1698:                if (gSaveBlock1Ptr->registeredItem == gSpecialVar_ItemId)
+src/item_menu.c:1993:    if (gSaveBlock1Ptr->registeredItem == gSpecialVar_ItemId)
+src/item_menu.c:1994:        gSaveBlock1Ptr->registeredItem = ITEM_NONE;
+src/item_menu.c:1996:        gSaveBlock1Ptr->registeredItem = gSpecialVar_ItemId;
+src/item_menu.c:2132:    if (gSaveBlock1Ptr->registeredItem != ITEM_NONE)
+src/item_menu.c:2134:        if (CheckBagHasItem(gSaveBlock1Ptr->registeredItem, 1) == TRUE)
+src/item_menu.c:2140:            gSpecialVar_ItemId = gSaveBlock1Ptr->registeredItem;
+src/item_menu.c:2141:            taskId = CreateTask(GetItemFieldFunc(gSaveBlock1Ptr->registeredItem), 8);
+src/item_menu.c:2147:            gSaveBlock1Ptr->registeredItem = ITEM_NONE;
+src/item_menu.c:2265:    AddMoney(&gSaveBlock1Ptr->money, GetItemSellPrice(gSpecialVar_ItemId) * tItemCount);
+src/item_menu.c:2272:    PrintMoneyAmountInMoneyBox(gBagMenu->windowIds[ITEMWIN_MONEY], GetMoney(&gSaveBlock1Ptr->money), 0);
+src/item_menu.c:2342:    else if (AddPCItem(gSpecialVar_ItemId, tItemCount) == TRUE)
+src/item_menu.c:2385:    memcpy(sTempWallyBag->bagPocket_Items, gSaveBlock1Ptr->bag.items, sizeof(gSaveBlock1Ptr->bag.items));
+src/item_menu.c:2386:    memcpy(sTempWallyBag->bagPocket_PokeBalls, gSaveBlock1Ptr->bag.pokeBalls, sizeof(gSaveBlock1Ptr->bag.pokeBalls));
+src/item_menu.c:2393:    memset(gSaveBlock1Ptr->bag.items, 0, sizeof(gSaveBlock1Ptr->bag.items));
+src/item_menu.c:2394:    memset(gSaveBlock1Ptr->bag.pokeBalls, 0, sizeof(gSaveBlock1Ptr->bag.pokeBalls));
+src/item_menu.c:2402:    memcpy(gSaveBlock1Ptr->bag.items, sTempWallyBag->bagPocket_Items, sizeof(sTempWallyBag->bagPocket_Items));
+src/item_menu.c:2403:    memcpy(gSaveBlock1Ptr->bag.pokeBalls, sTempWallyBag->bagPocket_PokeBalls, sizeof(sTempWallyBag->bagPocket_PokeBalls));
+src/item_menu.c:2625:    PrintMoneyAmountInMoneyBoxWithBorder(windowId, 1, 14, GetMoney(&gSaveBlock1Ptr->money));
+src/pokenav_menu_handler_gfx.c:377:            && gSaveBlock1Ptr->trainerRematches[i])
+src/egg_hatch.c:420:    return _CheckDaycareMonReceivedMail(&gSaveBlock1Ptr->daycare, gSpecialVar_0x8004);
+src/menu_helpers.c:282:     && ((gSaveBlock1Ptr->location.mapGroup == MAP_GROUP(MAP_TRADE_CENTER)
+src/menu_helpers.c:283:       && gSaveBlock1Ptr->location.mapNum == MAP_NUM(MAP_TRADE_CENTER))
+src/battle_util2.c:46:        CreateSecretBaseEnemyParty(&gSaveBlock1Ptr->secretBases[currSecretBaseId]);
+src/union_room.c:1496:        memcpy(gBlockSendBuffer, gSaveBlock1Ptr->mail, sizeof(struct Mail) * PARTY_SIZE + 4);
+src/union_room.c:1594:    SetWarpDestination(gSaveBlock1Ptr->location.mapGroup, gSaveBlock1Ptr->location.mapNum, WARP_ID_NONE, x, y);
+src/union_room.c:1595:    SetDynamicWarpWithCoords(0, gSaveBlock1Ptr->location.mapGroup, gSaveBlock1Ptr->location.mapNum, WARP_ID_NONE, x, y);
+src/union_room.c:4315:    return gSaveBlock1Ptr->location.mapGroup == MAP_GROUP(MAP_UNION_ROOM)
+src/union_room.c:4316:        && gSaveBlock1Ptr->location.mapNum == MAP_NUM(MAP_UNION_ROOM)
+src/contest_util.c:2256:        SetDynamicWarp(0, gSaveBlock1Ptr->location.mapGroup, gSaveBlock1Ptr->location.mapNum, WARP_ID_NONE);
+src/contest_util.c:2284:    gSaveBlock1Ptr->vars[VAR_OBJ_GFX_ID_0 - VARS_START] = gContestMons[0].trainerGfxId;
+src/contest_util.c:2285:    gSaveBlock1Ptr->vars[VAR_OBJ_GFX_ID_1 - VARS_START] = gContestMons[1].trainerGfxId;
+src/contest_util.c:2286:    gSaveBlock1Ptr->vars[VAR_OBJ_GFX_ID_2 - VARS_START] = gContestMons[2].trainerGfxId;
+src/contest_util.c:2344:    if (gSaveBlock1Ptr->contestWinners[contestWinner].species == SPECIES_NONE)
+src/contest_util.c:2376:        if (gSaveBlock1Ptr->contestWinners[MUSEUM_CONTEST_WINNERS_START + i].species)
+src/contest_util.c:2516:            objectEventId = GetObjectEventIdByLocalIdAndMap(sContestantLocalIds[i], gSaveBlock1Ptr->location.mapNum, gSaveBlock1Ptr->location.mapGroup);
+src/rotating_tile_puzzle.c:111:    struct ObjectEventTemplate *objectEvents = gSaveBlock1Ptr->objectEventTemplates;
+src/rotating_tile_puzzle.c:173:            if (GetObjectEventIdByLocalIdAndMap(objectEvents[i].localId, gSaveBlock1Ptr->location.mapNum, gSaveBlock1Ptr->location.mapGroup) != OBJECT_EVENTS_COUNT)
+src/rotating_tile_puzzle.c:177:                ScriptMovement_StartObjectMovementScript(localId, gSaveBlock1Ptr->location.mapNum, gSaveBlock1Ptr->location.mapGroup, movementScript);
+src/rotating_tile_puzzle.c:204:    objectEvents = gSaveBlock1Ptr->objectEventTemplates;
+src/rotating_tile_puzzle.c:240:        objectEventId = GetObjectEventIdByLocalIdAndMap(objectEvents[sRotatingTilePuzzle->objects[i].eventTemplateId].localId, gSaveBlock1Ptr->location.mapNum, gSaveBlock1Ptr->location.mapGroup);
+src/rotating_tile_puzzle.c:269:                                                         gSaveBlock1Ptr->location.mapNum,
+src/rotating_tile_puzzle.c:270:                                                         gSaveBlock1Ptr->location.mapGroup,
+src/rotating_tile_puzzle.c:298:                                                         gSaveBlock1Ptr->location.mapNum,
+src/rotating_tile_puzzle.c:299:                                                         gSaveBlock1Ptr->location.mapGroup,
+src/rotating_tile_puzzle.c:320:    struct ObjectEventTemplate *objectEvents = gSaveBlock1Ptr->objectEventTemplates;
+src/trainer_card.c:730:    trainerCard->money = GetMoney(&gSaveBlock1Ptr->money);
+src/trainer_card.c:733:        trainerCard->easyChatProfile[i] = gSaveBlock1Ptr->easyChatProfile[i];
+src/script.c:406:    return CalcCRC16WithTable((u8 *)(&gSaveBlock1Ptr->ramScript.data), sizeof(gSaveBlock1Ptr->ramScript.data));
+src/script.c:415:    CpuFill32(0, &gSaveBlock1Ptr->ramScript, sizeof(struct RamScript));
+src/script.c:422:    struct RamScriptData *scriptData = &gSaveBlock1Ptr->ramScript.data;
+src/script.c:434:    gSaveBlock1Ptr->ramScript.checksum = CalculateRamScriptChecksum();
+src/script.c:444:    struct RamScriptData *scriptData = &gSaveBlock1Ptr->ramScript.data;
+src/script.c:448:    if (scriptData->mapGroup != gSaveBlock1Ptr->location.mapGroup)
+src/script.c:450:    if (scriptData->mapNum != gSaveBlock1Ptr->location.mapNum)
+src/script.c:454:    if (CalculateRamScriptChecksum() != gSaveBlock1Ptr->ramScript.checksum)
+src/script.c:474:    struct RamScriptData *scriptData = &gSaveBlock1Ptr->ramScript.data;
+src/script.c:483:    if (CalculateRamScriptChecksum() != gSaveBlock1Ptr->ramScript.checksum)
+src/script.c:494:    struct RamScriptData *scriptData = &gSaveBlock1Ptr->ramScript.data;
+src/script.c:505:    if (CalculateRamScriptChecksum() != gSaveBlock1Ptr->ramScript.checksum)
+src/script.c:522:    if (scriptSize > sizeof(gSaveBlock1Ptr->ramScript.data.script))
+src/script.c:523:        scriptSize = sizeof(gSaveBlock1Ptr->ramScript.data.script);
+src/field_weather_effect.c:2529:    u8 oldWeather = gSaveBlock1Ptr->weather;
+src/field_weather_effect.c:2530:    gSaveBlock1Ptr->weather = TranslateWeatherNum(weather);
+src/field_weather_effect.c:2531:    UpdateRainCounter(gSaveBlock1Ptr->weather, oldWeather);
+src/field_weather_effect.c:2536:    return gSaveBlock1Ptr->weather;
+src/field_weather_effect.c:2541:    u8 oldWeather = gSaveBlock1Ptr->weather;
+src/field_weather_effect.c:2542:    gSaveBlock1Ptr->weather = TranslateWeatherNum(gMapHeader.weather);
+src/field_weather_effect.c:2543:    UpdateRainCounter(gSaveBlock1Ptr->weather, oldWeather);
+src/field_weather_effect.c:2633:    case WEATHER_ROUTE119_CYCLE:     return sWeatherCycleRoute119[gSaveBlock1Ptr->weatherCycleStage];
+src/field_weather_effect.c:2634:    case WEATHER_ROUTE123_CYCLE:     return sWeatherCycleRoute123[gSaveBlock1Ptr->weatherCycleStage];
+src/field_weather_effect.c:2641:    u16 weatherStage = gSaveBlock1Ptr->weatherCycleStage + increment;
+src/field_weather_effect.c:2643:    gSaveBlock1Ptr->weatherCycleStage = weatherStage;
+src/follower_npc.c:191:    flag = GetObjectEventFlagIdByLocalIdAndMap(localId, gSaveBlock1Ptr->location.mapNum, gSaveBlock1Ptr->location.mapGroup);
+src/follower_npc.c:206:    npc = *GetObjectEventTemplateByLocalIdAndMap(localId, gSaveBlock1Ptr->location.mapNum, gSaveBlock1Ptr->location.mapGroup);
+src/follower_npc.c:210:    SetFollowerNPCData(FNPC_DATA_OBJ_ID, TrySpawnObjectEventTemplate(&npc, gSaveBlock1Ptr->location.mapNum, gSaveBlock1Ptr->location.mapGroup, npcX, npcY));
+src/follower_npc.c:713:    SetFollowerNPCData(FNPC_DATA_OBJ_ID, TrySpawnObjectEventTemplate(&npc, gSaveBlock1Ptr->location.mapNum, gSaveBlock1Ptr->location.mapGroup, player->currentCoords.x, player->currentCoords.y));
+src/follower_npc.c:989:    clone = *GetObjectEventTemplateByLocalIdAndMap(OBJ_EVENT_ID_NPC_FOLLOWER, gSaveBlock1Ptr->location.mapNum, gSaveBlock1Ptr->location.mapGroup);
+src/follower_npc.c:999:    SetFollowerNPCData(FNPC_DATA_OBJ_ID, TrySpawnObjectEventTemplate(&clone, gSaveBlock1Ptr->location.mapNum, gSaveBlock1Ptr->location.mapGroup, clone.x, clone.y));
+src/follower_npc.c:1195:    SetFollowerNPCData(FNPC_DATA_OBJ_ID, TrySpawnObjectEventTemplate(&clone, gSaveBlock1Ptr->location.mapNum, gSaveBlock1Ptr->location.mapGroup, clone.x, clone.y));
+src/decoration.c:528:        sDecorationContext.items = gSaveBlock1Ptr->secretBases[0].decorations;
+src/decoration.c:529:        sDecorationContext.pos = gSaveBlock1Ptr->secretBases[0].decorationPositions;
+src/decoration.c:534:        sDecorationContext.items = gSaveBlock1Ptr->playerRoomDecorations;
+src/decoration.c:535:        sDecorationContext.pos = gSaveBlock1Ptr->playerRoomDecorationPositions;
+src/decoration.c:590:    sDecorationContext.items = gSaveBlock1Ptr->secretBases[0].decorations;
+src/decoration.c:591:    sDecorationContext.pos = gSaveBlock1Ptr->secretBases[0].decorationPositions;
+src/decoration.c:600:    sDecorationContext.items = gSaveBlock1Ptr->playerRoomDecorations;
+src/decoration.c:601:    sDecorationContext.pos = gSaveBlock1Ptr->playerRoomDecorationPositions;
+src/decoration.c:1087:        if (gSaveBlock1Ptr->secretBases[0].decorations[i] != DECOR_NONE)
+src/decoration.c:1091:                if (gCurDecorationItems[j] == gSaveBlock1Ptr->secretBases[0].decorations[i])
+src/decoration.c:1110:        if (gSaveBlock1Ptr->playerRoomDecorations[i] != DECOR_NONE)
+src/decoration.c:1114:                if (gCurDecorationItems[j] == gSaveBlock1Ptr->playerRoomDecorations[i] && IsDecorationIndexInSecretBase(j + 1) != TRUE)
+src/decoration.c:1186:    gTasks[taskId].tInitialX = gSaveBlock1Ptr->pos.x;
+src/decoration.c:1187:    gTasks[taskId].tInitialY = gSaveBlock1Ptr->pos.y;
+src/decoration.c:1194:    SetWarpDestination(gSaveBlock1Ptr->location.mapGroup, gSaveBlock1Ptr->location.mapNum, WARP_ID_NONE, gTasks[taskId].tInitialX, gTasks[taskId].tInitialY);
+src/decoration.c:1311:            TrySpawnObjectEvent(gSpecialVar_0x8005, gSaveBlock1Ptr->location.mapNum, gSaveBlock1Ptr->location.mapGroup);
+src/decoration.c:1312:            TryMoveObjectEventToMapCoords(gSpecialVar_0x8005, gSaveBlock1Ptr->location.mapNum, gSaveBlock1Ptr->location.mapGroup, gSpecialVar_0x8006, gSpecialVar_0x8007);
+src/decoration.c:1313:            TryOverrideObjectEventTemplateCoords(gSpecialVar_0x8005, gSaveBlock1Ptr->location.mapNum, gSaveBlock1Ptr->location.mapGroup);
+src/decoration.c:2544:        if (gSaveBlock1Ptr->objectEventTemplates[i].x == xOff && gSaveBlock1Ptr->objectEventTemplates[i].y == yOff && !FlagGet(gSaveBlock1Ptr->objectEventTemplates[i].flagId))
+src/decoration.c:2546:            sDecorRearrangementDataBuffer[sCurDecorSelectedInRearrangement].flagId = gSaveBlock1Ptr->objectEventTemplates[i].flagId;
+src/field_control_avatar.c:1001:            SetDynamicWarp(mapHeader->events->warps[warpEventId].warpId, gSaveBlock1Ptr->location.mapGroup, gSaveBlock1Ptr->location.mapNum, warpEventId);
+src/item_use.c:1474:    u16 mapGroup = gSaveBlock1Ptr->location.mapGroup;
+src/item_use.c:1475:    u16 mapNum = gSaveBlock1Ptr->location.mapNum;
+src/battle_pyramid.c:1026:    struct ObjectEventTemplate *events = gSaveBlock1Ptr->objectEventTemplates;
+src/battle_pyramid.c:1057:    struct ObjectEventTemplate *events = gSaveBlock1Ptr->objectEventTemplates;
+src/battle_pyramid.c:1352:    gSaveBlock1Ptr->objectEventTemplates[gSpecialVar_LastTalked - 1].movementType = MOVEMENT_TYPE_WANDER_AROUND;
+src/battle_pyramid.c:1781:                        gSaveBlock1Ptr->pos.x = (mapLayout->width * (i % PYRAMID_FLOOR_SQUARES_WIDE)) + x;
+src/battle_pyramid.c:1782:                        gSaveBlock1Ptr->pos.y = (mapLayout->height * (i / PYRAMID_FLOOR_SQUARES_WIDE)) + y;
+src/battle_pyramid.c:1811:    CpuFill32(0, gSaveBlock1Ptr->objectEventTemplates, sizeof(gSaveBlock1Ptr->objectEventTemplates));
+src/battle_pyramid.c:1849:    struct ObjectEventTemplate *events = gSaveBlock1Ptr->objectEventTemplates;
+src/battle_pyramid.c:2083:    struct ObjectEventTemplate *floorEvents = gSaveBlock1Ptr->objectEventTemplates;
+src/battle_pyramid.c:2158:    struct ObjectEventTemplate *events = gSaveBlock1Ptr->objectEventTemplates;
+src/wild_encounter.c:120:    if (gSaveBlock1Ptr->location.mapGroup == MAP_GROUP(MAP_ROUTE119)
+src/wild_encounter.c:121:     && gSaveBlock1Ptr->location.mapNum == MAP_NUM(MAP_ROUTE119))
+src/wild_encounter.c:139:        FeebasSeedRng(gSaveBlock1Ptr->dewfordTrends[0].rand);
+src/wild_encounter.c:386:        if (gWildMonHeaders[i].mapGroup == gSaveBlock1Ptr->location.mapGroup &&
+src/wild_encounter.c:387:            gWildMonHeaders[i].mapNum == gSaveBlock1Ptr->location.mapNum)
+src/wild_encounter.c:389:            if (gSaveBlock1Ptr->location.mapGroup == MAP_GROUP(MAP_ALTERING_CAVE) &&
+src/wild_encounter.c:390:                gSaveBlock1Ptr->location.mapNum == MAP_NUM(MAP_ALTERING_CAVE))
+src/wild_encounter.c:595:    if (flags & WILD_CHECK_REPEL && !IsWildLevelAllowedByRepel(gSaveBlock1Ptr->outbreakPokemonLevel))
+src/wild_encounter.c:598:    CreateWildMon(gSaveBlock1Ptr->outbreakPokemonSpecies, gSaveBlock1Ptr->outbreakPokemonLevel);
+src/wild_encounter.c:600:        SetMonMoveSlot(&gEnemyParty[0], gSaveBlock1Ptr->outbreakPokemonMoves[i], i);
+src/wild_encounter.c:607:    if (gSaveBlock1Ptr->outbreakPokemonSpecies != SPECIES_NONE
+src/wild_encounter.c:608:     && gSaveBlock1Ptr->location.mapNum == gSaveBlock1Ptr->outbreakLocationMapNum
+src/wild_encounter.c:609:     && gSaveBlock1Ptr->location.mapGroup == gSaveBlock1Ptr->outbreakLocationMapGroup)
+src/wild_encounter.c:611:        if (Random() % 100 < gSaveBlock1Ptr->outbreakPokemonProbability)
+src/wild_encounter.c:649:        else if (ability == ABILITY_SAND_VEIL && gSaveBlock1Ptr->weather == WEATHER_SANDSTORM)
+src/wild_encounter.c:651:        else if (ability == ABILITY_SNOW_CLOAK && gSaveBlock1Ptr->weather == WEATHER_SNOW)
+src/wild_encounter.c:677:    if (gSaveBlock1Ptr->location.mapGroup != MAP_GROUP(MAP_SOOTOPOLIS_CITY)
+src/wild_encounter.c:678:     || gSaveBlock1Ptr->location.mapNum != MAP_NUM(MAP_SOOTOPOLIS_CITY))
+src/wild_encounter.c:747:                roamer = &gSaveBlock1Ptr->roamer[gEncounteredRoamerIndex];
+src/wild_encounter.c:798:                roamer = &gSaveBlock1Ptr->roamer[gEncounteredRoamerIndex];
+src/battle_script_commands.c:4483:        holdEffect = gSaveBlock1Ptr->enigmaBerry.holdEffect;
+src/battle_script_commands.c:8339:        AddMoney(&gSaveBlock1Ptr->money, money);
+src/battle_script_commands.c:8345:            money = GetMoney(&gSaveBlock1Ptr->money) / 2;
+src/battle_script_commands.c:8366:        RemoveMoney(&gSaveBlock1Ptr->money, money);
+src/battle_script_commands.c:10878:        AddMoney(&gSaveBlock1Ptr->money, bonusMoney);
+src/battle_dome.c:1785:    SetDynamicWarp(0, gSaveBlock1Ptr->location.mapGroup, gSaveBlock1Ptr->location.mapNum, WARP_ID_NONE);
+src/tv.c:764:    for (i = 0; i < ARRAY_COUNT(gSaveBlock1Ptr->tvShows); i++)
+src/tv.c:766:        gSaveBlock1Ptr->tvShows[i].commonInit.kind = 0;
+src/tv.c:767:        gSaveBlock1Ptr->tvShows[i].commonInit.active = 0;
+src/tv.c:768:        for (j = 0; j < ARRAY_COUNT(gSaveBlock1Ptr->tvShows[i].commonInit.data); j++)
+src/tv.c:769:            gSaveBlock1Ptr->tvShows[i].commonInit.data[j] = 0;
+src/tv.c:784:        if (gSaveBlock1Ptr->tvShows[i].common.kind == TVSHOW_OFF_AIR)
+src/tv.c:791:        if (GetTVGroupByShowId(gSaveBlock1Ptr->tvShows[j].common.kind) != TVGROUP_OUTBREAK)
+src/tv.c:793:            if (gSaveBlock1Ptr->tvShows[j].common.active == TRUE)
+src/tv.c:798:            show = &gSaveBlock1Ptr->tvShows[j];
+src/tv.c:804:            j = ARRAY_COUNT(gSaveBlock1Ptr->tvShows) - 2;
+src/tv.c:818:    if (gSaveBlock1Ptr->outbreakPokemonSpecies != SPECIES_NONE
+src/tv.c:819:     && gSaveBlock1Ptr->tvShows[slot].common.kind == TVSHOW_MASS_OUTBREAK)
+src/tv.c:838:        if (gSaveBlock1Ptr->location.mapGroup == MAP_GROUP(MAP_LILYCOVE_CITY_COVE_LILY_MOTEL_1F)
+src/tv.c:839:         && gSaveBlock1Ptr->location.mapNum == MAP_NUM(MAP_LILYCOVE_CITY_COVE_LILY_MOTEL_1F))
+src/tv.c:883:    return gSaveBlock1Ptr->tvShows[gSpecialVar_0x8004].common.kind;
+src/tv.c:890:    for (i = 0; i < ARRAY_COUNT(gSaveBlock1Ptr->tvShows) - 1; i++)
+src/tv.c:892:        if (gSaveBlock1Ptr->tvShows[i].common.kind != TVSHOW_OFF_AIR
+src/tv.c:893:         && gSaveBlock1Ptr->tvShows[i].common.kind != TVSHOW_MASS_OUTBREAK
+src/tv.c:894:         && gSaveBlock1Ptr->tvShows[i].common.active == TRUE)
+src/tv.c:904:    tvShow = &gSaveBlock1Ptr->tvShows[gSpecialVar_0x8004];
+src/tv.c:905:    if (tvShow->common.kind == TVSHOW_MASS_OUTBREAK && gSaveBlock1Ptr->outbreakPokemonSpecies != SPECIES_NONE)
+src/tv.c:915:    gSaveBlock1Ptr->gabbyAndTyData.mon1 = SPECIES_NONE;
+src/tv.c:916:    gSaveBlock1Ptr->gabbyAndTyData.mon2 = SPECIES_NONE;
+src/tv.c:917:    gSaveBlock1Ptr->gabbyAndTyData.lastMove = MOVE_NONE;
+src/tv.c:918:    gSaveBlock1Ptr->gabbyAndTyData.quote[0] = -1;
+src/tv.c:919:    gSaveBlock1Ptr->gabbyAndTyData.battleTookMoreThanOneTurn = FALSE;
+src/tv.c:920:    gSaveBlock1Ptr->gabbyAndTyData.playerLostAMon = FALSE;
+src/tv.c:921:    gSaveBlock1Ptr->gabbyAndTyData.playerUsedHealingItem = FALSE;
+src/tv.c:922:    gSaveBlock1Ptr->gabbyAndTyData.playerThrewABall = FALSE;
+src/tv.c:923:    gSaveBlock1Ptr->gabbyAndTyData.onAir = FALSE;
+src/tv.c:924:    gSaveBlock1Ptr->gabbyAndTyData.valA_5 = 0;
+src/tv.c:925:    gSaveBlock1Ptr->gabbyAndTyData.battleTookMoreThanOneTurn2 = FALSE;
+src/tv.c:926:    gSaveBlock1Ptr->gabbyAndTyData.playerLostAMon2 = FALSE;
+src/tv.c:927:    gSaveBlock1Ptr->gabbyAndTyData.playerUsedHealingItem2 = FALSE;
+src/tv.c:928:    gSaveBlock1Ptr->gabbyAndTyData.playerThrewABall2 = FALSE;
+src/tv.c:929:    gSaveBlock1Ptr->gabbyAndTyData.valB_4 = 0;
+src/tv.c:930:    gSaveBlock1Ptr->gabbyAndTyData.mapnum = 0;
+src/tv.c:931:    gSaveBlock1Ptr->gabbyAndTyData.battleNum = 0;
+src/tv.c:938:    gSaveBlock1Ptr->gabbyAndTyData.mon1 = gBattleResults.playerMon1Species;
+src/tv.c:939:    gSaveBlock1Ptr->gabbyAndTyData.mon2 = gBattleResults.playerMon2Species;
+src/tv.c:940:    gSaveBlock1Ptr->gabbyAndTyData.lastMove = gBattleResults.lastUsedMovePlayer;
+src/tv.c:941:    if (gSaveBlock1Ptr->gabbyAndTyData.battleNum != 0xFF)
+src/tv.c:942:        gSaveBlock1Ptr->gabbyAndTyData.battleNum++;
+src/tv.c:944:    gSaveBlock1Ptr->gabbyAndTyData.battleTookMoreThanOneTurn = gBattleResults.playerMonWasDamaged;
+src/tv.c:947:        gSaveBlock1Ptr->gabbyAndTyData.playerLostAMon = TRUE;
+src/tv.c:949:        gSaveBlock1Ptr->gabbyAndTyData.playerLostAMon = FALSE;
+src/tv.c:952:        gSaveBlock1Ptr->gabbyAndTyData.playerUsedHealingItem = TRUE;
+src/tv.c:954:        gSaveBlock1Ptr->gabbyAndTyData.playerUsedHealingItem = FALSE;
+src/tv.c:960:            gSaveBlock1Ptr->gabbyAndTyData.playerThrewABall = TRUE;
+src/tv.c:966:    if (gSaveBlock1Ptr->gabbyAndTyData.lastMove == MOVE_NONE)
+src/tv.c:972:    gSaveBlock1Ptr->gabbyAndTyData.battleTookMoreThanOneTurn2 = gSaveBlock1Ptr->gabbyAndTyData.battleTookMoreThanOneTurn;
+src/tv.c:973:    gSaveBlock1Ptr->gabbyAndTyData.playerLostAMon2 = gSaveBlock1Ptr->gabbyAndTyData.playerLostAMon;
+src/tv.c:974:    gSaveBlock1Ptr->gabbyAndTyData.playerUsedHealingItem2 = gSaveBlock1Ptr->gabbyAndTyData.playerUsedHealingItem;
+src/tv.c:975:    gSaveBlock1Ptr->gabbyAndTyData.playerThrewABall2 = gSaveBlock1Ptr->gabbyAndTyData.playerThrewABall;
+src/tv.c:976:    gSaveBlock1Ptr->gabbyAndTyData.onAir = TRUE;
+src/tv.c:977:    gSaveBlock1Ptr->gabbyAndTyData.mapnum = gMapHeader.regionMapSectionId;
+src/tv.c:983:    gSaveBlock1Ptr->gabbyAndTyData.onAir = FALSE;
+src/tv.c:989:    if (gSaveBlock1Ptr->gabbyAndTyData.battleNum > 5)
+src/tv.c:990:        return (gSaveBlock1Ptr->gabbyAndTyData.battleNum % 3) + 6;
+src/tv.c:992:    return gSaveBlock1Ptr->gabbyAndTyData.battleNum;
+src/tv.c:997:    return gSaveBlock1Ptr->gabbyAndTyData.onAir;
+src/tv.c:1002:    if (gSaveBlock1Ptr->gabbyAndTyData.quote[0] == EC_EMPTY_WORD)
+src/tv.c:1006:    CopyEasyChatWord(gStringVar1, gSaveBlock1Ptr->gabbyAndTyData.quote[0]);
+src/tv.c:1007:    gSaveBlock1Ptr->gabbyAndTyData.quote[0] = -1;
+src/tv.c:1013:    if (!gSaveBlock1Ptr->gabbyAndTyData.battleTookMoreThanOneTurn2)
+src/tv.c:1016:    if (gSaveBlock1Ptr->gabbyAndTyData.playerThrewABall2)
+src/tv.c:1019:    if (gSaveBlock1Ptr->gabbyAndTyData.playerUsedHealingItem2)
+src/tv.c:1022:    if (gSaveBlock1Ptr->gabbyAndTyData.playerLostAMon2)
+src/tv.c:1117:            sCurTVShowSlot = FindFirstEmptyRecordMixTVShowSlot(gSaveBlock1Ptr->tvShows);
+src/tv.c:1126:                    show = &gSaveBlock1Ptr->tvShows[sCurTVShowSlot];
+src/tv.c:1154:    TVShow *show = &gSaveBlock1Ptr->tvShows[LAST_TVSHOW_IDX];
+src/tv.c:1157:        DeleteTVShowInArrayByIdx(gSaveBlock1Ptr->tvShows, LAST_TVSHOW_IDX);
+src/tv.c:1182:            sCurTVShowSlot = FindFirstEmptyRecordMixTVShowSlot(gSaveBlock1Ptr->tvShows);
+src/tv.c:1185:                show = &gSaveBlock1Ptr->tvShows[sCurTVShowSlot];
+src/tv.c:1226:    show = &gSaveBlock1Ptr->tvShows[LAST_TVSHOW_IDX];
+src/tv.c:1229:        show2 = &gSaveBlock1Ptr->tvShows[sCurTVShowSlot];
+src/tv.c:1245:        DeleteTVShowInArrayByIdx(gSaveBlock1Ptr->tvShows, LAST_TVSHOW_IDX);
+src/tv.c:1254:    sCurTVShowSlot = FindFirstEmptyNormalTVShowSlot(gSaveBlock1Ptr->tvShows);
+src/tv.c:1260:            show = &gSaveBlock1Ptr->tvShows[sCurTVShowSlot];
+src/tv.c:1293:    sCurTVShowSlot = FindFirstEmptyNormalTVShowSlot(gSaveBlock1Ptr->tvShows);
+src/tv.c:1301:    show = &gSaveBlock1Ptr->tvShows[sCurTVShowSlot];
+src/tv.c:1326:    show = &gSaveBlock1Ptr->tvShows[gSpecialVar_0x8006];
+src/tv.c:1340:    if (show->fanClubSpecial.language == LANGUAGE_JAPANESE || gSaveBlock1Ptr->linkBattleRecords.languages[0] == LANGUAGE_JAPANESE)
+src/tv.c:1343:        show->fanClubSpecial.idolNameLanguage = gSaveBlock1Ptr->linkBattleRecords.languages[0];
+src/tv.c:1354:    DeleteTVShowInArrayByIdx(gSaveBlock1Ptr->tvShows, LAST_TVSHOW_IDX);
+src/tv.c:1355:    sCurTVShowSlot = FindFirstEmptyNormalTVShowSlot(gSaveBlock1Ptr->tvShows);
+src/tv.c:1358:        show = &gSaveBlock1Ptr->tvShows[LAST_TVSHOW_IDX];
+src/tv.c:1366:    TVShow *show = &gSaveBlock1Ptr->tvShows[LAST_TVSHOW_IDX];
+src/tv.c:1367:    sCurTVShowSlot = FindFirstEmptyNormalTVShowSlot(gSaveBlock1Ptr->tvShows);
+src/tv.c:1374:    TVShow *show = &gSaveBlock1Ptr->tvShows[LAST_TVSHOW_IDX];
+src/tv.c:1375:    sCurTVShowSlot = FindFirstEmptyNormalTVShowSlot(gSaveBlock1Ptr->tvShows);
+src/tv.c:1382:    TVShow *show = &gSaveBlock1Ptr->tvShows[LAST_TVSHOW_IDX];
+src/tv.c:1383:    sCurTVShowSlot = FindFirstEmptyNormalTVShowSlot(gSaveBlock1Ptr->tvShows);
+src/tv.c:1390:    TVShow *show = &gSaveBlock1Ptr->tvShows[LAST_TVSHOW_IDX];
+src/tv.c:1391:    sCurTVShowSlot = FindFirstEmptyNormalTVShowSlot(gSaveBlock1Ptr->tvShows);
+src/tv.c:1413:    show = &gSaveBlock1Ptr->tvShows[LAST_TVSHOW_IDX];
+src/tv.c:1416:        show2 = &gSaveBlock1Ptr->tvShows[sCurTVShowSlot];
+src/tv.c:1433:        DeleteTVShowInArrayByIdx(gSaveBlock1Ptr->tvShows, LAST_TVSHOW_IDX);
+src/tv.c:1439:    TVShow *show = &gSaveBlock1Ptr->tvShows[LAST_TVSHOW_IDX];
+src/tv.c:1441:    sCurTVShowSlot = FindFirstEmptyNormalTVShowSlot(gSaveBlock1Ptr->tvShows);
+src/tv.c:1444:        DeleteTVShowInArrayByIdx(gSaveBlock1Ptr->tvShows, LAST_TVSHOW_IDX);
+src/tv.c:1452:    TVShow *show = &gSaveBlock1Ptr->tvShows[LAST_TVSHOW_IDX];
+src/tv.c:1453:    sCurTVShowSlot = FindFirstEmptyNormalTVShowSlot(gSaveBlock1Ptr->tvShows);
+src/tv.c:1468:    TVShow *show = &gSaveBlock1Ptr->tvShows[sCurTVShowSlot];
+src/tv.c:1495:    if (!(gSaveBlock1Ptr->location.mapGroup == MAP_GROUP(MAP_TRAINER_HILL_ENTRANCE) && gSaveBlock1Ptr->location.mapNum == MAP_NUM(MAP_TRAINER_HILL_ENTRANCE))
+src/tv.c:1496:     && !(gSaveBlock1Ptr->location.mapGroup == MAP_GROUP(MAP_BATTLE_FRONTIER_MART) && gSaveBlock1Ptr->location.mapNum == MAP_NUM(MAP_BATTLE_FRONTIER_MART))
+src/tv.c:1499:        sCurTVShowSlot = FindFirstEmptyRecordMixTVShowSlot(gSaveBlock1Ptr->tvShows);
+src/tv.c:1505:                show = &gSaveBlock1Ptr->tvShows[sCurTVShowSlot];
+src/tv.c:1533:            show = &gSaveBlock1Ptr->tvShows[sCurTVShowSlot];
+src/tv.c:1552:    TVShow *show = &gSaveBlock1Ptr->tvShows[gSpecialVar_0x8004];
+src/tv.c:1553:    gSaveBlock1Ptr->outbreakPokemonSpecies = show->massOutbreak.species;
+src/tv.c:1554:    gSaveBlock1Ptr->outbreakLocationMapNum = show->massOutbreak.locationMapNum;
+src/tv.c:1555:    gSaveBlock1Ptr->outbreakLocationMapGroup = show->massOutbreak.locationMapGroup;
+src/tv.c:1556:    gSaveBlock1Ptr->outbreakPokemonLevel = show->massOutbreak.level;
+src/tv.c:1557:    gSaveBlock1Ptr->outbreakUnused1 = show->massOutbreak.unused1;
+src/tv.c:1558:    gSaveBlock1Ptr->outbreakUnused2 = show->massOutbreak.unused2;
+src/tv.c:1559:    gSaveBlock1Ptr->outbreakPokemonMoves[0] = show->massOutbreak.moves[0];
+src/tv.c:1560:    gSaveBlock1Ptr->outbreakPokemonMoves[1] = show->massOutbreak.moves[1];
+src/tv.c:1561:    gSaveBlock1Ptr->outbreakPokemonMoves[2] = show->massOutbreak.moves[2];
+src/tv.c:1562:    gSaveBlock1Ptr->outbreakPokemonMoves[3] = show->massOutbreak.moves[3];
+src/tv.c:1563:    gSaveBlock1Ptr->outbreakUnused3 = show->massOutbreak.unused3;
+src/tv.c:1564:    gSaveBlock1Ptr->outbreakPokemonProbability = show->massOutbreak.probability;
+src/tv.c:1565:    gSaveBlock1Ptr->outbreakDaysLeft = 2;
+src/tv.c:1575:        show = &gSaveBlock1Ptr->tvShows[sCurTVShowSlot];
+src/tv.c:1589:    TVShow *show = &gSaveBlock1Ptr->tvShows[sCurTVShowSlot];
+src/tv.c:1600:    TVShow *show = &gSaveBlock1Ptr->tvShows[sCurTVShowSlot];
+src/tv.c:1611:    TVShow *show = &gSaveBlock1Ptr->tvShows[sCurTVShowSlot];
+src/tv.c:1638:            if (gSaveBlock1Ptr->tvShows[i].common.kind == TVSHOW_MASS_OUTBREAK)
+src/tv.c:1643:            sCurTVShowSlot = FindFirstEmptyNormalTVShowSlot(gSaveBlock1Ptr->tvShows);
+src/tv.c:1647:                show = &gSaveBlock1Ptr->tvShows[sCurTVShowSlot];
+src/tv.c:1674:    gSaveBlock1Ptr->outbreakPokemonSpecies = SPECIES_NONE;
+src/tv.c:1675:    gSaveBlock1Ptr->outbreakLocationMapNum = 0;
+src/tv.c:1676:    gSaveBlock1Ptr->outbreakLocationMapGroup = 0;
+src/tv.c:1677:    gSaveBlock1Ptr->outbreakPokemonLevel = 0;
+src/tv.c:1678:    gSaveBlock1Ptr->outbreakUnused1 = 0;
+src/tv.c:1679:    gSaveBlock1Ptr->outbreakUnused2 = 0;
+src/tv.c:1680:    gSaveBlock1Ptr->outbreakPokemonMoves[0] = MOVE_NONE;
+src/tv.c:1681:    gSaveBlock1Ptr->outbreakPokemonMoves[1] = MOVE_NONE;
+src/tv.c:1682:    gSaveBlock1Ptr->outbreakPokemonMoves[2] = MOVE_NONE;
+src/tv.c:1683:    gSaveBlock1Ptr->outbreakPokemonMoves[3] = MOVE_NONE;
+src/tv.c:1684:    gSaveBlock1Ptr->outbreakUnused3 = 0;
+src/tv.c:1685:    gSaveBlock1Ptr->outbreakPokemonProbability = 0;
+src/tv.c:1686:    gSaveBlock1Ptr->outbreakDaysLeft = 0;
+src/tv.c:1703:    if (gSaveBlock1Ptr->outbreakPokemonSpecies == SPECIES_NONE)
+src/tv.c:1707:            if (gSaveBlock1Ptr->tvShows[i].massOutbreak.kind == TVSHOW_MASS_OUTBREAK && gSaveBlock1Ptr->tvShows[i].massOutbreak.active == TRUE)
+src/tv.c:1709:                show = &gSaveBlock1Ptr->tvShows[i];
+src/tv.c:1723:    if (gSaveBlock1Ptr->outbreakDaysLeft <= days)
+src/tv.c:1726:        gSaveBlock1Ptr->outbreakDaysLeft -= days;
+src/tv.c:1755:    sCurTVShowSlot = FindFirstEmptyRecordMixTVShowSlot(gSaveBlock1Ptr->tvShows);
+src/tv.c:1758:        show = &gSaveBlock1Ptr->tvShows[sCurTVShowSlot];
+src/tv.c:1781:    TVShow *show = &gSaveBlock1Ptr->tvShows[LAST_TVSHOW_IDX];
+src/tv.c:1787:        DeleteTVShowInArrayByIdx(gSaveBlock1Ptr->tvShows, LAST_TVSHOW_IDX);
+src/tv.c:1796:    show = &gSaveBlock1Ptr->tvShows[LAST_TVSHOW_IDX];
+src/tv.c:1799:        sCurTVShowSlot = FindFirstEmptyRecordMixTVShowSlot(gSaveBlock1Ptr->tvShows);
+src/tv.c:1802:            show2 = &gSaveBlock1Ptr->tvShows[sCurTVShowSlot];
+src/tv.c:1813:            DeleteTVShowInArrayByIdx(gSaveBlock1Ptr->tvShows, LAST_TVSHOW_IDX);
+src/tv.c:1825:    sCurTVShowSlot = FindFirstEmptyRecordMixTVShowSlot(gSaveBlock1Ptr->tvShows);
+src/tv.c:1828:        show = &gSaveBlock1Ptr->tvShows[sCurTVShowSlot];
+src/tv.c:1864:    sCurTVShowSlot = FindFirstEmptyRecordMixTVShowSlot(gSaveBlock1Ptr->tvShows);
+src/tv.c:1867:        show = &gSaveBlock1Ptr->tvShows[sCurTVShowSlot];
+src/tv.c:1883:    sCurTVShowSlot = FindFirstEmptyRecordMixTVShowSlot(gSaveBlock1Ptr->tvShows);
+src/tv.c:1886:        show = &gSaveBlock1Ptr->tvShows[sCurTVShowSlot];
+src/tv.c:1904:    sCurTVShowSlot = FindFirstEmptyRecordMixTVShowSlot(gSaveBlock1Ptr->tvShows);
+src/tv.c:1939:        show = &gSaveBlock1Ptr->tvShows[sCurTVShowSlot];
+src/tv.c:1975:        decoration = gSaveBlock1Ptr->secretBases[0].decorations[i];
+src/tv.c:2083:    sCurTVShowSlot = FindFirstEmptyRecordMixTVShowSlot(gSaveBlock1Ptr->tvShows);
+src/tv.c:2086:        show = &gSaveBlock1Ptr->tvShows[sCurTVShowSlot];
+src/tv.c:2103:    sCurTVShowSlot = FindFirstEmptyRecordMixTVShowSlot(gSaveBlock1Ptr->tvShows);
+src/tv.c:2106:        show = &gSaveBlock1Ptr->tvShows[sCurTVShowSlot];
+src/tv.c:2160:    sCurTVShowSlot = FindFirstEmptyRecordMixTVShowSlot(gSaveBlock1Ptr->tvShows);
+src/tv.c:2163:        show = &gSaveBlock1Ptr->tvShows[sCurTVShowSlot];
+src/tv.c:2180:    sCurTVShowSlot = FindFirstEmptyRecordMixTVShowSlot(gSaveBlock1Ptr->tvShows);
+src/tv.c:2183:        show = &gSaveBlock1Ptr->tvShows[sCurTVShowSlot];
+src/tv.c:2209:    sCurTVShowSlot = FindFirstEmptyRecordMixTVShowSlot(gSaveBlock1Ptr->tvShows);
+src/tv.c:2212:        show = &gSaveBlock1Ptr->tvShows[sCurTVShowSlot];
+src/tv.c:2227:    sCurTVShowSlot = FindFirstEmptyRecordMixTVShowSlot(gSaveBlock1Ptr->tvShows);
+src/tv.c:2230:        show = &gSaveBlock1Ptr->tvShows[sCurTVShowSlot];
+src/tv.c:2298:    sCurTVShowSlot = FindFirstEmptyRecordMixTVShowSlot(gSaveBlock1Ptr->tvShows);
+src/tv.c:2301:        show = &gSaveBlock1Ptr->tvShows[sCurTVShowSlot];
+src/tv.c:2305:        show->trainerFanClub.words[0] = gSaveBlock1Ptr->easyChatProfile[0];
+src/tv.c:2306:        show->trainerFanClub.words[1] = gSaveBlock1Ptr->easyChatProfile[1];
+src/tv.c:2314:    sCurTVShowSlot = FindFirstEmptyNormalTVShowSlot(gSaveBlock1Ptr->tvShows);
+src/tv.c:2323:    if (gSaveBlock1Ptr->linkBattleRecords.entries[0].name[0] == EOS)
+src/tv.c:2338:        shows = gSaveBlock1Ptr->tvShows;
+src/tv.c:2344:                DeleteTVShowInArrayByIdx(gSaveBlock1Ptr->tvShows, showIdx);
+src/tv.c:2345:                CompactTVShowArray(gSaveBlock1Ptr->tvShows);
+src/tv.c:2350:    sCurTVShowSlot = FindFirstEmptyRecordMixTVShowSlot(gSaveBlock1Ptr->tvShows);
+src/tv.c:2361:    sCurTVShowSlot = FindFirstEmptyRecordMixTVShowSlot(gSaveBlock1Ptr->tvShows);
+src/tv.c:2364:        show = &gSaveBlock1Ptr->tvShows[sCurTVShowSlot];
+src/tv.c:2413:        sCurTVShowSlot = FindFirstEmptyRecordMixTVShowSlot(gSaveBlock1Ptr->tvShows);
+src/tv.c:2416:            show = &gSaveBlock1Ptr->tvShows[sCurTVShowSlot];
+src/tv.c:2429:            if (show->secretBaseSecrets.language == LANGUAGE_JAPANESE || gSaveBlock1Ptr->secretBases[VarGet(VAR_CURRENT_SECRET_BASE)].language == LANGUAGE_JAPANESE)
+src/tv.c:2432:                show->secretBaseSecrets.baseOwnersNameLanguage = gSaveBlock1Ptr->secretBases[VarGet(VAR_CURRENT_SECRET_BASE)].language;
+src/tv.c:2461:    sCurTVShowSlot = FindFirstEmptyRecordMixTVShowSlot(gSaveBlock1Ptr->tvShows);
+src/tv.c:2464:        show = &gSaveBlock1Ptr->tvShows[sCurTVShowSlot];
+src/tv.c:2516:        sCurTVShowSlot = GetFirstEmptyPokeNewsSlot(gSaveBlock1Ptr->pokeNews);
+src/tv.c:2522:                gSaveBlock1Ptr->pokeNews[sCurTVShowSlot].kind = newsKind;
+src/tv.c:2523:                gSaveBlock1Ptr->pokeNews[sCurTVShowSlot].dayCountdown = POKENEWS_COUNTDOWN;
+src/tv.c:2524:                gSaveBlock1Ptr->pokeNews[sCurTVShowSlot].state = POKENEWS_STATE_UPCOMING;
+src/tv.c:2552:    gSaveBlock1Ptr->pokeNews[i].kind = POKENEWS_NONE;
+src/tv.c:2553:    gSaveBlock1Ptr->pokeNews[i].state = POKENEWS_STATE_INACTIVE;
+src/tv.c:2554:    gSaveBlock1Ptr->pokeNews[i].dayCountdown = 0;
+src/tv.c:2564:        if (gSaveBlock1Ptr->pokeNews[i].kind == POKENEWS_NONE)
+src/tv.c:2568:                if (gSaveBlock1Ptr->pokeNews[j].kind != POKENEWS_NONE)
+src/tv.c:2570:                    gSaveBlock1Ptr->pokeNews[i] = gSaveBlock1Ptr->pokeNews[j];
+src/tv.c:2585:        if (gSaveBlock1Ptr->pokeNews[i].kind != POKENEWS_NONE
+src/tv.c:2586:         && gSaveBlock1Ptr->pokeNews[i].state == POKENEWS_STATE_UPCOMING
+src/tv.c:2587:         && gSaveBlock1Ptr->pokeNews[i].dayCountdown < POKENEWS_COUNTDOWN - 1)
+src/tv.c:2602:        if (gSaveBlock1Ptr->pokeNews[i].dayCountdown == 0)
+src/tv.c:2605:            gSaveBlock1Ptr->pokeNews[i].state = POKENEWS_STATE_ACTIVE;
+src/tv.c:2607:                ShowFieldMessage(sPokeNewsTextGroup_Ongoing[gSaveBlock1Ptr->pokeNews[i].kind]);
+src/tv.c:2609:                ShowFieldMessage(sPokeNewsTextGroup_Ending[gSaveBlock1Ptr->pokeNews[i].kind]);
+src/tv.c:2614:            u16 dayCountdown = gSaveBlock1Ptr->pokeNews[i].dayCountdown;
+src/tv.c:2619:            gSaveBlock1Ptr->pokeNews[i].state = POKENEWS_STATE_INACTIVE;
+src/tv.c:2620:            ShowFieldMessage(sPokeNewsTextGroup_Upcoming[gSaveBlock1Ptr->pokeNews[i].kind]);
+src/tv.c:2635:        if (gSaveBlock1Ptr->pokeNews[i].kind == newsKind)
+src/tv.c:2637:            if (gSaveBlock1Ptr->pokeNews[i].state == POKENEWS_STATE_ACTIVE && ShouldApplyPokeNewsEffect(newsKind))
+src/tv.c:2655:        if (gSaveBlock1Ptr->location.mapGroup == MAP_GROUP(MAP_SLATEPORT_CITY)
+src/tv.c:2656:         && gSaveBlock1Ptr->location.mapNum == MAP_NUM(MAP_SLATEPORT_CITY)
+src/tv.c:2661:        if (gSaveBlock1Ptr->location.mapGroup == MAP_GROUP(MAP_LILYCOVE_CITY_DEPARTMENT_STORE_ROOFTOP)
+src/tv.c:2662:         && gSaveBlock1Ptr->location.mapNum == MAP_NUM(MAP_LILYCOVE_CITY_DEPARTMENT_STORE_ROOFTOP))
+src/tv.c:2678:        if (gSaveBlock1Ptr->pokeNews[i].kind == newsKind)
+src/tv.c:2690:        if (gSaveBlock1Ptr->pokeNews[i].kind != POKENEWS_NONE)
+src/tv.c:2692:            if (gSaveBlock1Ptr->pokeNews[i].dayCountdown < days)
+src/tv.c:2700:                if (gSaveBlock1Ptr->pokeNews[i].state == POKENEWS_STATE_INACTIVE && FlagGet(FLAG_SYS_GAME_CLEAR) == TRUE)
+src/tv.c:2701:                    gSaveBlock1Ptr->pokeNews[i].state = POKENEWS_STATE_UPCOMING;
+src/tv.c:2703:                gSaveBlock1Ptr->pokeNews[i].dayCountdown -= days;
+src/tv.c:2753:    TVShow *show = &gSaveBlock1Ptr->tvShows[gSpecialVar_0x8004];
+src/tv.c:2797:    shows = gSaveBlock1Ptr->tvShows;
+src/tv.c:2807:                DeleteTVShowInArrayByIdx(gSaveBlock1Ptr->tvShows, i);
+src/tv.c:2808:                CompactTVShowArray(gSaveBlock1Ptr->tvShows);
+src/tv.c:2842:        if (gSaveBlock1Ptr->tvShows[i].common.kind == kind)
+src/tv.c:2844:            if (gSaveBlock1Ptr->tvShows[i].common.active == TRUE)
+src/tv.c:2852:                DeleteTVShowInArrayByIdx(gSaveBlock1Ptr->tvShows, i);
+src/tv.c:2853:                CompactTVShowArray(gSaveBlock1Ptr->tvShows);
+src/tv.c:2908:        InitializeEasyChatWordArray(gSaveBlock1Ptr->tvShows[sCurTVShowSlot].fanclubLetter.words,
+src/tv.c:2909:                        ARRAY_COUNT(gSaveBlock1Ptr->tvShows[sCurTVShowSlot].fanclubLetter.words));
+src/tv.c:2918:        InitializeEasyChatWordArray(gSaveBlock1Ptr->tvShows[sCurTVShowSlot].recentHappenings.words,
+src/tv.c:2919:                        ARRAY_COUNT(gSaveBlock1Ptr->tvShows[sCurTVShowSlot].recentHappenings.words));
+src/tv.c:2931:        InitializeEasyChatWordArray(gSaveBlock1Ptr->tvShows[sCurTVShowSlot].fanclubOpinions.words,
+src/tv.c:2932:                        ARRAY_COUNT(gSaveBlock1Ptr->tvShows[sCurTVShowSlot].fanclubOpinions.words));
+src/tv.c:2950:        InitializeEasyChatWordArray(gSaveBlock1Ptr->tvShows[sCurTVShowSlot].bravoTrainer.words,
+src/tv.c:2951:                        ARRAY_COUNT(gSaveBlock1Ptr->tvShows[sCurTVShowSlot].bravoTrainer.words));
+src/tv.c:2968:        InitializeEasyChatWordArray(gSaveBlock1Ptr->tvShows[sCurTVShowSlot].bravoTrainerTower.words,
+src/tv.c:2969:                        ARRAY_COUNT(gSaveBlock1Ptr->tvShows[sCurTVShowSlot].bravoTrainerTower.words));
+src/tv.c:2976:        InitializeEasyChatWordArray(gSaveBlock1Ptr->tvShows[sCurTVShowSlot].fanClubSpecial.words,
+src/tv.c:2977:                        ARRAY_COUNT(gSaveBlock1Ptr->tvShows[sCurTVShowSlot].fanClubSpecial.words));
+src/tv.c:3080:    sCurTVShowSlot = FindFirstEmptyNormalTVShowSlot(gSaveBlock1Ptr->tvShows);
+src/tv.c:3244:        if (gSaveBlock1Ptr->tvShows[i].common.kind == gSpecialVar_0x8004)
+src/tv.c:3332:    if (gSaveBlock1Ptr->location.mapGroup != MAP_GROUP(MAP_LITTLEROOT_TOWN_BRENDANS_HOUSE_1F))
+src/tv.c:3338:        if (gSaveBlock1Ptr->location.mapNum != MAP_NUM(MAP_LITTLEROOT_TOWN_BRENDANS_HOUSE_1F))
+src/tv.c:3343:        if (gSaveBlock1Ptr->location.mapNum != MAP_NUM(MAP_LITTLEROOT_TOWN_MAYS_HOUSE_1F))
+src/tv.c:3359:    if (gSaveBlock1Ptr->location.mapGroup == MAP_GROUP(MAP_LITTLEROOT_TOWN_BRENDANS_HOUSE_1F))
+src/tv.c:3363:            if (gSaveBlock1Ptr->location.mapNum == MAP_NUM(MAP_LITTLEROOT_TOWN_BRENDANS_HOUSE_1F))
+src/tv.c:3371:            if (gSaveBlock1Ptr->location.mapNum == MAP_NUM(MAP_LITTLEROOT_TOWN_MAYS_HOUSE_1F))
+src/tv.c:3415:    RemoveObjectEventByLocalIdAndMap(LOCALID_TOWER_LOBBY_REPORTER, gSaveBlock1Ptr->location.mapNum, gSaveBlock1Ptr->location.mapGroup);
+src/tv.c:3446:            SetMixedTVShows(gSaveBlock1Ptr->tvShows, (*rmBuffer)[1], (*rmBuffer)[2], (*rmBuffer)[3]);
+src/tv.c:3449:            SetMixedTVShows((*rmBuffer)[0], gSaveBlock1Ptr->tvShows, (*rmBuffer)[2], (*rmBuffer)[3]);
+src/tv.c:3452:            SetMixedTVShows((*rmBuffer)[0], (*rmBuffer)[1], gSaveBlock1Ptr->tvShows, (*rmBuffer)[3]);
+src/tv.c:3455:            SetMixedTVShows((*rmBuffer)[0], (*rmBuffer)[1], (*rmBuffer)[2], gSaveBlock1Ptr->tvShows);
+src/tv.c:3459:        CompactTVShowArray(gSaveBlock1Ptr->tvShows);
+src/tv.c:3461:        CompactTVShowArray(gSaveBlock1Ptr->tvShows);
+src/tv.c:3616:        switch (gSaveBlock1Ptr->tvShows[i].common.kind)
+src/tv.c:3619:            species = (&gSaveBlock1Ptr->tvShows[i])->contestLiveUpdates.winningSpecies;
+src/tv.c:3621:            species = (&gSaveBlock1Ptr->tvShows[i])->contestLiveUpdates.losingSpecies;
+src/tv.c:3625:            species = (&gSaveBlock1Ptr->tvShows[i])->battleUpdate.speciesPlayer;
+src/tv.c:3627:            species = (&gSaveBlock1Ptr->tvShows[i])->battleUpdate.speciesOpponent;
+src/tv.c:3631:            species = (&gSaveBlock1Ptr->tvShows[i])->fanclubLetter.species;
+src/tv.c:3635:            species = (&gSaveBlock1Ptr->tvShows[i])->fanclubOpinions.species;
+src/tv.c:3639:            species = (&gSaveBlock1Ptr->tvShows[i])->dummy.species;
+src/tv.c:3643:            species = (&gSaveBlock1Ptr->tvShows[i])->nameRaterShow.species;
+src/tv.c:3645:            species = (&gSaveBlock1Ptr->tvShows[i])->nameRaterShow.randomSpecies;
+src/tv.c:3649:            species = (&gSaveBlock1Ptr->tvShows[i])->bravoTrainer.species;
+src/tv.c:3653:            species = (&gSaveBlock1Ptr->tvShows[i])->bravoTrainerTower.species;
+src/tv.c:3655:            species = (&gSaveBlock1Ptr->tvShows[i])->bravoTrainerTower.defeatedSpecies;
+src/tv.c:3659:            species = (&gSaveBlock1Ptr->tvShows[i])->pokemonToday.species;
+src/tv.c:3663:            species = (&gSaveBlock1Ptr->tvShows[i])->pokemonTodayFailed.species;
+src/tv.c:3665:            species = (&gSaveBlock1Ptr->tvShows[i])->pokemonTodayFailed.species2;
+src/tv.c:3669:            species = (&gSaveBlock1Ptr->tvShows[i])->pokemonAngler.species;
+src/tv.c:3673:            species = (&gSaveBlock1Ptr->tvShows[i])->worldOfMasters.species;
+src/tv.c:3675:            species = (&gSaveBlock1Ptr->tvShows[i])->worldOfMasters.caughtPoke;
+src/tv.c:3679:            species = (&gSaveBlock1Ptr->tvShows[i])->breakingNews.lastOpponentSpecies;
+src/tv.c:3681:            species = (&gSaveBlock1Ptr->tvShows[i])->breakingNews.poke1Species;
+src/tv.c:3685:            species = (&gSaveBlock1Ptr->tvShows[i])->secretBaseVisit.species;
+src/tv.c:3689:            species = (&gSaveBlock1Ptr->tvShows[i])->battleSeminar.species;
+src/tv.c:3691:            species = (&gSaveBlock1Ptr->tvShows[i])->battleSeminar.foeSpecies;
+src/tv.c:3695:            species = (&gSaveBlock1Ptr->tvShows[i])->frontier.species1;
+src/tv.c:3697:            species = (&gSaveBlock1Ptr->tvShows[i])->frontier.species2;
+src/tv.c:3700:            species = (&gSaveBlock1Ptr->tvShows[i])->frontier.facilityAndMode;
+src/tv.c:3716:                species = (&gSaveBlock1Ptr->tvShows[i])->frontier.species3;
+src/tv.c:3720:                species = (&gSaveBlock1Ptr->tvShows[i])->frontier.species3;
+src/tv.c:3722:                species = (&gSaveBlock1Ptr->tvShows[i])->frontier.species4;
+src/tv.c:3755:    gSaveBlock1Ptr->tvShows[showIdx].common.active = FALSE;
+src/tv.c:3761:        gSaveBlock1Ptr->tvShows[showIdx].common.active = FALSE;
+src/tv.c:3772:            if (gSaveBlock1Ptr->tvShows[i].common.kind == TVSHOW_BRAVO_TRAINER_BATTLE_TOWER_PROFILE)
+src/tv.c:3773:                gSaveBlock1Ptr->tvShows[i].common.active = FALSE;
+src/tv.c:3774:            else if (gSaveBlock1Ptr->tvShows[i].common.kind == TVSHOW_MASS_OUTBREAK)
+src/tv.c:3775:                gSaveBlock1Ptr->tvShows[i].common.active = FALSE;
+src/tv.c:3786:        if (GetTVGroupByShowId(gSaveBlock1Ptr->tvShows[i].common.kind) == TVGROUP_NORMAL)
+src/tv.c:3787:            gSaveBlock1Ptr->tvShows[i].common.active = FALSE;
+src/tv.c:3798:        if (gSaveBlock1Ptr->tvShows[i].common.kind == TVSHOW_OFF_AIR)
+src/tv.c:3802:        DeleteTVShowInArrayByIdx(gSaveBlock1Ptr->tvShows, i + NUM_NORMAL_TVSHOW_SLOTS);
+src/tv.c:3823:            SetMixedPokeNews(gSaveBlock1Ptr->pokeNews, (*rmBuffer)[1], (*rmBuffer)[2], (*rmBuffer)[3]);
+src/tv.c:3826:            SetMixedPokeNews((*rmBuffer)[0], gSaveBlock1Ptr->pokeNews, (*rmBuffer)[2], (*rmBuffer)[3]);
+src/tv.c:3829:            SetMixedPokeNews((*rmBuffer)[0], (*rmBuffer)[1], gSaveBlock1Ptr->pokeNews, (*rmBuffer)[3]);
+src/tv.c:3832:            SetMixedPokeNews((*rmBuffer)[0], (*rmBuffer)[1], (*rmBuffer)[2], gSaveBlock1Ptr->pokeNews);
+src/tv.c:3909:        if (gSaveBlock1Ptr->pokeNews[i].kind > POKENEWS_BLENDMASTER)
+src/tv.c:3922:            gSaveBlock1Ptr->pokeNews[i].state = POKENEWS_STATE_INACTIVE;
+src/tv.c:4170:    if (gSaveBlock1Ptr->tvShows[gSpecialVar_0x8004].common.active)
+src/tv.c:4172:        switch (gSaveBlock1Ptr->tvShows[gSpecialVar_0x8004].common.kind)
+src/tv.c:4279:    show = &gSaveBlock1Ptr->tvShows[gSpecialVar_0x8004];
+src/tv.c:4354:    show = &gSaveBlock1Ptr->tvShows[gSpecialVar_0x8004];
+src/tv.c:4449:    show = &gSaveBlock1Ptr->tvShows[gSpecialVar_0x8004];
+src/tv.c:4545:    show = &gSaveBlock1Ptr->tvShows[gSpecialVar_0x8004];
+src/tv.c:4631:    show = &gSaveBlock1Ptr->tvShows[gSpecialVar_0x8004];
+src/tv.c:4701:    show = &gSaveBlock1Ptr->tvShows[gSpecialVar_0x8004];
+src/tv.c:4747:    show = &gSaveBlock1Ptr->tvShows[gSpecialVar_0x8004];
+src/tv.c:4800:    show = &gSaveBlock1Ptr->tvShows[gSpecialVar_0x8004];
+src/tv.c:4835:    show = &gSaveBlock1Ptr->tvShows[gSpecialVar_0x8004];
+src/tv.c:4872:    show = &gSaveBlock1Ptr->tvShows[gSpecialVar_0x8004];
+src/tv.c:4891:    show = &gSaveBlock1Ptr->tvShows[gSpecialVar_0x8004];
+src/tv.c:5233:    show = &gSaveBlock1Ptr->tvShows[gSpecialVar_0x8004];
+src/tv.c:5305:    show = &gSaveBlock1Ptr->tvShows[gSpecialVar_0x8004];
+src/tv.c:5406:        GetMapName(gStringVar1, gSaveBlock1Ptr->gabbyAndTyData.mapnum, 0);
+src/tv.c:5407:        if (gSaveBlock1Ptr->gabbyAndTyData.battleNum > 1)
+src/tv.c:5416:        if (!gSaveBlock1Ptr->gabbyAndTyData.battleTookMoreThanOneTurn)
+src/tv.c:5418:        else if (gSaveBlock1Ptr->gabbyAndTyData.playerThrewABall)
+src/tv.c:5420:        else if (gSaveBlock1Ptr->gabbyAndTyData.playerUsedHealingItem)
+src/tv.c:5422:        else if (gSaveBlock1Ptr->gabbyAndTyData.playerLostAMon)
+src/tv.c:5428:        StringCopy(gStringVar1, GetSpeciesName(gSaveBlock1Ptr->gabbyAndTyData.mon1));
+src/tv.c:5429:        StringCopy(gStringVar2, GetMoveName(gSaveBlock1Ptr->gabbyAndTyData.lastMove));
+src/tv.c:5430:        StringCopy(gStringVar3, GetSpeciesName(gSaveBlock1Ptr->gabbyAndTyData.mon2));
+src/tv.c:5440:        CopyEasyChatWord(gStringVar1, gSaveBlock1Ptr->gabbyAndTyData.quote[0]);
+src/tv.c:5441:        StringCopy(gStringVar2, GetSpeciesName(gSaveBlock1Ptr->gabbyAndTyData.mon1));
+src/tv.c:5442:        StringCopy(gStringVar3, GetSpeciesName(gSaveBlock1Ptr->gabbyAndTyData.mon2));
+src/tv.c:5456:    show = &gSaveBlock1Ptr->tvShows[gSpecialVar_0x8004];
+src/tv.c:5486:    show = &gSaveBlock1Ptr->tvShows[gSpecialVar_0x8004];
+src/tv.c:5516:    show = &gSaveBlock1Ptr->tvShows[gSpecialVar_0x8004];
+src/tv.c:5635:    show = &gSaveBlock1Ptr->tvShows[gSpecialVar_0x8004];
+src/tv.c:5683:    show = &gSaveBlock1Ptr->tvShows[gSpecialVar_0x8004];
+src/tv.c:5729:    show = &gSaveBlock1Ptr->tvShows[gSpecialVar_0x8004];
+src/tv.c:5799:    show = &gSaveBlock1Ptr->tvShows[gSpecialVar_0x8004];
+src/tv.c:5894:    show = &gSaveBlock1Ptr->tvShows[gSpecialVar_0x8004];
+src/tv.c:5974:    show = &gSaveBlock1Ptr->tvShows[gSpecialVar_0x8004];
+src/tv.c:5996:    show = &gSaveBlock1Ptr->tvShows[gSpecialVar_0x8004];
+src/tv.c:6060:    show = &gSaveBlock1Ptr->tvShows[gSpecialVar_0x8004];
+src/tv.c:6118:    show = &gSaveBlock1Ptr->tvShows[gSpecialVar_0x8004];
+src/tv.c:6205:    show = &gSaveBlock1Ptr->tvShows[gSpecialVar_0x8004];
+src/tv.c:6311:    show = &gSaveBlock1Ptr->tvShows[gSpecialVar_0x8004];
+src/tv.c:6459:    show = &gSaveBlock1Ptr->tvShows[gSpecialVar_0x8004];
+src/tv.c:6572:    show = &gSaveBlock1Ptr->tvShows[gSpecialVar_0x8004];
+src/tv.c:6692:    show = &gSaveBlock1Ptr->tvShows[gSpecialVar_0x8004];
+src/tv.c:6763:    show = &gSaveBlock1Ptr->tvShows[gSpecialVar_0x8004];
+src/tv.c:6792:    gSaveBlock1Ptr->tvShows[gSpecialVar_0x8004].common.active = FALSE;
+src/overworld.c:500:    return gSaveBlock1Ptr->gameStats[index] ^ gSaveBlock2Ptr->encryptionKey;
+src/overworld.c:506:        gSaveBlock1Ptr->gameStats[index] = value ^ gSaveBlock2Ptr->encryptionKey;
+src/overworld.c:514:        ApplyNewEncryptionKeyToWord(&gSaveBlock1Ptr->gameStats[i], newKey);
+src/overworld.c:520:    CpuFill32(0, gSaveBlock1Ptr->objectEventTemplates, sizeof(gSaveBlock1Ptr->objectEventTemplates));
+src/overworld.c:524:              gSaveBlock1Ptr->objectEventTemplates,
+src/overworld.c:531:    struct ObjectEventTemplate *savObjTemplates = gSaveBlock1Ptr->objectEventTemplates;
+src/overworld.c:541:    struct ObjectEventTemplate *savObjTemplates = gSaveBlock1Ptr->objectEventTemplates;
+src/overworld.c:559:    struct ObjectEventTemplate *savObjTemplates = gSaveBlock1Ptr->objectEventTemplates;
+src/overworld.c:587:    gLastUsedWarp = gSaveBlock1Ptr->location;
+src/overworld.c:588:    gSaveBlock1Ptr->location = sWarpDestination;
+src/overworld.c:637:    gMapHeader = *Overworld_GetMapHeaderByGroupAndId(gSaveBlock1Ptr->location.mapGroup, gSaveBlock1Ptr->location.mapNum);
+src/overworld.c:638:    gSaveBlock1Ptr->mapLayoutId = gMapHeader.mapLayoutId;
+src/overworld.c:644:    gMapHeader = *Overworld_GetMapHeaderByGroupAndId(gSaveBlock1Ptr->location.mapGroup, gSaveBlock1Ptr->location.mapNum);
+src/overworld.c:645:    gMapHeader.mapLayout = GetMapLayout(gSaveBlock1Ptr->mapLayoutId);
+src/overworld.c:650:    if (gSaveBlock1Ptr->location.warpId >= 0 && gSaveBlock1Ptr->location.warpId < gMapHeader.events->warpCount)
+src/overworld.c:653:        gSaveBlock1Ptr->pos.x = gMapHeader.events->warps[gSaveBlock1Ptr->location.warpId].x;
+src/overworld.c:654:        gSaveBlock1Ptr->pos.y = gMapHeader.events->warps[gSaveBlock1Ptr->location.warpId].y;
+src/overworld.c:656:    else if (gSaveBlock1Ptr->location.x >= 0 && gSaveBlock1Ptr->location.y >= 0)
+src/overworld.c:660:        gSaveBlock1Ptr->pos.x = gSaveBlock1Ptr->location.x;
+src/overworld.c:661:        gSaveBlock1Ptr->pos.y = gSaveBlock1Ptr->location.y;
+src/overworld.c:666:        gSaveBlock1Ptr->pos.x = gMapHeader.mapLayout->width / 2;
+src/overworld.c:667:        gSaveBlock1Ptr->pos.y = gMapHeader.mapLayout->height / 2;
+src/overworld.c:690:    SetWarpData(&gSaveBlock1Ptr->dynamicWarp, mapGroup, mapNum, warpId, gSaveBlock1Ptr->pos.x, gSaveBlock1Ptr->pos.y);
+src/overworld.c:695:    SetWarpData(&gSaveBlock1Ptr->dynamicWarp, mapGroup, mapNum, warpId, x, y);
+src/overworld.c:700:    sWarpDestination = gSaveBlock1Ptr->dynamicWarp;
+src/overworld.c:714:    return GetHealNpcLocalId(GetHealLocationIndexByWarpData(&gSaveBlock1Ptr->lastHealLocation)) > 0;
+src/overworld.c:722:        sWarpDestination = gSaveBlock1Ptr->lastHealLocation;
+src/overworld.c:729:        SetWarpData(&gSaveBlock1Ptr->lastHealLocation, healLocation->mapGroup, healLocation->mapNum, WARP_ID_NONE, healLocation->x, healLocation->y);
+src/overworld.c:737:        SetEscapeWarp(gSaveBlock1Ptr->location.mapGroup, gSaveBlock1Ptr->location.mapNum, WARP_ID_NONE, x - MAP_OFFSET, y - MAP_OFFSET + 1);
+src/overworld.c:742:    SetWarpData(&gSaveBlock1Ptr->escapeWarp, mapGroup, mapNum, warpId, x, y);
+src/overworld.c:747:    sWarpDestination = gSaveBlock1Ptr->escapeWarp;
+src/overworld.c:775:    sWarpDestination = gSaveBlock1Ptr->continueGameWarp;
+src/overworld.c:780:    SetWarpData(&gSaveBlock1Ptr->continueGameWarp, mapGroup, mapNum, warpId, x, y);
+src/overworld.c:787:        SetWarpData(&gSaveBlock1Ptr->continueGameWarp, healLocation->mapGroup, healLocation->mapNum, WARP_ID_NONE, healLocation->x, healLocation->y);
+src/overworld.c:792:    gSaveBlock1Ptr->continueGameWarp = gSaveBlock1Ptr->dynamicWarp;
+src/overworld.c:922:    TryUpdateRandomTrainerRematches(gSaveBlock1Ptr->location.mapGroup, gSaveBlock1Ptr->location.mapNum);
+src/overworld.c:926:     MapResetTrainerRematches(gSaveBlock1Ptr->location.mapGroup, gSaveBlock1Ptr->location.mapNum);
+src/overworld.c:1037:    return MapGridGetMetatileBehaviorAt(gSaveBlock1Ptr->pos.x + MAP_OFFSET, gSaveBlock1Ptr->pos.y + MAP_OFFSET);
+src/overworld.c:1055:        gSaveBlock1Ptr->flashLevel = 0;
+src/overworld.c:1057:        gSaveBlock1Ptr->flashLevel = 1;
+src/overworld.c:1059:        gSaveBlock1Ptr->flashLevel = gMaxFlashLevel - 1;
+src/overworld.c:1066:    gSaveBlock1Ptr->flashLevel = flashLevel;
+src/overworld.c:1071:    return gSaveBlock1Ptr->flashLevel;
+src/overworld.c:1076:    gSaveBlock1Ptr->mapLayoutId = mapLayoutId;
+src/overworld.c:1182:    if (gSaveBlock1Ptr->location.mapGroup == MAP_GROUP(MAP_ROUTE111)
+src/overworld.c:1183:     && gSaveBlock1Ptr->location.mapNum == MAP_NUM(MAP_ROUTE111)
+src/overworld.c:1187:    music = GetLocationMusic(&gSaveBlock1Ptr->location);
+src/overworld.c:1194:        if (gSaveBlock1Ptr->pos.x < 24)
+src/overworld.c:1210:        if (gSaveBlock1Ptr->location.mapGroup == MAP_GROUP(MAP_MAUVILLE_CITY)
+src/overworld.c:1211:         && gSaveBlock1Ptr->location.mapNum == MAP_NUM(MAP_MAUVILLE_CITY))
+src/overworld.c:1229:        if (gSaveBlock1Ptr->savedMusic)
+src/overworld.c:1230:            music = gSaveBlock1Ptr->savedMusic;
+src/overworld.c:1243:    gSaveBlock1Ptr->savedMusic = songNum;
+src/overworld.c:1248:    gSaveBlock1Ptr->savedMusic = MUS_DUMMY;
+src/overworld.c:1305:            && gSaveBlock1Ptr->location.mapGroup == MAP_GROUP(MAP_SOOTOPOLIS_CITY)
+src/overworld.c:1306:            && gSaveBlock1Ptr->location.mapNum == MAP_NUM(MAP_SOOTOPOLIS_CITY)
+src/overworld.c:1400:    if ((gSaveBlock1Ptr->location.mapGroup == MAP_GROUP(MAP_ROUTE130)
+src/overworld.c:1401:     && gSaveBlock1Ptr->location.mapNum == MAP_NUM(MAP_ROUTE130))
+src/overworld.c:1427:    return GetMapTypeByWarpData(&gSaveBlock1Ptr->location);
+src/overworld.c:1469:    return Overworld_GetMapHeaderByGroupAndId(gSaveBlock1Ptr->dynamicWarp.mapGroup, gSaveBlock1Ptr->dynamicWarp.mapNum)->regionMapSectionId;
+src/overworld.c:1474:    return Overworld_GetMapHeaderByGroupAndId(gSaveBlock1Ptr->location.mapGroup, gSaveBlock1Ptr->location.mapNum)->regionMapSectionId;
+src/overworld.c:1479:    return Overworld_GetMapHeaderByGroupAndId(gSaveBlock1Ptr->location.mapGroup, gSaveBlock1Ptr->location.mapNum)->battleType;
+src/field_special_scene.c:96:    SetObjectEventSpritePosByLocalIdAndMap(LOCALID_TRUCK_BOX_TOP,      gSaveBlock1Ptr->location.mapNum, gSaveBlock1Ptr->location.mapGroup, BOX1_X_OFFSET - cameraXpan, BOX1_Y_OFFSET + yBox1);
+src/field_special_scene.c:98:    SetObjectEventSpritePosByLocalIdAndMap(LOCALID_TRUCK_BOX_BOTTOM_L, gSaveBlock1Ptr->location.mapNum, gSaveBlock1Ptr->location.mapGroup, BOX2_X_OFFSET - cameraXpan, BOX2_Y_OFFSET + yBox2);
+src/field_special_scene.c:100:    SetObjectEventSpritePosByLocalIdAndMap(LOCALID_TRUCK_BOX_BOTTOM_R, gSaveBlock1Ptr->location.mapNum, gSaveBlock1Ptr->location.mapGroup, BOX3_X_OFFSET - cameraXpan, BOX3_Y_OFFSET + yBox3);
+src/field_special_scene.c:144:        SetObjectEventSpritePosByLocalIdAndMap(LOCALID_TRUCK_BOX_TOP,      gSaveBlock1Ptr->location.mapNum, gSaveBlock1Ptr->location.mapGroup, BOX1_X_OFFSET - cameraXpan, BOX1_Y_OFFSET + yBox1);
+src/field_special_scene.c:146:        SetObjectEventSpritePosByLocalIdAndMap(LOCALID_TRUCK_BOX_BOTTOM_L, gSaveBlock1Ptr->location.mapNum, gSaveBlock1Ptr->location.mapGroup, BOX2_X_OFFSET - cameraXpan, BOX2_Y_OFFSET + yBox2);
+src/field_special_scene.c:148:        SetObjectEventSpritePosByLocalIdAndMap(LOCALID_TRUCK_BOX_BOTTOM_R, gSaveBlock1Ptr->location.mapNum, gSaveBlock1Ptr->location.mapGroup, BOX3_X_OFFSET - cameraXpan, BOX3_Y_OFFSET + yBox3);
+src/field_special_scene.c:174:       SetObjectEventSpritePosByLocalIdAndMap(LOCALID_TRUCK_BOX_TOP,      gSaveBlock1Ptr->location.mapNum, gSaveBlock1Ptr->location.mapGroup, BOX1_X_OFFSET - cameraXpan, BOX1_Y_OFFSET + cameraYpan);
+src/field_special_scene.c:175:       SetObjectEventSpritePosByLocalIdAndMap(LOCALID_TRUCK_BOX_BOTTOM_L, gSaveBlock1Ptr->location.mapNum, gSaveBlock1Ptr->location.mapGroup, BOX2_X_OFFSET - cameraXpan, BOX2_Y_OFFSET + cameraYpan);
+src/field_special_scene.c:176:       SetObjectEventSpritePosByLocalIdAndMap(LOCALID_TRUCK_BOX_BOTTOM_R, gSaveBlock1Ptr->location.mapNum, gSaveBlock1Ptr->location.mapGroup, BOX3_X_OFFSET - cameraXpan, BOX3_Y_OFFSET + cameraYpan);
+src/field_special_scene.c:275:        SetObjectEventSpritePosByLocalIdAndMap(LOCALID_TRUCK_BOX_TOP,      gSaveBlock1Ptr->location.mapNum, gSaveBlock1Ptr->location.mapGroup, BOX1_X_OFFSET, BOX1_Y_OFFSET);
+src/field_special_scene.c:276:        SetObjectEventSpritePosByLocalIdAndMap(LOCALID_TRUCK_BOX_BOTTOM_L, gSaveBlock1Ptr->location.mapNum, gSaveBlock1Ptr->location.mapGroup, BOX2_X_OFFSET, BOX2_Y_OFFSET);
+src/field_special_scene.c:277:        SetObjectEventSpritePosByLocalIdAndMap(LOCALID_TRUCK_BOX_BOTTOM_R, gSaveBlock1Ptr->location.mapNum, gSaveBlock1Ptr->location.mapGroup, BOX3_X_OFFSET, BOX3_Y_OFFSET);
+src/field_special_scene.c:301:    struct WarpData *location = &gSaveBlock1Ptr->location;
+src/field_special_scene.c:382:    SetDynamicWarp(0, gSaveBlock1Ptr->location.mapGroup, gSaveBlock1Ptr->location.mapNum, WARP_ID_NONE);
+src/party_menu.c:3445:        gSaveBlock1Ptr->mail[mail].words,
+src/party_menu.c:3619:    ReadMail(&gSaveBlock1Ptr->mail[GetMonData(&gPlayerParty[gPartyMenu.slotId], MON_DATA_MAIL)], CB2_ReturnToPartyMenuFromReadingMail, TRUE);
+src/party_menu.c:3971:                mapHeader = Overworld_GetMapHeaderByGroupAndId(gSaveBlock1Ptr->lastHealLocation.mapGroup, gSaveBlock1Ptr->lastHealLocation.mapNum);
+src/party_menu.c:3978:                mapHeader = Overworld_GetMapHeaderByGroupAndId(gSaveBlock1Ptr->escapeWarp.mapGroup, gSaveBlock1Ptr->escapeWarp.mapNum);
+src/party_menu.c:6917:        gSaveBlock1Ptr->mail[mail].words,
+src/party_menu.c:7015:        return AddPCItem(item, 1);
+src/party_menu.c:7029:    mail = &gSaveBlock1Ptr->mail[gPlayerPCItemPageInfo.itemsAbove + PARTY_SIZE + gPlayerPCItemPageInfo.cursorPos];
+src/party_menu.c:7071:        || (gSaveBlock1Ptr->location.mapGroup == MAP_GROUP(MAP_BATTLE_FRONTIER_BATTLE_PYRAMID_LOBBY)
+src/party_menu.c:7072:            && gSaveBlock1Ptr->location.mapNum == MAP_NUM(MAP_BATTLE_FRONTIER_BATTLE_PYRAMID_LOBBY)
+src/link_rfu_3.c:915:        struct TrainerNameRecord *newRecords = AllocZeroed(sizeof(gSaveBlock1Ptr->trainerNameRecords));
+src/link_rfu_3.c:921:            for (j = 0; j < (int)ARRAY_COUNT(gSaveBlock1Ptr->trainerNameRecords); j++)
+src/link_rfu_3.c:923:                if ((u16)gLinkPlayers[i].trainerId ==  gSaveBlock1Ptr->trainerNameRecords[j].trainerId && StringCompare(gLinkPlayers[i].name, gSaveBlock1Ptr->trainerNameRecords[j].trainerName) == 0)
+src/link_rfu_3.c:938:                    memset(gSaveBlock1Ptr->trainerNameRecords[connectedTrainerRecordIndices[i]].trainerName, 0, PLAYER_NAME_LENGTH + 1);
+src/link_rfu_3.c:945:        for (i = 0; i < (int)ARRAY_COUNT(gSaveBlock1Ptr->trainerNameRecords); i++)
+src/link_rfu_3.c:947:            if (NameIsNotEmpty(gSaveBlock1Ptr->trainerNameRecords[i].trainerName))
+src/link_rfu_3.c:949:                CopyTrainerRecord(&newRecords[nextSpace], gSaveBlock1Ptr->trainerNameRecords[i].trainerId, gSaveBlock1Ptr->trainerNameRecords[i].trainerName);
+src/link_rfu_3.c:950:                if (++nextSpace >= (int)ARRAY_COUNT(gSaveBlock1Ptr->trainerNameRecords))
+src/link_rfu_3.c:956:        memcpy(gSaveBlock1Ptr->trainerNameRecords, newRecords, sizeof(gSaveBlock1Ptr->trainerNameRecords));
+src/link_rfu_3.c:965:    for (i = 0; i < (int)ARRAY_COUNT(gSaveBlock1Ptr->trainerNameRecords); i++)
+src/link_rfu_3.c:967:        if (StringCompare(gSaveBlock1Ptr->trainerNameRecords[i].trainerName, name) == 0 && gSaveBlock1Ptr->trainerNameRecords[i].trainerId == id)
+src/link_rfu_3.c:970:        if (!NameIsNotEmpty(gSaveBlock1Ptr->trainerNameRecords[i].trainerName))
+src/link_rfu_3.c:980:    for (i = 0; i < (int)ARRAY_COUNT(gSaveBlock1Ptr->trainerNameRecords); i++)
+src/link_rfu_3.c:982:        gSaveBlock1Ptr->trainerNameRecords[i].trainerId = 0;
+src/link_rfu_3.c:983:        CpuFill16(0, gSaveBlock1Ptr->trainerNameRecords[i].trainerName, PLAYER_NAME_LENGTH + 1);
+src/save_location.c:9:    u16 map = (gSaveBlock1Ptr->location.mapGroup << 8) + gSaveBlock1Ptr->location.mapNum;
+src/pokedex.c:1536:        gSaveBlock1Ptr->dexCaught[i] = 0;
+src/pokedex.c:1537:        gSaveBlock1Ptr->dexSeen[i] = 0;
+src/pokedex.c:4529:        retVal = ((gSaveBlock1Ptr->dexSeen[index] & mask) != 0);
+src/pokedex.c:4532:         retVal = ((gSaveBlock1Ptr->dexCaught[index] & mask) != 0);
+src/pokedex.c:4535:        gSaveBlock1Ptr->dexSeen[index] |= mask;
+src/pokedex.c:4538:        gSaveBlock1Ptr->dexCaught[index] |= mask;
+src/contest_painting.c:168:    gCurContestWinner = gSaveBlock1Ptr->contestWinners[contestWinnerId - 1];
+src/event_object_movement.c:1496:            template = &gSaveBlock1Ptr->objectEventTemplates[i];
+src/event_object_movement.c:1498:                return InitObjectEventStateFromTemplate(template, gSaveBlock1Ptr->location.mapNum, gSaveBlock1Ptr->location.mapGroup);
+src/event_object_movement.c:1780:    return TrySpawnObjectEventTemplate(objectEventTemplate, gSaveBlock1Ptr->location.mapNum, gSaveBlock1Ptr->location.mapGroup, cameraX, cameraY);
+src/event_object_movement.c:2241:            .x = gSaveBlock1Ptr->pos.x,
+src/event_object_movement.c:2242:            .y = gSaveBlock1Ptr->pos.y,
+src/event_object_movement.c:2362:        return (gSaveBlock1Ptr->location.mapGroup == cond->data.bytes[0] &&
+src/event_object_movement.c:2363:                gSaveBlock1Ptr->location.mapNum == cond->data.bytes[1]);
+src/event_object_movement.c:2607:    s16 left =   gSaveBlock1Ptr->pos.x - 2;
+src/event_object_movement.c:2608:    s16 right =  gSaveBlock1Ptr->pos.x + 17;
+src/event_object_movement.c:2609:    s16 top =    gSaveBlock1Ptr->pos.y;
+src/event_object_movement.c:2610:    s16 bottom = gSaveBlock1Ptr->pos.y + 15;
+src/event_object_movement.c:2723:    s16 left = gSaveBlock1Ptr->pos.x - 2;
+src/event_object_movement.c:2724:    s16 right = gSaveBlock1Ptr->pos.x + MAP_OFFSET_W + 2;
+src/event_object_movement.c:2725:    s16 top = gSaveBlock1Ptr->pos.y;
+src/event_object_movement.c:2726:    s16 bottom = gSaveBlock1Ptr->pos.y + MAP_OFFSET_H + 2;
+src/event_object_movement.c:2739:        struct ObjectEventTemplate *template = &gSaveBlock1Ptr->objectEventTemplates[i];
+src/event_object_movement.c:2757:        s16 left = gSaveBlock1Ptr->pos.x - 2;
+src/event_object_movement.c:2758:        s16 right = gSaveBlock1Ptr->pos.x + MAP_OFFSET_W + 2;
+src/event_object_movement.c:2759:        s16 top = gSaveBlock1Ptr->pos.y;
+src/event_object_movement.c:2760:        s16 bottom = gSaveBlock1Ptr->pos.y + MAP_OFFSET_H + 2;
+src/event_object_movement.c:2771:            struct ObjectEventTemplate *template = &gSaveBlock1Ptr->objectEventTemplates[i];
+src/event_object_movement.c:2780:                    TrySpawnObjectEventTemplate(template, gSaveBlock1Ptr->location.mapNum, gSaveBlock1Ptr->location.mapGroup, cameraX, cameraY);
+src/event_object_movement.c:2813:    s16 left =   gSaveBlock1Ptr->pos.x - 2;
+src/event_object_movement.c:2814:    s16 right =  gSaveBlock1Ptr->pos.x + 17;
+src/event_object_movement.c:2815:    s16 top =    gSaveBlock1Ptr->pos.y;
+src/event_object_movement.c:2816:    s16 bottom = gSaveBlock1Ptr->pos.y + 16;
+src/event_object_movement.c:3604:    if (gSaveBlock1Ptr->location.mapNum == mapNum && gSaveBlock1Ptr->location.mapGroup == mapGroup)
+src/event_object_movement.c:3606:        templates = gSaveBlock1Ptr->objectEventTemplates;
+src/event_object_movement.c:3634:    if (objectEvent->mapNum != gSaveBlock1Ptr->location.mapNum
+src/event_object_movement.c:3635:     || objectEvent->mapGroup != gSaveBlock1Ptr->location.mapGroup)
+src/event_object_movement.c:3640:        if (objectEvent->localId == gSaveBlock1Ptr->objectEventTemplates[i].localId)
+src/event_object_movement.c:3641:            return &gSaveBlock1Ptr->objectEventTemplates[i];
+src/event_object_movement.c:6529:    *destX = (x - gSaveBlock1Ptr->pos.x) << 4;
+src/event_object_movement.c:6530:    *destY = (y - gSaveBlock1Ptr->pos.y) << 4;
+src/event_object_movement.c:6551:    *destX = ((mapX - gSaveBlock1Ptr->pos.x) << 4) + dx;
+src/event_object_movement.c:6552:    *destY = ((mapY - gSaveBlock1Ptr->pos.y) << 4) + dy;
+src/event_object_movement.c:9936:    gFieldEffectArguments[6] = (u8)gSaveBlock1Ptr->location.mapNum << 8 | (u8)gSaveBlock1Ptr->location.mapGroup;
+src/event_object_movement.c:9949:    gFieldEffectArguments[6] = (u8)gSaveBlock1Ptr->location.mapNum << 8 | (u8)gSaveBlock1Ptr->location.mapGroup;
+src/event_object_movement.c:9962:    gFieldEffectArguments[6] = (u8)gSaveBlock1Ptr->location.mapNum << 8 | (u8)gSaveBlock1Ptr->location.mapGroup;
+src/event_object_movement.c:9975:    gFieldEffectArguments[6] = (u8)gSaveBlock1Ptr->location.mapNum << 8 | (u8)gSaveBlock1Ptr->location.mapGroup;
+src/event_object_movement.c:11270:        GetMonInfo((struct Pokemon *) &gSaveBlock1Ptr->daycare.mons[i].mon, &specGfx, &shiny, &female);
+src/battle_palace.c:96:    SetDynamicWarp(0, gSaveBlock1Ptr->location.mapGroup, gSaveBlock1Ptr->location.mapNum, WARP_ID_NONE);
+src/secret_base.c:233:        ClearSecretBase(&gSaveBlock1Ptr->secretBases[i]);
+src/secret_base.c:248:        if (sCurSecretBaseId == gSaveBlock1Ptr->secretBases[i].secretBaseId)
+src/secret_base.c:260:    if (gSaveBlock1Ptr->secretBases[0].secretBaseId)
+src/secret_base.c:368:    gSaveBlock1Ptr->secretBases[0].secretBaseId = sCurSecretBaseId;
+src/secret_base.c:370:        gSaveBlock1Ptr->secretBases[0].trainerId[i] = gSaveBlock2Ptr->playerTrainerId[i];
+src/secret_base.c:373:    StringCopyN(gSaveBlock1Ptr->secretBases[0].trainerName, gSaveBlock2Ptr->playerName, GetNameLength(gSaveBlock2Ptr->playerName));
+src/secret_base.c:374:    gSaveBlock1Ptr->secretBases[0].gender = gSaveBlock2Ptr->playerGender;
+src/secret_base.c:375:    gSaveBlock1Ptr->secretBases[0].language = GAME_LANGUAGE;
+src/secret_base.c:391:                if (gSaveBlock1Ptr->secretBases[j].secretBaseId == events->bgEvents[bgId].bgUnion.secretBaseId)
+src/secret_base.c:431:        if (gSaveBlock1Ptr->secretBases[secretBaseIdx].numTimesEntered < 255)
+src/secret_base.c:432:            gSaveBlock1Ptr->secretBases[secretBaseIdx].numTimesEntered++;
+src/secret_base.c:449:    SetDynamicWarp(0, gSaveBlock1Ptr->location.mapGroup, gSaveBlock1Ptr->location.mapNum, WARP_ID_NONE);
+src/secret_base.c:491:            gSaveBlock1Ptr->location.mapGroup,
+src/secret_base.c:492:            gSaveBlock1Ptr->location.mapNum,
+src/secret_base.c:511:    if (gSaveBlock1Ptr->location.mapGroup == MAP_GROUP(MAP_SECRET_BASE_RED_CAVE1)
+src/secret_base.c:512:     && (u8)gSaveBlock1Ptr->location.mapNum <= MAP_NUM(MAP_SECRET_BASE_SHRUB4))
+src/secret_base.c:528:        decorations = gSaveBlock1Ptr->secretBases[secretBaseIdx].decorations;
+src/secret_base.c:529:        decorPos = gSaveBlock1Ptr->secretBases[secretBaseIdx].decorationPositions;
+src/secret_base.c:565:        decorations = gSaveBlock1Ptr->playerRoomDecorations;
+src/secret_base.c:566:        decorationPositions = gSaveBlock1Ptr->playerRoomDecorationPositions;
+src/secret_base.c:572:        decorations = gSaveBlock1Ptr->secretBases[secretBaseIdx].decorations;
+src/secret_base.c:573:        decorationPositions = gSaveBlock1Ptr->secretBases[secretBaseIdx].decorationPositions;
+src/secret_base.c:605:                TrySpawnObjectEvent(gSpecialVar_Result, gSaveBlock1Ptr->location.mapNum, gSaveBlock1Ptr->location.mapGroup);
+src/secret_base.c:606:                TryMoveObjectEventToMapCoords(gSpecialVar_Result, gSaveBlock1Ptr->location.mapNum, gSaveBlock1Ptr->location.mapGroup, gSpecialVar_0x8006, gSpecialVar_0x8007);
+src/secret_base.c:607:                TryOverrideObjectEventTemplateCoords(gSpecialVar_Result, gSaveBlock1Ptr->location.mapNum, gSaveBlock1Ptr->location.mapGroup);
+src/secret_base.c:614:                            gSaveBlock1Ptr->location.mapNum,
+src/secret_base.c:615:                            gSaveBlock1Ptr->location.mapGroup,
+src/secret_base.c:622:                            gSaveBlock1Ptr->location.mapNum,
+src/secret_base.c:623:                            gSaveBlock1Ptr->location.mapGroup,
+src/secret_base.c:646:                gSaveBlock1Ptr->location.mapNum,
+src/secret_base.c:647:                gSaveBlock1Ptr->location.mapGroup);
+src/secret_base.c:721:    if (gSaveBlock1Ptr->secretBases[0].secretBaseId != sCurSecretBaseId)
+src/secret_base.c:729:    *StringCopyN(dest, gSaveBlock1Ptr->secretBases[secretBaseIdx].trainerName, GetNameLength(gSaveBlock1Ptr->secretBases[secretBaseIdx].trainerName)) = EOS;
+src/secret_base.c:730:    ConvertInternationalString(dest, gSaveBlock1Ptr->secretBases[secretBaseIdx].language);
+src/secret_base.c:745:    name = gSaveBlock1Ptr->secretBases[secretBaseIdx].trainerName;
+src/secret_base.c:747:    ConvertInternationalString(gStringVar1, gSaveBlock1Ptr->secretBases[secretBaseIdx].language);
+src/secret_base.c:752:    if (gSaveBlock1Ptr->secretBases[secretBaseIdx].registryStatus)
+src/secret_base.c:778:    party = &gSaveBlock1Ptr->secretBases[0].party;
+src/secret_base.c:779:    if (gSaveBlock1Ptr->secretBases[0].secretBaseId)
+src/secret_base.c:811:    u16 temp = gSaveBlock1Ptr->secretBases[0].numSecretBasesReceived;
+src/secret_base.c:812:    ClearSecretBase(&gSaveBlock1Ptr->secretBases[0]);
+src/secret_base.c:813:    gSaveBlock1Ptr->secretBases[0].numSecretBasesReceived = temp;
+src/secret_base.c:833:         && gSaveBlock1Ptr->secretBases[0].secretBaseId == events->bgEvents[i].bgUnion.secretBaseId)
+src/secret_base.c:861:    temp = gSaveBlock1Ptr->secretBases[0].numSecretBasesReceived;
+src/secret_base.c:862:    ClearSecretBase(&gSaveBlock1Ptr->secretBases[0]);
+src/secret_base.c:863:    gSaveBlock1Ptr->secretBases[0].numSecretBasesReceived = temp;
+src/secret_base.c:891:    gSaveBlock1Ptr->secretBases[VarGet(VAR_CURRENT_SECRET_BASE)].registryStatus ^= 1;
+src/secret_base.c:1079:    gSaveBlock1Ptr->secretBases[tSelectedBaseId].registryStatus = UNREGISTERED;
+src/secret_base.c:1133:    return (gSaveBlock1Ptr->secretBases[secretBaseIdx].trainerId[0] % 5)
+src/secret_base.c:1134:         + (gSaveBlock1Ptr->secretBases[secretBaseIdx].gender * 5);
+src/secret_base.c:1171:    gSaveBlock1Ptr->secretBases[VarGet(VAR_CURRENT_SECRET_BASE)].battledOwnerToday = gSpecialVar_Result;
+src/secret_base.c:1183:            gSaveBlock1Ptr->secretBases[i].battledOwnerToday = FALSE;
+src/secret_base.c:1188:    gSpecialVar_Result = gSaveBlock1Ptr->secretBases[secretBaseIdx].battledOwnerToday;
+src/secret_base.c:1340:    gSaveBlock1Ptr->secretBases[secretBaseIdx] = *secretBase;
+src/secret_base.c:1341:    gSaveBlock1Ptr->secretBases[secretBaseIdx].registryStatus = NEW;
+src/secret_base.c:1343:        gSaveBlock1Ptr->secretBases[secretBaseIdx].language = GAME_LANGUAGE;
+src/secret_base.c:1347:        name = gSaveBlock1Ptr->secretBases[secretBaseIdx].trainerName;
+src/secret_base.c:1355:            gSaveBlock1Ptr->secretBases[secretBaseIdx].language = GAME_LANGUAGE;
+src/secret_base.c:1400:        if (gSaveBlock1Ptr->secretBases[i].secretBaseId == secretBaseId)
+src/secret_base.c:1412:        if (gSaveBlock1Ptr->secretBases[i].secretBaseId == 0)
+src/secret_base.c:1424:        if (gSaveBlock1Ptr->secretBases[i].registryStatus == UNREGISTERED && gSaveBlock1Ptr->secretBases[i].toRegister == FALSE)
+src/secret_base.c:1445:            if (gSaveBlock1Ptr->secretBases[index].toRegister == TRUE)
+src/secret_base.c:1448:            if (gSaveBlock1Ptr->secretBases[index].registryStatus != NEW || secretBase->toRegister == TRUE)
+src/secret_base.c:1491:    secretBases = gSaveBlock1Ptr->secretBases;
+src/secret_base.c:1698:    ClearDuplicateOwnedSecretBases(gSaveBlock1Ptr->secretBases, mixers[0].secretBases, mixers[1].secretBases, mixers[2].secretBases);
+src/secret_base.c:1773:            if (gSaveBlock1Ptr->secretBases[i].toRegister == TRUE)
+src/secret_base.c:1775:                gSaveBlock1Ptr->secretBases[i].registryStatus = REGISTERED;
+src/secret_base.c:1776:                gSaveBlock1Ptr->secretBases[i].toRegister = FALSE;
+src/secret_base.c:1784:            if (gSaveBlock1Ptr->secretBases[i].registryStatus == NEW)
+src/secret_base.c:1785:                gSaveBlock1Ptr->secretBases[i].registryStatus = UNREGISTERED;
+src/secret_base.c:1788:        if (gSaveBlock1Ptr->secretBases[0].secretBaseId != 0
+src/secret_base.c:1789:         && gSaveBlock1Ptr->secretBases[0].numSecretBasesReceived != 0xFFFF)
+src/secret_base.c:1791:            gSaveBlock1Ptr->secretBases[0].numSecretBasesReceived++;
+src/pokemon_storage_system.c:6553:        || (sRestrictedReleaseMoves[i].mapGroup == gSaveBlock1Ptr->location.mapGroup
+src/pokemon_storage_system.c:6554:         && sRestrictedReleaseMoves[i].mapNum == gSaveBlock1Ptr->location.mapNum))
+src/pokemon_storage_system.c:9739:    gSaveBlock1Ptr->waldaPhrase.iconId = 0;
+src/pokemon_storage_system.c:9740:    gSaveBlock1Ptr->waldaPhrase.patternId = 0;
+src/pokemon_storage_system.c:9741:    gSaveBlock1Ptr->waldaPhrase.patternUnlocked = FALSE;
+src/pokemon_storage_system.c:9742:    gSaveBlock1Ptr->waldaPhrase.colors[0] = RGB(21, 25, 30);
+src/pokemon_storage_system.c:9743:    gSaveBlock1Ptr->waldaPhrase.colors[1] = RGB(6, 12, 24);
+src/pokemon_storage_system.c:9744:    gSaveBlock1Ptr->waldaPhrase.text[0] = EOS;
+src/pokemon_storage_system.c:9749:    gSaveBlock1Ptr->waldaPhrase.patternUnlocked = unlocked;
+src/pokemon_storage_system.c:9754:    return gSaveBlock1Ptr->waldaPhrase.patternUnlocked;
+src/pokemon_storage_system.c:9759:    return gSaveBlock1Ptr->waldaPhrase.patternId;
+src/pokemon_storage_system.c:9765:        gSaveBlock1Ptr->waldaPhrase.patternId = id;
+src/pokemon_storage_system.c:9770:    return gSaveBlock1Ptr->waldaPhrase.iconId;
+src/pokemon_storage_system.c:9776:        gSaveBlock1Ptr->waldaPhrase.iconId = id;
+src/pokemon_storage_system.c:9781:    return gSaveBlock1Ptr->waldaPhrase.colors;
+src/pokemon_storage_system.c:9786:    gSaveBlock1Ptr->waldaPhrase.colors[0] = color1;
+src/pokemon_storage_system.c:9787:    gSaveBlock1Ptr->waldaPhrase.colors[1] = color2;
+src/pokemon_storage_system.c:9792:    return gSaveBlock1Ptr->waldaPhrase.text;
+src/pokemon_storage_system.c:9797:    StringCopy(gSaveBlock1Ptr->waldaPhrase.text, src);
+src/pokemon_storage_system.c:9802:    return (gSaveBlock1Ptr->waldaPhrase.text[0] == EOS);
+src/trainer_see.c:1047:        ScriptMovement_StartObjectMovementScript(LOCALID_PLAYER, gSaveBlock1Ptr->location.mapNum, gSaveBlock1Ptr->location.mapGroup, gPostBattleMovementScript);
+src/trainer_see.c:1054:        ScriptMovement_StartObjectMovementScript(LOCALID_PLAYER, gSaveBlock1Ptr->location.mapNum, gSaveBlock1Ptr->location.mapGroup, gPostBattleMovementScript);
+src/lilycove_lady.c:41:    return gSaveBlock1Ptr->lilycoveLady.id;
+src/lilycove_lady.c:51:        lilycoveLady = &gSaveBlock1Ptr->lilycoveLady;
+src/lilycove_lady.c:141:    sFavorLadyPtr = &gSaveBlock1Ptr->lilycoveLady.favor;
+src/lilycove_lady.c:154:    sFavorLadyPtr = &gSaveBlock1Ptr->lilycoveLady.favor;
+src/lilycove_lady.c:161:    sFavorLadyPtr = &gSaveBlock1Ptr->lilycoveLady.favor;
+src/lilycove_lady.c:177:    sFavorLadyPtr = &gSaveBlock1Ptr->lilycoveLady.favor;
+src/lilycove_lady.c:183:    sFavorLadyPtr = &gSaveBlock1Ptr->lilycoveLady.favor;
+src/lilycove_lady.c:200:    sFavorLadyPtr = &gSaveBlock1Ptr->lilycoveLady.favor;
+src/lilycove_lady.c:212:    sFavorLadyPtr = &gSaveBlock1Ptr->lilycoveLady.favor;
+src/lilycove_lady.c:220:    sFavorLadyPtr = &gSaveBlock1Ptr->lilycoveLady.favor;
+src/lilycove_lady.c:235:    sFavorLadyPtr = &gSaveBlock1Ptr->lilycoveLady.favor;
+src/lilycove_lady.c:268:    sFavorLadyPtr = &gSaveBlock1Ptr->lilycoveLady.favor;
+src/lilycove_lady.c:282:    sFavorLadyPtr = &gSaveBlock1Ptr->lilycoveLady.favor;
+src/lilycove_lady.c:318:    sQuizLadyPtr = &gSaveBlock1Ptr->lilycoveLady.quiz;
+src/lilycove_lady.c:340:    sQuizLadyPtr = &gSaveBlock1Ptr->lilycoveLady.quiz;
+src/lilycove_lady.c:349:    sQuizLadyPtr = &gSaveBlock1Ptr->lilycoveLady.quiz;
+src/lilycove_lady.c:362:    struct LilycoveLadyQuiz *quiz = &gSaveBlock1Ptr->lilycoveLady.quiz;
+src/lilycove_lady.c:396:    sQuizLadyPtr = &gSaveBlock1Ptr->lilycoveLady.quiz;
+src/lilycove_lady.c:430:    sQuizLadyPtr = &gSaveBlock1Ptr->lilycoveLady.quiz;
+src/lilycove_lady.c:459:    sQuizLadyPtr = &gSaveBlock1Ptr->lilycoveLady.quiz;
+src/lilycove_lady.c:470:    sQuizLadyPtr = &gSaveBlock1Ptr->lilycoveLady.quiz;
+src/lilycove_lady.c:481:    sQuizLadyPtr = &gSaveBlock1Ptr->lilycoveLady.quiz;
+src/lilycove_lady.c:489:    sQuizLadyPtr = &gSaveBlock1Ptr->lilycoveLady.quiz;
+src/lilycove_lady.c:495:    sQuizLadyPtr = &gSaveBlock1Ptr->lilycoveLady.quiz;
+src/lilycove_lady.c:501:    sQuizLadyPtr = &gSaveBlock1Ptr->lilycoveLady.quiz;
+src/lilycove_lady.c:507:    sQuizLadyPtr = &gSaveBlock1Ptr->lilycoveLady.quiz;
+src/lilycove_lady.c:518:    sQuizLadyPtr = &gSaveBlock1Ptr->lilycoveLady.quiz;
+src/lilycove_lady.c:530:    sQuizLadyPtr = &gSaveBlock1Ptr->lilycoveLady.quiz;
+src/lilycove_lady.c:551:    sQuizLadyPtr = &gSaveBlock1Ptr->lilycoveLady.quiz;
+src/lilycove_lady.c:561:    sQuizLadyPtr = &gSaveBlock1Ptr->lilycoveLady.quiz;
+src/lilycove_lady.c:567:    sQuizLadyPtr = &gSaveBlock1Ptr->lilycoveLady.quiz;
+src/lilycove_lady.c:581:    sQuizLadyPtr = &gSaveBlock1Ptr->lilycoveLady.quiz;
+src/lilycove_lady.c:609:    sContestLadyPtr = &gSaveBlock1Ptr->lilycoveLady.contest;
+src/lilycove_lady.c:618:    sContestLadyPtr = &gSaveBlock1Ptr->lilycoveLady.contest;
+src/lilycove_lady.c:629:    sContestLadyPtr = &gSaveBlock1Ptr->lilycoveLady.contest;
+src/lilycove_lady.c:644:    sContestLadyPtr = &gSaveBlock1Ptr->lilycoveLady.contest;
+src/lilycove_lady.c:697:    sContestLadyPtr = &gSaveBlock1Ptr->lilycoveLady.contest;
+src/lilycove_lady.c:704:    sContestLadyPtr = &gSaveBlock1Ptr->lilycoveLady.contest;
+src/lilycove_lady.c:711:    sContestLadyPtr = &gSaveBlock1Ptr->lilycoveLady.contest;
+src/lilycove_lady.c:717:    sContestLadyPtr = &gSaveBlock1Ptr->lilycoveLady.contest;
+src/lilycove_lady.c:729:    sContestLadyPtr = &gSaveBlock1Ptr->lilycoveLady.contest;
+src/lilycove_lady.c:741:    sContestLadyPtr = &gSaveBlock1Ptr->lilycoveLady.contest;
+src/lilycove_lady.c:751:    sContestLadyPtr = &gSaveBlock1Ptr->lilycoveLady.contest;
+src/lilycove_lady.c:771:    sContestLadyPtr = &gSaveBlock1Ptr->lilycoveLady.contest;
+src/lilycove_lady.c:777:    sContestLadyPtr = &gSaveBlock1Ptr->lilycoveLady.contest;
+src/lilycove_lady.c:783:    sContestLadyPtr = &gSaveBlock1Ptr->lilycoveLady.contest;
+src/trader.c:37:    struct MauvilleOldManTrader *trader = &gSaveBlock1Ptr->oldMan.trader;
+src/trader.c:52:    struct MauvilleOldManTrader *trader = &gSaveBlock1Ptr->oldMan.trader;
+src/trader.c:62:    struct MauvilleOldManTrader *trader = &gSaveBlock1Ptr->oldMan.trader;
+src/trader.c:117:    struct MauvilleOldManTrader *trader = &gSaveBlock1Ptr->oldMan.trader;
+src/trader.c:141:    struct MauvilleOldManTrader *trader = &gSaveBlock1Ptr->oldMan.trader;
+src/trader.c:201:    struct MauvilleOldManTrader *trader = &gSaveBlock1Ptr->oldMan.trader;
+src/vs_seeker.c:199:    struct ObjectEventTemplate * templates = gSaveBlock1Ptr->objectEventTemplates;
+src/vs_seeker.c:215:        TryGetObjectEventIdByLocalIdAndMap(templates[i].localId, gSaveBlock1Ptr->location.mapNum, gSaveBlock1Ptr->location.mapGroup, &objEventId);
+src/vs_seeker.c:235:        if ((gSaveBlock1Ptr->trainerRematchStepCounter & 0xFF) < VSSEEKER_RECHARGE_STEPS)
+src/vs_seeker.c:236:            gSaveBlock1Ptr->trainerRematchStepCounter++;
+src/vs_seeker.c:241:        if (((gSaveBlock1Ptr->trainerRematchStepCounter >> 8) & 0xFF) < VSSEEKER_RECHARGE_STEPS)
+src/vs_seeker.c:243:            x = (((gSaveBlock1Ptr->trainerRematchStepCounter >> 8) & 0xFF) + 1);
+src/vs_seeker.c:244:            gSaveBlock1Ptr->trainerRematchStepCounter = (gSaveBlock1Ptr->trainerRematchStepCounter & 0xFF) | (x << 8);
+src/vs_seeker.c:246:        if (((gSaveBlock1Ptr->trainerRematchStepCounter >> 8) & 0xFF) == VSSEEKER_RECHARGE_STEPS)
+src/vs_seeker.c:294:    gSaveBlock1Ptr->trainerRematchStepCounter &= 0xFF00;
+src/vs_seeker.c:301:    gSaveBlock1Ptr->trainerRematchStepCounter &= 0x00FF;
+src/vs_seeker.c:362:        ScriptMovement_StartObjectMovementScript(0xFF, gSaveBlock1Ptr->location.mapNum, gSaveBlock1Ptr->location.mapGroup, sMovementScript_Wait48);
+src/vs_seeker.c:369:    struct ObjectEventTemplate *templates = gSaveBlock1Ptr->objectEventTemplates;
+src/vs_seeker.c:382:        TryGetObjectEventIdByLocalIdAndMap(templates[objectEventIdx].localId, gSaveBlock1Ptr->location.mapNum, gSaveBlock1Ptr->location.mapGroup, &objectEventId);
+src/vs_seeker.c:394:    if (!ScriptMovement_IsObjectMovementFinished(0xFF, gSaveBlock1Ptr->location.mapNum, gSaveBlock1Ptr->location.mapGroup))
+src/vs_seeker.c:417:    u8 vsSeekerChargeSteps = gSaveBlock1Ptr->trainerRematchStepCounter;
+src/vs_seeker.c:482:                gSaveBlock1Ptr->trainerRematches[VsSeekerConvertLocalIdToTableId(sVsSeeker->trainerInfo[vsSeekerIdx].localId)] = rematchTrainerIdx;
+src/vs_seeker.c:513:    struct ObjectEventTemplate *objectEventTemplates = gSaveBlock1Ptr->objectEventTemplates;
+src/vs_seeker.c:530:        TryGetObjectEventIdByLocalIdAndMap(objectEventTemplates[i].localId, gSaveBlock1Ptr->location.mapNum, gSaveBlock1Ptr->location.mapGroup, &objEventId);
+src/vs_seeker.c:724:    for (i = 0; i < ARRAY_COUNT(gSaveBlock1Ptr->trainerRematches); i++)
+src/vs_seeker.c:725:        gSaveBlock1Ptr->trainerRematches[i] = 0;
+src/vs_seeker.c:767:    ScriptMovement_StartObjectMovementScript(trainerInfo->localId, gSaveBlock1Ptr->location.mapNum, gSaveBlock1Ptr->location.mapGroup, script);
+src/vs_seeker.c:808:                gSaveBlock1Ptr->trainerRematches[VsSeekerConvertLocalIdToTableId(sVsSeeker->trainerInfo[j].localId)] = GetRematchTrainerIdFromTable(gRematchTable, sVsSeeker->trainerInfo[j].trainerIdx);
+src/debug.c:1827:    memset(&gSaveBlock1Ptr->dexCaught, 0, sizeof(gSaveBlock1Ptr->dexCaught));
+src/debug.c:1828:    memset(&gSaveBlock1Ptr->dexSeen, 0, sizeof(gSaveBlock1Ptr->dexSeen));
+src/debug.c:2997:    SetMoney(&gSaveBlock1Ptr->money, MAX_MONEY);
+src/debug.c:3012:    s32 emptySlot = Daycare_FindEmptySpot(&gSaveBlock1Ptr->daycare);
+src/debug.c:3017:    else if (GetDaycareCompatibilityScore(&gSaveBlock1Ptr->daycare) == PARENTS_INCOMPATIBLE) // not compatible parents
+src/debug.c:3137:            AddPCItem(itemId, MAX_PC_ITEM_CAPACITY);
+src/debug.c:3911:            SetBerryTreeJustPicked(gObjectEvents[i].localId, gSaveBlock1Ptr->location.mapNum, gSaveBlock1Ptr->location.mapGroup);
+src/debug.c:3928:            tree = &gSaveBlock1Ptr->berryTrees[GetObjectEventBerryTreeId(i)];
+src/debug.c:3950:            tree = &gSaveBlock1Ptr->berryTrees[GetObjectEventBerryTreeId(i)];
+src/debug.c:3973:            if (gSaveBlock1Ptr->berryTrees[GetObjectEventBerryTreeId(i)].stage != BERRY_STAGE_PLANTED)
+src/debug.c:3974:                gSaveBlock1Ptr->berryTrees[GetObjectEventBerryTreeId(i)].pests = TRUE;
+src/debug.c:3996:            gSaveBlock1Ptr->berryTrees[GetObjectEventBerryTreeId(i)].weeds = TRUE;
+src/mauville_old_man.c:77:    struct MauvilleManBard *bard = &gSaveBlock1Ptr->oldMan.bard;
+src/mauville_old_man.c:88:    struct MauvilleManHipster *hipster = &gSaveBlock1Ptr->oldMan.hipster;
+src/mauville_old_man.c:102:    struct MauvilleManGiddy *giddy = &gSaveBlock1Ptr->oldMan.giddy;
+src/mauville_old_man.c:143:    return gSaveBlock1Ptr->oldMan.common.id;
+src/mauville_old_man.c:153:    gSpecialVar_Result = (&gSaveBlock1Ptr->oldMan.bard)->hasChangedSong;
+src/mauville_old_man.c:159:    struct MauvilleManBard *bard = &gSaveBlock1Ptr->oldMan.bard;
+src/mauville_old_man.c:178:    struct MauvilleManBard *bard = &gSaveBlock1Ptr->oldMan.bard;
+src/mauville_old_man.c:243:    gSpecialVar_Result = (&gSaveBlock1Ptr->oldMan.hipster)->taughtWord;
+src/mauville_old_man.c:248:    (&gSaveBlock1Ptr->oldMan.hipster)->taughtWord = TRUE;
+src/mauville_old_man.c:269:    struct MauvilleManGiddy *giddy = &gSaveBlock1Ptr->oldMan.giddy;
+src/mauville_old_man.c:284:    struct MauvilleManGiddy *giddy = &gSaveBlock1Ptr->oldMan.giddy;
+src/mauville_old_man.c:319:    struct MauvilleManGiddy *giddy = &gSaveBlock1Ptr->oldMan.giddy;
+src/mauville_old_man.c:377:    (&gSaveBlock1Ptr->oldMan.bard)->hasChangedSong = FALSE;
+src/mauville_old_man.c:382:    (&gSaveBlock1Ptr->oldMan.hipster)->taughtWord = FALSE;
+src/mauville_old_man.c:484:        struct MauvilleManBard *bard = &gSaveBlock1Ptr->oldMan.bard;
+src/mauville_old_man.c:624:        struct MauvilleManBard *bard = &gSaveBlock1Ptr->oldMan.bard;
+src/mauville_old_man.c:1200:    sStorytellerPtr = &gSaveBlock1Ptr->oldMan.storyteller;
+src/mauville_old_man.c:1213:    sStorytellerPtr = &gSaveBlock1Ptr->oldMan.storyteller;
+src/mauville_old_man.c:1429:    sStorytellerPtr = &gSaveBlock1Ptr->oldMan.storyteller;
+src/mauville_old_man.c:1437:    sStorytellerPtr = &gSaveBlock1Ptr->oldMan.storyteller;
+src/mauville_old_man.c:1450:    sStorytellerPtr = &gSaveBlock1Ptr->oldMan.storyteller;
+src/mauville_old_man.c:1460:    sStorytellerPtr = &gSaveBlock1Ptr->oldMan.storyteller;
+src/scrcmd.c:681:    gSpecialVar_Result = AddPCItem(itemId, quantity);
+src/scrcmd.c:1145:    *pX = gSaveBlock1Ptr->pos.x;
+src/scrcmd.c:1146:    *pY = gSaveBlock1Ptr->pos.y;
+src/scrcmd.c:1303:    ScriptMovement_StartObjectMovementScript(localId, gSaveBlock1Ptr->location.mapNum, gSaveBlock1Ptr->location.mapGroup, movementScript);
+src/scrcmd.c:1351:    sMovingNpcMapGroup = gSaveBlock1Ptr->location.mapGroup;
+src/scrcmd.c:1352:    sMovingNpcMapNum = gSaveBlock1Ptr->location.mapNum;
+src/scrcmd.c:1381:    RemoveObjectEventByLocalIdAndMap(localId, gSaveBlock1Ptr->location.mapNum, gSaveBlock1Ptr->location.mapGroup);
+src/scrcmd.c:1403:    TrySpawnObjectEvent(objectId, gSaveBlock1Ptr->location.mapNum, gSaveBlock1Ptr->location.mapGroup);
+src/scrcmd.c:1431:    TryMoveObjectEventToMapCoords(localId, gSaveBlock1Ptr->location.mapNum, gSaveBlock1Ptr->location.mapGroup, x, y);
+src/scrcmd.c:1453:    TryOverrideObjectEventTemplateCoords(localId, gSaveBlock1Ptr->location.mapNum, gSaveBlock1Ptr->location.mapGroup);
+src/scrcmd.c:1544:    ObjectEventTurnByLocalIdAndMap(localId, gSaveBlock1Ptr->location.mapNum, gSaveBlock1Ptr->location.mapGroup, direction);
+src/scrcmd.c:2327:        AddMoney(&gSaveBlock1Ptr->money, amount);
+src/scrcmd.c:2341:        RemoveMoney(&gSaveBlock1Ptr->money, amount);
+src/scrcmd.c:2355:        gSpecialVar_Result = IsEnoughMoney(&gSaveBlock1Ptr->money, amount);
+src/scrcmd.c:2370:        DrawMoneyBox(GetMoney(&gSaveBlock1Ptr->money), x, y);
+src/scrcmd.c:2396:        ChangeAmountInMoneyBox(GetMoney(&gSaveBlock1Ptr->money));
+src/gym_leader_rematch.c:55:        if (!gSaveBlock1Ptr->trainerRematches[data[i]])
+src/gym_leader_rematch.c:68:            if (!gSaveBlock1Ptr->trainerRematches[data[i]])
+src/gym_leader_rematch.c:80:                if (!gSaveBlock1Ptr->trainerRematches[data[i]])
+src/gym_leader_rematch.c:87:                            gSaveBlock1Ptr->trainerRematches[data[i]] = lowestRematchIndex;
+src/easy_chat.c:1466:        words = gSaveBlock1Ptr->easyChatProfile;
+src/easy_chat.c:1469:        words = gSaveBlock1Ptr->easyChatBattleStart;
+src/easy_chat.c:1472:        words = gSaveBlock1Ptr->easyChatBattleWon;
+src/easy_chat.c:1475:        words = gSaveBlock1Ptr->easyChatBattleLost;
+src/easy_chat.c:1478:        words = gSaveBlock1Ptr->mail[gSpecialVar_0x8005].words;
+src/easy_chat.c:1481:        bard = &gSaveBlock1Ptr->oldMan.bard;
+src/easy_chat.c:1488:        words = gSaveBlock1Ptr->tvShows[gSpecialVar_0x8005].bravoTrainer.words;
+src/easy_chat.c:1492:        words = &gSaveBlock1Ptr->tvShows[gSpecialVar_0x8005].fanclubOpinions.words[gSpecialVar_0x8006];
+src/easy_chat.c:1496:        words = gSaveBlock1Ptr->tvShows[gSpecialVar_0x8005].dummy.words;
+src/easy_chat.c:1501:        words[0] = gSaveBlock1Ptr->dewfordTrends[0].words[0];
+src/easy_chat.c:1502:        words[1] = gSaveBlock1Ptr->dewfordTrends[0].words[1];
+src/easy_chat.c:1505:        words = gSaveBlock1Ptr->gabbyAndTyData.quote;
+src/easy_chat.c:1510:        words = &gSaveBlock1Ptr->tvShows[gSpecialVar_0x8005].bravoTrainer.words[gSpecialVar_0x8006];
+src/easy_chat.c:1514:        words = gSaveBlock1Ptr->tvShows[gSpecialVar_0x8005].bravoTrainerTower.words;
+src/easy_chat.c:1522:        words = gSaveBlock1Ptr->tvShows[gSpecialVar_0x8005].fanClubSpecial.words;
+src/easy_chat.c:1527:        words = &gSaveBlock1Ptr->lilycoveLady.quiz.playerAnswer;
+src/easy_chat.c:1532:        words = gSaveBlock1Ptr->lilycoveLady.quiz.question;
+src/easy_chat.c:1535:        words = &gSaveBlock1Ptr->lilycoveLady.quiz.correctAnswer;
+src/easy_chat.c:1564:            lilycoveLady = &gSaveBlock1Ptr->lilycoveLady;
+src/easy_chat.c:1609:        &gSaveBlock1Ptr->lilycoveLady.quiz.playerAnswer,
+src/easy_chat.c:1617:        gSaveBlock1Ptr->lilycoveLady.quiz.question,
+src/easy_chat.c:1625:        &gSaveBlock1Ptr->lilycoveLady.quiz.correctAnswer,
+src/easy_chat.c:1633:        gSaveBlock1Ptr->lilycoveLady.quiz.question,
+src/easy_chat.c:2919:    quiz = &gSaveBlock1Ptr->lilycoveLady.quiz;
+src/easy_chat.c:5386:        easyChatWords = gSaveBlock1Ptr->easyChatProfile;
+src/easy_chat.c:5391:        easyChatWords = gSaveBlock1Ptr->easyChatBattleStart;
+src/easy_chat.c:5392:        if (CanPhraseFitInXRowsYCols(gSaveBlock1Ptr->easyChatBattleStart, 3, 2, 18))
+src/easy_chat.c:5404:        easyChatWords = gSaveBlock1Ptr->easyChatBattleWon;
+src/easy_chat.c:5409:        easyChatWords = gSaveBlock1Ptr->easyChatBattleLost;
+src/easy_chat.c:5450:    return (gSaveBlock1Ptr->unlockedTrendySayings[byteOffset] >> shift) & 1;
+src/easy_chat.c:5459:        gSaveBlock1Ptr->unlockedTrendySayings[byteOffset] |= 1 << shift;
+src/easy_chat.c:5568:        gSaveBlock1Ptr->easyChatProfile[i] = sDefaultProfileWords[i];
+src/easy_chat.c:5571:        gSaveBlock1Ptr->easyChatBattleStart[i] = sDefaultBattleStartWords[i];
+src/easy_chat.c:5574:        gSaveBlock1Ptr->easyChatBattleWon[i] = sDefaultBattleWonWords[i];
+src/easy_chat.c:5577:        gSaveBlock1Ptr->easyChatBattleLost[i] = sDefaultBattleLostWords[i];
+src/easy_chat.c:5582:            gSaveBlock1Ptr->mail[i].words[j] = EC_EMPTY_WORD;
+src/easy_chat.c:5591:        gSaveBlock1Ptr->unlockedTrendySayings[i] = 0;
+src/easy_chat.c:5593:    for (i = 0; i < ARRAY_COUNT(gSaveBlock1Ptr->unlockedTrendySayings); i++)
+src/easy_chat.c:5594:        gSaveBlock1Ptr->unlockedTrendySayings[i] = 0;
+src/record_mixing.c:176:    sSecretBasesSave = gSaveBlock1Ptr->secretBases;
+src/record_mixing.c:177:    sTvShowsSave = gSaveBlock1Ptr->tvShows;
+src/record_mixing.c:178:    sPokeNewsSave = gSaveBlock1Ptr->pokeNews;
+src/record_mixing.c:179:    sOldManSave = &gSaveBlock1Ptr->oldMan;
+src/record_mixing.c:180:    sDewfordTrendsSave = gSaveBlock1Ptr->dewfordTrends;
+src/record_mixing.c:183:    sLilycoveLadySave = &gSaveBlock1Ptr->lilycoveLady;
+src/record_mixing.c:957:    memcpy(&gSaveBlock1Ptr->daycare.mons[0].mail, &mixMail->mail[0], sizeof(struct DaycareMail));
+src/record_mixing.c:958:    memcpy(&gSaveBlock1Ptr->daycare.mons[1].mail, &mixMail->mail[1], sizeof(struct DaycareMail));
+src/record_mixing.c:1366:    sRecordMixMail.mail[0] = gSaveBlock1Ptr->daycare.mons[0].mail;
+src/record_mixing.c:1367:    sRecordMixMail.mail[1] = gSaveBlock1Ptr->daycare.mons[1].mail;
+src/record_mixing.c:1368:    InitDaycareMailRecordMixing(&gSaveBlock1Ptr->daycare, &sRecordMixMail);
+src/braille_puzzles.c:65:     && (gSaveBlock1Ptr->location.mapGroup == MAP_GROUP(MAP_SEALED_CHAMBER_OUTER_ROOM)
+src/braille_puzzles.c:66:     && gSaveBlock1Ptr->location.mapNum == MAP_NUM(MAP_SEALED_CHAMBER_OUTER_ROOM)))
+src/braille_puzzles.c:68:        if (gSaveBlock1Ptr->pos.x == 10 && gSaveBlock1Ptr->pos.y == 3)
+src/braille_puzzles.c:70:        if (gSaveBlock1Ptr->pos.x == 9 && gSaveBlock1Ptr->pos.y == 3)
+src/braille_puzzles.c:72:        if (gSaveBlock1Ptr->pos.x == 11 && gSaveBlock1Ptr->pos.y == 3)
+src/braille_puzzles.c:170:        && gSaveBlock1Ptr->location.mapGroup == MAP_GROUP(MAP_DESERT_RUINS)
+src/braille_puzzles.c:171:        && gSaveBlock1Ptr->location.mapNum == MAP_NUM(MAP_DESERT_RUINS))
+src/braille_puzzles.c:173:        if (gSaveBlock1Ptr->pos.x == 6 && gSaveBlock1Ptr->pos.y == 23)
+src/braille_puzzles.c:178:        else if (gSaveBlock1Ptr->pos.x == 5 && gSaveBlock1Ptr->pos.y == 23)
+src/braille_puzzles.c:183:        else if (gSaveBlock1Ptr->pos.x == 7 && gSaveBlock1Ptr->pos.y == 23)
+src/braille_puzzles.c:222:    if (!FlagGet(FLAG_SYS_REGISTEEL_PUZZLE_COMPLETED) && (gSaveBlock1Ptr->location.mapGroup == MAP_GROUP(MAP_ANCIENT_TOMB) && gSaveBlock1Ptr->location.mapNum == MAP_NUM(MAP_ANCIENT_TOMB)))
+src/braille_puzzles.c:224:        if (gSaveBlock1Ptr->pos.x == 8 && gSaveBlock1Ptr->pos.y == 25)
+src/braille_puzzles.c:289:    if (gSaveBlock1Ptr->location.mapGroup == MAP_GROUP(MAP_ISLAND_CAVE)
+src/braille_puzzles.c:290:        && gSaveBlock1Ptr->location.mapNum == MAP_NUM(MAP_ISLAND_CAVE))
+src/braille_puzzles.c:305:            if (gSaveBlock1Ptr->pos.x == xPos && gSaveBlock1Ptr->pos.y == yPos)
+src/braille_puzzles.c:332:                if (gSaveBlock1Ptr->pos.x == 8 && gSaveBlock1Ptr->pos.y == 21)
+src/decoration_inventory.c:15:    SET_DECOR_INV(DECORCAT_DESK, gSaveBlock1Ptr->decorationDesks);
+src/decoration_inventory.c:16:    SET_DECOR_INV(DECORCAT_CHAIR, gSaveBlock1Ptr->decorationChairs);
+src/decoration_inventory.c:17:    SET_DECOR_INV(DECORCAT_PLANT, gSaveBlock1Ptr->decorationPlants);
+src/decoration_inventory.c:18:    SET_DECOR_INV(DECORCAT_ORNAMENT, gSaveBlock1Ptr->decorationOrnaments);
+src/decoration_inventory.c:19:    SET_DECOR_INV(DECORCAT_MAT, gSaveBlock1Ptr->decorationMats);
+src/decoration_inventory.c:20:    SET_DECOR_INV(DECORCAT_POSTER, gSaveBlock1Ptr->decorationPosters);
+src/decoration_inventory.c:21:    SET_DECOR_INV(DECORCAT_DOLL, gSaveBlock1Ptr->decorationDolls);
+src/decoration_inventory.c:22:    SET_DECOR_INV(DECORCAT_CUSHION, gSaveBlock1Ptr->decorationCushions);
+src/heal_location.c:59:    const struct WarpData *warpData = &gSaveBlock1Ptr->lastHealLocation;
+src/heal_location.c:89:    u32 healLocationId = GetHealLocationIndexByWarpData(&gSaveBlock1Ptr->lastHealLocation);
+src/heal_location.c:94:        *(warp) = gSaveBlock1Ptr->lastHealLocation;
+src/pokenav_match_call_list.c:329:    return gSaveBlock1Ptr->trainerRematches[index] != 0;
+src/pokenav_match_call_list.c:481:        if (IsRematchEntryRegistered(i) && gSaveBlock1Ptr->trainerRematches[i])
+src/pokenav_match_call_list.c:490:            if (gSaveBlock1Ptr->trainerRematches[index])
+src/pokenav_match_call_list.c:508:            if (!gSaveBlock1Ptr->trainerRematches[state->matchCallEntries[selection].headerId])
+include/constants/tv.h:73:// The first 5 elements of gSaveBlock1Ptr->tvShows are reserved
+src/mystery_event_script.c:107:    u8 *data = (u8 *)(&gSaveBlock1Ptr->recordMixingGift.data);
+src/mystery_event_script.c:109:    for (i = 0; i < sizeof(gSaveBlock1Ptr->recordMixingGift.data); i++)
+src/mystery_event_script.c:117:    struct RecordMixingGiftData *data = &gSaveBlock1Ptr->recordMixingGift.data;
+src/mystery_event_script.c:124:        || checksum != gSaveBlock1Ptr->recordMixingGift.checksum)
+src/mystery_event_script.c:132:    CpuFill16(0, &gSaveBlock1Ptr->recordMixingGift, sizeof(gSaveBlock1Ptr->recordMixingGift));
+src/mystery_event_script.c:143:        gSaveBlock1Ptr->recordMixingGift.data.unk0 = unk;
+src/mystery_event_script.c:144:        gSaveBlock1Ptr->recordMixingGift.data.quantity = quantity;
+src/mystery_event_script.c:145:        gSaveBlock1Ptr->recordMixingGift.data.itemId = itemId;
+src/mystery_event_script.c:146:        gSaveBlock1Ptr->recordMixingGift.checksum = CalcRecordMixingGiftChecksum();
+src/mystery_event_script.c:152:    struct RecordMixingGiftData *data = &gSaveBlock1Ptr->recordMixingGift.data;
+src/mystery_event_script.c:166:            gSaveBlock1Ptr->recordMixingGift.checksum = CalcRecordMixingGiftChecksum();
+src/mystery_event_script.c:234:    StringCopyN(gStringVar1, gSaveBlock1Ptr->enigmaBerry.berry.name, BERRY_NAME_LENGTH + 1);
+src/mystery_event_script.c:236:    StringCopyN(gStringVar2, gSaveBlock1Ptr->enigmaBerry.berry.name, BERRY_NAME_LENGTH + 1);
+include/constants/contest.h:28:// IDs below - 1 are indexes into gSaveBlock1Ptr->contestWinners[]
+include/constants/maps.h:6:// Warps using this map will instead use the warp data stored in gSaveBlock1Ptr->dynamicWarp.
