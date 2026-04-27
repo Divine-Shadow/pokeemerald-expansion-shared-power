@@ -1,5 +1,6 @@
 # Patch Notes
 
+- Docs/Automation: Add ExecPlan for beacon-gated mGBA reproduction from clean boot through female `A` truck proof and first Pokemon selection (commit pending).
 - Docs/Process: Add repository-adapted `.agent/PLANS.md` with milestone-continuity policy (exec plans continue until success or escalation) (commit pending).
 - Tools/AHK: Tune intro flow near gender/name by lowering pre-gender advance, switching gender nudge to `Right`, trimming pre-name presses, and extending post-name truck advance window (commit pending).
 - Tools/AHK: Increase bounded dialogue-advance limits to carry the deterministic flow past Birch scenes into gender/name/truck phases without reverting to endless key spam (commit pending).
