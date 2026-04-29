@@ -3039,11 +3039,23 @@ static void CB2_ShowPokemonSummaryScreen(void)
 {
     if (gPartyMenu.menuType == PARTY_MENU_TYPE_IN_BATTLE)
     {
+        AutomationBeacon_SetStage(
+            AUTOMATION_BEACON_STAGE_BATTLE_SUMMARY_REPRO,
+            AUTOMATION_BEACON_BATTLE_SUMMARY_REPRO_SHOW_SUMMARY_CALLBACK,
+            gPartyMenu.menuType);
+        AutomationBeacon_SetReadiness(FALSE, FALSE, FALSE, FALSE);
+        AutomationBeacon_SetInteractionProof(AUTOMATION_BEACON_SCRIPT_STEP_NONE, gPartyMenu.slotId, SUMMARY_MODE_LOCK_MOVES);
         UpdatePartyToBattleOrder();
         ShowPokemonSummaryScreen(SUMMARY_MODE_LOCK_MOVES, gPlayerParty, gPartyMenu.slotId, gPlayerPartyCount - 1, CB2_ReturnToPartyMenuFromSummaryScreen);
     }
     else
     {
+        AutomationBeacon_SetStage(
+            AUTOMATION_BEACON_STAGE_BATTLE_SUMMARY_REPRO,
+            AUTOMATION_BEACON_BATTLE_SUMMARY_REPRO_SHOW_SUMMARY_CALLBACK,
+            gPartyMenu.menuType);
+        AutomationBeacon_SetReadiness(FALSE, FALSE, FALSE, FALSE);
+        AutomationBeacon_SetInteractionProof(AUTOMATION_BEACON_SCRIPT_STEP_NONE, gPartyMenu.slotId, SUMMARY_MODE_NORMAL);
         ShowPokemonSummaryScreen(SUMMARY_MODE_NORMAL, gPlayerParty, gPartyMenu.slotId, gPlayerPartyCount - 1, CB2_ReturnToPartyMenuFromSummaryScreen);
     }
 }

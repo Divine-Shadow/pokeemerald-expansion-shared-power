@@ -47,6 +47,46 @@ REPRO_SUBSTAGE_PARTY_MENU = 2
 REPRO_SUBSTAGE_PARTY_MON_MENU = 3
 REPRO_SUBSTAGE_SUMMARY_REQUESTED = 4
 REPRO_SUBSTAGE_SUMMARY_SCREEN = 5
+REPRO_SUBSTAGE_SHOW_SUMMARY_CALLBACK = 6
+REPRO_SUBSTAGE_SHOW_SUMMARY_ENTERED = 7
+REPRO_SUBSTAGE_INIT_SUMMARY_SCREEN = 8
+REPRO_SUBSTAGE_LOAD_GRAPHICS_STATE = 9
+REPRO_SUBSTAGE_LOAD_MON_GFX_BEGIN = 10
+REPRO_SUBSTAGE_LOAD_MON_GFX_WAITING = 11
+REPRO_SUBSTAGE_LOAD_MON_GFX_DONE = 12
+REPRO_SUBSTAGE_LOAD_MON_GFX_CREATE = 13
+REPRO_SUBSTAGE_SHOW_SUMMARY_ALLOC_FAILED = 14
+
+REPRO_SUBSTAGE_NAMES = {
+    REPRO_SUBSTAGE_ACTION_MENU: "ACTION_MENU",
+    REPRO_SUBSTAGE_PARTY_MENU: "PARTY_MENU",
+    REPRO_SUBSTAGE_PARTY_MON_MENU: "PARTY_MON_MENU",
+    REPRO_SUBSTAGE_SUMMARY_REQUESTED: "SUMMARY_REQUESTED",
+    REPRO_SUBSTAGE_SUMMARY_SCREEN: "SUMMARY_SCREEN",
+    REPRO_SUBSTAGE_SHOW_SUMMARY_CALLBACK: "SHOW_SUMMARY_CALLBACK",
+    REPRO_SUBSTAGE_SHOW_SUMMARY_ENTERED: "SHOW_SUMMARY_ENTERED",
+    REPRO_SUBSTAGE_INIT_SUMMARY_SCREEN: "INIT_SUMMARY_SCREEN",
+    REPRO_SUBSTAGE_LOAD_GRAPHICS_STATE: "LOAD_GRAPHICS_STATE",
+    REPRO_SUBSTAGE_LOAD_MON_GFX_BEGIN: "LOAD_MON_GFX_BEGIN",
+    REPRO_SUBSTAGE_LOAD_MON_GFX_WAITING: "LOAD_MON_GFX_WAITING",
+    REPRO_SUBSTAGE_LOAD_MON_GFX_DONE: "LOAD_MON_GFX_DONE",
+    REPRO_SUBSTAGE_LOAD_MON_GFX_CREATE: "LOAD_MON_GFX_CREATE",
+    REPRO_SUBSTAGE_SHOW_SUMMARY_ALLOC_FAILED: "SHOW_SUMMARY_ALLOC_FAILED",
+}
+
+REPRO_SUMMARY_ATTEMPT_SUBSTAGES = {
+    REPRO_SUBSTAGE_SUMMARY_REQUESTED,
+    REPRO_SUBSTAGE_SUMMARY_SCREEN,
+    REPRO_SUBSTAGE_SHOW_SUMMARY_CALLBACK,
+    REPRO_SUBSTAGE_SHOW_SUMMARY_ENTERED,
+    REPRO_SUBSTAGE_INIT_SUMMARY_SCREEN,
+    REPRO_SUBSTAGE_LOAD_GRAPHICS_STATE,
+    REPRO_SUBSTAGE_LOAD_MON_GFX_BEGIN,
+    REPRO_SUBSTAGE_LOAD_MON_GFX_WAITING,
+    REPRO_SUBSTAGE_LOAD_MON_GFX_DONE,
+    REPRO_SUBSTAGE_LOAD_MON_GFX_CREATE,
+    REPRO_SUBSTAGE_SHOW_SUMMARY_ALLOC_FAILED,
+}
 
 GENDER_FEMALE = 2
 MAP_TRUCK = 1
@@ -390,6 +430,66 @@ def wait_for_semantic_beacon(
         client.request(f"run_frames {poll_frames}")
 
     raise RouteTimeout(label, last_beacon)
+
+
+def wait_for_summary_attempt_beacon(client: BridgeClient, timeout: float, label: str, poll_frames: int = 1) -> dict[str, Any]:
+    deadline = time.monotonic() + timeout
+    last_beacon: dict[str, Any] | None = None
+
+    while time.monotonic() < deadline:
+        beacon = client.request("read_beacon")
+        last_beacon = beacon
+        if (
+            beacon.get("found")
+            and beacon.get("stageId") == STAGE_BATTLE_SUMMARY_REPRO
+            and beacon.get("substageId") in REPRO_SUMMARY_ATTEMPT_SUBSTAGES
+        ):
+            return beacon
+        client.request(f"run_frames {poll_frames}")
+
+    raise RouteTimeout(label, last_beacon)
+
+
+def compact_beacon(beacon: dict[str, Any] | None) -> dict[str, Any] | None:
+    if beacon is None:
+        return None
+
+    substage_id = beacon.get("substageId")
+    compact = {
+        "found": beacon.get("found"),
+        "frame": beacon.get("frame"),
+        "stageId": beacon.get("stageId"),
+        "substageId": substage_id,
+        "substageName": REPRO_SUBSTAGE_NAMES.get(substage_id, "UNKNOWN"),
+        "flags": beacon.get("flags"),
+        "scriptWaitKind": beacon.get("scriptWaitKind"),
+        "routeErrorCode": beacon.get("routeErrorCode"),
+        "inputReady": beacon.get("inputReady"),
+        "menuReady": beacon.get("menuReady"),
+        "pulse": beacon.get("pulse"),
+    }
+    if substage_id == REPRO_SUBSTAGE_LOAD_GRAPHICS_STATE:
+        compact["summaryLoadGraphicsState"] = (beacon.get("flags") or 0) + (15 * (beacon.get("routeErrorCode") or 0))
+        compact["summarySwitchCounter"] = beacon.get("scriptWaitKind")
+    return compact
+
+
+def append_beacon_history(history: list[dict[str, Any]], beacon: dict[str, Any] | None, limit: int = 64) -> None:
+    compact = compact_beacon(beacon)
+    if compact is None:
+        return
+
+    comparable = {key: compact.get(key) for key in ("stageId", "substageId", "flags", "scriptWaitKind", "routeErrorCode", "menuReady")}
+    if history:
+        last = history[-1]
+        last_comparable = {key: last.get(key) for key in comparable}
+        if comparable == last_comparable:
+            history[-1] = compact
+            return
+
+    history.append(compact)
+    if len(history) > limit:
+        del history[0:len(history) - limit]
 
 
 def tap(client: BridgeClient, key: str, frames: int = 4, settle_frames: int = 12) -> None:
@@ -1615,36 +1715,47 @@ def drive_to_initial_battle_summary(
         30.0,
         "party pokemon action menu summary cursor",
     )
-    tap(client, "A", frames=8, settle_frames=24)
+    tap(client, "A", frames=8, settle_frames=1)
 
-    summary_requested = wait_for_beacon(
-        client,
-        {
-            "stageId": STAGE_BATTLE_SUMMARY_REPRO,
-            "substageId": REPRO_SUBSTAGE_SUMMARY_REQUESTED,
-        },
-        15.0,
-        "summary requested",
-    )
+    summary_requested = wait_for_summary_attempt_beacon(client, 15.0, "summary requested")
 
     screen_artifact = capture_screen_artifact(client, args, selected, output_dir, "battle_summary_attempt")
     summary_screen_reached = False
     final_beacon: dict[str, Any] | None = summary_requested
     summary_error: dict[str, Any] | None = None
     final_screen_artifact: dict[str, Any] | None = None
+    summary_beacon_history: list[dict[str, Any]] = []
+    append_beacon_history(summary_beacon_history, summary_requested)
     bridge_alive = True
     try:
-        final_beacon = wait_for_semantic_beacon(
-            client,
-            {
-                "stageId": STAGE_BATTLE_SUMMARY_REPRO,
-                "substageId": REPRO_SUBSTAGE_SUMMARY_SCREEN,
-            },
-            "menuReady",
-            summary_timeout,
-            "summary screen",
-        )
-        summary_screen_reached = True
+        deadline = time.monotonic() + summary_timeout
+        while time.monotonic() < deadline:
+            beacon = client.request("read_beacon")
+            final_beacon = beacon
+            append_beacon_history(summary_beacon_history, beacon)
+            if semantic_beacon_matches(
+                beacon,
+                {
+                    "stageId": STAGE_BATTLE_SUMMARY_REPRO,
+                    "substageId": REPRO_SUBSTAGE_SUMMARY_SCREEN,
+                },
+                "menuReady",
+                "summary screen",
+            ):
+                append_event(
+                    client.event_log,
+                    {
+                        "event": "semantic_gate",
+                        "label": "summary screen",
+                        "semanticKey": "menuReady",
+                        "beacon": beacon,
+                    },
+                )
+                summary_screen_reached = True
+                break
+            client.request("run_frames 10")
+        if not summary_screen_reached:
+            raise RouteTimeout("summary screen", final_beacon)
         client.request("run_frames 30")
     except RouteTimeout as exc:
         summary_error = {
@@ -1667,10 +1778,20 @@ def drive_to_initial_battle_summary(
         if final_screen_artifact.get("ok"):
             screen_artifact = final_screen_artifact
 
+    route_ok = summary_requested.get("found") is True
+    artifact_ok = screen_artifact.get("ok") is True
+    summary_validation_ok = route_ok and summary_screen_reached and artifact_ok
+    bug_observed = route_ok and not summary_screen_reached
+
     return {
-        "ok": screen_artifact.get("ok") is True,
-        "target": "BATTLE_SUMMARY_ATTEMPT_SCREENSHOT",
+        "ok": summary_validation_ok,
+        "target": "BATTLE_SUMMARY_SCREEN",
+        "routeOk": route_ok,
+        "artifactOk": artifact_ok,
+        "summaryValidationOk": summary_validation_ok,
+        "bugObserved": bug_observed,
         "attemptedSummary": True,
+        "summaryRequestedObserved": summary_requested.get("substageId") == REPRO_SUBSTAGE_SUMMARY_REQUESTED,
         "summaryScreenReached": summary_screen_reached,
         "screenshot": screen_artifact.get("path"),
         "screenArtifact": screen_artifact,
@@ -1681,6 +1802,8 @@ def drive_to_initial_battle_summary(
         "partyMonMenuBeacon": party_mon_menu,
         "summaryRequestedBeacon": summary_requested,
         "finalBeacon": final_beacon,
+        "lastSummaryDebugBeacon": summary_beacon_history[-1] if summary_beacon_history else None,
+        "summaryBeaconHistory": summary_beacon_history,
         "summaryError": summary_error,
         "finalScreenArtifact": final_screen_artifact,
         "elapsedSeconds": round(time.monotonic() - route_start, 3),

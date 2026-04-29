@@ -338,6 +338,29 @@ static u8 AddWindowFromTemplateList(const struct WindowTemplate *template, u8 te
 static u8 IncrementSkillsStatsMode(u8 mode);
 static void ClearStatLabel(u32 length, u32 statsCoordX, u32 statsCoordY);
 
+static void SetBattleSummaryDebugBeacon(u8 substageId, u8 flags, u8 detail, u8 errorCode)
+{
+    AutomationBeacon_SetDebugState(
+        AUTOMATION_BEACON_STAGE_BATTLE_SUMMARY_REPRO,
+        substageId,
+        flags,
+        detail,
+        errorCode,
+        FALSE);
+}
+
+static void SetBattleSummaryLoadGraphicsBeacon(void)
+{
+    u8 stateLo = gMain.state % (AUTOMATION_BEACON_VALUE_MAX + 1);
+    u8 stateHi = gMain.state / (AUTOMATION_BEACON_VALUE_MAX + 1);
+
+    SetBattleSummaryDebugBeacon(
+        AUTOMATION_BEACON_BATTLE_SUMMARY_REPRO_LOAD_GRAPHICS_STATE,
+        stateLo,
+        sMonSummaryScreen != NULL ? sMonSummaryScreen->switchCounter : 0,
+        stateHi);
+}
+
 static const struct BgTemplate sBgTemplates[] =
 {
     {
@@ -1179,6 +1202,21 @@ static void DestroyCategoryIcon(void)
 void ShowPokemonSummaryScreen(u8 mode, void *mons, u8 monIndex, u8 maxMonIndex, void (*callback)(void))
 {
     sMonSummaryScreen = AllocZeroed(sizeof(*sMonSummaryScreen));
+    if (sMonSummaryScreen == NULL)
+    {
+        SetBattleSummaryDebugBeacon(
+            AUTOMATION_BEACON_BATTLE_SUMMARY_REPRO_SHOW_SUMMARY_ALLOC_FAILED,
+            mode,
+            monIndex,
+            maxMonIndex);
+        return;
+    }
+
+    SetBattleSummaryDebugBeacon(
+        AUTOMATION_BEACON_BATTLE_SUMMARY_REPRO_SHOW_SUMMARY_ENTERED,
+        mode,
+        monIndex,
+        gMain.inBattle ? 1 : 0);
     sMonSummaryScreen->mode = mode;
     sMonSummaryScreen->monList.mons = mons;
     sMonSummaryScreen->curMonIndex = monIndex;
@@ -1224,10 +1262,8 @@ void ShowPokemonSummaryScreen(u8 mode, void *mons, u8 monIndex, u8 maxMonIndex, 
     sMonSummaryScreen->categoryIconSpriteId = 0xFF;
     SummaryScreen_SetAnimDelayTaskId(TASK_NONE);
 
-    // Ensure summary has an isolated sprite manager, even in battle.
-    // Only create/destroy it when this screen created it.
     sCreatedSummarySpriteManager = FALSE;
-    if (MonSpritesGfxManager_GetSpritePtr(MON_SPR_GFX_MANAGER_A, B_POSITION_OPPONENT_LEFT) == NULL)
+    if (!gMain.inBattle && MonSpritesGfxManager_GetSpritePtr(MON_SPR_GFX_MANAGER_A, B_POSITION_OPPONENT_LEFT) == NULL)
     {
         CreateMonSpritesGfxManager(MON_SPR_GFX_MANAGER_A, MON_SPR_GFX_MODE_NORMAL);
         sCreatedSummarySpriteManager = TRUE;
@@ -1272,11 +1308,18 @@ static void VBlank(void)
 
 static void CB2_InitSummaryScreen(void)
 {
+    SetBattleSummaryDebugBeacon(
+        AUTOMATION_BEACON_BATTLE_SUMMARY_REPRO_INIT_SUMMARY_SCREEN,
+        sMonSummaryScreen != NULL ? sMonSummaryScreen->mode : 0,
+        sMonSummaryScreen != NULL ? sMonSummaryScreen->currPageIndex : 0,
+        gMain.inBattle ? 1 : 0);
     while (MenuHelpers_ShouldWaitForLinkRecv() != TRUE && LoadGraphics() != TRUE && MenuHelpers_IsLinkActive() != TRUE);
 }
 
 static bool8 LoadGraphics(void)
 {
+    SetBattleSummaryLoadGraphicsBeacon();
+
     switch (gMain.state)
     {
     case 0:
@@ -4415,22 +4458,49 @@ static u8 LoadMonGfxAndSprite(struct Pokemon *mon, s16 *state)
     struct PokeSummary *summary = &sMonSummaryScreen->summary;
     u8 *summarySpriteGfx = MonSpritesGfxManager_GetSpritePtr(MON_SPR_GFX_MANAGER_A, B_POSITION_OPPONENT_LEFT);
     u8 *fallbackSpriteGfx = NULL;
+    u8 spriteId;
+
+    SetBattleSummaryDebugBeacon(
+        AUTOMATION_BEACON_BATTLE_SUMMARY_REPRO_LOAD_MON_GFX_BEGIN,
+        *state,
+        summarySpriteGfx != NULL ? 1 : 0,
+        gMain.inBattle ? 1 : 0);
 
     switch (*state)
     {
     default:
-        return CreateMonSprite(mon);
+        SetBattleSummaryDebugBeacon(
+            AUTOMATION_BEACON_BATTLE_SUMMARY_REPRO_LOAD_MON_GFX_CREATE,
+            *state,
+            summarySpriteGfx != NULL ? 1 : 0,
+            gMain.inBattle ? 1 : 0);
+        spriteId = CreateMonSprite(mon);
+        SetBattleSummaryDebugBeacon(
+            spriteId != SPRITE_NONE
+                ? AUTOMATION_BEACON_BATTLE_SUMMARY_REPRO_LOAD_MON_GFX_DONE
+                : AUTOMATION_BEACON_BATTLE_SUMMARY_REPRO_LOAD_MON_GFX_WAITING,
+            *state,
+            spriteId,
+            gMain.inBattle ? 1 : 0);
+        return spriteId;
     case 0:
-        if (summarySpriteGfx != NULL)
-        {
-            HandleLoadSpecialPokePic(TRUE, summarySpriteGfx, summary->species2, summary->pid);
-        }
-        else if (gMain.inBattle)
+        if (gMain.inBattle)
         {
             if (gMonSpritesGfxPtr != NULL)
                 HandleLoadSpecialPokePic(TRUE, gMonSpritesGfxPtr->spritesGfx[B_POSITION_OPPONENT_LEFT], summary->species2, summary->pid);
             else
+            {
+                SetBattleSummaryDebugBeacon(
+                    AUTOMATION_BEACON_BATTLE_SUMMARY_REPRO_LOAD_MON_GFX_WAITING,
+                    *state,
+                    summarySpriteGfx != NULL ? 1 : 0,
+                    2);
                 return SPRITE_NONE;
+            }
+        }
+        else if (summarySpriteGfx != NULL)
+        {
+            HandleLoadSpecialPokePic(TRUE, summarySpriteGfx, summary->species2, summary->pid);
         }
         else
         {
@@ -4447,15 +4517,35 @@ static u8 LoadMonGfxAndSprite(struct Pokemon *mon, s16 *state)
                 if (fallbackSpriteGfx != NULL)
                     HandleLoadSpecialPokePic(TRUE, fallbackSpriteGfx, summary->species2, summary->pid);
                 else
+                {
+                    SetBattleSummaryDebugBeacon(
+                        AUTOMATION_BEACON_BATTLE_SUMMARY_REPRO_LOAD_MON_GFX_WAITING,
+                        *state,
+                        0,
+                        3);
                     return SPRITE_NONE;
+                }
             }
         }
         (*state)++;
+        SetBattleSummaryDebugBeacon(
+            AUTOMATION_BEACON_BATTLE_SUMMARY_REPRO_LOAD_MON_GFX_WAITING,
+            *state,
+            summarySpriteGfx != NULL ? 1 : 0,
+            gMain.inBattle ? 1 : 0);
         return 0xFF;
     case 1:
         LoadSpritePaletteWithTag(GetMonSpritePalFromSpeciesAndPersonality(summary->species2, summary->isShiny, summary->pid), summary->species2);
-        SetMultiuseSpriteTemplateToPokemonFromManager(summary->species2, B_POSITION_OPPONENT_LEFT, MON_SPR_GFX_MANAGER_A);
+        if (gMain.inBattle)
+            SetMultiuseSpriteTemplateToPokemon(summary->species2, B_POSITION_OPPONENT_LEFT);
+        else
+            SetMultiuseSpriteTemplateToPokemonFromManager(summary->species2, B_POSITION_OPPONENT_LEFT, MON_SPR_GFX_MANAGER_A);
         (*state)++;
+        SetBattleSummaryDebugBeacon(
+            AUTOMATION_BEACON_BATTLE_SUMMARY_REPRO_LOAD_MON_GFX_WAITING,
+            *state,
+            summarySpriteGfx != NULL ? 1 : 0,
+            gMain.inBattle ? 1 : 0);
         return 0xFF;
     }
 }

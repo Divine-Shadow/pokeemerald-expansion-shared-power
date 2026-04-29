@@ -336,6 +336,21 @@ void AutomationBeacon_SetInteractionProof(u8 scriptWaitKind, u8 interactableAhea
     EnsureBeaconSprite();
 }
 
+void AutomationBeacon_SetDebugState(u8 stageId, u8 substageId, u8 flags, u8 scriptStep, u8 routeErrorCode, bool8 menuReady)
+{
+    sStageId = ClampBeaconValue(stageId);
+    sSubstageId = ClampBeaconValue(substageId);
+    sFlags = ClampBeaconValue(flags);
+    sScriptStep = ClampBeaconValue(scriptStep);
+    sInteractableAhead = 0;
+    sErrorCode = ClampBeaconValue(routeErrorCode);
+    sMovementReady = 0;
+    sTextReady = 0;
+    sMenuReady = menuReady ? 1 : 0;
+    sInteractReady = 0;
+    WriteBeaconTile();
+}
+
 void AutomationBeacon_SetNavProof(
     u8 playerX,
     u8 playerY,

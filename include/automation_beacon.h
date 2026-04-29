@@ -33,6 +33,15 @@ enum AutomationBeaconBattleSummaryReproSubstage
     AUTOMATION_BEACON_BATTLE_SUMMARY_REPRO_PARTY_MON_MENU,
     AUTOMATION_BEACON_BATTLE_SUMMARY_REPRO_SUMMARY_REQUESTED,
     AUTOMATION_BEACON_BATTLE_SUMMARY_REPRO_SUMMARY_SCREEN,
+    AUTOMATION_BEACON_BATTLE_SUMMARY_REPRO_SHOW_SUMMARY_CALLBACK,
+    AUTOMATION_BEACON_BATTLE_SUMMARY_REPRO_SHOW_SUMMARY_ENTERED,
+    AUTOMATION_BEACON_BATTLE_SUMMARY_REPRO_INIT_SUMMARY_SCREEN,
+    AUTOMATION_BEACON_BATTLE_SUMMARY_REPRO_LOAD_GRAPHICS_STATE,
+    AUTOMATION_BEACON_BATTLE_SUMMARY_REPRO_LOAD_MON_GFX_BEGIN,
+    AUTOMATION_BEACON_BATTLE_SUMMARY_REPRO_LOAD_MON_GFX_WAITING,
+    AUTOMATION_BEACON_BATTLE_SUMMARY_REPRO_LOAD_MON_GFX_DONE,
+    AUTOMATION_BEACON_BATTLE_SUMMARY_REPRO_LOAD_MON_GFX_CREATE,
+    AUTOMATION_BEACON_BATTLE_SUMMARY_REPRO_SHOW_SUMMARY_ALLOC_FAILED,
 };
 
 enum AutomationBeaconGender
@@ -86,6 +95,7 @@ void AutomationBeacon_SetProof(u8 gender, u8 nameLen, u8 nameChar0, u8 mapKind, 
 void AutomationBeacon_SetErrorCode(u8 errorCode);
 void AutomationBeacon_SetReadiness(bool8 movementReady, bool8 textReady, bool8 menuReady, bool8 interactReady);
 void AutomationBeacon_SetInteractionProof(u8 scriptWaitKind, u8 interactableAhead, u8 routeErrorCode);
+void AutomationBeacon_SetDebugState(u8 stageId, u8 substageId, u8 flags, u8 scriptStep, u8 routeErrorCode, bool8 menuReady);
 void AutomationBeacon_SetNavProof(
     u8 playerX,
     u8 playerY,
@@ -137,6 +147,16 @@ static inline void AutomationBeacon_SetInteractionProof(u8 scriptWaitKind, u8 in
     (void)scriptWaitKind;
     (void)interactableAhead;
     (void)routeErrorCode;
+}
+
+static inline void AutomationBeacon_SetDebugState(u8 stageId, u8 substageId, u8 flags, u8 scriptStep, u8 routeErrorCode, bool8 menuReady)
+{
+    (void)stageId;
+    (void)substageId;
+    (void)flags;
+    (void)scriptStep;
+    (void)routeErrorCode;
+    (void)menuReady;
 }
 
 static inline void AutomationBeacon_SetNavProof(

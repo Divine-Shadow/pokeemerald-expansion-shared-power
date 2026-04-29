@@ -1,5 +1,15 @@
 # Patch Notes
 
+- Docs/Automation: Record final battle-summary validation evidence and test-suite status (commit pending).
+- Docs/Automation: Record passing Hypothesis A and promoted in-battle summary sprite-manager fix (commit pending).
+- Gameplay: Avoid creating or preferring a summary-owned Pokemon sprite manager for in-battle summary screens (commit pending).
+- Docs/Automation: Record base-source comparison showing origin/master reaches the summary screen (commit pending).
+- Docs/Automation: Record Milestone 2 summary-init state-6 stall evidence (commit pending).
+- Tools/Automation: Add a lightweight debug-state beacon path for summary initialization probes (commit pending).
+- Tools/Automation: Let the battle-summary runner accept later summary-init beacons when the request beacon advances too quickly (commit pending).
+- Tools/Automation: Add summary-initialization beacons and recent beacon history for the battle-summary repro (commit pending).
+- Docs/Automation: Record Milestone 1 battle-summary repro evidence and builder-image correction (commit pending).
+- Tools/Automation: Distinguish route, artifact, and summary-screen success in the battle-summary repro result (commit pending).
 - Docs/Automation: Add an ExecPlan for fixing the initial-battle summary-screen glitch (commit pending).
 - Tools/Automation: Add a headless battle-summary repro mode with summary-attempt beacons and savestate-backed screenshot capture (commit pending).
 - Tools/Automation: Add starter-confirm mode with semantic menuReady acceptance (commit pending).

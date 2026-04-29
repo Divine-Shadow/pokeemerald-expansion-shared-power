@@ -15,12 +15,12 @@ After this plan is complete, the headless mGBA route will prove the game reaches
 - [x] (2026-04-29 19:10-04:00) Read `.agent/PLANS.md` and confirmed the local ExecPlan protocol for self-contained, living, milestone-gated plans.
 - [x] (2026-04-29 19:12-04:00) Captured the current repro evidence from `build/mgba_lua_spike/battle-summary-repro-final/run_result.json`.
 - [x] (2026-04-29 19:15-04:00) Identified the first code paths and suspect local changes: `src/party_menu.c::CursorCb_Summary`, `src/party_menu.c::CB2_ShowPokemonSummaryScreen`, `src/pokemon_summary_screen.c::ShowPokemonSummaryScreen`, `src/pokemon_summary_screen.c::CB2_InitSummaryScreen`, `src/pokemon_summary_screen.c::LoadGraphics`, and `src/pokemon_summary_screen.c::LoadMonGfxAndSprite`.
-- [ ] Milestone 1: Reproduce the current failure with unambiguous result semantics.
-- [ ] Milestone 2: Add summary-initialization instrumentation that reports the exact last successful state before the invalid screen.
-- [ ] Milestone 3: Compare current behavior against a scratch base-source worktree with the minimum automation needed to run the same route.
-- [ ] Milestone 4: Test one isolated hypothesis at a time until one produces a normal summary screen.
-- [ ] Milestone 5: Implement the smallest durable fix in the main worktree and remove or gate temporary probes.
-- [ ] Milestone 6: Validate the fixed behavior repeatedly in headless mGBA and with repository builds/tests, then commit all changes.
+- [x] (2026-04-29 19:12-04:00) Milestone 1 complete. `tools/mgba/mgba_lua_spike.py` now distinguishes `routeOk`, `artifactOk`, `summaryValidationOk`, and `bugObserved`. The rebuilt automation ROM reproduced the failure at `build/mgba_lua_spike/battle-summary-debug/m1-current/run_result.json`: `routeOk=true`, `artifactOk=true`, `summaryScreenReached=false`, `summaryValidationOk=false`, `bugObserved=true`, `ok=false`; screenshot `build/mgba_lua_spike/battle-summary-debug/m1-current/battle_summary_attempt.png` is a black/glitched frame with a tiny colored artifact.
+- [x] (2026-04-29 19:25-04:00) Milestone 2 complete. Guarded summary-init beacons and runner history were added, including a lower-impact `AutomationBeacon_SetDebugState` path that writes only the VRAM tile read by Lua. The repro at `build/mgba_lua_spike/battle-summary-debug/m2-instrumented/run_result.json` shows `routeOk=true`, `artifactOk=true`, `summaryRequestedObserved=true`, `summaryScreenReached=false`, and the last debug beacon is `LOAD_GRAPHICS_STATE` with `summaryLoadGraphicsState=6` and `summarySwitchCounter=14`; screenshot `build/mgba_lua_spike/battle-summary-debug/m2-instrumented/battle_summary_attempt.png` is still the black/glitched frame.
+- [x] (2026-04-29 19:27-04:00) Milestone 3 complete. Created scratch worktree `build/worktrees/battle-summary-origin-master` at `origin/master`, applied the prior automation commits without committing, built it with the builder image, and ran the same route from container 5. Result `build/worktrees/battle-summary-origin-master/build/mgba_lua_spike/battle-summary-base-origin-master/run_result.json` shows `attemptedSummary=true`, `summaryScreenReached=true`, `summaryError=null`, and final substage 5. The screenshot helper failed in that scratch worktree (`failed to build state screenshot helper: []`), but the base gameplay reached the summary-screen beacon.
+- [x] (2026-04-29 19:31-04:00) Milestone 4 complete. Hypothesis A passed. The tested change keeps in-battle summary screens on the battle-owned `gMonSpritesGfxPtr` path and avoids creating or preferring a summary-owned manager while `gMain.inBattle` is true. Repro `build/mgba_lua_spike/battle-summary-debug/m4-hyp-a/run_result.json` shows `ok=true`, `routeOk=true`, `artifactOk=true`, `summaryScreenReached=true`, and `bugObserved=false`; screenshot `build/mgba_lua_spike/battle-summary-debug/m4-hyp-a/battle_summary_attempt.png` is a normal Torchic summary screen.
+- [x] (2026-04-29 19:32-04:00) Milestone 5 complete. The passing Hypothesis A change was kept as the production fix in `src/pokemon_summary_screen.c`: non-battle summaries may create a summary manager, but in-battle summaries use existing battle sprite graphics and the standard `SetMultiuseSpriteTemplateToPokemon` path. Temporary summary-init probes are retained only behind `AUTOMATION_BEACON` because they provide useful future diagnostics and use the low-impact VRAM debug-state path.
+- [x] (2026-04-29 19:48-04:00) Milestone 6 complete. `git diff --check` passed, Python and Lua syntax checks passed in container 5, the automation ROM built with the builder image, and the fixed battle-summary route passed 3/3 in headless mGBA. The three result JSONs are `build/mgba_lua_spike/battle-summary-fixed/run-1/run_result.json`, `build/mgba_lua_spike/battle-summary-fixed/run-2/run_result.json`, and `build/mgba_lua_spike/battle-summary-fixed/run-3/run_result.json`; each records `ok=true`, `routeOk=true`, `artifactOk=true`, `summaryScreenReached=true`, and `bugObserved=false`. Screenshots `build/mgba_lua_spike/battle-summary-fixed/run-1/battle_summary_attempt.png`, `build/mgba_lua_spike/battle-summary-fixed/run-2/battle_summary_attempt.png`, and `build/mgba_lua_spike/battle-summary-fixed/run-3/battle_summary_attempt.png` are normal Torchic summary screens. The non-automation ROM build passed with `make NO_MULTIBOOT=1`. `make check NO_MULTIBOOT=1` ran to completion but failed with the repository's broad existing-style battle-suite failures: 108 failed, 18 known failing, 777 TODO, 3067 passed, 3970 total.
 
 ## Surprises & Discoveries
 
@@ -38,6 +38,27 @@ After this plan is complete, the headless mGBA route will prove the game reaches
 
 - Observation: Recent local code in `src/pokemon_summary_screen.c` creates or uses a summary sprite manager even during battle, and it is a high-value suspect but not yet a proven cause.
   Evidence: `git blame` attributes the isolated sprite-manager block in `ShowPokemonSummaryScreen` and fallback manager logic in `LoadMonGfxAndSprite` to local commit `7371596cfe checkpoint: fixed-rng`.
+
+- Observation: Container 5 has the mGBA, Python, and Lua runtime needed for the route, but it does not have `arm-none-eabi-*` on `PATH` for ROM compilation.
+  Evidence: `docker exec devkit-ouro8-dev-agent-5 ... make AUTOMATION_BEACON=1 DEBUG=1 NO_MULTIBOOT=1` failed with `arm-none-eabi-gcc: command not found`; `docker run --rm ... pokeemerald-expansion:builder make AUTOMATION_BEACON=1 DEBUG=1 NO_MULTIBOOT=1` succeeded and produced `pokeemerald.gba`.
+
+- Observation: Summary initialization enters `LoadGraphics()` but does not get past state 6, which calls `DecompressGraphics()`.
+  Evidence: `summaryBeaconHistory` in `build/mgba_lua_spike/battle-summary-debug/m2-instrumented/run_result.json` records `SUMMARY_REQUESTED`, then `LOAD_GRAPHICS_STATE` with `summaryLoadGraphicsState=6`, and the last beacon remains state 6 with `summarySwitchCounter=14` until timeout.
+
+- Observation: The state-6 finding is not solely caused by repeated sprite/palette allocation from debug beacons.
+  Evidence: After adding `AutomationBeacon_SetDebugState`, summary-init probes write only the VRAM tile read by Lua during summary initialization; the rerun still stalls at `LOAD_GRAPHICS_STATE` state 6.
+
+- Observation: Upstream `origin/master` plus the prior route automation reaches the summary screen in the same initial-battle route.
+  Evidence: `build/worktrees/battle-summary-origin-master/build/mgba_lua_spike/battle-summary-base-origin-master/run_result.json` records `attemptedSummary=true`, `summaryScreenReached=true`, `summaryError=null`, and `finalBeacon.substageId=5`.
+
+- Observation: The scratch base screenshot helper failed, but that is separate from the gameplay comparison.
+  Evidence: The base result's `screenArtifact.error` is `RuntimeError: failed to build state screenshot helper: []`, while the final beacon still proves `SUMMARY_SCREEN`.
+
+- Observation: Avoiding a summary-owned sprite manager in battle fixes the state-6 summary initialization stall.
+  Evidence: `build/mgba_lua_spike/battle-summary-debug/m4-hyp-a/run_result.json` records `ok=true`, `summaryScreenReached=true`, and `summaryBeaconHistory` transitions from `SUMMARY_REQUESTED` directly to `SUMMARY_SCREEN`.
+
+- Observation: The full `make check NO_MULTIBOOT=1` suite is not green on this branch/environment, but its failures are broad battle DSL expectations unrelated to the summary-screen graphics path.
+  Evidence: The completed check reported 108 failed tests, 18 known failing tests, 777 TODO tests, 3067 passed tests, and 3970 total tests, with representative failures around ability popups, spread-move damage, weather damage, shared power, and pursuit behavior.
 
 ## Decision Log
 
@@ -57,9 +78,29 @@ After this plan is complete, the headless mGBA route will prove the game reaches
   Rationale: The failure could be sprite-resource related, callback sequencing related, mode related, or automation related. Combining changes would make the result hard to trust.
   Date/Author: 2026-04-29 / Codex
 
+- Decision: Use `pokeemerald-expansion:builder` for ROM builds and container 5 for mGBA/Python repro execution.
+  Rationale: The planned container-5 build command is not valid in the current environment because the ARM toolchain is absent there, while the existing builder image compiles the ROM successfully. Keeping mGBA execution in container 5 preserves the proven runtime environment.
+  Date/Author: 2026-04-29 / Codex
+
+- Decision: Treat the bug as branch-local after Milestone 3.
+  Rationale: The upstream scratch worktree reaches the summary-screen beacon with the same route. The remaining hypotheses should focus on local changes between `origin/master` and this branch, especially summary-screen allocation/layout and battle summary graphics changes.
+  Date/Author: 2026-04-29 / Codex
+
+- Decision: Promote Hypothesis A and skip lower-priority hypotheses B through E.
+  Rationale: Hypothesis A produced the required normal summary screen with a minimal, root-cause-shaped change. Continuing to alter summary mode, stubbing sprites, or changing callback sequencing would add risk without improving confidence.
+  Date/Author: 2026-04-29 / Codex
+
+- Decision: Do not block this localized summary-screen fix on the broad failing `make check` baseline.
+  Rationale: The targeted route passes repeatedly in headless mGBA, both automation and non-automation ROM builds pass, and the `make check` failures are distributed across unrelated battle mechanics rather than the touched summary or automation files.
+  Date/Author: 2026-04-29 / Codex
+
 ## Outcomes & Retrospective
 
-No implementation has been completed yet. The expected final outcome is a committed fix whose validation artifacts show a normal summary screen after selecting Summary in the initial battle, plus retained automation that can reproduce the route again if the bug regresses.
+The implementation fixes the initial-battle summary-screen glitch by preserving battle-owned Pokemon sprite graphics while the summary screen is opened from battle. The branch-local summary manager changes were valid for non-battle summaries but unsafe in battle: creating or preferring a summary-owned manager while `gMain.inBattle` is true left summary initialization stalled in `LoadGraphics()` state 6 and produced black/glitched screenshot artifacts. The durable rule is now that non-battle summaries may create and use the summary manager, while in-battle summaries use `gMonSpritesGfxPtr` and the standard battle-compatible `SetMultiuseSpriteTemplateToPokemon` path.
+
+The automation runner now reports route success separately from summary-screen success. That distinction was necessary because the original repro could return `ok=true` even when the final screenshot was invalid. The retained `AUTOMATION_BEACON` summary-init probes are intentionally guarded and low-impact, and they provide useful future regression evidence without affecting default builds.
+
+The fixed route passed three consecutive headless mGBA runs and produced normal Torchic summary screenshots. A return-path assertion from the summary screen back to party or battle remains a follow-up because adding it would expand the runner state machine beyond the bugfix's root cause. It should be added before relying on this route as a full menu lifecycle regression test.
 
 ## Context and Orientation
 
