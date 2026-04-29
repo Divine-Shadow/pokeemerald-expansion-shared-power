@@ -329,14 +329,55 @@ local function handleCommand(line)
             targetFrame = currentFrame() + frames,
             frames = frames,
         }
+    elseif command == "savestate" then
+        local path = words[2]
+        local flags = tonumber(words[3]) or 0
+        if path == nil then
+            send({ ok = false, type = "savestate", error = "missing_path" })
+            return
+        end
+        local ok, result = pcall(function()
+            return emu:saveStateFile(path, flags)
+        end)
+        if not ok then
+            send({ ok = false, type = "savestate", path = path, error = tostring(result) })
+            return
+        end
+        local method = "file"
+        local size = 0
+        if result ~= true then
+            local bufferOk, buffer = pcall(function()
+                return emu:saveStateBuffer(flags)
+            end)
+            if bufferOk and buffer ~= nil then
+                local handle, fileError = io.open(path, "wb")
+                if handle == nil then
+                    send({ ok = false, type = "savestate", path = path, flags = flags, error = tostring(fileError) })
+                    return
+                end
+                handle:write(buffer)
+                handle:close()
+                result = true
+                method = "buffer"
+                size = #buffer
+            end
+        end
+        send({ ok = result == true, type = "savestate", path = path, flags = flags, method = method, size = size })
     elseif command == "screenshot" then
         local path = words[2]
         if path == nil then
             send({ ok = false, type = "screenshot", error = "missing_path" })
             return
         end
-        emu:screenshot(path)
-        send({ ok = true, type = "screenshot", path = path })
+        local ok, result = pcall(function()
+            emu:screenshot(path)
+            return true
+        end)
+        if not ok then
+            send({ ok = false, type = "screenshot", path = path, error = tostring(result) })
+            return
+        end
+        send({ ok = result == true, type = "screenshot", path = path })
     else
         send({ ok = false, type = "unknown", error = "unknown_command", command = command })
     end

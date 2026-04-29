@@ -1,4 +1,5 @@
 #include "global.h"
+#include "automation_beacon.h"
 #include "main.h"
 #include "battle.h"
 #include "battle_anim.h"
@@ -1249,6 +1250,12 @@ void ShowPokemonSummaryScreenHandleDeoxys(u8 mode, struct BoxPokemon *mons, u8 m
 
 static void MainCB2(void)
 {
+    AutomationBeacon_SetStage(
+        AUTOMATION_BEACON_STAGE_BATTLE_SUMMARY_REPRO,
+        AUTOMATION_BEACON_BATTLE_SUMMARY_REPRO_SUMMARY_SCREEN,
+        sMonSummaryScreen->currPageIndex);
+    AutomationBeacon_SetReadiness(FALSE, FALSE, TRUE, FALSE);
+    AutomationBeacon_SetInteractionProof(AUTOMATION_BEACON_SCRIPT_STEP_NONE, 0, 0);
     RunTasks();
     AnimateSprites();
     BuildOamBuffer();

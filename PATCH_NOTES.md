@@ -1,5 +1,6 @@
 # Patch Notes
 
+- Tools/Automation: Add a headless battle-summary repro mode with summary-attempt beacons and savestate-backed screenshot capture (commit pending).
 - Tools/Automation: Add starter-confirm mode with semantic menuReady acceptance (commit pending).
 - Docs/Automation: Record completed v2 semantic beacon proofs and Scala timeout blocker (commit pending).
 - Tools/Automation: Add backward-compatible v2 semantic beacon rows and use movementReady in the headless route (commit pending).

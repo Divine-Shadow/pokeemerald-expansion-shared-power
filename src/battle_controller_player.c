@@ -10,6 +10,7 @@
 #include "battle_tv.h"
 #include "battle_z_move.h"
 #include "battle_gimmick.h"
+#include "automation_beacon.h"
 #include "bg.h"
 #include "data.h"
 #include "item.h"
@@ -88,6 +89,8 @@ static void Task_LaunchLvlUpAnim(u8);
 static void Task_PrepareToGiveExpWithExpBar(u8);
 static void Task_SetControllerToWaitForString(u8);
 static void Task_GiveExpWithExpBar(u8);
+
+static void SetBattleActionMenuAutomationBeacon(u32 battler);
 static void Task_UpdateLvlInHealthbox(u8);
 static void PrintLinkStandbyMsg(void);
 
@@ -242,6 +245,8 @@ static u32 GetNextBall(u32 ballId)
 static void HandleInputChooseAction(u32 battler)
 {
     u16 itemId = gBattleResources->bufferA[battler][2] | (gBattleResources->bufferA[battler][3] << 8);
+
+    SetBattleActionMenuAutomationBeacon(battler);
 
     DoBounceEffect(battler, BOUNCE_HEALTHBOX, 7, 1);
     DoBounceEffect(battler, BOUNCE_MON, 7, 1);
@@ -1984,6 +1989,7 @@ static void PlayerHandleChooseAction(u32 battler)
 
     TryRestoreLastUsedBall();
     ActionSelectionCreateCursorAt(gActionSelectionCursor[battler], 0);
+    SetBattleActionMenuAutomationBeacon(battler);
     PREPARE_MON_NICK_BUFFER(gBattleTextBuff1, battler, gBattlerPartyIndexes[battler]);
     BattleStringExpandPlaceholdersToDisplayedString(gText_WhatWillPkmnDo);
 
@@ -2022,6 +2028,16 @@ static void PlayerHandleChooseAction(u32 battler)
     {
         BattlePutTextOnWindow(gDisplayedStringBattle, B_WIN_ACTION_PROMPT);
     }
+}
+
+static void SetBattleActionMenuAutomationBeacon(u32 battler)
+{
+    AutomationBeacon_SetStage(
+        AUTOMATION_BEACON_STAGE_BATTLE_SUMMARY_REPRO,
+        AUTOMATION_BEACON_BATTLE_SUMMARY_REPRO_ACTION_MENU,
+        gActionSelectionCursor[battler]);
+    AutomationBeacon_SetReadiness(FALSE, FALSE, TRUE, FALSE);
+    AutomationBeacon_SetInteractionProof(AUTOMATION_BEACON_SCRIPT_STEP_NONE, 0, 0);
 }
 
 static void PlayerHandleYesNoBox(u32 battler)

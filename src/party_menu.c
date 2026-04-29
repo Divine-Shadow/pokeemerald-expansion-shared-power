@@ -1,4 +1,5 @@
 #include "global.h"
+#include "automation_beacon.h"
 #include "malloc.h"
 #include "battle.h"
 #include "battle_anim.h"
@@ -1396,6 +1397,16 @@ void Task_HandleChooseMonInput(u8 taskId)
     if (!gPaletteFade.active && MenuHelpers_ShouldWaitForLinkRecv() != TRUE)
     {
         s8 *slotPtr = GetCurrentPartySlotPtr();
+
+        if (gPartyMenu.menuType == PARTY_MENU_TYPE_IN_BATTLE)
+        {
+            AutomationBeacon_SetStage(
+                AUTOMATION_BEACON_STAGE_BATTLE_SUMMARY_REPRO,
+                AUTOMATION_BEACON_BATTLE_SUMMARY_REPRO_PARTY_MENU,
+                (u8)*slotPtr);
+            AutomationBeacon_SetReadiness(FALSE, FALSE, TRUE, FALSE);
+            AutomationBeacon_SetInteractionProof(AUTOMATION_BEACON_SCRIPT_STEP_NONE, 0, 0);
+        }
 
         switch (PartyMenuButtonHandler(slotPtr))
         {
@@ -2952,6 +2963,15 @@ static void Task_TryCreateSelectionWindow(u8 taskId)
 {
     if (CreateSelectionWindow(taskId))
     {
+        if (gPartyMenu.menuType == PARTY_MENU_TYPE_IN_BATTLE)
+        {
+            AutomationBeacon_SetStage(
+                AUTOMATION_BEACON_STAGE_BATTLE_SUMMARY_REPRO,
+                AUTOMATION_BEACON_BATTLE_SUMMARY_REPRO_PARTY_MON_MENU,
+                0);
+            AutomationBeacon_SetReadiness(FALSE, FALSE, TRUE, FALSE);
+            AutomationBeacon_SetInteractionProof(AUTOMATION_BEACON_SCRIPT_STEP_NONE, 0, 0);
+        }
         gTasks[taskId].data[0] = 0xFF;
         gTasks[taskId].func = Task_HandleSelectionMenuInput;
     }
@@ -2970,6 +2990,15 @@ static void Task_HandleSelectionMenuInput(u8 taskId)
             input = ProcessMenuInput_other();
 
         data[0] = Menu_GetCursorPos();
+        if (gPartyMenu.menuType == PARTY_MENU_TYPE_IN_BATTLE)
+        {
+            AutomationBeacon_SetStage(
+                AUTOMATION_BEACON_STAGE_BATTLE_SUMMARY_REPRO,
+                AUTOMATION_BEACON_BATTLE_SUMMARY_REPRO_PARTY_MON_MENU,
+                data[0]);
+            AutomationBeacon_SetReadiness(FALSE, FALSE, TRUE, FALSE);
+            AutomationBeacon_SetInteractionProof(AUTOMATION_BEACON_SCRIPT_STEP_NONE, 0, 0);
+        }
         switch (input)
         {
         case MENU_NOTHING_CHOSEN:
@@ -2996,6 +3025,12 @@ static void Task_HandleSelectionMenuInput(u8 taskId)
 static void CursorCb_Summary(u8 taskId)
 {
     PlaySE(SE_SELECT);
+    AutomationBeacon_SetStage(
+        AUTOMATION_BEACON_STAGE_BATTLE_SUMMARY_REPRO,
+        AUTOMATION_BEACON_BATTLE_SUMMARY_REPRO_SUMMARY_REQUESTED,
+        gPartyMenu.slotId);
+    AutomationBeacon_SetReadiness(FALSE, FALSE, FALSE, FALSE);
+    AutomationBeacon_SetInteractionProof(AUTOMATION_BEACON_SCRIPT_STEP_NONE, 0, 0);
     sPartyMenuInternal->exitCallback = CB2_ShowPokemonSummaryScreen;
     Task_ClosePartyMenu(taskId);
 }
@@ -8025,4 +8060,3 @@ static void FieldCallback_RockClimb(void)
     gFieldEffectArguments[0] = GetCursorSelectionMonId();
     FieldEffectStart(FLDEFF_USE_ROCK_CLIMB);
 }
-

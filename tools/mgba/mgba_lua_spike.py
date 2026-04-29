@@ -11,6 +11,7 @@ from __future__ import annotations
 import argparse
 import json
 import os
+import shlex
 import shutil
 import socket
 import subprocess
@@ -26,6 +27,7 @@ REPO_ROOT = SCRIPT_DIR.parent.parent
 DEFAULT_OUTPUT_DIR = REPO_ROOT / "build" / "mgba_lua_spike"
 DEFAULT_BRIDGE = SCRIPT_DIR / "mgba_lua_bridge.lua"
 DEFAULT_ROM = REPO_ROOT / "pokeemerald.gba"
+DEFAULT_STATE_SCREENSHOT_SOURCE = SCRIPT_DIR / "mgba_state_screenshot.c"
 
 STAGE_MAIN_MENU_READY = 1
 STAGE_BIRCH_INTRO_TEXT = 2
@@ -38,6 +40,13 @@ STAGE_LITTLEROOT_ROUTE_SETUP = 10
 STAGE_ROUTE101_APPROACH = 11
 STAGE_STARTER_CHOOSE_READY = 12
 STAGE_STARTER_CONFIRM_PROMPT = 13
+STAGE_BATTLE_SUMMARY_REPRO = 14
+
+REPRO_SUBSTAGE_ACTION_MENU = 1
+REPRO_SUBSTAGE_PARTY_MENU = 2
+REPRO_SUBSTAGE_PARTY_MON_MENU = 3
+REPRO_SUBSTAGE_SUMMARY_REQUESTED = 4
+REPRO_SUBSTAGE_SUMMARY_SCREEN = 5
 
 GENDER_FEMALE = 2
 MAP_TRUCK = 1
@@ -386,6 +395,268 @@ def wait_for_semantic_beacon(
 def tap(client: BridgeClient, key: str, frames: int = 4, settle_frames: int = 12) -> None:
     client.request(f"tap {key.upper()} {frames}")
     client.request(f"run_frames {settle_frames}")
+
+
+def png_status(path: Path) -> dict[str, Any]:
+    exists = path.exists()
+    size = path.stat().st_size if exists else 0
+    valid = False
+    if exists and size >= 45:
+        data = path.read_bytes()
+        valid = data.startswith(b"\x89PNG\r\n\x1a\n") and data.endswith(b"\x00\x00\x00\x00IEND\xaeB`\x82")
+    return {
+        "path": str(path),
+        "exists": exists,
+        "size": size,
+        "validPng": valid,
+    }
+
+
+def capture_screenshot(client: BridgeClient, output_dir: Path, name: str) -> str:
+    result = try_lua_screenshot(client, output_dir, name)
+    if not result.get("ok"):
+        raise RuntimeError(f"screenshot failed: {result}")
+    return str(result["path"])
+
+
+def try_lua_screenshot(client: BridgeClient, output_dir: Path, name: str) -> dict[str, Any]:
+    path = output_dir / name
+    try:
+        response = client.request(f"screenshot {path.resolve()}")
+    except Exception as exc:  # noqa: BLE001 - preserve bridge failure in repro artifacts.
+        result = {
+            "ok": False,
+            "method": "lua-screenshot",
+            "error": f"{type(exc).__name__}: {exc}",
+            **png_status(path),
+        }
+        append_event(client.event_log, {"event": "screenshot_failed", **result})
+        return result
+
+    status = png_status(path)
+    result = {
+        "ok": response.get("ok") is True and status["validPng"],
+        "method": "lua-screenshot",
+        "response": response,
+        **status,
+    }
+    append_event(client.event_log, {"event": "screenshot", **result})
+    return result
+
+
+def save_state_file(client: BridgeClient, path: Path) -> dict[str, Any]:
+    try:
+        response = client.request(f"savestate {path.resolve()} 0")
+    except Exception as exc:  # noqa: BLE001 - preserve bridge failure in repro artifacts.
+        result = {
+            "ok": False,
+            "method": "lua-savestate",
+            "path": str(path),
+            "exists": path.exists(),
+            "size": path.stat().st_size if path.exists() else 0,
+            "error": f"{type(exc).__name__}: {exc}",
+        }
+        append_event(client.event_log, {"event": "savestate_failed", **result})
+        return result
+
+    result = {
+        "ok": response.get("ok") is True and path.exists() and path.stat().st_size > 0,
+        "method": "lua-savestate",
+        "path": str(path),
+        "exists": path.exists(),
+        "size": path.stat().st_size if path.exists() else 0,
+        "response": response,
+    }
+    append_event(client.event_log, {"event": "savestate", **result})
+    return result
+
+
+def parse_make_var(path: Path, name: str) -> list[str]:
+    if not path.exists():
+        return []
+    prefix = f"{name} = "
+    for line in path.read_text(encoding="utf-8", errors="replace").splitlines():
+        if line.startswith(prefix):
+            return [item for item in shlex.split(line[len(prefix):]) if not item.startswith("-DLUA_VERSION_ONLY=")]
+    return []
+
+
+def mgba_source_candidates() -> list[Path]:
+    paths: list[Path] = []
+    env_source = os.environ.get("MGBA_SOURCE_DIR")
+    if env_source:
+        paths.append(Path(env_source))
+    paths.extend([
+        REPO_ROOT / "build" / "mgba-master",
+        REPO_ROOT / "build" / "mgba-src",
+    ])
+
+    unique: list[Path] = []
+    for path in paths:
+        resolved = path.resolve()
+        if resolved not in unique and (resolved / "include" / "mgba" / "core" / "core.h").exists():
+            unique.append(resolved)
+    return unique
+
+
+def companion_build_dir(source_dir: Path) -> Path | None:
+    candidates = [
+        source_dir.parent / f"{source_dir.name}-build",
+        REPO_ROOT / "build" / "mgba-master-build",
+        REPO_ROOT / "build" / "mgba-src-build",
+    ]
+    for candidate in candidates:
+        if (candidate / "CMakeFiles" / "mgba-headless.dir" / "flags.make").exists():
+            return candidate.resolve()
+    return None
+
+
+def build_state_screenshot_helper(args: argparse.Namespace, selected: MgbaCandidate, output_dir: Path) -> Path:
+    if args.state_screenshot_helper:
+        helper = Path(args.state_screenshot_helper)
+        if not helper.exists():
+            raise FileNotFoundError(f"state screenshot helper not found: {helper}")
+        return helper.resolve()
+
+    compiler = shutil.which("cc") or shutil.which("gcc")
+    if compiler is None:
+        raise RuntimeError("no C compiler found for state screenshot helper")
+
+    source_file = Path(args.state_screenshot_source)
+    if not source_file.exists():
+        raise FileNotFoundError(f"state screenshot source not found: {source_file}")
+
+    output_dir.mkdir(parents=True, exist_ok=True)
+    helper = output_dir / "mgba_state_screenshot"
+    lib_dir = Path(selected.path).resolve().parent
+    attempts: list[dict[str, Any]] = []
+
+    for source_dir in mgba_source_candidates():
+        source_build_dir = companion_build_dir(source_dir)
+        makefile = source_build_dir / "CMakeFiles" / "mgba-headless.dir" / "flags.make" if source_build_dir else Path()
+        defines = parse_make_var(makefile, "C_DEFINES")
+        include_dirs = [
+            lib_dir / "include",
+            source_dir / "include",
+            source_dir / "src",
+            source_dir / "src" / "third-party" / "lzma",
+            Path("/usr/include/lua5.2"),
+        ]
+        command = [
+            compiler,
+            "-std=c11",
+            *defines,
+            *[f"-I{path}" for path in include_dirs if path.exists()],
+            str(source_file),
+            f"-L{lib_dir}",
+            f"-Wl,-rpath,{lib_dir}",
+            "-lmgba",
+            "-lpng",
+            "-lz",
+            "-lm",
+            "-o",
+            str(helper),
+        ]
+        completed = subprocess.run(
+            command,
+            cwd=str(REPO_ROOT),
+            text=True,
+            stdout=subprocess.PIPE,
+            stderr=subprocess.PIPE,
+            timeout=60.0,
+            check=False,
+        )
+        attempt = {
+            "sourceDir": str(source_dir),
+            "sourceBuildDir": str(source_build_dir) if source_build_dir else None,
+            "returnCode": completed.returncode,
+            "stdout": completed.stdout[-4000:],
+            "stderr": completed.stderr[-4000:],
+        }
+        attempts.append(attempt)
+        append_event(output_dir / "events.ndjson", {"event": "state_screenshot_helper_compile", **attempt})
+        if completed.returncode == 0 and helper.exists():
+            return helper.resolve()
+
+    raise RuntimeError(f"failed to build state screenshot helper: {attempts}")
+
+
+def render_state_screenshot(
+    args: argparse.Namespace,
+    selected: MgbaCandidate,
+    output_dir: Path,
+    state_path: Path,
+    screenshot_path: Path,
+) -> dict[str, Any]:
+    try:
+        helper = build_state_screenshot_helper(args, selected, output_dir)
+        command = [str(helper), str(Path(args.rom).resolve()), str(state_path.resolve()), str(screenshot_path.resolve())]
+        completed = subprocess.run(
+            command,
+            cwd=str(REPO_ROOT),
+            text=True,
+            stdout=subprocess.PIPE,
+            stderr=subprocess.PIPE,
+            timeout=60.0,
+            check=False,
+        )
+        status = png_status(screenshot_path)
+        result = {
+            "ok": completed.returncode == 0 and status["validPng"],
+            "method": "savestate-helper",
+            "helper": str(helper),
+            "state": str(state_path),
+            "returnCode": completed.returncode,
+            "stdout": completed.stdout[-4000:],
+            "stderr": completed.stderr[-4000:],
+            **status,
+        }
+    except Exception as exc:  # noqa: BLE001 - repro artifacts should contain the concrete blocker.
+        result = {
+            "ok": False,
+            "method": "savestate-helper",
+            "state": str(state_path),
+            "error": f"{type(exc).__name__}: {exc}",
+            **png_status(screenshot_path),
+        }
+    append_event(output_dir / "events.ndjson", {"event": "state_screenshot_render", **result})
+    return result
+
+
+def capture_screen_artifact(
+    client: BridgeClient,
+    args: argparse.Namespace,
+    selected: MgbaCandidate,
+    output_dir: Path,
+    name: str,
+) -> dict[str, Any]:
+    screenshot_name = f"{name}.png"
+    state_path = output_dir / f"{name}.ss"
+    screenshot_path = output_dir / screenshot_name
+    state = save_state_file(client, state_path)
+    if not state.get("ok"):
+        return {
+            "ok": False,
+            "method": "savestate",
+            "state": state,
+            **png_status(screenshot_path),
+        }
+
+    if selected.is_headless:
+        result = render_state_screenshot(args, selected, output_dir, state_path, screenshot_path)
+        result["state"] = state
+        result["luaScreenshotSkipped"] = "selected_mgba_is_headless"
+        return result
+
+    lua_result = try_lua_screenshot(client, output_dir, screenshot_name)
+    if lua_result.get("ok"):
+        lua_result["state"] = state
+        return lua_result
+
+    helper_result = render_state_screenshot(args, selected, output_dir, state_path, screenshot_path)
+    helper_result["state"] = state
+    helper_result["luaScreenshot"] = lua_result
+    return helper_result
 
 
 def move_tap(client: BridgeClient, key: str, settle_frames: int = 24) -> None:
@@ -1256,6 +1527,166 @@ def drive_to_starter_confirm(client: BridgeClient, truck_timeout: float, starter
     }
 
 
+def advance_dialogue_to_battle_action_menu(client: BridgeClient, timeout: float) -> dict[str, Any]:
+    deadline = time.monotonic() + timeout
+    last_beacon: dict[str, Any] | None = None
+
+    while time.monotonic() < deadline:
+        beacon = client.request("read_beacon")
+        last_beacon = beacon
+        if beacon_matches(
+            beacon,
+            {
+                "stageId": STAGE_BATTLE_SUMMARY_REPRO,
+                "substageId": REPRO_SUBSTAGE_ACTION_MENU,
+                "menuReady": 1,
+            },
+        ):
+            return beacon
+        if beacon.get("found") and (
+            beacon.get("inputReady") == 1
+            or beacon.get("textReady") == 1
+            or beacon.get("menuReady") == 1
+        ):
+            tap(client, "A", frames=8, settle_frames=24)
+        else:
+            client.request("run_frames 20")
+
+    raise RouteTimeout("initial battle action menu", last_beacon)
+
+
+def drive_to_initial_battle_summary(
+    client: BridgeClient,
+    args: argparse.Namespace,
+    selected: MgbaCandidate,
+    output_dir: Path,
+    truck_timeout: float,
+    starter_timeout: float,
+    battle_timeout: float,
+    summary_timeout: float,
+) -> dict[str, Any]:
+    route_start = time.monotonic()
+    route_phase(client, "starter_confirm")
+    confirm = drive_to_starter_confirm(client, truck_timeout, starter_timeout)
+    if not confirm["ok"]:
+        return confirm
+
+    route_phase(client, "confirm_starter")
+    tap(client, "A", frames=8, settle_frames=24)
+    action_menu = advance_dialogue_to_battle_action_menu(client, battle_timeout)
+
+    route_phase(client, "battle_action_menu")
+    tap(client, "DOWN", frames=8, settle_frames=24)
+    party_cursor = wait_for_semantic_beacon(
+        client,
+        {
+            "stageId": STAGE_BATTLE_SUMMARY_REPRO,
+            "substageId": REPRO_SUBSTAGE_ACTION_MENU,
+            "flags": 2,
+        },
+        "menuReady",
+        15.0,
+        "battle party cursor",
+    )
+    tap(client, "A", frames=8, settle_frames=24)
+
+    route_phase(client, "party_menu")
+    party_menu = wait_for_semantic_beacon(
+        client,
+        {
+            "stageId": STAGE_BATTLE_SUMMARY_REPRO,
+            "substageId": REPRO_SUBSTAGE_PARTY_MENU,
+        },
+        "menuReady",
+        60.0,
+        "in-battle party menu",
+    )
+    tap(client, "A", frames=8, settle_frames=24)
+
+    route_phase(client, "party_mon_menu")
+    party_mon_menu = wait_for_semantic_beacon(
+        client,
+        {
+            "stageId": STAGE_BATTLE_SUMMARY_REPRO,
+            "substageId": REPRO_SUBSTAGE_PARTY_MON_MENU,
+            "flags": 0,
+        },
+        "menuReady",
+        30.0,
+        "party pokemon action menu summary cursor",
+    )
+    tap(client, "A", frames=8, settle_frames=24)
+
+    summary_requested = wait_for_beacon(
+        client,
+        {
+            "stageId": STAGE_BATTLE_SUMMARY_REPRO,
+            "substageId": REPRO_SUBSTAGE_SUMMARY_REQUESTED,
+        },
+        15.0,
+        "summary requested",
+    )
+
+    screen_artifact = capture_screen_artifact(client, args, selected, output_dir, "battle_summary_attempt")
+    summary_screen_reached = False
+    final_beacon: dict[str, Any] | None = summary_requested
+    summary_error: dict[str, Any] | None = None
+    final_screen_artifact: dict[str, Any] | None = None
+    bridge_alive = True
+    try:
+        final_beacon = wait_for_semantic_beacon(
+            client,
+            {
+                "stageId": STAGE_BATTLE_SUMMARY_REPRO,
+                "substageId": REPRO_SUBSTAGE_SUMMARY_SCREEN,
+            },
+            "menuReady",
+            summary_timeout,
+            "summary screen",
+        )
+        summary_screen_reached = True
+        client.request("run_frames 30")
+    except RouteTimeout as exc:
+        summary_error = {
+            "error": "timeout",
+            "label": exc.label,
+            "lastBeacon": exc.last_beacon,
+        }
+        final_beacon = exc.last_beacon
+    except Exception as exc:  # noqa: BLE001 - a bridge reset is a valid repro outcome.
+        summary_error = {
+            "error": "bridge_exception",
+            "label": "summary screen",
+            "exception": f"{type(exc).__name__}: {exc}",
+            "lastBeacon": final_beacon,
+        }
+        bridge_alive = False
+
+    if bridge_alive:
+        final_screen_artifact = capture_screen_artifact(client, args, selected, output_dir, "battle_summary_attempt")
+        if final_screen_artifact.get("ok"):
+            screen_artifact = final_screen_artifact
+
+    return {
+        "ok": screen_artifact.get("ok") is True,
+        "target": "BATTLE_SUMMARY_ATTEMPT_SCREENSHOT",
+        "attemptedSummary": True,
+        "summaryScreenReached": summary_screen_reached,
+        "screenshot": screen_artifact.get("path"),
+        "screenArtifact": screen_artifact,
+        "starterConfirmBeacon": confirm["beacon"],
+        "battleActionMenuBeacon": action_menu,
+        "partyCursorBeacon": party_cursor,
+        "partyMenuBeacon": party_menu,
+        "partyMonMenuBeacon": party_mon_menu,
+        "summaryRequestedBeacon": summary_requested,
+        "finalBeacon": final_beacon,
+        "summaryError": summary_error,
+        "finalScreenArtifact": final_screen_artifact,
+        "elapsedSeconds": round(time.monotonic() - route_start, 3),
+    }
+
+
 def capability_blockers(report: dict[str, Any], selected: MgbaCandidate | None, args: argparse.Namespace) -> list[str]:
     blockers: list[str] = []
 
@@ -1318,6 +1749,17 @@ def run(args: argparse.Namespace) -> int:
                 result = drive_to_starter_choose(client, args.truck_timeout, args.starter_timeout)
             elif args.mode == "starter-confirm":
                 result = drive_to_starter_confirm(client, args.truck_timeout, args.starter_timeout)
+            elif args.mode == "battle-summary":
+                result = drive_to_initial_battle_summary(
+                    client,
+                    args,
+                    selected,
+                    output_dir,
+                    args.truck_timeout,
+                    args.starter_timeout,
+                    args.battle_timeout,
+                    args.summary_timeout,
+                )
             else:
                 result = drive_to_main_menu(client, args.smoke_timeout)
         except RouteTimeout as exc:
@@ -1327,6 +1769,13 @@ def run(args: argparse.Namespace) -> int:
                 "error": "timeout",
                 "label": exc.label,
                 "lastBeacon": exc.last_beacon,
+            }
+        except Exception as exc:  # noqa: BLE001 - always write a repro result artifact.
+            result = {
+                "ok": False,
+                "target": args.mode,
+                "error": "exception",
+                "exception": f"{type(exc).__name__}: {exc}",
             }
         write_json(output_dir / "run_result.json", result)
         print(json.dumps({"ok": result["ok"], "result": str(output_dir / "run_result.json")}, sort_keys=True))
@@ -1348,7 +1797,7 @@ def run(args: argparse.Namespace) -> int:
 
 def parse_args(argv: list[str]) -> argparse.Namespace:
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("--mode", choices=["capability", "main-menu", "truck", "starter", "starter-confirm"], default="capability")
+    parser.add_argument("--mode", choices=["capability", "main-menu", "truck", "starter", "starter-confirm", "battle-summary"], default="capability")
     parser.add_argument("--mgba", help="mGBA executable to inspect or launch")
     parser.add_argument("--rom", default=str(DEFAULT_ROM), help="automation ROM path")
     parser.add_argument("--bridge", default=str(DEFAULT_BRIDGE), help="Lua bridge script path")
@@ -1359,6 +1808,10 @@ def parse_args(argv: list[str]) -> argparse.Namespace:
     parser.add_argument("--smoke-timeout", type=float, default=60.0)
     parser.add_argument("--truck-timeout", type=float, default=300.0)
     parser.add_argument("--starter-timeout", type=float, default=600.0)
+    parser.add_argument("--battle-timeout", type=float, default=300.0)
+    parser.add_argument("--summary-timeout", type=float, default=45.0)
+    parser.add_argument("--state-screenshot-source", default=str(DEFAULT_STATE_SCREENSHOT_SOURCE), help="C source for savestate-to-PNG fallback helper")
+    parser.add_argument("--state-screenshot-helper", help="prebuilt savestate-to-PNG fallback helper")
     parser.add_argument("--force-script", action="store_true", help="try --script even if --help does not list it")
     parser.add_argument("--require-headless", action="store_true", help="block if the selected binary is not headless")
     return parser.parse_args(argv)
