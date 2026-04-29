@@ -1,4 +1,5 @@
 #include "global.h"
+#include "automation_beacon.h"
 #include "frontier_util.h"
 #include "battle_setup.h"
 #include "berry.h"
@@ -1300,6 +1301,7 @@ bool8 ScrCmd_applymovement(struct ScriptContext *ctx)
     }
 
     gObjectEvents[GetObjectEventIdByLocalId(localId)].directionOverwrite = DIR_NONE;
+    AutomationBeacon_SetScriptStep(localId == LOCALID_PLAYER ? AUTOMATION_BEACON_SCRIPT_STEP_APPLY_PLAYER : AUTOMATION_BEACON_SCRIPT_STEP_APPLY_OBJECT);
     ScriptMovement_StartObjectMovementScript(localId, gSaveBlock1Ptr->location.mapNum, gSaveBlock1Ptr->location.mapGroup, movementScript);
     sMovingNpcId = localId;
     if (localId != OBJ_EVENT_ID_FOLLOWER
@@ -1321,6 +1323,7 @@ bool8 ScrCmd_applymovementat(struct ScriptContext *ctx)
     Script_RequestEffects(SCREFF_V1 | SCREFF_HARDWARE);
 
     gObjectEvents[GetObjectEventIdByLocalId(localId)].directionOverwrite = DIR_NONE;
+    AutomationBeacon_SetScriptStep(localId == LOCALID_PLAYER ? AUTOMATION_BEACON_SCRIPT_STEP_APPLY_PLAYER : AUTOMATION_BEACON_SCRIPT_STEP_APPLY_OBJECT);
     ScriptMovement_StartObjectMovementScript(localId, mapNum, mapGroup, movementScript);
     sMovingNpcId = localId;
     return FALSE;
@@ -1350,6 +1353,7 @@ bool8 ScrCmd_waitmovement(struct ScriptContext *ctx)
         sMovingNpcId = localId;
     sMovingNpcMapGroup = gSaveBlock1Ptr->location.mapGroup;
     sMovingNpcMapNum = gSaveBlock1Ptr->location.mapNum;
+    AutomationBeacon_SetScriptStep(AUTOMATION_BEACON_SCRIPT_STEP_WAIT_MOVEMENT);
     SetupNativeScript(ctx, WaitForMovementFinish);
     return TRUE;
 }
@@ -1683,6 +1687,7 @@ bool8 ScrCmd_message(struct ScriptContext *ctx)
 
     if (msg == NULL)
         msg = (const u8 *)ctx->data[0];
+    AutomationBeacon_SetScriptStep(AUTOMATION_BEACON_SCRIPT_STEP_MESSAGE);
     ShowFieldMessage(msg);
     return FALSE;
 }
@@ -1695,6 +1700,7 @@ bool8 ScrCmd_pokenavcall(struct ScriptContext *ctx)
 
     if (msg == NULL)
         msg = (const u8 *)ctx->data[0];
+    AutomationBeacon_SetScriptStep(AUTOMATION_BEACON_SCRIPT_STEP_MESSAGE);
     ShowPokenavFieldMessage(msg);
     return FALSE;
 }
@@ -1709,6 +1715,7 @@ bool8 ScrCmd_messageautoscroll(struct ScriptContext *ctx)
         msg = (const u8 *)ctx->data[0];
     gTextFlags.autoScroll = TRUE;
     gTextFlags.forceMidTextSpeed = TRUE;
+    AutomationBeacon_SetScriptStep(AUTOMATION_BEACON_SCRIPT_STEP_MESSAGE);
     ShowFieldAutoScrollMessage(msg);
     return FALSE;
 }
@@ -1732,6 +1739,7 @@ bool8 ScrCmd_waitmessage(struct ScriptContext *ctx)
 {
     Script_RequestEffects(SCREFF_V1 | SCREFF_HARDWARE);
 
+    AutomationBeacon_SetScriptStep(AUTOMATION_BEACON_SCRIPT_STEP_WAIT_MESSAGE);
     SetupNativeScript(ctx, IsFieldMessageBoxHidden);
     return TRUE;
 }
@@ -1740,6 +1748,7 @@ bool8 ScrCmd_closemessage(struct ScriptContext *ctx)
 {
     Script_RequestEffects(SCREFF_V1 | SCREFF_HARDWARE);
 
+    AutomationBeacon_SetScriptStep(AUTOMATION_BEACON_SCRIPT_STEP_CLOSE_MESSAGE);
     HideFieldMessageBox();
     return FALSE;
 }
@@ -1757,6 +1766,7 @@ bool8 ScrCmd_waitbuttonpress(struct ScriptContext *ctx)
 {
     Script_RequestEffects(SCREFF_V1 | SCREFF_HARDWARE);
 
+    AutomationBeacon_SetScriptStep(AUTOMATION_BEACON_SCRIPT_STEP_WAIT_BUTTON);
     SetupNativeScript(ctx, WaitForAorBPress);
     return TRUE;
 }
@@ -2746,6 +2756,7 @@ bool8 ScrCmd_opendoor(struct ScriptContext *ctx)
 
     Script_RequestEffects(SCREFF_V1 | SCREFF_SAVE | SCREFF_HARDWARE);
 
+    AutomationBeacon_SetScriptStep(AUTOMATION_BEACON_SCRIPT_STEP_OPEN_DOOR);
     x += MAP_OFFSET;
     y += MAP_OFFSET;
     PlaySE(GetDoorSoundEffect(x, y));
@@ -2760,6 +2771,7 @@ bool8 ScrCmd_closedoor(struct ScriptContext *ctx)
 
     Script_RequestEffects(SCREFF_V1 | SCREFF_SAVE | SCREFF_HARDWARE);
 
+    AutomationBeacon_SetScriptStep(AUTOMATION_BEACON_SCRIPT_STEP_CLOSE_DOOR);
     x += MAP_OFFSET;
     y += MAP_OFFSET;
     FieldAnimateDoorClose(x, y);
@@ -2778,6 +2790,7 @@ bool8 ScrCmd_waitdooranim(struct ScriptContext *ctx)
 {
     Script_RequestEffects(SCREFF_V1 | SCREFF_HARDWARE);
 
+    AutomationBeacon_SetScriptStep(AUTOMATION_BEACON_SCRIPT_STEP_WAIT_DOOR);
     SetupNativeScript(ctx, IsDoorAnimationStopped);
     return TRUE;
 }

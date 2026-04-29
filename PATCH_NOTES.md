@@ -1,6 +1,79 @@
 # Patch Notes
 
+- Docs/Automation: Add incremental beacon v2 ExecPlan and Scala/devkit validation milestones (commit pending).
+- Docs/Automation: Record default-build validation and final automation ROM rebuild evidence (commit pending).
+- Docs/Automation: Record the completed headless starter-selection proof and migration recommendation (commit pending).
+- Tools/Automation: Treat Route 101 script waits as beacon input-ready and clear keys after route entry (commit pending).
+- Tools/Automation: Exit the player house by pressing down from the door warp tile instead of stepping laterally across it (commit pending).
+- Tools/Automation: Let Route 101 entry acknowledge the Littleroot trigger dialogue while continuing toward the target stage (commit pending).
+- Tools/Automation: Replace fixed rival-house counts with map-slot and coordinate-gated headless route waypoints (commit pending).
+- Tools/Automation: Encode high coordinate nibbles in the beacon map row so Route 101 positions remain distinguishable (commit pending).
+- Tools/Automation: Add a beacon map-slot row so the headless route can distinguish early interiors from town and Route 101 (commit pending).
+- Tools/Automation: Count only actual movement keypresses while waiting through TV-report stair transitions (commit pending).
+- Tools/Automation: Stop passive waiting after entering the TV report script so the route can acknowledge it (commit pending).
+- Tools/Automation: Press into the bedroom stair warp before advancing TV report dialogue (commit pending).
+- Tools/Automation: Navigate from the post-clock bedroom position into the stair warp using beacon coordinates (commit pending).
+- Tools/Automation: Correct nav-based clock coordinates and direction constants for the headless route (commit pending).
+- Tools/Automation: Add beacon navigation proof fields and use them to face the bedroom clock deterministically (commit pending).
+- Tools/Automation: Keep the player facing May's bedroom clock before interacting in the headless starter route (commit pending).
+- Tools/Automation: Hold emulator movement taps long enough for headless overworld tile transitions (commit pending).
+- Tools/Automation: Add a headless Python starter-selection route mode with beacon-gated movement helpers (commit pending).
+- Docs/Automation: Document the script-derived truck-to-starter route and defer new beacon fields for the first headless attempt (commit pending).
+- Docs/Automation: Record fresh headless truck baseline evidence for the starter-selection plan (commit pending).
+- Docs/Automation: Add a headless starter-selection ExecPlan with explicit Python continuation and migration gates (commit pending).
+- Docs/Automation: Record the passing repeated headless Python/Lua female `A` truck checkpoint proof (commit pending).
+- Tools/Automation: Avoid pressing through Birch's boy/girl transition so the route cannot auto-select male (commit pending).
+- Tools/Automation: Wait for naming input to become ready after auto-lowercase before confirming the route OK button (commit pending).
+- Tools/Automation: Retry input-ready Python route confirmations until the expected beacon transition appears (commit pending).
+- Tools/Automation: Extend the Python Lua-spike runner with a host-owned female `A` truck route FSM (commit pending).
+- Tools/Automation: Add a pinned mGBA headless build helper and record the passing no-focus Lua bridge smoke test (commit pending).
+- Tools/Automation: Make the Lua bridge wait for frames asynchronously and write the beacon fallback with valid OBJ VRAM halfword stores (commit pending).
+- Tools/Automation: Add Python and Lua mGBA automation spike with explicit capability reporting (commit pending).
 - Docs/Automation: Add retrospective on beacon automation learnings and next architecture ideas (commit pending).
+- Tools/Automation: Treat wait-button prompts as input-ready during the truck-exit Littleroot intro as well (commit pending).
+- Tools/Automation: Add wait-button script-step proof and readiness for message prompts that require a fresh A press (commit pending).
+- Tools/Automation: Press through the bedroom clock intro message before waiting for the wall-clock UI beacon (commit pending).
+- Tools/Automation: Approach May's bedroom clock with two Right presses and an Up-facing turn before interacting (commit pending).
+- Tools/Automation: Gate the upstairs transition on Littleroot substage 5 instead of a fixed Up count (commit pending).
+- Tools/Automation: Use four gated Up presses for the female house stairs before waiting for bedroom setup (commit pending).
+- Tools/Automation: Reject non-v1 beacon-shaped false positives in the PowerShell reader (commit pending).
+- Tools/Automation: Broaden Littleroot script-step proof and wait-message readiness to in-house setup scripts (commit pending).
+- Tools/Automation: Keep Littleroot intro input-ready while the script is waiting for message acknowledgment (commit pending).
+- Tools/Automation: Carry the last script command class in Littleroot beacon proof for cutscene wait diagnostics (commit pending).
+- Tools/Automation: Add Littleroot Mom object diagnostics to the beacon error field for truck-exit script stalls (commit pending).
+- Tools/Automation: Use a bounded beacon-gated Right loop for truck exit and log diagnostic flags/error codes (commit pending).
+- Tools/Automation: Treat held player movement as diagnostic-only after truck idle proved it can remain set while ready (commit pending).
+- Tools/Automation: Require a settled player object before overworld movement-ready beacon states (commit pending).
+- Tools/Automation: Gate Littleroot truck-exit intro input on visible field messages only to avoid premature A presses (commit pending).
+- Tools/Automation: Add overworld beacon diagnostics for script, lock, message, fade, and player movement blockers (commit pending).
+- Docs/Automation: Record speed-mode starter attempt and current Littleroot moving-in blocker tuple (commit pending).
+- Tools/Automation: Exit the truck with exactly two gated Right presses instead of an unbounded move loop (commit pending).
+- Tools/Automation: Treat visible field message boxes as overworld input-ready even while scripts own the context (commit pending).
+- Docs/Automation: Record live normal-speed truck proof, AHK v2 decision, local ROM staging, and remaining starter/speed acceptance (commit pending).
+- Tools/Automation: Tighten live beacon scan bounds around the fixed 2x beacon position to reduce route runtime (commit pending).
+- Tools/Automation: Remove the temporary backdrop diagnostic after live beacon rendering was verified (commit pending).
+- Tools/Automation: Gate female confirmation on durable `gender=2` proof instead of a transient stage id (commit pending).
+- Tools/Automation: Raise the boot beacon read budget to allow the live PowerShell sampler to finish decoding (commit pending).
+- Tools/Automation: Force a small 2x mGBA window size instead of preserving a restored oversized window (commit pending).
+- Tools/Automation: Prefer fast integer-scale beacon scans and pass a bounded scan window from the mGBA runner (commit pending).
+- Tools/Automation: Launch mGBA at 2x scale so beacon pixels can be sampled as integer-scaled cells (commit pending).
+- Tools/Automation: Decode non-integer scaled mGBA beacons with a run-length sampler and bounded top-left scan region (commit pending).
+- Tools/Automation: Pin the beacon sprite to OBJ palette slot 15 so renderer palette refreshes match the created sprite (commit pending).
+- Tools/Automation: Keep beacon sprite tracking zero-initialized so automation builds do not emit discarded `.data` (commit pending).
+- Tools/Automation: Create and update the debug beacon through the standard sprite pipeline so live screens load its OAM and tile data (commit pending).
+- Tools/Automation: Force OBJ display directly while rendering the automation beacon so queued DISPCNT writes cannot hide it (commit pending).
+- Tools/Automation: Stage the rebuilt ROM to local Windows temp before launching mGBA to avoid UNC ROM fallback behavior (commit pending).
+- Tools/Automation: Add a late VBlank beacon refresh after sprite/DMA processing to survive screen callback tile overwrites (commit pending).
+- Tools/Automation: Render the debug beacon through OAM and palette buffers before screen VBlank callbacks for live visibility (commit pending).
+- Tools/Automation: Keep the AutoHotkey v2 mGBA window small, topmost, and active before beacon captures and key sends (commit pending).
+- Tools/Automation: Ignore raced WScript termination errors during bounded no-beacon boot scans (commit pending).
+- Tools/Automation: Bound no-beacon boot scans so the AHK v2 runner can keep pressing through title screens (commit pending).
+- Tools/Automation: Port beacon-gated mGBA repro runner to AutoHotkey v2 and add validate mode (commit pending).
+- Tools/Automation: Inline disabled beacon no-ops so default builds avoid hot-path empty calls (commit pending).
+- Tools/Automation: Short-circuit beacon scans on anchor pixels before decoding full proof rows (commit pending).
+- Tools/Automation: Keep beacon rendering from forcing OBJ 1D mapping while preserving debug overlay output (commit pending).
+- Docs/Automation: Record beacon implementation evidence, sampler validation, and remaining live mGBA acceptance work (commit pending).
+- Tools/Automation: Add debug automation beacon, beacon sampler, and state-gated mGBA runner for female `A` truck/starter repros (commit pending).
 - Docs/Automation: Add ExecPlan for beacon-gated mGBA reproduction from clean boot through female `A` truck proof and first Pokemon selection (commit pending).
 - Docs/Automation: Add design doc for deterministic mGBA reproduction pipeline and beacon-gated stage automation strategy; add docs summary link (commit pending).
 - Docs/Process: Add repository-adapted `.agent/PLANS.md` with milestone-continuity policy (exec plans continue until success or escalation) (commit pending).

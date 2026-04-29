@@ -1,4 +1,5 @@
 #include "global.h"
+#include "automation_beacon.h"
 #include "bg.h"
 #include "clock.h"
 #include "decompress.h"
@@ -18,6 +19,7 @@
 #include "trig.h"
 #include "wallclock.h"
 #include "window.h"
+#include "constants/characters.h"
 #include "constants/rgb.h"
 #include "constants/songs.h"
 
@@ -40,6 +42,10 @@ static void SpriteCB_MinuteHand(struct Sprite *sprite);
 static void SpriteCB_HourHand(struct Sprite *sprite);
 static void SpriteCB_PMIndicator(struct Sprite *sprite);
 static void SpriteCB_AMIndicator(struct Sprite *sprite);
+static u8 AutomationBeacon_GetPlayerGenderProof(void);
+static u8 AutomationBeacon_GetPlayerNameLen(void);
+static u8 AutomationBeacon_GetPlayerNameChar0(void);
+static void AutomationBeacon_SetClockProof(bool8 inputReady);
 
 #define sTaskId data[0]
 
@@ -683,6 +689,47 @@ static void WallClockInit(void)
     ShowBg(3);
 }
 
+static u8 AutomationBeacon_GetPlayerGenderProof(void)
+{
+    if (gSaveBlock2Ptr->playerGender == MALE)
+        return AUTOMATION_BEACON_GENDER_MALE;
+    if (gSaveBlock2Ptr->playerGender == FEMALE)
+        return AUTOMATION_BEACON_GENDER_FEMALE;
+    return AUTOMATION_BEACON_GENDER_UNKNOWN;
+}
+
+static u8 AutomationBeacon_GetPlayerNameLen(void)
+{
+    u8 i;
+
+    for (i = 0; i < PLAYER_NAME_LENGTH; i++)
+    {
+        if (gSaveBlock2Ptr->playerName[i] == EOS)
+            return i;
+    }
+    return PLAYER_NAME_LENGTH;
+}
+
+static u8 AutomationBeacon_GetPlayerNameChar0(void)
+{
+    u8 chr = gSaveBlock2Ptr->playerName[0];
+
+    if (chr >= CHAR_A && chr <= CHAR_N)
+        return chr - CHAR_A + 1;
+    return 0;
+}
+
+static void AutomationBeacon_SetClockProof(bool8 inputReady)
+{
+    AutomationBeacon_SetProof(
+        AutomationBeacon_GetPlayerGenderProof(),
+        AutomationBeacon_GetPlayerNameLen(),
+        AutomationBeacon_GetPlayerNameChar0(),
+        AUTOMATION_BEACON_MAP_LITTLEROOT,
+        AUTOMATION_BEACON_STARTER_NA,
+        inputReady);
+}
+
 void CB2_StartWallClock(void)
 {
     u8 taskId;
@@ -784,6 +831,9 @@ static void CB2_WallClock(void)
 
 static void Task_SetClock_WaitFadeIn(u8 taskId)
 {
+    AutomationBeacon_SetStage(AUTOMATION_BEACON_STAGE_LITTLEROOT_ROUTE_SETUP, 6, 0);
+    AutomationBeacon_SetClockProof(FALSE);
+
     if (!gPaletteFade.active)
     {
         gTasks[taskId].func = Task_SetClock_HandleInput;
@@ -792,6 +842,9 @@ static void Task_SetClock_WaitFadeIn(u8 taskId)
 
 static void Task_SetClock_HandleInput(u8 taskId)
 {
+    AutomationBeacon_SetStage(AUTOMATION_BEACON_STAGE_LITTLEROOT_ROUTE_SETUP, 6, 0);
+    AutomationBeacon_SetClockProof(TRUE);
+
     if (gTasks[taskId].tMinuteHandAngle % 6)
     {
         gTasks[taskId].tMinuteHandAngle = CalcNewMinHandAngle(gTasks[taskId].tMinuteHandAngle, gTasks[taskId].tMoveDir, gTasks[taskId].tMoveSpeed);
@@ -832,6 +885,8 @@ static void Task_SetClock_HandleInput(u8 taskId)
 
 static void Task_SetClock_AskConfirm(u8 taskId)
 {
+    AutomationBeacon_SetStage(AUTOMATION_BEACON_STAGE_LITTLEROOT_ROUTE_SETUP, 7, 0);
+    AutomationBeacon_SetClockProof(FALSE);
     DrawStdFrameWithCustomTileAndPalette(WIN_MSG, FALSE, 0x250, 0x0d);
     AddTextPrinterParameterized(WIN_MSG, FONT_NORMAL, gText_IsThisTheCorrectTime, 0, 1, 0, NULL);
     PutWindowTilemap(WIN_MSG);
@@ -842,6 +897,9 @@ static void Task_SetClock_AskConfirm(u8 taskId)
 
 static void Task_SetClock_HandleConfirmInput(u8 taskId)
 {
+    AutomationBeacon_SetStage(AUTOMATION_BEACON_STAGE_LITTLEROOT_ROUTE_SETUP, 7, 0);
+    AutomationBeacon_SetClockProof(TRUE);
+
     switch (Menu_ProcessInputNoWrapClearOnChoose())
     {
     case 0: // YES
@@ -860,6 +918,8 @@ static void Task_SetClock_HandleConfirmInput(u8 taskId)
 
 static void Task_SetClock_Confirmed(u8 taskId)
 {
+    AutomationBeacon_SetStage(AUTOMATION_BEACON_STAGE_LITTLEROOT_ROUTE_SETUP, 7, 0);
+    AutomationBeacon_SetClockProof(FALSE);
     RtcInitLocalTimeOffset(gTasks[taskId].tHours, gTasks[taskId].tMinutes);
     BeginNormalPaletteFade(PALETTES_ALL, 0, 0, 16, RGB_BLACK);
     gTasks[taskId].func = Task_SetClock_Exit;

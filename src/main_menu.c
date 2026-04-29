@@ -1,6 +1,8 @@
 #include "global.h"
+#include "automation_beacon.h"
 #include "trainer_pokemon_sprites.h"
 #include "bg.h"
+#include "constants/characters.h"
 #include "constants/rgb.h"
 #include "constants/songs.h"
 #include "constants/trainers.h"
@@ -244,6 +246,10 @@ static void MainMenu_FormatSavegamePokedex(void);
 static void MainMenu_FormatSavegameTime(void);
 static void MainMenu_FormatSavegameBadges(void);
 static void NewGameBirchSpeech_CreateDialogueWindowBorder(u8, u8, u8, u8, u8, u8);
+static u8 AutomationBeacon_GetPlayerGenderProof(void);
+static u8 AutomationBeacon_GetPlayerNameLen(void);
+static u8 AutomationBeacon_GetPlayerNameChar0(void);
+static void AutomationBeacon_SetPlayerProof(u8 mapKind, bool8 inputReady);
 
 // .rodata
 
@@ -722,6 +728,47 @@ static void Task_WaitForSaveFileErrorWindow(u8 taskId)
     }
 }
 
+static u8 AutomationBeacon_GetPlayerGenderProof(void)
+{
+    if (gSaveBlock2Ptr->playerGender == MALE)
+        return AUTOMATION_BEACON_GENDER_MALE;
+    if (gSaveBlock2Ptr->playerGender == FEMALE)
+        return AUTOMATION_BEACON_GENDER_FEMALE;
+    return AUTOMATION_BEACON_GENDER_UNKNOWN;
+}
+
+static u8 AutomationBeacon_GetPlayerNameLen(void)
+{
+    u8 i;
+
+    for (i = 0; i < PLAYER_NAME_LENGTH; i++)
+    {
+        if (gSaveBlock2Ptr->playerName[i] == EOS)
+            return i;
+    }
+    return PLAYER_NAME_LENGTH;
+}
+
+static u8 AutomationBeacon_GetPlayerNameChar0(void)
+{
+    u8 chr = gSaveBlock2Ptr->playerName[0];
+
+    if (chr >= CHAR_A && chr <= CHAR_N)
+        return chr - CHAR_A + 1;
+    return 0;
+}
+
+static void AutomationBeacon_SetPlayerProof(u8 mapKind, bool8 inputReady)
+{
+    AutomationBeacon_SetProof(
+        AutomationBeacon_GetPlayerGenderProof(),
+        AutomationBeacon_GetPlayerNameLen(),
+        AutomationBeacon_GetPlayerNameChar0(),
+        mapKind,
+        AUTOMATION_BEACON_STARTER_NA,
+        inputReady);
+}
+
 static void Task_MainMenuCheckBattery(u8 taskId)
 {
     if (!gPaletteFade.active)
@@ -891,6 +938,8 @@ static void Task_DisplayMainMenu(u8 taskId)
                 }
                 break;
         }
+        AutomationBeacon_SetStage(AUTOMATION_BEACON_STAGE_MAIN_MENU_READY, gTasks[taskId].tCurrItem, 0);
+        AutomationBeacon_SetPlayerProof(AUTOMATION_BEACON_MAP_UNKNOWN, TRUE);
         gTasks[taskId].func = Task_HighlightSelectedMainMenuItem;
     }
 }
@@ -949,6 +998,9 @@ static bool8 HandleMainMenuInput(u8 taskId)
 
 static void Task_HandleMainMenuInput(u8 taskId)
 {
+    AutomationBeacon_SetStage(AUTOMATION_BEACON_STAGE_MAIN_MENU_READY, gTasks[taskId].tCurrItem, 0);
+    AutomationBeacon_SetPlayerProof(AUTOMATION_BEACON_MAP_UNKNOWN, TRUE);
+
     if (HandleMainMenuInput(taskId))
         gTasks[taskId].func = Task_HighlightSelectedMainMenuItem;
 }
@@ -1077,6 +1129,8 @@ static void Task_HandleMainMenuAPressed(u8 taskId)
         {
             case ACTION_NEW_GAME:
             default:
+                AutomationBeacon_SetStage(AUTOMATION_BEACON_STAGE_BIRCH_INTRO_TEXT, 0, 0);
+                AutomationBeacon_SetPlayerProof(AUTOMATION_BEACON_MAP_UNKNOWN, FALSE);
                 gPlttBufferUnfaded[0] = RGB_BLACK;
                 gPlttBufferFaded[0] = RGB_BLACK;
                 gTasks[taskId].func = Task_NewGameBirchSpeech_Init;
@@ -1284,6 +1338,9 @@ static void HighlightSelectedMainMenuItem(u8 menuType, u8 selectedMenuItem, s16 
 
 static void Task_NewGameBirchSpeech_Init(u8 taskId)
 {
+    AutomationBeacon_SetStage(AUTOMATION_BEACON_STAGE_BIRCH_INTRO_TEXT, 0, 0);
+    AutomationBeacon_SetPlayerProof(AUTOMATION_BEACON_MAP_UNKNOWN, FALSE);
+
     SetGpuReg(REG_OFFSET_DISPCNT, 0);
     SetGpuReg(REG_OFFSET_DISPCNT, DISPCNT_OBJ_ON | DISPCNT_OBJ_1D_MAP);
     InitBgFromTemplate(&sBirchBgTemplate);
@@ -1364,6 +1421,9 @@ static void Task_NewGameBirchSpeech_WaitForSpriteFadeInWelcome(u8 taskId)
 
 static void Task_NewGameBirchSpeech_ThisIsAPokemon(u8 taskId)
 {
+    AutomationBeacon_SetStage(AUTOMATION_BEACON_STAGE_BIRCH_INTRO_TEXT, 0, 0);
+    AutomationBeacon_SetPlayerProof(AUTOMATION_BEACON_MAP_UNKNOWN, TRUE);
+
     if (!gPaletteFade.active && !RunTextPrintersAndIsPrinter0Active())
     {
         gTasks[taskId].func = Task_NewGameBirchSpeech_MainSpeech;
@@ -1375,6 +1435,9 @@ static void Task_NewGameBirchSpeech_ThisIsAPokemon(u8 taskId)
 
 static void Task_NewGameBirchSpeech_MainSpeech(u8 taskId)
 {
+    AutomationBeacon_SetStage(AUTOMATION_BEACON_STAGE_BIRCH_INTRO_TEXT, 1, 0);
+    AutomationBeacon_SetPlayerProof(AUTOMATION_BEACON_MAP_UNKNOWN, TRUE);
+
     if (!RunTextPrintersAndIsPrinter0Active())
     {
         StringExpandPlaceholders(gStringVar4, gText_Birch_MainSpeech);
@@ -1429,6 +1492,9 @@ static void Task_NewGameBirchSpeechSub_WaitForLotad(u8 taskId)
 
 static void Task_NewGameBirchSpeech_AndYouAre(u8 taskId)
 {
+    AutomationBeacon_SetStage(AUTOMATION_BEACON_STAGE_BIRCH_INTRO_TEXT, 2, 0);
+    AutomationBeacon_SetPlayerProof(AUTOMATION_BEACON_MAP_UNKNOWN, TRUE);
+
     if (!RunTextPrintersAndIsPrinter0Active())
     {
         sStartedPokeBallTask = FALSE;
@@ -1440,6 +1506,9 @@ static void Task_NewGameBirchSpeech_AndYouAre(u8 taskId)
 
 static void Task_NewGameBirchSpeech_StartBirchLotadPlatformFade(u8 taskId)
 {
+    AutomationBeacon_SetStage(AUTOMATION_BEACON_STAGE_BIRCH_INTRO_TEXT, 3, 0);
+    AutomationBeacon_SetPlayerProof(AUTOMATION_BEACON_MAP_UNKNOWN, TRUE);
+
     if (!RunTextPrintersAndIsPrinter0Active())
     {
         gSprites[gTasks[taskId].tBirchSpriteId].oam.objMode = ST_OAM_OBJ_BLEND;
@@ -1511,9 +1580,14 @@ static void Task_NewGameBirchSpeech_BoyOrGirl(u8 taskId)
 
 static void Task_NewGameBirchSpeech_WaitToShowGenderMenu(u8 taskId)
 {
+    AutomationBeacon_SetStage(AUTOMATION_BEACON_STAGE_BIRCH_INTRO_TEXT, 4, 0);
+    AutomationBeacon_SetPlayerProof(AUTOMATION_BEACON_MAP_UNKNOWN, TRUE);
+
     if (!RunTextPrintersAndIsPrinter0Active())
     {
         NewGameBirchSpeech_ShowGenderMenu();
+        AutomationBeacon_SetStage(AUTOMATION_BEACON_STAGE_GENDER_PROMPT_READY, Menu_GetCursorPos(), 0);
+        AutomationBeacon_SetPlayerProof(AUTOMATION_BEACON_MAP_UNKNOWN, TRUE);
         gTasks[taskId].func = Task_NewGameBirchSpeech_ChooseGender;
     }
 }
@@ -1523,18 +1597,25 @@ static void Task_NewGameBirchSpeech_ChooseGender(u8 taskId)
     int gender = NewGameBirchSpeech_ProcessGenderMenuInput();
     int gender2;
 
+    AutomationBeacon_SetStage(AUTOMATION_BEACON_STAGE_GENDER_PROMPT_READY, Menu_GetCursorPos(), 0);
+    AutomationBeacon_SetPlayerProof(AUTOMATION_BEACON_MAP_UNKNOWN, TRUE);
+
     switch (gender)
     {
         case MALE:
             PlaySE(SE_SELECT);
             gSaveBlock2Ptr->playerGender = gender;
             NewGameBirchSpeech_ClearGenderWindow(1, 1);
+            AutomationBeacon_SetStage(AUTOMATION_BEACON_STAGE_GENDER_CONFIRMED, 0, 0);
+            AutomationBeacon_SetPlayerProof(AUTOMATION_BEACON_MAP_UNKNOWN, FALSE);
             gTasks[taskId].func = Task_NewGameBirchSpeech_WhatsYourName;
             break;
         case FEMALE:
             PlaySE(SE_SELECT);
             gSaveBlock2Ptr->playerGender = gender;
             NewGameBirchSpeech_ClearGenderWindow(1, 1);
+            AutomationBeacon_SetStage(AUTOMATION_BEACON_STAGE_GENDER_CONFIRMED, 0, 0);
+            AutomationBeacon_SetPlayerProof(AUTOMATION_BEACON_MAP_UNKNOWN, FALSE);
             gTasks[taskId].func = Task_NewGameBirchSpeech_WhatsYourName;
             break;
     }
@@ -1601,15 +1682,23 @@ static void Task_NewGameBirchSpeech_WhatsYourName(u8 taskId)
 
 static void Task_NewGameBirchSpeech_WaitForWhatsYourNameToPrint(u8 taskId)
 {
+    AutomationBeacon_SetStage(AUTOMATION_BEACON_STAGE_BIRCH_INTRO_TEXT, 5, 0);
+    AutomationBeacon_SetPlayerProof(AUTOMATION_BEACON_MAP_UNKNOWN, TRUE);
+
     if (!RunTextPrintersAndIsPrinter0Active())
         gTasks[taskId].func = Task_NewGameBirchSpeech_WaitPressBeforeNameChoice;
 }
 
 static void Task_NewGameBirchSpeech_WaitPressBeforeNameChoice(u8 taskId)
 {
+    AutomationBeacon_SetStage(AUTOMATION_BEACON_STAGE_BIRCH_INTRO_TEXT, 6, 0);
+    AutomationBeacon_SetPlayerProof(AUTOMATION_BEACON_MAP_UNKNOWN, TRUE);
+
     if ((JOY_NEW(A_BUTTON)) || (JOY_NEW(B_BUTTON)))
     {
         BeginNormalPaletteFade(PALETTES_ALL, 0, 0, 16, RGB_BLACK);
+        AutomationBeacon_SetStage(AUTOMATION_BEACON_STAGE_NAMING_SCREEN_READY, 0, 0);
+        AutomationBeacon_SetPlayerProof(AUTOMATION_BEACON_MAP_UNKNOWN, FALSE);
         gTasks[taskId].func = Task_NewGameBirchSpeech_StartNamingScreen;
     }
 }
@@ -1628,6 +1717,9 @@ static void Task_NewGameBirchSpeech_StartNamingScreen(u8 taskId)
 
 static void Task_NewGameBirchSpeech_SoItsPlayerName(u8 taskId)
 {
+    AutomationBeacon_SetStage(AUTOMATION_BEACON_STAGE_NAME_CONFIRMED, 1, 0);
+    AutomationBeacon_SetPlayerProof(AUTOMATION_BEACON_MAP_UNKNOWN, TRUE);
+
     NewGameBirchSpeech_ClearWindow(0);
     StringExpandPlaceholders(gStringVar4, gText_Birch_SoItsPlayer);
     AddTextPrinterForMessage(TRUE);
@@ -1636,6 +1728,9 @@ static void Task_NewGameBirchSpeech_SoItsPlayerName(u8 taskId)
 
 static void Task_NewGameBirchSpeech_CreateNameYesNo(u8 taskId)
 {
+    AutomationBeacon_SetStage(AUTOMATION_BEACON_STAGE_NAME_CONFIRMED, 2, 0);
+    AutomationBeacon_SetPlayerProof(AUTOMATION_BEACON_MAP_UNKNOWN, TRUE);
+
     if (!RunTextPrintersAndIsPrinter0Active())
     {
         CreateYesNoMenuParameterized(2, 1, 0xF3, 0xDF, 2, 15);
@@ -1645,10 +1740,15 @@ static void Task_NewGameBirchSpeech_CreateNameYesNo(u8 taskId)
 
 static void Task_NewGameBirchSpeech_ProcessNameYesNoMenu(u8 taskId)
 {
+    AutomationBeacon_SetStage(AUTOMATION_BEACON_STAGE_NAME_CONFIRMED, 3, 0);
+    AutomationBeacon_SetPlayerProof(AUTOMATION_BEACON_MAP_UNKNOWN, TRUE);
+
     switch (Menu_ProcessInputNoWrapClearOnChoose())
     {
         case 0:
             PlaySE(SE_SELECT);
+            AutomationBeacon_SetStage(AUTOMATION_BEACON_STAGE_POST_NAME_BIRCH_FLOW, 0, 0);
+            AutomationBeacon_SetPlayerProof(AUTOMATION_BEACON_MAP_UNKNOWN, FALSE);
             gSprites[gTasks[taskId].tPlayerSpriteId].oam.objMode = ST_OAM_OBJ_BLEND;
             NewGameBirchSpeech_StartFadeOutTarget1InTarget2(taskId, 2);
             NewGameBirchSpeech_StartFadePlatformIn(taskId, 1);
@@ -1703,6 +1803,9 @@ static void Task_NewGameBirchSpeech_ReshowBirchLotad(u8 taskId)
 
 static void Task_NewGameBirchSpeech_WaitForSpriteFadeInAndTextPrinter(u8 taskId)
 {
+    AutomationBeacon_SetStage(AUTOMATION_BEACON_STAGE_POST_NAME_BIRCH_FLOW, 1, 0);
+    AutomationBeacon_SetPlayerProof(AUTOMATION_BEACON_MAP_UNKNOWN, TRUE);
+
     if (gTasks[taskId].tIsDoneFadingSprites)
     {
         gSprites[gTasks[taskId].tBirchSpriteId].oam.objMode = ST_OAM_OBJ_NORMAL;
@@ -1722,6 +1825,9 @@ static void Task_NewGameBirchSpeech_WaitForSpriteFadeInAndTextPrinter(u8 taskId)
 static void Task_NewGameBirchSpeech_AreYouReady(u8 taskId)
 {
     u8 spriteId;
+
+    AutomationBeacon_SetStage(AUTOMATION_BEACON_STAGE_POST_NAME_BIRCH_FLOW, 2, 0);
+    AutomationBeacon_SetPlayerProof(AUTOMATION_BEACON_MAP_UNKNOWN, TRUE);
 
     if (gTasks[taskId].tIsDoneFadingSprites)
     {
@@ -1752,6 +1858,9 @@ static void Task_NewGameBirchSpeech_AreYouReady(u8 taskId)
 static void Task_NewGameBirchSpeech_ShrinkPlayer(u8 taskId)
 {
     u8 spriteId;
+
+    AutomationBeacon_SetStage(AUTOMATION_BEACON_STAGE_POST_NAME_BIRCH_FLOW, 3, 0);
+    AutomationBeacon_SetPlayerProof(AUTOMATION_BEACON_MAP_UNKNOWN, TRUE);
 
     if (gTasks[taskId].tIsDoneFadingSprites)
     {
@@ -1797,6 +1906,8 @@ static void Task_NewGameBirchSpeech_Cleanup(u8 taskId)
 {
     if (!gPaletteFade.active)
     {
+        AutomationBeacon_SetStage(AUTOMATION_BEACON_STAGE_TRUCK_ENTERED, 0, 0);
+        AutomationBeacon_SetPlayerProof(AUTOMATION_BEACON_MAP_TRUCK, FALSE);
         FreeAllWindowBuffers();
         FreeAndDestroyMonPicSprite(gTasks[taskId].tLotadSpriteId);
         ResetAllPicSprites();
@@ -1810,6 +1921,9 @@ static void CB2_NewGameBirchSpeech_ReturnFromNamingScreen(void)
     u8 taskId;
     u8 spriteId;
     u16 savedIme;
+
+    AutomationBeacon_SetStage(AUTOMATION_BEACON_STAGE_NAME_CONFIRMED, 0, 0);
+    AutomationBeacon_SetPlayerProof(AUTOMATION_BEACON_MAP_UNKNOWN, FALSE);
 
     ResetBgsAndClearDma3BusyFlags(0);
     SetGpuReg(REG_OFFSET_DISPCNT, 0);
@@ -2316,6 +2430,9 @@ static void NewGameBirchSpeech_CreateDialogueWindowBorder(u8 bg, u8 x, u8 y, u8 
 
 static void Task_NewGameBirchSpeech_ReturnFromNamingScreenShowTextbox(u8 taskId)
 {
+    AutomationBeacon_SetStage(AUTOMATION_BEACON_STAGE_NAME_CONFIRMED, 0, 0);
+    AutomationBeacon_SetPlayerProof(AUTOMATION_BEACON_MAP_UNKNOWN, FALSE);
+
     if (gTasks[taskId].tTimer-- <= 0)
     {
         NewGameBirchSpeech_ShowDialogueWindow(0, 1);

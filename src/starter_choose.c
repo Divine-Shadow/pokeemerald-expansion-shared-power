@@ -1,4 +1,5 @@
 #include "global.h"
+#include "automation_beacon.h"
 #include "bg.h"
 #include "data.h"
 #include "decompress.h"
@@ -22,6 +23,7 @@
 #include "trig.h"
 #include "window.h"
 #include "constants/songs.h"
+#include "constants/characters.h"
 #include "constants/rgb.h"
 
 #define STARTER_MON_COUNT   3
@@ -48,6 +50,10 @@ static u8 CreatePokemonFrontSprite(u16 species, u8 x, u8 y);
 static void SpriteCB_SelectionHand(struct Sprite *sprite);
 static void SpriteCB_Pokeball(struct Sprite *sprite);
 static void SpriteCB_StarterPokemon(struct Sprite *sprite);
+static u8 AutomationBeacon_GetPlayerGenderProof(void);
+static u8 AutomationBeacon_GetPlayerNameLen(void);
+static u8 AutomationBeacon_GetPlayerNameChar0(void);
+static void AutomationBeacon_SetStarterProof(u8 starterSelection, bool8 inputReady);
 
 static u16 sStarterLabelWindowId;
 
@@ -371,6 +377,47 @@ static void VblankCB_StarterChoose(void)
 #define sTaskId data[0]
 #define sBallId data[1]
 
+static u8 AutomationBeacon_GetPlayerGenderProof(void)
+{
+    if (gSaveBlock2Ptr->playerGender == MALE)
+        return AUTOMATION_BEACON_GENDER_MALE;
+    if (gSaveBlock2Ptr->playerGender == FEMALE)
+        return AUTOMATION_BEACON_GENDER_FEMALE;
+    return AUTOMATION_BEACON_GENDER_UNKNOWN;
+}
+
+static u8 AutomationBeacon_GetPlayerNameLen(void)
+{
+    u8 i;
+
+    for (i = 0; i < PLAYER_NAME_LENGTH; i++)
+    {
+        if (gSaveBlock2Ptr->playerName[i] == EOS)
+            return i;
+    }
+    return PLAYER_NAME_LENGTH;
+}
+
+static u8 AutomationBeacon_GetPlayerNameChar0(void)
+{
+    u8 chr = gSaveBlock2Ptr->playerName[0];
+
+    if (chr >= CHAR_A && chr <= CHAR_N)
+        return chr - CHAR_A + 1;
+    return 0;
+}
+
+static void AutomationBeacon_SetStarterProof(u8 starterSelection, bool8 inputReady)
+{
+    AutomationBeacon_SetProof(
+        AutomationBeacon_GetPlayerGenderProof(),
+        AutomationBeacon_GetPlayerNameLen(),
+        AutomationBeacon_GetPlayerNameChar0(),
+        AUTOMATION_BEACON_MAP_STARTER_SELECTION,
+        starterSelection,
+        inputReady);
+}
+
 void CB2_ChooseStarter(void)
 {
     u8 taskId;
@@ -441,6 +488,8 @@ void CB2_ChooseStarter(void)
 
     taskId = CreateTask(Task_StarterChoose, 0);
     gTasks[taskId].tStarterSelection = 1;
+    AutomationBeacon_SetStage(AUTOMATION_BEACON_STAGE_STARTER_CHOOSE_READY, 0, 0);
+    AutomationBeacon_SetStarterProof(gTasks[taskId].tStarterSelection, FALSE);
 
     // Create hand sprite
     spriteId = CreateSprite(&sSpriteTemplate_Hand, 120, 56, 2);
@@ -473,6 +522,8 @@ static void CB2_StarterChoose(void)
 
 static void Task_StarterChoose(u8 taskId)
 {
+    AutomationBeacon_SetStage(AUTOMATION_BEACON_STAGE_STARTER_CHOOSE_READY, 0, 0);
+    AutomationBeacon_SetStarterProof(gTasks[taskId].tStarterSelection, FALSE);
     CreateStarterPokemonLabel(gTasks[taskId].tStarterSelection);
     DrawStdFrameWithCustomTileAndPalette(0, FALSE, 0x2A8, 0xD);
     AddTextPrinterParameterized(0, FONT_NORMAL, gText_BirchInTrouble, 0, 1, 0, NULL);
@@ -484,6 +535,9 @@ static void Task_StarterChoose(u8 taskId)
 static void Task_HandleStarterChooseInput(u8 taskId)
 {
     u8 selection = gTasks[taskId].tStarterSelection;
+
+    AutomationBeacon_SetStage(AUTOMATION_BEACON_STAGE_STARTER_CHOOSE_READY, 0, 0);
+    AutomationBeacon_SetStarterProof(selection, TRUE);
 
     if (JOY_NEW(A_BUTTON))
     {
@@ -517,6 +571,9 @@ static void Task_HandleStarterChooseInput(u8 taskId)
 
 static void Task_WaitForStarterSprite(u8 taskId)
 {
+    AutomationBeacon_SetStage(AUTOMATION_BEACON_STAGE_STARTER_CHOOSE_READY, 1, 0);
+    AutomationBeacon_SetStarterProof(gTasks[taskId].tStarterSelection, FALSE);
+
     if (gSprites[gTasks[taskId].tCircleSpriteId].affineAnimEnded &&
         gSprites[gTasks[taskId].tCircleSpriteId].x == STARTER_PKMN_POS_X &&
         gSprites[gTasks[taskId].tCircleSpriteId].y == STARTER_PKMN_POS_Y)
@@ -527,6 +584,8 @@ static void Task_WaitForStarterSprite(u8 taskId)
 
 static void Task_AskConfirmStarter(u8 taskId)
 {
+    AutomationBeacon_SetStage(AUTOMATION_BEACON_STAGE_STARTER_CONFIRM_PROMPT, 0, 0);
+    AutomationBeacon_SetStarterProof(gTasks[taskId].tStarterSelection, FALSE);
     PlayCry_Normal(GetStarterPokemon(gTasks[taskId].tStarterSelection), 0);
     FillWindowPixelBuffer(0, PIXEL_FILL(1));
     AddTextPrinterParameterized(0, FONT_NORMAL, gText_ConfirmStarterChoice, 0, 1, 0, NULL);
@@ -538,6 +597,9 @@ static void Task_AskConfirmStarter(u8 taskId)
 static void Task_HandleConfirmStarterInput(u8 taskId)
 {
     u8 spriteId;
+
+    AutomationBeacon_SetStage(AUTOMATION_BEACON_STAGE_STARTER_CONFIRM_PROMPT, 0, 0);
+    AutomationBeacon_SetStarterProof(gTasks[taskId].tStarterSelection, TRUE);
 
     switch (Menu_ProcessInputNoWrapClearOnChoose())
     {

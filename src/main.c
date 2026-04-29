@@ -16,6 +16,7 @@
 #include "load_save.h"
 #include "gpu_regs.h"
 #include "agb_flash.h"
+#include "automation_beacon.h"
 #include "sound.h"
 #include "battle.h"
 #include "battle_controllers.h"
@@ -366,6 +367,8 @@ static void VBlankIntr(void)
     if (gTrainerHillVBlankCounter && *gTrainerHillVBlankCounter < 0xFFFFFFFF)
         (*gTrainerHillVBlankCounter)++;
 
+    AutomationBeacon_Render();
+
     if (gMain.vblankCallback)
         gMain.vblankCallback();
 
@@ -373,6 +376,7 @@ static void VBlankIntr(void)
 
     CopyBufferedValuesToGpuRegs();
     ProcessDma3Requests();
+    AutomationBeacon_RenderLate();
 
     gPcmDmaCounter = gSoundInfo.pcmDmaCounter;
 

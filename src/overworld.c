@@ -1,4 +1,5 @@
 #include "global.h"
+#include "automation_beacon.h"
 #include "overworld.h"
 #include "battle_pyramid.h"
 #include "battle_setup.h"
@@ -69,9 +70,11 @@
 #include "vs_seeker.h"
 #include "frontier_util.h"
 #include "constants/abilities.h"
+#include "constants/characters.h"
 #include "constants/event_object_movement.h"
 #include "constants/event_objects.h"
 #include "constants/layouts.h"
+#include "constants/map_event_ids.h"
 #include "constants/region_map_sections.h"
 #include "constants/songs.h"
 #include "constants/trainer_hill.h"
@@ -138,6 +141,17 @@ static void SetCameraToTrackGuestPlayer_2(void);
 static void CreateLinkPlayerSprites(void);
 static void ClearAllPlayerKeys(void);
 static void ResetAllPlayerLinkStates(void);
+static void AutomationBeacon_UpdateOverworld(void);
+static bool8 AutomationBeacon_IsCurrentMap(u16 map);
+static bool8 AutomationBeacon_IsLittlerootSetupMap(void);
+static u8 AutomationBeacon_GetCurrentMapSlot(void);
+static u8 AutomationBeacon_GetPlayerGenderProof(void);
+static u8 AutomationBeacon_GetPlayerNameLen(void);
+static u8 AutomationBeacon_GetPlayerNameChar0(void);
+static u8 AutomationBeacon_GetLittlerootMomDiagnostic(void);
+static u8 AutomationBeacon_GetLocalCoordLow(s16 coord);
+static u8 AutomationBeacon_GetLocalCoordHigh(s16 coord);
+static void AutomationBeacon_SetOverworldProof(u8 mapKind, u8 starterSelection, bool8 inputReady);
 static void UpdateHeldKeyCode(u16);
 static void UpdateAllLinkPlayers(u16 *, s32);
 static u8 FlipVerticalAndClearForced(u8, u8);
@@ -1692,6 +1706,219 @@ u8 UpdateSpritePaletteWithTime(u8 paletteNum)
     return paletteNum;
 }
 
+static bool8 AutomationBeacon_IsCurrentMap(u16 map)
+{
+    return gSaveBlock1Ptr->location.mapGroup == MAP_GROUP(map)
+        && gSaveBlock1Ptr->location.mapNum == MAP_NUM(map);
+}
+
+static bool8 AutomationBeacon_IsLittlerootSetupMap(void)
+{
+    return AutomationBeacon_IsCurrentMap(MAP_LITTLEROOT_TOWN)
+        || AutomationBeacon_IsCurrentMap(MAP_LITTLEROOT_TOWN_BRENDANS_HOUSE_1F)
+        || AutomationBeacon_IsCurrentMap(MAP_LITTLEROOT_TOWN_BRENDANS_HOUSE_2F)
+        || AutomationBeacon_IsCurrentMap(MAP_LITTLEROOT_TOWN_MAYS_HOUSE_1F)
+        || AutomationBeacon_IsCurrentMap(MAP_LITTLEROOT_TOWN_MAYS_HOUSE_2F)
+        || AutomationBeacon_IsCurrentMap(MAP_LITTLEROOT_TOWN_PROFESSOR_BIRCHS_LAB);
+}
+
+static u8 AutomationBeacon_GetCurrentMapSlot(void)
+{
+    if (AutomationBeacon_IsCurrentMap(MAP_INSIDE_OF_TRUCK))
+        return AUTOMATION_BEACON_MAP_SLOT_TRUCK;
+    if (AutomationBeacon_IsCurrentMap(MAP_LITTLEROOT_TOWN))
+        return AUTOMATION_BEACON_MAP_SLOT_LITTLEROOT_TOWN;
+    if (AutomationBeacon_IsCurrentMap(MAP_LITTLEROOT_TOWN_BRENDANS_HOUSE_1F))
+        return AUTOMATION_BEACON_MAP_SLOT_BRENDANS_HOUSE_1F;
+    if (AutomationBeacon_IsCurrentMap(MAP_LITTLEROOT_TOWN_BRENDANS_HOUSE_2F))
+        return AUTOMATION_BEACON_MAP_SLOT_BRENDANS_HOUSE_2F;
+    if (AutomationBeacon_IsCurrentMap(MAP_LITTLEROOT_TOWN_MAYS_HOUSE_1F))
+        return AUTOMATION_BEACON_MAP_SLOT_MAYS_HOUSE_1F;
+    if (AutomationBeacon_IsCurrentMap(MAP_LITTLEROOT_TOWN_MAYS_HOUSE_2F))
+        return AUTOMATION_BEACON_MAP_SLOT_MAYS_HOUSE_2F;
+    if (AutomationBeacon_IsCurrentMap(MAP_ROUTE101))
+        return AUTOMATION_BEACON_MAP_SLOT_ROUTE101;
+    return AUTOMATION_BEACON_MAP_SLOT_UNKNOWN;
+}
+
+static u8 AutomationBeacon_GetPlayerGenderProof(void)
+{
+    if (gSaveBlock2Ptr->playerGender == MALE)
+        return AUTOMATION_BEACON_GENDER_MALE;
+    if (gSaveBlock2Ptr->playerGender == FEMALE)
+        return AUTOMATION_BEACON_GENDER_FEMALE;
+    return AUTOMATION_BEACON_GENDER_UNKNOWN;
+}
+
+static u8 AutomationBeacon_GetPlayerNameLen(void)
+{
+    u8 i;
+
+    for (i = 0; i < PLAYER_NAME_LENGTH; i++)
+    {
+        if (gSaveBlock2Ptr->playerName[i] == EOS)
+            return i;
+    }
+    return PLAYER_NAME_LENGTH;
+}
+
+static u8 AutomationBeacon_GetPlayerNameChar0(void)
+{
+    u8 chr = gSaveBlock2Ptr->playerName[0];
+
+    if (chr >= CHAR_A && chr <= CHAR_N)
+        return chr - CHAR_A + 1;
+    return 0;
+}
+
+static u8 AutomationBeacon_GetLittlerootMomDiagnostic(void)
+{
+    u8 objectEventId;
+    struct ObjectEvent *mom;
+    s16 x;
+    s16 y;
+
+    if (!AutomationBeacon_IsCurrentMap(MAP_LITTLEROOT_TOWN))
+        return 0;
+    if (TryGetObjectEventIdByLocalIdAndMap(LOCALID_LITTLEROOT_MOM, gSaveBlock1Ptr->location.mapNum, gSaveBlock1Ptr->location.mapGroup, &objectEventId))
+        return 1;
+
+    mom = &gObjectEvents[objectEventId];
+    if (mom->singleMovementActive)
+        return 2;
+    if (mom->heldMovementActive)
+        return 3;
+    if (mom->invisible)
+        return 4;
+
+    x = mom->currentCoords.x - MAP_OFFSET;
+    y = mom->currentCoords.y - MAP_OFFSET;
+    if (x == 14 && y == 8)
+        return 5;
+    if (x == 14 && y == 9)
+        return 6;
+    if (x == 14 && y == 10)
+        return 7;
+    if (x == 5 && y == 8)
+        return 8;
+    if (x == 5 && y == 9)
+        return 9;
+    if (x == 5 && y == 10)
+        return 10;
+    return 11;
+}
+
+static u8 AutomationBeacon_GetLocalCoordLow(s16 coord)
+{
+    if (coord < 0)
+        return 0;
+    return coord % 15;
+}
+
+static u8 AutomationBeacon_GetLocalCoordHigh(s16 coord)
+{
+    if (coord < 0)
+        return 0;
+    return AutomationBeacon_GetLocalCoordLow(coord / 15);
+}
+
+static void AutomationBeacon_SetOverworldProof(u8 mapKind, u8 starterSelection, bool8 inputReady)
+{
+    AutomationBeacon_SetProof(
+        AutomationBeacon_GetPlayerGenderProof(),
+        AutomationBeacon_GetPlayerNameLen(),
+        AutomationBeacon_GetPlayerNameChar0(),
+        mapKind,
+        starterSelection,
+        inputReady);
+}
+
+static void AutomationBeacon_UpdateOverworld(void)
+{
+    struct ObjectEvent *playerObj = &gObjectEvents[gPlayerAvatar.objectEventId];
+    s16 playerX = playerObj->currentCoords.x;
+    s16 playerY = playerObj->currentCoords.y;
+    s16 frontX = playerX;
+    s16 frontY = playerY;
+    u16 littlerootIntroState = VarGet(VAR_LITTLEROOT_INTRO_STATE);
+    bool8 scriptEnabled = ScriptContext_IsEnabled();
+    bool8 controlsLocked = ArePlayerFieldControlsLocked();
+    bool8 messageReady = !IsFieldMessageBoxHidden();
+    bool8 playerMoving = playerObj->singleMovementActive
+        || gPlayerAvatar.tileTransitionState != T_NOT_MOVING;
+    bool8 inputReady = !gPaletteFade.active && !playerMoving && (messageReady || (!scriptEnabled && !controlsLocked));
+    u8 flags = 0;
+    u8 errorCode = 0;
+
+    if (scriptEnabled)
+        flags |= 1;
+    if (controlsLocked)
+        flags |= 2;
+    if (messageReady)
+        flags |= 4;
+
+    if (gPaletteFade.active)
+        errorCode |= 1;
+    if (playerObj->singleMovementActive)
+        errorCode |= 2;
+    if (playerObj->heldMovementActive)
+        errorCode |= 4;
+
+    MoveCoords(GetPlayerFacingDirection(), &frontX, &frontY);
+    playerX -= MAP_OFFSET;
+    playerY -= MAP_OFFSET;
+    frontX -= MAP_OFFSET;
+    frontY -= MAP_OFFSET;
+    AutomationBeacon_SetNavProof(
+        AutomationBeacon_GetLocalCoordLow(playerX),
+        AutomationBeacon_GetLocalCoordLow(playerY),
+        GetPlayerFacingDirection(),
+        AutomationBeacon_GetLocalCoordLow(frontX),
+        AutomationBeacon_GetLocalCoordLow(frontY),
+        AutomationBeacon_GetCurrentMapSlot(),
+        AutomationBeacon_GetLocalCoordHigh(playerX),
+        AutomationBeacon_GetLocalCoordHigh(playerY),
+        AutomationBeacon_GetLocalCoordHigh(frontX),
+        AutomationBeacon_GetLocalCoordHigh(frontY));
+
+    if (AutomationBeacon_IsCurrentMap(MAP_INSIDE_OF_TRUCK))
+    {
+        AutomationBeacon_SetErrorCode(errorCode);
+        AutomationBeacon_SetStage(inputReady ? AUTOMATION_BEACON_STAGE_TRUCK_CONTROL_READY : AUTOMATION_BEACON_STAGE_TRUCK_ENTERED, 0, flags);
+        AutomationBeacon_SetOverworldProof(AUTOMATION_BEACON_MAP_TRUCK, AUTOMATION_BEACON_STARTER_NA, inputReady);
+    }
+    else if (AutomationBeacon_IsLittlerootSetupMap())
+    {
+        u8 scriptStep = AutomationBeacon_GetScriptStep();
+
+        if (littlerootIntroState == 1 || littlerootIntroState == 2)
+        {
+            inputReady = !gPaletteFade.active && (messageReady
+                || scriptStep == AUTOMATION_BEACON_SCRIPT_STEP_WAIT_MESSAGE
+                || scriptStep == AUTOMATION_BEACON_SCRIPT_STEP_WAIT_BUTTON);
+            errorCode = AutomationBeacon_GetLittlerootMomDiagnostic();
+        }
+        else if (scriptStep == AUTOMATION_BEACON_SCRIPT_STEP_WAIT_MESSAGE || scriptStep == AUTOMATION_BEACON_SCRIPT_STEP_WAIT_BUTTON)
+        {
+            inputReady = !gPaletteFade.active;
+        }
+        AutomationBeacon_SetErrorCode(errorCode);
+        AutomationBeacon_SetStage(AUTOMATION_BEACON_STAGE_LITTLEROOT_ROUTE_SETUP, littlerootIntroState, flags);
+        AutomationBeacon_SetOverworldProof(AUTOMATION_BEACON_MAP_LITTLEROOT, scriptStep, inputReady);
+    }
+    else if (AutomationBeacon_IsCurrentMap(MAP_ROUTE101))
+    {
+        u8 scriptStep = AutomationBeacon_GetScriptStep();
+
+        if (scriptStep == AUTOMATION_BEACON_SCRIPT_STEP_WAIT_MESSAGE || scriptStep == AUTOMATION_BEACON_SCRIPT_STEP_WAIT_BUTTON)
+            inputReady = !gPaletteFade.active;
+
+        AutomationBeacon_SetErrorCode(errorCode);
+        AutomationBeacon_SetStage(AUTOMATION_BEACON_STAGE_ROUTE101_APPROACH, VarGet(VAR_ROUTE101_STATE), flags);
+        AutomationBeacon_SetOverworldProof(AUTOMATION_BEACON_MAP_ROUTE101, scriptStep, inputReady);
+    }
+}
+
 static void OverworldBasic(void)
 {
     ScriptContext_RunScript();
@@ -1703,6 +1930,7 @@ static void OverworldBasic(void)
     UpdatePaletteFade();
     UpdateTilesetAnimations();
     DoScheduledBgTilemapCopiesToVram();
+    AutomationBeacon_UpdateOverworld();
     // Every minute if no palette fade is active, update TOD blending as needed
     if (!gPaletteFade.active && --gTimeUpdateCounter <= 0)
     {

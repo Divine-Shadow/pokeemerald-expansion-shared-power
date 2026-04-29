@@ -1,4 +1,5 @@
 #include "global.h"
+#include "automation_beacon.h"
 #include "naming_screen.h"
 #include "malloc.h"
 #include "palette.h"
@@ -29,6 +30,7 @@
 #include "main.h"
 #include "decompress.h"
 #include "constants/event_objects.h"
+#include "constants/characters.h"
 #include "constants/rgb.h"
 
 enum {
@@ -361,6 +363,7 @@ static void SetCursorInvisibility(u8);
 static void SetCursorFlashing(bool8);
 static u8 IsCursorAnimFinished(void);
 static u8 GetCurrentPageColumnCount(void);
+static u8 GetKeyRoleAtCursorPos(void);
 static void CreatePageSwapButtonSprites(void);
 static void StartPageSwapButtonAnim(void);
 static void SetPageSwapButtonGfx(u8, struct Sprite *, struct Sprite *);
@@ -385,6 +388,10 @@ static void NamingScreen_Dummy(u8, u8);
 static void DrawTextEntry(void);
 static void PrintKeyboardKeys(u8, u8);
 static void DrawKeyboardPageOnDeck(void);
+static u8 AutomationBeacon_GetNamingGenderProof(void);
+static u8 AutomationBeacon_GetNamingNameLen(void);
+static u8 AutomationBeacon_GetNamingNameChar0(void);
+static void AutomationBeacon_SetNamingProof(bool8 inputReady);
 static void PrintControls(void);
 static void CB2_NamingScreen(void);
 static void ResetVHBlank(void);
@@ -541,8 +548,55 @@ static void CreateNamingScreenTask(void)
     SetMainCallback2(CB2_NamingScreen);
 }
 
+static u8 AutomationBeacon_GetNamingGenderProof(void)
+{
+    if (gSaveBlock2Ptr->playerGender == MALE)
+        return AUTOMATION_BEACON_GENDER_MALE;
+    if (gSaveBlock2Ptr->playerGender == FEMALE)
+        return AUTOMATION_BEACON_GENDER_FEMALE;
+    return AUTOMATION_BEACON_GENDER_UNKNOWN;
+}
+
+static u8 AutomationBeacon_GetNamingNameLen(void)
+{
+    u8 i;
+
+    for (i = 0; i < PLAYER_NAME_LENGTH; i++)
+    {
+        if (sNamingScreen->textBuffer[i] == EOS)
+            return i;
+    }
+    return PLAYER_NAME_LENGTH;
+}
+
+static u8 AutomationBeacon_GetNamingNameChar0(void)
+{
+    u8 chr = sNamingScreen->textBuffer[0];
+
+    if (chr >= CHAR_A && chr <= CHAR_N)
+        return chr - CHAR_A + 1;
+    return 0;
+}
+
+static void AutomationBeacon_SetNamingProof(bool8 inputReady)
+{
+    AutomationBeacon_SetProof(
+        AutomationBeacon_GetNamingGenderProof(),
+        AutomationBeacon_GetNamingNameLen(),
+        AutomationBeacon_GetNamingNameChar0(),
+        AUTOMATION_BEACON_MAP_UNKNOWN,
+        AUTOMATION_BEACON_STARTER_NA,
+        inputReady);
+}
+
 static void Task_NamingScreen(u8 taskId)
 {
+    bool8 inputReady = (sNamingScreen->state == STATE_HANDLE_INPUT);
+    u8 flags = inputReady ? GetKeyRoleAtCursorPos() : 0;
+
+    AutomationBeacon_SetStage(AUTOMATION_BEACON_STAGE_NAMING_SCREEN_READY, sNamingScreen->state, flags);
+    AutomationBeacon_SetNamingProof(inputReady);
+
     switch (sNamingScreen->state)
     {
     case STATE_FADE_IN:
@@ -670,6 +724,8 @@ static bool8 MainState_MoveToOKButton(void)
 static bool8 MainState_PressedOKButton(void)
 {
     SaveInputText();
+    AutomationBeacon_SetStage(AUTOMATION_BEACON_STAGE_NAME_CONFIRMED, 0, 0);
+    AutomationBeacon_SetNamingProof(FALSE);
     SetInputState(INPUT_STATE_DISABLED);
     SetCursorFlashing(FALSE);
     TryStartButtonFlash(BUTTON_COUNT, FALSE, TRUE);
@@ -2620,5 +2676,3 @@ static const struct SpritePalette sSpritePalettes[] =
     {gNamingScreenMenu_Pal[4], PALTAG_OK_BUTTON},
     {}
 };
-
-

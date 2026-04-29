@@ -15,16 +15,24 @@ The first full proof target is the truck scene with a female player named `A`, b
 - [x] (2026-04-26 21:56 -04:00) Read `.agent/PLANS.md` and incorporated its requirements for self-contained, milestone-gated execution.
 - [x] (2026-04-26 21:56 -04:00) Identified the main repository touchpoints: `src/main_menu.c` for main menu, Birch speech, gender, and name flow; `data/maps/InsideOfTruck/scripts.inc` for male/female truck setup; `src/starter_choose.c` for first Pokemon selection; `tools/mgba/` for Windows mGBA automation helpers.
 - [x] (2026-04-26 21:56 -04:00) Defined the initial beacon protocol and the milestone chain in this ExecPlan.
-- [ ] Milestone 1: Add a debug-only static beacon and prove external pixel sampling can read it.
-- [ ] Milestone 2: Make the beacon dynamic across early title/main-menu states.
-- [ ] Milestone 3: Build a reusable external beacon sampler that locates the game viewport by scanning for the beacon anchor.
-- [ ] Milestone 4: Prove one state-gated input transition from main menu into new game.
-- [ ] Milestone 5: Drive Birch intro to the gender prompt using beacon states instead of timing loops.
-- [ ] Milestone 6: Select female and verify it from in-game state.
-- [ ] Milestone 7: Enter exactly the player name `A` and verify the saved name from in-game state.
-- [ ] Milestone 8: Reach the truck and verify female player/name/map state with screenshot evidence.
-- [ ] Milestone 9: Continue from truck to first Pokemon selection and verify starter selection readiness.
-- [ ] Milestone 10: Run the integrated path at normal speed and speed-up, then record reliability evidence.
+- [x] (2026-04-27) Milestone 1 implementation: added `AUTOMATION_BEACON`, `include/automation_beacon.h`, `src/automation_beacon.c`, and the VBlank render call in `src/main.c`. The enabled implementation draws an 8x8 OBJ beacon with protocol v1 rows; the disabled implementation compiles to no-op functions.
+- [x] (2026-04-27) Milestone 2 implementation: wired dynamic beacon stages into `src/main_menu.c`, `src/naming_screen.c`, `src/overworld.c`, `src/wallclock.c`, and `src/starter_choose.c` for main menu, Birch intro, gender, name, truck, Littleroot setup, Route 101, wall-clock, and starter-selection states.
+- [x] (2026-04-27) Milestone 3 implementation: added `tools/mgba/mgba_read_beacon.ps1` with client capture, anchor scanning, nearest-color decode, checksum validation, and single-line JSON output. Synthetic-image validation passed with `{"found":true,"protocol":1,"stageId":9,"gender":2,"nameLen":1,"nameChar0":1,"mapKind":1,"starterSelection":14,"inputReady":1}`.
+- [x] (2026-04-27) Milestone 4 implementation: added `tools/mgba/run_beacon_repro.ahk`, an AutoHotkey v1 runner that launches mGBA, reads beacon JSON before sending inputs, writes `build/mgba_beacon/run.log`, and captures failure and success screenshots.
+- [x] (2026-04-27) Milestones 5 through 8 implementation: the runner gates Birch dialogue, female selection, name `A`, name confirmation, and truck readiness on beacon states and proof fields. The naming-screen beacon now uses `flags=3` to prove the cursor is on the OK button before the runner confirms the name.
+- [x] (2026-04-27) Milestone 9 implementation: added overworld, wall-clock, Route 101, and starter-selection beacons and extended the runner with a beacon-gated route toward `STARTER_CHOOSE_READY`.
+- [x] (2026-04-27) Build validation passed for the automation variant with `docker run --rm -u "$(id -u):$(id -g)" -v "$PWD:/workspace" -w /workspace pokeemerald-expansion:builder make AUTOMATION_BEACON=1 DEBUG=1 NO_MULTIBOOT=1 -j"$(nproc)"`.
+- [x] (2026-04-27) Build validation passed for the default beacon-disabled variant with `docker run --rm -u "$(id -u):$(id -g)" -v "$PWD:/workspace" -w /workspace pokeemerald-expansion:builder make NO_MULTIBOOT=1 -j"$(nproc)"`.
+- [x] (2026-04-27) Static validation passed with `git diff --check`.
+- [ ] Milestone 1 acceptance still needs a live mGBA screenshot from an `AUTOMATION_BEACON=1` ROM proving the external reader can decode the in-game sprite, not just a synthetic beacon image.
+- [ ] Milestone 2 acceptance still needs decoded JSON captured during a manual or scripted live transition from `MAIN_MENU_READY` into Birch intro.
+- [ ] Milestone 3 acceptance still needs a live mGBA window move/resize test proving viewport discovery from the anchor scan.
+- [x] (2026-04-27) Live mGBA/AHK normal-speed truck proof passed on the cleaned automation build. `tools/mgba/run_beacon_repro.ahk truck` produced `build/mgba_beacon/truck_female_a.png` and logged `stage=9 gender=2 nameLen=1 nameChar0=1 mapKind=1 inputReady=1`.
+- [x] (2026-04-27) Live mGBA/AHK speed-mode setup through truck also passed as part of `tools/mgba/run_beacon_repro.ahk starter speed`, again producing the female `A` truck proof before continuing toward starter selection.
+- [ ] (2026-04-27) Starter-selection speed-mode acceptance is blocked in the Littleroot moving-in sequence. The runner reaches `stageId=10`, `substageId=2`, `mapKind=2`, `gender=2`, `nameLen=1`, `nameChar0=1`, but the script does not advance to the expected later setup substage before timeout.
+- [ ] Milestone 9 starter-selection live acceptance still needs Windows GUI execution of `tools/mgba/run_beacon_repro.ahk starter`.
+- [ ] Milestone 10 repeated normal-speed and speed-up acceptance still needs three normal-speed and three speed-up successful runs, including starter-selection proof.
+- [x] (2026-04-27) Headless Python/Lua spike truck checkpoint passed without desktop focus or OS input injection. Three clean `--mode truck` runs through `mgba-headless` all ended at `TRUCK_CONTROL_READY` with `stageId=9`, `gender=2`, `nameLen=1`, `nameChar0=1`, `mapKind=1`, and `inputReady=1`.
 
 ## Surprises & Discoveries
 
@@ -39,6 +47,39 @@ The first full proof target is the truck scene with a female player named `A`, b
 
 - Observation: `src/starter_choose.c` has a compact state machine for the first Pokemon selection screen.
   Evidence: `CB2_ChooseStarter` creates `Task_StarterChoose`, `Task_HandleStarterChooseInput` updates `tStarterSelection`, and `Task_AskConfirmStarter` opens the confirmation prompt.
+
+- Observation: The local shell did not have `make` available, so build validation used the repository Docker builder.
+  Evidence: the successful commands were the Docker bind-mount builds recorded in `Progress` and `Artifacts and Notes`.
+
+- Observation: A nonzero-initialized file-static beacon field lands in plain `.data`, and this project's modern linker script discards plain `.data`.
+  Evidence: the first automation build failed at link with `.data' referenced in section `.text' of `src/automation_beacon.o`; changing the starter-selection default to zero-initialized storage fixed the link.
+
+- Observation: The early-game route to first Pokemon selection passes through the wall-clock callback, where the overworld beacon is not active.
+  Evidence: `src/wallclock.c` now emits `LITTLEROOT_ROUTE_SETUP` substages `6` and `7` so the runner can gate clock set and clock confirmation without timing sleeps.
+
+- Observation: The title screen does not expose one of the planned early-game beacon stages, so the runner must bootstrap to `MAIN_MENU_READY`.
+  Evidence: `tools/mgba/run_beacon_repro.ahk` alternates Start and A during boot until it reads stage `1` with `inputReady=1`, then switches to strict beacon-gated progression.
+
+- Observation: The PowerShell reader needed two PowerShell-specific safeguards: method calls must be evaluated before function dispatch, and multidimensional arrays must be returned without enumeration.
+  Evidence: `mgba_read_beacon.ps1 -ImagePath build/mgba_beacon/test_beacon.png` initially failed on a synthetic beacon until `GetPixel` was assigned to `$color` first and `Read-BeaconValues` returned `,$values`; after those changes it decoded stage `9`, female, name `A`, truck, input-ready JSON.
+
+- Observation: This shell can invoke Windows PowerShell and see the installed mGBA and AutoHotkey paths, but an integrated GUI automation run would take over the user's desktop focus.
+  Evidence: `/mnt/c/Windows/System32/WindowsPowerShell/v1.0/powershell.exe` reports version `5.1.19041.7181`, `/mnt/c/Program Files/mGBA/mGBA.exe` exists, and `/mnt/c/ProgramData/chocolatey/bin/AutoHotkey.exe` exists; the live AHK/mGBA acceptance run remains unexecuted here.
+
+- Observation: The local AutoHotkey executable is AutoHotkey v2, and v1 syntax fails immediately.
+  Evidence: the first live launch failed on `#NoEnv`; `tools/mgba/run_beacon_repro.ahk validate` passes after porting the runner to `#Requires AutoHotkey v2.0`.
+
+- Observation: mGBA can restore an oversized window and fractional viewport scaling, which makes the beacon visible but expensive or unreliable to decode.
+  Evidence: live captures initially timed out or produced fractional cell widths; launching mGBA with `-2`, forcing a `502x412` window, and scanning a bounded `80x110` top-left region produced decoded live beacon JSON at `x=35`, `y=82`, `scale=2`.
+
+- Observation: The route from truck to first Pokemon selection still needs a more precise beacon or route driver around the Littleroot moving-in script.
+  Evidence: `tools/mgba/run_beacon_repro.ahk starter speed` passed clean boot, female selection, name `A`, and truck proof, then failed after reaching Littleroot with the last tuple `stageId=10`, `substageId=2`, `mapKind=2`, `inputReady=0`; the failure screenshot shows the player and Mom outside the truck before the house-entry sequence completes.
+
+- Observation: Birch's boy/girl text prompt is an auto-transition into the gender menu, not a prompt that should receive an `A` press once the text is complete.
+  Evidence: the first headless truck route failure reached the naming screen with `gender=1`; event logs showed an `A` tap on `stageId=2`, `substageId=4`, which carried into the gender menu and selected the default male option. The Python route now waits through that substage until `stageId=3`.
+
+- Observation: The naming screen can temporarily disable input after entering the first uppercase character because the keyboard auto-swaps to lowercase.
+  Evidence: a headless run entered `A` but timed out waiting for OK while the route had pressed `START` at `stageId=5`, `substageId=5`, `inputReady=0`; the route now waits for `nameLen=1`, `nameChar0=1`, and `inputReady=1` before moving to OK.
 
 ## Decision Log
 
@@ -58,9 +99,47 @@ The first full proof target is the truck scene with a female player named `A`, b
   Rationale: Screenshots are still valuable to humans, but exact beacon tuples give scripts a deterministic reason to proceed or stop.
   Date/Author: 2026-04-26 / Codex
 
+- Decision: Render the beacon directly in VBlank using OBJ tile `1023`, OAM slot `127`, and OBJ palette `15`.
+  Rationale: Direct VBlank writes keep the beacon independent from screen-specific sprite allocation and make it survive menu, naming, overworld, wall-clock, and starter-selection callbacks. The chosen resources are at the end of their ranges to minimize practical collision risk for this debug-only build.
+  Date/Author: 2026-04-27 / Codex
+
+- Decision: The beacon renderer enables OBJ display but does not force OBJ 1D mapping.
+  Rationale: An 8x8 object uses one tile, so the 1D versus 2D object mapping bit does not affect the beacon. Leaving the mapping bit unchanged avoids disturbing any screen-specific sprite layout assumptions in automation builds.
+  Date/Author: 2026-04-27 / Codex
+
+- Decision: Keep `AUTOMATION_BEACON=0` as the default and compile all public beacon calls to static inline no-op functions when disabled.
+  Rationale: Call sites can stay simple and explicit, while normal builds do not draw, update, depend on the automation beacon, or pay hot-path empty-call overhead.
+  Date/Author: 2026-04-27 / Codex
+
+- Decision: Encode the naming-screen key role in the beacon `flags` field while the naming screen is input-ready.
+  Rationale: The runner must prove that the cursor is on the OK button before pressing A to confirm the name. Using `flags=3`, which matches `KEY_ROLE_OK` in `src/naming_screen.c`, avoids replacing that proof with a timing sleep after Start.
+  Date/Author: 2026-04-27 / Codex
+
+- Decision: Add wall-clock beacon hooks instead of treating the clock flow as an opaque sleep or overworld-only state.
+  Rationale: The wall-clock screen runs outside `OverworldBasic`, so relying only on overworld beacons would leave a gap in the route to first Pokemon selection.
+  Date/Author: 2026-04-27 / Codex
+
+- Decision: Validate the PowerShell sampler with a synthetic beacon image in this environment, but do not run the full AHK/mGBA GUI route automatically.
+  Rationale: Synthetic validation proves the decode contract without taking desktop focus. The full acceptance criteria require controlling the Windows mGBA window and should be run intentionally by an operator or during a dedicated GUI automation session.
+  Date/Author: 2026-04-27 / Codex
+
+- Decision: Use AutoHotkey v2 for the beacon-gated runner in this workspace.
+  Rationale: the installed Chocolatey `AutoHotkey.exe` parses v2 syntax and rejects v1 directives. Keeping the runner v2 avoids an extra runtime dependency and matches the user's preference.
+  Date/Author: 2026-04-27 / Codex
+
+- Decision: Stage the ROM to `C:\Temp\mgba_beacon\pokeemerald.gba` before launching mGBA.
+  Rationale: local staging avoids UNC-path ambiguity for mGBA while leaving canonical artifacts in the repository.
+  Date/Author: 2026-04-27 / Codex
+
+- Decision: Use the Python/Lua spike as the current proof harness for the truck checkpoint, with Python owning the host FSM and Lua limited to emulator IO.
+  Rationale: `mgba-headless` plus Lua scripting can drive inputs through `emu:setKeys`, wait on emulator frames, and read the beacon directly from OBJ VRAM without hijacking the desktop. This is sufficient to prove viability before deciding whether to port the host FSM to Scala or another stricter language.
+  Date/Author: 2026-04-27 / Codex
+
 ## Outcomes & Retrospective
 
-This section is intentionally empty at plan creation. After each major milestone, add a short entry comparing the observed behavior against the purpose of this plan. At completion, summarize whether the system can reliably reach female `A` in the truck and first Pokemon selection at both normal speed and speed-up.
+2026-04-27 / Codex: The repository now contains the debug-only beacon implementation, dynamic game-state producers, Windows PowerShell beacon reader, and AutoHotkey v2 runner described by this plan. Both the `AUTOMATION_BEACON=1 DEBUG=1 NO_MULTIBOOT=1` Docker build and the default `NO_MULTIBOOT=1` Docker build pass, and the reader decodes a synthetic v1 beacon image into the expected female `A` truck tuple. Live GUI normal-speed truck acceptance also passes on the cleaned automation build. The remaining gap is live starter-selection acceptance and repeated normal-speed/speed-up acceptance.
+
+2026-04-27 / Codex: The Python/Lua headless spike now satisfies the truck checkpoint exit condition repeatedly. It reaches female `A` truck control through `mgba-headless` without requiring Windows GUI focus, using Python for route state and Lua only for key/frame/beacon bridge operations. This does not complete starter-selection acceptance, but it proves the proposed emulator-owned architecture for the first relevant milestone.
 
 ## Context and Orientation
 
@@ -232,6 +311,59 @@ When this plan is executed, add concise evidence snippets here. Keep them short 
     mgba_read_beacon.ps1 output:
     {"found":true,"protocol":1,"stageId":9,"gender":2,"nameLen":1,"nameChar0":1,"mapKind":1,"inputReady":1}
 
+Evidence captured on 2026-04-27:
+
+    docker run --rm -u "$(id -u):$(id -g)" -v "$PWD:/workspace" -w /workspace pokeemerald-expansion:builder make AUTOMATION_BEACON=1 DEBUG=1 NO_MULTIBOOT=1 -j"$(nproc)"
+    ...
+    Memory region         Used Size  Region Size  %age Used
+               EWRAM:      227948 B       256 KB     86.96%
+               IWRAM:       28781 B        32 KB     87.83%
+                 ROM:    24733232 B        32 MB     73.71%
+    tools/gbafix/gbafix pokeemerald.gba -p --silent
+
+    docker run --rm -u "$(id -u):$(id -g)" -v "$PWD:/workspace" -w /workspace pokeemerald-expansion:builder make NO_MULTIBOOT=1 -j"$(nproc)"
+    ...
+    Memory region         Used Size  Region Size  %age Used
+               EWRAM:      227940 B       256 KB     86.95%
+               IWRAM:       28705 B        32 KB     87.60%
+                 ROM:    24667044 B        32 MB     73.51%
+    tools/gbafix/gbafix pokeemerald.gba -p --silent
+
+    git diff --check
+    # no output
+
+    powershell.exe -NoProfile -ExecutionPolicy Bypass -File tools/mgba/mgba_read_beacon.ps1 -ImagePath build/mgba_beacon/test_beacon.png
+    {"found":true,"protocol":1,"stageId":9,"substageId":0,"flags":0,"pulse":0,"checksumOk":true,"gender":2,"nameLen":1,"nameChar0":1,"mapKind":1,"starterSelection":14,"inputReady":1,"errorCode":0,"x":3,"y":4,"scale":3,"capturePath":"...test_beacon.png"}
+
+Live GUI acceptance still to record:
+
+    powershell -NoProfile -ExecutionPolicy Bypass -File tools/mgba/mgba_read_beacon.ps1 -TargetPid <mgba-pid>
+    AutoHotkey.exe tools/mgba/run_beacon_repro.ahk starter
+    AutoHotkey.exe tools/mgba/run_beacon_repro.ahk starter speed
+
+Live GUI evidence captured on 2026-04-27:
+
+    /mnt/c/ProgramData/chocolatey/bin/AutoHotkey.exe tools/mgba/run_beacon_repro.ahk truck
+    ...
+    accepted truck control ready stage=9 substage=0 gender=2 nameLen=1 nameChar0=1 mapKind=1 starterSelection=14 inputReady=1
+    artifact truck=.../build/mgba_beacon/truck_female_a.png
+    completed
+
+    /mnt/c/ProgramData/chocolatey/bin/AutoHotkey.exe tools/mgba/run_beacon_repro.ahk starter speed
+    ...
+    accepted truck control ready stage=9 substage=0 gender=2 nameLen=1 nameChar0=1 mapKind=1 starterSelection=14 inputReady=1
+    FAIL Timed out waiting for moving-in intro complete. Last beacon: {"found":true,"stageId":10,"substageId":2,"gender":2,"nameLen":1,"nameChar0":1,"mapKind":2,"inputReady":0}
+
+Headless Python/Lua spike evidence captured on 2026-04-27:
+
+    nix-shell -p python3 --run 'python3 tools/mgba/mgba_lua_spike.py --mode truck --require-headless --connect-timeout 20 --truck-timeout 360'
+    {"ok": true, "result": ".../build/mgba_lua_spike/run_result.json"}
+
+    Three repeated clean runs:
+    build/mgba_lua_spike_truck_1/run_result.json -> {"ok": true, "target": "TRUCK_CONTROL_READY", "stageId": 9, "gender": 2, "nameLen": 1, "nameChar0": 1, "mapKind": 1, "inputReady": 1}
+    build/mgba_lua_spike_truck_2/run_result.json -> {"ok": true, "target": "TRUCK_CONTROL_READY", "stageId": 9, "gender": 2, "nameLen": 1, "nameChar0": 1, "mapKind": 1, "inputReady": 1}
+    build/mgba_lua_spike_truck_3/run_result.json -> {"ok": true, "target": "TRUCK_CONTROL_READY", "stageId": 9, "gender": 2, "nameLen": 1, "nameChar0": 1, "mapKind": 1, "inputReady": 1}
+
 ## Interfaces and Dependencies
 
 `AUTOMATION_BEACON` is the build-time switch. It must default to `0` so normal builds are unaffected. When `AUTOMATION_BEACON=0`, every public beacon function must compile as an empty inline or empty function so callers can remain simple.
@@ -244,7 +376,7 @@ When this plan is executed, add concise evidence snippets here. Keep them short 
 
 `tools/mgba/run_beacon_repro.ahk` owns mGBA launch, waiting for beacon states, sending inputs, timeout handling, and artifact paths. It should not make decisions from screenshots other than parsed beacon data.
 
-Use AutoHotkey v1 syntax for `.ahk` scripts because the local executable is AutoHotkey v1. Use PowerShell with `System.Drawing` for Windows screenshot and pixel reads unless a later decision log entry records a better local dependency.
+Use AutoHotkey v2 syntax for `tools/mgba/run_beacon_repro.ahk` because the local Chocolatey executable is AutoHotkey v2. Use PowerShell with `System.Drawing` for Windows screenshot and pixel reads unless a later decision log entry records a better local dependency.
 
 The first implementation should use these route assertions:
 
@@ -253,3 +385,11 @@ The first implementation should use these route assertions:
 ## Revision Notes
 
 Revision Note (2026-04-26): Initial ExecPlan for replacing timing-driven mGBA early-game automation with a debug-only visual beacon, external beacon sampler, staged AutoHotkey runner, truck verification target, and first Pokemon selection target.
+
+Revision Note (2026-04-27): Implemented the beacon build flag, render path, dynamic stage hooks, PowerShell reader, AutoHotkey runner, Docker build validation, and synthetic reader validation. Live mGBA/AHK acceptance remains pending because it requires an intentional Windows GUI run.
+
+Revision Note (2026-04-27): Ported the runner to AutoHotkey v2, staged ROMs through local Windows temp, rendered the live beacon through the standard sprite pipeline, constrained mGBA to a 2x window, and completed the normal-speed truck proof. Starter-selection and repeated speed-up acceptance remain pending.
+
+Revision Note (2026-04-27): Attempted starter speed-mode acceptance. The route now reproducibly passes the truck proof at speed but is blocked in Littleroot moving-in state `2`; future work should refine the route driver or add a narrower beacon around the Mom/truck movement script before continuing to the clock and Route 101 milestones.
+
+Revision Note (2026-04-27): Added the Python/Lua headless spike and completed its female `A` truck checkpoint exit condition three consecutive times through `mgba-headless`, with no Windows GUI focus dependency.
