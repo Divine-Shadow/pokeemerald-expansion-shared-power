@@ -37,6 +37,7 @@ STAGE_TRUCK_CONTROL_READY = 9
 STAGE_LITTLEROOT_ROUTE_SETUP = 10
 STAGE_ROUTE101_APPROACH = 11
 STAGE_STARTER_CHOOSE_READY = 12
+STAGE_STARTER_CONFIRM_PROMPT = 13
 
 GENDER_FEMALE = 2
 MAP_TRUCK = 1
@@ -51,6 +52,9 @@ MAP_SLOT_MAYS_HOUSE_1F = 5
 MAP_SLOT_MAYS_HOUSE_2F = 6
 MAP_SLOT_ROUTE101 = 7
 NAME_CHAR_A = 1
+
+SCRIPT_STEP_WAIT_MESSAGE = 5
+SCRIPT_STEP_WAIT_BUTTON = 10
 
 FACING_DOWN = 1
 FACING_UP = 2
@@ -339,6 +343,46 @@ def wait_for_beacon(
     raise RouteTimeout(label, last_beacon)
 
 
+def semantic_beacon_matches(beacon: dict[str, Any], criteria: dict[str, Any], semantic_key: str, label: str) -> bool:
+    if not beacon_matches(beacon, criteria):
+        return False
+    if not beacon.get("semanticFound"):
+        raise RouteTimeout(f"{label} missing semantic beacon", beacon)
+    if beacon.get(semantic_key) != 1:
+        return False
+    return True
+
+
+def wait_for_semantic_beacon(
+    client: BridgeClient,
+    criteria: dict[str, Any],
+    semantic_key: str,
+    timeout: float,
+    label: str,
+    poll_frames: int = 10,
+) -> dict[str, Any]:
+    deadline = time.monotonic() + timeout
+    last_beacon: dict[str, Any] | None = None
+
+    while time.monotonic() < deadline:
+        beacon = client.request("read_beacon")
+        last_beacon = beacon
+        if semantic_beacon_matches(beacon, criteria, semantic_key, label):
+            append_event(
+                client.event_log,
+                {
+                    "event": "semantic_gate",
+                    "label": label,
+                    "semanticKey": semantic_key,
+                    "beacon": beacon,
+                },
+            )
+            return beacon
+        client.request(f"run_frames {poll_frames}")
+
+    raise RouteTimeout(label, last_beacon)
+
+
 def tap(client: BridgeClient, key: str, frames: int = 4, settle_frames: int = 12) -> None:
     client.request(f"tap {key.upper()} {frames}")
     client.request(f"run_frames {settle_frames}")
@@ -394,6 +438,18 @@ def movement_ready_criteria(
         criteria["mapKind"] = map_kind
     if map_slot is not None:
         criteria["mapSlot"] = map_slot
+    return criteria
+
+
+def semantic_movement_ready_criteria(
+    stage_id: int,
+    substage_id: int | None = None,
+    map_kind: int | None = None,
+    map_slot: int | None = None,
+) -> dict[str, Any]:
+    criteria = movement_ready_criteria(stage_id, substage_id, map_kind, map_slot)
+    criteria["semanticFound"] = True
+    criteria["movementReady"] = 1
     return criteria
 
 
@@ -1088,9 +1144,10 @@ def drive_to_starter_choose(client: BridgeClient, truck_timeout: float, starter_
     )
 
     route_phase(client, "route101")
-    wait_for_beacon(
+    wait_for_semantic_beacon(
         client,
         movement_ready_criteria(STAGE_LITTLEROOT_ROUTE_SETUP, 7, MAP_LITTLEROOT, MAP_SLOT_LITTLEROOT_TOWN),
+        "movementReady",
         remaining_timeout(deadline, 45.0, "town route approach ready", client),
         "town route approach ready",
     )
@@ -1169,6 +1226,36 @@ def drive_to_starter_choose(client: BridgeClient, truck_timeout: float, starter_
     }
 
 
+def drive_to_starter_confirm(client: BridgeClient, truck_timeout: float, starter_timeout: float) -> dict[str, Any]:
+    route_start = time.monotonic()
+    starter = drive_to_starter_choose(client, truck_timeout, starter_timeout)
+    if not starter["ok"]:
+        return starter
+
+    tap(client, "A")
+    confirm = wait_for_semantic_beacon(
+        client,
+        {
+            "stageId": STAGE_STARTER_CONFIRM_PROMPT,
+            "mapKind": MAP_STARTER_SELECTION,
+            "gender": GENDER_FEMALE,
+            "nameLen": 1,
+            "nameChar0": NAME_CHAR_A,
+            "inputReady": 1,
+        },
+        "menuReady",
+        120.0,
+        "starter confirm prompt",
+    )
+
+    return {
+        "ok": True,
+        "target": "STARTER_CONFIRM_PROMPT",
+        "beacon": confirm,
+        "elapsedSeconds": round(time.monotonic() - route_start, 3),
+    }
+
+
 def capability_blockers(report: dict[str, Any], selected: MgbaCandidate | None, args: argparse.Namespace) -> list[str]:
     blockers: list[str] = []
 
@@ -1229,6 +1316,8 @@ def run(args: argparse.Namespace) -> int:
                 result = drive_to_truck(client, args.truck_timeout)
             elif args.mode == "starter":
                 result = drive_to_starter_choose(client, args.truck_timeout, args.starter_timeout)
+            elif args.mode == "starter-confirm":
+                result = drive_to_starter_confirm(client, args.truck_timeout, args.starter_timeout)
             else:
                 result = drive_to_main_menu(client, args.smoke_timeout)
         except RouteTimeout as exc:
@@ -1259,7 +1348,7 @@ def run(args: argparse.Namespace) -> int:
 
 def parse_args(argv: list[str]) -> argparse.Namespace:
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("--mode", choices=["capability", "main-menu", "truck", "starter"], default="capability")
+    parser.add_argument("--mode", choices=["capability", "main-menu", "truck", "starter", "starter-confirm"], default="capability")
     parser.add_argument("--mgba", help="mGBA executable to inspect or launch")
     parser.add_argument("--rom", default=str(DEFAULT_ROM), help="automation ROM path")
     parser.add_argument("--bridge", default=str(DEFAULT_BRIDGE), help="Lua bridge script path")

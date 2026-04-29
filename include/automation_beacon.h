@@ -72,6 +72,8 @@ enum AutomationBeaconScriptStep
 void AutomationBeacon_SetStage(u8 stageId, u8 substageId, u8 flags);
 void AutomationBeacon_SetProof(u8 gender, u8 nameLen, u8 nameChar0, u8 mapKind, u8 starterSelection, bool8 inputReady);
 void AutomationBeacon_SetErrorCode(u8 errorCode);
+void AutomationBeacon_SetReadiness(bool8 movementReady, bool8 textReady, bool8 menuReady, bool8 interactReady);
+void AutomationBeacon_SetInteractionProof(u8 scriptWaitKind, u8 interactableAhead, u8 routeErrorCode);
 void AutomationBeacon_SetNavProof(
     u8 playerX,
     u8 playerY,
@@ -108,6 +110,21 @@ static inline void AutomationBeacon_SetProof(u8 gender, u8 nameLen, u8 nameChar0
 static inline void AutomationBeacon_SetErrorCode(u8 errorCode)
 {
     (void)errorCode;
+}
+
+static inline void AutomationBeacon_SetReadiness(bool8 movementReady, bool8 textReady, bool8 menuReady, bool8 interactReady)
+{
+    (void)movementReady;
+    (void)textReady;
+    (void)menuReady;
+    (void)interactReady;
+}
+
+static inline void AutomationBeacon_SetInteractionProof(u8 scriptWaitKind, u8 interactableAhead, u8 routeErrorCode)
+{
+    (void)scriptWaitKind;
+    (void)interactableAhead;
+    (void)routeErrorCode;
 }
 
 static inline void AutomationBeacon_SetNavProof(

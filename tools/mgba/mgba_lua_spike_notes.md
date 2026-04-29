@@ -77,3 +77,11 @@ A durable typed harness should add or expose these semantic fields before replac
 - `scriptWaitKind`
 - `interactableAhead`
 - `routeErrorCode`
+
+## Beacon v2 Semantic Extension Rows
+
+The v2 extension keeps the existing v1 rows unchanged and adds two optional rows to the same 8x8 OBJ tile. Consumers must continue accepting v1 rows even if these extension rows are absent.
+
+Row 4 is the readiness row. It uses anchor values `8,7`, extension version `1`, then `movementReady`, `textReady`, `menuReady`, and `interactReady`, followed by a checksum computed as the sum of the first seven row values modulo 15. Each readiness value is `0` for false and `1` for true. `movementReady` means it is safe for the host to send a directional movement input. `textReady` means the current state is waiting for a text acknowledgement such as `A`. `menuReady` means a menu-like screen can accept selection input. `interactReady` means the player can safely send an interaction input toward the facing tile.
+
+Row 5 is the interaction row. It uses anchor values `6,5`, then `scriptWaitKind`, `interactableAhead`, `routeErrorCode`, two reserved zero fields, and the same modulo-15 checksum style. `scriptWaitKind` mirrors the current automation script-step enum when script execution is relevant. `interactableAhead` is reserved as `0` until the C producer can classify front-tile objects or triggers. `routeErrorCode` mirrors the legacy error code so a typed host can consume error diagnostics without overloading the v1 proof row.

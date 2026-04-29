@@ -13,12 +13,16 @@ After this plan succeeds, the project will have a backward-compatible beacon ext
 ## Progress
 
 - [x] (2026-04-28) Authored this ExecPlan after reading `.agent/PLANS.md`, the existing automation beacon plans, the current C beacon implementation, the Lua bridge decoder, the Python route runner, and the seeded Ouroboros devkit state.
-- [ ] Milestone 1: Rebaseline the current v1 starter-selection proof from a fresh beacon ROM and copy the exact ROM and scripts into `devkit-ouro8-dev-agent-8`.
-- [ ] Milestone 2: Specify and document the v2 extension rows while preserving the existing v1 row contract.
-- [ ] Milestone 3: Implement the smallest v2 beacon producer and decoder slice for readiness semantics, then validate it at the already-passing starter-selection route.
-- [ ] Milestone 4: Replace at least one route wait in the Python host with a v2 semantic gate and prove the route still reaches starter selection.
-- [ ] Milestone 5: Exercise the latest Scala harness in agent 8 as a read-only or adapter-level validation lane, without requiring a full migration before the beacon protocol is stable.
-- [ ] Milestone 6: Choose the next point-of-interest exit condition, implement only the beacon fields required for that point, and run repeated clean headless proofs.
+- [x] (2026-04-28 20:54 -04:00) Milestone 1 local baseline passed after a fresh `AUTOMATION_BEACON=1 DEBUG=1 NO_MULTIBOOT=1` Docker build. `build/mgba_lua_spike_v2_baseline/run_result.json` ended at `STARTER_CHOOSE_READY` with `stageId=12`, `mapKind=4`, `gender=2`, `nameLen=1`, `nameChar0=1`, and `inputReady=1`.
+- [x] (2026-04-28 20:55 -04:00) Milestone 1 agent-8 baseline passed after reseeding `/home/bayesartre/dev/ouroboros-ide/.devkit/mgba-poc/`. `.devkit/mgba-poc/runs/v2-baseline/run_result.json` ended at `STARTER_CHOOSE_READY` with the same accepted v1 tuple.
+- [x] (2026-04-28 21:00 -04:00) Milestone 2 documented the v2 semantic extension rows in `tools/mgba/mgba_lua_spike_notes.md` and in this ExecPlan. Rows 0 through 3 remain unchanged.
+- [x] (2026-04-28 21:05 -04:00) Milestone 3 implemented C setters and producer rows for readiness and interaction semantics, extended the Lua bridge decoder with additive JSON keys, and kept disabled beacon builds as no-ops.
+- [x] (2026-04-28 21:08 -04:00) Milestone 3 validation passed: Python syntax, Lua syntax, beacon-enabled Docker build, default beacon-disabled Docker build, and a semantic starter run all succeeded. `build/mgba_lua_spike_v2_semantic/run_result.json` ended at `STARTER_CHOOSE_READY` with `semanticFound=true`.
+- [x] (2026-04-28 21:13 -04:00) Milestone 4 replaced the Littleroot town route approach wait with a semantic `movementReady` gate. Three clean starter runs passed in `build/mgba_lua_spike_v2_semantic_1`, `_2`, and `_3`; each event log contains a `semantic_gate` event for `town route approach ready`.
+- [x] (2026-04-28 21:19 -04:00) Milestone 5 rebased `/home/bayesartre/dev/ouroboros-ide` onto `origin/main`, reseeded agent 8, and ran the latest Scala `ProofMain` under an outer timeout. Scala compiled and launched the proof, but the live run hit the 300-second timeout and produced Cats Effect cancellation output instead of a terminal checkpoint artifact.
+- [x] (2026-04-28 21:24 -04:00) Milestone 6 selected starter confirmation prompt as the next point of interest, added `--mode starter-confirm`, and proved `STARTER_CONFIRM_PROMPT` once locally with `stageId=13`, `mapKind=4`, `gender=2`, `nameLen=1`, `nameChar0=1`, `inputReady=1`, `semanticFound=true`, and `menuReady=1`.
+- [x] (2026-04-28 21:27 -04:00) Milestone 6 repeated proof passed three clean local runs in `build/mgba_lua_spike_v2_confirm_1`, `_2`, and `_3`; each final beacon reached `stageId=13` with `menuReady=1` and each event log contains the `starter confirm prompt` semantic gate.
+- [x] (2026-04-28 21:28 -04:00) Final agent-8 proof passed after reseeding the v2 ROM/scripts. `.devkit/mgba-poc/runs/v2-confirm/run_result.json` ended at `STARTER_CONFIRM_PROMPT` with `stageId=13`, `semanticFound=true`, and `menuReady=1`.
 
 ## Surprises & Discoveries
 
@@ -30,6 +34,15 @@ After this plan succeeds, the project will have a backward-compatible beacon ext
 
 - Observation: Agent 8 is available for validation and already has the required emulator tools and seeded proof directory, but the mounted Ouroboros worktree has unrelated dirty Scala files.
   Evidence: `docker exec devkit-ouro8-dev-agent-8 ...` found `mgba-headless`, `lua`, `python3`, and `.devkit/mgba-poc/pokeemerald.gba`; `git status` inside the container showed dirty `tools/submit-to-ci` Scala files unrelated to the emulator proof.
+
+- Observation: The final starter-selection screen is a menu-like state rather than movement or text.
+  Evidence: `build/mgba_lua_spike_v2_semantic/run_result.json` ended with `semanticFound=true`, `movementReady=0`, `textReady=0`, `menuReady=1`, and `interactReady=0`.
+
+- Observation: A semantic movement gate can replace at least one previous v1 readiness wait without route regression.
+  Evidence: `build/mgba_lua_spike_v2_semantic_1/events.ndjson`, `_2/events.ndjson`, and `_3/events.ndjson` each contain a `semantic_gate` event for `town route approach ready` with `semanticKey=movementReady`.
+
+- Observation: The latest Scala harness compiles and starts against the v2 ROM and Lua bridge, but the live route remains blocked before terminal artifact generation.
+  Evidence: `logs/subagent-sbt-governed/20260429T005845Z-1154/full.log` in `/home/bayesartre/dev/ouroboros-ide` shows successful compilation, then `running ... ProofMain`, followed by `java.util.concurrent.CancellationException: IOApp main fiber was canceled` after the outer `timeout 300` killed the run. `build/mgba-scala-v2-proof-one/run-1/` contained only `mgba_stdout.log` and `mgba_stderr.log`, not `run_result.json`.
 
 ## Decision Log
 
@@ -49,11 +62,21 @@ After this plan succeeds, the project will have a backward-compatible beacon ext
   Rationale: Starter selection is already deterministic, so it isolates beacon protocol risk from route-discovery risk.
   Date/Author: 2026-04-28 / Codex
 
+- Decision: Use starter confirmation prompt, `stageId=13`, as the Milestone 6 point of interest.
+  Rationale: It is one deterministic screen beyond starter selection, exercises a new menu semantic gate through `menuReady=1`, and does not introduce unrelated overworld or battle route uncertainty.
+  Date/Author: 2026-04-28 / Codex
+
+- Decision: Do not block the beacon v2 plan on Scala live-route parity.
+  Rationale: The Scala proof compiled and launched against the v2 files, which is enough to show the additive JSON contract did not break startup. The remaining failure is the already-known Scala route stall, not a beacon protocol blocker.
+  Date/Author: 2026-04-28 / Codex
+
 ## Outcomes & Retrospective
 
-This section is intentionally sparse at plan creation. At each major milestone, update it with the exact result, what changed, what remains, and whether the plan should continue in Python/Lua or sync with the operator about Scala migration.
+Outcome: Success for the Pokeemerald beacon and Python/Lua harness scope. The repository now emits backward-compatible v2 semantic rows, the Lua bridge decodes them as additive JSON fields, and the Python host uses semantic gates for both movement readiness and starter-confirmation menu readiness.
 
-Initial outcome: the plan now defines an ordered path from the current v1 proof to semantic v2 beacon fields and optional Scala validation in the Ouroboros devkit.
+The final local acceptance target is `STARTER_CONFIRM_PROMPT`. Three clean local runs reached `stageId=13`, `mapKind=4`, `gender=2`, `nameLen=1`, `nameChar0=1`, `inputReady=1`, `semanticFound=true`, and `menuReady=1`. Agent 8 also reached the same target from the seeded `.devkit/mgba-poc/` directory.
+
+The Scala lane is not complete. The latest Scala build compiles and launches `ProofMain` in agent 8, but the bounded live proof still times out before writing a terminal `run_result.json`. This should be treated as a Scala route-driver parity task, not a blocker for the beacon v2 protocol.
 
 ## Context and Orientation
 
@@ -67,6 +90,11 @@ The current v1 rows are:
 - Row 1 is route proof: gender, name length, first name character, map kind, starter selection, input-ready flag, error code, and reserved.
 - Row 2 is navigation proof: anchor values `12,11`, low player coordinates, facing, low front-tile coordinates, and checksum.
 - Row 3 is map extension proof: anchor values `10,9`, map slot, high coordinate nibbles, and checksum.
+
+The v2 semantic extension keeps all v1 rows unchanged and adds two optional rows:
+
+- Row 4 is readiness proof. It uses anchor values `8,7`, extension version `1`, `movementReady`, `textReady`, `menuReady`, `interactReady`, and checksum. The checksum is the sum of the first seven row values modulo 15. Each readiness field is `0` for false and `1` for true.
+- Row 5 is interaction proof. It uses anchor values `6,5`, `scriptWaitKind`, `interactableAhead`, `routeErrorCode`, two reserved zero fields, and checksum. `scriptWaitKind` mirrors the automation script-step enum. `interactableAhead` is currently reserved as `0`. `routeErrorCode` mirrors the legacy error code field for typed consumers.
 
 The current important stage ids are `1` for main menu ready, `3` for gender prompt ready, `5` for naming screen ready, `9` for truck control ready, `10` for Littleroot setup, `11` for Route 101 approach, `12` for starter choose ready, and `13` for starter confirmation prompt. The current starter-selection proof accepts `stageId=12`, `mapKind=4`, `gender=2`, `nameLen=1`, `nameChar0=1`, and `inputReady=1`.
 
@@ -171,7 +199,39 @@ Initial local state observed while writing this plan:
     devkit-ouro8-dev-agent-8 was running and had /usr/local/bin/mgba-headless, /usr/local/bin/lua, /usr/bin/python3, and .devkit/mgba-poc/pokeemerald.gba.
     Inside agent 8, the mounted Ouroboros worktree had unrelated dirty Scala files under tools/submit-to-ci.
 
-When Milestone 1 starts, replace this note with exact command output and result paths.
+Milestone 1 evidence:
+
+    Local baseline command ended with {"ok": true, "result": "build/mgba_lua_spike_v2_baseline/run_result.json"}.
+    Local baseline tuple: ok=True target=STARTER_CHOOSE_READY elapsedSeconds=7.682 stageId=12 mapKind=4 gender=2 nameLen=1 nameChar0=1 inputReady=1 frame=12312.
+    Agent-8 baseline command ended with {"ok": true, "result": ".devkit/mgba-poc/runs/v2-baseline/run_result.json"}.
+    Agent-8 baseline tuple: ok=True target=STARTER_CHOOSE_READY elapsedSeconds=6.155 stageId=12 mapKind=4 gender=2 nameLen=1 nameChar0=1 inputReady=1 frame=12199.
+
+Milestone 3 and 4 evidence:
+
+    Syntax checks passed with `python3 -m py_compile tools/mgba/mgba_lua_spike.py` and `luac -p tools/mgba/mgba_lua_bridge.lua` inside `nix-shell -p python3 lua5_2`.
+    Beacon-enabled Docker build passed with `make AUTOMATION_BEACON=1 DEBUG=1 NO_MULTIBOOT=1`.
+    Default beacon-disabled Docker build passed with `make NO_MULTIBOOT=1`.
+    `build/mgba_lua_spike_v2_semantic/run_result.json` ended at STARTER_CHOOSE_READY with semanticFound=true, semanticVersion=1, movementReady=0, textReady=0, menuReady=1, interactReady=0, interactionFound=true, scriptWaitKind=0, interactableAhead=0, and routeErrorCode=0.
+    Repeated starter proofs:
+    `build/mgba_lua_spike_v2_semantic_1`: ok=True target=STARTER_CHOOSE_READY elapsedSeconds=6.945 stageId=12 mapKind=4 gender=2 nameLen=1 nameChar0=1 inputReady=1 semanticFound=True menuReady=1 semantic_gate=True.
+    `build/mgba_lua_spike_v2_semantic_2`: ok=True target=STARTER_CHOOSE_READY elapsedSeconds=6.862 stageId=12 mapKind=4 gender=2 nameLen=1 nameChar0=1 inputReady=1 semanticFound=True menuReady=1 semantic_gate=True.
+    `build/mgba_lua_spike_v2_semantic_3`: ok=True target=STARTER_CHOOSE_READY elapsedSeconds=6.889 stageId=12 mapKind=4 gender=2 nameLen=1 nameChar0=1 inputReady=1 semanticFound=True menuReady=1 semantic_gate=True.
+
+Milestone 5 evidence:
+
+    Ouroboros was rebased with `GIT_SSH_COMMAND='ssh -F /home/bayesartre/.ssh/config' git pull --rebase origin main`.
+    Scala command in agent 8:
+    `OUROBOROS_EMULATOR_RUNS=1 OUROBOROS_EMULATOR_OUTPUT=build/mgba-scala-v2-proof-one OUROBOROS_EMULATOR_PROOF_TIMEOUT_SECONDS=240 timeout 300 scripts/subagent/sbt-governed --summary-lines 120 --failure-lines 200 -- ";project local-environments;Test / runMain com.crib.bills.ouroboros.environments.local.emulator.mgba.ProofMain"`.
+    Result: command exited 124 after the outer timeout. `logs/subagent-sbt-governed/20260429T005845Z-1154/full.log` shows compile success and `ProofMain` startup, then Cats Effect cancellation. No `run_result.json` was produced under `build/mgba-scala-v2-proof-one/run-1/`.
+
+Milestone 6 evidence:
+
+    Single local confirmation proof: `build/mgba_lua_spike_v2_confirm/run_result.json` ended at ok=True target=STARTER_CONFIRM_PROMPT elapsedSeconds=7.522 stageId=13 mapKind=4 gender=2 nameLen=1 nameChar0=1 inputReady=1 semanticFound=True menuReady=1 semantic_gate=True.
+    Repeated confirmation proofs:
+    `build/mgba_lua_spike_v2_confirm_1`: ok=True target=STARTER_CONFIRM_PROMPT elapsedSeconds=7.603 stageId=13 mapKind=4 gender=2 nameLen=1 nameChar0=1 inputReady=1 semanticFound=True menuReady=1 confirm_gate=True.
+    `build/mgba_lua_spike_v2_confirm_2`: ok=True target=STARTER_CONFIRM_PROMPT elapsedSeconds=7.245 stageId=13 mapKind=4 gender=2 nameLen=1 nameChar0=1 inputReady=1 semanticFound=True menuReady=1 confirm_gate=True.
+    `build/mgba_lua_spike_v2_confirm_3`: ok=True target=STARTER_CONFIRM_PROMPT elapsedSeconds=7.143 stageId=13 mapKind=4 gender=2 nameLen=1 nameChar0=1 inputReady=1 semanticFound=True menuReady=1 confirm_gate=True.
+    Agent-8 final proof: `.devkit/mgba-poc/runs/v2-confirm/run_result.json` ended at ok=True target=STARTER_CONFIRM_PROMPT elapsedSeconds=6.565 stageId=13 mapKind=4 gender=2 nameLen=1 nameChar0=1 inputReady=1 semanticFound=True menuReady=1 confirm_gate=True.
 
 ## Interfaces and Dependencies
 
@@ -187,3 +247,5 @@ The Lua bridge must preserve existing `read_beacon` JSON keys. New keys should b
 The Scala lane must consume the same JSON contract as Python. It should not read emulator memory directly during this plan; direct memory reads remain isolated in Lua so the host language can change without rewriting mGBA IO.
 
 Revision Note (2026-04-28): Initial ExecPlan. It defines an incremental, backward-compatible path from the current v1 starter-selection proof to semantic v2 beacon fields, Python/Lua validation, and optional Scala harness checks inside `devkit-ouro8-dev-agent-8`.
+
+Revision Note (2026-04-28): Implemented the plan through Milestone 6. The document now records v2 row semantics, validation commands, repeated local proof tuples, agent-8 proof evidence, and the Scala live-route timeout blocker.

@@ -416,6 +416,8 @@ static void AutomationBeacon_SetStarterProof(u8 starterSelection, bool8 inputRea
         AUTOMATION_BEACON_MAP_STARTER_SELECTION,
         starterSelection,
         inputReady);
+    AutomationBeacon_SetReadiness(FALSE, FALSE, inputReady, FALSE);
+    AutomationBeacon_SetInteractionProof(AUTOMATION_BEACON_SCRIPT_STEP_NONE, 0, 0);
 }
 
 void CB2_ChooseStarter(void)

@@ -1847,8 +1847,11 @@ static void AutomationBeacon_UpdateOverworld(void)
     bool8 playerMoving = playerObj->singleMovementActive
         || gPlayerAvatar.tileTransitionState != T_NOT_MOVING;
     bool8 inputReady = !gPaletteFade.active && !playerMoving && (messageReady || (!scriptEnabled && !controlsLocked));
+    bool8 textReady = messageReady;
+    bool8 movementReady = !gPaletteFade.active && !playerMoving && !messageReady && !scriptEnabled && !controlsLocked;
     u8 flags = 0;
     u8 errorCode = 0;
+    u8 scriptStep = AutomationBeacon_GetScriptStep();
 
     if (scriptEnabled)
         flags |= 1;
@@ -1884,13 +1887,13 @@ static void AutomationBeacon_UpdateOverworld(void)
     if (AutomationBeacon_IsCurrentMap(MAP_INSIDE_OF_TRUCK))
     {
         AutomationBeacon_SetErrorCode(errorCode);
+        AutomationBeacon_SetReadiness(movementReady, textReady, FALSE, movementReady);
+        AutomationBeacon_SetInteractionProof(scriptStep, 0, errorCode);
         AutomationBeacon_SetStage(inputReady ? AUTOMATION_BEACON_STAGE_TRUCK_CONTROL_READY : AUTOMATION_BEACON_STAGE_TRUCK_ENTERED, 0, flags);
         AutomationBeacon_SetOverworldProof(AUTOMATION_BEACON_MAP_TRUCK, AUTOMATION_BEACON_STARTER_NA, inputReady);
     }
     else if (AutomationBeacon_IsLittlerootSetupMap())
     {
-        u8 scriptStep = AutomationBeacon_GetScriptStep();
-
         if (littlerootIntroState == 1 || littlerootIntroState == 2)
         {
             inputReady = !gPaletteFade.active && (messageReady
@@ -1902,18 +1905,28 @@ static void AutomationBeacon_UpdateOverworld(void)
         {
             inputReady = !gPaletteFade.active;
         }
+        textReady = inputReady && (messageReady
+            || scriptStep == AUTOMATION_BEACON_SCRIPT_STEP_WAIT_MESSAGE
+            || scriptStep == AUTOMATION_BEACON_SCRIPT_STEP_WAIT_BUTTON);
+        movementReady = inputReady && !textReady && !scriptEnabled && !controlsLocked;
         AutomationBeacon_SetErrorCode(errorCode);
+        AutomationBeacon_SetReadiness(movementReady, textReady, FALSE, movementReady);
+        AutomationBeacon_SetInteractionProof(scriptStep, 0, errorCode);
         AutomationBeacon_SetStage(AUTOMATION_BEACON_STAGE_LITTLEROOT_ROUTE_SETUP, littlerootIntroState, flags);
         AutomationBeacon_SetOverworldProof(AUTOMATION_BEACON_MAP_LITTLEROOT, scriptStep, inputReady);
     }
     else if (AutomationBeacon_IsCurrentMap(MAP_ROUTE101))
     {
-        u8 scriptStep = AutomationBeacon_GetScriptStep();
-
         if (scriptStep == AUTOMATION_BEACON_SCRIPT_STEP_WAIT_MESSAGE || scriptStep == AUTOMATION_BEACON_SCRIPT_STEP_WAIT_BUTTON)
             inputReady = !gPaletteFade.active;
 
+        textReady = inputReady && (messageReady
+            || scriptStep == AUTOMATION_BEACON_SCRIPT_STEP_WAIT_MESSAGE
+            || scriptStep == AUTOMATION_BEACON_SCRIPT_STEP_WAIT_BUTTON);
+        movementReady = inputReady && !textReady && !scriptEnabled && !controlsLocked;
         AutomationBeacon_SetErrorCode(errorCode);
+        AutomationBeacon_SetReadiness(movementReady, textReady, FALSE, movementReady);
+        AutomationBeacon_SetInteractionProof(scriptStep, 0, errorCode);
         AutomationBeacon_SetStage(AUTOMATION_BEACON_STAGE_ROUTE101_APPROACH, VarGet(VAR_ROUTE101_STATE), flags);
         AutomationBeacon_SetOverworldProof(AUTOMATION_BEACON_MAP_ROUTE101, scriptStep, inputReady);
     }

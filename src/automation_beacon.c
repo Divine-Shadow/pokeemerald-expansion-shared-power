@@ -40,6 +40,11 @@ static u8 sPlayerYHi;
 static u8 sFrontXHi;
 static u8 sFrontYHi;
 static u8 sScriptStep;
+static u8 sMovementReady;
+static u8 sTextReady;
+static u8 sMenuReady;
+static u8 sInteractReady;
+static u8 sInteractableAhead;
 static u8 sSpriteId;
 static u8 sBeaconTileBuffer[BEACON_TILE_SIZE];
 
@@ -136,6 +141,8 @@ static void WriteBeaconTile(void)
     u8 proof[8];
     u8 nav[8];
     u8 map[8];
+    u8 readiness[8];
+    u8 interaction[8];
     u8 *tile = sBeaconTileBuffer;
     volatile u16 *fallbackTile = (u16 *)(OBJ_VRAM0 + BEACON_TILE_NUM * BEACON_TILE_SIZE);
 
@@ -179,10 +186,30 @@ static void WriteBeaconTile(void)
     map[6] = sFrontYHi;
     map[7] = (map[0] + map[1] + map[2] + map[3] + map[4] + map[5] + map[6]) % 15;
 
+    readiness[0] = 8;
+    readiness[1] = 7;
+    readiness[2] = 1;
+    readiness[3] = sMovementReady;
+    readiness[4] = sTextReady;
+    readiness[5] = sMenuReady;
+    readiness[6] = sInteractReady;
+    readiness[7] = (readiness[0] + readiness[1] + readiness[2] + readiness[3] + readiness[4] + readiness[5] + readiness[6]) % 15;
+
+    interaction[0] = 6;
+    interaction[1] = 5;
+    interaction[2] = sScriptStep;
+    interaction[3] = sInteractableAhead;
+    interaction[4] = sErrorCode;
+    interaction[5] = 0;
+    interaction[6] = 0;
+    interaction[7] = (interaction[0] + interaction[1] + interaction[2] + interaction[3] + interaction[4] + interaction[5] + interaction[6]) % 15;
+
     WriteBeaconRow(tile, 0, header);
     WriteBeaconRow(tile, 1, proof);
     WriteBeaconRow(tile, 2, nav);
     WriteBeaconRow(tile, 3, map);
+    WriteBeaconRow(tile, 4, readiness);
+    WriteBeaconRow(tile, 5, interaction);
 
     for (i = 0; i < BEACON_TILE_SIZE / 2; i++)
         fallbackTile[i] = tile[i * 2] | (tile[i * 2 + 1] << 8);
@@ -289,6 +316,23 @@ void AutomationBeacon_SetProof(u8 gender, u8 nameLen, u8 nameChar0, u8 mapKind, 
 void AutomationBeacon_SetErrorCode(u8 errorCode)
 {
     sErrorCode = ClampBeaconValue(errorCode);
+    EnsureBeaconSprite();
+}
+
+void AutomationBeacon_SetReadiness(bool8 movementReady, bool8 textReady, bool8 menuReady, bool8 interactReady)
+{
+    sMovementReady = movementReady ? 1 : 0;
+    sTextReady = textReady ? 1 : 0;
+    sMenuReady = menuReady ? 1 : 0;
+    sInteractReady = interactReady ? 1 : 0;
+    EnsureBeaconSprite();
+}
+
+void AutomationBeacon_SetInteractionProof(u8 scriptWaitKind, u8 interactableAhead, u8 routeErrorCode)
+{
+    sScriptStep = ClampBeaconValue(scriptWaitKind);
+    sInteractableAhead = ClampBeaconValue(interactableAhead);
+    sErrorCode = ClampBeaconValue(routeErrorCode);
     EnsureBeaconSprite();
 }
 

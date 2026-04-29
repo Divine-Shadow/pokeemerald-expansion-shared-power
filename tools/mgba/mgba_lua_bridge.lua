@@ -139,7 +139,7 @@ local function readBeacon()
         return { ok = false, found = false, error = "emu_unavailable", source = "vram" }
     end
 
-    for row = 0, 3 do
+    for row = 0, 5 do
         values[row + 1] = {}
         for colByte = 0, 3 do
             local byte = read8(BEACON_TILE_ADDR + (row * 4) + colByte)
@@ -175,6 +175,14 @@ local function readBeacon()
     local mapRowFound = values[4][1] == 10
         and values[4][2] == 9
         and values[4][8] == mapChecksum
+    local semanticChecksum = (values[5][1] + values[5][2] + values[5][3] + values[5][4] + values[5][5] + values[5][6] + values[5][7]) % 15
+    local semanticFound = values[5][1] == 8
+        and values[5][2] == 7
+        and values[5][8] == semanticChecksum
+    local interactionChecksum = (values[6][1] + values[6][2] + values[6][3] + values[6][4] + values[6][5] + values[6][6] + values[6][7]) % 15
+    local interactionFound = values[6][1] == 6
+        and values[6][2] == 5
+        and values[6][8] == interactionChecksum
     local playerX = values[3][3]
     local playerY = values[3][4]
     local frontX = values[3][6]
@@ -226,6 +234,22 @@ local function readBeacon()
         frontYHi = values[4][7],
         mapChecksum = values[4][8],
         expectedMapChecksum = mapChecksum,
+        semanticFound = semanticFound,
+        semanticVersion = values[5][3],
+        movementReady = values[5][4],
+        textReady = values[5][5],
+        menuReady = values[5][6],
+        interactReady = values[5][7],
+        semanticChecksum = values[5][8],
+        expectedSemanticChecksum = semanticChecksum,
+        interactionFound = interactionFound,
+        scriptWaitKind = values[6][3],
+        interactableAhead = values[6][4],
+        routeErrorCode = values[6][5],
+        interactionReserved0 = values[6][6],
+        interactionReserved1 = values[6][7],
+        interactionChecksum = values[6][8],
+        expectedInteractionChecksum = interactionChecksum,
         raw = flat,
     }
 end

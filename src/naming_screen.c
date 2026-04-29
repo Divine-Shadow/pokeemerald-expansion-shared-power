@@ -587,6 +587,8 @@ static void AutomationBeacon_SetNamingProof(bool8 inputReady)
         AUTOMATION_BEACON_MAP_UNKNOWN,
         AUTOMATION_BEACON_STARTER_NA,
         inputReady);
+    AutomationBeacon_SetReadiness(FALSE, FALSE, inputReady, FALSE);
+    AutomationBeacon_SetInteractionProof(AUTOMATION_BEACON_SCRIPT_STEP_NONE, 0, 0);
 }
 
 static void Task_NamingScreen(u8 taskId)

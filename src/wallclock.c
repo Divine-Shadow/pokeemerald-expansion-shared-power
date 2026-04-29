@@ -728,6 +728,8 @@ static void AutomationBeacon_SetClockProof(bool8 inputReady)
         AUTOMATION_BEACON_MAP_LITTLEROOT,
         AUTOMATION_BEACON_STARTER_NA,
         inputReady);
+    AutomationBeacon_SetReadiness(FALSE, FALSE, inputReady, FALSE);
+    AutomationBeacon_SetInteractionProof(AUTOMATION_BEACON_SCRIPT_STEP_NONE, 0, 0);
 }
 
 void CB2_StartWallClock(void)

@@ -1,5 +1,8 @@
 # Patch Notes
 
+- Tools/Automation: Add starter-confirm mode with semantic menuReady acceptance (commit pending).
+- Docs/Automation: Record completed v2 semantic beacon proofs and Scala timeout blocker (commit pending).
+- Tools/Automation: Add backward-compatible v2 semantic beacon rows and use movementReady in the headless route (commit pending).
 - Docs/Automation: Add incremental beacon v2 ExecPlan and Scala/devkit validation milestones (commit pending).
 - Docs/Automation: Record default-build validation and final automation ROM rebuild evidence (commit pending).
 - Docs/Automation: Record the completed headless starter-selection proof and migration recommendation (commit pending).
