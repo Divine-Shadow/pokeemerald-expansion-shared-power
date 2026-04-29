@@ -1,5 +1,6 @@
 # Patch Notes
 
+- Docs/Automation: Add an ExecPlan for fixing the initial-battle summary-screen glitch (commit pending).
 - Tools/Automation: Add a headless battle-summary repro mode with summary-attempt beacons and savestate-backed screenshot capture (commit pending).
 - Tools/Automation: Add starter-confirm mode with semantic menuReady acceptance (commit pending).
 - Docs/Automation: Record completed v2 semantic beacon proofs and Scala timeout blocker (commit pending).
