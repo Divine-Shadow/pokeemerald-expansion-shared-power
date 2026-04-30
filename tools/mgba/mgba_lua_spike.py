@@ -148,6 +148,7 @@ SPECIES_POOCHYENA = 261
 SPECIES_MIGHTYENA = 262
 ABILITY_INTIMIDATE = 22
 ITEM_POKE_BALL = 1
+ITEM_MASTER_BALL = 4
 ITEM_RARE_CANDY = 102
 
 PC_MENU_NONE = 0
@@ -192,7 +193,7 @@ SHOP_MENU_CONFIRM = 4
 SHOP_MENU_MESSAGE = 5
 
 AUTOMATION_PROBE_MAGIC = 0x41505242
-AUTOMATION_PROBE_VERSION = 6
+AUTOMATION_PROBE_VERSION = 7
 AUTOMATION_PROBE_COMMAND_RESULT_OK = 1
 AUTOMATION_PROBE_COMMAND_GRANT_ITEM = 1
 AUTOMATION_PROBE_COMMAND_CREATE_POOCHYENA_SLOT0 = 2
@@ -240,6 +241,8 @@ PROBE_FIELD_LAYOUT: list[tuple[str, int]] = [
     ("partyMaxHp", PROBE_PARTY_SIZE),
     ("pcRareCandyCount", 1),
     ("pcRareCandySlot", 1),
+    ("pcMasterBallCount", 1),
+    ("pcMasterBallSlot", 1),
     ("pcUsedItemSlots", 1),
     ("pcMenuState", 1),
     ("pcMenuCursor", 1),
@@ -248,6 +251,7 @@ PROBE_FIELD_LAYOUT: list[tuple[str, int]] = [
     ("pcItemQuantity", 1),
     ("bagPokeBallCount", 1),
     ("bagRareCandyCount", 1),
+    ("bagMasterBallCount", 1),
     ("playerBattleBattler", 1),
     ("playerBattlePartyIndex", 1),
     ("playerBattleActionCursor", 1),

@@ -2,7 +2,7 @@
 #define GUARD_AUTOMATION_PROBE_H
 
 #define AUTOMATION_PROBE_MAGIC 0x41505242
-#define AUTOMATION_PROBE_VERSION 6
+#define AUTOMATION_PROBE_VERSION 7
 #define AUTOMATION_PROBE_PARTY_SIZE 6
 
 enum AutomationProbeReadinessFlags
@@ -13,6 +13,7 @@ enum AutomationProbeReadinessFlags
     AUTOMATION_PROBE_READY_PLAYER_PARTY = 1 << 3,
     AUTOMATION_PROBE_READY_POKE_BALL = 1 << 4,
     AUTOMATION_PROBE_READY_RARE_CANDY = 1 << 5,
+    AUTOMATION_PROBE_READY_MASTER_BALL = 1 << 6,
 };
 
 enum AutomationProbeCommand
@@ -131,6 +132,8 @@ struct AutomationProbe
     u32 partyMaxHp[AUTOMATION_PROBE_PARTY_SIZE];
     u32 pcRareCandyCount;
     u32 pcRareCandySlot;
+    u32 pcMasterBallCount;
+    u32 pcMasterBallSlot;
     u32 pcUsedItemSlots;
     u32 pcMenuState;
     u32 pcMenuCursor;
@@ -139,6 +142,7 @@ struct AutomationProbe
     u32 pcItemQuantity;
     u32 bagPokeBallCount;
     u32 bagRareCandyCount;
+    u32 bagMasterBallCount;
     u32 playerBattleBattler;
     u32 playerBattlePartyIndex;
     u32 playerBattleActionCursor;

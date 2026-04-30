@@ -100,12 +100,14 @@ static u32 AutomationProbe_FindFirstPartySpecies(u32 species)
     return PARTY_SIZE;
 }
 
-static void AutomationProbe_FillPCRareCandy(void)
+static void AutomationProbe_FillPCItemCounts(void)
 {
     u32 i;
 
     gAutomationProbe.pcRareCandyCount = 0;
     gAutomationProbe.pcRareCandySlot = PC_ITEMS_COUNT;
+    gAutomationProbe.pcMasterBallCount = 0;
+    gAutomationProbe.pcMasterBallSlot = PC_ITEMS_COUNT;
     gAutomationProbe.pcUsedItemSlots = 0;
     if (gSaveBlock1Ptr == NULL)
         return;
@@ -121,6 +123,12 @@ static void AutomationProbe_FillPCRareCandy(void)
             gAutomationProbe.pcRareCandyCount += gSaveBlock1Ptr->pcItems[i].quantity;
             if (gAutomationProbe.pcRareCandySlot == PC_ITEMS_COUNT)
                 gAutomationProbe.pcRareCandySlot = i;
+        }
+        else if (gSaveBlock1Ptr->pcItems[i].itemId == ITEM_MASTER_BALL)
+        {
+            gAutomationProbe.pcMasterBallCount += gSaveBlock1Ptr->pcItems[i].quantity;
+            if (gAutomationProbe.pcMasterBallSlot == PC_ITEMS_COUNT)
+                gAutomationProbe.pcMasterBallSlot = i;
         }
     }
 }
@@ -415,12 +423,15 @@ static void AutomationProbe_FillFacts(void)
 
     gAutomationProbe.bagPokeBallCount = CountTotalItemQuantityInBag(ITEM_POKE_BALL);
     gAutomationProbe.bagRareCandyCount = CountTotalItemQuantityInBag(ITEM_RARE_CANDY);
-    AutomationProbe_FillPCRareCandy();
+    gAutomationProbe.bagMasterBallCount = CountTotalItemQuantityInBag(ITEM_MASTER_BALL);
+    AutomationProbe_FillPCItemCounts();
     AutomationProbe_FillBattleControl();
     if (gAutomationProbe.bagPokeBallCount > 0)
         gAutomationProbe.readinessFlags |= AUTOMATION_PROBE_READY_POKE_BALL;
     if (gAutomationProbe.bagRareCandyCount > 0)
         gAutomationProbe.readinessFlags |= AUTOMATION_PROBE_READY_RARE_CANDY;
+    if (gAutomationProbe.bagMasterBallCount > 0)
+        gAutomationProbe.readinessFlags |= AUTOMATION_PROBE_READY_MASTER_BALL;
 }
 
 void AutomationProbe_RecordAbilityPopup(u32 battler, u32 ability)
