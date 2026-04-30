@@ -1,6 +1,6 @@
 # Patch Notes
 
-- Docs/Automation: Add ExecPlan for the canonical Mightyena Intimidate switch route (commit pending).
+- Docs/Automation: Add ExecPlan for the canonical Mightyena Intimidate switch route (commit 69a24a2a35).
 - Tools/Automation: Route mGBA Lua memory reads and writes through explicit memory domains for IWRAM/EWRAM probe access (commit pending).
 - Docs/Automation: Record validation evidence and deferred canonical catch/evolution work in the Lua probe route-tree ExecPlan (commit pending).
 - Tools/Automation: Let route movement waits acknowledge text-ready prompts before retrying movement (commit pending).
