@@ -1,5 +1,11 @@
 # Patch Notes
 
+- Tools/Automation: Route mGBA Lua memory reads and writes through explicit memory domains for IWRAM/EWRAM probe access (commit pending).
+- Docs/Automation: Record validation evidence and deferred canonical catch/evolution work in the Lua probe route-tree ExecPlan (commit pending).
+- Tools/Automation: Let route movement waits acknowledge text-ready prompts before retrying movement (commit pending).
+- Docs/Automation: Record the guarded scenario bridge and implementation progress in the Lua automation probe route-tree ExecPlan (commit pending).
+- Tools/Automation: Extend the mGBA Lua/Python spike with generic probe memory IO and a Mightyena Intimidate savestate proof mode (commit pending).
+- Tools/Automation: Add a guarded Lua-readable automation probe ABI for route facts and objective commands (commit pending).
 - Docs/Automation: Add ExecPlan for replacing visual beacon growth with a Lua-readable automation probe and route tree (commit pending).
 - Docs/Automation: Mark completed ExecPlans with explicit status lines (commit pending).
 - Docs/Automation: Record final battle-summary validation evidence and test-suite status (commit pending).

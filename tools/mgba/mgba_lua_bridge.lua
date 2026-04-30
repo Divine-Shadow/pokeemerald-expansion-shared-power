@@ -113,8 +113,45 @@ local function splitWords(line)
     return words
 end
 
+local function memoryDomainForAddress(address)
+    local region = math.floor(address / 0x01000000)
+    local base = region * 0x01000000
+
+    if emu ~= nil and emu.memory ~= nil then
+        if region == 0x02 then
+            return emu.memory.wram, address - base
+        elseif region == 0x03 then
+            return emu.memory.iwram, address - base
+        elseif region == 0x04 then
+            return emu.memory.io, address - base
+        elseif region == 0x05 then
+            return emu.memory.palette, address - base
+        elseif region == 0x06 then
+            return emu.memory.vram, address - base
+        elseif region == 0x07 then
+            return emu.memory.oam, address - base
+        elseif region == 0x08 or region == 0x09 then
+            return emu.memory.cart0, address - 0x08000000
+        elseif region == 0x0A or region == 0x0B then
+            return emu.memory.cart1, address - 0x0A000000
+        elseif region == 0x0C or region == 0x0D then
+            return emu.memory.cart2, address - 0x0C000000
+        elseif region == 0x0E or region == 0x0F then
+            return emu.memory.sram, address - 0x0E000000
+        elseif region == 0x00 then
+            return emu.memory.bios, address
+        end
+    end
+
+    return nil, address
+end
+
 local function read8(address)
+    local domain, offset = memoryDomainForAddress(address)
     local ok, value = pcall(function()
+        if domain ~= nil then
+            return domain:read8(offset)
+        end
         return emu:read8(address)
     end)
 
@@ -123,6 +160,54 @@ local function read8(address)
     end
 
     return value
+end
+
+local function write8(address, value)
+    local domain, offset = memoryDomainForAddress(address)
+    local ok, err = pcall(function()
+        if domain ~= nil then
+            domain:write8(offset, value)
+        else
+            emu:write8(address, value)
+        end
+    end)
+
+    if not ok then
+        return false, tostring(err)
+    end
+
+    return true, nil
+end
+
+local function readU32(address)
+    local b0 = read8(address)
+    local b1 = read8(address + 1)
+    local b2 = read8(address + 2)
+    local b3 = read8(address + 3)
+
+    if b0 == nil or b1 == nil or b2 == nil or b3 == nil then
+        return nil
+    end
+
+    return b0 + (b1 * 0x100) + (b2 * 0x10000) + (b3 * 0x1000000)
+end
+
+local function writeU32(address, value)
+    local bytes = {
+        value % 0x100,
+        math.floor(value / 0x100) % 0x100,
+        math.floor(value / 0x10000) % 0x100,
+        math.floor(value / 0x1000000) % 0x100,
+    }
+
+    for i = 1, 4 do
+        local ok, err = write8(address + i - 1, bytes[i])
+        if not ok then
+            return false, err
+        end
+    end
+
+    return true, nil
 end
 
 local function decodeTileByte(byte)
@@ -290,6 +375,49 @@ local function handleCommand(line)
         local beacon = readBeacon()
         beacon.type = "beacon"
         send(beacon)
+    elseif command == "read_u32_array" then
+        local address = tonumber(words[2])
+        local count = tonumber(words[3])
+        local values = {}
+
+        if address == nil or count == nil or count < 0 then
+            send({ ok = false, type = "read_u32_array", error = "bad_arguments" })
+            return
+        end
+
+        for i = 0, count - 1 do
+            local value = readU32(address + (i * 4))
+            if value == nil then
+                send({
+                    ok = false,
+                    type = "read_u32_array",
+                    address = address,
+                    count = count,
+                    error = "memory_read_failed",
+                    index = i,
+                })
+                return
+            end
+            values[#values + 1] = value
+        end
+
+        send({ ok = true, type = "read_u32_array", address = address, count = count, values = values })
+    elseif command == "write_u32" then
+        local address = tonumber(words[2])
+        local value = tonumber(words[3])
+
+        if address == nil or value == nil or value < 0 then
+            send({ ok = false, type = "write_u32", error = "bad_arguments" })
+            return
+        end
+
+        local ok, err = writeU32(address, value)
+        if not ok then
+            send({ ok = false, type = "write_u32", address = address, value = value, error = err })
+            return
+        end
+
+        send({ ok = true, type = "write_u32", address = address, value = value })
     elseif command == "set_keys" then
         local mask, err = parseMask(words, 2)
         if mask == nil then

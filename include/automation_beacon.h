@@ -109,6 +109,8 @@ void AutomationBeacon_SetNavProof(
     u8 frontYHi);
 void AutomationBeacon_SetScriptStep(u8 scriptStep);
 u8 AutomationBeacon_GetScriptStep(void);
+u8 AutomationBeacon_GetStage(void);
+u8 AutomationBeacon_GetSubstage(void);
 void AutomationBeacon_Render(void);
 void AutomationBeacon_RenderLate(void);
 #else
@@ -191,6 +193,16 @@ static inline void AutomationBeacon_SetScriptStep(u8 scriptStep)
 static inline u8 AutomationBeacon_GetScriptStep(void)
 {
     return AUTOMATION_BEACON_SCRIPT_STEP_NONE;
+}
+
+static inline u8 AutomationBeacon_GetStage(void)
+{
+    return AUTOMATION_BEACON_STAGE_INACTIVE;
+}
+
+static inline u8 AutomationBeacon_GetSubstage(void)
+{
+    return 0;
 }
 
 static inline void AutomationBeacon_Render(void)

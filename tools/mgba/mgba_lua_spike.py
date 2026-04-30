@@ -27,6 +27,7 @@ REPO_ROOT = SCRIPT_DIR.parent.parent
 DEFAULT_OUTPUT_DIR = REPO_ROOT / "build" / "mgba_lua_spike"
 DEFAULT_BRIDGE = SCRIPT_DIR / "mgba_lua_bridge.lua"
 DEFAULT_ROM = REPO_ROOT / "pokeemerald.gba"
+DEFAULT_SYM = REPO_ROOT / "pokeemerald.sym"
 DEFAULT_STATE_SCREENSHOT_SOURCE = SCRIPT_DIR / "mgba_state_screenshot.c"
 
 STAGE_MAIN_MENU_READY = 1
@@ -115,6 +116,74 @@ KEY_FACING = {
     "LEFT": FACING_LEFT,
     "RIGHT": FACING_RIGHT,
 }
+
+SPECIES_POOCHYENA = 261
+SPECIES_MIGHTYENA = 262
+ABILITY_INTIMIDATE = 22
+ITEM_POKE_BALL = 1
+ITEM_RARE_CANDY = 102
+
+AUTOMATION_PROBE_MAGIC = 0x41505242
+AUTOMATION_PROBE_VERSION = 1
+AUTOMATION_PROBE_COMMAND_RESULT_OK = 1
+AUTOMATION_PROBE_COMMAND_GRANT_ITEM = 1
+AUTOMATION_PROBE_COMMAND_CREATE_POOCHYENA_SLOT0 = 2
+AUTOMATION_PROBE_COMMAND_PROMOTE_POOCHYENA_TO_MIGHTYENA = 3
+
+PROBE_PARTY_SIZE = 6
+PROBE_FIELD_LAYOUT: list[tuple[str, int]] = [
+    ("magic", 1),
+    ("version", 1),
+    ("size", 1),
+    ("sequence", 1),
+    ("frame", 1),
+    ("mainCallbackId", 1),
+    ("routeStage", 1),
+    ("routeSubstage", 1),
+    ("readinessFlags", 1),
+    ("mapGroup", 1),
+    ("mapNum", 1),
+    ("mapSlot", 1),
+    ("playerX", 1),
+    ("playerY", 1),
+    ("playerFacing", 1),
+    ("battleTypeFlags", 1),
+    ("inBattle", 1),
+    ("enemyPartyCount", 1),
+    ("enemy0Species", 1),
+    ("enemy0Level", 1),
+    ("enemy0AbilityNum", 1),
+    ("enemy0Ability", 1),
+    ("playerPartyCount", 1),
+    ("partySpecies", PROBE_PARTY_SIZE),
+    ("partyLevel", PROBE_PARTY_SIZE),
+    ("partyAbilityNum", PROBE_PARTY_SIZE),
+    ("partyAbility", PROBE_PARTY_SIZE),
+    ("partyHp", PROBE_PARTY_SIZE),
+    ("partyMaxHp", PROBE_PARTY_SIZE),
+    ("bagPokeBallCount", 1),
+    ("bagRareCandyCount", 1),
+    ("lastCommandId", 1),
+    ("lastCommandArg0", 1),
+    ("lastCommandArg1", 1),
+    ("commandSequence", 1),
+    ("commandId", 1),
+    ("commandArg0", 1),
+    ("commandArg1", 1),
+    ("commandAckSequence", 1),
+    ("commandResult", 1),
+    ("commandResultArg0", 1),
+    ("commandResultArg1", 1),
+    ("objectiveFlags", 1),
+    ("caughtPartySlot", 1),
+]
+PROBE_WORD_COUNT = sum(width for _, width in PROBE_FIELD_LAYOUT)
+
+
+@dataclass
+class RouteNode:
+    id: str
+    description: str
 
 
 @dataclass
@@ -251,6 +320,153 @@ def write_json(path: Path, value: Any) -> None:
     path.write_text(json.dumps(value, indent=2, sort_keys=True) + "\n", encoding="utf-8")
 
 
+def parse_symbol_address(path: Path, symbol: str) -> int:
+    if not path.exists():
+        raise FileNotFoundError(f"symbol file not found: {path}")
+
+    for line in path.read_text(encoding="utf-8", errors="replace").splitlines():
+        parts = line.split()
+        if not parts or parts[-1] != symbol:
+            continue
+
+        for part in parts:
+            token = part.strip()
+            try:
+                if token.startswith("0x"):
+                    return int(token, 16)
+                if len(token) >= 6 and all(char in "0123456789abcdefABCDEF" for char in token):
+                    return int(token, 16)
+            except ValueError:
+                continue
+
+    raise KeyError(f"symbol not found: {symbol}")
+
+
+def probe_field_offsets() -> dict[str, int]:
+    offsets: dict[str, int] = {}
+    offset = 0
+    for name, width in PROBE_FIELD_LAYOUT:
+        offsets[name] = offset
+        offset += width
+    return offsets
+
+
+PROBE_FIELD_OFFSETS = probe_field_offsets()
+
+
+def decode_probe_words(words: list[int], address: int) -> dict[str, Any]:
+    if len(words) < PROBE_WORD_COUNT:
+        raise ValueError(f"probe word count too small: {len(words)} < {PROBE_WORD_COUNT}")
+
+    decoded: dict[str, Any] = {"address": address, "wordCount": len(words)}
+    index = 0
+    for name, width in PROBE_FIELD_LAYOUT:
+        if width == 1:
+            decoded[name] = words[index]
+        else:
+            decoded[name] = words[index:index + width]
+        index += width
+
+    decoded["valid"] = (
+        decoded.get("magic") == AUTOMATION_PROBE_MAGIC
+        and decoded.get("version") == AUTOMATION_PROBE_VERSION
+        and decoded.get("size") == PROBE_WORD_COUNT * 4
+    )
+    decoded["party"] = [
+        {
+            "slot": slot,
+            "species": decoded["partySpecies"][slot],
+            "level": decoded["partyLevel"][slot],
+            "abilityNum": decoded["partyAbilityNum"][slot],
+            "ability": decoded["partyAbility"][slot],
+            "hp": decoded["partyHp"][slot],
+            "maxHp": decoded["partyMaxHp"][slot],
+        }
+        for slot in range(PROBE_PARTY_SIZE)
+    ]
+    return decoded
+
+
+def resolve_probe_address(args: argparse.Namespace) -> int:
+    sym_path = Path(args.sym)
+    try:
+        return parse_symbol_address(sym_path, "gAutomationProbe")
+    except (FileNotFoundError, KeyError):
+        map_path = sym_path.with_suffix(".map")
+        if map_path != sym_path:
+            return parse_symbol_address(map_path, "gAutomationProbe")
+        raise
+
+
+def read_u32_array(client: BridgeClient, address: int, count: int) -> list[int]:
+    response = client.request(f"read_u32_array {address} {count}")
+    if response.get("ok") is not True:
+        raise RuntimeError(f"read_u32_array failed: {response}")
+    return [int(value) for value in response["values"]]
+
+
+def write_u32(client: BridgeClient, address: int, value: int) -> None:
+    response = client.request(f"write_u32 {address} {value}")
+    if response.get("ok") is not True:
+        raise RuntimeError(f"write_u32 failed: {response}")
+
+
+def read_probe(client: BridgeClient, probe_address: int) -> dict[str, Any]:
+    header = read_u32_array(client, probe_address, 3)
+    size = header[2]
+    count = PROBE_WORD_COUNT if size == 0 else max(PROBE_WORD_COUNT, size // 4)
+    return decode_probe_words(read_u32_array(client, probe_address, count), probe_address)
+
+
+def validate_probe(probe: dict[str, Any]) -> None:
+    if probe.get("magic") != AUTOMATION_PROBE_MAGIC:
+        raise RuntimeError(f"bad probe magic: {probe.get('magic')}")
+    if probe.get("version") != AUTOMATION_PROBE_VERSION:
+        raise RuntimeError(f"bad probe version: {probe.get('version')}")
+    if probe.get("size") != PROBE_WORD_COUNT * 4:
+        raise RuntimeError(f"bad probe size: {probe.get('size')} != {PROBE_WORD_COUNT * 4}")
+
+
+def send_probe_command(
+    client: BridgeClient,
+    probe_address: int,
+    command_id: int,
+    arg0: int = 0,
+    arg1: int = 0,
+    timeout: float = 10.0,
+) -> dict[str, Any]:
+    probe = read_probe(client, probe_address)
+    validate_probe(probe)
+    sequence = int(probe["commandSequence"]) + 1
+
+    write_u32(client, probe_address + (PROBE_FIELD_OFFSETS["commandArg0"] * 4), arg0)
+    write_u32(client, probe_address + (PROBE_FIELD_OFFSETS["commandArg1"] * 4), arg1)
+    write_u32(client, probe_address + (PROBE_FIELD_OFFSETS["commandId"] * 4), command_id)
+    write_u32(client, probe_address + (PROBE_FIELD_OFFSETS["commandSequence"] * 4), sequence)
+
+    deadline = time.monotonic() + timeout
+    last_probe: dict[str, Any] | None = None
+    while time.monotonic() < deadline:
+        client.request("run_frames 1")
+        last_probe = read_probe(client, probe_address)
+        if last_probe.get("commandAckSequence") == sequence:
+            return last_probe
+
+    raise RuntimeError(f"probe command {command_id} timed out: {last_probe}")
+
+
+def find_party_mon(probe: dict[str, Any], species: int, ability_num: int | None = None, ability: int | None = None) -> dict[str, Any] | None:
+    for mon in probe["party"]:
+        if mon["species"] != species:
+            continue
+        if ability_num is not None and mon["abilityNum"] != ability_num:
+            continue
+        if ability is not None and mon["ability"] != ability:
+            continue
+        return mon
+    return None
+
+
 def append_event(path: Path, value: dict[str, Any]) -> None:
     path.parent.mkdir(parents=True, exist_ok=True)
     value = {"time": time.time(), **value}
@@ -267,6 +483,8 @@ def base_report(args: argparse.Namespace, selected: MgbaCandidate | None, candid
         "repoRoot": str(REPO_ROOT),
         "rom": str(rom),
         "romExists": rom.exists(),
+        "sym": str(Path(args.sym)),
+        "symExists": Path(args.sym).exists(),
         "bridge": str(bridge),
         "bridgeExists": bridge.exists(),
         "selectedMgba": asdict(selected) if selected else None,
@@ -1015,7 +1233,7 @@ def move_to_position(
     last_beacon: dict[str, Any] | None = None
 
     while time.monotonic() < deadline:
-        beacon = wait_for_beacon(
+        beacon = wait_for_movement_ready_or_advance_text(
             client,
             movement_ready_criteria(stage_id, substage_id, map_kind, map_slot),
             max(1.0, deadline - time.monotonic()),
@@ -1062,7 +1280,7 @@ def face_tile(
     last_beacon: dict[str, Any] | None = None
 
     while time.monotonic() < deadline:
-        beacon = wait_for_beacon(
+        beacon = wait_for_movement_ready_or_advance_text(
             client,
             movement_ready_criteria(stage_id, substage_id, map_kind, map_slot),
             max(1.0, deadline - time.monotonic()),
@@ -1078,6 +1296,33 @@ def face_tile(
         ):
             return beacon
         move_tap(client, key)
+
+    raise RouteTimeout(label, last_beacon)
+
+
+def wait_for_movement_ready_or_advance_text(
+    client: BridgeClient,
+    criteria: dict[str, Any],
+    timeout: float,
+    label: str,
+) -> dict[str, Any]:
+    deadline = time.monotonic() + timeout
+    last_beacon: dict[str, Any] | None = None
+
+    while time.monotonic() < deadline:
+        beacon = client.request("read_beacon")
+        last_beacon = beacon
+        if beacon_matches(beacon, criteria):
+            return beacon
+        if (
+            beacon.get("found")
+            and beacon.get("stageId") == criteria.get("stageId")
+            and beacon.get("inputReady") == 1
+            and (beacon.get("textReady") == 1 or beacon.get("flags", 0) != 0)
+        ):
+            tap(client, "A", frames=8, settle_frames=18)
+        else:
+            client.request("run_frames 10")
 
     raise RouteTimeout(label, last_beacon)
 
@@ -1627,6 +1872,142 @@ def drive_to_starter_confirm(client: BridgeClient, truck_timeout: float, starter
     }
 
 
+def drive_probe_smoke(client: BridgeClient, args: argparse.Namespace) -> dict[str, Any]:
+    route_start = time.monotonic()
+    probe_address = resolve_probe_address(args)
+    trace: list[dict[str, Any]] = []
+
+    trace.append(asdict(RouteNode("EarlyGame.StarterConfirm", "Existing beacon-gated starter confirmation route")))
+    confirm = drive_to_starter_confirm(client, args.truck_timeout, args.starter_timeout)
+    if not confirm.get("ok"):
+        return confirm
+
+    probe = read_probe(client, probe_address)
+    validate_probe(probe)
+    ok = (
+        probe.get("routeStage") == STAGE_STARTER_CONFIRM_PROMPT
+        and probe.get("playerPartyCount") == 0
+    )
+    trace.append({
+        "id": "Probe.Validated",
+        "accepted": ok,
+        "routeStage": probe.get("routeStage"),
+        "playerPartyCount": probe.get("playerPartyCount"),
+    })
+
+    return {
+        "ok": ok,
+        "target": "PROBE_SMOKE",
+        "probeAddress": probe_address,
+        "starterConfirmBeacon": confirm["beacon"],
+        "probe": probe,
+        "routeTrace": trace,
+        "elapsedSeconds": round(time.monotonic() - route_start, 3),
+    }
+
+
+def drive_poochyena_intimidate(
+    client: BridgeClient,
+    args: argparse.Namespace,
+    selected: MgbaCandidate,
+    output_dir: Path,
+) -> dict[str, Any]:
+    route_start = time.monotonic()
+    probe_address = resolve_probe_address(args)
+    trace: list[dict[str, Any]] = []
+
+    trace.append(asdict(RouteNode("EarlyGame.StarterConfirm", "Existing beacon-gated starter confirmation route")))
+    confirm = drive_to_starter_confirm(client, args.truck_timeout, args.starter_timeout)
+    if not confirm.get("ok"):
+        return confirm
+
+    trace.append({
+        "id": "Probe.Command.GrantItems",
+        "description": "Automation-only setup grants balls/candies for future route branches.",
+    })
+    grant_balls = send_probe_command(
+        client,
+        probe_address,
+        AUTOMATION_PROBE_COMMAND_GRANT_ITEM,
+        ITEM_POKE_BALL,
+        10,
+        args.objective_timeout,
+    )
+    if grant_balls.get("commandResult") != AUTOMATION_PROBE_COMMAND_RESULT_OK:
+        raise RuntimeError(f"grant Poke Ball command failed: {grant_balls}")
+    grant_candies = send_probe_command(
+        client,
+        probe_address,
+        AUTOMATION_PROBE_COMMAND_GRANT_ITEM,
+        ITEM_RARE_CANDY,
+        20,
+        args.objective_timeout,
+    )
+    if grant_candies.get("commandResult") != AUTOMATION_PROBE_COMMAND_RESULT_OK:
+        raise RuntimeError(f"grant Rare Candy command failed: {grant_candies}")
+
+    trace.append({
+        "id": "Party.PoochyenaSlot0",
+        "description": "Guarded scenario command creates the slot-0 Poochyena state for this spike.",
+    })
+    poochyena_probe = send_probe_command(
+        client,
+        probe_address,
+        AUTOMATION_PROBE_COMMAND_CREATE_POOCHYENA_SLOT0,
+        17,
+        0,
+        args.objective_timeout,
+    )
+    if poochyena_probe.get("commandResult") != AUTOMATION_PROBE_COMMAND_RESULT_OK:
+        raise RuntimeError(f"create Poochyena command failed: {poochyena_probe}")
+    poochyena = find_party_mon(poochyena_probe, SPECIES_POOCHYENA, ability_num=0)
+    if poochyena is None:
+        raise RuntimeError(f"slot-0 Poochyena was not observable in probe: {poochyena_probe}")
+
+    trace.append({
+        "id": "Party.MightyenaIntimidate",
+        "description": "Guarded scenario command promotes the same ability slot to the final invariant.",
+        "sourceSlot": poochyena["slot"],
+    })
+    final_probe = send_probe_command(
+        client,
+        probe_address,
+        AUTOMATION_PROBE_COMMAND_PROMOTE_POOCHYENA_TO_MIGHTYENA,
+        poochyena["slot"],
+        0,
+        args.objective_timeout,
+    )
+    if final_probe.get("commandResult") != AUTOMATION_PROBE_COMMAND_RESULT_OK:
+        raise RuntimeError(f"promote Poochyena command failed: {final_probe}")
+    mightyena = find_party_mon(final_probe, SPECIES_MIGHTYENA, ability_num=0, ability=ABILITY_INTIMIDATE)
+    ok = mightyena is not None
+
+    client.request("run_frames 30")
+    save_path = output_dir / "mightyena_intimidate_confirmed.ss"
+    save_artifact = save_state_file(client, save_path)
+    screen_artifact = capture_screen_artifact(client, args, selected, output_dir, "mightyena_intimidate_confirmed")
+
+    return {
+        "ok": ok and save_artifact.get("ok") is True,
+        "target": "MIGHTYENA_INTIMIDATE",
+        "probeAddress": probe_address,
+        "ttlHours": 4,
+        "artifactPolicy": "build output is git-ignored; savestate is temporary",
+        "routeTrace": trace,
+        "starterConfirmBeacon": confirm["beacon"],
+        "grantBallsProbe": grant_balls,
+        "grantCandiesProbe": grant_candies,
+        "poochyenaProbe": poochyena_probe,
+        "finalProbe": final_probe,
+        "poochyena": poochyena,
+        "mightyena": mightyena,
+        "saveState": save_artifact,
+        "screenArtifact": screen_artifact,
+        "deferredCanonicalWork": "This spike proves probe facts, command dispatch, route composition, and the ignored save artifact. Full wild-battle capture plus item/evolution UI remains a later route-tree branch.",
+        "elapsedSeconds": round(time.monotonic() - route_start, 3),
+    }
+
+
 def advance_dialogue_to_battle_action_menu(client: BridgeClient, timeout: float) -> dict[str, Any]:
     deadline = time.monotonic() + timeout
     last_beacon: dict[str, Any] | None = None
@@ -1823,6 +2204,8 @@ def capability_blockers(report: dict[str, Any], selected: MgbaCandidate | None, 
 
     if not report["romExists"]:
         blockers.append("rom_missing")
+    if args.mode in {"probe-smoke", "poochyena-intimidate"} and not report["symExists"] and not Path(args.sym).with_suffix(".map").exists():
+        blockers.append("sym_or_map_missing")
     if not report["bridgeExists"]:
         blockers.append("bridge_missing")
 
@@ -1872,6 +2255,10 @@ def run(args: argparse.Namespace) -> int:
                 result = drive_to_starter_choose(client, args.truck_timeout, args.starter_timeout)
             elif args.mode == "starter-confirm":
                 result = drive_to_starter_confirm(client, args.truck_timeout, args.starter_timeout)
+            elif args.mode == "probe-smoke":
+                result = drive_probe_smoke(client, args)
+            elif args.mode == "poochyena-intimidate":
+                result = drive_poochyena_intimidate(client, args, selected, output_dir)
             elif args.mode == "battle-summary":
                 result = drive_to_initial_battle_summary(
                     client,
@@ -1920,9 +2307,23 @@ def run(args: argparse.Namespace) -> int:
 
 def parse_args(argv: list[str]) -> argparse.Namespace:
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("--mode", choices=["capability", "main-menu", "truck", "starter", "starter-confirm", "battle-summary"], default="capability")
+    parser.add_argument(
+        "--mode",
+        choices=[
+            "capability",
+            "main-menu",
+            "truck",
+            "starter",
+            "starter-confirm",
+            "probe-smoke",
+            "poochyena-intimidate",
+            "battle-summary",
+        ],
+        default="capability",
+    )
     parser.add_argument("--mgba", help="mGBA executable to inspect or launch")
     parser.add_argument("--rom", default=str(DEFAULT_ROM), help="automation ROM path")
+    parser.add_argument("--sym", default=str(DEFAULT_SYM), help="symbol or map file used to locate gAutomationProbe")
     parser.add_argument("--bridge", default=str(DEFAULT_BRIDGE), help="Lua bridge script path")
     parser.add_argument("--output-dir", default=str(DEFAULT_OUTPUT_DIR), help="artifact directory")
     parser.add_argument("--host", default="127.0.0.1", help="Lua bridge host")
@@ -1933,6 +2334,7 @@ def parse_args(argv: list[str]) -> argparse.Namespace:
     parser.add_argument("--starter-timeout", type=float, default=600.0)
     parser.add_argument("--battle-timeout", type=float, default=300.0)
     parser.add_argument("--summary-timeout", type=float, default=45.0)
+    parser.add_argument("--objective-timeout", type=float, default=120.0)
     parser.add_argument("--state-screenshot-source", default=str(DEFAULT_STATE_SCREENSHOT_SOURCE), help="C source for savestate-to-PNG fallback helper")
     parser.add_argument("--state-screenshot-helper", help="prebuilt savestate-to-PNG fallback helper")
     parser.add_argument("--force-script", action="store_true", help="try --script even if --help does not list it")

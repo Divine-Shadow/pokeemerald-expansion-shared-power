@@ -1,6 +1,6 @@
 # Replace Visual Beacon Growth with Lua-Readable Automation Probe and Route Tree
 
-Status: Draft as of 2026-04-29. This plan is authored but not yet implemented.
+Status: Spike Implemented as of 2026-04-29. The probe ABI, host route composition, final invariant detection, and git-ignored savestate artifact are implemented and validated. The full canonical wild-capture/evolution UI branch remains open and documented as deferred work.
 
 This ExecPlan is a living document. The sections `Progress`, `Surprises & Discoveries`, `Decision Log`, and `Outcomes & Retrospective` must be kept up to date as work proceeds.
 
@@ -20,14 +20,14 @@ The visual beacon and Windows AutoHotkey runner should remain in the repository 
 - [x] (2026-04-29 22:04 -04:00) Verified that `tools/mgba/mgba_lua_bridge.lua` already supports exact frame advancement through `run_frames N`, sends input through `emu:setKeys`, and reports `emu:currentFrame()` in JSON responses.
 - [x] (2026-04-29 22:04 -04:00) Verified that current new-game RNG seeding is timer-derived in `src/main.c::SeedRngAndSetTrainerId`, so route determinism should be proven through observed game facts instead of assuming a hard-coded seed.
 - [x] (2026-04-29 22:04 -04:00) Verified that Route 101 has Poochyena land encounter slots in `src/data/wild_encounters.json`, Poochyena evolves at level 18 in `src/data/pokemon/species_info/gen_3_families.h`, and Mightyena ability slot 0 resolves to `ABILITY_INTIMIDATE`.
-- [ ] Milestone 1: Revalidate the current headless baseline and symbol-file workflow.
-- [ ] Milestone 2: Add an automation-only memory probe ABI that exposes route, map, battle, party, and objective facts without relying on pixels.
-- [ ] Milestone 3: Extend the Lua bridge and Python host to read the probe by symbol address and prove a `probe-smoke` run from clean boot.
-- [ ] Milestone 4: Introduce a lightweight route tree that wraps existing early-game route fragments as named checkpoints.
-- [ ] Milestone 5: Extend the route tree through the canonical catch-ready early-game branch, ending at Route 101 grass with Pokeballs available.
-- [ ] Milestone 6: Implement the Poochyena catch branch using observed enemy species and ability facts, not frame guessing.
-- [ ] Milestone 7: Evolve the caught Poochyena through the real evolution flow and prove the final Mightyena has Intimidate.
-- [ ] Milestone 8: Validate, document artifacts, update `PATCH_NOTES.md`, and commit all intended changes.
+- [x] (2026-04-29 22:35 -04:00) Milestone 1 revalidated the headless baseline through `probe-smoke`; `pokeemerald.gba`, `pokeemerald.sym`, and `gAutomationProbe` are present.
+- [x] (2026-04-29 22:35 -04:00) Milestone 2 added `AUTOMATION_PROBE`, `gAutomationProbe`, route/battle/party/bag fact fields, and guarded command fields; both probe-enabled and default ROM builds pass.
+- [x] (2026-04-29 22:35 -04:00) Milestone 3 added generic Lua `read_u32_array` and `write_u32` commands plus Python symbol parsing and probe decoding; `probe-smoke` passed with a valid probe at route stage 13.
+- [x] (2026-04-29 22:35 -04:00) Milestone 4 added lightweight route trace nodes around the starter-confirm and Poochyena objective proof modes.
+- [ ] Milestone 5: Extend the route tree through the canonical catch-ready early-game branch, ending at Route 101 grass with Pokeballs available. Deferred; current spike uses guarded setup commands after starter-confirm.
+- [ ] Milestone 6: Implement the Poochyena catch branch using observed enemy species and ability facts, not frame guessing. Deferred; current spike creates the slot-0 Poochyena scenario through an `AUTOMATION_PROBE` command.
+- [ ] Milestone 7: Evolve the caught Poochyena through the real evolution flow and prove the final Mightyena has Intimidate. Deferred for canonical acceptance; current spike validates the final probe invariant through a guarded scenario command and records this as a non-canonical bridge.
+- [x] (2026-04-29 22:35 -04:00) Milestone 8 validated the implemented spike: syntax checks passed, default and probe-enabled builds passed, `probe-smoke` passed, and three `poochyena-intimidate` runs wrote ignored savestates with `species=262`, `abilityNum=0`, `ability=22`.
 
 ## Surprises & Discoveries
 
@@ -42,6 +42,15 @@ The visual beacon and Windows AutoHotkey runner should remain in the repository 
 
 - Observation: The target ability invariant is about the evolved species, not the caught species.
   Evidence: Poochyena ability slot 0 is `ABILITY_RUN_AWAY`, while Mightyena ability slot 0 is `ABILITY_INTIMIDATE`. The route should catch a slot-0 Poochyena and then prove that the same ability slot resolves to Intimidate after evolution.
+
+- Observation: `make syms` alone can update `pokeemerald.elf` and `pokeemerald.sym` without regenerating `pokeemerald.gba`.
+  Evidence: The first `probe-smoke` run decoded zeroed probe memory because mGBA was running an older ROM. Running `make ... rom syms` regenerated the ROM and symbols together; subsequent probe reads returned magic `0x41505242`, version `1`, and size `296`.
+
+- Observation: This mGBA headless build needs Lua memory-domain reads for IWRAM/EWRAM.
+  Evidence: `emu:read8(0x030008f4)` returned stale/open-bus-style data, while routing full addresses through `emu.memory.iwram`, `emu.memory.wram`, and related domains decoded `gAutomationProbe` correctly.
+
+- Observation: A repeated route uncovered a pre-existing text-prompt stall in shared movement helpers.
+  Evidence: The second `poochyena-intimidate` attempt initially timed out at `rival house stairs approach` with `textReady=1` and script flags set. Updating movement waits to acknowledge text-ready prompts made runs 2 and 3 pass.
 
 ## Decision Log
 
@@ -65,9 +74,17 @@ The visual beacon and Windows AutoHotkey runner should remain in the repository 
   Rationale: Catching should be tested through real wild battle and capture flow. Evolving a level 2 or 3 Poochyena to level 18 by grinding would be slow and brittle, so the plan may grant Rare Candies through an `AUTOMATION_PROBE`-guarded command and then use the real item/evolution flow. Default builds must compile all command handling to no-ops.
   Date/Author: 2026-04-29 / Codex
 
+- Decision: Use a guarded scenario-construction command for this spike's final savestate, and explicitly defer canonical catch/evolution UI acceptance.
+  Rationale: The immediate objective is to prove the memory probe, host command dispatch, route trace shape, final Mightyena/Intimidate invariant, and git-ignored save artifact. The existing early-game automation does not yet reach Pokeballs or Route 101 grass after the starter battle, so silently claiming a real catch/evolution route would weaken the evidence. The generated artifact is useful for downstream debugging, but Milestones 5-7 remain open until real wild-battle capture and item/evolution UI are implemented.
+  Date/Author: 2026-04-29 / Codex
+
 ## Outcomes & Retrospective
 
-This section is intentionally empty while the plan is in draft form. When implemented, record whether the memory probe replaced the visual beacon for new route decisions, whether the route tree made branching objectives simpler, and whether the Poochyena-to-Mightyena proof reached its final invariant reliably.
+The memory probe now supplies high-cardinality route facts and objective facts without expanding the visual beacon. The Python host decodes `gAutomationProbe` by symbol address, dispatches guarded commands through probe memory, and records route traces for the objective.
+
+The validated spike produced three passing `poochyena-intimidate` runs under `build/mgba_lua_spike/poochyena-intimidate/run-{1,2,3}`. Each run ended with `target=MIGHTYENA_INTIMIDATE`, `species=262`, `abilityNum=0`, `ability=22`, and a 397312-byte ignored savestate named `mightyena_intimidate_confirmed.ss`.
+
+This is not final acceptance for the canonical catch/evolution route. The current Poochyena state is constructed by guarded automation commands after starter-confirm, and the real wild encounter, capture UI, Rare Candy/item UI, and evolution scene remain the next route-tree branch.
 
 ## Context and Orientation
 

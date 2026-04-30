@@ -386,6 +386,16 @@ u8 AutomationBeacon_GetScriptStep(void)
     return sScriptStep;
 }
 
+u8 AutomationBeacon_GetStage(void)
+{
+    return sStageId;
+}
+
+u8 AutomationBeacon_GetSubstage(void)
+{
+    return sSubstageId;
+}
+
 void AutomationBeacon_Render(void)
 {
     SetGpuRegBits(REG_OFFSET_DISPCNT, DISPCNT_OBJ_ON);

@@ -17,6 +17,7 @@
 #include "gpu_regs.h"
 #include "agb_flash.h"
 #include "automation_beacon.h"
+#include "automation_probe.h"
 #include "sound.h"
 #include "battle.h"
 #include "battle_controllers.h"
@@ -170,6 +171,7 @@ void AgbMainLoop(void)
 
         PlayTimeCounter_Update();
         MapMusicMain();
+        AutomationProbe_Update();
         WaitForVBlank();
     }
 }
