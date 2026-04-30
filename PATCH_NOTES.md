@@ -1,5 +1,83 @@
+- Docs/Automation: Document the Python mGBA host as reference-only in the tool README and mark old Python route commands as superseded by Scala (commit pending).
+- Tools/Automation: Mark the Python mGBA host as reference-only so canonical route work moves to Scala (commit pending).
+- Docs/Automation: Update the Mightyena route ExecPlan to make Scala the implementation target and freeze Python route extension (commit pending).
+- Tools/Automation: Remove the unverified Python evolution mode so the spike remains reference-only while Scala owns new route work (commit pending).
+- Docs/Automation: Mark the real Poochyena capture milestone complete with Oldale Mart purchase evidence (commit pending).
+- Docs/Automation: Record the Oldale post-Mart egress waypoint finding in the Mightyena route ExecPlan (commit pending).
+- Tools/Automation: Route from Oldale Mart back to the central lane before entering Route 101 for capture (commit pending).
+- Docs/Automation: Record the Oldale Mart counter-collision finding in the Mightyena route ExecPlan (commit pending).
+- Tools/Automation: Approach the Oldale Mart clerk from the accessible counter-side tile during Poke Ball purchase routing (commit pending).
+- Docs/Automation: Record five-ball capture unreliability and the Oldale Mart purchase decision in the Mightyena route ExecPlan (commit pending).
+- Tools/Automation: Add probe-visible Oldale Mart shop state and canonical Poke Ball purchase routing before Route 101 capture (commit pending).
+- Tools/Automation: Unwind battle-bag selection as captured when a throw ends the battle and increases party count (commit pending).
+- Tools/Automation: Retry opening the battle Bag when a failed capture leaves the cursor on Bag with stale bag-menu context (commit pending).
+- Tools/Automation: Add a Route 101 Poochyena capture smoke mode that catches only wild ability-slot-0 Poochyena with real Poke Balls (commit pending).
+- Tools/Automation: Generalize bag item selection across item and Poké Ball pockets for capture routes (commit pending).
+- Docs/Automation: Record passing story-to-Poke-Balls evidence for the Mightyena route (commit pending).
+- Docs/Automation: Correct Littleroot lab-return evidence to stop before the lab warp tile (commit pending).
+- Tools/Automation: Stop Littleroot lab-return waypoints below the lab door and let the map-transition helper own the warp (commit pending).
+- Docs/Automation: Correct the Littleroot lab-return waypoint evidence after the mid-lane block (commit pending).
+- Tools/Automation: Route Littleroot lab return through the lower lab lane after observing the mid-lane west step is blocked (commit pending).
+- Docs/Automation: Record the Littleroot north-entrance waypoint finding in the Mightyena route ExecPlan (commit pending).
+- Tools/Automation: Add explicit Littleroot north-entrance waypoints to reach Birch's lab without greedy leftward movement (commit pending).
+- Tools/Automation: Let map-transition movement waits advance script-locked prompts before the target map is reached (commit pending).
+- Docs/Automation: Record bag-startup and post-rival script readiness findings in the Mightyena route ExecPlan (commit pending).
+- Tools/Automation: Let probe movement waits conservatively advance script-locked prompts on the target map even without field text readiness (commit pending).
+- Tools/Automation: Make Rare Candy bag selection retry when the item list is visible but the first A press is ignored during bag startup (commit pending).
+- Tools/Automation: Include bedroom PC withdrawal and starter Rare Candy evidence in story Poke Ball smoke results (commit pending).
+- Tools/Automation: Route the story Poke Ball checkpoint through PC Rare Candy withdrawal and starter overleveling before the rival fight (commit pending).
+- Tools/Automation: Add probe-gated Start Menu, Bag, Party, and Rare Candy item-use helpers for route checkpoints (commit pending).
+- Tools/Automation: Reuse the bedroom setup checkpoint and extract a quantity-aware PC Rare Candy withdrawal helper (commit pending).
+- Docs/Automation: Record that starter matchup is not a reliable Route 103 rival-battle invariant (commit pending).
+- Docs/Automation: Record the default Torchic rival-loss finding and explicit Mudkip route decision (commit pending).
+- Tools/Automation: Make the story route select Mudkip explicitly instead of inheriting the fragile default starter choice (commit pending).
+- Docs/Automation: Correct Route 103 approach evidence to start from the observed Oldale connection tile (commit pending).
+- Tools/Automation: Start Route 103 rival waypoints from the observed Oldale north-connection landing tile (commit pending).
+- Docs/Automation: Correct the Route 103 return finding after observing the rival exit script position (commit pending).
+- Tools/Automation: Let the Route 103 rival exit script deposit the player at the south connection instead of replaying return waypoints (commit pending).
+- Docs/Automation: Record collision-grid Route 103 waypoint evidence in the Mightyena route ExecPlan (commit pending).
+- Tools/Automation: Add collision-grid Route 103 waypoints for rival approach and return to Oldale (commit pending).
+- Docs/Automation: Record the battle menu heartbeat limitation for incidental run-away handling (commit pending).
+- Tools/Automation: Make incidental battle run-away own the battle text and action-menu loop without stale-frame rejection (commit pending).
+- Docs/Automation: Record incidental Route 101 battle handling in the Mightyena route ExecPlan (commit pending).
+- Tools/Automation: Advance incidental wild-battle text while waiting for probe-gated field movement to resume (commit pending).
+- Docs/Automation: Record the collision-grid Route 101 waypoint evidence in the Mightyena route ExecPlan (commit pending).
+- Tools/Automation: Add a reusable probe waypoint helper and collision-grid Route 101 waypoint lists (commit pending).
+- Docs/Automation: Document the Route 101 waypoint decision after greedy movement hit blocked terrain (commit pending).
+- Tools/Automation: Add explicit Route 101 waypoints around the post-rescue Zigzagoon instead of relying on greedy X-first pathing (commit pending).
+- Docs/Automation: Record Route 101 object-state and beacon text-readiness findings in the Mightyena route ExecPlan (commit pending).
+- Tools/Automation: Let beacon-gated movement clear script-step text prompts that are text-ready without the message-box flag (commit pending).
+- Tools/Automation: Route post-rescue Route 101 travel through Birch-cleared x=9 lane instead of the Zigzagoon-occupied tile (commit pending).
+- Tools/Automation: Require stable post-lab field readiness before treating starter lab dialogue as complete (commit pending).
+- Tools/Automation: Hold overworld movement inputs longer so probe-gated route steps do not collapse into facing-only taps (commit pending).
+- Tools/Automation: Use the post-rescue Route 101 central path after confirming blocker flags should be cleared (commit pending).
+- Tools/Automation: Use Route 101 column x=8 for the post-rescue Zigzagoon bypass (commit pending).
+- Tools/Automation: Split the Route 101 story waypoint before stepping around the Zigzagoon blocker (commit pending).
+- Tools/Automation: Add a post-lab dialogue settle pass before field movement resumes (commit pending).
+- Tools/Automation: Register a SIGUSR1 Python stack dump hook for route waiter diagnosis (commit pending).
+- Tools/Automation: Log pending script yes/no detection inside the story route loop (commit pending).
+- Tools/Automation: Simplify pending yes/no handling to act directly on probe-visible script menus (commit pending).
+- Tools/Automation: Drive story battle action and move menus directly from the outer probe loop (commit pending).
+- Tools/Automation: Drive story battles through the same probe-gated dialogue loop used for scripted prompts (commit pending).
+- Tools/Automation: Make battle menu waiters unwind when story scripts take over after battle (commit pending).
+- Tools/Automation: Hand story battles off to dialogue routing when post-battle script prompts appear (commit pending).
+- Tools/Automation: Add a governed fallback yes/no choice for resilient lab dialogue routing (commit pending).
+- Tools/Automation: Clear completed script-menu probe state and gate host choices on pending menu results (commit pending).
+- Tools/Automation: Route the story Poké Ball checkpoint around Route 101 blocker objects (commit pending).
 # Patch Notes
 
+- Tools/Automation: Add probe-gated story and battle helpers for the starter-to-lab route checkpoint (commit pending).
+- Tools/Automation: Expose script yes/no and multichoice menu state for story-route decisions (commit pending).
+- Tools/Automation: Add generic field/menu probe states for route checkpoints beyond the early beacon maps (commit pending).
+- Docs/Automation: Record successful Milestone 3 PC Rare Candy withdrawal evidence for the Mightyena switch route (commit pending).
+- Tools/Automation: Clear stale overworld script-step readiness when no script or field message is active (commit pending).
+- Tools/Automation: Avoid treating stale script-step text readiness as an actionable PC-exit message (commit pending).
+- Tools/Automation: Require semantic field movement readiness after exiting the PC Rare Candy route (commit pending).
+- Tools/Automation: Add a PC Rare Candy smoke route that withdraws through the real bedroom PC flow (commit pending).
+- Tools/Automation: Add Lua-readable PC item-storage menu state for deterministic Rare Candy withdrawal (commit pending).
+- Docs/Automation: Record successful Milestone 2 probe-observability evidence for the Mightyena switch route (commit pending).
+- Tools/Automation: Expose PC Rare Candy counts, battle control facts, and ability-popup events through the automation probe (commit pending).
+- Docs/Automation: Record successful Milestone 1 baseline evidence for the Mightyena switch route (commit pending).
 - Docs/Automation: Add ExecPlan for the canonical Mightyena Intimidate switch route (commit 69a24a2a35).
 - Tools/Automation: Route mGBA Lua memory reads and writes through explicit memory domains for IWRAM/EWRAM probe access (commit pending).
 - Docs/Automation: Record validation evidence and deferred canonical catch/evolution work in the Lua probe route-tree ExecPlan (commit pending).

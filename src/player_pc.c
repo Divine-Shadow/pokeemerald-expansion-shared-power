@@ -1,4 +1,5 @@
 #include "global.h"
+#include "automation_probe.h"
 #include "constants/songs.h"
 #include "bg.h"
 #include "decoration.h"
@@ -427,6 +428,7 @@ static void PlayerPCProcessMenuInput(u8 taskId)
     s8 inputOptionId;
 
     data = gTasks[taskId].data;
+    AutomationProbe_RecordPCMenuState(AUTOMATION_PROBE_PC_MENU_TOP, Menu_GetCursorPos(), ITEM_NONE, 0);
     if (sTopMenuNumOptions > 3)
         inputOptionId = Menu_ProcessInput();
     else
@@ -543,6 +545,7 @@ static void ItemStorageMenuProcessInput(u8 taskId)
     s8 oldPos, newPos;
     s8 inputOptionId;
 
+    AutomationProbe_RecordPCMenuState(AUTOMATION_PROBE_PC_MENU_ITEM_STORAGE, Menu_GetCursorPos(), ITEM_NONE, 0);
     oldPos = Menu_GetCursorPos();
     inputOptionId = Menu_ProcessInput();
     newPos = Menu_GetCursorPos();
@@ -1224,6 +1227,16 @@ static void ItemStorage_PrintMessage(const u8 *string)
 static void ItemStorage_ProcessInput(u8 taskId)
 {
     s16 *data = gTasks[taskId].data;
+    u16 pos = gPlayerPCItemPageInfo.cursorPos + gPlayerPCItemPageInfo.itemsAbove;
+    u16 itemId = pos < PC_ITEMS_COUNT ? gSaveBlock1Ptr->pcItems[pos].itemId : ITEM_NONE;
+    u16 quantity = pos < PC_ITEMS_COUNT ? gSaveBlock1Ptr->pcItems[pos].quantity : 0;
+
+    AutomationProbe_RecordPCMenuState(
+        AUTOMATION_PROBE_PC_MENU_ITEM_LIST,
+        pos,
+        itemId,
+        quantity);
+
     if (JOY_NEW(SELECT_BUTTON))
     {
         // 'Select' starts input for swapping items if not on Cancel
@@ -1407,6 +1420,12 @@ static void ItemStorage_HandleQuantityRolling(u8 taskId)
     s16 *data = gTasks[taskId].data;
     u16 pos = gPlayerPCItemPageInfo.cursorPos + gPlayerPCItemPageInfo.itemsAbove;
 
+    AutomationProbe_RecordPCMenuState(
+        AUTOMATION_PROBE_PC_MENU_QUANTITY,
+        pos,
+        gSaveBlock1Ptr->pcItems[pos].itemId,
+        tQuantity);
+
     if (AdjustQuantityAccordingToDPadInput(&tQuantity, gSaveBlock1Ptr->pcItems[pos].quantity) == TRUE)
     {
         ItemStorage_PrintItemQuantity(ItemStorage_AddWindow(ITEMPC_WIN_QUANTITY), tQuantity, STR_CONV_MODE_LEADING_ZEROS, 8, 1, 3);
@@ -1496,6 +1515,15 @@ static void ItemStorage_TossItemNo(u8 taskId)
 static void ItemStorage_HandleRemoveItem(u8 taskId)
 {
     s16 *data = gTasks[taskId].data;
+    u16 pos = gPlayerPCItemPageInfo.cursorPos + gPlayerPCItemPageInfo.itemsAbove;
+    u16 itemId = pos < PC_ITEMS_COUNT ? gSaveBlock1Ptr->pcItems[pos].itemId : ITEM_NONE;
+
+    AutomationProbe_RecordPCMenuState(
+        AUTOMATION_PROBE_PC_MENU_WITHDRAW_MESSAGE,
+        pos,
+        itemId,
+        tQuantity);
+
     if (JOY_NEW(A_BUTTON | B_BUTTON))
     {
         RemovePCItem(gPlayerPCItemPageInfo.cursorPos + gPlayerPCItemPageInfo.itemsAbove, tQuantity);

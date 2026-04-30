@@ -7,6 +7,17 @@ The source code for these specific builds is available from:
  - Linux: <https://github.com/mgba-emu/mgba/tree/dbffb46c4e7d2e7a2cbed7c3488cece4c2176d4c>
  - Mac: <https://github.com/mgba-emu/mgba/tree/daf01b03d5316dac966acd4b05318a225cab12f5>
 
+## Route Automation Ownership
+
+`mgba_lua_spike.py` is reference-only. It may be used to compare Lua bridge
+behavior, probe ABI decoding, or historical reproduction artifacts, but it
+should not receive new canonical gameplay route logic.
+
+New route FSM work belongs in the governed Scala automation lane in the
+`ouroboros-ide` repository. The Lua bridge and automation probe remain shared
+interfaces; Python should not own new gameplay checkpoints, route branching, or
+final acceptance proofs.
+
 ## Intro Automation Script
 
 `new_girl_a_truck.ahk` supports two modes:

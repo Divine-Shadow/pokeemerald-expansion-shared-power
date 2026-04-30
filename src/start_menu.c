@@ -1,4 +1,5 @@
 #include "global.h"
+#include "automation_probe.h"
 #include "battle_pike.h"
 #include "battle_pyramid.h"
 #include "battle_pyramid_bag.h"
@@ -621,6 +622,12 @@ void ShowStartMenu(void)
 
 static bool8 HandleStartMenuInput(void)
 {
+    AutomationProbe_RecordStartMenuState(
+        AUTOMATION_PROBE_START_MENU_READY,
+        sStartMenuCursorPos,
+        sNumStartMenuActions == 0 ? 0 : sCurrentStartMenuActions[sStartMenuCursorPos],
+        sNumStartMenuActions);
+
     if (JOY_NEW(DPAD_UP))
     {
         PlaySE(SE_SELECT);

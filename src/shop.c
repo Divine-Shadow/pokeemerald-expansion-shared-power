@@ -1,4 +1,5 @@
 #include "global.h"
+#include "automation_probe.h"
 #include "bg.h"
 #include "data.h"
 #include "decompress.h"
@@ -393,9 +394,64 @@ static void SetShopItemsForSale(const u16 *items)
     }
 }
 
+static u32 ShopProbe_GetMoney(void)
+{
+    if (gSaveBlock1Ptr == NULL)
+        return 0;
+    return GetMoney(&gSaveBlock1Ptr->money);
+}
+
+static u32 ShopProbe_GetSelectedItemId(void)
+{
+    u32 cursor;
+
+    if (sShopData == NULL || sListMenuItems == NULL)
+        return ITEM_NONE;
+
+    cursor = sShopData->scrollOffset + sShopData->selectedRow;
+    if (cursor >= sMartInfo.itemCount)
+        return ITEM_NONE;
+
+    return sListMenuItems[cursor].id;
+}
+
+static u32 ShopProbe_GetUnitPrice(u32 itemId)
+{
+    if (itemId == ITEM_NONE)
+        return 0;
+    if (sMartInfo.martType == MART_TYPE_NORMAL)
+        return GetItemPrice(itemId) >> IsPokeNewsActive(POKENEWS_SLATEPORT);
+    return gDecorations[itemId].price;
+}
+
+static void ShopProbe_RecordBuyList(void)
+{
+    u32 cursor = 0;
+    u32 itemId = ShopProbe_GetSelectedItemId();
+
+    if (sShopData != NULL)
+        cursor = sShopData->scrollOffset + sShopData->selectedRow;
+    AutomationProbe_RecordShopMenuState(
+        AUTOMATION_PROBE_SHOP_MENU_BUY_LIST,
+        cursor,
+        itemId,
+        0,
+        ShopProbe_GetUnitPrice(itemId),
+        ShopProbe_GetMoney());
+}
+
 static void Task_ShopMenu(u8 taskId)
 {
     s8 inputCode = Menu_ProcessInputNoWrap();
+
+    AutomationProbe_RecordShopMenuState(
+        AUTOMATION_PROBE_SHOP_MENU_TOP,
+        Menu_GetCursorPos(),
+        ITEM_NONE,
+        0,
+        0,
+        ShopProbe_GetMoney());
+
     switch (inputCode)
     {
     case MENU_NOTHING_CHOSEN:
@@ -768,6 +824,15 @@ static void BuyMenuPrint(u8 windowId, const u8 *text, u8 x, u8 y, s8 speed, u8 c
 
 static void BuyMenuDisplayMessage(u8 taskId, const u8 *text, TaskFunc callback)
 {
+    s16 *data = gTasks[taskId].data;
+
+    AutomationProbe_RecordShopMenuState(
+        AUTOMATION_PROBE_SHOP_MENU_MESSAGE,
+        sShopData == NULL ? 0 : sShopData->scrollOffset + sShopData->selectedRow,
+        tItemId,
+        tItemCount,
+        sShopData == NULL ? 0 : sShopData->totalCost,
+        ShopProbe_GetMoney());
     DisplayMessageAndContinueTask(taskId, WIN_MESSAGE, 10, 14, FONT_NORMAL, GetPlayerTextSpeedDelay(), text, callback);
     ScheduleBgCopyTilemapToVram(0);
 }
@@ -984,6 +1049,7 @@ static void Task_BuyMenu(u8 taskId)
     {
         s32 itemId = ListMenu_ProcessInput(tListTaskId);
         ListMenuGetScrollAndRow(tListTaskId, &sShopData->scrollOffset, &sShopData->selectedRow);
+        ShopProbe_RecordBuyList();
 
         switch (itemId)
         {
@@ -1086,6 +1152,14 @@ static void Task_BuyHowManyDialogueHandleInput(u8 taskId)
 {
     s16 *data = gTasks[taskId].data;
 
+    AutomationProbe_RecordShopMenuState(
+        AUTOMATION_PROBE_SHOP_MENU_QUANTITY,
+        sShopData->scrollOffset + sShopData->selectedRow,
+        tItemId,
+        tItemCount,
+        sShopData->totalCost,
+        ShopProbe_GetMoney());
+
     if (AdjustQuantityAccordingToDPadInput(&tItemCount, sShopData->maxQuantity) == TRUE)
     {
         sShopData->totalCost = (GetItemPrice(tItemId) >> IsPokeNewsActive(POKENEWS_SLATEPORT)) * tItemCount;
@@ -1120,6 +1194,15 @@ static void Task_BuyHowManyDialogueHandleInput(u8 taskId)
 
 static void BuyMenuConfirmPurchase(u8 taskId)
 {
+    s16 *data = gTasks[taskId].data;
+
+    AutomationProbe_RecordShopMenuState(
+        AUTOMATION_PROBE_SHOP_MENU_CONFIRM,
+        sShopData->scrollOffset + sShopData->selectedRow,
+        tItemId,
+        tItemCount,
+        sShopData->totalCost,
+        ShopProbe_GetMoney());
     CreateYesNoMenuWithCallbacks(taskId, &sShopBuyMenuYesNoWindowTemplates, 1, 0, 0, 1, 13, &sShopPurchaseYesNoFuncs);
 }
 
@@ -1174,6 +1257,14 @@ static void BuyMenuSubtractMoney(u8 taskId)
 static void Task_ReturnToItemListAfterItemPurchase(u8 taskId)
 {
     s16 *data = gTasks[taskId].data;
+
+    AutomationProbe_RecordShopMenuState(
+        AUTOMATION_PROBE_SHOP_MENU_MESSAGE,
+        sShopData->scrollOffset + sShopData->selectedRow,
+        tItemId,
+        tItemCount,
+        sShopData->totalCost,
+        ShopProbe_GetMoney());
 
     if (JOY_NEW(A_BUTTON | B_BUTTON))
     {

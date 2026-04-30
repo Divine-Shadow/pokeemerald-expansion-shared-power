@@ -1,16 +1,22 @@
 #!/usr/bin/env python3
-"""Python host spike for mGBA Lua automation.
+"""Reference-only Python host spike for mGBA Lua automation.
 
-The script deliberately avoids GUI automation. It either proves that a local mGBA
-binary can be driven through a Lua bridge, or writes a precise capability report
-explaining why the spike is blocked.
+Do not extend this file for canonical gameplay route automation.
+
+This script is retained only as a historical/debugging reference for the mGBA
+Lua bridge and the automation probe ABI. New route FSM work belongs in the
+Scala automation implementation in the ouroboros repository, where route logic
+can be governed, typed, and driven by probe/menu/event flags instead of timing
+assumptions.
 """
 
 from __future__ import annotations
 
 import argparse
+import faulthandler
 import json
 import os
+import signal
 import shlex
 import shutil
 import socket
@@ -19,7 +25,7 @@ import sys
 import time
 from dataclasses import asdict, dataclass
 from pathlib import Path
-from typing import Any, Iterable
+from typing import Any, Callable, Iterable
 
 DEFAULT_PORT = 46510
 SCRIPT_DIR = Path(__file__).resolve().parent
@@ -29,6 +35,11 @@ DEFAULT_BRIDGE = SCRIPT_DIR / "mgba_lua_bridge.lua"
 DEFAULT_ROM = REPO_ROOT / "pokeemerald.gba"
 DEFAULT_SYM = REPO_ROOT / "pokeemerald.sym"
 DEFAULT_STATE_SCREENSHOT_SOURCE = SCRIPT_DIR / "mgba_state_screenshot.c"
+
+try:
+    faulthandler.register(signal.SIGUSR1, all_threads=True)
+except (AttributeError, RuntimeError, ValueError):
+    pass
 
 STAGE_MAIN_MENU_READY = 1
 STAGE_BIRCH_INTRO_TEXT = 2
@@ -102,6 +113,22 @@ MAP_SLOT_MAYS_HOUSE_1F = 5
 MAP_SLOT_MAYS_HOUSE_2F = 6
 MAP_SLOT_ROUTE101 = 7
 NAME_CHAR_A = 1
+STARTER_SELECTION_TREECKO = 0
+STARTER_SELECTION_TORCHIC = 1
+STARTER_SELECTION_MUDKIP = 2
+DEFAULT_STORY_STARTER_SELECTION = STARTER_SELECTION_MUDKIP
+STORY_PC_RARE_CANDY_WITHDRAW_COUNT = 25
+STORY_STARTER_RARE_CANDY_COUNT = 6
+
+MAP_GROUP_OUTSIDE = 0
+MAP_GROUP_LITTLEROOT_BUILDINGS = 1
+MAP_GROUP_OLDALE_BUILDINGS = 2
+MAP_NUM_LITTLEROOT_TOWN = 9
+MAP_NUM_OLDALE_TOWN = 10
+MAP_NUM_ROUTE101 = 16
+MAP_NUM_ROUTE103 = 18
+MAP_NUM_BIRCH_LAB = 4
+MAP_NUM_OLDALE_MART = 4
 
 SCRIPT_STEP_WAIT_MESSAGE = 5
 SCRIPT_STEP_WAIT_BUTTON = 10
@@ -123,8 +150,49 @@ ABILITY_INTIMIDATE = 22
 ITEM_POKE_BALL = 1
 ITEM_RARE_CANDY = 102
 
+PC_MENU_NONE = 0
+PC_MENU_TOP = 1
+PC_MENU_ITEM_STORAGE = 2
+PC_MENU_ITEM_LIST = 3
+PC_MENU_QUANTITY = 4
+PC_MENU_WITHDRAW_MESSAGE = 5
+
+FIELD_READY_MAX_STALE_FRAMES = 8
+
+BATTLE_MENU_NONE = 0
+BATTLE_MENU_ACTION = 1
+BATTLE_MENU_MOVE = 2
+
+PARTY_MENU_NONE = 0
+PARTY_MENU_CHOOSE = 1
+PARTY_MENU_ACTION = 2
+
+MENU_ACTION_POKEMON = 1
+MENU_ACTION_BAG = 2
+START_MENU_NONE = 0
+START_MENU_READY = 1
+
+POCKET_ITEMS = 0
+POCKET_POKE_BALLS = 1
+BAG_MENU_NONE = 0
+BAG_MENU_ITEM_LIST = 1
+BAG_MENU_CONTEXT = 2
+
+SCRIPT_MENU_NONE = 0
+SCRIPT_MENU_YESNO = 1
+SCRIPT_MENU_MULTICHOICE = 2
+SCRIPT_MENU_MULTICHOICE_GRID = 3
+SCRIPT_MENU_RESULT_PENDING = 0xFF
+
+SHOP_MENU_NONE = 0
+SHOP_MENU_TOP = 1
+SHOP_MENU_BUY_LIST = 2
+SHOP_MENU_QUANTITY = 3
+SHOP_MENU_CONFIRM = 4
+SHOP_MENU_MESSAGE = 5
+
 AUTOMATION_PROBE_MAGIC = 0x41505242
-AUTOMATION_PROBE_VERSION = 1
+AUTOMATION_PROBE_VERSION = 6
 AUTOMATION_PROBE_COMMAND_RESULT_OK = 1
 AUTOMATION_PROBE_COMMAND_GRANT_ITEM = 1
 AUTOMATION_PROBE_COMMAND_CREATE_POOCHYENA_SLOT0 = 2
@@ -147,6 +215,15 @@ PROBE_FIELD_LAYOUT: list[tuple[str, int]] = [
     ("playerX", 1),
     ("playerY", 1),
     ("playerFacing", 1),
+    ("frontX", 1),
+    ("frontY", 1),
+    ("fieldInputReady", 1),
+    ("fieldMovementReady", 1),
+    ("fieldTextReady", 1),
+    ("fieldScriptEnabled", 1),
+    ("fieldControlsLocked", 1),
+    ("fieldPlayerMoving", 1),
+    ("fieldPaletteFadeActive", 1),
     ("battleTypeFlags", 1),
     ("inBattle", 1),
     ("enemyPartyCount", 1),
@@ -161,8 +238,64 @@ PROBE_FIELD_LAYOUT: list[tuple[str, int]] = [
     ("partyAbility", PROBE_PARTY_SIZE),
     ("partyHp", PROBE_PARTY_SIZE),
     ("partyMaxHp", PROBE_PARTY_SIZE),
+    ("pcRareCandyCount", 1),
+    ("pcRareCandySlot", 1),
+    ("pcUsedItemSlots", 1),
+    ("pcMenuState", 1),
+    ("pcMenuCursor", 1),
+    ("pcItemCursor", 1),
+    ("pcItemId", 1),
+    ("pcItemQuantity", 1),
     ("bagPokeBallCount", 1),
     ("bagRareCandyCount", 1),
+    ("playerBattleBattler", 1),
+    ("playerBattlePartyIndex", 1),
+    ("playerBattleActionCursor", 1),
+    ("playerBattleMoveCursor", 1),
+    ("playerBattleController", 1),
+    ("battleControllerExecFlags", 1),
+    ("battleMenuState", 1),
+    ("battleMenuFrame", 1),
+    ("battleMenuCursor", 1),
+    ("battleMenuArg0", 1),
+    ("partyMenuState", 1),
+    ("partyMenuFrame", 1),
+    ("partyMenuType", 1),
+    ("partyMenuAction", 1),
+    ("partyMenuCursor", 1),
+    ("partyMenuCursor2", 1),
+    ("startMenuState", 1),
+    ("startMenuFrame", 1),
+    ("startMenuCursor", 1),
+    ("startMenuAction", 1),
+    ("startMenuCount", 1),
+    ("bagMenuState", 1),
+    ("bagMenuFrame", 1),
+    ("bagMenuLocation", 1),
+    ("bagMenuPocket", 1),
+    ("bagMenuCursor", 1),
+    ("bagMenuItemId", 1),
+    ("bagMenuItemQuantity", 1),
+    ("bagMenuContextCursor", 1),
+    ("scriptMenuState", 1),
+    ("scriptMenuFrame", 1),
+    ("scriptMenuCursor", 1),
+    ("scriptMenuResult", 1),
+    ("scriptMenuId", 1),
+    ("shopMenuState", 1),
+    ("shopMenuFrame", 1),
+    ("shopMenuCursor", 1),
+    ("shopMenuItemId", 1),
+    ("shopMenuItemQuantity", 1),
+    ("shopMenuItemPrice", 1),
+    ("shopMenuMoney", 1),
+    ("abilityPopupSequence", 1),
+    ("abilityPopupFrame", 1),
+    ("abilityPopupBattler", 1),
+    ("abilityPopupSide", 1),
+    ("abilityPopupPosition", 1),
+    ("abilityPopupPartyIndex", 1),
+    ("abilityPopupAbility", 1),
     ("lastCommandId", 1),
     ("lastCommandArg0", 1),
     ("lastCommandArg1", 1),
@@ -416,6 +549,693 @@ def read_probe(client: BridgeClient, probe_address: int) -> dict[str, Any]:
     size = header[2]
     count = PROBE_WORD_COUNT if size == 0 else max(PROBE_WORD_COUNT, size // 4)
     return decode_probe_words(read_u32_array(client, probe_address, count), probe_address)
+
+
+def wait_for_probe_condition(
+    client: BridgeClient,
+    probe_address: int,
+    predicate: Callable[[dict[str, Any]], bool],
+    timeout: float,
+    label: str,
+    poll_frames: int = 5,
+) -> dict[str, Any]:
+    deadline = time.monotonic() + timeout
+    last_probe: dict[str, Any] | None = None
+
+    while time.monotonic() < deadline:
+        last_probe = read_probe(client, probe_address)
+        validate_probe(last_probe)
+        if predicate(last_probe):
+            return last_probe
+        client.request(f"run_frames {poll_frames}")
+
+    raise RuntimeError(f"{label} timed out: {last_probe}")
+
+
+def probe_frame_delta(probe: dict[str, Any], frame_key: str) -> int:
+    return (int(probe.get("frame", 0)) - int(probe.get(frame_key, 0))) & 0xFFFFFFFF
+
+
+def probe_state_is_fresh(probe: dict[str, Any], frame_key: str, max_stale_frames: int = FIELD_READY_MAX_STALE_FRAMES) -> bool:
+    return probe_frame_delta(probe, frame_key) <= max_stale_frames
+
+
+def probe_on_map(probe: dict[str, Any], map_group: int, map_num: int) -> bool:
+    return probe.get("mapGroup") == map_group and probe.get("mapNum") == map_num
+
+
+def wait_for_probe_field_movement_ready(
+    client: BridgeClient,
+    probe_address: int,
+    map_group: int | None,
+    map_num: int | None,
+    timeout: float,
+    label: str,
+    run_incidental_battles: bool = False,
+) -> dict[str, Any]:
+    deadline = time.monotonic() + timeout
+    last_probe: dict[str, Any] | None = None
+    idle_polls = 0
+
+    while time.monotonic() < deadline:
+        probe = read_probe(client, probe_address)
+        validate_probe(probe)
+        last_probe = probe
+        map_ok = map_group is None or map_num is None or probe_on_map(probe, map_group, map_num)
+        if map_ok and probe.get("fieldMovementReady") == 1:
+            return probe
+        if run_incidental_battles and probe.get("inBattle") == 1:
+            run_from_battle(client, probe_address, max(1.0, deadline - time.monotonic()), f"{label} incidental battle")
+            idle_polls = 0
+            continue
+        if probe.get("fieldInputReady") == 1 and probe.get("fieldTextReady") == 1:
+            tap(client, "A", frames=8, settle_frames=12)
+            idle_polls = 0
+        else:
+            client.request("run_frames 5")
+            if map_ok and (probe.get("fieldScriptEnabled") == 1 or probe.get("fieldControlsLocked") == 1):
+                idle_polls += 1
+                if idle_polls >= 12:
+                    tap(client, "A", frames=4, settle_frames=6)
+                    idle_polls = 0
+
+    raise RuntimeError(f"{label} timed out: {last_probe}")
+
+
+def wait_for_script_menu_state(
+    client: BridgeClient,
+    probe_address: int,
+    state: int,
+    timeout: float,
+    label: str,
+) -> dict[str, Any]:
+    return wait_for_probe_condition(
+        client,
+        probe_address,
+        lambda probe: (
+            probe.get("scriptMenuState") == state
+            and probe_state_is_fresh(probe, "scriptMenuFrame")
+            and probe.get("scriptMenuResult") == SCRIPT_MENU_RESULT_PENDING
+        ),
+        timeout,
+        label,
+    )
+
+
+def choose_script_yesno(
+    client: BridgeClient,
+    probe_address: int,
+    want_yes: bool,
+    timeout: float,
+    label: str,
+) -> dict[str, Any]:
+    deadline = time.monotonic() + timeout
+    target_cursor = 0 if want_yes else 1
+    last_probe: dict[str, Any] | None = None
+
+    while time.monotonic() < deadline:
+        probe = wait_for_script_menu_state(
+            client,
+            probe_address,
+            SCRIPT_MENU_YESNO,
+            max(1.0, deadline - time.monotonic()),
+            label,
+        )
+        last_probe = probe
+        cursor = probe.get("scriptMenuCursor")
+        if cursor == target_cursor:
+            client.request("run_frames 8")
+            tap(client, "A", frames=8, settle_frames=18)
+            return probe
+        tap(client, "UP" if target_cursor == 0 else "DOWN", frames=8, settle_frames=12)
+
+    raise RuntimeError(f"{label} timed out: {last_probe}")
+
+
+def wait_for_battle_menu_state(
+    client: BridgeClient,
+    probe_address: int,
+    state: int,
+    timeout: float,
+    label: str,
+    allow_post_battle_script: bool = False,
+) -> dict[str, Any]:
+    return wait_for_probe_condition(
+        client,
+        probe_address,
+        lambda probe: (
+            (
+                probe.get("inBattle") == 1
+                and probe.get("battleMenuState") == state
+                and probe_state_is_fresh(probe, "battleMenuFrame")
+            )
+            or (
+                allow_post_battle_script
+                and probe.get("inBattle") == 0
+                and probe.get("scriptMenuState") != SCRIPT_MENU_NONE
+                and probe_state_is_fresh(probe, "scriptMenuFrame", max_stale_frames=30)
+            )
+        ),
+        timeout,
+        label,
+        poll_frames=2,
+    )
+
+
+def wait_for_battle_action_or_probe_condition(
+    client: BridgeClient,
+    probe_address: int,
+    predicate: Callable[[dict[str, Any]], bool],
+    timeout: float,
+    label: str,
+    allow_post_battle_script: bool = False,
+) -> tuple[str, dict[str, Any]]:
+    deadline = time.monotonic() + timeout
+    last_probe: dict[str, Any] | None = None
+    idle_polls = 0
+
+    while time.monotonic() < deadline:
+        probe = read_probe(client, probe_address)
+        validate_probe(probe)
+        last_probe = probe
+        if predicate(probe):
+            return "predicate", probe
+        if (
+            allow_post_battle_script
+            and probe.get("inBattle") == 0
+            and probe.get("scriptMenuState") != SCRIPT_MENU_NONE
+            and probe_state_is_fresh(probe, "scriptMenuFrame", max_stale_frames=30)
+        ):
+            append_event(
+                client.event_log,
+                {
+                    "event": "post_battle_script_handoff",
+                    "label": label,
+                    "probeFrame": probe.get("frame"),
+                    "scriptMenuState": probe.get("scriptMenuState"),
+                    "scriptMenuResult": probe.get("scriptMenuResult"),
+                    "mapGroup": probe.get("mapGroup"),
+                    "mapNum": probe.get("mapNum"),
+                },
+            )
+            return "post_battle_script", probe
+        if (
+            probe.get("inBattle") == 1
+            and probe.get("battleMenuState") == BATTLE_MENU_ACTION
+            and probe_state_is_fresh(probe, "battleMenuFrame")
+        ):
+            return "action", probe
+        if probe.get("fieldInputReady") == 1 and probe.get("fieldTextReady") == 1:
+            tap(client, "A", frames=8, settle_frames=12)
+            idle_polls = 0
+        else:
+            client.request("run_frames 5")
+            idle_polls += 1
+            if idle_polls >= 6:
+                tap(client, "A", frames=4, settle_frames=6)
+                idle_polls = 0
+
+    raise RuntimeError(f"{label} timed out: {last_probe}")
+
+
+def set_battle_action_cursor(
+    client: BridgeClient,
+    probe_address: int,
+    target_cursor: int,
+    timeout: float,
+    label: str,
+    allow_post_battle_script: bool = False,
+) -> dict[str, Any]:
+    deadline = time.monotonic() + timeout
+    last_probe: dict[str, Any] | None = None
+
+    while time.monotonic() < deadline:
+        probe = wait_for_battle_menu_state(
+            client,
+            probe_address,
+            BATTLE_MENU_ACTION,
+            max(1.0, deadline - time.monotonic()),
+            label,
+            allow_post_battle_script=allow_post_battle_script,
+        )
+        last_probe = probe
+        if probe.get("inBattle") == 0:
+            return probe
+        cursor = int(probe.get("battleMenuCursor", 0))
+        if cursor == target_cursor:
+            return probe
+        if (cursor & 1) and not (target_cursor & 1):
+            tap(client, "LEFT", frames=8, settle_frames=10)
+        elif not (cursor & 1) and (target_cursor & 1):
+            tap(client, "RIGHT", frames=8, settle_frames=10)
+        elif (cursor & 2) and not (target_cursor & 2):
+            tap(client, "UP", frames=8, settle_frames=10)
+        elif not (cursor & 2) and (target_cursor & 2):
+            tap(client, "DOWN", frames=8, settle_frames=10)
+
+    raise RuntimeError(f"{label} cursor timed out: {last_probe}")
+
+
+def set_battle_move_cursor_zero(
+    client: BridgeClient,
+    probe_address: int,
+    timeout: float,
+    label: str,
+    allow_post_battle_script: bool = False,
+) -> dict[str, Any]:
+    deadline = time.monotonic() + timeout
+    last_probe: dict[str, Any] | None = None
+
+    while time.monotonic() < deadline:
+        probe = wait_for_battle_menu_state(
+            client,
+            probe_address,
+            BATTLE_MENU_MOVE,
+            max(1.0, deadline - time.monotonic()),
+            label,
+            allow_post_battle_script=allow_post_battle_script,
+        )
+        last_probe = probe
+        if probe.get("inBattle") == 0:
+            return probe
+        cursor = int(probe.get("battleMenuCursor", 0))
+        if cursor == 0:
+            return probe
+        if cursor & 1:
+            tap(client, "LEFT", frames=8, settle_frames=10)
+        elif cursor & 2:
+            tap(client, "UP", frames=8, settle_frames=10)
+
+    raise RuntimeError(f"{label} cursor timed out: {last_probe}")
+
+
+def choose_first_battle_move(
+    client: BridgeClient,
+    probe_address: int,
+    timeout: float,
+    label: str,
+    allow_post_battle_script: bool = False,
+) -> dict[str, Any]:
+    action_probe = set_battle_action_cursor(
+        client,
+        probe_address,
+        0,
+        timeout,
+        f"{label} action cursor",
+        allow_post_battle_script=allow_post_battle_script,
+    )
+    if action_probe.get("inBattle") == 0:
+        return action_probe
+    tap(client, "A", frames=8, settle_frames=12)
+    move_probe = set_battle_move_cursor_zero(
+        client,
+        probe_address,
+        timeout,
+        f"{label} move cursor",
+        allow_post_battle_script=allow_post_battle_script,
+    )
+    if move_probe.get("inBattle") == 0:
+        return move_probe
+    tap(client, "A", frames=8, settle_frames=18)
+    return move_probe
+
+
+def run_from_battle(client: BridgeClient, probe_address: int, timeout: float, label: str) -> dict[str, Any]:
+    deadline = time.monotonic() + timeout
+    last_probe: dict[str, Any] | None = None
+    idle_polls = 0
+
+    while time.monotonic() < deadline:
+        probe = read_probe(client, probe_address)
+        validate_probe(probe)
+        last_probe = probe
+        if probe.get("inBattle") == 0 and probe.get("fieldMovementReady") == 1:
+            return probe
+
+        if probe.get("inBattle") == 1 and probe.get("battleMenuState") == BATTLE_MENU_ACTION:
+            cursor = int(probe.get("battleMenuCursor", 0))
+            if cursor == 3:
+                tap(client, "A", frames=8, settle_frames=18)
+            elif cursor & 1:
+                tap(client, "DOWN", frames=8, settle_frames=10)
+            elif cursor & 2:
+                tap(client, "RIGHT", frames=8, settle_frames=10)
+            else:
+                tap(client, "RIGHT", frames=8, settle_frames=10)
+            idle_polls = 0
+            continue
+
+        if probe.get("inBattle") == 1:
+            client.request("run_frames 5")
+            idle_polls += 1
+            if idle_polls >= 6:
+                tap(client, "A", frames=4, settle_frames=6)
+                idle_polls = 0
+            continue
+
+        if probe.get("fieldInputReady") == 1 and probe.get("fieldTextReady") == 1:
+            tap(client, "A", frames=8, settle_frames=12)
+        else:
+            client.request("run_frames 5")
+
+    raise RuntimeError(f"{label} timed out: {last_probe}")
+
+
+def win_battle_with_first_move_until(
+    client: BridgeClient,
+    probe_address: int,
+    predicate: Callable[[dict[str, Any]], bool],
+    timeout: float,
+    label: str,
+    max_turns: int = 40,
+    allow_post_battle_script: bool = False,
+) -> dict[str, Any]:
+    deadline = time.monotonic() + timeout
+    last_probe: dict[str, Any] | None = None
+
+    for turn in range(max_turns):
+        state, probe = wait_for_battle_action_or_probe_condition(
+            client,
+            probe_address,
+            predicate,
+            max(1.0, deadline - time.monotonic()),
+            f"{label} turn {turn + 1}",
+            allow_post_battle_script=allow_post_battle_script,
+        )
+        last_probe = probe
+        if state in {"predicate", "post_battle_script"}:
+            return probe
+        choose_first_battle_move(
+            client,
+            probe_address,
+            max(1.0, deadline - time.monotonic()),
+            f"{label} turn {turn + 1}",
+            allow_post_battle_script=allow_post_battle_script,
+        )
+
+    raise RuntimeError(f"{label} exceeded {max_turns} turns: {last_probe}")
+
+
+def advance_story_dialogue(
+    client: BridgeClient,
+    probe_address: int,
+    predicate: Callable[[dict[str, Any]], bool],
+    timeout: float,
+    label: str,
+    yesno_choices: list[bool] | None = None,
+    default_yesno_choice: bool | None = None,
+    run_battles_with_first_move: bool = False,
+    stable_frames: int = 0,
+) -> dict[str, Any]:
+    deadline = time.monotonic() + timeout
+    choices = list(yesno_choices or [])
+    active_yesno = False
+    last_probe: dict[str, Any] | None = None
+    idle_polls = 0
+    last_yesno_action_frame = 0
+    stable_start_frame: int | None = None
+
+    while time.monotonic() < deadline:
+        probe = read_probe(client, probe_address)
+        validate_probe(probe)
+        last_probe = probe
+        if predicate(probe):
+            if stable_frames <= 0:
+                return probe
+            probe_frame = int(probe.get("frame", 0))
+            if stable_start_frame is None:
+                stable_start_frame = probe_frame
+            elif probe_frame - stable_start_frame >= stable_frames:
+                return probe
+            client.request("run_frames 5")
+            continue
+        stable_start_frame = None
+        if (
+            run_battles_with_first_move
+            and probe.get("inBattle") == 1
+            and probe_state_is_fresh(probe, "battleMenuFrame")
+        ):
+            menu_state = probe.get("battleMenuState")
+            if menu_state not in {BATTLE_MENU_ACTION, BATTLE_MENU_MOVE}:
+                client.request("run_frames 3")
+                continue
+            append_event(
+                client.event_log,
+                {
+                    "event": "story_battle_first_move",
+                    "label": label,
+                    "probeFrame": probe.get("frame"),
+                    "enemy0Species": probe.get("enemy0Species"),
+                    "battleMenuState": menu_state,
+                    "battleMenuCursor": probe.get("battleMenuCursor"),
+                },
+            )
+            cursor = int(probe.get("battleMenuCursor", 0))
+            if menu_state == BATTLE_MENU_ACTION:
+                if cursor == 0:
+                    tap(client, "A", frames=8, settle_frames=12)
+                elif cursor & 1:
+                    tap(client, "LEFT", frames=8, settle_frames=10)
+                else:
+                    tap(client, "UP", frames=8, settle_frames=10)
+            elif menu_state == BATTLE_MENU_MOVE:
+                if cursor == 0:
+                    tap(client, "A", frames=8, settle_frames=18)
+                elif cursor & 1:
+                    tap(client, "LEFT", frames=8, settle_frames=10)
+                else:
+                    tap(client, "UP", frames=8, settle_frames=10)
+            active_yesno = False
+            idle_polls = 0
+            continue
+        yesno_active = (
+            probe.get("scriptMenuState") == SCRIPT_MENU_YESNO
+            and probe_state_is_fresh(probe, "scriptMenuFrame")
+            and probe.get("scriptMenuResult") == SCRIPT_MENU_RESULT_PENDING
+        )
+        if yesno_active:
+            append_event(
+                client.event_log,
+                {
+                    "event": "script_yesno_seen",
+                    "label": label,
+                    "probeFrame": probe.get("frame"),
+                    "cursor": probe.get("scriptMenuCursor"),
+                    "remainingPlannedChoices": len(choices),
+                    "hasDefaultChoice": default_yesno_choice is not None,
+                },
+            )
+            used_default_choice = False
+            if choices:
+                choice = choices.pop(0)
+            elif default_yesno_choice is not None:
+                choice = default_yesno_choice
+                used_default_choice = True
+            else:
+                raise RuntimeError(f"{label} saw unexpected yes/no prompt: {probe}")
+            append_event(
+                client.event_log,
+                {
+                    "event": "script_yesno_choice",
+                    "label": label,
+                    "choice": choice,
+                    "remainingPlannedChoices": len(choices),
+                    "usedDefaultChoice": used_default_choice,
+                    "probeFrame": probe.get("frame"),
+                    "cursor": probe.get("scriptMenuCursor"),
+                },
+            )
+            choose_script_yesno(client, probe_address, choice, max(1.0, deadline - time.monotonic()), f"{label} yesno")
+            active_yesno = True
+            last_yesno_action_frame = int(probe.get("frame", 0))
+            stable_start_frame = None
+        elif not yesno_active:
+            active_yesno = False
+            if probe.get("fieldInputReady") == 1 and probe.get("fieldTextReady") == 1:
+                tap(client, "A", frames=8, settle_frames=12)
+                idle_polls = 0
+            else:
+                client.request("run_frames 5")
+                idle_polls += 1
+                if idle_polls >= 12:
+                    tap(client, "A", frames=4, settle_frames=6)
+                    idle_polls = 0
+        else:
+            client.request("run_frames 5")
+
+    raise RuntimeError(f"{label} timed out: {last_probe}")
+
+
+def probe_move_to_position(
+    client: BridgeClient,
+    probe_address: int,
+    map_group: int,
+    map_num: int,
+    target_x: int,
+    target_y: int,
+    timeout: float,
+    label: str,
+) -> dict[str, Any]:
+    deadline = time.monotonic() + timeout
+    last_probe: dict[str, Any] | None = None
+
+    while time.monotonic() < deadline:
+        probe = wait_for_probe_field_movement_ready(
+            client,
+            probe_address,
+            map_group,
+            map_num,
+            max(1.0, deadline - time.monotonic()),
+            label,
+            run_incidental_battles=True,
+        )
+        last_probe = probe
+        player_x = probe.get("playerX")
+        player_y = probe.get("playerY")
+        if player_x == target_x and player_y == target_y:
+            return probe
+        if player_x is None or player_y is None:
+            raise RuntimeError(f"{label} missing probe position: {probe}")
+        if player_x < target_x:
+            move_tap(client, "RIGHT")
+        elif player_x > target_x:
+            move_tap(client, "LEFT")
+        elif player_y < target_y:
+            move_tap(client, "DOWN")
+        elif player_y > target_y:
+            move_tap(client, "UP")
+
+    raise RuntimeError(f"{label} timed out: {last_probe}")
+
+
+def probe_follow_waypoints(
+    client: BridgeClient,
+    probe_address: int,
+    map_group: int,
+    map_num: int,
+    waypoints: Iterable[tuple[int, int, str]],
+    timeout: float,
+    label: str,
+) -> dict[str, Any]:
+    deadline = time.monotonic() + timeout
+    last_probe: dict[str, Any] | None = None
+
+    for target_x, target_y, waypoint_label in waypoints:
+        last_probe = probe_move_to_position(
+            client,
+            probe_address,
+            map_group,
+            map_num,
+            target_x,
+            target_y,
+            max(1.0, deadline - time.monotonic()),
+            f"{label}: {waypoint_label}",
+        )
+
+    if last_probe is None:
+        return wait_for_probe_field_movement_ready(
+            client,
+            probe_address,
+            map_group,
+            map_num,
+            max(1.0, deadline - time.monotonic()),
+            label,
+            run_incidental_battles=True,
+        )
+    return last_probe
+
+
+def probe_face_tile(
+    client: BridgeClient,
+    probe_address: int,
+    map_group: int,
+    map_num: int,
+    key: str,
+    front_x: int,
+    front_y: int,
+    timeout: float,
+    label: str,
+) -> dict[str, Any]:
+    key = key.upper()
+    expected_facing = KEY_FACING[key]
+    deadline = time.monotonic() + timeout
+    last_probe: dict[str, Any] | None = None
+
+    while time.monotonic() < deadline:
+        probe = wait_for_probe_field_movement_ready(
+            client,
+            probe_address,
+            map_group,
+            map_num,
+            max(1.0, deadline - time.monotonic()),
+            label,
+        )
+        last_probe = probe
+        if (
+            probe.get("playerFacing") == expected_facing
+            and probe.get("frontX") == front_x
+            and probe.get("frontY") == front_y
+        ):
+            return probe
+        move_tap(client, key)
+
+    raise RuntimeError(f"{label} timed out: {last_probe}")
+
+
+def probe_move_until_map(
+    client: BridgeClient,
+    probe_address: int,
+    key: str,
+    target_map_group: int,
+    target_map_num: int,
+    max_presses: int,
+    timeout: float,
+    label: str,
+) -> dict[str, Any]:
+    deadline = time.monotonic() + timeout
+    last_probe: dict[str, Any] | None = None
+    presses = 0
+    idle_polls = 0
+
+    while time.monotonic() < deadline:
+        probe = read_probe(client, probe_address)
+        validate_probe(probe)
+        last_probe = probe
+        if probe_on_map(probe, target_map_group, target_map_num):
+            return wait_for_probe_field_movement_ready(
+                client,
+                probe_address,
+                target_map_group,
+                target_map_num,
+                max(1.0, deadline - time.monotonic()),
+                label,
+                run_incidental_battles=True,
+            )
+        if (
+            probe.get("inBattle") == 1
+            and probe.get("battleMenuState") == BATTLE_MENU_ACTION
+            and probe_state_is_fresh(probe, "battleMenuFrame")
+        ):
+            run_from_battle(client, probe_address, max(1.0, deadline - time.monotonic()), f"{label} incidental battle")
+            idle_polls = 0
+        if probe.get("fieldMovementReady") == 1:
+            if presses >= max_presses:
+                raise RuntimeError(f"{label} exceeded max presses: {probe}")
+            move_tap(client, key)
+            presses += 1
+            idle_polls = 0
+        elif probe.get("fieldInputReady") == 1 and probe.get("fieldTextReady") == 1:
+            tap(client, "A", frames=8, settle_frames=12)
+            idle_polls = 0
+        else:
+            client.request("run_frames 5")
+            if probe.get("fieldScriptEnabled") == 1 or probe.get("fieldControlsLocked") == 1:
+                idle_polls += 1
+                if idle_polls >= 12:
+                    tap(client, "A", frames=4, settle_frames=6)
+                    idle_polls = 0
+
+    raise RuntimeError(f"{label} timed out: {last_probe}")
 
 
 def validate_probe(probe: dict[str, Any]) -> None:
@@ -978,7 +1798,7 @@ def capture_screen_artifact(
 
 
 def move_tap(client: BridgeClient, key: str, settle_frames: int = 24) -> None:
-    tap(client, key, frames=8, settle_frames=settle_frames)
+    tap(client, key, frames=16, settle_frames=max(settle_frames, 36))
 
 
 def tap_until_beacon(
@@ -1318,7 +2138,42 @@ def wait_for_movement_ready_or_advance_text(
             beacon.get("found")
             and beacon.get("stageId") == criteria.get("stageId")
             and beacon.get("inputReady") == 1
-            and (beacon.get("textReady") == 1 or beacon.get("flags", 0) != 0)
+            and (
+                (beacon.get("flags", 0) & 4) != 0
+                or beacon.get("textReady") == 1
+                or beacon.get("scriptWaitKind") == SCRIPT_STEP_WAIT_BUTTON
+            )
+        ):
+            tap(client, "A", frames=8, settle_frames=18)
+        else:
+            client.request("run_frames 10")
+
+    raise RouteTimeout(label, last_beacon)
+
+
+def wait_for_semantic_movement_ready_or_advance_text(
+    client: BridgeClient,
+    criteria: dict[str, Any],
+    timeout: float,
+    label: str,
+) -> dict[str, Any]:
+    deadline = time.monotonic() + timeout
+    last_beacon: dict[str, Any] | None = None
+
+    while time.monotonic() < deadline:
+        beacon = client.request("read_beacon")
+        last_beacon = beacon
+        if (
+            beacon_matches(beacon, criteria)
+            and beacon.get("semanticFound")
+            and beacon.get("movementReady") == 1
+        ):
+            return beacon
+        if (
+            beacon.get("found")
+            and beacon.get("stageId") == criteria.get("stageId")
+            and beacon.get("inputReady") == 1
+            and (beacon.get("flags", 0) & 4) != 0
         ):
             tap(client, "A", frames=8, settle_frames=18)
         else:
@@ -1332,6 +2187,56 @@ def remaining_timeout(deadline: float, default: float, label: str, client: Bridg
     if remaining <= 0:
         raise RouteTimeout(label, client.request("read_beacon"))
     return min(default, remaining)
+
+
+def drive_to_bedroom_setup_ready(client: BridgeClient, truck_timeout: float, setup_timeout: float) -> dict[str, Any]:
+    route_start = time.monotonic()
+    truck = drive_to_truck(client, truck_timeout)
+    if not truck.get("ok"):
+        return truck
+
+    deadline = time.monotonic() + setup_timeout
+
+    route_phase(client, "truck_exit")
+    move_until_stage(
+        client,
+        "RIGHT",
+        STAGE_LITTLEROOT_ROUTE_SETUP,
+        4,
+        remaining_timeout(deadline, 60.0, "truck exit to Littleroot", client),
+        "truck exit to Littleroot",
+    )
+    tap_until_beacon(
+        client,
+        "A",
+        movement_ready_criteria(STAGE_LITTLEROOT_ROUTE_SETUP, 4, MAP_LITTLEROOT),
+        remaining_timeout(deadline, 90.0, "moving-in intro complete", client),
+        "moving-in intro complete",
+    )
+
+    route_phase(client, "bedroom_setup")
+    move_until_substage(
+        client,
+        "UP",
+        STAGE_LITTLEROOT_ROUTE_SETUP,
+        5,
+        5,
+        remaining_timeout(deadline, 60.0, "bedroom setup ready", client),
+        "bedroom setup ready",
+    )
+    bedroom = wait_for_beacon(
+        client,
+        movement_ready_criteria(STAGE_LITTLEROOT_ROUTE_SETUP, 5, MAP_LITTLEROOT),
+        remaining_timeout(deadline, 60.0, "bedroom ready", client),
+        "bedroom ready",
+    )
+
+    return {
+        "ok": True,
+        "target": "BEDROOM_SETUP_READY",
+        "beacon": bedroom,
+        "elapsedSeconds": round(time.monotonic() - route_start, 3),
+    }
 
 
 def drive_to_main_menu(client: BridgeClient, timeout: float) -> dict[str, Any]:
@@ -1485,41 +2390,11 @@ def drive_to_truck(client: BridgeClient, timeout: float) -> dict[str, Any]:
     }
 
 
-def drive_to_starter_choose(client: BridgeClient, truck_timeout: float, starter_timeout: float) -> dict[str, Any]:
+def drive_from_bedroom_setup_to_starter_choose(client: BridgeClient, starter_timeout: float) -> dict[str, Any]:
     route_start = time.monotonic()
-    truck = drive_to_truck(client, truck_timeout)
-    if not truck.get("ok"):
-        return truck
-
     deadline = time.monotonic() + starter_timeout
 
-    route_phase(client, "truck_exit")
-    move_until_stage(
-        client,
-        "RIGHT",
-        STAGE_LITTLEROOT_ROUTE_SETUP,
-        4,
-        remaining_timeout(deadline, 60.0, "truck exit to Littleroot", client),
-        "truck exit to Littleroot",
-    )
-    tap_until_beacon(
-        client,
-        "A",
-        movement_ready_criteria(STAGE_LITTLEROOT_ROUTE_SETUP, 4, MAP_LITTLEROOT),
-        remaining_timeout(deadline, 90.0, "moving-in intro complete", client),
-        "moving-in intro complete",
-    )
-
     route_phase(client, "clock_setup")
-    move_until_substage(
-        client,
-        "UP",
-        STAGE_LITTLEROOT_ROUTE_SETUP,
-        5,
-        5,
-        remaining_timeout(deadline, 60.0, "bedroom setup ready", client),
-        "bedroom setup ready",
-    )
     wait_for_beacon(
         client,
         movement_ready_criteria(STAGE_LITTLEROOT_ROUTE_SETUP, 5, MAP_LITTLEROOT),
@@ -1842,12 +2717,65 @@ def drive_to_starter_choose(client: BridgeClient, truck_timeout: float, starter_
     }
 
 
-def drive_to_starter_confirm(client: BridgeClient, truck_timeout: float, starter_timeout: float) -> dict[str, Any]:
+def drive_to_starter_choose(client: BridgeClient, truck_timeout: float, starter_timeout: float) -> dict[str, Any]:
     route_start = time.monotonic()
-    starter = drive_to_starter_choose(client, truck_timeout, starter_timeout)
-    if not starter["ok"]:
-        return starter
+    bedroom = drive_to_bedroom_setup_ready(client, truck_timeout, starter_timeout)
+    if not bedroom.get("ok"):
+        return bedroom
 
+    starter = drive_from_bedroom_setup_to_starter_choose(client, starter_timeout)
+    starter["elapsedSeconds"] = round(time.monotonic() - route_start, 3)
+    return starter
+
+
+def choose_starter_selection(
+    client: BridgeClient,
+    current_beacon: dict[str, Any],
+    target_selection: int,
+    timeout: float,
+) -> dict[str, Any]:
+    deadline = time.monotonic() + timeout
+    starter = current_beacon
+
+    while int(starter.get("starterSelection", STARTER_SELECTION_TORCHIC)) != target_selection:
+        current_selection = int(starter.get("starterSelection", STARTER_SELECTION_TORCHIC))
+        if current_selection < target_selection:
+            tap(client, "RIGHT", frames=8, settle_frames=12)
+            next_selection = current_selection + 1
+        else:
+            tap(client, "LEFT", frames=8, settle_frames=12)
+            next_selection = current_selection - 1
+        starter = wait_for_beacon(
+            client,
+            {
+                "stageId": STAGE_STARTER_CHOOSE_READY,
+                "mapKind": MAP_STARTER_SELECTION,
+                "gender": GENDER_FEMALE,
+                "nameLen": 1,
+                "nameChar0": NAME_CHAR_A,
+                "starterSelection": next_selection,
+                "inputReady": 1,
+            },
+            max(1.0, deadline - time.monotonic()),
+            f"starter selection {target_selection}",
+        )
+
+    return starter
+
+
+def confirm_starter_from_choose(
+    client: BridgeClient,
+    starter: dict[str, Any],
+    starter_selection: int = DEFAULT_STORY_STARTER_SELECTION,
+    timeout: float = 120.0,
+) -> dict[str, Any]:
+    route_start = time.monotonic()
+    starter_beacon = choose_starter_selection(
+        client,
+        starter["beacon"],
+        starter_selection,
+        timeout,
+    )
     tap(client, "A")
     confirm = wait_for_semantic_beacon(
         client,
@@ -1857,19 +2785,38 @@ def drive_to_starter_confirm(client: BridgeClient, truck_timeout: float, starter
             "gender": GENDER_FEMALE,
             "nameLen": 1,
             "nameChar0": NAME_CHAR_A,
+            "starterSelection": starter_selection,
             "inputReady": 1,
         },
         "menuReady",
-        120.0,
+        timeout,
         "starter confirm prompt",
     )
 
     return {
         "ok": True,
         "target": "STARTER_CONFIRM_PROMPT",
+        "starterSelection": starter_selection,
+        "starterChooseBeacon": starter_beacon,
         "beacon": confirm,
         "elapsedSeconds": round(time.monotonic() - route_start, 3),
     }
+
+
+def drive_to_starter_confirm(
+    client: BridgeClient,
+    truck_timeout: float,
+    starter_timeout: float,
+    starter_selection: int = DEFAULT_STORY_STARTER_SELECTION,
+) -> dict[str, Any]:
+    route_start = time.monotonic()
+    starter = drive_to_starter_choose(client, truck_timeout, starter_timeout)
+    if not starter["ok"]:
+        return starter
+
+    confirm = confirm_starter_from_choose(client, starter, starter_selection, starter_timeout)
+    confirm["elapsedSeconds"] = round(time.monotonic() - route_start, 3)
+    return confirm
 
 
 def drive_probe_smoke(client: BridgeClient, args: argparse.Namespace) -> dict[str, Any]:
@@ -1902,6 +2849,1603 @@ def drive_probe_smoke(client: BridgeClient, args: argparse.Namespace) -> dict[st
         "starterConfirmBeacon": confirm["beacon"],
         "probe": probe,
         "routeTrace": trace,
+        "elapsedSeconds": round(time.monotonic() - route_start, 3),
+    }
+
+
+def drive_story_pokeballs_smoke(client: BridgeClient, args: argparse.Namespace) -> dict[str, Any]:
+    route_start = time.monotonic()
+    probe_address = resolve_probe_address(args)
+    trace: list[dict[str, Any]] = []
+
+    trace.append(asdict(RouteNode("EarlyGame.BedroomPC", "Reach bedroom setup and withdraw route Rare Candies before setting the clock")))
+    bedroom = drive_to_bedroom_setup_ready(client, args.truck_timeout, args.objective_timeout)
+    if not bedroom.get("ok"):
+        return bedroom
+
+    withdrawal = withdraw_rare_candies_from_bedroom_pc(
+        client,
+        probe_address,
+        STORY_PC_RARE_CANDY_WITHDRAW_COUNT,
+        args.objective_timeout,
+    )
+    trace.append({
+        "id": "Inventory.RareCandiesWithdrawnFromPC",
+        "accepted": True,
+        "quantity": STORY_PC_RARE_CANDY_WITHDRAW_COUNT,
+        "beforePcRareCandyCount": withdrawal["beforeProbe"].get("pcRareCandyCount"),
+        "afterPcRareCandyCount": withdrawal["afterProbe"].get("pcRareCandyCount"),
+        "beforeBagRareCandyCount": withdrawal["beforeProbe"].get("bagRareCandyCount"),
+        "afterBagRareCandyCount": withdrawal["afterProbe"].get("bagRareCandyCount"),
+    })
+
+    trace.append(asdict(RouteNode("EarlyGame.StarterConfirm", "Resume from bedroom setup and reach the starter confirmation prompt")))
+    starter = drive_from_bedroom_setup_to_starter_choose(client, args.starter_timeout)
+    if not starter.get("ok"):
+        return starter
+    confirm = confirm_starter_from_choose(client, starter, DEFAULT_STORY_STARTER_SELECTION, args.starter_timeout)
+    if not confirm.get("ok"):
+        return confirm
+
+    trace.append(asdict(RouteNode("Story.InitialRescueBattle", "Confirm the starter and win the rescue battle through probe-gated story/battle handling")))
+    tap(client, "A", frames=8, settle_frames=24)
+    trace.append(asdict(RouteNode("Story.StarterLabAcknowledged", "Decline nickname, agree to see rival, and regain lab field control")))
+    lab_ready = advance_story_dialogue(
+        client,
+        probe_address,
+        lambda probe: (
+            probe_on_map(probe, MAP_GROUP_LITTLEROOT_BUILDINGS, MAP_NUM_BIRCH_LAB)
+            and probe.get("playerPartyCount") == 1
+            and probe.get("fieldMovementReady") == 1
+        ),
+        args.objective_timeout,
+        "starter lab acknowledgement",
+        yesno_choices=[False, True],
+        default_yesno_choice=True,
+        run_battles_with_first_move=True,
+    )
+    lab_ready = advance_story_dialogue(
+        client,
+        probe_address,
+        lambda probe: (
+            probe_on_map(probe, MAP_GROUP_LITTLEROOT_BUILDINGS, MAP_NUM_BIRCH_LAB)
+            and probe.get("playerPartyCount") == 1
+            and probe.get("fieldMovementReady") == 1
+        ),
+        args.objective_timeout,
+        "starter lab acknowledgement settle",
+        default_yesno_choice=True,
+        stable_frames=90,
+    )
+    post_rescue = lab_ready
+
+    trace.append(asdict(RouteNode("Inventory.StarterOverleveled", "Use PC-withdrawn Rare Candies on the starter before the Route 103 rival battle")))
+    starter_candy_uses = use_rare_candies_on_party_slot(
+        client,
+        probe_address,
+        0,
+        STORY_STARTER_RARE_CANDY_COUNT,
+        args.objective_timeout,
+        "starter Rare Candy",
+    )
+    starter_leveled_probe = read_probe(client, probe_address)
+    validate_probe(starter_leveled_probe)
+    trace.append({
+        "id": "Inventory.StarterRareCandiesUsed",
+        "accepted": starter_leveled_probe.get("partyLevel", [0])[0] >= 5 + STORY_STARTER_RARE_CANDY_COUNT,
+        "quantity": STORY_STARTER_RARE_CANDY_COUNT,
+        "starterSpecies": starter_leveled_probe.get("partySpecies", [0])[0],
+        "starterLevel": starter_leveled_probe.get("partyLevel", [0])[0],
+        "bagRareCandyCount": starter_leveled_probe.get("bagRareCandyCount"),
+    })
+
+    trace.append(asdict(RouteNode("Story.LeaveLab", "Exit Birch's lab using generic probe coordinates")))
+    probe_move_to_position(
+        client,
+        probe_address,
+        MAP_GROUP_LITTLEROOT_BUILDINGS,
+        MAP_NUM_BIRCH_LAB,
+        6,
+        12,
+        args.objective_timeout,
+        "Birch lab exit tile",
+    )
+    town_ready = probe_move_until_map(
+        client,
+        probe_address,
+        "DOWN",
+        MAP_GROUP_OUTSIDE,
+        MAP_NUM_LITTLEROOT_TOWN,
+        4,
+        args.objective_timeout,
+        "Littleroot after lab exit",
+    )
+
+    trace.append(asdict(RouteNode("Story.Route103Rival", "Walk to Route 103, battle the rival, and regain field control")))
+    probe_move_to_position(
+        client,
+        probe_address,
+        MAP_GROUP_OUTSIDE,
+        MAP_NUM_LITTLEROOT_TOWN,
+        11,
+        2,
+        args.objective_timeout,
+        "Littleroot north route approach",
+    )
+    route101_ready = probe_move_until_map(
+        client,
+        probe_address,
+        "UP",
+        MAP_GROUP_OUTSIDE,
+        MAP_NUM_ROUTE101,
+        4,
+        args.objective_timeout,
+        "Route 101 south entry",
+    )
+    probe_follow_waypoints(
+        client,
+        probe_address,
+        MAP_GROUP_OUTSIDE,
+        MAP_NUM_ROUTE101,
+        [
+            (10, 14, "south lane"),
+            (7, 14, "west below rescue blocker"),
+            (7, 10, "west route bend"),
+            (13, 10, "east route bend"),
+            (13, 9, "north turn"),
+            (15, 9, "east grass edge"),
+            (15, 2, "north grass edge"),
+            (11, 2, "top route bend"),
+            (11, 0, "top exit lane"),
+            (10, 0, "north exit approach"),
+        ],
+        args.objective_timeout,
+        "Route 101 outbound collision-grid path",
+    )
+    oldale_ready = probe_move_until_map(
+        client,
+        probe_address,
+        "UP",
+        MAP_GROUP_OUTSIDE,
+        MAP_NUM_OLDALE_TOWN,
+        4,
+        args.objective_timeout,
+        "Oldale south entry",
+    )
+    probe_move_to_position(
+        client,
+        probe_address,
+        MAP_GROUP_OUTSIDE,
+        MAP_NUM_OLDALE_TOWN,
+        10,
+        0,
+        args.objective_timeout,
+        "Oldale north exit approach",
+    )
+    route103_ready = probe_move_until_map(
+        client,
+        probe_address,
+        "UP",
+        MAP_GROUP_OUTSIDE,
+        MAP_NUM_ROUTE103,
+        4,
+        args.objective_timeout,
+        "Route 103 south entry",
+    )
+    probe_follow_waypoints(
+        client,
+        probe_address,
+        MAP_GROUP_OUTSIDE,
+        MAP_NUM_ROUTE103,
+        [
+            (11, 13, "south connection lane"),
+            (14, 13, "south east bend"),
+            (14, 7, "east north lane"),
+            (12, 7, "west turn"),
+            (12, 6, "north turn"),
+            (5, 6, "west lane"),
+            (5, 4, "northwest rival lane"),
+            (10, 4, "rival approach"),
+        ],
+        args.objective_timeout,
+        "Route 103 rival collision-grid path",
+    )
+    probe_face_tile(
+        client,
+        probe_address,
+        MAP_GROUP_OUTSIDE,
+        MAP_NUM_ROUTE103,
+        "UP",
+        10,
+        3,
+        args.objective_timeout,
+        "Route 103 rival facing",
+    )
+    tap(client, "A", frames=8, settle_frames=18)
+    route103_after_rival = advance_story_dialogue(
+        client,
+        probe_address,
+        lambda probe: (
+            probe_on_map(probe, MAP_GROUP_OUTSIDE, MAP_NUM_ROUTE103)
+            and probe.get("fieldMovementReady") == 1
+        ),
+        args.objective_timeout,
+        "Route 103 rival exit",
+        run_battles_with_first_move=True,
+    )
+    post_rival_battle = route103_after_rival
+
+    trace.append(asdict(RouteNode("Story.ReturnForPokedexAndPokeBalls", "Return to Birch's lab and accept the Pokedex/Poke Ball story rewards")))
+    oldale_return = probe_move_until_map(
+        client,
+        probe_address,
+        "DOWN",
+        MAP_GROUP_OUTSIDE,
+        MAP_NUM_OLDALE_TOWN,
+        40,
+        args.objective_timeout,
+        "Oldale return from Route 103",
+    )
+    advance_story_dialogue(
+        client,
+        probe_address,
+        lambda probe: (
+            probe_on_map(probe, MAP_GROUP_OUTSIDE, MAP_NUM_OLDALE_TOWN)
+            and probe.get("fieldMovementReady") == 1
+        ),
+        args.objective_timeout,
+        "Oldale rival return prompt",
+    )
+    route101_return = probe_move_until_map(
+        client,
+        probe_address,
+        "DOWN",
+        MAP_GROUP_OUTSIDE,
+        MAP_NUM_ROUTE101,
+        40,
+        args.objective_timeout,
+        "Route 101 return from Oldale",
+    )
+    probe_follow_waypoints(
+        client,
+        probe_address,
+        MAP_GROUP_OUTSIDE,
+        MAP_NUM_ROUTE101,
+        [
+            (10, 5, "north lane"),
+            (13, 5, "east bend"),
+            (13, 6, "south turn"),
+            (15, 6, "east lane"),
+            (15, 12, "south grass edge"),
+            (7, 12, "west route bend"),
+            (7, 17, "south below rescue blocker"),
+            (10, 17, "central lower route"),
+            (10, 19, "south exit approach"),
+        ],
+        args.objective_timeout,
+        "Route 101 return collision-grid path",
+    )
+    littleroot_return = probe_move_until_map(
+        client,
+        probe_address,
+        "DOWN",
+        MAP_GROUP_OUTSIDE,
+        MAP_NUM_LITTLEROOT_TOWN,
+        40,
+        args.objective_timeout,
+        "Littleroot return from Route 101",
+    )
+    probe_follow_waypoints(
+        client,
+        probe_address,
+        MAP_GROUP_OUTSIDE,
+        MAP_NUM_LITTLEROOT_TOWN,
+        [
+            (10, 17, "north road southbound"),
+            (7, 17, "lower lab lane"),
+        ],
+        args.objective_timeout,
+        "Littleroot north-to-lab collision-grid path",
+    )
+    lab_return = probe_move_until_map(
+        client,
+        probe_address,
+        "UP",
+        MAP_GROUP_LITTLEROOT_BUILDINGS,
+        MAP_NUM_BIRCH_LAB,
+        4,
+        args.objective_timeout,
+        "Birch lab return",
+    )
+    pokeballs_ready = advance_story_dialogue(
+        client,
+        probe_address,
+        lambda probe: (
+            probe_on_map(probe, MAP_GROUP_LITTLEROOT_BUILDINGS, MAP_NUM_BIRCH_LAB)
+            and probe.get("bagPokeBallCount", 0) >= 5
+            and probe.get("fieldMovementReady") == 1
+        ),
+        args.objective_timeout,
+        "Pokedex and Poke Ball reward",
+    )
+
+    final_probe = read_probe(client, probe_address)
+    validate_probe(final_probe)
+    ok = (
+        final_probe.get("playerPartyCount") == 1
+        and final_probe.get("bagPokeBallCount", 0) >= 5
+        and probe_on_map(final_probe, MAP_GROUP_LITTLEROOT_BUILDINGS, MAP_NUM_BIRCH_LAB)
+        and final_probe.get("fieldMovementReady") == 1
+    )
+    trace.append({
+        "id": "Story.PokeBallsAcquired",
+        "accepted": ok,
+        "playerPartyCount": final_probe.get("playerPartyCount"),
+        "bagPokeBallCount": final_probe.get("bagPokeBallCount"),
+        "mapGroup": final_probe.get("mapGroup"),
+        "mapNum": final_probe.get("mapNum"),
+        "playerX": final_probe.get("playerX"),
+        "playerY": final_probe.get("playerY"),
+    })
+
+    return {
+        "ok": ok,
+        "target": "STORY_POKEBALLS_SMOKE",
+        "probeAddress": probe_address,
+        "routeTrace": trace,
+        "bedroomBeacon": bedroom["beacon"],
+        "rareCandyWithdrawal": withdrawal,
+        "starterConfirmBeacon": confirm["beacon"],
+        "starterRareCandyUses": starter_candy_uses,
+        "starterLeveledProbe": starter_leveled_probe,
+        "postRescueProbe": post_rescue,
+        "labReadyProbe": lab_ready,
+        "townReadyProbe": town_ready,
+        "route101ReadyProbe": route101_ready,
+        "oldaleReadyProbe": oldale_ready,
+        "route103ReadyProbe": route103_ready,
+        "postRivalBattleProbe": post_rival_battle,
+        "route103AfterRivalProbe": route103_after_rival,
+        "oldaleReturnProbe": oldale_return,
+        "route101ReturnProbe": route101_return,
+        "littlerootReturnProbe": littleroot_return,
+        "labReturnProbe": lab_return,
+        "pokeballsReadyProbe": pokeballs_ready,
+        "finalProbe": final_probe,
+        "elapsedSeconds": round(time.monotonic() - route_start, 3),
+    }
+
+
+def drive_poochyena_capture_smoke(client: BridgeClient, args: argparse.Namespace) -> dict[str, Any]:
+    route_start = time.monotonic()
+    probe_address = resolve_probe_address(args)
+    trace: list[dict[str, Any]] = []
+
+    story = drive_story_pokeballs_smoke(client, args)
+    if not story.get("ok"):
+        return story
+    trace.extend(story.get("routeTrace", []))
+    trace.append(asdict(RouteNode("Party.CatchPoochyena", "Catch a real Route 101 Poochyena with abilityNum 0 using real Poke Balls")))
+
+    capture = capture_route101_poochyena(client, probe_address, args.objective_timeout)
+    trace.extend(capture.get("routeTrace", []))
+    final_probe = capture["finalProbe"]
+    poochyena = capture["poochyena"]
+    ok = (
+        capture.get("ok") is True
+        and final_probe.get("playerPartyCount", 0) >= 2
+        and poochyena.get("species") == SPECIES_POOCHYENA
+        and poochyena.get("abilityNum") == 0
+    )
+
+    return {
+        "ok": ok,
+        "target": "POOCHYENA_CAPTURE_SMOKE",
+        "probeAddress": probe_address,
+        "routeTrace": trace,
+        "storyResult": story,
+        "captureResult": capture,
+        "poochyena": poochyena,
+        "finalProbe": final_probe,
+        "elapsedSeconds": round(time.monotonic() - route_start, 3),
+    }
+
+
+def wait_for_pc_menu_state(
+    client: BridgeClient,
+    probe_address: int,
+    state: int,
+    timeout: float,
+    label: str,
+    item_id: int | None = None,
+) -> dict[str, Any]:
+    deadline = time.monotonic() + timeout
+    last_probe: dict[str, Any] | None = None
+
+    while time.monotonic() < deadline:
+        probe = read_probe(client, probe_address)
+        validate_probe(probe)
+        last_probe = probe
+        if probe.get("pcMenuState") == state and (item_id is None or probe.get("pcItemId") == item_id):
+            return probe
+
+        beacon = client.request("read_beacon")
+        if beacon.get("found") and beacon.get("inputReady") == 1 and beacon.get("textReady") == 1:
+            tap(client, "A", frames=8, settle_frames=12)
+        else:
+            client.request("run_frames 5")
+
+    raise RuntimeError(f"{label} timed out: {last_probe}")
+
+
+def wait_for_pc_quantity(
+    client: BridgeClient,
+    probe_address: int,
+    quantity: int | None,
+    timeout: float,
+    label: str,
+) -> dict[str, Any]:
+    return wait_for_probe_condition(
+        client,
+        probe_address,
+        lambda probe: (
+            probe.get("pcMenuState") == PC_MENU_QUANTITY
+            and probe.get("pcItemId") == ITEM_RARE_CANDY
+            and (quantity is None or probe.get("pcItemQuantity") == quantity)
+        ),
+        timeout,
+        label,
+    )
+
+
+def set_pc_quantity(
+    client: BridgeClient,
+    probe_address: int,
+    quantity: int,
+    timeout: float,
+    label: str,
+) -> dict[str, Any]:
+    deadline = time.monotonic() + timeout
+    probe = wait_for_pc_quantity(client, probe_address, None, max(1.0, deadline - time.monotonic()), label)
+
+    while time.monotonic() < deadline:
+        current = int(probe.get("pcItemQuantity", 0))
+        if current == quantity:
+            return probe
+        if current < quantity:
+            key = "RIGHT" if current + 10 <= quantity else "UP"
+            expected_quantity = current + (10 if key == "RIGHT" else 1)
+        else:
+            key = "LEFT" if current - 10 >= quantity else "DOWN"
+            expected_quantity = current - (10 if key == "LEFT" else 1)
+        tap(client, key, frames=8, settle_frames=12)
+        probe = wait_for_pc_quantity(
+            client,
+            probe_address,
+            expected_quantity,
+            max(1.0, deadline - time.monotonic()),
+            label,
+        )
+
+    raise RuntimeError(f"{label} quantity timed out: {probe}")
+
+
+def withdraw_rare_candies_from_bedroom_pc(
+    client: BridgeClient,
+    probe_address: int,
+    quantity: int,
+    timeout: float,
+) -> dict[str, Any]:
+    before = read_probe(client, probe_address)
+    validate_probe(before)
+    if before.get("pcRareCandyCount", 0) < quantity:
+        raise RuntimeError(f"PC Rare Candy count {before.get('pcRareCandyCount')} is below requested {quantity}: {before}")
+
+    move_to_position(
+        client,
+        8,
+        2,
+        STAGE_LITTLEROOT_ROUTE_SETUP,
+        5,
+        MAP_LITTLEROOT,
+        timeout,
+        "bedroom PC approach",
+    )
+    face_tile(
+        client,
+        "UP",
+        8,
+        1,
+        STAGE_LITTLEROOT_ROUTE_SETUP,
+        5,
+        MAP_LITTLEROOT,
+        timeout,
+        "bedroom PC facing",
+    )
+    tap(client, "A", frames=8, settle_frames=18)
+
+    top_menu = wait_for_pc_menu_state(client, probe_address, PC_MENU_TOP, timeout, "bedroom PC top menu")
+    tap(client, "A", frames=8, settle_frames=12)
+    item_storage = wait_for_pc_menu_state(client, probe_address, PC_MENU_ITEM_STORAGE, timeout, "item storage menu")
+    tap(client, "A", frames=8, settle_frames=12)
+    item_list = wait_for_pc_menu_state(client, probe_address, PC_MENU_ITEM_LIST, timeout, "PC item list", ITEM_RARE_CANDY)
+    tap(client, "A", frames=8, settle_frames=12)
+    quantity_probe = set_pc_quantity(client, probe_address, quantity, timeout, "Rare Candy quantity prompt")
+    tap(client, "A", frames=8, settle_frames=12)
+    withdrew = wait_for_pc_menu_state(client, probe_address, PC_MENU_WITHDRAW_MESSAGE, timeout, "Rare Candy withdraw message", ITEM_RARE_CANDY)
+    tap(client, "A", frames=8, settle_frames=12)
+
+    after = wait_for_probe_condition(
+        client,
+        probe_address,
+        lambda probe: (
+            probe.get("pcRareCandyCount") == before.get("pcRareCandyCount") - quantity
+            and probe.get("bagRareCandyCount") == before.get("bagRareCandyCount") + quantity
+        ),
+        timeout,
+        "Rare Candy counts after withdraw",
+    )
+
+    wait_for_pc_menu_state(client, probe_address, PC_MENU_ITEM_LIST, timeout, "PC item list after withdraw", ITEM_RARE_CANDY)
+    tap(client, "B", frames=8, settle_frames=18)
+    wait_for_pc_menu_state(client, probe_address, PC_MENU_ITEM_STORAGE, timeout, "item storage menu after list exit")
+    tap(client, "B", frames=8, settle_frames=18)
+    wait_for_pc_menu_state(client, probe_address, PC_MENU_TOP, timeout, "PC top menu after item storage exit")
+    tap(client, "B", frames=8, settle_frames=18)
+    exit_beacon = wait_for_semantic_movement_ready_or_advance_text(
+        client,
+        movement_ready_criteria(STAGE_LITTLEROOT_ROUTE_SETUP, 5, MAP_LITTLEROOT),
+        timeout,
+        "field control after PC exit",
+    )
+
+    final_probe = read_probe(client, probe_address)
+    validate_probe(final_probe)
+    return {
+        "beforeProbe": before,
+        "afterProbe": after,
+        "finalProbe": final_probe,
+        "exitBeacon": exit_beacon,
+        "quantity": quantity,
+        "topMenuProbe": top_menu,
+        "itemStorageProbe": item_storage,
+        "itemListProbe": item_list,
+        "quantityProbe": quantity_probe,
+        "withdrewProbe": withdrew,
+    }
+
+
+def wait_for_start_menu_ready(
+    client: BridgeClient,
+    probe_address: int,
+    timeout: float,
+    label: str,
+) -> dict[str, Any]:
+    return wait_for_probe_condition(
+        client,
+        probe_address,
+        lambda probe: probe.get("startMenuState") == START_MENU_READY,
+        timeout,
+        label,
+    )
+
+
+def choose_start_menu_action(
+    client: BridgeClient,
+    probe_address: int,
+    action: int,
+    timeout: float,
+    label: str,
+) -> dict[str, Any]:
+    deadline = time.monotonic() + timeout
+    visited: set[tuple[int, int]] = set()
+
+    while time.monotonic() < deadline:
+        probe = wait_for_start_menu_ready(client, probe_address, max(1.0, deadline - time.monotonic()), label)
+        cursor_key = (int(probe.get("startMenuCursor", 0)), int(probe.get("startMenuAction", 0)))
+        if probe.get("startMenuAction") == action:
+            tap(client, "A", frames=8, settle_frames=18)
+            return probe
+        if cursor_key in visited and len(visited) >= int(probe.get("startMenuCount", 1)):
+            raise RuntimeError(f"{label} could not find start menu action {action}: {probe}")
+        visited.add(cursor_key)
+        tap(client, "DOWN", frames=8, settle_frames=12)
+
+    raise RuntimeError(f"{label} timed out")
+
+
+def open_bag_from_field(
+    client: BridgeClient,
+    probe_address: int,
+    timeout: float,
+    label: str,
+) -> dict[str, Any]:
+    field = wait_for_probe_field_movement_ready(
+        client,
+        probe_address,
+        None,
+        None,
+        timeout,
+        f"{label} field ready",
+        run_incidental_battles=False,
+    )
+    tap(client, "START", frames=8, settle_frames=18)
+    choose_start_menu_action(client, probe_address, MENU_ACTION_BAG, timeout, f"{label} start bag")
+    bag = wait_for_probe_condition(
+        client,
+        probe_address,
+        lambda probe: probe.get("bagMenuState") == BAG_MENU_ITEM_LIST,
+        timeout,
+        f"{label} bag item list",
+    )
+    return {"fieldProbe": field, "bagProbe": bag}
+
+
+def choose_bag_item(
+    client: BridgeClient,
+    probe_address: int,
+    item_id: int,
+    pocket: int,
+    timeout: float,
+    label: str,
+    retry_battle_bag: bool = False,
+) -> dict[str, Any]:
+    deadline = time.monotonic() + timeout
+    visited: set[tuple[int, int, int]] = set()
+    last_probe: dict[str, Any] | None = None
+
+    while time.monotonic() < deadline:
+        probe = read_probe(client, probe_address)
+        validate_probe(probe)
+        last_probe = probe
+        if retry_battle_bag and probe.get("inBattle") == 0:
+            return probe
+        if (
+            retry_battle_bag
+            and probe.get("inBattle") == 1
+            and probe.get("battleMenuState") == BATTLE_MENU_ACTION
+            and probe.get("battleMenuCursor") == 1
+            and probe.get("bagMenuState") != BAG_MENU_ITEM_LIST
+        ):
+            tap(client, "A", frames=8, settle_frames=18)
+            continue
+        if not (
+            probe.get("bagMenuState") == BAG_MENU_ITEM_LIST
+            and probe_state_is_fresh(probe, "bagMenuFrame")
+            and probe.get("fieldPaletteFadeActive") == 0
+        ):
+            client.request("run_frames 5")
+            continue
+        current_pocket = int(probe.get("bagMenuPocket", 0))
+        if current_pocket != pocket:
+            tap(client, "RIGHT" if current_pocket < pocket else "LEFT", frames=8, settle_frames=14)
+            continue
+        if probe.get("bagMenuItemId") == item_id:
+            tap(client, "A", frames=8, settle_frames=18)
+            return probe
+        cursor_key = (
+            int(probe.get("bagMenuPocket", 0)),
+            int(probe.get("bagMenuCursor", 0)),
+            int(probe.get("bagMenuItemId", 0)),
+        )
+        if cursor_key in visited:
+            raise RuntimeError(f"{label} could not find bag item {item_id} in pocket {pocket}: {probe}")
+        visited.add(cursor_key)
+        tap(client, "DOWN", frames=8, settle_frames=12)
+
+    raise RuntimeError(f"{label} timed out: {last_probe}")
+
+
+def choose_bag_context_first_action(
+    client: BridgeClient,
+    probe_address: int,
+    item_id: int,
+    timeout: float,
+    label: str,
+) -> dict[str, Any]:
+    deadline = time.monotonic() + timeout
+    last_probe: dict[str, Any] | None = None
+
+    while time.monotonic() < deadline:
+        probe = read_probe(client, probe_address)
+        validate_probe(probe)
+        last_probe = probe
+        if (
+            probe.get("bagMenuState") == BAG_MENU_ITEM_LIST
+            and probe_state_is_fresh(probe, "bagMenuFrame")
+            and probe.get("bagMenuItemId") == item_id
+            and probe.get("fieldPaletteFadeActive") == 0
+        ):
+            tap(client, "A", frames=8, settle_frames=18)
+            continue
+        if not (
+            probe.get("bagMenuState") == BAG_MENU_CONTEXT
+            and probe_state_is_fresh(probe, "bagMenuFrame")
+            and probe.get("bagMenuItemId") == item_id
+        ):
+            client.request("run_frames 5")
+            continue
+        if probe.get("bagMenuContextCursor") == 0:
+            tap(client, "A", frames=8, settle_frames=18)
+            return probe
+        tap(client, "UP", frames=8, settle_frames=12)
+
+    raise RuntimeError(f"{label} timed out: {last_probe}")
+
+
+def choose_party_slot(
+    client: BridgeClient,
+    probe_address: int,
+    slot: int,
+    timeout: float,
+    label: str,
+) -> dict[str, Any]:
+    deadline = time.monotonic() + timeout
+
+    while time.monotonic() < deadline:
+        probe = wait_for_probe_condition(
+            client,
+            probe_address,
+            lambda probe: probe.get("partyMenuState") == PARTY_MENU_CHOOSE,
+            max(1.0, deadline - time.monotonic()),
+            label,
+        )
+        cursor = int(probe.get("partyMenuCursor", 0))
+        if cursor == slot:
+            tap(client, "A", frames=8, settle_frames=18)
+            return probe
+        tap(client, "DOWN" if cursor < slot else "UP", frames=8, settle_frames=12)
+
+    raise RuntimeError(f"{label} timed out")
+
+
+def wait_for_rare_candy_completion(
+    client: BridgeClient,
+    probe_address: int,
+    slot: int,
+    before_level: int,
+    before_candies: int,
+    timeout: float,
+    label: str,
+) -> dict[str, Any]:
+    deadline = time.monotonic() + timeout
+    last_probe: dict[str, Any] | None = None
+    idle_polls = 0
+    completion_seen = False
+
+    while time.monotonic() < deadline:
+        probe = read_probe(client, probe_address)
+        validate_probe(probe)
+        last_probe = probe
+        levels = probe.get("partyLevel", [])
+        level = int(levels[slot]) if slot < len(levels) else 0
+        completion_seen = completion_seen or (
+            level > before_level
+            and probe.get("bagRareCandyCount") == before_candies - 1
+        )
+        if completion_seen and probe.get("fieldMovementReady") == 1:
+            return probe
+        if completion_seen and probe.get("partyMenuState") in {PARTY_MENU_CHOOSE, PARTY_MENU_ACTION}:
+            tap(client, "B", frames=8, settle_frames=18)
+            continue
+        if completion_seen and probe.get("bagMenuState") in {BAG_MENU_ITEM_LIST, BAG_MENU_CONTEXT}:
+            tap(client, "B", frames=8, settle_frames=18)
+            continue
+        if probe.get("fieldInputReady") == 1 and probe.get("fieldTextReady") == 1:
+            tap(client, "A", frames=8, settle_frames=12)
+            idle_polls = 0
+            continue
+
+        client.request("run_frames 5")
+        idle_polls += 1
+        if idle_polls >= 10:
+            tap(client, "A", frames=4, settle_frames=6)
+            idle_polls = 0
+
+    raise RuntimeError(f"{label} timed out: {last_probe}")
+
+
+def use_rare_candy_on_party_slot(
+    client: BridgeClient,
+    probe_address: int,
+    slot: int,
+    timeout: float,
+    label: str,
+) -> dict[str, Any]:
+    before = read_probe(client, probe_address)
+    validate_probe(before)
+    levels = before.get("partyLevel", [])
+    if slot >= len(levels) or int(levels[slot]) <= 0:
+        raise RuntimeError(f"{label} cannot use Rare Candy on empty slot {slot}: {before}")
+    if before.get("bagRareCandyCount", 0) <= 0:
+        raise RuntimeError(f"{label} has no Rare Candies in bag: {before}")
+
+    open_bag = open_bag_from_field(client, probe_address, timeout, label)
+    item = choose_bag_item(client, probe_address, ITEM_RARE_CANDY, POCKET_ITEMS, timeout, f"{label} choose Rare Candy")
+    context = choose_bag_context_first_action(client, probe_address, ITEM_RARE_CANDY, timeout, f"{label} choose Use")
+    party = choose_party_slot(client, probe_address, slot, timeout, f"{label} choose party slot")
+    after = wait_for_rare_candy_completion(
+        client,
+        probe_address,
+        slot,
+        int(levels[slot]),
+        int(before.get("bagRareCandyCount", 0)),
+        timeout,
+        label,
+    )
+    return {
+        "beforeProbe": before,
+        "afterProbe": after,
+        "openBagProbe": open_bag["bagProbe"],
+        "itemProbe": item,
+        "contextProbe": context,
+        "partyProbe": party,
+    }
+
+
+def use_rare_candies_on_party_slot(
+    client: BridgeClient,
+    probe_address: int,
+    slot: int,
+    count: int,
+    timeout: float,
+    label: str,
+) -> list[dict[str, Any]]:
+    results: list[dict[str, Any]] = []
+    for index in range(count):
+        results.append(use_rare_candy_on_party_slot(client, probe_address, slot, timeout, f"{label} {index + 1}/{count}"))
+    return results
+
+
+def wait_for_shop_menu_state(
+    client: BridgeClient,
+    probe_address: int,
+    state: int,
+    timeout: float,
+    label: str,
+    item_id: int | None = None,
+    quantity: int | None = None,
+    require_fresh: bool = True,
+) -> dict[str, Any]:
+    deadline = time.monotonic() + timeout
+    last_probe: dict[str, Any] | None = None
+
+    while time.monotonic() < deadline:
+        probe = read_probe(client, probe_address)
+        validate_probe(probe)
+        last_probe = probe
+        if (
+            probe.get("shopMenuState") == state
+            and (not require_fresh or probe_state_is_fresh(probe, "shopMenuFrame"))
+            and (item_id is None or probe.get("shopMenuItemId") == item_id)
+            and (quantity is None or probe.get("shopMenuItemQuantity") == quantity)
+        ):
+            return probe
+        if probe.get("fieldInputReady") == 1 and probe.get("fieldTextReady") == 1:
+            tap(client, "A", frames=8, settle_frames=12)
+        elif probe.get("shopMenuState") == SHOP_MENU_MESSAGE:
+            tap(client, "A", frames=8, settle_frames=12)
+        else:
+            client.request("run_frames 5")
+
+    raise RuntimeError(f"{label} timed out: {last_probe}")
+
+
+def choose_shop_top_action(
+    client: BridgeClient,
+    probe_address: int,
+    cursor: int,
+    timeout: float,
+    label: str,
+) -> dict[str, Any]:
+    deadline = time.monotonic() + timeout
+    last_probe: dict[str, Any] | None = None
+
+    while time.monotonic() < deadline:
+        probe = wait_for_shop_menu_state(
+            client,
+            probe_address,
+            SHOP_MENU_TOP,
+            max(1.0, deadline - time.monotonic()),
+            label,
+        )
+        last_probe = probe
+        current = int(probe.get("shopMenuCursor", 0))
+        if current == cursor:
+            tap(client, "A", frames=8, settle_frames=18)
+            return probe
+        tap(client, "DOWN" if current < cursor else "UP", frames=8, settle_frames=12)
+
+    raise RuntimeError(f"{label} timed out: {last_probe}")
+
+
+def choose_shop_buy_item(
+    client: BridgeClient,
+    probe_address: int,
+    item_id: int,
+    timeout: float,
+    label: str,
+) -> dict[str, Any]:
+    deadline = time.monotonic() + timeout
+    visited: set[tuple[int, int]] = set()
+    last_probe: dict[str, Any] | None = None
+
+    while time.monotonic() < deadline:
+        probe = wait_for_shop_menu_state(
+            client,
+            probe_address,
+            SHOP_MENU_BUY_LIST,
+            max(1.0, deadline - time.monotonic()),
+            label,
+        )
+        last_probe = probe
+        if probe.get("shopMenuItemId") == item_id:
+            tap(client, "A", frames=8, settle_frames=18)
+            return probe
+        cursor_key = (int(probe.get("shopMenuCursor", 0)), int(probe.get("shopMenuItemId", 0)))
+        if cursor_key in visited:
+            raise RuntimeError(f"{label} could not find shop item {item_id}: {probe}")
+        visited.add(cursor_key)
+        tap(client, "DOWN", frames=8, settle_frames=12)
+
+    raise RuntimeError(f"{label} timed out: {last_probe}")
+
+
+def set_shop_quantity(
+    client: BridgeClient,
+    probe_address: int,
+    quantity: int,
+    timeout: float,
+    label: str,
+) -> dict[str, Any]:
+    deadline = time.monotonic() + timeout
+    probe = wait_for_shop_menu_state(
+        client,
+        probe_address,
+        SHOP_MENU_QUANTITY,
+        max(1.0, deadline - time.monotonic()),
+        label,
+        ITEM_POKE_BALL,
+    )
+
+    while time.monotonic() < deadline:
+        current = int(probe.get("shopMenuItemQuantity", 0))
+        if current == quantity:
+            return probe
+        if current < quantity:
+            key = "RIGHT" if current + 10 <= quantity else "UP"
+        else:
+            key = "LEFT" if current - 10 >= quantity else "DOWN"
+        tap(client, key, frames=8, settle_frames=12)
+        probe = wait_for_shop_menu_state(
+            client,
+            probe_address,
+            SHOP_MENU_QUANTITY,
+            max(1.0, deadline - time.monotonic()),
+            label,
+            ITEM_POKE_BALL,
+            require_fresh=True,
+        )
+
+    raise RuntimeError(f"{label} quantity timed out: {probe}")
+
+
+def wait_for_shop_purchase_complete(
+    client: BridgeClient,
+    probe_address: int,
+    target_poke_balls: int,
+    timeout: float,
+    label: str,
+) -> dict[str, Any]:
+    deadline = time.monotonic() + timeout
+    last_probe: dict[str, Any] | None = None
+
+    while time.monotonic() < deadline:
+        probe = read_probe(client, probe_address)
+        validate_probe(probe)
+        last_probe = probe
+        if (
+            probe.get("bagPokeBallCount", 0) >= target_poke_balls
+            and probe.get("shopMenuState") == SHOP_MENU_BUY_LIST
+            and probe_state_is_fresh(probe, "shopMenuFrame")
+        ):
+            return probe
+        if probe.get("shopMenuState") in {SHOP_MENU_CONFIRM, SHOP_MENU_MESSAGE}:
+            tap(client, "A", frames=8, settle_frames=18)
+        else:
+            client.request("run_frames 5")
+
+    raise RuntimeError(f"{label} timed out: {last_probe}")
+
+
+def buy_oldale_poke_balls_from_lab(
+    client: BridgeClient,
+    probe_address: int,
+    quantity: int,
+    timeout: float,
+) -> dict[str, Any]:
+    deadline = time.monotonic() + timeout
+    trace: list[dict[str, Any]] = []
+    before = read_probe(client, probe_address)
+    validate_probe(before)
+
+    probe_move_to_position(
+        client,
+        probe_address,
+        MAP_GROUP_LITTLEROOT_BUILDINGS,
+        MAP_NUM_BIRCH_LAB,
+        6,
+        12,
+        max(1.0, deadline - time.monotonic()),
+        "Birch lab exit tile for Oldale Mart",
+    )
+    town = probe_move_until_map(
+        client,
+        probe_address,
+        "DOWN",
+        MAP_GROUP_OUTSIDE,
+        MAP_NUM_LITTLEROOT_TOWN,
+        4,
+        max(1.0, deadline - time.monotonic()),
+        "Littleroot after lab exit for Oldale Mart",
+    )
+    probe_move_to_position(
+        client,
+        probe_address,
+        MAP_GROUP_OUTSIDE,
+        MAP_NUM_LITTLEROOT_TOWN,
+        11,
+        2,
+        max(1.0, deadline - time.monotonic()),
+        "Littleroot north exit for Oldale Mart",
+    )
+    route101 = probe_move_until_map(
+        client,
+        probe_address,
+        "UP",
+        MAP_GROUP_OUTSIDE,
+        MAP_NUM_ROUTE101,
+        4,
+        max(1.0, deadline - time.monotonic()),
+        "Route 101 entry for Oldale Mart",
+    )
+    probe_follow_waypoints(
+        client,
+        probe_address,
+        MAP_GROUP_OUTSIDE,
+        MAP_NUM_ROUTE101,
+        [
+            (10, 14, "south lane"),
+            (7, 14, "west below rescue blocker"),
+            (7, 10, "west route bend"),
+            (13, 10, "east route bend"),
+            (13, 9, "north turn"),
+            (15, 9, "east grass edge"),
+            (15, 2, "north grass edge"),
+            (11, 2, "top route bend"),
+            (11, 0, "top exit lane"),
+            (10, 0, "north exit approach"),
+        ],
+        max(1.0, deadline - time.monotonic()),
+        "Route 101 outbound path for Oldale Mart",
+    )
+    oldale = probe_move_until_map(
+        client,
+        probe_address,
+        "UP",
+        MAP_GROUP_OUTSIDE,
+        MAP_NUM_OLDALE_TOWN,
+        4,
+        max(1.0, deadline - time.monotonic()),
+        "Oldale south entry for Mart",
+    )
+    probe_follow_waypoints(
+        client,
+        probe_address,
+        MAP_GROUP_OUTSIDE,
+        MAP_NUM_OLDALE_TOWN,
+        [
+            (10, 7, "Oldale central lane"),
+            (14, 7, "Oldale Mart door"),
+        ],
+        max(1.0, deadline - time.monotonic()),
+        "Oldale Mart approach",
+    )
+    mart_entry = probe_move_until_map(
+        client,
+        probe_address,
+        "UP",
+        MAP_GROUP_OLDALE_BUILDINGS,
+        MAP_NUM_OLDALE_MART,
+        4,
+        max(1.0, deadline - time.monotonic()),
+        "Oldale Mart entry",
+    )
+    probe_move_to_position(
+        client,
+        probe_address,
+        MAP_GROUP_OLDALE_BUILDINGS,
+        MAP_NUM_OLDALE_MART,
+        3,
+        3,
+        max(1.0, deadline - time.monotonic()),
+        "Oldale Mart clerk approach",
+    )
+    probe_face_tile(
+        client,
+        probe_address,
+        MAP_GROUP_OLDALE_BUILDINGS,
+        MAP_NUM_OLDALE_MART,
+        "LEFT",
+        2,
+        3,
+        max(1.0, deadline - time.monotonic()),
+        "Oldale Mart clerk facing",
+    )
+    tap(client, "A", frames=8, settle_frames=18)
+
+    top = wait_for_shop_menu_state(
+        client,
+        probe_address,
+        SHOP_MENU_TOP,
+        max(1.0, deadline - time.monotonic()),
+        "Oldale Mart top menu",
+    )
+    choose_shop_top_action(client, probe_address, 0, max(1.0, deadline - time.monotonic()), "Oldale Mart choose Buy")
+    item = choose_shop_buy_item(
+        client,
+        probe_address,
+        ITEM_POKE_BALL,
+        max(1.0, deadline - time.monotonic()),
+        "Oldale Mart choose Poke Ball",
+    )
+    quantity_probe = set_shop_quantity(
+        client,
+        probe_address,
+        quantity,
+        max(1.0, deadline - time.monotonic()),
+        "Oldale Mart Poke Ball quantity",
+    )
+    tap(client, "A", frames=8, settle_frames=18)
+    confirm = wait_for_shop_menu_state(
+        client,
+        probe_address,
+        SHOP_MENU_CONFIRM,
+        max(1.0, deadline - time.monotonic()),
+        "Oldale Mart purchase confirmation",
+        ITEM_POKE_BALL,
+        quantity,
+        require_fresh=False,
+    )
+    target_poke_balls = int(before.get("bagPokeBallCount", 0)) + quantity
+    tap(client, "A", frames=8, settle_frames=18)
+    purchased = wait_for_shop_purchase_complete(
+        client,
+        probe_address,
+        target_poke_balls,
+        max(1.0, deadline - time.monotonic()),
+        "Oldale Mart purchase complete",
+    )
+    tap(client, "B", frames=8, settle_frames=18)
+    wait_for_shop_menu_state(
+        client,
+        probe_address,
+        SHOP_MENU_TOP,
+        max(1.0, deadline - time.monotonic()),
+        "Oldale Mart top menu after buy",
+    )
+    tap(client, "B", frames=8, settle_frames=18)
+    mart_ready = wait_for_probe_field_movement_ready(
+        client,
+        probe_address,
+        MAP_GROUP_OLDALE_BUILDINGS,
+        MAP_NUM_OLDALE_MART,
+        max(1.0, deadline - time.monotonic()),
+        "Oldale Mart field control after purchase",
+    )
+    probe_follow_waypoints(
+        client,
+        probe_address,
+        MAP_GROUP_OLDALE_BUILDINGS,
+        MAP_NUM_OLDALE_MART,
+        [
+            (3, 3, "Mart center aisle"),
+            (3, 6, "Mart exit lane"),
+        ],
+        max(1.0, deadline - time.monotonic()),
+        "Oldale Mart exit approach",
+    )
+    outside = probe_move_until_map(
+        client,
+        probe_address,
+        "DOWN",
+        MAP_GROUP_OUTSIDE,
+        MAP_NUM_OLDALE_TOWN,
+        4,
+        max(1.0, deadline - time.monotonic()),
+        "Oldale after Mart exit",
+    )
+    final_probe = read_probe(client, probe_address)
+    validate_probe(final_probe)
+    ok = final_probe.get("bagPokeBallCount", 0) >= target_poke_balls
+    trace.extend([
+        {"id": "Shop.LeftLabForOldale", "probe": town},
+        {"id": "Shop.Route101Outbound", "probe": route101},
+        {"id": "Shop.OldaleReached", "probe": oldale},
+        {"id": "Shop.OldaleMartEntered", "probe": mart_entry},
+        {
+            "id": "Inventory.PokeBallsBoughtAtOldaleMart",
+            "accepted": ok,
+            "quantity": quantity,
+            "beforePokeBallCount": before.get("bagPokeBallCount"),
+            "afterPokeBallCount": final_probe.get("bagPokeBallCount"),
+            "beforeMoney": top.get("shopMenuMoney"),
+            "afterMoney": purchased.get("shopMenuMoney"),
+            "unitPrice": item.get("shopMenuItemPrice"),
+        },
+    ])
+
+    return {
+        "ok": ok,
+        "target": "OLDALE_POKE_BALL_PURCHASE",
+        "routeTrace": trace,
+        "beforeProbe": before,
+        "topMenuProbe": top,
+        "itemProbe": item,
+        "quantityProbe": quantity_probe,
+        "confirmProbe": confirm,
+        "purchasedProbe": purchased,
+        "martReadyProbe": mart_ready,
+        "outsideProbe": outside,
+        "finalProbe": final_probe,
+    }
+
+
+def set_visible_battle_action_cursor(
+    client: BridgeClient,
+    probe_address: int,
+    target_cursor: int,
+    timeout: float,
+    label: str,
+) -> dict[str, Any]:
+    deadline = time.monotonic() + timeout
+    last_probe: dict[str, Any] | None = None
+    idle_polls = 0
+
+    while time.monotonic() < deadline:
+        probe = read_probe(client, probe_address)
+        validate_probe(probe)
+        last_probe = probe
+        if probe.get("inBattle") == 0:
+            return probe
+        if probe.get("battleMenuState") != BATTLE_MENU_ACTION:
+            client.request("run_frames 5")
+            idle_polls += 1
+            if idle_polls >= 10:
+                tap(client, "A", frames=4, settle_frames=6)
+                idle_polls = 0
+            continue
+
+        cursor = int(probe.get("battleMenuCursor", 0))
+        if cursor == target_cursor:
+            return probe
+        if (cursor & 1) and not (target_cursor & 1):
+            tap(client, "LEFT", frames=8, settle_frames=10)
+        elif not (cursor & 1) and (target_cursor & 1):
+            tap(client, "RIGHT", frames=8, settle_frames=10)
+        elif (cursor & 2) and not (target_cursor & 2):
+            tap(client, "UP", frames=8, settle_frames=10)
+        elif not (cursor & 2) and (target_cursor & 2):
+            tap(client, "DOWN", frames=8, settle_frames=10)
+        idle_polls = 0
+
+    raise RuntimeError(f"{label} cursor timed out: {last_probe}")
+
+
+def wait_for_capture_resolution(
+    client: BridgeClient,
+    probe_address: int,
+    before_party_count: int,
+    before_ball_count: int,
+    timeout: float,
+    label: str,
+) -> dict[str, Any]:
+    deadline = time.monotonic() + timeout
+    last_probe: dict[str, Any] | None = None
+    idle_polls = 0
+    captured_seen = False
+
+    while time.monotonic() < deadline:
+        probe = read_probe(client, probe_address)
+        validate_probe(probe)
+        last_probe = probe
+        captured_seen = captured_seen or int(probe.get("playerPartyCount", 0)) > before_party_count
+        if captured_seen:
+            if (
+                probe.get("scriptMenuState") == SCRIPT_MENU_YESNO
+                and probe_state_is_fresh(probe, "scriptMenuFrame")
+                and probe.get("scriptMenuResult") == SCRIPT_MENU_RESULT_PENDING
+            ):
+                choose_script_yesno(client, probe_address, False, max(1.0, deadline - time.monotonic()), f"{label} nickname")
+                idle_polls = 0
+                continue
+            if probe.get("fieldInputReady") == 1 and probe.get("fieldTextReady") == 1:
+                tap(client, "A", frames=8, settle_frames=12)
+                idle_polls = 0
+                continue
+            if probe.get("inBattle") == 0 and probe.get("fieldMovementReady") == 1:
+                return {"outcome": "captured", "probe": probe}
+
+        if (
+            not captured_seen
+            and probe.get("inBattle") == 1
+            and probe.get("battleMenuState") == BATTLE_MENU_ACTION
+            and int(probe.get("bagPokeBallCount", before_ball_count)) < before_ball_count
+        ):
+            return {"outcome": "failed", "probe": probe}
+
+        if probe.get("fieldInputReady") == 1 and probe.get("fieldTextReady") == 1:
+            tap(client, "A", frames=8, settle_frames=12)
+            idle_polls = 0
+        else:
+            client.request("run_frames 5")
+            idle_polls += 1
+            if idle_polls >= 10:
+                tap(client, "A", frames=4, settle_frames=6)
+                idle_polls = 0
+
+    raise RuntimeError(f"{label} timed out: {last_probe}")
+
+
+def throw_poke_ball_from_battle(
+    client: BridgeClient,
+    probe_address: int,
+    timeout: float,
+    label: str,
+) -> dict[str, Any]:
+    before = read_probe(client, probe_address)
+    validate_probe(before)
+    if before.get("bagPokeBallCount", 0) <= 0:
+        raise RuntimeError(f"{label} has no Poke Balls: {before}")
+
+    action = set_visible_battle_action_cursor(client, probe_address, 1, timeout, f"{label} battle bag action")
+    if action.get("inBattle") == 0:
+        return {"outcome": "ended", "beforeProbe": before, "afterProbe": action}
+    tap(client, "A", frames=8, settle_frames=18)
+    item = choose_bag_item(
+        client,
+        probe_address,
+        ITEM_POKE_BALL,
+        POCKET_POKE_BALLS,
+        timeout,
+        f"{label} choose Poke Ball",
+        retry_battle_bag=True,
+    )
+    if item.get("inBattle") == 0:
+        return {
+            "outcome": "captured" if int(item.get("playerPartyCount", 0)) > int(before.get("playerPartyCount", 0)) else "ended",
+            "beforeProbe": before,
+            "actionProbe": action,
+            "itemProbe": item,
+            "afterProbe": item,
+        }
+    context = choose_bag_context_first_action(client, probe_address, ITEM_POKE_BALL, timeout, f"{label} use Poke Ball")
+    resolution = wait_for_capture_resolution(
+        client,
+        probe_address,
+        int(before.get("playerPartyCount", 0)),
+        int(before.get("bagPokeBallCount", 0)),
+        timeout,
+        label,
+    )
+    return {
+        "outcome": resolution["outcome"],
+        "beforeProbe": before,
+        "actionProbe": action,
+        "itemProbe": item,
+        "contextProbe": context,
+        "afterProbe": resolution["probe"],
+    }
+
+
+def capture_route101_poochyena(
+    client: BridgeClient,
+    probe_address: int,
+    timeout: float,
+) -> dict[str, Any]:
+    deadline = time.monotonic() + timeout
+    trace: list[dict[str, Any]] = []
+
+    purchase = buy_oldale_poke_balls_from_lab(client, probe_address, 15, timeout)
+    if not purchase.get("ok"):
+        raise RuntimeError(f"Oldale Mart Poke Ball purchase failed: {purchase}")
+    trace.extend(purchase.get("routeTrace", []))
+    oldale_south = probe_follow_waypoints(
+        client,
+        probe_address,
+        MAP_GROUP_OUTSIDE,
+        MAP_NUM_OLDALE_TOWN,
+        [
+            (10, 7, "Oldale central lane after Mart"),
+            (10, 19, "Oldale south exit after Mart"),
+        ],
+        max(1.0, deadline - time.monotonic()),
+        "Oldale south exit after Mart purchase",
+    )
+    route101 = probe_move_until_map(
+        client,
+        probe_address,
+        "DOWN",
+        MAP_GROUP_OUTSIDE,
+        MAP_NUM_ROUTE101,
+        40,
+        max(1.0, deadline - time.monotonic()),
+        "Route 101 capture entry from Oldale",
+    )
+    grass = probe_follow_waypoints(
+        client,
+        probe_address,
+        MAP_GROUP_OUTSIDE,
+        MAP_NUM_ROUTE101,
+        [
+            (10, 5, "north lane"),
+            (13, 5, "east bend"),
+            (13, 6, "south turn"),
+            (15, 6, "east lane"),
+            (15, 9, "east grass edge"),
+            (13, 9, "west grass edge"),
+            (13, 10, "capture grass lane"),
+        ],
+        max(1.0, deadline - time.monotonic()),
+        "Route 101 capture grass approach from Oldale",
+    )
+    trace.extend([
+        {"id": "Capture.OldalePokeBallsPurchased", "probe": purchase["finalProbe"]},
+        {"id": "Capture.OldaleSouthExitReady", "probe": oldale_south},
+        {"id": "Capture.Route101Entered", "probe": route101},
+        {"id": "Capture.Route101GrassReady", "probe": grass},
+    ])
+
+    step_up = True
+    capture_attempts: list[dict[str, Any]] = []
+    encounters: list[dict[str, Any]] = []
+    while time.monotonic() < deadline:
+        probe = read_probe(client, probe_address)
+        validate_probe(probe)
+        if probe.get("inBattle") == 1:
+            encounter = {
+                "enemy0Species": probe.get("enemy0Species"),
+                "enemy0Level": probe.get("enemy0Level"),
+                "enemy0AbilityNum": probe.get("enemy0AbilityNum"),
+                "enemy0Ability": probe.get("enemy0Ability"),
+                "bagPokeBallCount": probe.get("bagPokeBallCount"),
+            }
+            encounters.append(encounter)
+            if probe.get("enemy0Species") == SPECIES_POOCHYENA and probe.get("enemy0AbilityNum") == 0:
+                attempt = throw_poke_ball_from_battle(
+                    client,
+                    probe_address,
+                    max(1.0, deadline - time.monotonic()),
+                    "Route 101 Poochyena capture",
+                )
+                capture_attempts.append(attempt)
+                if attempt.get("outcome") == "captured":
+                    final_probe = attempt["afterProbe"]
+                    poochyena = find_party_mon(final_probe, SPECIES_POOCHYENA, ability_num=0)
+                    if poochyena is None:
+                        raise RuntimeError(f"capture completed but slot-0 ability Poochyena was not observable: {final_probe}")
+                    trace.append({
+                        "id": "Party.CaughtPoochyenaAbilitySlot0",
+                        "accepted": True,
+                        "poochyena": poochyena,
+                        "encounters": encounters,
+                        "captureAttempts": len(capture_attempts),
+                    })
+                    return {
+                        "ok": True,
+                        "target": "POOCHYENA_CAPTURE",
+                        "routeTrace": trace,
+                        "encounters": encounters,
+                        "captureAttempts": capture_attempts,
+                        "poochyena": poochyena,
+                        "finalProbe": final_probe,
+                    }
+                if attempt["afterProbe"].get("bagPokeBallCount", 0) <= 0:
+                    raise RuntimeError(f"ran out of Poke Balls while catching Poochyena: {attempt}")
+                continue
+
+            run_probe = run_from_battle(
+                client,
+                probe_address,
+                max(1.0, deadline - time.monotonic()),
+                "Route 101 non-target encounter",
+            )
+            trace.append({"id": "Capture.RanFromNonTarget", "encounter": encounter, "probe": run_probe})
+            continue
+
+        if not probe_on_map(probe, MAP_GROUP_OUTSIDE, MAP_NUM_ROUTE101):
+            raise RuntimeError(f"capture route left Route 101 unexpectedly: {probe}")
+        if probe.get("fieldMovementReady") == 1:
+            x = int(probe.get("playerX", 0))
+            y = int(probe.get("playerY", 0))
+            if (x, y) == (13, 10):
+                move_tap(client, "UP")
+                step_up = False
+            elif (x, y) == (13, 9):
+                move_tap(client, "DOWN")
+                step_up = True
+            else:
+                probe_move_to_position(
+                    client,
+                    probe_address,
+                    MAP_GROUP_OUTSIDE,
+                    MAP_NUM_ROUTE101,
+                    13,
+                    10,
+                    max(1.0, deadline - time.monotonic()),
+                    "Route 101 capture grass reset",
+                )
+            continue
+        if probe.get("fieldInputReady") == 1 and probe.get("fieldTextReady") == 1:
+            tap(client, "A", frames=8, settle_frames=12)
+        else:
+            client.request("run_frames 5")
+
+    raise RuntimeError(f"Route 101 Poochyena capture timed out after encounters={encounters}")
+
+
+def drive_pc_rare_candy_smoke(client: BridgeClient, args: argparse.Namespace) -> dict[str, Any]:
+    route_start = time.monotonic()
+    probe_address = resolve_probe_address(args)
+    trace: list[dict[str, Any]] = []
+
+    trace.append(asdict(RouteNode("EarlyGame.BedroomPC", "Reach the bedroom PC before setting the clock")))
+    bedroom = drive_to_bedroom_setup_ready(client, args.truck_timeout, args.objective_timeout)
+    if not bedroom.get("ok"):
+        return bedroom
+
+    withdrawal = withdraw_rare_candies_from_bedroom_pc(client, probe_address, 1, args.objective_timeout)
+    before = withdrawal["beforeProbe"]
+    after = withdrawal["afterProbe"]
+    final_probe = withdrawal["finalProbe"]
+    exit_beacon = withdrawal["exitBeacon"]
+
+    trace.append({
+        "id": "Inventory.PCRareCandyAvailable",
+        "accepted": before.get("pcRareCandyCount", 0) > 0,
+        "pcRareCandyCount": before.get("pcRareCandyCount"),
+        "pcRareCandySlot": before.get("pcRareCandySlot"),
+        "bagRareCandyCount": before.get("bagRareCandyCount"),
+    })
+
+    trace.append({
+        "id": "Inventory.RareCandiesWithdrawnFromPC",
+        "accepted": True,
+        "beforePcRareCandyCount": before.get("pcRareCandyCount"),
+        "afterPcRareCandyCount": after.get("pcRareCandyCount"),
+        "beforeBagRareCandyCount": before.get("bagRareCandyCount"),
+        "afterBagRareCandyCount": after.get("bagRareCandyCount"),
+        "topMenuProbe": withdrawal["topMenuProbe"],
+        "itemStorageProbe": withdrawal["itemStorageProbe"],
+        "itemListProbe": withdrawal["itemListProbe"],
+        "quantityProbe": withdrawal["quantityProbe"],
+        "withdrewProbe": withdrawal["withdrewProbe"],
+    })
+    ok = (
+        final_probe.get("pcRareCandyCount") == before.get("pcRareCandyCount") - 1
+        and final_probe.get("bagRareCandyCount") == before.get("bagRareCandyCount") + 1
+    )
+
+    return {
+        "ok": ok,
+        "target": "PC_RARE_CANDY_SMOKE",
+        "probeAddress": probe_address,
+        "routeTrace": trace,
+        "bedroomBeacon": bedroom["beacon"],
+        "exitBeacon": exit_beacon,
+        "beforeProbe": before,
+        "afterProbe": after,
+        "finalProbe": final_probe,
         "elapsedSeconds": round(time.monotonic() - route_start, 3),
     }
 
@@ -2204,7 +4748,7 @@ def capability_blockers(report: dict[str, Any], selected: MgbaCandidate | None, 
 
     if not report["romExists"]:
         blockers.append("rom_missing")
-    if args.mode in {"probe-smoke", "poochyena-intimidate"} and not report["symExists"] and not Path(args.sym).with_suffix(".map").exists():
+    if args.mode in {"probe-smoke", "story-pokeballs-smoke", "poochyena-capture-smoke", "poochyena-intimidate", "pc-rare-candy-smoke"} and not report["symExists"] and not Path(args.sym).with_suffix(".map").exists():
         blockers.append("sym_or_map_missing")
     if not report["bridgeExists"]:
         blockers.append("bridge_missing")
@@ -2257,6 +4801,12 @@ def run(args: argparse.Namespace) -> int:
                 result = drive_to_starter_confirm(client, args.truck_timeout, args.starter_timeout)
             elif args.mode == "probe-smoke":
                 result = drive_probe_smoke(client, args)
+            elif args.mode == "story-pokeballs-smoke":
+                result = drive_story_pokeballs_smoke(client, args)
+            elif args.mode == "poochyena-capture-smoke":
+                result = drive_poochyena_capture_smoke(client, args)
+            elif args.mode == "pc-rare-candy-smoke":
+                result = drive_pc_rare_candy_smoke(client, args)
             elif args.mode == "poochyena-intimidate":
                 result = drive_poochyena_intimidate(client, args, selected, output_dir)
             elif args.mode == "battle-summary":
@@ -2316,6 +4866,9 @@ def parse_args(argv: list[str]) -> argparse.Namespace:
             "starter",
             "starter-confirm",
             "probe-smoke",
+            "story-pokeballs-smoke",
+            "poochyena-capture-smoke",
+            "pc-rare-candy-smoke",
             "poochyena-intimidate",
             "battle-summary",
         ],

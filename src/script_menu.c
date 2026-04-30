@@ -1,4 +1,5 @@
 #include "global.h"
+#include "automation_probe.h"
 #include "main.h"
 #include "event_data.h"
 #include "field_effect.h"
@@ -540,6 +541,13 @@ static void Task_HandleMultichoiceInput(u8 taskId)
 {
     s8 selection;
     s16 *data = gTasks[taskId].data;
+    u32 cursor = Menu_GetCursorPos();
+
+    AutomationProbe_RecordScriptMenuState(
+        AUTOMATION_PROBE_SCRIPT_MENU_MULTICHOICE,
+        cursor,
+        gSpecialVar_Result,
+        tMultichoiceId);
 
     if (!gPaletteFade.active)
     {
@@ -572,6 +580,11 @@ static void Task_HandleMultichoiceInput(u8 taskId)
                 {
                     gSpecialVar_Result = selection;
                 }
+                AutomationProbe_RecordScriptMenuState(
+                    AUTOMATION_PROBE_SCRIPT_MENU_NONE,
+                    cursor,
+                    gSpecialVar_Result,
+                    tMultichoiceId);
                 ClearToTransparentAndRemoveWindow(tWindowId);
                 DestroyTask(taskId);
                 ScriptContext_Enable();
@@ -606,6 +619,14 @@ bool8 IsScriptActive(void)
 
 static void Task_HandleYesNoInput(u8 taskId)
 {
+    u32 cursor = Menu_GetCursorPos();
+
+    AutomationProbe_RecordScriptMenuState(
+        AUTOMATION_PROBE_SCRIPT_MENU_YESNO,
+        cursor,
+        gSpecialVar_Result,
+        0);
+
     if (gTasks[taskId].tRight < 5)
     {
         gTasks[taskId].tRight++;
@@ -626,6 +647,11 @@ static void Task_HandleYesNoInput(u8 taskId)
         break;
     }
 
+    AutomationProbe_RecordScriptMenuState(
+        AUTOMATION_PROBE_SCRIPT_MENU_NONE,
+        cursor,
+        gSpecialVar_Result,
+        0);
     DestroyTask(taskId);
     ScriptContext_Enable();
 }
@@ -671,6 +697,13 @@ static void Task_HandleMultichoiceGridInput(u8 taskId)
 {
     s16 *data = gTasks[taskId].data;
     s8 selection = Menu_ProcessGridInput();
+    u32 cursor = Menu_GetCursorPos();
+
+    AutomationProbe_RecordScriptMenuState(
+        AUTOMATION_PROBE_SCRIPT_MENU_MULTICHOICE_GRID,
+        cursor,
+        gSpecialVar_Result,
+        tMultichoiceId);
 
     switch (selection)
     {
@@ -687,6 +720,11 @@ static void Task_HandleMultichoiceGridInput(u8 taskId)
         break;
     }
 
+    AutomationProbe_RecordScriptMenuState(
+        AUTOMATION_PROBE_SCRIPT_MENU_NONE,
+        cursor,
+        gSpecialVar_Result,
+        tMultichoiceId);
     ClearToTransparentAndRemoveWindow(tWindowId);
     DestroyTask(taskId);
     ScriptContext_Enable();

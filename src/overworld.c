@@ -1853,6 +1853,9 @@ static void AutomationBeacon_UpdateOverworld(void)
     u8 errorCode = 0;
     u8 scriptStep = AutomationBeacon_GetScriptStep();
 
+    if (!scriptEnabled && !messageReady)
+        scriptStep = AUTOMATION_BEACON_SCRIPT_STEP_NONE;
+
     if (scriptEnabled)
         flags |= 1;
     if (controlsLocked)

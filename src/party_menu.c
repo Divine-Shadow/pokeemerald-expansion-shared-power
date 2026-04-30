@@ -1,5 +1,6 @@
 #include "global.h"
 #include "automation_beacon.h"
+#include "automation_probe.h"
 #include "malloc.h"
 #include "battle.h"
 #include "battle_anim.h"
@@ -1397,6 +1398,13 @@ void Task_HandleChooseMonInput(u8 taskId)
     if (!gPaletteFade.active && MenuHelpers_ShouldWaitForLinkRecv() != TRUE)
     {
         s8 *slotPtr = GetCurrentPartySlotPtr();
+
+        AutomationProbe_RecordPartyMenuState(
+            AUTOMATION_PROBE_PARTY_MENU_CHOOSE,
+            gPartyMenu.menuType,
+            gPartyMenu.action,
+            (u8)*slotPtr,
+            gPartyMenu.slotId2);
 
         if (gPartyMenu.menuType == PARTY_MENU_TYPE_IN_BATTLE)
         {
@@ -2983,6 +2991,13 @@ static void Task_HandleSelectionMenuInput(u8 taskId)
     {
         s8 input;
         s16 *data = gTasks[taskId].data;
+
+        AutomationProbe_RecordPartyMenuState(
+            AUTOMATION_PROBE_PARTY_MENU_ACTION,
+            gPartyMenu.menuType,
+            gPartyMenu.action,
+            gPartyMenu.slotId,
+            Menu_GetCursorPos());
 
         if (sPartyMenuInternal->numActions <= 3)
             input = Menu_ProcessInputNoWrapAround_other();

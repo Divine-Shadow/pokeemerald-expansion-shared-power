@@ -11,6 +11,7 @@
 #include "battle_z_move.h"
 #include "battle_gimmick.h"
 #include "automation_beacon.h"
+#include "automation_probe.h"
 #include "bg.h"
 #include "data.h"
 #include "item.h"
@@ -665,6 +666,8 @@ void HandleInputChooseMove(u32 battler)
     u16 moveTarget;
     u32 canSelectTarget = 0;
     struct ChooseMoveStruct *moveInfo = (struct ChooseMoveStruct *)(&gBattleResources->bufferA[battler][4]);
+
+    AutomationProbe_RecordBattleMenuState(AUTOMATION_PROBE_BATTLE_MENU_MOVE, gMoveSelectionCursor[battler], battler);
 
     if (JOY_HELD(DPAD_ANY) && gSaveBlock2Ptr->optionsButtonMode == OPTIONS_BUTTON_MODE_L_EQUALS_A)
         gPlayerDpadHoldFrames++;
@@ -2032,6 +2035,7 @@ static void PlayerHandleChooseAction(u32 battler)
 
 static void SetBattleActionMenuAutomationBeacon(u32 battler)
 {
+    AutomationProbe_RecordBattleMenuState(AUTOMATION_PROBE_BATTLE_MENU_ACTION, gActionSelectionCursor[battler], battler);
     AutomationBeacon_SetStage(
         AUTOMATION_BEACON_STAGE_BATTLE_SUMMARY_REPRO,
         AUTOMATION_BEACON_BATTLE_SUMMARY_REPRO_ACTION_MENU,

@@ -1,4 +1,5 @@
 #include "global.h"
+#include "automation_probe.h"
 #include "malloc.h"
 #include "battle.h"
 #include "pokemon.h"
@@ -2643,6 +2644,8 @@ void CreateAbilityPopUp(u8 battler, u32 ability, bool32 isDoubleBattle)
 
     if (gBattleScripting.abilityPopupOverwrite)
         ability = gBattleScripting.abilityPopupOverwrite;
+
+    AutomationProbe_RecordAbilityPopup(battler, ability);
 
     if (gTestRunnerEnabled)
     {

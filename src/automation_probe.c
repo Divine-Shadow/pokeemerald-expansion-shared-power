@@ -2,10 +2,16 @@
 #include "automation_probe.h"
 #include "automation_beacon.h"
 #include "battle.h"
+#include "battle_controllers.h"
 #include "event_object_movement.h"
+#include "field_message_box.h"
+#include "field_player_avatar.h"
+#include "fieldmap.h"
 #include "item.h"
 #include "main.h"
+#include "palette.h"
 #include "pokemon.h"
+#include "script.h"
 #include "constants/abilities.h"
 #include "constants/items.h"
 #include "constants/pokemon.h"
@@ -92,6 +98,128 @@ static u32 AutomationProbe_FindFirstPartySpecies(u32 species)
     }
 
     return PARTY_SIZE;
+}
+
+static void AutomationProbe_FillPCRareCandy(void)
+{
+    u32 i;
+
+    gAutomationProbe.pcRareCandyCount = 0;
+    gAutomationProbe.pcRareCandySlot = PC_ITEMS_COUNT;
+    gAutomationProbe.pcUsedItemSlots = 0;
+    if (gSaveBlock1Ptr == NULL)
+        return;
+
+    for (i = 0; i < PC_ITEMS_COUNT; i++)
+    {
+        if (gSaveBlock1Ptr->pcItems[i].itemId == ITEM_NONE)
+            continue;
+
+        gAutomationProbe.pcUsedItemSlots++;
+        if (gSaveBlock1Ptr->pcItems[i].itemId == ITEM_RARE_CANDY)
+        {
+            gAutomationProbe.pcRareCandyCount += gSaveBlock1Ptr->pcItems[i].quantity;
+            if (gAutomationProbe.pcRareCandySlot == PC_ITEMS_COUNT)
+                gAutomationProbe.pcRareCandySlot = i;
+        }
+    }
+}
+
+static u32 AutomationProbe_LocalCoord(s16 coord)
+{
+    if (coord >= MAP_OFFSET)
+        return coord - MAP_OFFSET;
+    return coord;
+}
+
+static void AutomationProbe_FillFieldReadiness(void)
+{
+    bool8 scriptEnabled;
+    bool8 controlsLocked;
+    bool8 messageReady;
+    bool8 playerMoving;
+
+    gAutomationProbe.fieldInputReady = 0;
+    gAutomationProbe.fieldMovementReady = 0;
+    gAutomationProbe.fieldTextReady = 0;
+    gAutomationProbe.fieldScriptEnabled = 0;
+    gAutomationProbe.fieldControlsLocked = 0;
+    gAutomationProbe.fieldPlayerMoving = 0;
+    gAutomationProbe.fieldPaletteFadeActive = gPaletteFade.active;
+    gAutomationProbe.frontX = gAutomationProbe.playerX;
+    gAutomationProbe.frontY = gAutomationProbe.playerY;
+
+    if (gPlayerAvatar.objectEventId >= OBJECT_EVENTS_COUNT)
+        return;
+
+    if (!gObjectEvents[gPlayerAvatar.objectEventId].active)
+        return;
+
+    scriptEnabled = ScriptContext_IsEnabled();
+    controlsLocked = ArePlayerFieldControlsLocked();
+    messageReady = !IsFieldMessageBoxHidden();
+    playerMoving = gObjectEvents[gPlayerAvatar.objectEventId].singleMovementActive
+        || gPlayerAvatar.tileTransitionState != T_NOT_MOVING;
+
+    gAutomationProbe.fieldScriptEnabled = scriptEnabled;
+    gAutomationProbe.fieldControlsLocked = controlsLocked;
+    gAutomationProbe.fieldTextReady = messageReady;
+    gAutomationProbe.fieldPlayerMoving = playerMoving;
+    gAutomationProbe.fieldInputReady = !gPaletteFade.active
+        && !playerMoving
+        && (messageReady || (!scriptEnabled && !controlsLocked));
+    gAutomationProbe.fieldMovementReady = !gPaletteFade.active
+        && !playerMoving
+        && !messageReady
+        && !scriptEnabled
+        && !controlsLocked;
+
+    {
+        s16 frontX = gObjectEvents[gPlayerAvatar.objectEventId].currentCoords.x;
+        s16 frontY = gObjectEvents[gPlayerAvatar.objectEventId].currentCoords.y;
+
+        MoveCoords(GetPlayerFacingDirection(), &frontX, &frontY);
+        gAutomationProbe.frontX = AutomationProbe_LocalCoord(frontX);
+        gAutomationProbe.frontY = AutomationProbe_LocalCoord(frontY);
+    }
+}
+
+static void AutomationProbe_FillBattleControl(void)
+{
+    u32 battler;
+    u32 playerBattler = MAX_BATTLERS_COUNT;
+
+    gAutomationProbe.playerBattleBattler = MAX_BATTLERS_COUNT;
+    gAutomationProbe.playerBattlePartyIndex = PARTY_SIZE;
+    gAutomationProbe.playerBattleActionCursor = 0;
+    gAutomationProbe.playerBattleMoveCursor = 0;
+    gAutomationProbe.playerBattleController = 0;
+    gAutomationProbe.battleControllerExecFlags = gBattleControllerExecFlags;
+
+    if (!gMain.inBattle)
+    {
+        gAutomationProbe.battleMenuState = AUTOMATION_PROBE_BATTLE_MENU_NONE;
+        return;
+    }
+
+    for (battler = 0; battler < gBattlersCount; battler++)
+    {
+        if (GetBattlerSide(battler) != B_SIDE_PLAYER)
+            continue;
+
+        playerBattler = battler;
+        if (GetBattlerPosition(battler) == B_POSITION_PLAYER_LEFT)
+            break;
+    }
+
+    if (playerBattler >= gBattlersCount)
+        return;
+
+    gAutomationProbe.playerBattleBattler = playerBattler;
+    gAutomationProbe.playerBattlePartyIndex = gBattlerPartyIndexes[playerBattler];
+    gAutomationProbe.playerBattleActionCursor = gActionSelectionCursor[playerBattler];
+    gAutomationProbe.playerBattleMoveCursor = gMoveSelectionCursor[playerBattler];
+    gAutomationProbe.playerBattleController = (u32)gBattlerControllerFuncs[playerBattler];
 }
 
 static void AutomationProbe_CommandGrantItem(void)
@@ -264,11 +392,12 @@ static void AutomationProbe_FillFacts(void)
         if (player->active)
         {
             gAutomationProbe.readinessFlags |= AUTOMATION_PROBE_READY_PLAYER_AVATAR;
-            gAutomationProbe.playerX = player->currentCoords.x;
-            gAutomationProbe.playerY = player->currentCoords.y;
+            gAutomationProbe.playerX = AutomationProbe_LocalCoord(player->currentCoords.x);
+            gAutomationProbe.playerY = AutomationProbe_LocalCoord(player->currentCoords.y);
             gAutomationProbe.playerFacing = player->facingDirection;
         }
     }
+    AutomationProbe_FillFieldReadiness();
 
     gAutomationProbe.mapSlot = 0;
     gAutomationProbe.battleTypeFlags = gBattleTypeFlags;
@@ -286,10 +415,101 @@ static void AutomationProbe_FillFacts(void)
 
     gAutomationProbe.bagPokeBallCount = CountTotalItemQuantityInBag(ITEM_POKE_BALL);
     gAutomationProbe.bagRareCandyCount = CountTotalItemQuantityInBag(ITEM_RARE_CANDY);
+    AutomationProbe_FillPCRareCandy();
+    AutomationProbe_FillBattleControl();
     if (gAutomationProbe.bagPokeBallCount > 0)
         gAutomationProbe.readinessFlags |= AUTOMATION_PROBE_READY_POKE_BALL;
     if (gAutomationProbe.bagRareCandyCount > 0)
         gAutomationProbe.readinessFlags |= AUTOMATION_PROBE_READY_RARE_CANDY;
+}
+
+void AutomationProbe_RecordAbilityPopup(u32 battler, u32 ability)
+{
+    gAutomationProbe.abilityPopupSequence++;
+    gAutomationProbe.abilityPopupFrame = gMain.vblankCounter2;
+    gAutomationProbe.abilityPopupBattler = battler;
+    gAutomationProbe.abilityPopupAbility = ability;
+
+    if (gMain.inBattle && battler < gBattlersCount)
+    {
+        gAutomationProbe.abilityPopupSide = GetBattlerSide(battler);
+        gAutomationProbe.abilityPopupPosition = GetBattlerPosition(battler);
+        gAutomationProbe.abilityPopupPartyIndex = gBattlerPartyIndexes[battler];
+    }
+    else
+    {
+        gAutomationProbe.abilityPopupSide = NUM_BATTLE_SIDES;
+        gAutomationProbe.abilityPopupPosition = MAX_BATTLERS_COUNT;
+        gAutomationProbe.abilityPopupPartyIndex = PARTY_SIZE;
+    }
+}
+
+void AutomationProbe_RecordPCMenuState(u32 state, u32 cursor, u32 itemId, u32 quantity)
+{
+    gAutomationProbe.pcMenuState = state;
+    gAutomationProbe.pcMenuCursor = cursor;
+    gAutomationProbe.pcItemCursor = cursor;
+    gAutomationProbe.pcItemId = itemId;
+    gAutomationProbe.pcItemQuantity = quantity;
+}
+
+void AutomationProbe_RecordBattleMenuState(u32 state, u32 cursor, u32 arg0)
+{
+    gAutomationProbe.battleMenuState = state;
+    gAutomationProbe.battleMenuFrame = gMain.vblankCounter2;
+    gAutomationProbe.battleMenuCursor = cursor;
+    gAutomationProbe.battleMenuArg0 = arg0;
+}
+
+void AutomationProbe_RecordPartyMenuState(u32 state, u32 menuType, u32 action, u32 cursor, u32 cursor2)
+{
+    gAutomationProbe.partyMenuState = state;
+    gAutomationProbe.partyMenuFrame = gMain.vblankCounter2;
+    gAutomationProbe.partyMenuType = menuType;
+    gAutomationProbe.partyMenuAction = action;
+    gAutomationProbe.partyMenuCursor = cursor;
+    gAutomationProbe.partyMenuCursor2 = cursor2;
+}
+
+void AutomationProbe_RecordStartMenuState(u32 state, u32 cursor, u32 action, u32 count)
+{
+    gAutomationProbe.startMenuState = state;
+    gAutomationProbe.startMenuFrame = gMain.vblankCounter2;
+    gAutomationProbe.startMenuCursor = cursor;
+    gAutomationProbe.startMenuAction = action;
+    gAutomationProbe.startMenuCount = count;
+}
+
+void AutomationProbe_RecordBagMenuState(u32 state, u32 location, u32 pocket, u32 cursor, u32 itemId, u32 quantity, u32 contextCursor)
+{
+    gAutomationProbe.bagMenuState = state;
+    gAutomationProbe.bagMenuFrame = gMain.vblankCounter2;
+    gAutomationProbe.bagMenuLocation = location;
+    gAutomationProbe.bagMenuPocket = pocket;
+    gAutomationProbe.bagMenuCursor = cursor;
+    gAutomationProbe.bagMenuItemId = itemId;
+    gAutomationProbe.bagMenuItemQuantity = quantity;
+    gAutomationProbe.bagMenuContextCursor = contextCursor;
+}
+
+void AutomationProbe_RecordScriptMenuState(u32 state, u32 cursor, u32 result, u32 menuId)
+{
+    gAutomationProbe.scriptMenuState = state;
+    gAutomationProbe.scriptMenuFrame = gMain.vblankCounter2;
+    gAutomationProbe.scriptMenuCursor = cursor;
+    gAutomationProbe.scriptMenuResult = result;
+    gAutomationProbe.scriptMenuId = menuId;
+}
+
+void AutomationProbe_RecordShopMenuState(u32 state, u32 cursor, u32 itemId, u32 quantity, u32 price, u32 money)
+{
+    gAutomationProbe.shopMenuState = state;
+    gAutomationProbe.shopMenuFrame = gMain.vblankCounter2;
+    gAutomationProbe.shopMenuCursor = cursor;
+    gAutomationProbe.shopMenuItemId = itemId;
+    gAutomationProbe.shopMenuItemQuantity = quantity;
+    gAutomationProbe.shopMenuItemPrice = price;
+    gAutomationProbe.shopMenuMoney = money;
 }
 
 void AutomationProbe_Update(void)

@@ -4,21 +4,25 @@ This ExecPlan is a living document. The sections `Progress`, `Surprises & Discov
 
 This repository stores the ExecPlan protocol in `.agent/PLANS.md`. Maintain this file according to that protocol: milestones must be completed in order, evidence must be recorded in this document, and execution should continue until the route works end to end or a true blocker requires escalation.
 
+Execution note: Milestones 5 and later are superseded by the governed Scala implementation plan in `../ouroboros-ide/logs/plans/20260430_mightyena_switch_scala_route_execplan.md`. Python commands below are retained only as historical context for earlier spike evidence and must not be extended for new canonical route work.
+
 ## Purpose / Big Picture
 
-The goal is to turn the existing automation spike into a reusable gameplay route that proves a concrete Shared Power behavior in the running game. After this plan succeeds, one headless command will start from a clean build, obtain two Pokemon through named route checkpoints, evolve a caught slot-0 Poochyena into a lead Mightyena by using Rare Candies from the player PC, enter a battle, switch from Mightyena to the second Pokemon, and prove that Intimidate appears again on switch-in.
+The goal is to turn the existing automation spike into a reusable Scala gameplay route that proves a concrete Shared Power behavior in the running game. After this plan succeeds, one governed Scala headless command will start from a clean build, obtain two Pokemon through named route checkpoints, evolve a caught slot-0 Poochyena into a lead Mightyena by using Rare Candies from the player PC, enter a battle, switch from Mightyena to the second Pokemon, and prove that Intimidate appears again on switch-in.
 
 This matters because the previous Mightyena proof was intentionally non-canonical: it used guarded automation commands to create Poochyena and directly mutate it into Mightyena. That proved the probe and savestate plumbing, but it did not build the route we want to reuse for future gameplay tests. This plan replaces the ad-hoc proof with a small route tree whose checkpoints can be shared by later objectives, such as catching, evolving, party ordering, and battle-menu navigation.
 
-The human-visible proof is a `run_result.json` under `build/mgba_lua_spike/mightyena-switch-intimidate/` with `ok=true`, `target=MIGHTYENA_SWITCH_INTIMIDATE`, party facts showing slot 0 as `SPECIES_MIGHTYENA` with `ABILITY_INTIMIDATE`, party facts showing a second usable Pokemon, and battle event facts showing that `ABILITY_INTIMIDATE` fired after switching to the second Pokemon. The run should also write an ignored savestate and screenshot so a human can inspect the final battle state.
+The human-visible proof is a Scala route artifact with `ok=true`, `target=MIGHTYENA_SWITCH_INTIMIDATE`, party facts showing slot 0 as `SPECIES_MIGHTYENA` with `ABILITY_INTIMIDATE`, party facts showing a second usable Pokemon, and battle event facts showing that `ABILITY_INTIMIDATE` fired after switching to the second Pokemon. The run should also write ignored savestate/screenshot artifacts so a human can inspect the final battle state. The Python file `tools/mgba/mgba_lua_spike.py` is frozen as reference-only debugging material and must not receive new canonical route logic.
 
 ## Progress
 
 - [x] (2026-04-29 22:42 -04:00) Created this ExecPlan after reading `.agent/PLANS.md`, the current automation probe, the mGBA Lua host, the player PC Rare Candy initialization, and existing Shared Power Intimidate tests.
-- [ ] Milestone 1: Revalidate the current headless probe baseline and record the exact build, emulator, and smoke-test evidence in this plan.
-- [ ] Milestone 2: Add generic route observability for PC Rare Candies, selected battle UI state, and switch-in ability events without adding objective-specific mutation commands.
-- [ ] Milestone 3: Implement and verify the reusable PC Rare Candy withdrawal checkpoint from the bedroom PC.
-- [ ] Milestone 4: Implement and verify the reusable two-Pokemon early-game party checkpoint, ending with a starter and a real caught slot-0 Poochyena.
+- [x] (2026-04-29 22:49 -04:00) Milestone 1 revalidated the headless probe baseline: the builder image produced `pokeemerald.gba` and `pokeemerald.sym`, and agent-5 ran `probe-smoke` successfully with probe magic `0x41505242`, version `1`, size `296`, route stage `13`, and zero party members.
+- [x] (2026-04-29 22:53 -04:00) Milestone 2 added generic observability for PC Rare Candies, selected player battle-control fields, and ability-popup events. `probe-smoke` passed with probe version `2`, size `360`, `pcRareCandyCount=999`, `pcRareCandySlot=0`, `pcUsedItemSlots=1`, and `abilityPopupSequence=0` outside battle.
+- [x] (2026-04-29 23:03 -04:00) Milestone 3 implemented and verified `pc-rare-candy-smoke`: the route reaches the bedroom PC, waits on probe-recorded PC menu states, withdraws one Rare Candy through the real item-storage flow, and exits back to semantic field movement readiness with PC Rare Candy `999 -> 998` and bag Rare Candy `0 -> 1`.
+- [x] (2026-04-30 05:08 -04:00) Milestone 4 story subcheckpoint passed: `story-pokeballs-smoke` withdrew 25 PC Rare Candies, used 6 on the starter through Start Menu -> Bag -> Party, won the rival path, returned to Birch's lab, and ended with `bagPokeBallCount=5`, `bagRareCandyCount=19`, `pcRareCandyCount=974`, level-11 `SPECIES_MUDKIP`, and field movement ready in Birch's lab.
+- [x] (2026-04-30 05:38 -04:00) Milestone 4 passed: `poochyena-capture-smoke` bought 15 Poke Balls at Oldale Mart through the normal shop flow, entered Route 101 grass, ran from non-target encounters, and ended with party `[SPECIES_MUDKIP, SPECIES_POOCHYENA]`; the Poochyena was level 3 with `abilityNum=0`, `ability=50`, and the bag still had 17 Poke Balls.
+- [x] (2026-04-30 06:08 -04:00) Corrected implementation target: the Python host is now documented as reference-only, and remaining route implementation must move to the governed Scala automation in `../ouroboros-ide`.
 - [ ] Milestone 5: Implement and verify the reusable Poochyena evolution checkpoint by using Rare Candies through the normal item and evolution flow.
 - [ ] Milestone 6: Implement and verify the party-order and battle-entry checkpoint with Mightyena as lead and a second Pokemon available to switch into.
 - [ ] Milestone 7: Implement and verify the final switch proof where switching from Mightyena to the second Pokemon causes Intimidate to appear again.
@@ -38,6 +42,48 @@ The human-visible proof is a `run_result.json` under `build/mgba_lua_spike/might
 - Observation: Battle tests already express the core mechanic that the final automation route should observe in-game.
   Evidence: `test/battle/shared_power.c` contains `SINGLE_BATTLE_TEST("Shared Power: Intimidate is fully shared with a switched in pokemon", s16 damage)` and other switch-in Intimidate tests that assert `ABILITY_POPUP(..., ABILITY_INTIMIDATE)` after switching.
 
+- Observation: The agent-5 devkit container has the required mGBA runtime but not the ARM cross-compiler.
+  Evidence: `docker exec devkit-ouro8-dev-agent-5 ... make ... rom syms` failed with `arm-none-eabi-gcc: command not found`; `docker run ... pokeemerald-expansion:builder make ... rom syms` succeeded and wrote the ROM and symbols consumed by the agent-5 `probe-smoke` run.
+
+- Observation: Overworld beacon `scriptWaitKind` could stay at `WAIT_BUTTON` after a PC script ended, causing false `textReady=1` and preventing semantic `movementReady=1`.
+  Evidence: The first tightened `pc-rare-candy-smoke` exit wait saw `flags=0`, `inputReady=1`, `textReady=1`, `movementReady=0`, and `scriptWaitKind=10` forever after PC exit. Clearing stale script-step readiness when no script and no field message are active made the rerun exit with `movementReady=1`, `textReady=0`, and `scriptWaitKind=0`.
+
+- Observation: Route 101's rescue Zigzagoon is only removed from the active map instance; its hide flag is not set in either this branch, `origin/main`, `origin/master`, or upstream `pret/pokeemerald`.
+  Evidence: `Route101_EventScript_BirchsBag` calls `removeobject LOCALID_ROUTE101_ZIGZAGOON`, then warps to Birch's lab without `setflag FLAG_HIDE_ROUTE_101_ZIGZAGOON`; returning to Route 101 reloads the object at `(10,13)`. The route now uses the Birch-cleared x=9 lane rather than forcing the blocked x=10 tile.
+
+- Observation: Beacon raw `flags` can report script/controls bits without the message-box bit while semantic `textReady=1` and `scriptWaitKind=WAIT_BUTTON` still prove that pressing A is the correct progress action.
+  Evidence: A `story-pokeballs-smoke` run timed out during `rival house stairs approach` with `flags=3`, `inputReady=1`, `textReady=1`, and `scriptWaitKind=10`. The movement waiter now treats semantic text readiness as actionable instead of relying only on `flags & 4`.
+
+- Observation: Coordinate-to-coordinate movement is not a pathfinder; its greedy X-first behavior can repeatedly press into terrain even when a valid nearby route exists.
+  Evidence: After returning to Route 101 from Littleroot, the story route tried to move from `(10,19)` to `(9,14)` and repeatedly pressed left into a blocked tile. A collision-grid inspection of `data/layouts/Route101/map.bin` produced reusable northbound waypoints `(10,14) -> (7,14) -> (7,10) -> (13,10) -> (13,9) -> (15,9) -> (15,2) -> (11,2) -> (11,0) -> (10,0)` and return waypoints `(10,5) -> (13,5) -> (13,6) -> (15,6) -> (15,12) -> (7,12) -> (7,17) -> (10,17) -> (10,19)`.
+
+- Observation: Walking through Route 101 grass before receiving Poke Balls can enter incidental wild battles, and battle intro text is not represented by field text readiness.
+  Evidence: The collision-grid Route 101 path reached `(13,10)` and entered a wild `SPECIES_WURMPLE` battle with `inBattle=1`, `fieldTextReady=0`, and stale `battleMenuState=0`. A later run reached a wild `SPECIES_POOCHYENA` action menu where `battleMenuState=ACTION` but `battleMenuFrame` was not a heartbeat, so freshness rejection prevented running. The incidental run-away helper now owns the full loop: advance battle text, navigate the visible action menu to Run without stale-frame rejection, press A, and wait for field readiness after battle exit.
+
+- Observation: Route 103 has the same limitation as Route 101: the shortest geometric path from the south connection to the rival is not a legal walking path.
+  Evidence: After exiting Oldale north, the route reached Route 103 at `(11,21)`. A collision-grid inspection of `data/layouts/Route103/map.bin` produced reusable rival-approach waypoints `(11,13) -> (14,13) -> (14,7) -> (12,7) -> (12,6) -> (5,6) -> (5,4) -> (10,4)`. The rival exit script later deposits the player back at Route 103's south connection around `(11,21)`, so the return leg should use the connection directly rather than replaying north-route waypoints.
+
+- Observation: The default starter selection is a fragile branch for the canonical story checkpoint.
+  Evidence: The default middle-ball route selected `SPECIES_TORCHIC`, reached the Route 103 rival battle against level-5 `SPECIES_MUDKIP`, used the first damaging move, lost the battle, and then warped to May's house 1F at map `(1,2)` with the starter healed. This explains the later apparent navigation stall: the route was no longer in Littleroot Town outside Birch's lab.
+
+- Observation: Starter matchup alone is not a robust invariant for the Route 103 rival battle.
+  Evidence: A follow-up run selected `SPECIES_MUDKIP` explicitly, reached the rival battle against level-5 `SPECIES_TREECKO`, repeatedly selected the first move, lost, and warped back to May's house 1F. The route therefore needs to use the canonical PC Rare Candy resource and normal item UI to overlevel the starter before the rival battle, which also advances the later Poochyena evolution milestone.
+
+- Observation: Menu and script readiness can appear one layer deeper than the first probe fact that identifies the screen.
+  Evidence: The Rare Candy item list was visible with `bagMenuState=ITEM_LIST` and `bagMenuItemId=ITEM_RARE_CANDY`, but the first A press during bag startup was ignored until the bag accepted input. Later, after the Route 103 rival fight, Oldale script control could lock movement without setting `fieldTextReady`. The host now retries the item-list A press while the desired item remains selected and lets target-map movement waits conservatively advance script-locked prompts.
+
+- Observation: Littleroot also needs explicit waypoints when returning from the north connection.
+  Evidence: After returning from Route 101, the player reached Littleroot at `(10,0)` and the greedy coordinate mover repeatedly faced left because it tried to correct X before walking south. The first audited path reached `(10,14)`, but the west step from there was blocked. The second path stepped onto the lab warp tile `(7,16)` before the outdoor waypoint waiter could observe completion. The route now stops on the lower lab lane `(10,17) -> (7,17)`, then lets `probe_move_until_map(UP, Birch Lab)` own the warp.
+
+- Observation: The five story Poke Balls are not a reliable capture resource for the canonical Poochyena checkpoint.
+  Evidence: `poochyena-capture-smoke` observed a target level-2 `SPECIES_POOCHYENA` with `enemy0AbilityNum=0` but exhausted all five story Poke Balls and failed with `RuntimeError: ran out of Poke Balls while catching Poochyena`. The route now adds an Oldale Mart purchase checkpoint using normal shop UI and probe-visible shop state before entering Route 101 grass.
+
+- Observation: The Oldale Mart clerk must be approached from the accessible customer side of the counter, not from the clerk's object coordinate.
+  Evidence: The first shop run entered Oldale Mart and reached `(2,5)`, then repeatedly pressed up into blocked counter tiles while trying to reach `(2,3)`. The Mart layout marks `(2,3)`, `(2,4)`, and `(1,4)` as collision tiles; the route now stands on `(3,3)` and faces left toward the counter tile `(2,3)`.
+
+- Observation: Leaving Oldale Mart also needs explicit town waypoints; straight down from the Mart door is blocked before the south connection.
+  Evidence: After the first successful purchase, the probe showed `bagPokeBallCount=20`, `shopMenuMoney=300`, and the player stuck in Oldale at `(14,13)` after exhausting the straight-down map-transition presses. The route now moves from the Mart door back to the central lane `(10,7) -> (10,19)` before stepping south to Route 101.
+
 ## Decision Log
 
 - Decision: Use one ExecPlan with ordered, independently verifiable milestones instead of several unrelated plans.
@@ -56,6 +102,34 @@ The human-visible proof is a `run_result.json` under `build/mgba_lua_spike/might
   Rationale: Removing the legacy spike in the same change is unnecessary risk. The important invariant is that the new acceptance path uses real route checkpoints and records enough trace data to audit that it did so.
   Date/Author: 2026-04-29 / Codex
 
+- Decision: Record ability-popup events at `CreateAbilityPopUp` rather than in Intimidate-specific battle logic.
+  Rationale: The final route needs to know when Intimidate visibly appears, but the probe should remain generic. Recording every ability popup with ability id, battler, side, position, party index, frame, and sequence avoids coupling the probe to one ability while giving the host a reliable monotonic event counter.
+  Date/Author: 2026-04-29 / Codex
+
+- Decision: Add PC menu state as probe data instead of driving the PC flow from fixed frame sleeps.
+  Rationale: The PC flow uses normal game menus with no existing semantic beacon. Exposing the current PC menu state, cursor, item id, and quantity lets the host press buttons only after the game has reached the expected menu state, preserving the route's flag/event-driven shape.
+  Date/Author: 2026-04-29 / Codex
+
+- Decision: Keep Route 101 navigation as explicit audited waypoints rather than modifying the base map script to hide the rescue Zigzagoon.
+  Rationale: The persistent object matches upstream decomp data, and the object has a valid route-around lane. Waypoints make the automation robust without changing game content while still documenting the surprising object-state behavior for later review.
+  Date/Author: 2026-04-30 / Codex
+
+- Decision: Select Mudkip explicitly for the early story route instead of inheriting the starter menu default.
+  Rationale: The final objective does not depend on starter identity, and the observed default Torchic branch can lose the mandatory rival battle before Poke Balls. Making starter choice an explicit beacon-gated route input removes a fragile default without adding mutation commands or weakening the canonical gameplay path.
+  Date/Author: 2026-04-30 / Codex
+
+- Decision: Fold normal Rare Candy item use into the route tree now rather than treating rival-battle wins as matchup-dependent.
+  Rationale: The PC Rare Candy supply is already part of the accepted canonical path and the item-use UI is needed again for Poochyena evolution. Withdrawing candies early and using them on the starter before Route 103 is a stronger route invariant than selecting a different starter and hoping the deterministic battle remains favorable after incidental encounters.
+  Date/Author: 2026-04-30 / Codex
+
+- Decision: Buy additional Poke Balls at Oldale Mart through the normal shop flow before attempting the Route 101 Poochyena capture.
+  Rationale: Retrying capture with only the five story reward balls creates a low-resource stochastic checkpoint. The shop is already unlocked after the Pokedex/Poke Ball story reward, and a probe-visible shop state keeps the route event-driven without adding item-grant commands.
+  Date/Author: 2026-04-30 / Codex
+
+- Decision: Freeze `tools/mgba/mgba_lua_spike.py` as reference-only and move canonical route logic into the governed Scala automation implementation.
+  Rationale: The Python spike was useful for discovery, but the target route needs typed route state, governed artifacts, and explicit invariants. The Python file may remain useful for comparing bridge/probe behavior, but extending it would continue the wrong implementation path.
+  Date/Author: 2026-04-30 / Codex
+
 ## Outcomes & Retrospective
 
 This plan is newly authored. No implementation outcome has been produced yet. The expected end state is an end-to-end automation route that demonstrates Mightyena-derived Intimidate firing again when the player switches to a second Pokemon, with evidence in JSON, savestate, screenshot, targeted tests, and committed source changes.
@@ -64,7 +138,7 @@ This plan is newly authored. No implementation outcome has been produced yet. Th
 
 This repository is a Pokemon Emerald decompilation-based project. The game code is C under `src/`, public headers are under `include/`, gameplay data is under `data/`, tests are under `test/`, and automation host scripts are under `tools/mgba/`. The final ROM is `pokeemerald.gba`, and `pokeemerald.sym` or `pokeemerald.map` provides symbol addresses for host automation.
 
-The current automation stack has three layers. The first layer is mGBA, the emulator. The second layer is `tools/mgba/mgba_lua_bridge.lua`, a Lua script run by mGBA that accepts socket commands from the host and can press buttons, advance frames, and read or write emulator memory. The third layer is `tools/mgba/mgba_lua_spike.py`, a Python host that launches mGBA, talks to the Lua bridge, reads game facts, and drives named route modes.
+The current automation stack has three layers. The first layer is mGBA, the emulator. The second layer is `tools/mgba/mgba_lua_bridge.lua`, a Lua script run by mGBA that accepts socket commands from the host and can press buttons, advance frames, and read or write emulator memory. The canonical third layer is now the Scala automation implementation in `../ouroboros-ide`; it should launch or connect to mGBA, talk to the Lua bridge, read game facts, and drive named route modes. The older `tools/mgba/mgba_lua_spike.py` Python host is reference-only and should not receive new route FSM logic.
 
 An automation probe is a small C struct compiled only when `AUTOMATION_PROBE=1`. It lives in `include/automation_probe.h` and `src/automation_probe.c` as `gAutomationProbe`. The host finds `gAutomationProbe` in `pokeemerald.sym` or `pokeemerald.map`, then reads it through Lua. The probe should expose stable facts such as current map, player coordinates, party species, bag counts, PC item counts, and battle events. A probe fact is different from a command: a fact observes game state; a command mutates game state. This route should prefer facts and normal input over mutation commands.
 
@@ -95,6 +169,8 @@ Milestone 7 implements the final switch proof. From the battle action menu, choo
 Milestone 8 performs validation and cleanup. Run syntax checks for the Python and Lua host files, build both a normal ROM and the automation-enabled ROM, run targeted Shared Power tests, run the final route at least three times, update this plan with evidence and retrospective notes, update `PATCH_NOTES.md`, and commit all source and documentation changes. This milestone is accepted when the worktree is clean, the commits contain all changes, and the plan records the validation commands and concise outputs.
 
 ## Concrete Steps
+
+Status: this section is historical for the Python spike through the real Poochyena capture checkpoint. Do not add new Python modes or use these commands as acceptance for Milestones 5 and later. Continue the current implementation from the Scala/Ouroboros ExecPlan instead.
 
 Work from the repository root:
 
@@ -174,6 +250,52 @@ Important existing evidence before implementation:
 
 Record future milestone evidence here as concise transcripts. Each evidence entry should include the command, whether it passed, the output artifact path, and the specific JSON fields or test lines that prove the milestone.
 
+Milestone 1 evidence:
+
+    docker run --rm -u "$(id -u):$(id -g)" -v "$PWD:/workspace" -w /workspace pokeemerald-expansion:builder make AUTOMATION_BEACON=1 AUTOMATION_PROBE=1 DEBUG=1 NO_MULTIBOOT=1 -j"$(nproc)" rom syms
+    Result: passed; ROM used 24738452 bytes, and `pokeemerald.gba` plus `pokeemerald.sym` were regenerated.
+
+    docker exec devkit-ouro8-dev-agent-5 bash -lc 'cd /workspaces/dev/pokeemerald-expansion-shared-power; python3 tools/mgba/mgba_lua_spike.py --mode probe-smoke --require-headless --mgba /usr/local/bin/mgba-headless --rom pokeemerald.gba --sym pokeemerald.sym --bridge tools/mgba/mgba_lua_bridge.lua --output-dir build/mgba_lua_spike/probe-smoke --port 46711 --connect-timeout 20 --starter-timeout 600'
+    Result: passed with `{"ok": true, "result": "build/mgba_lua_spike/probe-smoke/run_result.json"}`.
+    Evidence fields: `target=PROBE_SMOKE`, `elapsedSeconds=8.059`, `probe.magic=0x41505242`, `probe.version=1`, `probe.size=296`, `probe.routeStage=13`, `probe.playerPartyCount=0`.
+
+Milestone 2 evidence:
+
+    docker run --rm -u "$(id -u):$(id -g)" -v "$PWD:/workspace" -w /workspace pokeemerald-expansion:builder make AUTOMATION_BEACON=1 AUTOMATION_PROBE=1 DEBUG=1 NO_MULTIBOOT=1 -j"$(nproc)" rom syms
+    Result: passed; ROM used 24738916 bytes.
+
+    docker exec devkit-ouro8-dev-agent-5 bash -lc 'cd /workspaces/dev/pokeemerald-expansion-shared-power; python3 tools/mgba/mgba_lua_spike.py --mode probe-smoke --require-headless --mgba /usr/local/bin/mgba-headless --rom pokeemerald.gba --sym pokeemerald.sym --bridge tools/mgba/mgba_lua_bridge.lua --output-dir build/mgba_lua_spike/probe-smoke --port 46711 --connect-timeout 20 --starter-timeout 600'
+    Result: passed with `{"ok": true, "result": "build/mgba_lua_spike/probe-smoke/run_result.json"}`.
+    Evidence fields: `probe.version=2`, `probe.size=360`, `probe.routeStage=13`, `probe.playerPartyCount=0`, `probe.pcRareCandyCount=999`, `probe.pcRareCandySlot=0`, `probe.pcUsedItemSlots=1`, `probe.playerBattleBattler=4`, `probe.battleControllerExecFlags=0`, `probe.abilityPopupSequence=0`, `probe.abilityPopupAbility=0`.
+
+    docker exec devkit-ouro8-dev-agent-5 bash -lc 'cd /workspaces/dev/pokeemerald-expansion-shared-power; python3 -m py_compile tools/mgba/mgba_lua_spike.py; luac -p tools/mgba/mgba_lua_bridge.lua'
+    Result: passed.
+
+Milestone 3 evidence:
+
+    docker run --rm -u "$(id -u):$(id -g)" -v "$PWD:/workspace" -w /workspace pokeemerald-expansion:builder make AUTOMATION_BEACON=1 AUTOMATION_PROBE=1 DEBUG=1 NO_MULTIBOOT=1 -j"$(nproc)" rom syms
+    Result: passed; ROM used 24739148 bytes.
+
+    docker exec devkit-ouro8-dev-agent-5 bash -lc 'cd /workspaces/dev/pokeemerald-expansion-shared-power; python3 -m py_compile tools/mgba/mgba_lua_spike.py; python3 tools/mgba/mgba_lua_spike.py --mode pc-rare-candy-smoke --require-headless --mgba /usr/local/bin/mgba-headless --rom pokeemerald.gba --sym pokeemerald.sym --bridge tools/mgba/mgba_lua_bridge.lua --output-dir build/mgba_lua_spike/pc-rare-candy-smoke --port 46712 --connect-timeout 20 --objective-timeout 600'
+    Result: passed with `{"ok": true, "result": "build/mgba_lua_spike/pc-rare-candy-smoke/run_result.json"}`.
+    Evidence fields: `target=PC_RARE_CANDY_SMOKE`, `elapsedSeconds=3.871`, `beforeProbe.version=3`, `beforeProbe.size=380`, `beforeProbe.pcRareCandyCount=999`, `beforeProbe.bagRareCandyCount=0`, `afterProbe.pcRareCandyCount=998`, `afterProbe.bagRareCandyCount=1`, `exitBeacon.movementReady=1`, `exitBeacon.textReady=0`, `exitBeacon.scriptWaitKind=0`.
+
+Milestone 4 evidence:
+
+    docker exec devkit-ouro8-dev-agent-5 bash -lc 'cd /workspaces/dev/pokeemerald-expansion-shared-power; python3 -m py_compile tools/mgba/mgba_lua_spike.py; rm -rf build/mgba_lua_spike/probe-smoke-v6; python3 tools/mgba/mgba_lua_spike.py --mode probe-smoke --require-headless --mgba /usr/local/bin/mgba-headless --rom pokeemerald.gba --sym pokeemerald.sym --bridge tools/mgba/mgba_lua_bridge.lua --output-dir build/mgba_lua_spike/probe-smoke-v6 --port 46731 --connect-timeout 20 --starter-timeout 600'
+    Result: passed with `{"ok": true, "result": "build/mgba_lua_spike/probe-smoke-v6/run_result.json"}`.
+    Evidence fields: `probe.version=6`, `probe.size=556`, `probe.wordCount=139`, `probe.shopMenuState=0`, `probe.playerPartyCount=0`, `probe.routeStage=13`.
+
+    docker exec devkit-ouro8-dev-agent-5 bash -lc 'cd /workspaces/dev/pokeemerald-expansion-shared-power; rm -rf build/mgba_lua_spike/poochyena-capture-smoke; python3 tools/mgba/mgba_lua_spike.py --mode poochyena-capture-smoke --require-headless --mgba /usr/local/bin/mgba-headless --rom pokeemerald.gba --sym pokeemerald.sym --bridge tools/mgba/mgba_lua_bridge.lua --output-dir build/mgba_lua_spike/poochyena-capture-smoke --port 46734 --connect-timeout 20 --objective-timeout 1200 --starter-timeout 600'
+    Result: passed with `{"ok": true, "result": "build/mgba_lua_spike/poochyena-capture-smoke/run_result.json"}`.
+    Evidence fields: `target=POOCHYENA_CAPTURE_SMOKE`, `elapsedSeconds=43.03`, `finalProbe.playerPartyCount=2`, `finalProbe.partySpecies=[258,261,0,0,0,0]`, `finalProbe.partyLevel=[11,3,0,0,0,0]`, `finalProbe.partyAbilityNum=[0,0,0,0,0,0]`, `finalProbe.partyAbility=[67,50,0,0,0,0]`, `finalProbe.bagPokeBallCount=17`, `routeTrace.Inventory.PokeBallsBoughtAtOldaleMart.quantity=15`, `routeTrace.Inventory.PokeBallsBoughtAtOldaleMart.afterPokeBallCount=20`, `routeTrace.Party.CaughtPoochyenaAbilitySlot0.captureAttempts=4`.
+
+Milestone 4 story subcheckpoint evidence:
+
+    docker exec devkit-ouro8-dev-agent-5 bash -lc 'cd /workspaces/dev/pokeemerald-expansion-shared-power; python3 -m py_compile tools/mgba/mgba_lua_spike.py; rm -rf build/mgba_lua_spike/story-pokeballs-smoke; python3 tools/mgba/mgba_lua_spike.py --mode story-pokeballs-smoke --require-headless --mgba /usr/local/bin/mgba-headless --rom pokeemerald.gba --sym pokeemerald.sym --bridge tools/mgba/mgba_lua_bridge.lua --output-dir build/mgba_lua_spike/story-pokeballs-smoke --port 46733 --connect-timeout 20 --objective-timeout 600 --starter-timeout 600'
+    Result: passed with `{"ok": true, "result": "build/mgba_lua_spike/story-pokeballs-smoke/run_result.json"}`.
+    Evidence fields: `target=STORY_POKEBALLS_SMOKE`, `elapsedSeconds=26.598`, `finalProbe.playerPartyCount=1`, `finalProbe.partySpecies[0]=SPECIES_MUDKIP`, `finalProbe.partyLevel[0]=11`, `finalProbe.bagPokeBallCount=5`, `finalProbe.bagRareCandyCount=19`, `finalProbe.pcRareCandyCount=974`, `finalProbe.map=(1,4)`, `finalProbe.fieldMovementReady=1`.
+
 ## Interfaces and Dependencies
 
 Edit `include/automation_probe.h` when adding probe fields. Keep fields as `u32` values because the Python decoder reads a flat word layout. Increment `AUTOMATION_PROBE_VERSION` only if the host needs to reject old probe layouts; otherwise update `PROBE_FIELD_LAYOUT` in lockstep with the C struct and validate `size`.
@@ -191,3 +313,9 @@ Potential battle event instrumentation sites must be chosen after reading the ba
 Update `PATCH_NOTES.md` after each code, data, or documentation change. Follow the repository's existing top-entry style and use `commit pending` until the final commit exists.
 
 Revision Note (2026-04-29): Initial ExecPlan. It captures the move from a guarded Mightyena proof to a canonical route tree made of reusable checkpoints for PC Rare Candy withdrawal, real Poochyena capture, Rare Candy evolution, party ordering, battle entry, and switch-time Intimidate observation.
+
+Revision Note (2026-04-29, Milestone 1): Recorded baseline build and probe-smoke evidence, plus the environment discovery that builds must use the builder image while headless emulator runs use agent-5.
+
+Revision Note (2026-04-29, Milestone 2): Recorded probe ABI version 2 evidence, including PC Rare Candy counts, player battle-control defaults, and ability-popup event defaults.
+
+Revision Note (2026-04-29, Milestone 3): Recorded the deterministic PC Rare Candy smoke route, the added PC menu probe states, and the stale overworld script-step fix required to prove field movement readiness after exiting the PC.

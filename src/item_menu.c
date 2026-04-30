@@ -1,4 +1,5 @@
 #include "global.h"
+#include "automation_probe.h"
 #include "item_menu.h"
 #include "battle.h"
 #include "battle_controllers.h"
@@ -1260,6 +1261,19 @@ static void Task_BagMenu_HandleInput(u8 taskId)
     u16 *scrollPos = &gBagPosition.scrollPosition[gBagPosition.pocket];
     u16 *cursorPos = &gBagPosition.cursorPosition[gBagPosition.pocket];
     s32 listPosition;
+    struct ItemSlot itemSlot = {ITEM_NONE, 0};
+
+    listPosition = GetItemListPosition(gBagPosition.pocket);
+    if (listPosition >= 0 && listPosition < gBagMenu->numItemStacks[gBagPosition.pocket])
+        itemSlot = GetBagItemIdAndQuantity(gBagPosition.pocket, listPosition);
+    AutomationProbe_RecordBagMenuState(
+        AUTOMATION_PROBE_BAG_MENU_ITEM_LIST,
+        gBagPosition.location,
+        gBagPosition.pocket,
+        listPosition,
+        itemSlot.itemId,
+        itemSlot.quantity,
+        0);
 
     if (MenuHelpers_ShouldWaitForLinkRecv() != TRUE && !gPaletteFade.active)
     {
@@ -1770,6 +1784,17 @@ static void Task_ItemContext_Normal(u8 taskId)
 
 static void Task_ItemContext_SingleRow(u8 taskId)
 {
+    s16 *data = gTasks[taskId].data;
+
+    AutomationProbe_RecordBagMenuState(
+        AUTOMATION_PROBE_BAG_MENU_CONTEXT,
+        gBagPosition.location,
+        gBagPosition.pocket,
+        tListPosition,
+        gSpecialVar_ItemId,
+        tQuantity,
+        Menu_GetCursorPos());
+
     if (MenuHelpers_ShouldWaitForLinkRecv() != TRUE)
     {
         s8 selection = Menu_ProcessInputNoWrap();
@@ -1791,6 +1816,17 @@ static void Task_ItemContext_SingleRow(u8 taskId)
 
 static void Task_ItemContext_MultipleRows(u8 taskId)
 {
+    s16 *data = gTasks[taskId].data;
+
+    AutomationProbe_RecordBagMenuState(
+        AUTOMATION_PROBE_BAG_MENU_CONTEXT,
+        gBagPosition.location,
+        gBagPosition.pocket,
+        tListPosition,
+        gSpecialVar_ItemId,
+        tQuantity,
+        Menu_GetCursorPos());
+
     if (MenuHelpers_ShouldWaitForLinkRecv() != TRUE)
     {
         s8 cursorPos = Menu_GetCursorPos();
