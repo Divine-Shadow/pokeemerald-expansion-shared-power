@@ -1,5 +1,6 @@
 # Patch Notes
 
+- Docs/Automation: Add ExecPlan for replacing visual beacon growth with a Lua-readable automation probe and route tree (commit pending).
 - Docs/Automation: Mark completed ExecPlans with explicit status lines (commit pending).
 - Docs/Automation: Record final battle-summary validation evidence and test-suite status (commit pending).
 - Docs/Automation: Record passing Hypothesis A and promoted in-battle summary sprite-manager fix (commit pending).
