@@ -1,5 +1,7 @@
 # Fix the initial-battle Pokemon summary screen glitch
 
+Status: Complete as of 2026-04-29. The fix is committed in `caee916773`, pushed to `origin/main`, and validated by three headless battle-summary runs that reached a normal Torchic summary screen.
+
 This ExecPlan is a living document. The sections `Progress`, `Surprises & Discoveries`, `Decision Log`, and `Outcomes & Retrospective` must be kept up to date as work proceeds.
 
 This plan must be maintained according to `.agent/PLANS.md`. Milestones are gated and strictly ordered: complete and verify Milestone N before starting Milestone N+1. Do not stop at a completed milestone unless the full plan is complete or a real escalation is required.

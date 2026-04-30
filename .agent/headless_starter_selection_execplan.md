@@ -1,5 +1,7 @@
 # Reach Starter Selection with Headless mGBA Before Migration
 
+Status: Complete as of 2026-04-27. The headless Python/Lua spike reached `STARTER_CHOOSE_READY` from clean boot in three consecutive runs, and the plan records the migration recommendation before broader automation expansion.
+
 This ExecPlan is a living document. The sections `Progress`, `Surprises & Discoveries`, `Decision Log`, and `Outcomes & Retrospective` must be kept up to date as work proceeds.
 
 This plan must be maintained according to `.agent/PLANS.md` in this repository. A contributor implementing this plan must proceed milestone-to-milestone until either the headless starter-selection proof succeeds, or a blocker is documented with enough evidence to sync with the operator about migrating the host FSM to a stricter language.

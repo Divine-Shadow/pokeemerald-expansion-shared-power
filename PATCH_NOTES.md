@@ -1,5 +1,6 @@
 # Patch Notes
 
+- Docs/Automation: Mark completed ExecPlans with explicit status lines (commit pending).
 - Docs/Automation: Record final battle-summary validation evidence and test-suite status (commit pending).
 - Docs/Automation: Record passing Hypothesis A and promoted in-battle summary sprite-manager fix (commit pending).
 - Gameplay: Avoid creating or preferring a summary-owned Pokemon sprite manager for in-battle summary screens (commit pending).

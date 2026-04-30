@@ -1,5 +1,7 @@
 # Incremental Beacon v2 and Governed Harness Plan
 
+Status: Complete for the Pokeemerald beacon and Python/Lua harness scope as of 2026-04-28. The Scala lane remains documented as a separate route-driver parity follow-up, not an open blocker for this plan.
+
 This ExecPlan is a living document. The sections `Progress`, `Surprises & Discoveries`, `Decision Log`, and `Outcomes & Retrospective` must be kept up to date as work proceeds.
 
 This plan must be maintained according to `.agent/PLANS.md` in this repository. A contributor implementing this plan must proceed milestone-to-milestone until either the incremental beacon v2 harness reaches its acceptance target or a blocker is documented with enough evidence to sync with the operator.
