@@ -1,0 +1,4 @@
+interface:
+  display_name: "Pokeemerald Gameplay Updater"
+  short_description: "Update gameplay content with spoiler-safe notes"
+  default_prompt: "Use $pokeemerald-gameplay-updater to update gameplay content and maintain public and blind-friendly player notes."

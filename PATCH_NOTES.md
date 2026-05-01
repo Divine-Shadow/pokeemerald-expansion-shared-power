@@ -1,3 +1,4 @@
+- Tools/Skills: Add a repo-local gameplay updater skill with spoiler-aware player note guidance (commit pending).
 - Tools/Automation: Seed Master Balls in the player PC and expose PC/bag Master Ball counts through probe v7 for deterministic Scala capture routing (commit pending).
 - Docs/Automation: Document the Python mGBA host as reference-only in the tool README and mark old Python route commands as superseded by Scala (commit pending).
 - Tools/Automation: Mark the Python mGBA host as reference-only so canonical route work moves to Scala (commit pending).
