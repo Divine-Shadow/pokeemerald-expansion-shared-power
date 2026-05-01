@@ -1,3 +1,5 @@
+- Docs/Gameplay: Note that gym-leader hint NPC dialogue now matches the updated gym leaders (commit pending).
+- Tools/Skills: Clarify spoiler-free patch-note guidance for move changes, move access, trainer sets, and TM/HM changes (commit pending).
 - Docs/Automation: Replace timing-based Mudkip GUI evidence notes with beacon-driven WSLg mGBA validation (commit 80d961689c).
 - Docs/Automation: Close the Mudkip summary root-cause ExecPlan with clean passing beacon GUI evidence (commit 80d961689c).
 - Docs/Automation: Record the passing Mudkip summary evidence after the Shared Power battle-state buffer reduction (commit 80d961689c).

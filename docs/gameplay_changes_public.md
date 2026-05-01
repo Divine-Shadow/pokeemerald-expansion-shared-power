@@ -16,3 +16,4 @@ These notes cover gameplay rules and move access that are safe to know before st
 ## Trainer Updates
 
 - Gym leaders have been updated to better leverage Shared Power and more competitive movesets, while keeping their original teams and levels as intact as practical.
+- NPCs who give hints about gym leaders have had their dialogue updated to match the new gym leader strategies, without revealing exact teams.
