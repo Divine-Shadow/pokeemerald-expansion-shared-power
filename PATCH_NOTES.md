@@ -1,17 +1,17 @@
-- Docs/Automation: Replace timing-based Mudkip GUI evidence notes with beacon-driven WSLg mGBA validation (commit pending).
-- Docs/Automation: Close the Mudkip summary root-cause ExecPlan with clean passing beacon GUI evidence (commit pending).
-- Docs/Automation: Record the passing Mudkip summary evidence after the Shared Power battle-state buffer reduction (commit pending).
-- Tools/Automation: Save a verified battle-summary savestate alongside beacon proof artifacts for debugging, without treating it as GUI evidence (commit pending).
-- Tools/Debug: Remove temporary Mudkip summary animation probes after identifying Shared Power battle-state memory pressure as the root cause (commit pending).
-- Battle: Shrink Shared Power's per-trainer ability order buffers to party-size capacity to avoid starving in-battle summary resources (commit pending).
-- Docs/Automation: Record the current Mudkip summary reset before any observed animation-path beacon (commit pending).
-- UI: Re-enable in-battle summary sprite animation now that Shared Power no longer starves summary resources (commit pending).
-- Docs/Automation: Add an ExecPlan to root-cause Mudkip in-battle summary animation crashes against upstream baselines (commit pending).
-- Tools/Automation: Add mGBA GUI evidence capture controls and retry battle-action cursor movement for live desktop screenshots (commit pending).
-- UI: Restore in-battle summary sprite loading through the battle-owned opponent slot while allowing normal portrait animation (commit pending).
-- Docs/Automation: Add ExecPlan for Mudkip initial-battle summary GUI evidence capture (commit pending).
+- Docs/Automation: Replace timing-based Mudkip GUI evidence notes with beacon-driven WSLg mGBA validation (commit 80d961689c).
+- Docs/Automation: Close the Mudkip summary root-cause ExecPlan with clean passing beacon GUI evidence (commit 80d961689c).
+- Docs/Automation: Record the passing Mudkip summary evidence after the Shared Power battle-state buffer reduction (commit 80d961689c).
+- Tools/Automation: Save a verified battle-summary savestate alongside beacon proof artifacts for debugging, without treating it as GUI evidence (commit 80d961689c).
+- Tools/Debug: Remove temporary Mudkip summary animation probes after identifying Shared Power battle-state memory pressure as the root cause (commit 80d961689c).
+- Battle: Shrink Shared Power's per-trainer ability order buffers to party-size capacity to avoid starving in-battle summary resources (commit 80d961689c).
+- Docs/Automation: Record the current Mudkip summary reset before any observed animation-path beacon (commit 80d961689c).
+- UI: Re-enable in-battle summary sprite animation now that Shared Power no longer starves summary resources (commit 80d961689c).
+- Docs/Automation: Add an ExecPlan to root-cause Mudkip in-battle summary animation crashes against upstream baselines (commit 80d961689c).
+- Tools/Automation: Add mGBA GUI evidence capture controls and retry battle-action cursor movement for live desktop screenshots (commit 80d961689c).
+- UI: Restore in-battle summary sprite loading through the battle-owned opponent slot while allowing normal portrait animation (commit 80d961689c).
+- Docs/Automation: Add ExecPlan for Mudkip initial-battle summary GUI evidence capture (commit 80d961689c).
 - UI: Remove non-impactful battle-summary troubleshooting changes around global Pokeball gfx loading and opener input clearing (commit pending).
-- UI: Guard in-battle Pokemon summary sprite creation and remove the static summary sprite-buffer workaround (commit pending).
+- UI: Guard in-battle Pokemon summary sprite creation and remove the static summary sprite-buffer workaround (commit 80d961689c).
 - Dialogue: Update the Rustboro Gym guide's Roxanne advice to hint at her team's strengths without exact set spoilers (commit pending).
 - Docs/Gameplay: List Pokemon move-access changes in a structured spoiler-free table (commit pending).
 - Tools/Skills: Clarify that Pokemon move-access changes require explicit structured public notes (commit pending).
