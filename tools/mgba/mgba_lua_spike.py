@@ -1539,6 +1539,46 @@ def tap(client: BridgeClient, key: str, frames: int = 4, settle_frames: int = 12
     client.request(f"run_frames {settle_frames}")
 
 
+def choose_battle_party_cursor(client: BridgeClient, timeout: float = 15.0) -> dict[str, Any]:
+    criteria = {
+        "stageId": STAGE_BATTLE_SUMMARY_REPRO,
+        "substageId": REPRO_SUBSTAGE_ACTION_MENU,
+        "flags": 2,
+    }
+    deadline = time.monotonic() + timeout
+    last_beacon: dict[str, Any] | None = None
+
+    while time.monotonic() < deadline:
+        beacon = client.request("read_beacon")
+        last_beacon = beacon
+        if semantic_beacon_matches(beacon, criteria, "menuReady", "battle party cursor"):
+            append_event(
+                client.event_log,
+                {
+                    "event": "semantic_gate",
+                    "label": "battle party cursor",
+                    "semanticKey": "menuReady",
+                    "beacon": beacon,
+                },
+            )
+            return beacon
+
+        if semantic_beacon_matches(
+            beacon,
+            {
+                "stageId": STAGE_BATTLE_SUMMARY_REPRO,
+                "substageId": REPRO_SUBSTAGE_ACTION_MENU,
+            },
+            "menuReady",
+            "battle action menu",
+        ):
+            tap(client, "DOWN", frames=8, settle_frames=12)
+        else:
+            client.request("run_frames 10")
+
+    raise RouteTimeout("battle party cursor", last_beacon)
+
+
 def png_status(path: Path) -> dict[str, Any]:
     exists = path.exists()
     size = path.stat().st_size if exists else 0
@@ -1552,6 +1592,71 @@ def png_status(path: Path) -> dict[str, Any]:
         "size": size,
         "validPng": valid,
     }
+
+
+def capture_desktop_screenshot(path: Path) -> dict[str, Any]:
+    path = path.resolve()
+    path.parent.mkdir(parents=True, exist_ok=True)
+    try:
+        path.unlink()
+    except FileNotFoundError:
+        pass
+    win_path = str(path)
+    try:
+        converted = subprocess.run(
+            ["wslpath", "-w", str(path)],
+            check=True,
+            capture_output=True,
+            text=True,
+        )
+        win_path = converted.stdout.strip() or win_path
+    except Exception:
+        pass
+
+    ps_out = win_path.replace("`", "``").replace('"', '`"')
+    script = rf"""
+$ErrorActionPreference = "Stop"
+Add-Type -AssemblyName System.Windows.Forms
+Add-Type -AssemblyName System.Drawing
+$out = "{ps_out}"
+$bounds = [System.Windows.Forms.SystemInformation]::VirtualScreen
+$bmp = New-Object System.Drawing.Bitmap($bounds.Width, $bounds.Height)
+$gfx = [System.Drawing.Graphics]::FromImage($bmp)
+$gfx.CopyFromScreen($bounds.Left, $bounds.Top, 0, 0, $bounds.Size)
+$gfx.Dispose()
+$bmp.Save($out, [System.Drawing.Imaging.ImageFormat]::Png)
+$bmp.Dispose()
+"""
+    try:
+        completed = subprocess.run(
+            ["powershell.exe", "-NoProfile", "-NonInteractive", "-Command", script],
+            capture_output=True,
+            text=True,
+            timeout=20.0,
+        )
+        status = png_status(path)
+        status.update(
+            {
+                "method": "powershell-virtual-screen",
+                "ok": completed.returncode == 0 and status["validPng"],
+                "returnCode": completed.returncode,
+                "stdout": completed.stdout,
+                "stderr": completed.stderr,
+                "windowsPath": win_path,
+            }
+        )
+        return status
+    except Exception as exc:  # noqa: BLE001 - preserve screenshot failure in run_result.json.
+        status = png_status(path)
+        status.update(
+            {
+                "method": "powershell-virtual-screen",
+                "ok": False,
+                "error": f"{type(exc).__name__}: {exc}",
+                "windowsPath": win_path,
+            }
+        )
+        return status
 
 
 def capture_screenshot(client: BridgeClient, output_dir: Path, name: str) -> str:
@@ -4605,18 +4710,7 @@ def drive_to_initial_battle_summary(
     action_menu = advance_dialogue_to_battle_action_menu(client, battle_timeout)
 
     route_phase(client, "battle_action_menu")
-    tap(client, "DOWN", frames=8, settle_frames=24)
-    party_cursor = wait_for_semantic_beacon(
-        client,
-        {
-            "stageId": STAGE_BATTLE_SUMMARY_REPRO,
-            "substageId": REPRO_SUBSTAGE_ACTION_MENU,
-            "flags": 2,
-        },
-        "menuReady",
-        15.0,
-        "battle party cursor",
-    )
+    party_cursor = choose_battle_party_cursor(client)
     tap(client, "A", frames=8, settle_frames=24)
 
     route_phase(client, "party_menu")
@@ -4652,6 +4746,7 @@ def drive_to_initial_battle_summary(
     summary_screen_reached = False
     final_beacon: dict[str, Any] | None = summary_requested
     summary_error: dict[str, Any] | None = None
+    summary_state_artifact: dict[str, Any] | None = None
     final_screen_artifact: dict[str, Any] | None = None
     summary_beacon_history: list[dict[str, Any]] = []
     append_beacon_history(summary_beacon_history, summary_requested)
@@ -4686,6 +4781,7 @@ def drive_to_initial_battle_summary(
         if not summary_screen_reached:
             raise RouteTimeout("summary screen", final_beacon)
         client.request("run_frames 30")
+        summary_state_artifact = save_state_file(client, output_dir / "battle_summary_reached.ss")
     except RouteTimeout as exc:
         summary_error = {
             "error": "timeout",
@@ -4734,6 +4830,7 @@ def drive_to_initial_battle_summary(
         "lastSummaryDebugBeacon": summary_beacon_history[-1] if summary_beacon_history else None,
         "summaryBeaconHistory": summary_beacon_history,
         "summaryError": summary_error,
+        "saveState": summary_state_artifact,
         "finalScreenArtifact": final_screen_artifact,
         "elapsedSeconds": round(time.monotonic() - route_start, 3),
     }
@@ -4841,8 +4938,22 @@ def run(args: argparse.Namespace) -> int:
                 "error": "exception",
                 "exception": f"{type(exc).__name__}: {exc}",
             }
+        if args.desktop_screenshot:
+            try:
+                client.request("clear_keys")
+            except Exception:
+                pass
+            if args.desktop_screenshot_delay > 0:
+                time.sleep(args.desktop_screenshot_delay)
+            result["desktopScreenshot"] = capture_desktop_screenshot(Path(args.desktop_screenshot))
         write_json(output_dir / "run_result.json", result)
         print(json.dumps({"ok": result["ok"], "result": str(output_dir / "run_result.json")}, sort_keys=True))
+        if args.keep_open_seconds > 0:
+            try:
+                client.request("clear_keys")
+            except Exception:
+                pass
+            time.sleep(args.keep_open_seconds)
         return 0 if result["ok"] else 1
     finally:
         try:
@@ -4894,6 +5005,9 @@ def parse_args(argv: list[str]) -> argparse.Namespace:
     parser.add_argument("--objective-timeout", type=float, default=120.0)
     parser.add_argument("--state-screenshot-source", default=str(DEFAULT_STATE_SCREENSHOT_SOURCE), help="C source for savestate-to-PNG fallback helper")
     parser.add_argument("--state-screenshot-helper", help="prebuilt savestate-to-PNG fallback helper")
+    parser.add_argument("--keep-open-seconds", type=float, default=0.0, help="delay cleanup after writing the run result so live GUI evidence can be captured")
+    parser.add_argument("--desktop-screenshot", help="capture the full desktop to this PNG before emulator cleanup")
+    parser.add_argument("--desktop-screenshot-delay", type=float, default=1.0, help="seconds to wait before desktop screenshot capture")
     parser.add_argument("--force-script", action="store_true", help="try --script even if --help does not list it")
     parser.add_argument("--require-headless", action="store_true", help="block if the selected binary is not headless")
     return parser.parse_args(argv)
