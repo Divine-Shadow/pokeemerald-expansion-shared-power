@@ -1,3 +1,4 @@
+- Tools/Skills: Add repo-local instructions for handing pokeemerald automation ROMs to the Ouroboros Scala mGBA runner (commit pending).
 - Gameplay/Trainers: Update first-time gym leader teams for Shared Power and document exact spoiler-friendly Showdown sets (commit pending).
 - Gameplay/Docs: Make Strength Rock type, document PC item availability, and add Hurricane to Yanmega and Swords Dance to Metagross move access (commit pending).
 - Tools/Skills: Add a repo-local gameplay updater skill with spoiler-aware player note guidance (commit pending).

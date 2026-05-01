@@ -1,0 +1,4 @@
+interface:
+  display_name: "Pokeemerald Scala Emulator Runner"
+  short_description: "Run Scala mGBA proof routes from this ROM"
+  default_prompt: "Use $pokeemerald-scala-emulator-runner to build the automation ROM, hand it to Ouroboros agent 5, and run Scala-side emulator proof targets."
