@@ -47,6 +47,12 @@ Write player notes in player terms, not implementation terms. Prefer "Strength i
 
 Public entries should be concise and useful before a run. Avoid exact trainer rosters, item coordinates, event flags, and surprise dialogue in public notes.
 
+Pokemon move-access, learnset, tutor, TM/HM, and egg-move changes must be explicit in the public/spoiler-free notes. Prefer a small table or structured list so players can see who got what, for example:
+
+| Pokemon | Move | Access | Notes |
+| --- | --- | --- | --- |
+| Yanmega | Hurricane | Level 57 | Added level-up move |
+
 Blind-friendly entries may be explicit, but keep them in the spoiler-protected file. Make the first lines of that file clearly warn that it contains discovery spoilers.
 
 When a single change has both aspects, write two entries. Example: a gym leader now uses the shared-power rule publicly, but the exact gym team belongs in blind-friendly notes.

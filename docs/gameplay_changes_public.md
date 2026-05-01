@@ -8,8 +8,10 @@ These notes cover gameplay rules and move access that are safe to know before st
 
 ## Move Access
 
-- Yanmega now learns Hurricane at level 57.
-- Metagross now learns Swords Dance at level 57 and from the Swords Dance tutor.
+| Pokemon | Move | Access | Notes |
+| --- | --- | --- | --- |
+| Yanmega | Hurricane | Level 57 | Added level-up move |
+| Metagross | Swords Dance | Level 57; Swords Dance tutor | Added level-up and tutor access |
 
 ## Trainer Updates
 

@@ -13,3 +13,7 @@ This file contains gameplay changes that may affect routing or discoveries. Read
 ## Trainer Sets
 
 - Gym leader teams have been updated; exact Showdown-format sets are documented in [gym_leader_sets_showdown.md](gym_leader_sets_showdown.md).
+
+## Dialogue
+
+- The Rustboro Gym guide now gives a non-spoiler tactical hint about Roxanne's battle style.

@@ -1,3 +1,6 @@
+- Dialogue: Update the Rustboro Gym guide's Roxanne advice to hint at her team's strengths without exact set spoilers (commit pending).
+- Docs/Gameplay: List Pokemon move-access changes in a structured spoiler-free table (commit pending).
+- Tools/Skills: Clarify that Pokemon move-access changes require explicit structured public notes (commit pending).
 - Tools/Skills: Add repo-local instructions for handing pokeemerald automation ROMs to the Ouroboros Scala mGBA runner (commit pending).
 - Gameplay/Trainers: Update first-time gym leader teams for Shared Power and document exact spoiler-friendly Showdown sets (commit pending).
 - Gameplay/Docs: Make Strength Rock type, document PC item availability, and add Hurricane to Yanmega and Swords Dance to Metagross move access (commit pending).
