@@ -33078,6 +33078,10 @@
         "Move": "MOVE_METEOR_MASH"
       },
       {
+        "Level": 57,
+        "Move": "MOVE_SWORDS_DANCE"
+      },
+      {
         "Level": 62,
         "Move": "MOVE_IRON_DEFENSE"
       },
@@ -41662,6 +41666,10 @@
       {
         "Level": 49,
         "Move": "MOVE_U_TURN"
+      },
+      {
+        "Level": 57,
+        "Move": "MOVE_HURRICANE"
       }
     ],
     "PreEvoMoves": [],

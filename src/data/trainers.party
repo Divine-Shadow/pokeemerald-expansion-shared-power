@@ -4798,29 +4798,30 @@ Items: Potion / Potion
 Double Battle: No
 AI: Basic Trainer
 
-Geodude
+Hippopotas @ Chesto Berry
+Ability: Sand Stream
 Level: 12
-IVs: 12 HP / 12 Atk / 12 Def / 12 SpA / 12 SpD / 12 Spe
-- Tackle
-- Defense Curl
-- Rock Throw
+Tera Type: Ground
+- Sand Tomb
+- Sand Attack
 - Rock Tomb
+- Rest
 
-Geodude
+Geodude @ Chople Berry
+Ability: Sand Veil
 Level: 12
-IVs: 12 HP / 12 Atk / 12 Def / 12 SpA / 12 SpD / 12 Spe
-- Tackle
+Tera Type: Rock
 - Defense Curl
-- Rock Throw
-- Rock Tomb
+- Rollout
 
-Nosepass @ Oran Berry
+Nosepass @ Rocky Helmet
+Ability: Sand Force
 Level: 15
-IVs: 24 HP / 24 Atk / 24 Def / 24 SpA / 24 SpD / 24 Spe
-- Block
+Tera Type: Rock
 - Harden
-- Tackle
-- Rock Tomb
+- Rollout
+- Gravity
+- Thunder Wave
 
 === TRAINER_BRAWLY_1 ===
 Name: BRAWLY
@@ -4832,29 +4833,29 @@ Items: Super Potion / Super Potion
 Double Battle: No
 AI: Basic Trainer
 
-Machop
+Meditite @ Razor Claw
+Ability: Pure Power
 Level: 16
-IVs: 12 HP / 12 Atk / 12 Def / 12 SpA / 12 SpD / 12 Spe
-- Karate Chop
-- Low Kick
-- Seismic Toss
-- Bulk Up
-
-Meditite
-Level: 16
-IVs: 12 HP / 12 Atk / 12 Def / 12 SpA / 12 SpD / 12 Spe
+Tera Type: Fighting
 - Focus Punch
-- Light Screen
 - Reflect
-- Bulk Up
+- Light Screen
+- Fake Out
 
-Makuhita @ Sitrus Berry
+Machop
+Ability: Guts
+Level: 16
+Tera Type: Fighting
+IVs: 0 Atk
+
+Makuhita @ Flame Orb
+Ability: Sheer Force
 Level: 19
-IVs: 24 HP / 24 Atk / 24 Def / 24 SpA / 24 SpD / 24 Spe
-- Arm Thrust
-- Vital Throw
-- Reversal
-- Bulk Up
+Tera Type: Fighting
+- Ice Punch
+- Thunder Punch
+- Drain Punch
+- Fake Out
 
 === TRAINER_WATTSON_1 ===
 Name: WATTSON
@@ -4866,37 +4867,35 @@ Items: Super Potion / Super Potion
 Double Battle: No
 AI: Basic Trainer
 
-Voltorb
+Rotom-Wash @ Choice Scarf
+Ability: Levitate
 Level: 20
-IVs: 24 HP / 24 Atk / 24 Def / 24 SpA / 24 SpD / 24 Spe
-- Rollout
-- Spark
-- Self Destruct
-- Shock Wave
+Tera Type: Electric
+IVs: 0 Atk
+- Trick
+- Hydro Pump
+- Volt Switch
 
-Electrike
+Electrike @ Sitrus Berry
+Ability: Minus
 Level: 20
-IVs: 24 HP / 24 Atk / 24 Def / 24 SpA / 24 SpD / 24 Spe
-- Shock Wave
-- Leer
-- Quick Attack
-- Howl
+Tera Type: Electric
+IVs: 0 Atk
 
 Magneton
+Ability: Analytic
 Level: 22
-IVs: 26 HP / 26 Atk / 26 Def / 26 SpA / 26 SpD / 26 Spe
-- Supersonic
-- Shock Wave
-- Thunder Wave
-- Sonic Boom
+Tera Type: Electric
+IVs: 0 Atk
+- Zap Cannon
+- Lock-On
+- Flash Cannon
+- Volt Switch
 
-Manectric @ Sitrus Berry
+Manectric
+Ability: Static
 Level: 24
-IVs: 30 HP / 30 Atk / 30 Def / 30 SpA / 30 SpD / 30 Spe
-- Quick Attack
-- Thunder Wave
-- Shock Wave
-- Howl
+IVs: 0 Atk
 
 === TRAINER_FLANNERY_1 ===
 Name: FLANNERY
@@ -4908,37 +4907,41 @@ Items: Hyper Potion / Hyper Potion
 Double Battle: No
 AI: Basic Trainer
 
-Numel
+Torkoal
+Ability: Drought
 Level: 24
-IVs: 24 HP / 24 Atk / 24 Def / 24 SpA / 24 SpD / 24 Spe
-- Overheat
-- Take Down
-- Magnitude
-- Sunny Day
+Tera Type: Fire
+IVs: 0 Spe
+- Stealth Rock
+- Eruption
+- Solar Beam
+- Gyro Ball
 
-Slugma
+Scovillain @ Choice Specs
+Ability: Chlorophyll
 Level: 24
-IVs: 24 HP / 24 Atk / 24 Def / 24 SpA / 24 SpD / 24 Spe
-- Overheat
-- Smog
-- Light Screen
-- Sunny Day
+Tera Type: Grass
+IVs: 0 Atk
+- Fire Blast
+- Solar Beam
 
-Camerupt
+Camerupt @ Life Orb
+Ability: Solid Rock
 Level: 26
-IVs: 30 HP / 30 Atk / 30 Def / 30 SpA / 30 SpD / 30 Spe
 - Overheat
-- Tackle
-- Sunny Day
-- Attract
+- Earthquake
+- Trailblaze
+- Body Press
 
-Torkoal @ White Herb
+Charizard @ Heavy-Duty Boots
+Ability: Solar Power
 Level: 29
-IVs: 30 HP / 30 Atk / 30 Def / 30 SpA / 30 SpD / 30 Spe
-- Overheat
-- Sunny Day
-- Body Slam
-- Attract
+Tera Type: Fire
+IVs: 0 Atk
+- Hurricane
+- Flamethrower
+- Scorching Sands
+- Will-O-Wisp
 
 === TRAINER_NORMAN_1 ===
 Name: NORMAN
@@ -4950,37 +4953,39 @@ Items: Hyper Potion / Hyper Potion
 Double Battle: No
 AI: Basic Trainer
 
-Spinda
+Gumshoos @ Life Orb
+Ability: Stakeout
 Level: 27
-IVs: 24 HP / 24 Atk / 24 Def / 24 SpA / 24 SpD / 24 Spe
-- Teeter Dance
-- Psybeam
-- Facade
-- Encore
+- Knock Off
+- Double-Edge
+- U-turn
+- Trailblaze
 
-Vigoroth
+Maushold @ Wide Lens
+Ability: Technician
 Level: 27
-IVs: 24 HP / 24 Atk / 24 Def / 24 SpA / 24 SpD / 24 Spe
-- Slash
-- Facade
-- Encore
-- Feint Attack
+Tera Type: Normal
+- Population Bomb
+- Tidy Up
+- Bullet Seed
+- Baton Pass
 
-Linoone
-Level: 29
-IVs: 24 HP / 24 Atk / 24 Def / 24 SpA / 24 SpD / 24 Spe
-- Slash
-- Belly Drum
-- Facade
-- Headbutt
+Porygon-Z @ Choice Specs
+Ability: Adaptability
+Level: 27
+Tera Type: Normal
+IVs: 0 Atk
+- Tri Attack
+- Ice Beam
+- Thunderbolt
+- Psychic
 
-Slaking @ Sitrus Berry
+Slaking @ Rocky Helmet
+Ability: Truant
 Level: 31
-IVs: 30 HP / 30 Atk / 30 Def / 30 SpA / 30 SpD / 30 Spe
-- Counter
-- Yawn
-- Facade
-- Feint Attack
+Tera Type: Normal
+- Giga Impact
+- Gunk Shot
 
 === TRAINER_WINONA_1 ===
 Name: WINONA
@@ -4992,45 +4997,52 @@ Items: Hyper Potion / Hyper Potion
 Double Battle: No
 AI: Basic Trainer / Risky
 
-Swablu
+Pelipper @ Choice Specs
+Ability: Drizzle
 Level: 29
-IVs: 25 HP / 25 Atk / 25 Def / 25 SpA / 25 SpD / 25 Spe
-- Perish Song
-- Mirror Move
-- Safeguard
-- Aerial Ace
+Tera Type: Water
+- Hurricane
+- U-turn
+- Hydro Pump
+- Ice Beam
 
-Tropius
-Level: 29
-IVs: 25 HP / 25 Atk / 25 Def / 25 SpA / 25 SpD / 25 Spe
-- Sunny Day
-- Aerial Ace
-- Solar Beam
-- Synthesis
-
-Pelipper
+Dragonite @ Lum Berry
+Ability: Multiscale
 Level: 30
-IVs: 25 HP / 25 Atk / 25 Def / 25 SpA / 25 SpD / 25 Spe
-- Water Gun
-- Supersonic
-- Protect
-- Aerial Ace
-
-Skarmory
-Level: 31
-IVs: 26 HP / 26 Atk / 26 Def / 26 SpA / 26 SpD / 26 Spe
-- Sand Attack
-- Fury Attack
-- Steel Wing
-- Aerial Ace
-
-Altaria @ Oran Berry
-Level: 33
-IVs: 31 HP / 31 Atk / 31 Def / 31 SpA / 31 SpD / 31 Spe
-- Earthquake
-- Dragon Breath
+Tera Type: Dragon
 - Dragon Dance
-- Aerial Ace
+- Outrage
+- Earthquake
+- Hurricane
+
+Tropius @ Sitrus Berry
+Ability: Chlorophyll
+Level: 29
+Tera Type: Grass
+IVs: 0 Atk
+- Substitute
+- Protect
+- Leech Seed
+- Hurricane
+
+Skarmory @ Sitrus Berry
+Ability: Sturdy
+Level: 31
+Tera Type: Steel
+- Brave Bird
+- Hurricane
+- Iron Head
+- Stealth Rock
+
+Yanmega @ Sitrus Berry
+Ability: Tinted Lens
+Level: 33
+Tera Type: Bug
+IVs: 0 Atk
+- Hurricane
+- Bug Buzz
+- Psychic
+- Giga Drain
 
 === TRAINER_TATE_AND_LIZA_1 ===
 Name: TATE&LIZA
@@ -5042,37 +5054,40 @@ Items: Hyper Potion / Hyper Potion / Hyper Potion / Hyper Potion
 Double Battle: Yes
 AI: Basic Trainer
 
-Claydol
+Lunala @ Eject Button
+Ability: Shadow Shield
 Level: 41
-IVs: 30 HP / 30 Atk / 30 Def / 30 SpA / 30 SpD / 30 Spe
+Tera Type: Psychic
+IVs: 0 Atk
+- Moongeist Beam
+- Dazzling Gleam
+- Expanding Force
+- Focus Blast
+
+Espathra @ Choice Specs
+Ability: Speed Boost
+Level: 41
+Tera Type: Psychic
+IVs: 0 Atk
+
+Metagross @ Weakness Policy
+Ability: Clear Body
+Level: 42
+Tera Type: Steel
+- Swords Dance
+- Psychic Fangs
+- Meteor Mash
 - Earthquake
-- Ancient Power
-- Psychic
-- Light Screen
 
-Xatu
-Level: 41
-IVs: 30 HP / 30 Atk / 30 Def / 30 SpA / 30 SpD / 30 Spe
-- Psychic
-- Sunny Day
-- Confuse Ray
-- Calm Mind
-
-Lunatone @ Sitrus Berry
+Braviary-Hisui
+Ability: Sheer Force
 Level: 42
-IVs: 30 HP / 30 Atk / 30 Def / 30 SpA / 30 SpD / 30 Spe
-- Light Screen
-- Psychic
-- Hypnosis
-- Calm Mind
-
-Solrock @ Sitrus Berry
-Level: 42
-IVs: 30 HP / 30 Atk / 30 Def / 30 SpA / 30 SpD / 30 Spe
-- Sunny Day
-- Solar Beam
-- Psychic
-- Flamethrower
+Tera Type: Psychic
+IVs: 0 Atk
+- Dazzling Gleam
+- Hurricane
+- Esper Wing
+- Heat Wave
 
 === TRAINER_JUAN_1 ===
 Name: JUAN
@@ -5084,45 +5099,47 @@ Items: Hyper Potion / Hyper Potion
 Double Battle: No
 AI: Basic Trainer
 
-Luvdisc
+Luvdisc @ Choice Band
+Ability: Swift Swim
 Level: 41
-IVs: 24 HP / 24 Atk / 24 Def / 24 SpA / 24 SpD / 24 Spe
-- Water Pulse
-- Attract
-- Sweet Kiss
-- Flail
+Tera Type: Water
+- Flip Turn
 
-Whiscash
+Politoed @ Choice Specs
+Ability: Drizzle
 Level: 41
-IVs: 24 HP / 24 Atk / 24 Def / 24 SpA / 24 SpD / 24 Spe
-- Rain Dance
-- Water Pulse
-- Amnesia
-- Earthquake
+Tera Type: Water
+IVs: 0 Atk
+- Weather Ball
+- Hyper Beam
+- Earth Power
+- Focus Blast
 
-Sealeo
+Crawdaunt @ Life Orb
+Ability: Adaptability
 Level: 43
-IVs: 24 HP / 24 Atk / 24 Def / 24 SpA / 24 SpD / 24 Spe
-- Encore
+Tera Type: Water
+- Knock Off
+- X-Scissor
+- Waterfall
+- Close Combat
+
+Veluza @ Focus Sash
+Ability: Mold Breaker
+Level: 43
+Tera Type: Water
+- Fillet Away
+- Flip Turn
+- Drill Run
 - Body Slam
-- Aurora Beam
-- Water Pulse
 
-Crawdaunt
-Level: 43
-IVs: 24 HP / 24 Atk / 24 Def / 24 SpA / 24 SpD / 24 Spe
-- Water Pulse
-- Crabhammer
-- Taunt
-- Leer
-
-Kingdra @ Chesto Berry
+Kingdra @ Razor Claw
+Ability: Sniper
 Level: 46
-IVs: 30 HP / 30 Atk / 30 Def / 30 SpA / 30 SpD / 30 Spe
-- Water Pulse
-- Double Team
-- Ice Beam
-- Rest
+- Draco Meteor
+- Hurricane
+- Hydro Pump
+- Flip Turn
 
 === TRAINER_JERRY_1 ===
 Name: JERRY

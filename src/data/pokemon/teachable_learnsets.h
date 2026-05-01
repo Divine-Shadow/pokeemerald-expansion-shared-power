@@ -17425,6 +17425,7 @@ static const u16 sMetagrossTeachableLearnset[] = {
     MOVE_SUNNY_DAY,
     MOVE_SWAGGER,
     MOVE_SWIFT,
+    MOVE_SWORDS_DANCE,
     MOVE_THUNDER_PUNCH,
     MOVE_TOXIC,
     MOVE_UNAVAILABLE,

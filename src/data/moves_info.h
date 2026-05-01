@@ -1914,7 +1914,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT_ALL] =
             "then slams the foe."),
         .effect = EFFECT_HIT,
         .power = 80,
-        .type = TYPE_NORMAL,
+        .type = TYPE_ROCK,
         .accuracy = 100,
         .pp = 15,
         .target = MOVE_TARGET_SELECTED,
