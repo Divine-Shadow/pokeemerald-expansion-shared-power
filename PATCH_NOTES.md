@@ -1,3 +1,5 @@
+- UI: Remove non-impactful battle-summary troubleshooting changes around global Pokeball gfx loading and opener input clearing (commit pending).
+- UI: Stabilize in-battle Pokemon summaries by using a static summary-owned sprite buffer in battle, guarding summary sprite creation, and keeping those portraits static (commit pending).
 - Dialogue: Update the Rustboro Gym guide's Roxanne advice to hint at her team's strengths without exact set spoilers (commit pending).
 - Docs/Gameplay: List Pokemon move-access changes in a structured spoiler-free table (commit pending).
 - Tools/Skills: Clarify that Pokemon move-access changes require explicit structured public notes (commit pending).

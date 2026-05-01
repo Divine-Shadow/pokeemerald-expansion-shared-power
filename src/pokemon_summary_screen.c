@@ -198,6 +198,8 @@ static EWRAM_DATA u8 sMoveSlotToReplace = 0;
 ALIGNED(4) static EWRAM_DATA u8 sAnimDelayTaskId = 0;
 EWRAM_DATA MainCallback gInitialSummaryScreenCallback = NULL; // stores callback from the first time the screen is opened from the party or PC menu
 static EWRAM_DATA bool8 sCreatedSummarySpriteManager = FALSE;
+ALIGNED(4) static EWRAM_DATA u8 sBattleSummarySpriteGfx[MON_PIC_SIZE * MAX_MON_PIC_FRAMES];
+static EWRAM_DATA struct SpriteFrameImage sBattleSummaryFrameImages[MAX_MON_PIC_FRAMES];
 
 // forward declarations
 static bool8 LoadGraphics(void);
@@ -4486,45 +4488,32 @@ static u8 LoadMonGfxAndSprite(struct Pokemon *mon, s16 *state)
     case 0:
         if (gMain.inBattle)
         {
-            if (gMonSpritesGfxPtr != NULL)
-                HandleLoadSpecialPokePic(TRUE, gMonSpritesGfxPtr->spritesGfx[B_POSITION_OPPONENT_LEFT], summary->species2, summary->pid);
-            else
-            {
-                SetBattleSummaryDebugBeacon(
-                    AUTOMATION_BEACON_BATTLE_SUMMARY_REPRO_LOAD_MON_GFX_WAITING,
-                    *state,
-                    summarySpriteGfx != NULL ? 1 : 0,
-                    2);
-                return SPRITE_NONE;
-            }
+            HandleLoadSpecialPokePic(TRUE, sBattleSummarySpriteGfx, summary->species2, summary->pid);
         }
         else if (summarySpriteGfx != NULL)
         {
             HandleLoadSpecialPokePic(TRUE, summarySpriteGfx, summary->species2, summary->pid);
         }
+        else if (gMonSpritesGfxPtr != NULL)
+        {
+            HandleLoadSpecialPokePic(TRUE,
+                                     gMonSpritesGfxPtr->spritesGfx[B_POSITION_OPPONENT_LEFT],
+                                     summary->species2,
+                                     summary->pid);
+        }
         else
         {
-            if (gMonSpritesGfxPtr != NULL)
-            {
-                HandleLoadSpecialPokePic(TRUE,
-                                         gMonSpritesGfxPtr->spritesGfx[B_POSITION_OPPONENT_LEFT],
-                                         summary->species2,
-                                         summary->pid);
-            }
+            fallbackSpriteGfx = MonSpritesGfxManager_GetSpritePtr(MON_SPR_GFX_MANAGER_A, B_POSITION_OPPONENT_LEFT);
+            if (fallbackSpriteGfx != NULL)
+                HandleLoadSpecialPokePic(TRUE, fallbackSpriteGfx, summary->species2, summary->pid);
             else
             {
-                fallbackSpriteGfx = MonSpritesGfxManager_GetSpritePtr(MON_SPR_GFX_MANAGER_A, B_POSITION_OPPONENT_LEFT);
-                if (fallbackSpriteGfx != NULL)
-                    HandleLoadSpecialPokePic(TRUE, fallbackSpriteGfx, summary->species2, summary->pid);
-                else
-                {
-                    SetBattleSummaryDebugBeacon(
-                        AUTOMATION_BEACON_BATTLE_SUMMARY_REPRO_LOAD_MON_GFX_WAITING,
-                        *state,
-                        0,
-                        3);
-                    return SPRITE_NONE;
-                }
+                SetBattleSummaryDebugBeacon(
+                    AUTOMATION_BEACON_BATTLE_SUMMARY_REPRO_LOAD_MON_GFX_WAITING,
+                    *state,
+                    0,
+                    3);
+                return SPRITE_NONE;
             }
         }
         (*state)++;
@@ -4537,7 +4526,20 @@ static u8 LoadMonGfxAndSprite(struct Pokemon *mon, s16 *state)
     case 1:
         LoadSpritePaletteWithTag(GetMonSpritePalFromSpeciesAndPersonality(summary->species2, summary->isShiny, summary->pid), summary->species2);
         if (gMain.inBattle)
-            SetMultiuseSpriteTemplateToPokemon(summary->species2, B_POSITION_OPPONENT_LEFT);
+        {
+            u8 i;
+
+            for (i = 0; i < MAX_MON_PIC_FRAMES; i++)
+            {
+                sBattleSummaryFrameImages[i].data = sBattleSummarySpriteGfx + (i * MON_PIC_SIZE);
+                sBattleSummaryFrameImages[i].size = MON_PIC_SIZE;
+            }
+
+            gMultiuseSpriteTemplate = gBattlerSpriteTemplates[B_POSITION_OPPONENT_LEFT];
+            gMultiuseSpriteTemplate.paletteTag = summary->species2;
+            gMultiuseSpriteTemplate.images = sBattleSummaryFrameImages;
+            gMultiuseSpriteTemplate.anims = gAnims_MonPic;
+        }
         else
             SetMultiuseSpriteTemplateToPokemonFromManager(summary->species2, B_POSITION_OPPONENT_LEFT, MON_SPR_GFX_MANAGER_A);
         (*state)++;
@@ -4565,11 +4567,14 @@ static void PlayMonCry(void)
 static u8 CreateMonSprite(struct Pokemon *unused)
 {
     struct PokeSummary *summary = &sMonSummaryScreen->summary;
-    u8 spriteId = CreateSprite(&gMultiuseSpriteTemplate, 40, 64, 5);
+    u32 spriteId = CreateSprite(&gMultiuseSpriteTemplate, 40, 64, 5);
+
+    if (spriteId >= MAX_SPRITES)
+        return SPRITE_NONE;
 
     FreeSpriteOamMatrix(&gSprites[spriteId]);
     gSprites[spriteId].data[0] = summary->species2;
-    gSprites[spriteId].data[2] = 0;
+    gSprites[spriteId].data[2] = gMain.inBattle ? 1 : 0;
     gSprites[spriteId].callback = SpriteCB_Pokemon;
     gSprites[spriteId].oam.priority = 0;
 
@@ -4659,11 +4664,28 @@ static void RemoveAndCreateMonMarkingsSprite(struct Pokemon *mon)
 static void CreateCaughtBallSprite(struct Pokemon *mon)
 {
     enum PokeBall ball = GetMonData(mon, MON_DATA_POKEBALL);
+    u32 spriteId;
+
+    if (ball >= POKEBALL_COUNT)
+        ball = BALL_POKE;
 
     LoadBallGfx(ball);
-    sMonSummaryScreen->spriteIds[SPRITE_ARR_ID_BALL] = CreateSprite(&gBallSpriteTemplates[ball], 16, 136, 0);
-    gSprites[sMonSummaryScreen->spriteIds[SPRITE_ARR_ID_BALL]].callback = SpriteCallbackDummy;
-    gSprites[sMonSummaryScreen->spriteIds[SPRITE_ARR_ID_BALL]].oam.priority = 3;
+    if (GetSpriteTileStartByTag(gBallSpriteTemplates[ball].tileTag) == 0xFFFF)
+    {
+        sMonSummaryScreen->spriteIds[SPRITE_ARR_ID_BALL] = SPRITE_NONE;
+        return;
+    }
+
+    spriteId = CreateSprite(&gBallSpriteTemplates[ball], 16, 136, 0);
+    if (spriteId >= MAX_SPRITES)
+    {
+        sMonSummaryScreen->spriteIds[SPRITE_ARR_ID_BALL] = SPRITE_NONE;
+        return;
+    }
+
+    sMonSummaryScreen->spriteIds[SPRITE_ARR_ID_BALL] = spriteId;
+    gSprites[spriteId].callback = SpriteCallbackDummy;
+    gSprites[spriteId].oam.priority = 3;
 }
 
 static void CreateSetStatusSprite(void)
