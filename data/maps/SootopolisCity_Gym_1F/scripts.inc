@@ -180,6 +180,11 @@ SootopolisCity_Gym_1F_Text_GymGuideAdvice:
 	.string "bound {PLAYER}?\p"
 	.string "SOOTOPOLIS's GYM LEADER JUAN is\n"
 	.string "a master of WATER-type POKéMON.\p"
+	.string "His critical hits can deal immense\n"
+	.string "damage.\p"
+	.string "But some attacks have costly\n"
+	.string "drawbacks. Bait the wrong move,\l"
+	.string "and you can turn that risk on him.\p"
 	.string "And, to get to JUAN, an icy floor\n"
 	.string "will hamper your progress…\p"
 	.string "Listen, I'm sorry, but that's all the\n"
@@ -316,4 +321,3 @@ SootopolisCity_Gym_1F_Text_JuanRematchNeedTwoMons:
 	.string "You have with you but one POKéMON.\p"
 	.string "I wish that you would return with\n"
 	.string "two, perhaps more, POKéMON, please.$"
-

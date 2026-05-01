@@ -261,8 +261,11 @@ MauvilleCity_Gym_Text_GymGuideAdvice:
 	.string "bound {PLAYER}?\p"
 	.string "WATTSON, the LEADER of MAUVILLE\n"
 	.string "GYM, uses ELECTRIC-type POKéMON.\p"
-	.string "If you challenge him with WATER-type\n"
-	.string "POKéMON, he'll zap them! Bzzt!\p"
+	.string "His team is tough to hit super\n"
+	.string "effectively, but its coverage is\l"
+	.string "narrow.\p"
+	.string "If you read his opening plan,\n"
+	.string "you can punish its commitment.\p"
 	.string "And, he's put in switch-controlled\n"
 	.string "doors all over his GYM! Eccentric!\p"
 	.string "Hey, go for it!$"
@@ -418,4 +421,3 @@ MauvilleCity_Gym_Text_WattsonRematchNeedTwoMons:
 	.string "You've only one POKéMON with you!\p"
 	.string "Come see me with two or more\n"
 	.string "POKéMON, all right?$"
-

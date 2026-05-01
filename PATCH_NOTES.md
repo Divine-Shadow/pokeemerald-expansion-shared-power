@@ -1,3 +1,4 @@
+- Dialogue: Update remaining gym guide NPCs with spoiler-light tactical hints for the revised gym leaders (commit pending).
 - Docs/Gameplay: Note that gym-leader hint NPC dialogue now matches the updated gym leaders (commit pending).
 - Tools/Skills: Clarify spoiler-free patch-note guidance for move changes, move access, trainer sets, and TM/HM changes (commit pending).
 - Docs/Automation: Replace timing-based Mudkip GUI evidence notes with beacon-driven WSLg mGBA validation (commit 80d961689c).

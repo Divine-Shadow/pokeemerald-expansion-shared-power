@@ -16,4 +16,4 @@ This file contains gameplay changes that may affect routing or discoveries. Read
 
 ## Dialogue
 
-- The Rustboro Gym guide now gives a non-spoiler tactical hint about Roxanne's battle style.
+- Gym guide NPCs now give non-spoiler tactical hints about the updated gym leader battle styles.

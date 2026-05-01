@@ -1327,6 +1327,11 @@ PetalburgCity_Gym_Text_DadNoAmountOfTrainingIsEnough:
 PetalburgCity_Gym_Text_GymGuideAdvice:
 	.string "Hey, how's it going, CHAMPION-\n"
 	.string "bound {PLAYER}?\p"
+	.string "NORMAN punishes early switching\n"
+	.string "meant to spark abilities.\p"
+	.string "But his ace does not lead the team\n"
+	.string "well. Draw it out early, and the\l"
+	.string "rest can lose its rhythm.\p"
 	.string "The doors in this GYM open when you\n"
 	.string "beat the awaiting TRAINERS.\p"
 	.string "Whoops! The doors in this room are\n"
@@ -1588,4 +1593,3 @@ PetalburgCity_Gym_Text_NormanRematchNeedTwoMons:
 	.string "capable of battle?\p"
 	.string "Sorry, but you'll have to come back\n"
 	.string "with at least two POKéMON.$"
-

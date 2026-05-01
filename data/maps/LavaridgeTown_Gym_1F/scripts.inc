@@ -185,11 +185,12 @@ LavaridgeTown_Gym_1F_Text_GymGuideAdvice:
 	.string "bound {PLAYER}?\p"
 	.string "LAVARIDGE's GYM LEADER FLANNERY\n"
 	.string "uses FIRE-type POKéMON.\p"
-	.string "Her passion for POKéMON burns stronger\n"
-	.string "and hotter than a volcano.\p"
-	.string "Don't get too close to her--you'll burn!\n"
-	.string "Hose her down with water and then\l"
-	.string "go for it!$"
+	.string "Her team burns its own vigor for\n"
+	.string "more speed and power.\p"
+	.string "If you can bait a GRASS move into\n"
+	.string "the right counter, that's your chance\l"
+	.string "to set up.\p"
+	.string "Mind the hot sand, then go for it!$"
 
 LavaridgeTown_Gym_1F_Text_GymGuidePostVictory:
 	.string "Yow! That was a scorching-hot battle!$"
