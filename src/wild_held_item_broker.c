@@ -17,6 +17,7 @@ static EWRAM_DATA bool8 sWildHeldItemBrokerShopItemsBuilt = FALSE;
 static void WildHeldItemBroker_BuildShopItems(void);
 static bool8 WildHeldItemBroker_TryAppendShopItem(u16 item);
 static bool8 WildHeldItemBroker_HasShopItem(u16 item);
+static bool8 WildHeldItemBroker_IsExcludedShopItem(u16 item);
 
 bool32 WildHeldItemBroker_IsEligibleMove(u16 move)
 {
@@ -111,11 +112,29 @@ static void WildHeldItemBroker_BuildShopItems(void)
 
 static bool8 WildHeldItemBroker_TryAppendShopItem(u16 item)
 {
-    if (item == ITEM_NONE || item >= ITEMS_COUNT || WildHeldItemBroker_HasShopItem(item))
+    if (item == ITEM_NONE || item >= ITEMS_COUNT || WildHeldItemBroker_IsExcludedShopItem(item) || WildHeldItemBroker_HasShopItem(item))
         return FALSE;
 
     sWildHeldItemBrokerShopItems[sWildHeldItemBrokerShopItemCount++] = item;
     return TRUE;
+}
+
+static bool8 WildHeldItemBroker_IsExcludedShopItem(u16 item)
+{
+    switch (item)
+    {
+    case ITEM_CHOICE_BAND:
+    case ITEM_CHOICE_SPECS:
+    case ITEM_CHOICE_SCARF:
+    case ITEM_EVIOLITE:
+    case ITEM_FOCUS_SASH:
+    case ITEM_LEFTOVERS:
+    case ITEM_LIFE_ORB:
+    case ITEM_ASSAULT_VEST:
+        return TRUE;
+    default:
+        return FALSE;
+    }
 }
 
 static bool8 WildHeldItemBroker_HasShopItem(u16 item)

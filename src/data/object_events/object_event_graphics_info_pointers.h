@@ -30,6 +30,7 @@ extern const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_LinkRecepti
 extern const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_OldMan;
 extern const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_OldWoman;
 extern const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_Camper;
+extern const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_BerryBarry;
 extern const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_Picnicker;
 extern const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_Man3;
 extern const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_Woman5;
@@ -282,6 +283,7 @@ const struct ObjectEventGraphicsInfo *const gObjectEventGraphicsInfoPointers[NUM
     [OBJ_EVENT_GFX_OLD_MAN] =                  &gObjectEventGraphicsInfo_OldMan,
     [OBJ_EVENT_GFX_OLD_WOMAN] =                &gObjectEventGraphicsInfo_OldWoman,
     [OBJ_EVENT_GFX_CAMPER] =                   &gObjectEventGraphicsInfo_Camper,
+    [OBJ_EVENT_GFX_BERRY_BARRY] =              &gObjectEventGraphicsInfo_BerryBarry,
     [OBJ_EVENT_GFX_PICNICKER] =                &gObjectEventGraphicsInfo_Picnicker,
     [OBJ_EVENT_GFX_MAN_3] =                    &gObjectEventGraphicsInfo_Man3,
     [OBJ_EVENT_GFX_WOMAN_5] =                  &gObjectEventGraphicsInfo_Woman5,

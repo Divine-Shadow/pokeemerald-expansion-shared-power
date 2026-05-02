@@ -327,12 +327,12 @@ BattleFrontier_ExchangeServiceCorner_EventScript_ChooseHoldItem::
 	waitstate
 	special CloseFrontierExchangeCornerItemIconWindow
 	switch VAR_RESULT
-	case 0, BattleFrontier_ExchangeServiceCorner_EventScript_Leftovers
+	case 0, BattleFrontier_ExchangeServiceCorner_EventScript_ShellBell
 	case 1, BattleFrontier_ExchangeServiceCorner_EventScript_WhiteHerb
 	case 2, BattleFrontier_ExchangeServiceCorner_EventScript_QuickClaw
 	case 3, BattleFrontier_ExchangeServiceCorner_EventScript_MentalHerb
 	case 4, BattleFrontier_ExchangeServiceCorner_EventScript_Brightpowder
-	case 5, BattleFrontier_ExchangeServiceCorner_EventScript_ChoiceBand
+	case 5, BattleFrontier_ExchangeServiceCorner_EventScript_ExpertBelt
 	case 6, BattleFrontier_ExchangeServiceCorner_EventScript_KingsRock
 	case 7, BattleFrontier_ExchangeServiceCorner_EventScript_FocusBand
 	case 8, BattleFrontier_ExchangeServiceCorner_EventScript_ScopeLens
@@ -340,11 +340,11 @@ BattleFrontier_ExchangeServiceCorner_EventScript_ChooseHoldItem::
 	case MULTI_B_PRESSED, BattleFrontier_ExchangeServiceCorner_EventScript_ClerkGoodbye
 	end
 
-BattleFrontier_ExchangeServiceCorner_EventScript_Leftovers::
-	msgbox BattleFrontier_ExchangeServiceCorner_Text_ConfirmLeftovers, MSGBOX_YESNO
+BattleFrontier_ExchangeServiceCorner_EventScript_ShellBell::
+	msgbox BattleFrontier_ExchangeServiceCorner_Text_ConfirmShellBell, MSGBOX_YESNO
 	goto_if_eq VAR_RESULT, NO, BattleFrontier_ExchangeServiceCorner_EventScript_ChooseHoldItem
 	setvar VAR_0x8008, 48
-	setvar VAR_0x8009, ITEM_LEFTOVERS
+	setvar VAR_0x8009, ITEM_SHELL_BELL
 	goto BattleFrontier_ExchangeServiceCorner_EventScript_TryPurchasePrize
 	end
 
@@ -380,11 +380,11 @@ BattleFrontier_ExchangeServiceCorner_EventScript_Brightpowder::
 	goto BattleFrontier_ExchangeServiceCorner_EventScript_TryPurchasePrize
 	end
 
-BattleFrontier_ExchangeServiceCorner_EventScript_ChoiceBand::
-	msgbox BattleFrontier_ExchangeServiceCorner_Text_ConfirmChoiceBand, MSGBOX_YESNO
+BattleFrontier_ExchangeServiceCorner_EventScript_ExpertBelt::
+	msgbox BattleFrontier_ExchangeServiceCorner_Text_ConfirmExpertBelt, MSGBOX_YESNO
 	goto_if_eq VAR_RESULT, NO, BattleFrontier_ExchangeServiceCorner_EventScript_ChooseHoldItem
 	setvar VAR_0x8008, 64
-	setvar VAR_0x8009, ITEM_CHOICE_BAND
+	setvar VAR_0x8009, ITEM_EXPERT_BELT
 	goto BattleFrontier_ExchangeServiceCorner_EventScript_TryPurchasePrize
 	end
 
@@ -545,8 +545,8 @@ BattleFrontier_ExchangeServiceCorner_Text_ConfirmMentalHerb:
 	.string "You've chosen the MENTAL HERB.\n"
 	.string "Is that correct?$"
 
-BattleFrontier_ExchangeServiceCorner_Text_ConfirmChoiceBand:
-	.string "You've chosen the CHOICE BAND.\n"
+BattleFrontier_ExchangeServiceCorner_Text_ConfirmExpertBelt:
+	.string "You've chosen the EXPERT BELT.\n"
 	.string "Is that correct?$"
 
 BattleFrontier_ExchangeServiceCorner_Text_ConfirmKingsRock:
@@ -561,8 +561,8 @@ BattleFrontier_ExchangeServiceCorner_Text_ConfirmScopeLens:
 	.string "You've chosen the SCOPE LENS.\n"
 	.string "Is that correct?$"
 
-BattleFrontier_ExchangeServiceCorner_Text_ConfirmLeftovers:
-	.string "You've chosen the LEFTOVERS.\n"
+BattleFrontier_ExchangeServiceCorner_Text_ConfirmShellBell:
+	.string "You've chosen the SHELL BELL.\n"
 	.string "Is that correct?$"
 
 BattleFrontier_ExchangeServiceCorner_Text_WellSendItToPC:
@@ -689,8 +689,8 @@ BattleFrontier_ExchangeServiceCorner_Text_HPUpDesc::
 	.string "Raises the HP of one POKéMON.$"
 
 BattleFrontier_ExchangeServiceCorner_Text_LeftoversDesc::
-	.string "A hold item that gradually restores\n"
-	.string "HP in battle.$"
+	.string "A hold item that restores HP\n"
+	.string "after striking the foe.$"
 
 BattleFrontier_ExchangeServiceCorner_Text_WhiteHerbDesc::
 	.string "A hold item that restores any\n"
@@ -709,8 +709,8 @@ BattleFrontier_ExchangeServiceCorner_Text_BrightpowderDesc::
 	.string "reduce accuracy.$"
 
 BattleFrontier_ExchangeServiceCorner_Text_ChoiceBandDesc::
-	.string "Raises a move's power, but permits\n"
-	.string "only that move.$"
+	.string "Boosts the power of super\n"
+	.string "effective moves.$"
 
 BattleFrontier_ExchangeServiceCorner_Text_KingsRockDesc::
 	.string "A hold item that may cause flinching\n"

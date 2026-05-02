@@ -124,3 +124,17 @@ TEST("Wild held item broker shop contains distinct wild held items")
             EXPECT_NE(items[i], items[j]);
     }
 }
+
+TEST("Wild held item broker excludes strict competitive items")
+{
+    ASSUME(gSpeciesInfo[SPECIES_SNORLAX].itemCommon == ITEM_LEFTOVERS);
+
+    EXPECT(!ShopItemsContain(ITEM_CHOICE_BAND));
+    EXPECT(!ShopItemsContain(ITEM_CHOICE_SPECS));
+    EXPECT(!ShopItemsContain(ITEM_CHOICE_SCARF));
+    EXPECT(!ShopItemsContain(ITEM_EVIOLITE));
+    EXPECT(!ShopItemsContain(ITEM_FOCUS_SASH));
+    EXPECT(!ShopItemsContain(ITEM_LEFTOVERS));
+    EXPECT(!ShopItemsContain(ITEM_LIFE_ORB));
+    EXPECT(!ShopItemsContain(ITEM_ASSAULT_VEST));
+}

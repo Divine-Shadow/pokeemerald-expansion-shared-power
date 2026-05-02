@@ -3920,18 +3920,6 @@ Route125_Text_AuronPostBattle:
 	.string "It angers me that someone would\n"
 	.string "pollute the sea!$"
 
-Route126_Text_BarryIntro:
-	.string "Swimming is a full-body workout!\n"
-	.string "You will get fit!$"
-
-Route126_Text_BarryDefeat:
-	.string "I admit it!\n"
-	.string "You win!$"
-
-Route126_Text_BarryPostBattle:
-	.string "Thanks to my daily swimming routine…\n"
-	.string "Look! Feast your eyes on this physique!$"
-
 Route126_Text_DeanIntro:
 	.string "This towering white mountain of rock\n"
 	.string "is SOOTOPOLIS CITY.$"

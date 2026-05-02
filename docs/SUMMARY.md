@@ -89,6 +89,7 @@
  - [Design]()
    - [Agents Guide](design/AGENTS.md)
    - [Automation Reproduction Pipeline](design/automation_repro_pipeline.md)
+   - [Item Reward Economy](design/item_reward_economy.md)
    - [Shared Power Mode](design/shared_power/README.md)
      - [Mode Scope](design/shared_power/scope.md)
      - [State Model](design/shared_power/state.md)

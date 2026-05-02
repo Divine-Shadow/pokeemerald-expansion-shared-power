@@ -1,3 +1,9 @@
+- Gameplay/Progression: Enable hard badge-based level caps and make Rare Candies respect the cap (commit pending).
+- Gameplay/Trainers: Retire Route 126 swimmer Barry and add berry-journey Barry docs, ids, sprites, and automation sprite proof (commit pending).
+- Gameplay/Items: Replace a focused set of underwhelming basic field consumables with low-tier exploration rewards (commit pending).
+- Gameplay/Items: Document held-item reward buckets, reserve strict competitive items for authored rewards, and add a first mid-tier held-item reward pass (commit pending).
+- Tests/Items: Ensure the wild-held-item broker excludes strict competitive items from its free shop (commit pending).
+- Gameplay/Items: Move formerly purchasable Slateport, Lilycove, and Mauville Game Corner TMs into exploration rewards for the first open-world reward pass (commit pending).
 - Gameplay/Trainers: Apply latest-available Smogon-inspired singles sets to non-boss trainers and document exact mob trainer spoilers separately (commit pending).
 - Gameplay/Trainers: Refresh Elite Four Pokemon with latest-available Smogon-inspired singles sets (commit pending).
 - Gameplay/Items: Add a Mauville broker who unlocks a free wild-held-item shop after seeing a Pokemon that can steal or swap held items (commit pending).

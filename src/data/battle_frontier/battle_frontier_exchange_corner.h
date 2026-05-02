@@ -36,12 +36,12 @@ static const u16 sFrontierExchangeCorner_Vitamins[] =
 
 static const u16 sFrontierExchangeCorner_HoldItems[] =
 {
-    ITEM_LEFTOVERS,
+    ITEM_SHELL_BELL,
     ITEM_WHITE_HERB,
     ITEM_QUICK_CLAW,
     ITEM_MENTAL_HERB,
     ITEM_BRIGHT_POWDER,
-    ITEM_CHOICE_BAND,
+    ITEM_EXPERT_BELT,
     ITEM_KINGS_ROCK,
     ITEM_FOCUS_BAND,
     ITEM_SCOPE_LENS,

@@ -273,6 +273,12 @@ $(FONTGFXDIR)/frlg_female.fwjpnfont: $(FONTGFXDIR)/japanese_frlg_female.png
 	$(GFX) $< $@
 
 
+### Object Events ###
+
+graphics/object_events/pics/people/berry_barry.4bpp: %.4bpp: %.png
+	$(GFX) $< $@ -mwidth 2 -mheight 4
+
+
 ### Miscellaneous ###
 
 $(TITLESCREENGFXDIR)/pokemon_logo.gbapal: %.gbapal: %.pal

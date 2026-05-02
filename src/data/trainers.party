@@ -4344,25 +4344,6 @@ Nature: Modest
 - Rain Dance
 - Hidden Power
 
-=== TRAINER_BARRY ===
-Name: BARRY
-Class: Swimmer M
-Pic: Swimmer M
-Gender: Male
-Music: Swimmer
-Double Battle: No
-AI: Check Bad Move
-
-Gyarados @ Leftovers
-Ability: Moxie
-Level: 34
-EVs: 252 Atk / 4 SpD / 252 Spe
-Nature: Adamant
-- Dragon Dance
-- Waterfall
-- Scale Shot
-- Substitute
-
 === TRAINER_DEAN ===
 Name: DEAN
 Class: Swimmer M
@@ -24589,3 +24570,22 @@ Double Battle: No
 Kyogre
 Level: 5
 IVs: 0 HP / 0 Atk / 0 Def / 0 SpA / 0 SpD / 0 Spe
+
+=== TRAINER_JOURNEY_BARRY_EARLY ===
+Name: BARRY
+Class: Pkmn Breeder
+Pic: Berry Barry
+Gender: Male
+Music: Male
+Double Battle: No
+AI: Check Bad Move
+
+Shuckle @ Oran Berry
+Ability: Sturdy
+Level: 12
+EVs: 252 HP / 4 Def / 252 SpD
+Nature: Careful
+- Struggle Bug
+- Wrap
+- Defense Curl
+- Rest

@@ -3200,19 +3200,6 @@ Nature: Modest
 - Hidden Power
 
 
-=== TRAINER_BARRY ===
-
-Gyarados @ Leftovers
-Ability: Moxie
-Level: 34
-EVs: 252 Atk / 4 SpD / 252 Spe
-Nature: Adamant
-- Dragon Dance
-- Waterfall
-- Scale Shot
-- Substitute
-
-
 === TRAINER_DEAN ===
 
 Carvanha @ Life Orb
