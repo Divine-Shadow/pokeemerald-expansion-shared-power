@@ -111,6 +111,25 @@ SINGLE_BATTLE_TEST("Shared Power: Inner Focus prevents pooled Intimidate")
     }
 }
 
+SINGLE_BATTLE_TEST("Shared Power: Quick Feet ignores paralysis Speed drop when pooled")
+{
+    GIVEN {
+        BATTLE_TYPE(BATTLE_TYPE_SHARED_POWER);
+        WITH_CONFIG(GEN_CONFIG_PARALYSIS_SPEED, GEN_7);
+        ASSUME(GetMoveNonVolatileStatus(MOVE_THUNDER_WAVE) == MOVE_EFFECT_PARALYSIS);
+        PLAYER(SPECIES_POOCHYENA) { Ability(ABILITY_QUICK_FEET); Speed(70); }
+        PLAYER(SPECIES_MUDKIP) { Speed(50); }
+        OPPONENT(SPECIES_NOSEPASS) { Speed(60); }
+    } WHEN {
+        TURN { SWITCH(player, 1); MOVE(opponent, MOVE_THUNDER_WAVE); }
+        TURN { MOVE(player, MOVE_TACKLE, WITH_RNG(RNG_PARALYSIS, TRUE)); MOVE(opponent, MOVE_CELEBRATE); }
+    } SCENE {
+        STATUS_ICON(player, paralysis: TRUE);
+        MESSAGE("Mudkip used Tackle!");
+        MESSAGE("The opposing Nosepass used Celebrate!");
+    }
+}
+
 DOUBLE_BATTLE_TEST("Shared Power: Inner Focus prevents Fake Out flinch after switch-in")
 {
     GIVEN {
