@@ -5,6 +5,7 @@ This file contains gameplay changes that may affect routing or discoveries. Read
 ## Early Resources
 
 - Useful items are available from the player's PC.
+- The Mauville City Mart now has a broker who unlocks a free shop of wild-held-item drops after seeing a Pokemon with item-stealing or item-swapping capability.
 
 ## Move Changes
 
