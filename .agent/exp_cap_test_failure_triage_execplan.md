@@ -19,7 +19,7 @@ After this work, a reviewer can run the EXP tests and see the cap-related failur
 - [x] (2026-05-02T21:23Z) Added focused tests for the active hard level cap and EXP Candy clamp behavior.
 - [x] (2026-05-02T21:26Z) Ran targeted EXP validation: `test/battle/exp.c` passed 7/7, and `test/pokemon.c` passed 26/27 with the one existing known failing learnset test.
 - [x] (2026-05-02T21:30Z) Ran the broader check and recorded evidence that the non-cap failures remain a separate bucket: full `make check` still fails, but the three settings-related EXP failure names are gone and there are no new unique failure names.
-- [ ] Update patch notes, commit, and push the completed work.
+- [x] (2026-05-02T21:31Z) Updated patch notes, committed the implementation as `f2857a1bff`, and prepared the branch for push.
 
 ## Surprises & Discoveries
 
@@ -152,3 +152,5 @@ The implementation uses these existing interfaces:
 Revision Note (2026-05-02): Initial ExecPlan created to isolate hard-cap test fallout from unrelated battle regression failures and guide implementation through validation.
 
 Revision Note (2026-05-02): Recorded implementation and validation evidence after the targeted EXP and Pokemon cap tests passed and the broad suite confirmed remaining failures are unrelated to the cap settings.
+
+Revision Note (2026-05-02): Recorded the implementation commit hash and completed progress state before publishing the branch.
