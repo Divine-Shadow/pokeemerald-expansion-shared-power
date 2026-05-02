@@ -462,6 +462,7 @@ static bool32 HandleEndTurnWeatherDamage(u32 battler)
         {
             if (!HasActiveAbility(battler, ABILITY_SNOW_CLOAK)
              && !HasActiveAbility(battler, ABILITY_OVERCOAT)
+             && !HasActiveAbility(battler, ABILITY_ICE_BODY)
              && !IS_BATTLER_OF_TYPE(battler, TYPE_ICE)
              && gBattleMons[battler].volatiles.semiInvulnerable != STATE_UNDERGROUND
              && gBattleMons[battler].volatiles.semiInvulnerable != STATE_UNDERWATER

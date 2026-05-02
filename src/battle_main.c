@@ -464,7 +464,9 @@ static void CB2_InitBattleInternal(void)
 {
     s32 i;
 
+#if CONFIG_SHARED_POWER && !TESTING
     gBattleTypeFlags |= BATTLE_TYPE_SHARED_POWER;
+#endif
 
     SetHBlankCallback(NULL);
     SetVBlankCallback(NULL);

@@ -1,4 +1,6 @@
-- Shared Power/Tests: Add pooled Quick Feet coverage for paralysis Speed handling (commit pending).
+- Battle/Tests: Isolate Shared Power from vanilla battle tests, refresh Strength-aware AI fixtures, and make Ice Body block hail damage at full HP (commit pending).
+- Shared Power/Tests: Add pooled Guts coverage for burn Attack handling (commit pending).
+- Shared Power/Tests: Add pooled Quick Feet coverage for paralysis Speed handling (commit acd16d9896).
 - Gameplay/Trainers: Remove trainer Terastallization opt-ins and replace Ninjask opponent encounters with Beedrill (commit pending).
 - Tests/Docs: Add and execute an ExecPlan to isolate hard EXP cap test fallout from unrelated battle regressions (commit f2857a1bff).
 - Gameplay/Progression: Enable hard badge-based level caps and make Rare Candies respect the cap (commit b4fd3b9ab7).

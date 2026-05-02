@@ -130,6 +130,28 @@ SINGLE_BATTLE_TEST("Shared Power: Quick Feet ignores paralysis Speed drop when p
     }
 }
 
+SINGLE_BATTLE_TEST("Shared Power: Guts ignores burn Attack drop when pooled", s16 damage)
+{
+    u32 ability;
+
+    PARAMETRIZE { ability = ABILITY_KEEN_EYE; }
+    PARAMETRIZE { ability = ABILITY_GUTS; }
+    GIVEN {
+        BATTLE_TYPE(BATTLE_TYPE_SHARED_POWER);
+        ASSUME(GetMoveCategory(MOVE_SCRATCH) == DAMAGE_CATEGORY_PHYSICAL);
+        PLAYER(SPECIES_MACHOP) { Ability(ability); Speed(70); }
+        PLAYER(SPECIES_MUDKIP) { Status1(STATUS1_BURN); Speed(50); }
+        OPPONENT(SPECIES_WOBBUFFET) { Speed(40); }
+    } WHEN {
+        TURN { SWITCH(player, 1); MOVE(opponent, MOVE_SPLASH); }
+        TURN { MOVE(player, MOVE_SCRATCH); MOVE(opponent, MOVE_SPLASH); }
+    } SCENE {
+        HP_BAR(opponent, captureDamage: &results[i].damage);
+    } FINALLY {
+        EXPECT_MUL_EQ(results[0].damage, Q_4_12(3.0), results[1].damage);
+    }
+}
+
 DOUBLE_BATTLE_TEST("Shared Power: Inner Focus prevents Fake Out flinch after switch-in")
 {
     GIVEN {
