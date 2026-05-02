@@ -1,3 +1,4 @@
+- Gameplay/Trainers: Apply latest-available Smogon-inspired singles sets to non-boss trainers and document exact mob trainer spoilers separately (commit pending).
 - Gameplay/Trainers: Refresh Elite Four Pokemon with latest-available Smogon-inspired singles sets (commit pending).
 - Gameplay/Items: Add a Mauville broker who unlocks a free wild-held-item shop after seeing a Pokemon that can steal or swap held items (commit pending).
 - Gameplay/Pokemon: Manectric's hidden ability is now Plus instead of Minus (commit pending).
