@@ -14,6 +14,7 @@ This file contains gameplay changes that may affect routing or discoveries. Read
 ## Trainer Sets
 
 - Gym leader teams have been updated; exact Showdown-format sets are documented in [gym_leader_sets_showdown.md](gym_leader_sets_showdown.md).
+- Elite Four teams have been updated with Smogon-inspired sets; exact Showdown-format sets are documented in [elite_four_sets_showdown.md](elite_four_sets_showdown.md).
 
 ## Dialogue
 

@@ -1,3 +1,4 @@
+- Gameplay/Trainers: Refresh Elite Four Pokemon with latest-available Smogon-inspired singles sets (commit pending).
 - Gameplay/Items: Add a Mauville broker who unlocks a free wild-held-item shop after seeing a Pokemon that can steal or swap held items (commit pending).
 - Gameplay/Pokemon: Manectric's hidden ability is now Plus instead of Minus (commit pending).
 - Gameplay/Trainers: Complete Brawly's Machop and Wattson's Electrike and Manectric sets with base-game slot levels (commit pending).
