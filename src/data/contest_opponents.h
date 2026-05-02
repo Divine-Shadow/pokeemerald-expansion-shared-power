@@ -1671,8 +1671,8 @@ const struct ContestPokemon gContestOpponents[] =
     },
     [CONTEST_OPPONENT_ELIAS] = {
         .filter = CONTEST_FILTER_NONE,
-        .species = SPECIES_NINJASK,
-        .nickname = _("NINAS"),
+        .species = SPECIES_BEEDRILL,
+        .nickname = _("DRILLA"),
         .trainerName = _("ELIAS"),
         .trainerGfxId = OBJ_EVENT_GFX_LITTLE_BOY,
         .aiFlags = CONTEST_AI_SET_11,
@@ -1684,10 +1684,10 @@ const struct ContestPokemon gContestOpponents[] =
         .aiPool_Tough = TRUE,
         .moves =
         {
-            MOVE_SCREECH,
-            MOVE_FURY_SWIPES,
-            MOVE_SAND_ATTACK,
-            MOVE_BATON_PASS
+            MOVE_TWINEEDLE,
+            MOVE_FURY_ATTACK,
+            MOVE_STRING_SHOT,
+            MOVE_PURSUIT
         },
         .cool = 30,
         .beauty = 50,

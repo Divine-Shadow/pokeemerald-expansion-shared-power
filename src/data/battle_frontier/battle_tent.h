@@ -852,15 +852,15 @@ const struct TrainerMon gSlateportBattleTentMons[NUM_SLATEPORT_TENT_MONS] =
         .nature = NATURE_LONELY
     },
     [SLATEPORT_TENT_MON_NINJASK_1] = {
-        .species = SPECIES_NINJASK,
-        .moves = {MOVE_FURY_CUTTER, MOVE_SCREECH, MOVE_SWORDS_DANCE, MOVE_DOUBLE_TEAM},
+        .species = SPECIES_BEEDRILL,
+        .moves = {MOVE_TWINEEDLE, MOVE_PURSUIT, MOVE_SWORDS_DANCE, MOVE_DOUBLE_TEAM},
         .heldItem = ITEM_NONE,
         .ev = TRAINER_PARTY_EVS(102, 0, 102, 102, 102, 102),
         .nature = NATURE_QUIRKY
     },
     [SLATEPORT_TENT_MON_NINJASK_2] = {
-        .species = SPECIES_NINJASK,
-        .moves = {MOVE_FURY_CUTTER, MOVE_DOUBLE_TEAM, MOVE_SCREECH, MOVE_SAND_ATTACK},
+        .species = SPECIES_BEEDRILL,
+        .moves = {MOVE_TWINEEDLE, MOVE_DOUBLE_TEAM, MOVE_PURSUIT, MOVE_STRING_SHOT},
         .heldItem = ITEM_SILVER_POWDER,
         .ev = TRAINER_PARTY_EVS(0, 252, 252, 0, 0, 0),
         .nature = NATURE_NAUGHTY
@@ -1905,8 +1905,8 @@ const struct TrainerMon gVerdanturfBattleTentMons[NUM_VERDANTURF_TENT_MONS] =
         .nature = NATURE_NAUGHTY
     },
     [VERDANTURF_TENT_MON_NINJASK] = {
-        .species = SPECIES_NINJASK,
-        .moves = {MOVE_DIG, MOVE_SCREECH, MOVE_SWORDS_DANCE, MOVE_LEECH_LIFE},
+        .species = SPECIES_BEEDRILL,
+        .moves = {MOVE_SLUDGE_BOMB, MOVE_TWINEEDLE, MOVE_SWORDS_DANCE, MOVE_BRICK_BREAK},
         .heldItem = ITEM_PETAYA_BERRY,
         .ev = TRAINER_PARTY_EVS(102, 0, 102, 102, 102, 102),
         .nature = NATURE_SASSY
@@ -2786,15 +2786,15 @@ const struct TrainerMon gFallarborBattleTentMons[NUM_FALLARBOR_TENT_MONS] =
         .nature = NATURE_ADAMANT
     },
     [FALLARBOR_TENT_MON_NINJASK_1] = {
-        .species = SPECIES_NINJASK,
-        .moves = {MOVE_DOUBLE_TEAM, MOVE_PROTECT, MOVE_DIG, MOVE_SAND_ATTACK},
+        .species = SPECIES_BEEDRILL,
+        .moves = {MOVE_DOUBLE_TEAM, MOVE_PROTECT, MOVE_AERIAL_ACE, MOVE_PURSUIT},
         .heldItem = ITEM_PETAYA_BERRY,
         .ev = TRAINER_PARTY_EVS(128, 0, 128, 128, 0, 128),
         .nature = NATURE_TIMID
     },
     [FALLARBOR_TENT_MON_NINJASK_2] = {
-        .species = SPECIES_NINJASK,
-        .moves = {MOVE_SWORDS_DANCE, MOVE_CUT, MOVE_FURY_CUTTER, MOVE_LEECH_LIFE},
+        .species = SPECIES_BEEDRILL,
+        .moves = {MOVE_SWORDS_DANCE, MOVE_CUT, MOVE_FURY_CUTTER, MOVE_TWINEEDLE},
         .heldItem = ITEM_SILVER_POWDER,
         .ev = TRAINER_PARTY_EVS(252, 252, 0, 0, 0, 0),
         .nature = NATURE_ADAMANT

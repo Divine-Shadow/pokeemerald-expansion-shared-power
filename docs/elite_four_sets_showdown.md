@@ -42,7 +42,6 @@ Ability: Adaptability
 Level: 48
 EVs: 252 Atk / 4 Def / 252 Spe
 Nature: Adamant
-Tera Type: Water
 - Crabhammer
 - Knock Off
 - Close Combat
@@ -87,7 +86,6 @@ Ability: Prankster
 Level: 50
 EVs: 252 HP / 252 Def / 4 SpD
 Nature: Impish
-Tera Type: Poison
 - Encore
 - Will-O-Wisp
 - Recover
@@ -187,7 +185,6 @@ Ability: Natural Cure
 Level: 54
 EVs: 252 HP / 240 Def / 16 Spe
 Nature: Impish
-Tera Type: Steel
 - Defog
 - Roost
 - Brave Bird
@@ -199,7 +196,6 @@ Level: 53
 EVs: 252 SpA / 4 SpD / 252 Spe
 Nature: Modest
 IVs: 0 Atk
-Tera Type: Water
 - Hydro Pump
 - Draco Meteor
 - Hurricane
@@ -210,7 +206,6 @@ Ability: Levitate
 Level: 53
 EVs: 252 Atk / 4 SpD / 252 Spe
 Nature: Jolly
-Tera Type: Steel
 - Stealth Rock
 - Earthquake
 - Scale Shot
@@ -221,7 +216,6 @@ Ability: Intimidate
 Level: 55
 EVs: 4 Def / 252 SpA / 252 Spe
 Nature: Timid
-Tera Type: Fairy
 - Draco Meteor
 - Hurricane
 - Earthquake

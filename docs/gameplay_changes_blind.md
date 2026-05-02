@@ -29,6 +29,8 @@ This file contains gameplay changes that may affect routing or discoveries. Read
 - Gym leader teams have been updated; exact Showdown-format sets are documented in [gym_leader_sets_showdown.md](gym_leader_sets_showdown.md).
 - Elite Four teams have been updated with Smogon-inspired sets; exact Showdown-format sets are documented in [elite_four_sets_showdown.md](elite_four_sets_showdown.md).
 - Non-boss trainer teams have been updated with Smogon-inspired sets; exact Showdown-format sets are documented in [mob_trainer_sets_showdown.md](mob_trainer_sets_showdown.md).
+- Trainer battle sets no longer opt into Terastallization.
+- Former Ninjask battle, facility, and contest opponent slots now use Beedrill.
 - The old Route 126 swimmer Barry encounter has been retired so a new berry-focused journey NPC can use a fresh trainer id later.
 
 ## Dialogue

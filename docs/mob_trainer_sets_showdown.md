@@ -8026,26 +8026,26 @@ Nature: Bold
 
 === TRAINER_YASU ===
 
-Ninjask
+Beedrill
 Level: 26
-EVs: 252 Atk / 88 Def / 168 Spe
-Nature: Adamant
-- Acrobatics
-- U-turn
-- Protect
+EVs: 252 Atk / 4 SpD / 252 Spe
+Nature: Jolly
 - Swords Dance
+- Poison Jab
+- Pin Missile
+- Aerial Ace
 
 
 === TRAINER_TAKASHI ===
 
-Ninjask
+Beedrill
 Level: 25
-EVs: 252 Atk / 88 Def / 168 Spe
-Nature: Adamant
-- Acrobatics
-- U-turn
-- Protect
+EVs: 252 Atk / 4 SpD / 252 Spe
+Nature: Jolly
 - Swords Dance
+- Poison Jab
+- Pin Missile
+- Aerial Ace
 
 Koffing @ Eviolite
 Ability: Neutralizing Gas
@@ -8138,14 +8138,14 @@ Nature: Bold
 - Will-O-Wisp
 - Toxic Spikes
 
-Ninjask
+Beedrill
 Level: 18
-EVs: 252 Atk / 88 Def / 168 Spe
-Nature: Adamant
-- Acrobatics
-- U-turn
-- Protect
+EVs: 252 Atk / 4 SpD / 252 Spe
+Nature: Jolly
 - Swords Dance
+- Poison Jab
+- Pin Missile
+- Aerial Ace
 
 
 === TRAINER_LAO_2 ===
@@ -11914,14 +11914,14 @@ Nature: Naive
 - Giga Drain
 - Toxic
 
-Ninjask
+Beedrill
 Level: 28
-EVs: 252 Atk / 88 Def / 168 Spe
-Nature: Adamant
-- Acrobatics
-- U-turn
-- Protect
+EVs: 252 Atk / 4 SpD / 252 Spe
+Nature: Jolly
 - Swords Dance
+- Poison Jab
+- Pin Missile
+- Aerial Ace
 
 
 === TRAINER_GREG ===
@@ -11951,14 +11951,14 @@ IVs: 0 Spe
 
 === TRAINER_KENT ===
 
-Ninjask
+Beedrill
 Level: 25
-EVs: 252 Atk / 88 Def / 168 Spe
-Nature: Adamant
-- Acrobatics
-- U-turn
-- Protect
+EVs: 252 Atk / 4 SpD / 252 Spe
+Nature: Jolly
 - Swords Dance
+- Poison Jab
+- Pin Missile
+- Aerial Ace
 
 
 === TRAINER_JAMES_1 ===
@@ -11984,14 +11984,14 @@ Nature: Naive
 
 === TRAINER_JAMES_2 ===
 
-Ninjask
+Beedrill
 Level: 27
-EVs: 252 Atk / 88 Def / 168 Spe
-Nature: Adamant
-- Acrobatics
-- U-turn
-- Protect
+EVs: 252 Atk / 4 SpD / 252 Spe
+Nature: Jolly
 - Swords Dance
+- Poison Jab
+- Pin Missile
+- Aerial Ace
 
 
 === TRAINER_JAMES_3 ===
@@ -12006,14 +12006,14 @@ IVs: 0 Atk
 - Bug Buzz
 - Roost
 
-Ninjask
+Beedrill
 Level: 29
-EVs: 252 Atk / 88 Def / 168 Spe
-Nature: Adamant
-- Acrobatics
-- U-turn
-- Protect
+EVs: 252 Atk / 4 SpD / 252 Spe
+Nature: Jolly
 - Swords Dance
+- Poison Jab
+- Pin Missile
+- Aerial Ace
 
 
 === TRAINER_JAMES_4 ===
@@ -12038,14 +12038,14 @@ IVs: 0 Atk
 - Bug Buzz
 - Roost
 
-Ninjask
+Beedrill
 Level: 31
-EVs: 252 Atk / 88 Def / 168 Spe
-Nature: Adamant
-- Acrobatics
-- U-turn
-- Protect
+EVs: 252 Atk / 4 SpD / 252 Spe
+Nature: Jolly
 - Swords Dance
+- Poison Jab
+- Pin Missile
+- Aerial Ace
 
 
 === TRAINER_JAMES_5 ===
@@ -12060,14 +12060,14 @@ IVs: 0 Atk
 - Icy Wind
 - Giga Drain
 
-Ninjask
+Beedrill
 Level: 33
-EVs: 252 Atk / 88 Def / 168 Spe
-Nature: Adamant
-- Acrobatics
-- U-turn
-- Protect
+EVs: 252 Atk / 4 SpD / 252 Spe
+Nature: Jolly
 - Swords Dance
+- Poison Jab
+- Pin Missile
+- Aerial Ace
 
 Dustox @ Black Sludge
 Level: 33
@@ -12079,14 +12079,14 @@ IVs: 0 Atk
 - Bug Buzz
 - Roost
 
-Ninjask
+Beedrill
 Level: 33
-EVs: 252 Atk / 88 Def / 168 Spe
-Nature: Adamant
-- Acrobatics
-- U-turn
-- Protect
+EVs: 252 Atk / 4 SpD / 252 Spe
+Nature: Jolly
 - Swords Dance
+- Poison Jab
+- Pin Missile
+- Aerial Ace
 
 
 === TRAINER_BRICE ===
@@ -12764,14 +12764,14 @@ Nature: Bold
 - Will-O-Wisp
 - Toxic Spikes
 
-Ninjask
+Beedrill
 Level: 28
-EVs: 252 Atk / 88 Def / 168 Spe
-Nature: Adamant
-- Acrobatics
-- U-turn
-- Protect
+EVs: 252 Atk / 4 SpD / 252 Spe
+Nature: Jolly
 - Swords Dance
+- Poison Jab
+- Pin Missile
+- Aerial Ace
 
 
 === TRAINER_RILEY ===
@@ -14423,14 +14423,14 @@ Nature: Jolly
 
 === TRAINER_JAIDEN ===
 
-Ninjask
+Beedrill
 Level: 26
-EVs: 252 Atk / 88 Def / 168 Spe
-Nature: Adamant
-- Acrobatics
-- U-turn
-- Protect
+EVs: 252 Atk / 4 SpD / 252 Spe
+Nature: Jolly
 - Swords Dance
+- Poison Jab
+- Pin Missile
+- Aerial Ace
 
 Gulpin @ Eviolite
 Level: 26
@@ -16248,7 +16248,7 @@ Nature: Calm
 - Natu: Gen 8 LC Bulky Attacker (7)
 - Nincada: Gen 7 LC Final Gambit (5)
 - Ninetales: Gen 9 OU Sun Setter (1)
-- Ninjask: Gen 8 NU Swords Dance (12)
+- Beedrill: Custom Swords Dance replacement for former Ninjask trainer slots (12)
 - Nosepass: Gen 7 LC SturdyJuice Utility (5)
 - Numel: Gen 9 LC Special Attacker (32)
 - Oddish: Gen 7 LC Defensive Pivot (3)
