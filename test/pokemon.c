@@ -1,10 +1,34 @@
 #include "global.h"
 #include "battle.h"
+#include "caps.h"
 #include "event_data.h"
 #include "pokemon.h"
 #include "test/overworld_script.h"
 #include "test/test.h"
 #include "constants/characters.h"
+#include "constants/flags.h"
+#include "constants/items.h"
+
+static const u16 sLevelCapFlagsForTest[] =
+{
+    FLAG_BADGE01_GET,
+    FLAG_BADGE02_GET,
+    FLAG_BADGE03_GET,
+    FLAG_BADGE04_GET,
+    FLAG_BADGE05_GET,
+    FLAG_BADGE06_GET,
+    FLAG_BADGE07_GET,
+    FLAG_BADGE08_GET,
+    FLAG_IS_CHAMPION,
+};
+
+static void ClearLevelCapFlagsForTest(void)
+{
+    u32 i;
+
+    for (i = 0; i < ARRAY_COUNT(sLevelCapFlagsForTest); i++)
+        FlagClear(sLevelCapFlagsForTest[i]);
+}
 
 TEST("Nature independent from Hidden Nature")
 {
@@ -191,6 +215,61 @@ TEST("Battles do not award EVs when EVs are disabled")
 
     EXPECT_EQ(12, GetMonData(&mon, MON_DATA_HP_EV));
     EXPECT_EQ(12, GetMonEVCount(&mon));
+}
+
+TEST("Level cap prevents incrementing Pokemon above the current cap")
+{
+    bool8 incremented;
+    u8 level;
+    u32 exp;
+    u32 levelCap;
+    struct Pokemon mon;
+
+    ASSUME(B_LEVEL_CAP_TYPE == LEVEL_CAP_FLAG_LIST);
+
+    ClearLevelCapFlagsForTest();
+    levelCap = GetCurrentLevelCap();
+    ASSUME(levelCap < MAX_LEVEL);
+
+    CreateMon(&mon, SPECIES_WOBBUFFET, levelCap, 0, FALSE, 0, OT_ID_PRESET, 0);
+    exp = gExperienceTables[gSpeciesInfo[SPECIES_WOBBUFFET].growthRate][levelCap + 1];
+    SetMonData(&mon, MON_DATA_EXP, &exp);
+
+    incremented = TryIncrementMonLevel(&mon);
+    level = GetMonData(&mon, MON_DATA_LEVEL);
+    ClearLevelCapFlagsForTest();
+
+    EXPECT_EQ(FALSE, incremented);
+    EXPECT_EQ(levelCap, level);
+}
+
+TEST("EXP Candies respect the hard level cap")
+{
+    bool8 cannotUse;
+    u8 level;
+    u32 exp;
+    u32 cappedExp;
+    u32 levelCap;
+    struct Pokemon mon;
+
+    ASSUME(B_RARE_CANDY_CAP == TRUE);
+    ASSUME(B_EXP_CAP_TYPE == EXP_CAP_HARD);
+    ASSUME(B_LEVEL_CAP_TYPE == LEVEL_CAP_FLAG_LIST);
+
+    ClearLevelCapFlagsForTest();
+    levelCap = GetCurrentLevelCap();
+    ASSUME(levelCap > 1);
+
+    CreateMon(&mon, SPECIES_WOBBUFFET, levelCap - 1, 0, FALSE, 0, OT_ID_PRESET, 0);
+    cappedExp = gExperienceTables[gSpeciesInfo[SPECIES_WOBBUFFET].growthRate][levelCap];
+    cannotUse = ExecuteTableBasedItemEffect(&mon, ITEM_EXP_CANDY_XL, 0, 0);
+    exp = GetMonData(&mon, MON_DATA_EXP);
+    level = GetMonData(&mon, MON_DATA_LEVEL);
+    ClearLevelCapFlagsForTest();
+
+    EXPECT_EQ(FALSE, cannotUse);
+    EXPECT_EQ(levelCap, level);
+    EXPECT_EQ(cappedExp, exp);
 }
 
 TEST("Status1 round-trips through BoxPokemon")

@@ -1,3 +1,4 @@
+- Tests/Docs: Add and execute an ExecPlan to isolate hard EXP cap test fallout from unrelated battle regressions (commit pending).
 - Gameplay/Progression: Enable hard badge-based level caps and make Rare Candies respect the cap (commit b4fd3b9ab7).
 - Gameplay/Trainers: Retire Route 126 swimmer Barry and add berry-journey Barry docs, ids, sprites, and automation sprite proof (commit b4fd3b9ab7).
 - Gameplay/Items: Replace a focused set of underwhelming basic field consumables with low-tier exploration rewards (commit b4fd3b9ab7).
