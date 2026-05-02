@@ -1,3 +1,6 @@
+- Gameplay/Pokemon: Manectric's hidden ability is now Plus instead of Minus (commit pending).
+- Gameplay/Trainers: Complete Brawly's Machop and Wattson's Electrike and Manectric sets with base-game slot levels (commit pending).
+- Gameplay/Trainers: Add held items to Wattson's Magneton, Flannery's Torkoal, and Tate & Liza's Braviary-Hisui (commit pending).
 - Dialogue: Update remaining gym guide NPCs with spoiler-light tactical hints for the revised gym leaders (commit pending).
 - Docs/Gameplay: Note that gym-leader hint NPC dialogue now matches the updated gym leaders (commit pending).
 - Tools/Skills: Clarify spoiler-free patch-note guidance for move changes, move access, trainer sets, and TM/HM changes (commit pending).

@@ -2,7 +2,7 @@
 
 This file contains exact gym leader team spoilers in Showdown format.
 
-Omitted levels from the source request were filled from the matching original leader slot: Gumshoos level 27, Camerupt level 26, Manectric level 24, and Kingdra level 46.
+Omitted levels from the source request were filled from the matching original leader slot: Machop level 16, Electrike level 20, Gumshoos level 27, Camerupt level 26, Manectric level 24, and Kingdra level 46.
 
 ```text
 === [gen9ubers] Roxanne ===
@@ -44,11 +44,14 @@ Tera Type: Fighting
 - Light Screen
 - Fake Out
 
-Machop
+Machop @ Toxic Orb
 Ability: Guts
 Level: 16
 Tera Type: Fighting
-IVs: 0 Atk
+- Reversal
+- Skull Bash
+- Dynamic Punch
+- Retaliate
 
 Makuhita @ Flame Orb
 Ability: Sheer Force
@@ -71,13 +74,17 @@ IVs: 0 Atk
 - Hydro Pump
 - Volt Switch
 
-Electrike @ Sitrus Berry
+Electrike @ Eviolite
 Ability: Minus
 Level: 20
 Tera Type: Electric
 IVs: 0 Atk
+- Toxic
+- Light Screen
+- Substitute
+- Roar
 
-Magneton
+Magneton @ Leftovers
 Ability: Analytic
 Level: 22
 Tera Type: Electric
@@ -87,15 +94,18 @@ IVs: 0 Atk
 - Flash Cannon
 - Volt Switch
 
-Manectric
-Ability: Static
+Manectric @ Assault Vest
+Ability: Plus
 Level: 24
-IVs: 0 Atk
+- Flamethrower
+- Volt Switch
+- Ice Fang
+- Quick Attack
 
 
 === [gen9anythinggoes] Flannery ===
 
-Torkoal
+Torkoal @ Rocky Helmet
 Ability: Drought
 Level: 24
 Tera Type: Fire
@@ -246,7 +256,7 @@ Tera Type: Steel
 - Meteor Mash
 - Earthquake
 
-Braviary-Hisui
+Braviary-Hisui @ Wacan Berry
 Ability: Sheer Force
 Level: 42
 Tera Type: Psychic

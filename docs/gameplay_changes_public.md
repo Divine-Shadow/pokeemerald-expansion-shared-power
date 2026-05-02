@@ -2,6 +2,10 @@
 
 These notes cover gameplay rules and move access that are safe to know before starting a run.
 
+## Pokemon Changes
+
+- Manectric's hidden ability is now Plus instead of Minus.
+
 ## Move Changes
 
 - Strength is now a Rock-type move.
