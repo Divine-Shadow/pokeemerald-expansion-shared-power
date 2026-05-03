@@ -1305,6 +1305,36 @@ static void Cmd_attackcanceler(void)
     }
 }
 
+static bool32 TryFailElectrifiedStatusMoveByType(u32 move, u32 moveType, const u8 *failInstr)
+{
+    struct DamageContext ctx = {0};
+
+    if (GetMoveCategory(move) != DAMAGE_CATEGORY_STATUS
+     || move == MOVE_THUNDER_WAVE
+     || moveType != TYPE_ELECTRIC
+     || !gBattleMons[gBattlerAttacker].volatiles.electrified)
+        return FALSE;
+
+    ctx.battlerAtk = gBattlerAttacker;
+    ctx.battlerDef = gBattlerTarget;
+    ctx.move = move;
+    ctx.moveType = moveType;
+    ctx.updateFlags = FALSE;
+    ctx.abilityAtk = GetBattlerAbility(gBattlerAttacker);
+    ctx.abilityDef = GetBattlerAbility(gBattlerTarget);
+    ctx.holdEffectAtk = GetBattlerHoldEffect(gBattlerAttacker, TRUE);
+    ctx.holdEffectDef = GetBattlerHoldEffect(gBattlerTarget, TRUE);
+
+    if (CalcTypeEffectivenessMultiplier(&ctx) != UQ_4_12(0.0))
+        return FALSE;
+
+    gBattleStruct->moveResultFlags[gBattlerTarget] |= MOVE_RESULT_DOESNT_AFFECT_FOE;
+    gLastLandedMoves[gBattlerTarget] = 0;
+    gLastHitByType[gBattlerTarget] = 0;
+    gBattlescriptCurrInstr = failInstr;
+    return TRUE;
+}
+
 static void JumpIfMoveFailed(u32 adder, u32 move, u32 moveType, const u8 *failInstr)
 {
     if (gBattleStruct->moveResultFlags[gBattlerTarget] & MOVE_RESULT_NO_EFFECT)
@@ -1324,6 +1354,9 @@ static void JumpIfMoveFailed(u32 adder, u32 move, u32 moveType, const u8 *failIn
                                  move,
                                  moveType,
                                  RUN_SCRIPT))
+            return;
+
+        if (TryFailElectrifiedStatusMoveByType(move, moveType, failInstr))
             return;
     }
 
@@ -9664,7 +9697,7 @@ static void Cmd_tryhealhalfhealth(void)
     if (cmd->battler == BS_ATTACKER)
         gBattlerTarget = gBattlerAttacker;
 
-    gBattleStruct->moveDamage[gBattlerTarget] = GetNonDynamaxMaxHP(gBattlerTarget) / 2;
+    gBattleStruct->moveDamage[gBattlerTarget] = (GetNonDynamaxMaxHP(gBattlerTarget) + 1) / 2;
     if (gBattleStruct->moveDamage[gBattlerTarget] == 0)
         gBattleStruct->moveDamage[gBattlerTarget] = 1;
     gBattleStruct->moveDamage[gBattlerTarget] *= -1;
@@ -12311,7 +12344,12 @@ static void Cmd_halvehp(void)
     if (!(GetNonDynamaxMaxHP(gBattlerAttacker) / 2))
         halfHp = 1;
 
-    if (gBattleMons[gBattlerAttacker].hp > halfHp)
+    if (gCurrentMove == MOVE_BELLY_DRUM
+     && gBattleMons[gBattlerAttacker].statStages[STAT_ATK] == MAX_STAT_STAGE)
+    {
+        gBattlescriptCurrInstr = cmd->failInstr;
+    }
+    else if (gBattleMons[gBattlerAttacker].hp > halfHp)
     {
         gBattleStruct->moveDamage[gBattlerAttacker] = GetNonDynamaxMaxHP(gBattlerAttacker) / 2;
         if (gBattleStruct->moveDamage[gBattlerAttacker] == 0)
