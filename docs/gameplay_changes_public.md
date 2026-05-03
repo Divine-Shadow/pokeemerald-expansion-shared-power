@@ -6,6 +6,10 @@ These notes cover gameplay rules and move access that are safe to know before st
 
 - Hard level caps are enabled and advance by badge progression. Rare Candies and Exp. Candies cannot raise Pokemon past the current cap.
 
+## Battle Rules
+
+- Some battles or areas can disable combat aid items such as X items, healing items, status cures, revives, and PP restorers while still allowing Poke Balls under the normal catching rules.
+
 ## Pokemon Center Services
 
 - Pokemon Centers now have Condition Coaches who can intentionally prepare burn, regular poison, paralysis, a one-turn Rest-style wakeup sleep, or clear status from a conscious non-Egg party Pokemon.

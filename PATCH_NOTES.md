@@ -1,3 +1,7 @@
+- Docs/Gameplay: Document the no-combat-aid-items battle rule in spoiler-free gameplay notes (commit pending).
+- Tests/Battle: Cover the no-combat-aid-items flag for X items, medicine, and Poke Ball exemptions (commit pending).
+- Battle/Items: Add a runtime flag that blocks combat aid items while preserving normal Poké Ball use (commit pending).
+- Battle/Items: Add an ExecPlan for a no-combat-aid-items battle flag that preserves Poké Ball use (commit pending).
 - Gameplay/NPCs: Add recurring Pokemon Center Condition Coaches with a custom sprite, tailored dialogue, and pre-status service tests (commit fc76374fd3).
 - Battle/Engineering: Harden Shared Power iterator state and memory cleanup diagnostics (commit pending).
 - Battle/UI: Fix Shared Power switch-in ability cleanup and Pokemon summary sprite manager lifetime hazards (commit pending).
