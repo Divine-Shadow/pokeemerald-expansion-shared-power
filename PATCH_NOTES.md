@@ -1,5 +1,5 @@
-- Engineering: Add a post-fork Shared Power memory audit covering capture-adjacent corruption risks (commit 24db6df546).
-- Battle/Mechanics: Fix compact edge cases for Roost healing, Electrified status moves, Burn Up with Protean, and Belly Drum Contrary coverage (commit pending).
+- Engineering: Add a post-fork Shared Power memory audit covering capture-adjacent corruption risks (commit 966f9ea86e).
+- Battle/Mechanics: Fix compact edge cases for Roost healing, Electrified status moves, Burn Up with Protean, and Belly Drum Contrary coverage (commit 0dad25eb8a).
 - Battle/Tests: Isolate Shared Power from vanilla battle tests, refresh Strength-aware AI fixtures, and make Ice Body block hail damage at full HP (commit d4aab4c8f4).
 - Shared Power/Tests: Add pooled Guts coverage for burn Attack handling (commit d4aab4c8f4).
 - Shared Power/Tests: Add pooled Quick Feet coverage for paralysis Speed handling (commit acd16d9896).
