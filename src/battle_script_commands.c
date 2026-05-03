@@ -17917,7 +17917,14 @@ void BS_DestroyAbilityPopup(void)
 {
     NATIVE_ARGS();
     for (u32 battler = 0; battler < gBattlersCount; battler++)
+    {
         DestroyAbilityPopUp(battler);
+        if (SharedPower_IsEnabled())
+        {
+            gBattleStruct->sharedPowerPopupAbility[battler] = ABILITY_NONE;
+            gBattleStruct->sharedPowerPopupActive[battler] = FALSE;
+        }
+    }
     gBattlescriptCurrInstr = cmd->nextInstr;
 }
 

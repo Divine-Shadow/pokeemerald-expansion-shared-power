@@ -30,6 +30,24 @@ static void ClearLevelCapFlagsForTest(void)
         FlagClear(sLevelCapFlagsForTest[i]);
 }
 
+TEST("MonSpritesGfxManager returns null sprite pointers after destroy")
+{
+    struct MonSpritesGfxManager *manager;
+
+    manager = CreateMonSpritesGfxManager(MON_SPR_GFX_MANAGER_A, MON_SPR_GFX_MODE_NORMAL);
+    EXPECT(manager != NULL);
+    EXPECT(MonSpritesGfxManager_GetSpritePtr(MON_SPR_GFX_MANAGER_A, B_POSITION_OPPONENT_LEFT) != NULL);
+
+    DestroyMonSpritesGfxManager(MON_SPR_GFX_MANAGER_A);
+    EXPECT(MonSpritesGfxManager_GetSpritePtr(MON_SPR_GFX_MANAGER_A, B_POSITION_OPPONENT_LEFT) == NULL);
+
+    manager = CreateMonSpritesGfxManager(MON_SPR_GFX_MANAGER_A, MON_SPR_GFX_MODE_NORMAL);
+    EXPECT(manager != NULL);
+    EXPECT(MonSpritesGfxManager_GetSpritePtr(MON_SPR_GFX_MANAGER_A, B_POSITION_OPPONENT_LEFT) != NULL);
+
+    DestroyMonSpritesGfxManager(MON_SPR_GFX_MANAGER_A);
+}
+
 TEST("Nature independent from Hidden Nature")
 {
     u32 i, j, nature = 0, hiddenNature = 0;

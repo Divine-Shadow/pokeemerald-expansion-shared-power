@@ -96,6 +96,29 @@ SINGLE_BATTLE_TEST("Shared Power: Competitive reacts to pooled Intimidate")
     }
 }
 
+DOUBLE_BATTLE_TEST("Shared Power: Native ability is restored after final pooled switch-in effect")
+{
+    GIVEN {
+        BATTLE_TYPE(BATTLE_TYPE_SHARED_POWER);
+        PLAYER(SPECIES_WOBBUFFET) { Ability(ABILITY_RUN_AWAY); Speed(20); }
+        PLAYER(SPECIES_ARBOK) { Ability(ABILITY_INTIMIDATE); Speed(10); }
+        PLAYER(SPECIES_ZIGZAGOON) { Ability(ABILITY_RUN_AWAY); Speed(30); }
+        OPPONENT(SPECIES_WOBBUFFET) { Speed(5); }
+        OPPONENT(SPECIES_WYNAUT) { Speed(5); }
+    } WHEN {
+        TURN {
+            SWITCH(playerLeft, 2);
+            MOVE(playerRight, MOVE_CELEBRATE);
+            MOVE(opponentLeft, MOVE_CELEBRATE);
+            MOVE(opponentRight, MOVE_CELEBRATE);
+        }
+    } THEN {
+        EXPECT_LT(opponentLeft->statStages[STAT_ATK], DEFAULT_STAT_STAGE);
+        EXPECT_EQ(playerLeft->ability, ABILITY_RUN_AWAY);
+        EXPECT_EQ(GetBattlerAbility(B_POSITION_PLAYER_LEFT), ABILITY_RUN_AWAY);
+    }
+}
+
 SINGLE_BATTLE_TEST("Shared Power: Inner Focus prevents pooled Intimidate")
 {
     GIVEN {
@@ -701,6 +724,23 @@ SINGLE_BATTLE_TEST("Shared Power: Dry Skin damages from pooled ability in sun")
     } SCENE {
         ABILITY_POPUP(player, ABILITY_DRY_SKIN);
         HP_BAR(player, damage: (100 / 8));
+    }
+}
+
+SINGLE_BATTLE_TEST("Shared Power: End-turn iterator state resets independently per phase")
+{
+    GIVEN {
+        BATTLE_TYPE(BATTLE_TYPE_SHARED_POWER);
+        ASSUME(GetMoveEffect(MOVE_RAIN_DANCE) == EFFECT_RAIN_DANCE);
+        PLAYER(SPECIES_LUDICOLO) { Ability(ABILITY_RAIN_DISH); Speed(30); }
+        PLAYER(SPECIES_NINJASK) { Ability(ABILITY_SPEED_BOOST); HP(50); MaxHP(100); Speed(25); }
+        OPPONENT(SPECIES_WOBBUFFET) { Speed(10); }
+    } WHEN {
+        TURN { SWITCH(player, 1); MOVE(opponent, MOVE_RAIN_DANCE); }
+        TURN { MOVE(player, MOVE_CELEBRATE); MOVE(opponent, MOVE_CELEBRATE); }
+    } THEN {
+        EXPECT_EQ(player->hp, 50 + (100 / 16) * 2);
+        EXPECT_EQ(player->statStages[STAT_SPEED], DEFAULT_STAT_STAGE + 1);
     }
 }
 

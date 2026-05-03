@@ -1,3 +1,5 @@
+- Battle/Engineering: Harden Shared Power iterator state and memory cleanup diagnostics (commit pending).
+- Battle/UI: Fix Shared Power switch-in ability cleanup and Pokemon summary sprite manager lifetime hazards (commit pending).
 - Engineering: Add a post-fork Shared Power memory audit covering capture-adjacent corruption risks (commit 966f9ea86e).
 - Battle/Mechanics: Fix compact edge cases for Roost healing, Electrified status moves, Burn Up with Protean, and Belly Drum Contrary coverage (commit 0dad25eb8a).
 - Battle/Tests: Isolate Shared Power from vanilla battle tests, refresh Strength-aware AI fixtures, and make Ice Body block hail damage at full HP (commit d4aab4c8f4).

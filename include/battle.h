@@ -799,9 +799,9 @@ struct BattleStruct
     u8 sharedPowerPopupOriginalPartyIndex[MAX_BATTLERS_COUNT];
     bool8 sharedPowerPopupOverrideActive[MAX_BATTLERS_COUNT];
     bool8 sharedPowerPoolSeeded;
-    u8 sharedPowerMoveEndCaseId[MAX_BATTLERS_COUNT];
+    u16 sharedPowerMoveEndCaseId[MAX_BATTLERS_COUNT];
     u16 sharedPowerMoveEndIndex[MAX_BATTLERS_COUNT];
-    u8 sharedPowerEndTurnCaseId[MAX_BATTLERS_COUNT];
+    u16 sharedPowerEndTurnCaseId[MAX_BATTLERS_COUNT];
     u16 sharedPowerEndTurnIndex[MAX_BATTLERS_COUNT];
 };
 

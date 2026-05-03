@@ -4,15 +4,15 @@
 
 This audit covers post-fork memory and cleanup risks found while comparing the current branch against the trusted upstream merge-base `84f5aa6dae62da212efa2e8de11585bad189a031` (`origin/master`). The focus was Shared Power and nearby battle, capture, and Pokemon summary graphics paths, because prior graphical failures were traced to oversized Shared Power battle-state arrays.
 
-This is a static audit report. It records likely corruption sources and does not apply code fixes.
+This began as a static audit report. Fix-status notes below record follow-up patches while preserving the original root-cause context.
 
 ## Smoking Guns
 
-### Shared Power switch-in ability overrides can leak into `gBattleMons`
+### Shared Power switch-in ability overrides could leak into `gBattleMons` (fixed)
 
-`SharedPower_PushAbilityOverride` saves the current battler ability, marks an override active, then writes the pooled ability directly into `gBattleMons[battler].ability` (`src/battle_shared_power.c:76`). `SharedPower_TrySwitchInAbilities` restores an existing override when it enters (`src/battle_shared_power.c:451`), but the successful effect path returns before calling `SharedPower_PopAbilityOverride` (`src/battle_shared_power.c:478`).
+`SharedPower_PushAbilityOverride` saves the current battler ability, marks an override active, then writes the pooled ability directly into `gBattleMons[battler].ability` (`src/battle_shared_power.c:76`). Before the fix, `SharedPower_TrySwitchInAbilities` restored an existing override when it entered (`src/battle_shared_power.c:451`), but the successful effect path returned before calling `SharedPower_PopAbilityOverride` (`src/battle_shared_power.c:478`).
 
-That means a switch-in ability that produces a script effect can leave the battler's in-battle ability overwritten by the pooled ability. The leak is especially easy to hit when the effect is the last queued ability, because the function only rewinds `switchInBattlerCounter` if `index < count` (`src/battle_shared_power.c:482`). In that last-ability case, the same battler is not guaranteed to re-enter `SharedPower_TrySwitchInAbilities`, so the entry restore does not run.
+That meant a switch-in ability that produced a script effect could leave the battler's in-battle ability overwritten by the pooled ability. The leak was especially easy to hit when the effect was the last queued ability, because the function only rewinds `switchInBattlerCounter` if `index < count` (`src/battle_shared_power.c:482`). In that last-ability case, the same battler was not guaranteed to re-enter `SharedPower_TrySwitchInAbilities`, so the entry restore did not run.
 
 Why this matters:
 
@@ -21,13 +21,13 @@ Why this matters:
 - The catch path does contain ability-dependent logic, such as Dream Ball checking `GetBattlerAbility(gBattlerTarget) == ABILITY_COMATOSE` (`src/battle_script_commands.c:13918`).
 - This does not look like a direct persistent caught-Pokemon struct write: caught mons are pulled from party storage via `GetBattlerMon` (`include/battle.h:1225`) and copied by `GiveMonToPlayer` (`src/pokemon.c:3295`). It is still a clear in-battle state corruption source during the same encounter.
 
-Recommended fix: restore the original ability before every successful `return TRUE` from the Shared Power switch-in loop, after recording any popup metadata needed by the script. Longer term, avoid mutating `gBattleMons[battler].ability` for pooled popup display and pass the displayed ability through explicit Shared Power state instead.
+Fix status: the successful effect path now restores the original ability before returning while preserving the queued popup metadata for the battle script. Longer term, avoid mutating `gBattleMons[battler].ability` for pooled popup display and pass the displayed ability through explicit Shared Power state instead.
 
-### Pokemon summary manager probing can dereference a freed manager
+### Pokemon summary manager probing could dereference a freed manager (fixed)
 
-`DestroyMonSpritesGfxManager` frees the selected manager but does not clear `sMonSpritesGfxManagers[managerId]` (`src/pokemon.c:6564`). That missing null assignment is preexisting, but post-fork summary-screen changes made it dangerous by using `MonSpritesGfxManager_GetSpritePtr` as an out-of-battle existence probe (`src/pokemon_summary_screen.c:1266`).
+`DestroyMonSpritesGfxManager` freed the selected manager but did not clear `sMonSpritesGfxManagers[managerId]` (`src/pokemon.c:6564`). That missing null assignment was preexisting, but post-fork summary-screen changes made it dangerous by using `MonSpritesGfxManager_GetSpritePtr` as an out-of-battle existence probe (`src/pokemon_summary_screen.c:1266`).
 
-The close path destroys the manager when the summary screen created it (`src/pokemon_summary_screen.c:1686`). On the next summary open, `MonSpritesGfxManager_GetSpritePtr` loads the still-non-null stale pointer and checks `gfx->active` (`src/pokemon.c:6591`). If the freed block has been reused or partially overwritten, this is a use-after-free read and may return stale sprite pointers.
+The close path destroys the manager when the summary screen created it (`src/pokemon_summary_screen.c:1686`). Before the fix, on the next summary open, `MonSpritesGfxManager_GetSpritePtr` loaded the still-non-null stale pointer and checked `gfx->active` (`src/pokemon.c:6591`). If the freed block had been reused or partially overwritten, this was a use-after-free read and could return stale sprite pointers.
 
 Why this matters:
 
@@ -35,39 +35,51 @@ Why this matters:
 - It matches the class of earlier graphical failures: stale heap-backed sprite manager data can corrupt summary rendering.
 - It can plausibly appear after catching Pokemon if the post-capture flow opens summary, party, Pokedex, evolution, or other graphics-heavy screens after a manager was destroyed.
 
-Recommended fix: make `DestroyMonSpritesGfxManager` set `sMonSpritesGfxManagers[managerId] = NULL` on every destroy path after freeing or invalidating the manager. Then replace the summary screen's sprite-pointer probe with an explicit manager-liveness check, or create the manager unconditionally when the owner knows it needs one.
+Fix status: `DestroyMonSpritesGfxManager` now sets `sMonSpritesGfxManagers[managerId] = NULL` on every destroy path after freeing or invalidating the manager. A broader summary-screen ownership cleanup can still replace the sprite-pointer probe with an explicit manager-liveness check, or create the manager unconditionally when the owner knows it needs one.
 
 ## High-Risk Findings
 
-### Shared Power move-end and end-turn case IDs are stored in `u8`
+### Shared Power move-end and end-turn case IDs were stored in `u8` (fixed)
 
-`struct BattleStruct` stores `sharedPowerMoveEndCaseId` and `sharedPowerEndTurnCaseId` as `u8` arrays (`include/battle.h:802`). The helper functions accept `u32 caseId` and compare that full value against the `u8` storage (`src/battle_util.c:3335`, `src/battle_end_turn.c:143`).
+`struct BattleStruct` stored `sharedPowerMoveEndCaseId` and `sharedPowerEndTurnCaseId` as `u8` arrays (`include/battle.h:802`). The helper functions accepted `u32 caseId` and compared that full value against the `u8` storage (`src/battle_util.c:3335`, `src/battle_end_turn.c:143`).
 
-The end-turn callers build case IDs with high-byte phase data, such as `(ENDTURN_WEATHER_DAMAGE << 8) | weather`, `(ENDTURN_FIRST_EVENT_BLOCK << 8) | FIRST_EVENT_BLOCK_ABILITIES`, and `ENDTURN_ABILITIES << 8` (`src/battle_end_turn.c:357`, `src/battle_end_turn.c:719`, `src/battle_end_turn.c:1706`). Storing those values in `u8` truncates the phase byte.
+The end-turn callers build case IDs with high-byte phase data, such as `(ENDTURN_WEATHER_DAMAGE << 8) | weather`, `(ENDTURN_FIRST_EVENT_BLOCK << 8) | FIRST_EVENT_BLOCK_ABILITIES`, and `ENDTURN_ABILITIES << 8` (`src/battle_end_turn.c:357`, `src/battle_end_turn.c:719`, `src/battle_end_turn.c:1706`). Storing those values in `u8` truncated the phase byte.
 
-This is unlikely to overflow an array because the iterator still bounds-checks against `sharedPowerPoolCount`, but it can make distinct phases collide. Since the same field controls whether the iterator index resets, a collision can skip, repeat, or resume the wrong pooled ability list.
+This was unlikely to overflow an array because the iterator still bounds-checks against `sharedPowerPoolCount`, but it could make distinct phases collide. Since the same field controls whether the iterator index resets, a collision could skip, repeat, or resume the wrong pooled ability list.
 
-Recommended fix: change both case ID fields to `u16` or `u32`, then add regression tests where multiple Shared Power end-turn phases happen for the same battler in one turn.
+Fix status: both case ID arrays are now `u16`, and Shared Power has regression coverage where one battler processes Rain Dish and Speed Boost in separate end-turn phases during the same rainy turn.
 
-### `SharedPower_ClearBattleState` clears override metadata without restoring
+### `SharedPower_ClearBattleState` cleared override metadata without restoring (fixed)
 
-`SharedPower_ClearBattleState` zeroes Shared Power popup and override fields (`src/battle_shared_power.c:222`) but does not first call `SharedPower_RestoreOriginalAbility` for active overrides. The current battle-start use is probably benign because battle mons are being initialized, but the function is unsafe as a general cleanup primitive: if it ever runs while an override is active, it discards the saved original ability and leaves the overwritten `gBattleMons[battler].ability` in place.
+`SharedPower_ClearBattleState` zeroed Shared Power popup and override fields (`src/battle_shared_power.c:222`) but did not first call `SharedPower_RestoreOriginalAbility` for active overrides. The battle-start use was probably benign because battle mons are being initialized, but the function was unsafe as a general cleanup primitive: if it ever ran while an override was active, it discarded the saved original ability and left the overwritten `gBattleMons[battler].ability` in place.
 
-Recommended fix: restore all active overrides before clearing the fields, or split battle-start initialization from mid-battle cleanup so the dangerous behavior cannot be reused accidentally.
+Fix status: `SharedPower_ClearBattleState` now restores all active popup ability overrides before zeroing Shared Power fields.
 
-### Shared Power bitset helpers rely on external ability bounds
+### Shared Power bitset helpers relied on external ability bounds (fixed)
 
-The bitset helpers index Shared Power arrays with `ability >> 3` without internal bounds checks (`src/battle_shared_power.c:16`, `src/battle_shared_power.c:32`, `src/battle_shared_power.c:48`). Normal pool insertion validates `ability < ABILITIES_COUNT` (`src/battle_shared_power.c:186`), so this is mostly protected in the intended path.
+The bitset helpers indexed Shared Power arrays with `ability >> 3` without internal bounds checks (`src/battle_shared_power.c:16`, `src/battle_shared_power.c:32`, `src/battle_shared_power.c:48`). Normal pool insertion validated `ability < ABILITIES_COUNT` (`src/battle_shared_power.c:186`), so this was mostly protected in the intended path.
 
-The risk is defensive: if another bug corrupts an ability value or calls these helpers directly with an invalid ability, the byte index can escape arrays sized to `SHARED_POWER_POOL_BYTES`. `IsAbilitySuppressedFor` also indexes `gAbilitiesInfo[ability]` without validating the ability (`src/battle_shared_power.c:265`).
+The risk was defensive: if another bug corrupted an ability value or called these helpers directly with an invalid ability, the byte index could escape arrays sized to `SHARED_POWER_POOL_BYTES`. `IsAbilitySuppressedFor` also indexed `gAbilitiesInfo[ability]` without validating the ability (`src/battle_shared_power.c:265`).
 
-Recommended fix: add cheap guards or debug assertions in the bitset helpers and `IsAbilitySuppressedFor`. The helpers are small enough that central validation is less fragile than relying on every caller forever.
+Fix status: the bitset helpers and `IsAbilitySuppressedFor` now reject `ABILITY_NONE` and `ability >= ABILITIES_COUNT` before indexing Shared Power bitsets or `gAbilitiesInfo`.
 
 ### Wild held-item broker adds static EWRAM pressure
 
 `src/wild_held_item_broker.c` adds `sWildHeldItemBrokerShopItems[ITEMS_COUNT + 1]`, which is currently about 1.6 KiB of EWRAM (`src/wild_held_item_broker.c:13`). This is not the battle heap and does not look like a direct capture overflow, but it is a post-fork memory-footprint increase worth tracking because the original failure mode involved memory headroom.
 
 Recommended fix: keep this on the watch list if EWRAM headroom becomes tight, but do not treat it as a primary capture corruption suspect without more evidence.
+
+Current memory-budget check from `pokeemerald.elf` after the hardening pass:
+
+```text
+EWRAM link usage: 229608 B / 262144 B (87.59%), 32536 B free
+020000a8 00000004 B gBattleStruct
+02014cf0 0001c300 B gHeap
+020378e8 0000067c b sWildHeldItemBrokerShopItems
+020378e6 00000001 b sWildHeldItemBrokerShopItemsBuilt
+```
+
+`gBattleStruct` is the EWRAM pointer symbol; the battle struct itself remains heap-backed.
 
 ## Unlikely Culprits
 
@@ -95,8 +107,16 @@ The broker's large static array is a memory-footprint concern, but the append pa
 
 ## Suggested Fix Order
 
-1. Fix the Shared Power switch-in override leak and add a focused test that a pooled switch-in activation restores the battler's native ability after the script yields.
-2. Fix `DestroyMonSpritesGfxManager` to null the global manager pointer, then add a summary-open/close/reopen regression check if the test harness can cover it.
-3. Widen Shared Power case ID fields and add end-turn phase collision coverage.
-4. Add defensive bounds guards/assertions to the Shared Power bitset and suppression helpers.
-5. Re-check EWRAM and heap headroom after those fixes, treating the wild held-item broker as a secondary memory-footprint item rather than a likely capture bug.
+1. Fixed: restore the Shared Power switch-in override before yielding from a pooled switch-in activation, with focused coverage that the battler's native ability survives the script yield.
+2. Fixed: null the global MonSpritesGfxManager pointer on destroy, with focused lifecycle coverage that destroyed managers cannot be reused.
+3. Fixed: widen Shared Power case ID fields to `u16` and add end-turn multi-phase iterator coverage.
+4. Fixed: add defensive bounds guards to the Shared Power bitset and suppression helpers.
+5. Recorded: re-check EWRAM and heap headroom after those fixes, treating the wild held-item broker as a secondary memory-footprint item rather than a likely capture bug.
+
+## Completed Hardening Follow-up
+
+- `sharedPowerMoveEndCaseId` and `sharedPowerEndTurnCaseId` are now `u16` so composed end-turn phase IDs are not truncated.
+- A regression now covers one battler processing multiple Shared Power end-turn phases in the same turn, proving iterator state resets independently per phase.
+- `SharedPower_ClearBattleState` now restores active popup ability overrides before zeroing Shared Power fields.
+- Shared Power bitset helpers and `IsAbilitySuppressedFor` now guard `ability == ABILITY_NONE || ability >= ABILITIES_COUNT`.
+- Memory-budget diagnostics were recorded using `arm-none-eabi-nm -S --size-sort pokeemerald.elf` for `gHeap`, `gBattleStruct`, and `sWildHeldItemBrokerShopItems`.
