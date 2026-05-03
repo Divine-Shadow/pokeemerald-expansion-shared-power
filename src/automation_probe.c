@@ -356,7 +356,7 @@ static void AutomationProbe_ConsumeCommand(void)
     case AUTOMATION_PROBE_COMMAND_PROMOTE_POOCHYENA_TO_MIGHTYENA:
         AutomationProbe_CommandPromotePoochyenaToMightyena();
         break;
-    case AUTOMATION_PROBE_COMMAND_SHOW_BARRY_SPRITE_PREVIEW:
+    case AUTOMATION_PROBE_COMMAND_SHOW_JOURNEY_NPC_SPRITE_PREVIEW:
         CB2_InitJourneyNpcSpritePreview(gAutomationProbe.commandArg0);
         AutomationProbe_SetCommandResult(AUTOMATION_PROBE_COMMAND_RESULT_OK, 0, 0);
         break;

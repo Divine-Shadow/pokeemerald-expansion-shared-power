@@ -18,6 +18,7 @@
 #include "constants/cable_club.h"
 #include "constants/coins.h"
 #include "constants/contest.h"
+#include "constants/condition_coach.h"
 #include "constants/daycare.h"
 #include "constants/decorations.h"
 #include "constants/difficulty.h"
@@ -692,6 +693,7 @@ EventScript_SetBrineyLocation_Route109::
 	return
 
 	.include "data/scripts/pkmn_center_nurse.inc"
+	.include "data/scripts/condition_coach.inc"
 	.include "data/scripts/obtain_item.inc"
 	.include "data/scripts/record_mix.inc"
 	.include "data/scripts/pc.inc"

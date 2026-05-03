@@ -26,6 +26,7 @@
 #include "wild_encounter.h"
 #include "constants/abilities.h"
 #include "constants/items.h"
+#include "constants/condition_coach.h"
 #include "constants/battle_frontier.h"
 
 static void CB2_ReturnFromChooseHalfParty(void);
@@ -597,6 +598,131 @@ void Script_GetChosenMonDefensiveIVs(void)
     ConvertIntToDecimalStringN(gStringVar1, GetMonData(&gPlayerParty[gSpecialVar_0x8004], MON_DATA_HP_IV), STR_CONV_MODE_LEFT_ALIGN, 3);
     ConvertIntToDecimalStringN(gStringVar2, GetMonData(&gPlayerParty[gSpecialVar_0x8004], MON_DATA_DEF_IV), STR_CONV_MODE_LEFT_ALIGN, 3);
     ConvertIntToDecimalStringN(gStringVar3, GetMonData(&gPlayerParty[gSpecialVar_0x8004], MON_DATA_SPDEF_IV), STR_CONV_MODE_LEFT_ALIGN, 3);
+}
+
+static bool32 ConditionCoach_ItemCuresChoice(u16 item, u16 choice)
+{
+    if (item == ITEM_LUM_BERRY)
+        return TRUE;
+
+    switch (choice)
+    {
+    case CONDITION_COACH_CHOICE_BURN:
+        return item == ITEM_RAWST_BERRY;
+    case CONDITION_COACH_CHOICE_POISON:
+        return item == ITEM_PECHA_BERRY;
+    case CONDITION_COACH_CHOICE_PARALYSIS:
+        return item == ITEM_CHERI_BERRY;
+    case CONDITION_COACH_CHOICE_REST_WAKE:
+        return item == ITEM_CHESTO_BERRY;
+    }
+
+    return FALSE;
+}
+
+static u32 ConditionCoach_GetStatusForChoice(u16 choice)
+{
+    switch (choice)
+    {
+    case CONDITION_COACH_CHOICE_BURN:
+        return STATUS1_BURN;
+    case CONDITION_COACH_CHOICE_POISON:
+        return STATUS1_POISON;
+    case CONDITION_COACH_CHOICE_PARALYSIS:
+        return STATUS1_PARALYSIS;
+    case CONDITION_COACH_CHOICE_REST_WAKE:
+        return STATUS1_SLEEP_TURN(1);
+    case CONDITION_COACH_CHOICE_CLEAR:
+        return STATUS1_NONE;
+    }
+
+    return STATUS1_NONE;
+}
+
+static u16 ConditionCoach_GetHint(struct Pokemon *mon, u16 choice)
+{
+    u16 item = GetMonData(mon, MON_DATA_HELD_ITEM);
+    u16 ability = GetMonAbility(mon);
+
+    if (choice == CONDITION_COACH_CHOICE_CLEAR)
+        return CONDITION_COACH_HINT_CLEAR;
+    if (ConditionCoach_ItemCuresChoice(item, choice))
+        return CONDITION_COACH_HINT_CURING_ITEM;
+
+    switch (choice)
+    {
+    case CONDITION_COACH_CHOICE_BURN:
+        if (ability == ABILITY_FLARE_BOOST)
+            return CONDITION_COACH_HINT_FLARE_BOOST;
+        if (ability == ABILITY_GUTS)
+            return CONDITION_COACH_HINT_GUTS;
+        break;
+    case CONDITION_COACH_CHOICE_POISON:
+        if (ability == ABILITY_POISON_HEAL)
+            return CONDITION_COACH_HINT_POISON_HEAL;
+        if (ability == ABILITY_TOXIC_BOOST)
+            return CONDITION_COACH_HINT_TOXIC_BOOST;
+        if (ability == ABILITY_GUTS)
+            return CONDITION_COACH_HINT_GUTS;
+        break;
+    case CONDITION_COACH_CHOICE_PARALYSIS:
+        if (ability == ABILITY_QUICK_FEET)
+            return CONDITION_COACH_HINT_QUICK_FEET;
+        if (ability == ABILITY_GUTS)
+            return CONDITION_COACH_HINT_GUTS;
+        break;
+    case CONDITION_COACH_CHOICE_REST_WAKE:
+        return CONDITION_COACH_HINT_REST_WAKE;
+    }
+
+    if (ability == ABILITY_MARVEL_SCALE)
+        return CONDITION_COACH_HINT_MARVEL_SCALE;
+    if (ability == ABILITY_MAGIC_GUARD)
+        return CONDITION_COACH_HINT_MAGIC_GUARD;
+
+    return CONDITION_COACH_HINT_NONE;
+}
+
+u16 ConditionCoach_TryApplyStatus(void)
+{
+    u16 choice = gSpecialVar_0x8005;
+    u16 slot = gSpecialVar_0x8004;
+    struct Pokemon *mon;
+    u16 species;
+    u32 status;
+
+    gSpecialVar_0x8006 = CONDITION_COACH_HINT_NONE;
+
+    if (slot >= PARTY_SIZE)
+        return CONDITION_COACH_RESULT_CANCELLED;
+    if (choice > CONDITION_COACH_CHOICE_CLEAR)
+        return CONDITION_COACH_RESULT_INVALID_CHOICE;
+
+    mon = &gPlayerParty[slot];
+    species = GetMonData(mon, MON_DATA_SPECIES);
+    if (species == SPECIES_NONE)
+        return CONDITION_COACH_RESULT_CANCELLED;
+    if (species == SPECIES_EGG || GetMonData(mon, MON_DATA_IS_EGG))
+        return CONDITION_COACH_RESULT_EGG;
+    if (GetMonData(mon, MON_DATA_HP) == 0)
+        return CONDITION_COACH_RESULT_FAINTED;
+
+    status = GetMonData(mon, MON_DATA_STATUS);
+    if (choice == CONDITION_COACH_CHOICE_CLEAR)
+    {
+        if ((status & STATUS1_ANY) == STATUS1_NONE)
+            return CONDITION_COACH_RESULT_ALREADY_CLEAR;
+    }
+    else if (status & STATUS1_ANY)
+    {
+        return CONDITION_COACH_RESULT_ALREADY_STATUS;
+    }
+
+    status = ConditionCoach_GetStatusForChoice(choice);
+    Script_RequestEffects(SCREFF_V1 | SCREFF_SAVE);
+    SetMonData(mon, MON_DATA_STATUS, &status);
+    gSpecialVar_0x8006 = ConditionCoach_GetHint(mon, choice);
+    return CONDITION_COACH_RESULT_APPLIED;
 }
 
 void Script_SetStatus1(struct ScriptContext *ctx)

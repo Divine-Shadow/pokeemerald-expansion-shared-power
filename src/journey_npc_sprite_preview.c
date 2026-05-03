@@ -27,6 +27,14 @@ static void CreateBarryOverworldSprite(s16 x, s16 y, u8 animNum)
         StartSpriteAnim(&gSprites[spriteId], animNum);
 }
 
+static void CreateConditionCoachOverworldSprite(s16 x, s16 y, u8 animNum)
+{
+    u8 spriteId = CreateObjectGraphicsSprite(OBJ_EVENT_GFX_CONDITION_COACH, SpriteCallbackDummy, x, y, 0);
+
+    if (spriteId != MAX_SPRITES)
+        StartSpriteAnim(&gSprites[spriteId], animNum);
+}
+
 void CB2_InitJourneyNpcSpritePreview(u32 mode)
 {
     u16 backdrop = RGB(18, 22, 17);
@@ -52,6 +60,14 @@ void CB2_InitJourneyNpcSpritePreview(u32 mode)
         CreateBarryOverworldSprite(showAll ? 192 : 120, 76, ANIM_STD_FACE_WEST);
     if (showAll || mode == JOURNEY_NPC_SPRITE_PREVIEW_BARRY_OW_EAST)
         CreateBarryOverworldSprite(showAll ? 216 : 120, 76, ANIM_STD_FACE_EAST);
+    if (showAll || mode == JOURNEY_NPC_SPRITE_PREVIEW_CONDITION_COACH_OW_SOUTH)
+        CreateConditionCoachOverworldSprite(showAll ? 144 : 120, showAll ? 116 : 76, ANIM_STD_FACE_SOUTH);
+    if (showAll || mode == JOURNEY_NPC_SPRITE_PREVIEW_CONDITION_COACH_OW_NORTH)
+        CreateConditionCoachOverworldSprite(showAll ? 168 : 120, showAll ? 116 : 76, ANIM_STD_FACE_NORTH);
+    if (showAll || mode == JOURNEY_NPC_SPRITE_PREVIEW_CONDITION_COACH_OW_WEST)
+        CreateConditionCoachOverworldSprite(showAll ? 192 : 120, showAll ? 116 : 76, ANIM_STD_FACE_WEST);
+    if (showAll || mode == JOURNEY_NPC_SPRITE_PREVIEW_CONDITION_COACH_OW_EAST)
+        CreateConditionCoachOverworldSprite(showAll ? 216 : 120, showAll ? 116 : 76, ANIM_STD_FACE_EAST);
 
     SetGpuReg(REG_OFFSET_DISPCNT, DISPCNT_OBJ_ON | DISPCNT_OBJ_1D_MAP);
     SetVBlankCallback(VBlankCB_JourneyNpcSpritePreview);

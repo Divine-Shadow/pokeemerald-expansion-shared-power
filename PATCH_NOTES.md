@@ -1,3 +1,4 @@
+- Gameplay/NPCs: Add recurring Pokemon Center Condition Coaches with a custom sprite, tailored dialogue, and pre-status service tests (commit pending).
 - Battle/Engineering: Harden Shared Power iterator state and memory cleanup diagnostics (commit pending).
 - Battle/UI: Fix Shared Power switch-in ability cleanup and Pokemon summary sprite manager lifetime hazards (commit pending).
 - Engineering: Add a post-fork Shared Power memory audit covering capture-adjacent corruption risks (commit 966f9ea86e).
