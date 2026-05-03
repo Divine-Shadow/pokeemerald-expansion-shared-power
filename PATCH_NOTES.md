@@ -1,3 +1,4 @@
+- Engineering: Add a post-fork Shared Power memory audit covering capture-adjacent corruption risks (commit 24db6df546).
 - Battle/Tests: Isolate Shared Power from vanilla battle tests, refresh Strength-aware AI fixtures, and make Ice Body block hail damage at full HP (commit d4aab4c8f4).
 - Shared Power/Tests: Add pooled Guts coverage for burn Attack handling (commit d4aab4c8f4).
 - Shared Power/Tests: Add pooled Quick Feet coverage for paralysis Speed handling (commit acd16d9896).

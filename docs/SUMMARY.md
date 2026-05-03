@@ -86,6 +86,8 @@
     - [How to make an Expansion version](team_procedures/expansion_versions.md)
     - [Release Schedule and Process](team_procedures/schedule.md)
     - [Scope Guidelines](team_procedures/scope.md)
+- [Engineering]()
+    - [Shared Power Memory Audit](engineering/shared_power_memory_audit.md)
  - [Design]()
    - [Agents Guide](design/AGENTS.md)
    - [Automation Reproduction Pipeline](design/automation_repro_pipeline.md)
