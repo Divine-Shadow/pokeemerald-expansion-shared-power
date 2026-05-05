@@ -146,6 +146,24 @@ DOUBLE_BATTLE_TEST("Shared Power: Inner Focus + Contrary vs Intimidate (document
     }
 }
 
+SINGLE_BATTLE_TEST("Shared Power: Wonder Guard popup is used after an Intimidate switch-in")
+{
+    GIVEN {
+        BATTLE_TYPE(BATTLE_TYPE_SHARED_POWER);
+        ASSUME(GetMovePower(MOVE_TACKLE) > 0);
+        PLAYER(SPECIES_SHEDINJA) { Ability(ABILITY_WONDER_GUARD); }
+        PLAYER(SPECIES_MIGHTYENA) { Ability(ABILITY_INTIMIDATE); }
+        OPPONENT(SPECIES_WOBBUFFET) { Moves(MOVE_TACKLE); }
+    } WHEN {
+        TURN { SWITCH(player, 1); MOVE(opponent, MOVE_TACKLE); }
+    } SCENE {
+        ABILITY_POPUP(player, ABILITY_INTIMIDATE);
+        MESSAGE("Mightyena's Intimidate cuts the opposing Wobbuffet's Attack!");
+        MESSAGE("The opposing Wobbuffet used Tackle!");
+        ABILITY_POPUP(player, ABILITY_WONDER_GUARD);
+    }
+}
+
 //test that a passive ability is shared
 SINGLE_BATTLE_TEST("Shared Power: Adapatability is fully shared with a switched in pokemon", s16 damage){
 	u32 ability;

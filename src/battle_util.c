@@ -10052,6 +10052,8 @@ static inline uq4_12_t CalcTypeEffectivenessMultiplierInternal(struct DamageCont
         {
             gBattleStruct->moveResultFlags[ctx->battlerDef] |= (MOVE_RESULT_MISSED | MOVE_RESULT_DOESNT_AFFECT_FOE);
             gLastUsedAbility = ABILITY_LEVITATE;
+            gBattlerAbility = ctx->battlerDef;
+            gBattleScripting.battler = ctx->battlerDef;
             gLastLandedMoves[ctx->battlerDef] = 0;
             gBattleStruct->missStringId[ctx->battlerDef] = B_MSG_GROUND_MISS;
             RecordAbilityBattle(ctx->battlerDef, ABILITY_LEVITATE);
@@ -10081,18 +10083,26 @@ static inline uq4_12_t CalcTypeEffectivenessMultiplierInternal(struct DamageCont
         modifier = UQ_4_12(1.0);
     }
 
-    if (((HasActiveAbility(ctx->battlerDef, ABILITY_WONDER_GUARD) && modifier <= UQ_4_12(1.0))
-        || (HasActiveAbility(ctx->battlerDef, ABILITY_TELEPATHY) && ctx->battlerDef == BATTLE_PARTNER(ctx->battlerAtk)))
-        && GetMovePower(ctx->move) != 0)
     {
-        modifier = UQ_4_12(0.0);
-        if (ctx->updateFlags)
+        bool32 blockedByWonderGuard = HasActiveAbility(ctx->battlerDef, ABILITY_WONDER_GUARD) && modifier <= UQ_4_12(1.0);
+        bool32 blockedByTelepathy = HasActiveAbility(ctx->battlerDef, ABILITY_TELEPATHY) && ctx->battlerDef == BATTLE_PARTNER(ctx->battlerAtk);
+
+        if ((blockedByWonderGuard || blockedByTelepathy)
+        && GetMovePower(ctx->move) != 0)
         {
-            gLastUsedAbility = HasActiveAbility(ctx->battlerDef, ABILITY_WONDER_GUARD) ? ABILITY_WONDER_GUARD : ABILITY_TELEPATHY;
-            gBattleStruct->moveResultFlags[ctx->battlerDef] |= MOVE_RESULT_MISSED;
-            gLastLandedMoves[ctx->battlerDef] = 0;
-            gBattleStruct->missStringId[ctx->battlerDef] = B_MSG_AVOIDED_DMG;
-            RecordAbilityBattle(ctx->battlerDef, HasActiveAbility(ctx->battlerDef, ABILITY_WONDER_GUARD) ? ABILITY_WONDER_GUARD : ABILITY_TELEPATHY);
+            u16 blockingAbility = blockedByWonderGuard ? ABILITY_WONDER_GUARD : ABILITY_TELEPATHY;
+
+            modifier = UQ_4_12(0.0);
+            if (ctx->updateFlags)
+            {
+                gLastUsedAbility = blockingAbility;
+                gBattlerAbility = ctx->battlerDef;
+                gBattleScripting.battler = ctx->battlerDef;
+                gBattleStruct->moveResultFlags[ctx->battlerDef] |= MOVE_RESULT_MISSED;
+                gLastLandedMoves[ctx->battlerDef] = 0;
+                gBattleStruct->missStringId[ctx->battlerDef] = B_MSG_AVOIDED_DMG;
+                RecordAbilityBattle(ctx->battlerDef, blockingAbility);
+            }
         }
     }
 
