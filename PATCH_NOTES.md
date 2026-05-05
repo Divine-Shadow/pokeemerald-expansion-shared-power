@@ -1,5 +1,5 @@
-- Tests/Battle: Cover Shared Power Wonder Guard popup attribution after a stale Intimidate popup (commit af1657077b).
-- Battle: Attribute Shared Power ability-immunity popups to the blocking ability instead of stale switch-in abilities (commit af1657077b).
+- Tests/Battle: Cover Shared Power Wonder Guard popup attribution after a stale Intimidate popup (commit 2c9461a711).
+- Battle: Attribute Shared Power ability-immunity popups to the blocking ability instead of stale switch-in abilities (commit 2c9461a711).
 - Docs/Automation: Replace timing-based Mudkip GUI evidence notes with beacon-driven WSLg mGBA validation (commit 80d961689c).
 - Docs/Automation: Close the Mudkip summary root-cause ExecPlan with clean passing beacon GUI evidence (commit 80d961689c).
 - Docs/Automation: Record the passing Mudkip summary evidence after the Shared Power battle-state buffer reduction (commit 80d961689c).
