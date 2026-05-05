@@ -11698,16 +11698,16 @@ bool32 DoesDestinyBondFail(u32 battler)
 }
 
 // This check has always to be the last in a condtion statement because of the recording of AI data.
-bool32 IsMoveEffectBlockedByTarget(u32 ability)
+bool32 IsMoveEffectBlockedByTarget(u32 battler, u32 ability)
 {
-    if (ability == ABILITY_SHIELD_DUST)
+    if (ability == ABILITY_SHIELD_DUST || HasActiveAbility(battler, ABILITY_SHIELD_DUST))
     {
-        RecordAbilityBattle(gBattlerTarget, ability);
+        RecordAbilityBattle(battler, ABILITY_SHIELD_DUST);
         return TRUE;
     }
-    else if (GetBattlerHoldEffect(gBattlerTarget, TRUE) == HOLD_EFFECT_COVERT_CLOAK)
+    else if (GetBattlerHoldEffect(battler, TRUE) == HOLD_EFFECT_COVERT_CLOAK)
     {
-        RecordItemEffectBattle(gBattlerTarget, HOLD_EFFECT_COVERT_CLOAK);
+        RecordItemEffectBattle(battler, HOLD_EFFECT_COVERT_CLOAK);
         return TRUE;
     }
 

@@ -1,3 +1,6 @@
+- Docs/Gameplay: Note that pooled Shield Dust blocks secondary effects under Shared Power (commit pending).
+- Battle/Shared Power: Let pooled Shield Dust block secondary effects for the active Pokemon (commit pending).
+- Tests/Battle: Cover pooled Shield Dust blocking secondary effects under Shared Power (commit pending).
 - Gameplay/Trainers: Give and document Wurmple trainers' Eviolite Shield Dust sets with explicit moves (commit 790a713cf4).
 - Docs/Gameplay: Document the no-combat-aid-items battle rule in spoiler-free gameplay notes (commit bfd98deed7).
 - Tests/Battle: Cover the no-combat-aid-items flag for X items, medicine, and Poke Ball exemptions (commit bfd98deed7).

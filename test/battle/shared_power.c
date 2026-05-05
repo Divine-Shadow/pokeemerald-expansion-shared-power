@@ -134,6 +134,29 @@ SINGLE_BATTLE_TEST("Shared Power: Inner Focus prevents pooled Intimidate")
     }
 }
 
+SINGLE_BATTLE_TEST("Shared Power: Shield Dust blocks secondary effects when pooled")
+{
+    GIVEN {
+        BATTLE_TYPE(BATTLE_TYPE_SHARED_POWER);
+        ASSUME(MoveHasAdditionalEffectWithChance(MOVE_ROCK_TOMB, MOVE_EFFECT_SPD_MINUS_1, 100) == TRUE);
+        PLAYER(SPECIES_VIVILLON) { Ability(ABILITY_SHIELD_DUST); Speed(20); }
+        PLAYER(SPECIES_WOBBUFFET) { Ability(ABILITY_RUN_AWAY); Speed(10); }
+        OPPONENT(SPECIES_NOSEPASS) { Moves(MOVE_ROCK_TOMB); Speed(5); }
+    } WHEN {
+        TURN { SWITCH(player, 1); MOVE(opponent, MOVE_ROCK_TOMB); }
+    } SCENE {
+        MESSAGE("The opposing Nosepass used Rock Tomb!");
+        ANIMATION(ANIM_TYPE_MOVE, MOVE_ROCK_TOMB, opponent);
+        HP_BAR(player);
+        NONE_OF {
+            ANIMATION(ANIM_TYPE_GENERAL, B_ANIM_STATS_CHANGE, player);
+            MESSAGE("Wobbuffet's Speed fell!");
+        }
+    } THEN {
+        EXPECT_EQ(player->statStages[STAT_SPEED], DEFAULT_STAT_STAGE);
+    }
+}
+
 SINGLE_BATTLE_TEST("Shared Power: Quick Feet ignores paralysis Speed drop when pooled")
 {
     GIVEN {
