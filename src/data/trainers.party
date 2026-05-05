@@ -5946,9 +5946,13 @@ Music: Suspicious
 Double Battle: No
 AI: Check Bad Move
 
-Wurmple
+Wurmple @ Eviolite
+Ability: Shield Dust
 Level: 24
-IVs: 12 HP / 12 Atk / 12 Def / 12 SpA / 12 SpD / 12 Spe
+- Bug Bite
+- Tackle
+- Poison Sting
+- Electroweb
 
 Silcoon
 Level: 24
@@ -5972,9 +5976,13 @@ Music: Suspicious
 Double Battle: No
 AI: Check Bad Move
 
-Wurmple
+Wurmple @ Eviolite
+Ability: Shield Dust
 Level: 27
-IVs: 12 HP / 12 Atk / 12 Def / 12 SpA / 12 SpD / 12 Spe
+- Bug Bite
+- Tackle
+- Poison Sting
+- Electroweb
 
 Cascoon
 Level: 27
@@ -6153,9 +6161,13 @@ IVs: 0 Atk
 - Icy Wind
 - Giga Drain
 
-Wurmple
+Wurmple @ Eviolite
+Ability: Shield Dust
 Level: 36
-IVs: 3 HP / 3 Atk / 3 Def / 3 SpA / 3 SpD / 3 Spe
+- Bug Bite
+- Tackle
+- Poison Sting
+- Electroweb
 
 Surskit @ Focus Sash
 Level: 36
@@ -16813,13 +16825,21 @@ Music: Male
 Double Battle: No
 AI: Check Bad Move
 
-Wurmple
+Wurmple @ Eviolite
+Ability: Shield Dust
 Level: 4
-IVs: 0 HP / 0 Atk / 0 Def / 0 SpA / 0 SpD / 0 Spe
+- Bug Bite
+- Tackle
+- Poison Sting
+- Electroweb
 
-Wurmple
+Wurmple @ Eviolite
+Ability: Shield Dust
 Level: 4
-IVs: 0 HP / 0 Atk / 0 Def / 0 SpA / 0 SpD / 0 Spe
+- Bug Bite
+- Tackle
+- Poison Sting
+- Electroweb
 
 === TRAINER_LYLE ===
 Name: LYLE
@@ -16830,21 +16850,37 @@ Music: Male
 Double Battle: No
 AI: Check Bad Move
 
-Wurmple
+Wurmple @ Eviolite
+Ability: Shield Dust
 Level: 3
-IVs: 0 HP / 0 Atk / 0 Def / 0 SpA / 0 SpD / 0 Spe
+- Bug Bite
+- Tackle
+- Poison Sting
+- Electroweb
 
-Wurmple
+Wurmple @ Eviolite
+Ability: Shield Dust
 Level: 3
-IVs: 0 HP / 0 Atk / 0 Def / 0 SpA / 0 SpD / 0 Spe
+- Bug Bite
+- Tackle
+- Poison Sting
+- Electroweb
 
-Wurmple
+Wurmple @ Eviolite
+Ability: Shield Dust
 Level: 3
-IVs: 0 HP / 0 Atk / 0 Def / 0 SpA / 0 SpD / 0 Spe
+- Bug Bite
+- Tackle
+- Poison Sting
+- Electroweb
 
-Wurmple
+Wurmple @ Eviolite
+Ability: Shield Dust
 Level: 3
-IVs: 0 HP / 0 Atk / 0 Def / 0 SpA / 0 SpD / 0 Spe
+- Bug Bite
+- Tackle
+- Poison Sting
+- Electroweb
 
 === TRAINER_JOSE ===
 Name: JOSE
@@ -16855,9 +16891,13 @@ Music: Male
 Double Battle: No
 AI: Check Bad Move
 
-Wurmple
+Wurmple @ Eviolite
+Ability: Shield Dust
 Level: 8
-IVs: 6 HP / 6 Atk / 6 Def / 6 SpA / 6 SpD / 6 Spe
+- Bug Bite
+- Tackle
+- Poison Sting
+- Electroweb
 
 Nincada @ Eviolite
 Level: 8

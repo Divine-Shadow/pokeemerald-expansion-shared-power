@@ -1,3 +1,4 @@
+- Gameplay/Trainers: Give and document Wurmple trainers' Eviolite Shield Dust sets with explicit moves (commit 790a713cf4).
 - Docs/Gameplay: Document the no-combat-aid-items battle rule in spoiler-free gameplay notes (commit bfd98deed7).
 - Tests/Battle: Cover the no-combat-aid-items flag for X items, medicine, and Poke Ball exemptions (commit bfd98deed7).
 - Battle/Items: Add a runtime flag that blocks combat aid items while preserving normal Poké Ball use (commit bfd98deed7).

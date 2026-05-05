@@ -4,8 +4,8 @@ This file contains exact non-boss trainer team spoilers in Showdown format.
 
 These sets are mechanically applied to trainers outside the boss classes handled in separate logs. Trainer levels are preserved. Tera Type suggestions, Z-Crystals, and Mega Stones from Smogon are intentionally omitted for mob trainers so broad trainer cleanup does not turn every ordinary trainer into a gimmick battle.
 
-Updated Pokemon: 1414
-Updated trainers: 744
+Updated Pokemon: 1424
+Updated trainers: 746
 
 ## Sets
 
@@ -4424,6 +4424,14 @@ IVs: 0 Atk
 
 === TRAINER_DONALD ===
 
+Wurmple @ Eviolite
+Ability: Shield Dust
+Level: 24
+- Bug Bite
+- Tackle
+- Poison Sting
+- Electroweb
+
 Beautifly
 Level: 24
 EVs: 252 SpA / 4 SpD / 252 Spe
@@ -4435,6 +4443,14 @@ Nature: Timid
 
 
 === TRAINER_TAYLOR ===
+
+Wurmple @ Eviolite
+Ability: Shield Dust
+Level: 27
+- Bug Bite
+- Tackle
+- Poison Sting
+- Electroweb
 
 Dustox @ Black Sludge
 Level: 27
@@ -4578,6 +4594,14 @@ IVs: 0 Atk
 - Scald
 - Icy Wind
 - Giga Drain
+
+Wurmple @ Eviolite
+Ability: Shield Dust
+Level: 36
+- Bug Bite
+- Tackle
+- Poison Sting
+- Electroweb
 
 Surskit @ Focus Sash
 Level: 36
@@ -11891,7 +11915,69 @@ Nature: Timid
 - Hidden Power
 
 
+=== TRAINER_RICK ===
+
+Wurmple @ Eviolite
+Ability: Shield Dust
+Level: 4
+- Bug Bite
+- Tackle
+- Poison Sting
+- Electroweb
+
+Wurmple @ Eviolite
+Ability: Shield Dust
+Level: 4
+- Bug Bite
+- Tackle
+- Poison Sting
+- Electroweb
+
+
+=== TRAINER_LYLE ===
+
+Wurmple @ Eviolite
+Ability: Shield Dust
+Level: 3
+- Bug Bite
+- Tackle
+- Poison Sting
+- Electroweb
+
+Wurmple @ Eviolite
+Ability: Shield Dust
+Level: 3
+- Bug Bite
+- Tackle
+- Poison Sting
+- Electroweb
+
+Wurmple @ Eviolite
+Ability: Shield Dust
+Level: 3
+- Bug Bite
+- Tackle
+- Poison Sting
+- Electroweb
+
+Wurmple @ Eviolite
+Ability: Shield Dust
+Level: 3
+- Bug Bite
+- Tackle
+- Poison Sting
+- Electroweb
+
+
 === TRAINER_JOSE ===
+
+Wurmple @ Eviolite
+Ability: Shield Dust
+Level: 8
+- Bug Bite
+- Tackle
+- Poison Sting
+- Electroweb
 
 Nincada @ Eviolite
 Level: 8
