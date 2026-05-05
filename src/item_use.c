@@ -1234,6 +1234,15 @@ static bool32 SelectedMonHasVolatile(u16 itemId)
     return FALSE;
 }
 
+static bool32 BattleAidItemsDisabled(void)
+{
+#if B_FLAG_NO_BATTLE_AID_ITEMS != 0
+    return FlagGet(B_FLAG_NO_BATTLE_AID_ITEMS);
+#else
+    return FALSE;
+#endif
+}
+
 // Returns whether an item can be used in battle and sets the fail text.
 bool32 CannotUseItemsInBattle(u16 itemId, struct Pokemon *mon)
 {
@@ -1241,7 +1250,12 @@ bool32 CannotUseItemsInBattle(u16 itemId, struct Pokemon *mon)
     bool8 cannotUse = FALSE;
     const u8* failStr = NULL;
     u32 i;
-    u16 hp = GetMonData(mon, MON_DATA_HP);
+
+    if (BattleAidItemsDisabled() && battleUsage != 0 && battleUsage != EFFECT_ITEM_THROW_BALL)
+    {
+        StringExpandPlaceholders(gStringVar4, gText_WontHaveEffect);
+        return TRUE;
+    }
 
     // Embargo Check
     if ((gPartyMenu.slotId == 0 && gBattleMons[B_POSITION_PLAYER_LEFT].volatiles.embargo)
@@ -1301,24 +1315,33 @@ bool32 CannotUseItemsInBattle(u16 itemId, struct Pokemon *mon)
         }
         break;
     case EFFECT_ITEM_RESTORE_HP:
+    {
+        u16 hp = GetMonData(mon, MON_DATA_HP);
         if (hp == 0 || hp == GetMonData(mon, MON_DATA_MAX_HP))
             cannotUse = TRUE;
         break;
+    }
     case EFFECT_ITEM_CURE_STATUS:
         if (!((GetMonData(mon, MON_DATA_STATUS) & GetItemStatus1Mask(itemId))
             || SelectedMonHasVolatile(itemId)))
             cannotUse = TRUE;
         break;
     case EFFECT_ITEM_HEAL_AND_CURE_STATUS:
+    {
+        u16 hp = GetMonData(mon, MON_DATA_HP);
         if ((hp == 0 || hp == GetMonData(mon, MON_DATA_MAX_HP))
             && !((GetMonData(mon, MON_DATA_STATUS) & GetItemStatus1Mask(itemId))
             || SelectedMonHasVolatile(itemId)))
             cannotUse = TRUE;
         break;
+    }
     case EFFECT_ITEM_REVIVE:
+    {
+        u16 hp = GetMonData(mon, MON_DATA_HP);
         if (hp != 0)
             cannotUse = TRUE;
         break;
+    }
     case EFFECT_ITEM_RESTORE_PP:
         if (GetItemEffect(itemId)[4] == ITEM4_HEAL_PP)
         {

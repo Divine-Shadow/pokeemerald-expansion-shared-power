@@ -169,6 +169,14 @@ static const struct SpriteFrameImage sPicTable_Camper[] = {
     overworld_ascending_frames(gObjectEventPic_Camper, 2, 4),
 };
 
+static const struct SpriteFrameImage sPicTable_BerryBarry[] = {
+    overworld_ascending_frames(gObjectEventPic_BerryBarry, 2, 4),
+};
+
+static const struct SpriteFrameImage sPicTable_ConditionCoach[] = {
+    overworld_ascending_frames(gObjectEventPic_ConditionCoach, 2, 4),
+};
+
 static const struct SpriteFrameImage sPicTable_Picnicker[] = {
     overworld_ascending_frames(gObjectEventPic_Picnicker, 2, 4),
 };

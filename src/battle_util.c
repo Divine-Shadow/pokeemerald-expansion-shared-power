@@ -2419,6 +2419,11 @@ static enum MoveCanceller CancellerPowderStatus(void)
 static enum MoveCanceller CancellerProtean(void)
 {
     u32 moveType = GetBattleMoveType(gCurrentMove);
+
+    if (GetMoveEffect(gCurrentMove) == EFFECT_FAIL_IF_NOT_ARG_TYPE
+     && !IS_BATTLER_OF_TYPE(gBattlerAttacker, GetMoveArgType(gCurrentMove)))
+        return MOVE_STEP_SUCCESS;
+
     if (ProteanTryChangeType(gBattlerAttacker, GetBattlerAbility(gBattlerAttacker), gCurrentMove, moveType))
     {
         if (GetGenConfig(GEN_PROTEAN_LIBERO) >= GEN_9)
@@ -10039,7 +10044,11 @@ static inline uq4_12_t CalcTypeEffectivenessMultiplierInternal(struct DamageCont
     if (ctx->updateFlags && (illusionSpecies = GetIllusionMonSpecies(ctx->battlerDef)))
         TryNoticeIllusionInTypeEffectiveness(ctx->move, ctx->moveType, ctx->battlerAtk, ctx->battlerDef, modifier, illusionSpecies);
 
-    if (GetMoveCategory(ctx->move) == DAMAGE_CATEGORY_STATUS && ctx->move != MOVE_THUNDER_WAVE)
+    if (GetMoveCategory(ctx->move) == DAMAGE_CATEGORY_STATUS
+     && ctx->move != MOVE_THUNDER_WAVE
+     && !(gMain.inBattle
+       && gBattleMons[ctx->battlerAtk].volatiles.electrified
+       && ctx->moveType == TYPE_ELECTRIC))
     {
         modifier = UQ_4_12(1.0);
         if (B_GLARE_GHOST < GEN_4 && ctx->move == MOVE_GLARE && IS_BATTLER_OF_TYPE(ctx->battlerDef, TYPE_GHOST))

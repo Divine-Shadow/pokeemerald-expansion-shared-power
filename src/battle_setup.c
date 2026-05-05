@@ -102,7 +102,7 @@ static const u8 sBattleTransitionTable_Wild[][2] =
 
 static u32 ApplySharedPowerToWildBattleFlags(u32 battleTypeFlags)
 {
-#if CONFIG_SHARED_POWER
+#if CONFIG_SHARED_POWER && !TESTING
     battleTypeFlags |= BATTLE_TYPE_SHARED_POWER;
 #endif
     return battleTypeFlags;

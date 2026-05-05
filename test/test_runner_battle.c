@@ -253,6 +253,7 @@ static void BattleTest_Run(void *data)
     const rng_value_t defaultSeed = RNG_SEED_DEFAULT;
     const struct BattleTest *test = data;
 
+    ClearFlagAfterTest();
     memset(&DATA, 0, sizeof(DATA));
 
     DATA.recordedBattle.rngSeed = defaultSeed;
@@ -1518,8 +1519,8 @@ const struct TestRunner gBattleTestRunner =
 
 void SetFlagForTest(u32 sourceLine, u16 flagId)
 {
-    INVALID_IF(DATA.flagId != 0, "FLAG can only be set once per test");
-    DATA.flagId = flagId;
+    INVALID_IF(DATA.flagIdsCount >= MAX_TEST_FLAGS, "Too many FLAG_SET calls");
+    DATA.flagIds[DATA.flagIdsCount++] = flagId;
     FlagSet(flagId);
 }
 
@@ -1537,10 +1538,11 @@ void TestSetConfig(u32 sourceLine, enum GenConfigTag configTag, u32 value)
 
 void ClearFlagAfterTest(void)
 {
-    if (DATA.flagId != 0)
+    while (DATA.flagIdsCount != 0)
     {
-        FlagClear(DATA.flagId);
-        DATA.flagId = 0;
+        DATA.flagIdsCount--;
+        FlagClear(DATA.flagIds[DATA.flagIdsCount]);
+        DATA.flagIds[DATA.flagIdsCount] = 0;
     }
 }
 

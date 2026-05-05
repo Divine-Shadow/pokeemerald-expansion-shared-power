@@ -6583,6 +6583,7 @@ void DestroyMonSpritesGfxManager(u8 managerId)
         memset(gfx, 0, sizeof(*gfx));
         Free(gfx);
     }
+    sMonSpritesGfxManagers[managerId] = NULL;
 }
 
 u8 *MonSpritesGfxManager_GetSpritePtr(u8 managerId, u8 spriteNum)

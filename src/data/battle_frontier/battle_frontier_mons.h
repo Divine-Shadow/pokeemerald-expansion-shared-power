@@ -1667,9 +1667,9 @@ const struct TrainerMon gBattleFrontierMons[NUM_FRONTIER_MONS] =
         .nature = NATURE_SASSY
     },
     [FRONTIER_MON_NINJASK_1] = {
-        .species = SPECIES_NINJASK,
-        .moves = {MOVE_BATON_PASS, MOVE_SWORDS_DANCE, MOVE_ENDURE, MOVE_DIG},
-        .heldItem = ITEM_PETAYA_BERRY,
+        .species = SPECIES_BEEDRILL,
+        .moves = {MOVE_SWORDS_DANCE, MOVE_SLUDGE_BOMB, MOVE_TWINEEDLE, MOVE_AERIAL_ACE},
+        .heldItem = ITEM_SCOPE_LENS,
         .ev = TRAINER_PARTY_EVS(170, 0, 170, 0, 0, 170),
         .nature = NATURE_MILD
     },
@@ -2402,8 +2402,8 @@ const struct TrainerMon gBattleFrontierMons[NUM_FRONTIER_MONS] =
         .nature = NATURE_ADAMANT
     },
     [FRONTIER_MON_NINJASK_2] = {
-        .species = SPECIES_NINJASK,
-        .moves = {MOVE_SLASH, MOVE_SHADOW_BALL, MOVE_SWORDS_DANCE, MOVE_BATON_PASS},
+        .species = SPECIES_BEEDRILL,
+        .moves = {MOVE_SLUDGE_BOMB, MOVE_SHADOW_BALL, MOVE_SWORDS_DANCE, MOVE_BRICK_BREAK},
         .heldItem = ITEM_FOCUS_BAND,
         .ev = TRAINER_PARTY_EVS(170, 0, 170, 0, 0, 170),
         .nature = NATURE_QUIRKY

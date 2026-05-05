@@ -13,50 +13,91 @@
 STATIC_ASSERT(ABILITIES_COUNT <= (1 << SHARED_POWER_POOL_ABILITY_BITS), SharedPowerAbilityBitsTooSmall);
 STATIC_ASSERT(PARTY_SIZE <= (1 << (16 - SHARED_POWER_POOL_ABILITY_BITS)), SharedPowerPartyBitsTooSmall);
 
+static bool32 SharedPower_IsValidAbility(u16 ability)
+{
+    return ability != ABILITY_NONE && ability < ABILITIES_COUNT;
+}
+
 static bool32 SharedPower_IsAbilityInPool(u8 trainerIdx, u16 ability)
 {
-    u32 byteIdx = ability >> 3;
-    u32 bitMask = 1u << (ability & 7);
+    u32 byteIdx;
+    u32 bitMask;
+
+    if (!SharedPower_IsValidAbility(ability))
+        return FALSE;
+
+    byteIdx = ability >> 3;
+    bitMask = 1u << (ability & 7);
 
     return (gBattleStruct->sharedPowerPoolBits[trainerIdx][byteIdx] & bitMask) != 0;
 }
 
 static void SharedPower_SetAbilityInPool(u8 trainerIdx, u16 ability)
 {
-    u32 byteIdx = ability >> 3;
-    u32 bitMask = 1u << (ability & 7);
+    u32 byteIdx;
+    u32 bitMask;
+
+    if (!SharedPower_IsValidAbility(ability))
+        return;
+
+    byteIdx = ability >> 3;
+    bitMask = 1u << (ability & 7);
 
     gBattleStruct->sharedPowerPoolBits[trainerIdx][byteIdx] |= bitMask;
 }
 
 static bool32 SharedPower_IsSwitchInAbilityDone(u32 battler, u16 ability)
 {
-    u32 byteIdx = ability >> 3;
-    u32 bitMask = 1u << (ability & 7);
+    u32 byteIdx;
+    u32 bitMask;
+
+    if (!SharedPower_IsValidAbility(ability))
+        return FALSE;
+
+    byteIdx = ability >> 3;
+    bitMask = 1u << (ability & 7);
 
     return (gBattleStruct->sharedPowerSwitchInDone[battler][byteIdx] & bitMask) != 0;
 }
 
 static void SharedPower_SetSwitchInAbilityDone(u32 battler, u16 ability)
 {
-    u32 byteIdx = ability >> 3;
-    u32 bitMask = 1u << (ability & 7);
+    u32 byteIdx;
+    u32 bitMask;
+
+    if (!SharedPower_IsValidAbility(ability))
+        return;
+
+    byteIdx = ability >> 3;
+    bitMask = 1u << (ability & 7);
 
     gBattleStruct->sharedPowerSwitchInDone[battler][byteIdx] |= bitMask;
 }
 
 bool32 SharedPower_IsEndTurnAbilityDone(u32 battler, u16 ability)
 {
-    u32 byteIdx = ability >> 3;
-    u32 bitMask = 1u << (ability & 7);
+    u32 byteIdx;
+    u32 bitMask;
+
+    if (!SharedPower_IsValidAbility(ability))
+        return FALSE;
+
+    byteIdx = ability >> 3;
+    bitMask = 1u << (ability & 7);
 
     return (gBattleStruct->sharedPowerEndTurnDone[battler][byteIdx] & bitMask) != 0;
 }
 
 void SharedPower_SetEndTurnAbilityDone(u32 battler, u16 ability)
 {
-    u32 byteIdx = ability >> 3;
-    u32 bitMask = 1u << (ability & 7);
+    u32 byteIdx;
+    u32 bitMask;
+
+    if (!SharedPower_IsValidAbility(ability))
+        return;
+
+    byteIdx = ability >> 3;
+    bitMask = 1u << (ability & 7);
 
     gBattleStruct->sharedPowerEndTurnDone[battler][byteIdx] |= bitMask;
 }
@@ -224,6 +265,9 @@ void SharedPower_ClearBattleState(void)
     if (gBattleStruct == NULL)
         return;
 
+    for (u32 battler = 0; battler < MAX_BATTLERS_COUNT; battler++)
+        SharedPower_RestoreOriginalAbility(battler);
+
     memset(gBattleStruct->sharedPowerPoolCount, 0, sizeof(gBattleStruct->sharedPowerPoolCount));
     memset(gBattleStruct->sharedPowerPoolAllCount, 0, sizeof(gBattleStruct->sharedPowerPoolAllCount));
     memset(gBattleStruct->sharedPowerSwitchInCount, 0, sizeof(gBattleStruct->sharedPowerSwitchInCount));
@@ -265,7 +309,12 @@ void SharedPower_ResetSwitchInQueue(u32 battler)
 bool32 IsAbilitySuppressedFor(u32 battler, u16 ability, bool32 ignoreMoldBreaker, bool32 noAbilityShield)
 {
     bool32 hasAbilityShield = !noAbilityShield && GetBattlerHoldEffectIgnoreAbility(battler, TRUE) == HOLD_EFFECT_ABILITY_SHIELD;
-    bool32 abilityCantBeSuppressed = gAbilitiesInfo[ability].cantBeSuppressed;
+    bool32 abilityCantBeSuppressed;
+
+    if (!SharedPower_IsValidAbility(ability))
+        return TRUE;
+
+    abilityCantBeSuppressed = gAbilitiesInfo[ability].cantBeSuppressed;
 
     if (abilityCantBeSuppressed)
     {
@@ -479,6 +528,7 @@ bool32 SharedPower_TrySwitchInAbilities(u32 battler)
         {
             SharedPower_SetSwitchInAbilityDone(battler, ability);
             gSpecialStatuses[battler].switchInAbilityDone = prevSwitchInDone;
+            SharedPower_PopAbilityOverride(battler);
             if (index < count && gBattleStruct->switchInBattlerCounter > 0)
                 gBattleStruct->switchInBattlerCounter--;
             return TRUE;

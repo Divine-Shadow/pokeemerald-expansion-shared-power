@@ -96,6 +96,29 @@ SINGLE_BATTLE_TEST("Shared Power: Competitive reacts to pooled Intimidate")
     }
 }
 
+DOUBLE_BATTLE_TEST("Shared Power: Native ability is restored after final pooled switch-in effect")
+{
+    GIVEN {
+        BATTLE_TYPE(BATTLE_TYPE_SHARED_POWER);
+        PLAYER(SPECIES_WOBBUFFET) { Ability(ABILITY_RUN_AWAY); Speed(20); }
+        PLAYER(SPECIES_ARBOK) { Ability(ABILITY_INTIMIDATE); Speed(10); }
+        PLAYER(SPECIES_ZIGZAGOON) { Ability(ABILITY_RUN_AWAY); Speed(30); }
+        OPPONENT(SPECIES_WOBBUFFET) { Speed(5); }
+        OPPONENT(SPECIES_WYNAUT) { Speed(5); }
+    } WHEN {
+        TURN {
+            SWITCH(playerLeft, 2);
+            MOVE(playerRight, MOVE_CELEBRATE);
+            MOVE(opponentLeft, MOVE_CELEBRATE);
+            MOVE(opponentRight, MOVE_CELEBRATE);
+        }
+    } THEN {
+        EXPECT_LT(opponentLeft->statStages[STAT_ATK], DEFAULT_STAT_STAGE);
+        EXPECT_EQ(playerLeft->ability, ABILITY_RUN_AWAY);
+        EXPECT_EQ(GetBattlerAbility(B_POSITION_PLAYER_LEFT), ABILITY_RUN_AWAY);
+    }
+}
+
 SINGLE_BATTLE_TEST("Shared Power: Inner Focus prevents pooled Intimidate")
 {
     GIVEN {
@@ -108,6 +131,47 @@ SINGLE_BATTLE_TEST("Shared Power: Inner Focus prevents pooled Intimidate")
         TURN { SWITCH(player, 1); SWITCH(opponent, 1); }
     } THEN {
         EXPECT_EQ(player->statStages[STAT_ATK], DEFAULT_STAT_STAGE);
+    }
+}
+
+SINGLE_BATTLE_TEST("Shared Power: Quick Feet ignores paralysis Speed drop when pooled")
+{
+    GIVEN {
+        BATTLE_TYPE(BATTLE_TYPE_SHARED_POWER);
+        WITH_CONFIG(GEN_CONFIG_PARALYSIS_SPEED, GEN_7);
+        ASSUME(GetMoveNonVolatileStatus(MOVE_THUNDER_WAVE) == MOVE_EFFECT_PARALYSIS);
+        PLAYER(SPECIES_POOCHYENA) { Ability(ABILITY_QUICK_FEET); Speed(70); }
+        PLAYER(SPECIES_MUDKIP) { Speed(50); }
+        OPPONENT(SPECIES_NOSEPASS) { Speed(60); }
+    } WHEN {
+        TURN { SWITCH(player, 1); MOVE(opponent, MOVE_THUNDER_WAVE); }
+        TURN { MOVE(player, MOVE_TACKLE, WITH_RNG(RNG_PARALYSIS, TRUE)); MOVE(opponent, MOVE_CELEBRATE); }
+    } SCENE {
+        STATUS_ICON(player, paralysis: TRUE);
+        MESSAGE("Mudkip used Tackle!");
+        MESSAGE("The opposing Nosepass used Celebrate!");
+    }
+}
+
+SINGLE_BATTLE_TEST("Shared Power: Guts ignores burn Attack drop when pooled", s16 damage)
+{
+    u32 ability;
+
+    PARAMETRIZE { ability = ABILITY_KEEN_EYE; }
+    PARAMETRIZE { ability = ABILITY_GUTS; }
+    GIVEN {
+        BATTLE_TYPE(BATTLE_TYPE_SHARED_POWER);
+        ASSUME(GetMoveCategory(MOVE_SCRATCH) == DAMAGE_CATEGORY_PHYSICAL);
+        PLAYER(SPECIES_MACHOP) { Ability(ability); Speed(70); }
+        PLAYER(SPECIES_MUDKIP) { Status1(STATUS1_BURN); Speed(50); }
+        OPPONENT(SPECIES_WOBBUFFET) { Speed(40); }
+    } WHEN {
+        TURN { SWITCH(player, 1); MOVE(opponent, MOVE_SPLASH); }
+        TURN { MOVE(player, MOVE_SCRATCH); MOVE(opponent, MOVE_SPLASH); }
+    } SCENE {
+        HP_BAR(opponent, captureDamage: &results[i].damage);
+    } FINALLY {
+        EXPECT_MUL_EQ(results[0].damage, Q_4_12(3.0), results[1].damage);
     }
 }
 
@@ -678,6 +742,23 @@ SINGLE_BATTLE_TEST("Shared Power: Dry Skin damages from pooled ability in sun")
     } SCENE {
         ABILITY_POPUP(player, ABILITY_DRY_SKIN);
         HP_BAR(player, damage: (100 / 8));
+    }
+}
+
+SINGLE_BATTLE_TEST("Shared Power: End-turn iterator state resets independently per phase")
+{
+    GIVEN {
+        BATTLE_TYPE(BATTLE_TYPE_SHARED_POWER);
+        ASSUME(GetMoveEffect(MOVE_RAIN_DANCE) == EFFECT_RAIN_DANCE);
+        PLAYER(SPECIES_LUDICOLO) { Ability(ABILITY_RAIN_DISH); Speed(30); }
+        PLAYER(SPECIES_NINJASK) { Ability(ABILITY_SPEED_BOOST); HP(50); MaxHP(100); Speed(25); }
+        OPPONENT(SPECIES_WOBBUFFET) { Speed(10); }
+    } WHEN {
+        TURN { SWITCH(player, 1); MOVE(opponent, MOVE_RAIN_DANCE); }
+        TURN { MOVE(player, MOVE_CELEBRATE); MOVE(opponent, MOVE_CELEBRATE); }
+    } THEN {
+        EXPECT_EQ(player->hp, 50 + (100 / 16) * 2);
+        EXPECT_EQ(player->statStages[STAT_SPEED], DEFAULT_STAT_STAGE + 1);
     }
 }
 

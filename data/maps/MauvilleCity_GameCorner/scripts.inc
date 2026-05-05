@@ -215,9 +215,7 @@ MauvilleCity_GameCorner_EventScript_CancelDollSelect::
 MauvilleCity_GameCorner_EventScript_PrizeCornerTMs::
 	lock
 	faceplayer
-	msgbox MauvilleCity_GameCorner_Text_ExchangeCoinsForPrizes, MSGBOX_DEFAULT
-	checkitem ITEM_COIN_CASE
-	goto_if_eq VAR_RESULT, TRUE, MauvilleCity_GameCorner_EventScript_ChooseTMPrizeMessage
+	msgbox MauvilleCity_GameCorner_Text_TMPrizesMovedToExploration, MSGBOX_DEFAULT
 	release
 	end
 
@@ -668,6 +666,11 @@ MauvilleCity_GameCorner_Text_SoYourChoiceIsTheTMX:
 	.string "So your choice is\n"
 	.string "the {STR_VAR_1} {STR_VAR_2}?$"
 
+MauvilleCity_GameCorner_Text_TMPrizesMovedToExploration:
+	.string "The TM prizes are out of stock.\p"
+	.string "I hear TRAINERS are finding TMs\n"
+	.string "all over HOENN now.$"
+
 MauvilleCity_GameCorner_Text_SendToYourHomePC:
 	.string "Thank you!\n"
 	.string "We'll send it to your PC at home.$"
@@ -775,4 +778,3 @@ MauvilleCity_GameCorner_Text_HeresSomeSlotsInfo:
 MauvilleCity_GameCorner_Text_CantPlayWithNoCoinCase:
 	.string "You can't play if you don't have\n"
 	.string "a COIN CASE.$"
-

@@ -1067,7 +1067,7 @@
       "x": 26,
       "y": 70,
       "elevation": 0,
-      "item": "ITEM_STARDUST",
+      "item": "ITEM_TM_PSYCHIC",
       "flag": "FLAG_HIDDEN_ITEM_ROUTE_111_STARDUST"
     },
     {

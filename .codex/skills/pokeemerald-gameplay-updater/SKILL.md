@@ -35,7 +35,7 @@ Treat these as blind-friendly by default:
 
 - Trainer teams, gym sets, Elite Four/champion sets, rival teams, battle rematches, trainer AI surprises, and trainer party pools.
 - Added, removed, or moved trainers and NPCs.
-- Item-ball, hidden-item, gift-item, shop-inventory, reward, and pickup-location changes.
+- Item-ball, hidden-item, gift-item, shop-inventory, reward, and pickup-location changes, including TM/HM locations.
 - Map scripts, story events, optional events, puzzle states, signposts, dialogue branches, and new dialogue.
 - Exact wild encounter placements when the change is meant to reward exploration rather than pre-run planning.
 
@@ -43,15 +43,32 @@ For ambiguous changes, default to blind-friendly if the information answers "whe
 
 ## Player-note writing
 
-Write player notes in player terms, not implementation terms. Prefer "Strength is now a Rock-type move with 75 power" over constants or filenames.
+Write player notes in player terms, not implementation terms. Prefer "Strength is now a Rock-type move with 80 power" over constants or filenames.
 
 Public entries should be concise and useful before a run. Avoid exact trainer rosters, item coordinates, event flags, and surprise dialogue in public notes.
 
-Pokemon move-access, learnset, tutor, TM/HM, and egg-move changes must be explicit in the public/spoiler-free notes. Prefer a small table or structured list so players can see who got what, for example:
+Spoiler-free notes must name the changed rule or availability directly. Avoid vague summaries like "Some moves have had type changes." Do not guess old or unchanged values; verify them or omit that column.
 
-| Pokemon | Move | Access | Notes |
+Move changes are always public and explicit. Prefer a table when multiple move fields are relevant:
+
+| Move | New type | New accuracy | New power |
 | --- | --- | --- | --- |
-| Yanmega | Hurricane | Level 57 | Added level-up move |
+| Strength | Rock | 100 (unchanged) | 80 (unchanged) |
+
+Pokemon move-access, learnset, tutor, TM/HM, and egg-move changes must also be explicit in public notes. This says what is available, not who uses it in a trainer battle:
+
+| Pokemon | Move | Learns at |
+| --- | --- | --- |
+| Metang | Swords Dance | Level 57 |
+| Ninjask | Hurricane | Tutor |
+
+Trainer sets stay blind-friendly: public notes must not reveal which trainer has which Pokemon or moves. For example, do not publicly write "Roxanne's Geodude is now a Hippowdon" or "Liza's Metagross has Swords Dance."
+
+TM/HM slot and effect changes are public; locations are blind-friendly. Public example:
+
+| TM/HM | Old move | New move |
+| --- | --- | --- |
+| TM12 | Taunt | Hurricane |
 
 Blind-friendly entries may be explicit, but keep them in the spoiler-protected file. Make the first lines of that file clearly warn that it contains discovery spoilers.
 

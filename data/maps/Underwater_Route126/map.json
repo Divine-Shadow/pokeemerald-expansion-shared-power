@@ -54,7 +54,7 @@
       "x": 41,
       "y": 19,
       "elevation": 3,
-      "item": "ITEM_ULTRA_BALL",
+      "item": "ITEM_TM_BLIZZARD",
       "flag": "FLAG_HIDDEN_ITEM_UNDERWATER_126_ULTRA_BALL"
     },
     {

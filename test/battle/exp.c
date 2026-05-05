@@ -1,5 +1,20 @@
 #include "global.h"
+#include "caps.h"
 #include "test/battle.h"
+
+static void SetMaxLevelCapForExpTest(void)
+{
+    // With flag-list caps, all badge and champion flags set returns MAX_LEVEL.
+    FLAG_SET(FLAG_BADGE01_GET);
+    FLAG_SET(FLAG_BADGE02_GET);
+    FLAG_SET(FLAG_BADGE03_GET);
+    FLAG_SET(FLAG_BADGE04_GET);
+    FLAG_SET(FLAG_BADGE05_GET);
+    FLAG_SET(FLAG_BADGE06_GET);
+    FLAG_SET(FLAG_BADGE07_GET);
+    FLAG_SET(FLAG_BADGE08_GET);
+    FLAG_SET(FLAG_IS_CHAMPION);
+}
 
 #if B_EXP_CATCH >= GEN_6
 
@@ -11,6 +26,7 @@ WILD_BATTLE_TEST("Pokemon gain exp after catching a Pokemon")
     PARAMETRIZE { level = MAX_LEVEL; }
 
     GIVEN {
+        SetMaxLevelCapForExpTest();
         PLAYER(SPECIES_WOBBUFFET) { Level(level); }
         OPPONENT(SPECIES_CATERPIE) { HP(1); }
     } WHEN {
@@ -34,6 +50,7 @@ WILD_BATTLE_TEST("Higher leveled Pokemon give more exp", s32 exp)
     PARAMETRIZE { level = 10; }
 
     GIVEN {
+        SetMaxLevelCapForExpTest();
         PLAYER(SPECIES_WOBBUFFET) { Level(20); }
         OPPONENT(SPECIES_CATERPIE) { Level(level); HP(1); }
     } WHEN {
@@ -55,6 +72,7 @@ WILD_BATTLE_TEST("Lucky Egg boosts gained exp points by 50%", s32 exp)
     PARAMETRIZE { item = ITEM_NONE; }
 
     GIVEN {
+        SetMaxLevelCapForExpTest();
         PLAYER(SPECIES_WOBBUFFET) { Level(20); Item(item); }
         OPPONENT(SPECIES_CATERPIE) { Level(10); HP(1); }
     } WHEN {
@@ -78,6 +96,7 @@ WILD_BATTLE_TEST("Exp is scaled to player and opponent's levels", s32 exp)
     PARAMETRIZE { level = 10; }
 
     GIVEN {
+        SetMaxLevelCapForExpTest();
         PLAYER(SPECIES_WOBBUFFET) { Level(level); }
         OPPONENT(SPECIES_CATERPIE) { Level(5); HP(1); }
     } WHEN {
@@ -102,6 +121,7 @@ WILD_BATTLE_TEST("Large exp gains are supported", s32 exp) // #1455
     PARAMETRIZE { level = MAX_LEVEL; }
 
     GIVEN {
+        SetMaxLevelCapForExpTest();
         PLAYER(SPECIES_WOBBUFFET) { Level(1); Item(ITEM_LUCKY_EGG); OTName("Test"); } // OT Name is different so it gets more exp as a traded mon
         OPPONENT(SPECIES_BLISSEY) { Level(level); HP(1); }
     } WHEN {
@@ -129,6 +149,7 @@ WILD_BATTLE_TEST("Exp Share(held) gives Experience to mons which did not partici
     PARAMETRIZE { item = ITEM_EXP_SHARE; }
 
     GIVEN {
+        SetMaxLevelCapForExpTest();
         PLAYER(SPECIES_WOBBUFFET);
         PLAYER(SPECIES_WYNAUT) { Level(40); Item(item); }
         OPPONENT(SPECIES_CATERPIE) { Level(10); HP(1); }
@@ -148,3 +169,21 @@ WILD_BATTLE_TEST("Exp Share(held) gives Experience to mons which did not partici
 }
 
 #endif // I_EXP_SHARE_ITEM
+
+WILD_BATTLE_TEST("Hard level cap prevents battle exp at the current cap")
+{
+    GIVEN {
+        ASSUME(B_EXP_CAP_TYPE == EXP_CAP_HARD);
+        ASSUME(B_LEVEL_CAP_TYPE == LEVEL_CAP_FLAG_LIST);
+        PLAYER(SPECIES_WOBBUFFET) { Level(GetCurrentLevelCap()); }
+        OPPONENT(SPECIES_CATERPIE) { Level(GetCurrentLevelCap()); HP(1); }
+    } WHEN {
+        TURN { MOVE(player, MOVE_SCRATCH); }
+    } SCENE {
+        MESSAGE("Wobbuffet used Scratch!");
+        MESSAGE("The wild Caterpie fainted!");
+        EXPERIENCE_BAR(player, exp: 0);
+    } THEN {
+        EXPECT_EQ(GetMonData(&gPlayerParty[0], MON_DATA_LEVEL), GetCurrentLevelCap());
+    }
+}

@@ -297,8 +297,8 @@
  *         RNGSeed(0xC0DEIDEA);
  *
  * FLAG_SET(flagId)
- * Sets the specified flag. Can currently only set one flag at a time.
- * Cleared between perameters and at the end of the test.
+ * Sets the specified flag. Can be called multiple times.
+ * Cleared between parameters and at the end of the test.
  * Example:
  *     GIVEN {
  *         FLAG_SET(FLAG_SYS_EXAMPLE_FLAG);
@@ -650,6 +650,7 @@ struct ExpectedAIAction
 
 #define MAX_AI_SCORE_COMPARISION_PER_TURN 4
 #define MAX_AI_LOG_LINES 10
+#define MAX_TEST_FLAGS 16
 
 struct ExpectedAiScore
 {
@@ -723,7 +724,8 @@ struct BattleTestData
     struct ExpectedAiScore expectedAiScores[MAX_BATTLERS_COUNT][MAX_TURNS][MAX_AI_SCORE_COMPARISION_PER_TURN]; // Max 4 comparisions per turn
     struct AILogLine aiLogLines[MAX_BATTLERS_COUNT][MAX_MON_MOVES][MAX_AI_LOG_LINES];
     u8 aiLogPrintedForMove[MAX_BATTLERS_COUNT]; // Marks ai score log as printed for move, so the same log isn't displayed multiple times.
-    u16 flagId;
+    u8 flagIdsCount;
+    u16 flagIds[MAX_TEST_FLAGS];
 
     struct BattleTrialData trial;
 };

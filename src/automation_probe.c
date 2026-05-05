@@ -8,6 +8,7 @@
 #include "field_player_avatar.h"
 #include "fieldmap.h"
 #include "item.h"
+#include "journey_npc_sprite_preview.h"
 #include "main.h"
 #include "palette.h"
 #include "pokemon.h"
@@ -354,6 +355,10 @@ static void AutomationProbe_ConsumeCommand(void)
         break;
     case AUTOMATION_PROBE_COMMAND_PROMOTE_POOCHYENA_TO_MIGHTYENA:
         AutomationProbe_CommandPromotePoochyenaToMightyena();
+        break;
+    case AUTOMATION_PROBE_COMMAND_SHOW_JOURNEY_NPC_SPRITE_PREVIEW:
+        CB2_InitJourneyNpcSpritePreview(gAutomationProbe.commandArg0);
+        AutomationProbe_SetCommandResult(AUTOMATION_PROBE_COMMAND_RESULT_OK, 0, 0);
         break;
     default:
         AutomationProbe_SetCommandResult(

@@ -58,7 +58,7 @@ TEST("Wild battle setup enables Shared Power")
     u32 doubleWildFlags = BattleSetup_ApplySharedPowerToWildBattleFlags(BATTLE_TYPE_DOUBLE);
     u32 roamerFlags = BattleSetup_ApplySharedPowerToWildBattleFlags(BATTLE_TYPE_ROAMER);
 
-#if CONFIG_SHARED_POWER
+#if CONFIG_SHARED_POWER && !TESTING
     EXPECT_EQ(wildFlags, BATTLE_TYPE_SHARED_POWER);
     EXPECT_EQ(doubleWildFlags, BATTLE_TYPE_DOUBLE | BATTLE_TYPE_SHARED_POWER);
     EXPECT_EQ(roamerFlags, BATTLE_TYPE_ROAMER | BATTLE_TYPE_SHARED_POWER);

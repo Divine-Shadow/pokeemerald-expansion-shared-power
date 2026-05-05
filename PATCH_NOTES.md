@@ -1,3 +1,33 @@
+- Gameplay/Trainers: Give and document Wurmple trainers' Eviolite Shield Dust sets with explicit moves (commit 790a713cf4).
+- Docs/Gameplay: Document the no-combat-aid-items battle rule in spoiler-free gameplay notes (commit bfd98deed7).
+- Tests/Battle: Cover the no-combat-aid-items flag for X items, medicine, and Poke Ball exemptions (commit bfd98deed7).
+- Battle/Items: Add a runtime flag that blocks combat aid items while preserving normal Poké Ball use (commit bfd98deed7).
+- Battle/Items: Add an ExecPlan for a no-combat-aid-items battle flag that preserves Poké Ball use (commit bfd98deed7).
+- Gameplay/NPCs: Add recurring Pokemon Center Condition Coaches with a custom sprite, tailored dialogue, and pre-status service tests (commit fc76374fd3).
+- Battle/Engineering: Harden Shared Power iterator state and memory cleanup diagnostics (commit pending).
+- Battle/UI: Fix Shared Power switch-in ability cleanup and Pokemon summary sprite manager lifetime hazards (commit pending).
+- Engineering: Add a post-fork Shared Power memory audit covering capture-adjacent corruption risks (commit 966f9ea86e).
+- Battle/Mechanics: Fix compact edge cases for Roost healing, Electrified status moves, Burn Up with Protean, and Belly Drum Contrary coverage (commit 0dad25eb8a).
+- Battle/Tests: Isolate Shared Power from vanilla battle tests, refresh Strength-aware AI fixtures, and make Ice Body block hail damage at full HP (commit d4aab4c8f4).
+- Shared Power/Tests: Add pooled Guts coverage for burn Attack handling (commit d4aab4c8f4).
+- Shared Power/Tests: Add pooled Quick Feet coverage for paralysis Speed handling (commit acd16d9896).
+- Gameplay/Trainers: Remove trainer Terastallization opt-ins and replace Ninjask opponent encounters with Beedrill (commit pending).
+- Tests/Docs: Add and execute an ExecPlan to isolate hard EXP cap test fallout from unrelated battle regressions (commit f2857a1bff).
+- Gameplay/Progression: Enable hard badge-based level caps and make Rare Candies respect the cap (commit b4fd3b9ab7).
+- Gameplay/Trainers: Retire Route 126 swimmer Barry and add berry-journey Barry docs, ids, sprites, and automation sprite proof (commit b4fd3b9ab7).
+- Gameplay/Items: Replace a focused set of underwhelming basic field consumables with low-tier exploration rewards (commit b4fd3b9ab7).
+- Gameplay/Items: Document held-item reward buckets, reserve strict competitive items for authored rewards, and add a first mid-tier held-item reward pass (commit b4fd3b9ab7).
+- Tests/Items: Ensure the wild-held-item broker excludes strict competitive items from its free shop (commit b4fd3b9ab7).
+- Gameplay/Items: Move formerly purchasable Slateport, Lilycove, and Mauville Game Corner TMs into exploration rewards for the first open-world reward pass (commit b4fd3b9ab7).
+- Gameplay/Trainers: Apply latest-available Smogon-inspired singles sets to non-boss trainers and document exact mob trainer spoilers separately (commit pending).
+- Gameplay/Trainers: Refresh Elite Four Pokemon with latest-available Smogon-inspired singles sets (commit pending).
+- Gameplay/Items: Add a Mauville broker who unlocks a free wild-held-item shop after seeing a Pokemon that can steal or swap held items (commit pending).
+- Gameplay/Pokemon: Manectric's hidden ability is now Plus instead of Minus (commit pending).
+- Gameplay/Trainers: Complete Brawly's Machop and Wattson's Electrike and Manectric sets with base-game slot levels (commit pending).
+- Gameplay/Trainers: Add held items to Wattson's Magneton, Flannery's Torkoal, and Tate & Liza's Braviary-Hisui (commit pending).
+- Dialogue: Update remaining gym guide NPCs with spoiler-light tactical hints for the revised gym leaders (commit pending).
+- Docs/Gameplay: Note that gym-leader hint NPC dialogue now matches the updated gym leaders (commit pending).
+- Tools/Skills: Clarify spoiler-free patch-note guidance for move changes, move access, trainer sets, and TM/HM changes (commit pending).
 - Tests/Battle: Cover Shared Power Wonder Guard popup attribution after a stale Intimidate popup (commit 2c9461a711).
 - Battle: Attribute Shared Power ability-immunity popups to the blocking ability instead of stale switch-in abilities (commit 2c9461a711).
 - Docs/Automation: Replace timing-based Mudkip GUI evidence notes with beacon-driven WSLg mGBA validation (commit 80d961689c).

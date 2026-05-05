@@ -113,6 +113,7 @@ static EWRAM_DATA struct ShopData *sShopData = NULL;
 static EWRAM_DATA struct ListMenuItem *sListMenuItems = NULL;
 static EWRAM_DATA u8 (*sItemNames)[ITEM_NAME_LENGTH + 2] = {0};
 static EWRAM_DATA u8 sPurchaseHistoryId = 0;
+static EWRAM_DATA bool8 sNormalMartItemsAreFree = FALSE;
 EWRAM_DATA struct ItemSlot gMartPurchaseHistory[SMARTSHOPPER_NUM_ITEMS] = {0};
 
 static void Task_ShopMenu(u8 taskId);
@@ -158,6 +159,7 @@ static void Task_HandleShopMenuBuy(u8 taskId);
 static void Task_HandleShopMenuSell(u8 taskId);
 static void BuyMenuPrintItemDescriptionAndShowItemIcon(s32 item, bool8 onInit, struct ListMenu *list);
 static void BuyMenuPrintPriceInList(u8 windowId, u32 itemId, u8 y);
+static u32 GetShopItemPrice(u32 itemId);
 
 static const struct YesNoFuncTable sShopPurchaseYesNoFuncs =
 {
@@ -415,13 +417,24 @@ static u32 ShopProbe_GetSelectedItemId(void)
     return sListMenuItems[cursor].id;
 }
 
+static u32 GetShopItemPrice(u32 itemId)
+{
+    if (itemId == ITEM_NONE || itemId == LIST_CANCEL)
+        return 0;
+
+    if (sMartInfo.martType == MART_TYPE_NORMAL)
+    {
+        if (sNormalMartItemsAreFree)
+            return 0;
+        return GetItemPrice(itemId) >> IsPokeNewsActive(POKENEWS_SLATEPORT);
+    }
+
+    return gDecorations[itemId].price;
+}
+
 static u32 ShopProbe_GetUnitPrice(u32 itemId)
 {
-    if (itemId == ITEM_NONE)
-        return 0;
-    if (sMartInfo.martType == MART_TYPE_NORMAL)
-        return GetItemPrice(itemId) >> IsPokeNewsActive(POKENEWS_SLATEPORT);
-    return gDecorations[itemId].price;
+    return GetShopItemPrice(itemId);
 }
 
 static void ShopProbe_RecordBuyList(void)
@@ -686,7 +699,7 @@ static void BuyMenuPrintPriceInList(u8 windowId, u32 itemId, u8 y)
         {
             ConvertIntToDecimalStringN(
                 gStringVar1,
-                GetItemPrice(itemId) >> IsPokeNewsActive(POKENEWS_SLATEPORT),
+                GetShopItemPrice(itemId),
                 STR_CONV_MODE_LEFT_ALIGN,
                 6);
         }
@@ -1067,7 +1080,7 @@ static void Task_BuyMenu(u8 taskId)
             BuyMenuPrintCursor(tListTaskId, COLORID_GRAY_CURSOR);
 
             if (sMartInfo.martType == MART_TYPE_NORMAL)
-                sShopData->totalCost = (GetItemPrice(itemId) >> IsPokeNewsActive(POKENEWS_SLATEPORT));
+                sShopData->totalCost = GetShopItemPrice(itemId);
             else
                 sShopData->totalCost = gDecorations[itemId].price;
 
@@ -1087,7 +1100,7 @@ static void Task_BuyMenu(u8 taskId)
                         ConvertIntToDecimalStringN(gStringVar2, sShopData->totalCost, STR_CONV_MODE_LEFT_ALIGN, 6);
                         StringExpandPlaceholders(gStringVar4, gText_YouWantedVar1ThatllBeVar2);
                         tItemCount = 1;
-                        sShopData->totalCost = (GetItemPrice(tItemId) >> IsPokeNewsActive(POKENEWS_SLATEPORT)) * tItemCount;
+                        sShopData->totalCost = GetShopItemPrice(tItemId) * tItemCount;
                         BuyMenuDisplayMessage(taskId, gStringVar4, BuyMenuConfirmPurchase);
                     }
                     else if (GetItemPocket(itemId) == POCKET_TM_HM)
@@ -1162,7 +1175,7 @@ static void Task_BuyHowManyDialogueHandleInput(u8 taskId)
 
     if (AdjustQuantityAccordingToDPadInput(&tItemCount, sShopData->maxQuantity) == TRUE)
     {
-        sShopData->totalCost = (GetItemPrice(tItemId) >> IsPokeNewsActive(POKENEWS_SLATEPORT)) * tItemCount;
+        sShopData->totalCost = GetShopItemPrice(tItemId) * tItemCount;
         BuyMenuPrintItemQuantityAndPrice(taskId);
     }
     else
@@ -1388,6 +1401,16 @@ static void RecordItemPurchase(u8 taskId)
 
 void CreatePokemartMenu(const u16 *itemsForSale)
 {
+    sNormalMartItemsAreFree = FALSE;
+    CreateShopMenu(MART_TYPE_NORMAL);
+    SetShopItemsForSale(itemsForSale);
+    ClearItemPurchases();
+    SetShopMenuCallback(ScriptContext_Enable);
+}
+
+void CreateFreePokemartMenu(const u16 *itemsForSale)
+{
+    sNormalMartItemsAreFree = TRUE;
     CreateShopMenu(MART_TYPE_NORMAL);
     SetShopItemsForSale(itemsForSale);
     ClearItemPurchases();
@@ -1396,6 +1419,7 @@ void CreatePokemartMenu(const u16 *itemsForSale)
 
 void CreateDecorationShop1Menu(const u16 *itemsForSale)
 {
+    sNormalMartItemsAreFree = FALSE;
     CreateShopMenu(MART_TYPE_DECOR);
     SetShopItemsForSale(itemsForSale);
     SetShopMenuCallback(ScriptContext_Enable);
@@ -1403,6 +1427,7 @@ void CreateDecorationShop1Menu(const u16 *itemsForSale)
 
 void CreateDecorationShop2Menu(const u16 *itemsForSale)
 {
+    sNormalMartItemsAreFree = FALSE;
     CreateShopMenu(MART_TYPE_DECOR2);
     SetShopItemsForSale(itemsForSale);
     SetShopMenuCallback(ScriptContext_Enable);

@@ -528,10 +528,7 @@ SlateportCity_PokemartDecor:
 SlateportCity_EventScript_PowerTMClerk::
 	lock
 	faceplayer
-	message gText_HowMayIServeYou
-	waitmessage
-	pokemart SlateportCity_Pokemart_PowerTMs
-	msgbox gText_PleaseComeAgain, MSGBOX_DEFAULT
+	msgbox SlateportCity_Text_TMsMovedToExploration, MSGBOX_DEFAULT
 	release
 	end
 
@@ -540,6 +537,11 @@ SlateportCity_Pokemart_PowerTMs:
 	.2byte ITEM_TM_HIDDEN_POWER
 	.2byte ITEM_TM_SECRET_POWER
 	pokemartlistend
+
+SlateportCity_Text_TMsMovedToExploration:
+	.string "We're out of TM stock today.\p"
+	.string "TRAINERS keep finding them while\n"
+	.string "exploring instead.$"
 
 @ Scene with Capt Sterns interview and Team Aqua announcing plans to steal Submarine
 SlateportCity_EventScript_CaptStern::

@@ -2,7 +2,7 @@
 
 This file contains exact gym leader team spoilers in Showdown format.
 
-Omitted levels from the source request were filled from the matching original leader slot: Gumshoos level 27, Camerupt level 26, Manectric level 24, and Kingdra level 46.
+Omitted levels from the source request were filled from the matching original leader slot: Machop level 16, Electrike level 20, Gumshoos level 27, Camerupt level 26, Manectric level 24, and Kingdra level 46.
 
 ```text
 === [gen9ubers] Roxanne ===
@@ -10,7 +10,6 @@ Omitted levels from the source request were filled from the matching original le
 Hippopotas @ Chesto Berry
 Ability: Sand Stream
 Level: 12
-Tera Type: Ground
 - Sand Tomb
 - Sand Attack
 - Rock Tomb
@@ -19,14 +18,12 @@ Tera Type: Ground
 Geodude @ Chople Berry
 Ability: Sand Veil
 Level: 12
-Tera Type: Rock
 - Defense Curl
 - Rollout
 
 Nosepass @ Rocky Helmet
 Ability: Sand Force
 Level: 15
-Tera Type: Rock
 - Harden
 - Rollout
 - Gravity
@@ -38,22 +35,22 @@ Tera Type: Rock
 Meditite @ Razor Claw
 Ability: Pure Power
 Level: 16
-Tera Type: Fighting
 - Focus Punch
 - Reflect
 - Light Screen
 - Fake Out
 
-Machop
+Machop @ Toxic Orb
 Ability: Guts
 Level: 16
-Tera Type: Fighting
-IVs: 0 Atk
+- Reversal
+- Skull Bash
+- Dynamic Punch
+- Retaliate
 
 Makuhita @ Flame Orb
 Ability: Sheer Force
 Level: 19
-Tera Type: Fighting
 - Ice Punch
 - Thunder Punch
 - Drain Punch
@@ -65,40 +62,43 @@ Tera Type: Fighting
 Rotom-Wash @ Choice Scarf
 Ability: Levitate
 Level: 20
-Tera Type: Electric
 IVs: 0 Atk
 - Trick
 - Hydro Pump
 - Volt Switch
 
-Electrike @ Sitrus Berry
+Electrike @ Eviolite
 Ability: Minus
 Level: 20
-Tera Type: Electric
 IVs: 0 Atk
+- Toxic
+- Light Screen
+- Substitute
+- Roar
 
-Magneton
+Magneton @ Leftovers
 Ability: Analytic
 Level: 22
-Tera Type: Electric
 IVs: 0 Atk
 - Zap Cannon
 - Lock-On
 - Flash Cannon
 - Volt Switch
 
-Manectric
-Ability: Static
+Manectric @ Assault Vest
+Ability: Plus
 Level: 24
-IVs: 0 Atk
+- Flamethrower
+- Volt Switch
+- Ice Fang
+- Quick Attack
 
 
 === [gen9anythinggoes] Flannery ===
 
-Torkoal
+Torkoal @ Rocky Helmet
 Ability: Drought
 Level: 24
-Tera Type: Fire
 IVs: 0 Spe
 - Stealth Rock
 - Eruption
@@ -108,7 +108,6 @@ IVs: 0 Spe
 Scovillain @ Choice Specs
 Ability: Chlorophyll
 Level: 24
-Tera Type: Grass
 IVs: 0 Atk
 - Fire Blast
 - Solar Beam
@@ -124,7 +123,6 @@ Level: 26
 Charizard @ Heavy-Duty Boots
 Ability: Solar Power
 Level: 29
-Tera Type: Fire
 IVs: 0 Atk
 - Hurricane
 - Flamethrower
@@ -145,7 +143,6 @@ Level: 27
 Maushold @ Wide Lens
 Ability: Technician
 Level: 27
-Tera Type: Normal
 - Population Bomb
 - Tidy Up
 - Bullet Seed
@@ -154,7 +151,6 @@ Tera Type: Normal
 Porygon-Z @ Choice Specs
 Ability: Adaptability
 Level: 27
-Tera Type: Normal
 IVs: 0 Atk
 - Tri Attack
 - Ice Beam
@@ -164,7 +160,6 @@ IVs: 0 Atk
 Slaking @ Rocky Helmet
 Ability: Truant
 Level: 31
-Tera Type: Normal
 - Giga Impact
 - Gunk Shot
 
@@ -174,7 +169,6 @@ Tera Type: Normal
 Pelipper @ Choice Specs
 Ability: Drizzle
 Level: 29
-Tera Type: Water
 - Hurricane
 - U-turn
 - Hydro Pump
@@ -183,7 +177,6 @@ Tera Type: Water
 Dragonite @ Lum Berry
 Ability: Multiscale
 Level: 30
-Tera Type: Dragon
 - Dragon Dance
 - Outrage
 - Earthquake
@@ -192,7 +185,6 @@ Tera Type: Dragon
 Tropius @ Sitrus Berry
 Ability: Chlorophyll
 Level: 29
-Tera Type: Grass
 IVs: 0 Atk
 - Substitute
 - Protect
@@ -202,7 +194,6 @@ IVs: 0 Atk
 Skarmory @ Sitrus Berry
 Ability: Sturdy
 Level: 31
-Tera Type: Steel
 - Brave Bird
 - Hurricane
 - Iron Head
@@ -211,7 +202,6 @@ Tera Type: Steel
 Yanmega @ Sitrus Berry
 Ability: Tinted Lens
 Level: 33
-Tera Type: Bug
 IVs: 0 Atk
 - Hurricane
 - Bug Buzz
@@ -224,7 +214,6 @@ IVs: 0 Atk
 Lunala @ Eject Button
 Ability: Shadow Shield
 Level: 41
-Tera Type: Psychic
 IVs: 0 Atk
 - Moongeist Beam
 - Dazzling Gleam
@@ -234,22 +223,19 @@ IVs: 0 Atk
 Espathra @ Choice Specs
 Ability: Speed Boost
 Level: 41
-Tera Type: Psychic
 IVs: 0 Atk
 
 Metagross @ Weakness Policy
 Ability: Clear Body
 Level: 42
-Tera Type: Steel
 - Swords Dance
 - Psychic Fangs
 - Meteor Mash
 - Earthquake
 
-Braviary-Hisui
+Braviary-Hisui @ Wacan Berry
 Ability: Sheer Force
 Level: 42
-Tera Type: Psychic
 IVs: 0 Atk
 - Dazzling Gleam
 - Hurricane
@@ -262,13 +248,11 @@ IVs: 0 Atk
 Luvdisc @ Choice Band
 Ability: Swift Swim
 Level: 41
-Tera Type: Water
 - Flip Turn
 
 Politoed @ Choice Specs
 Ability: Drizzle
 Level: 41
-Tera Type: Water
 IVs: 0 Atk
 - Weather Ball
 - Hyper Beam
@@ -278,7 +262,6 @@ IVs: 0 Atk
 Crawdaunt @ Life Orb
 Ability: Adaptability
 Level: 43
-Tera Type: Water
 - Knock Off
 - X-Scissor
 - Waterfall
@@ -287,7 +270,6 @@ Tera Type: Water
 Veluza @ Focus Sash
 Ability: Mold Breaker
 Level: 43
-Tera Type: Water
 - Fillet Away
 - Flip Turn
 - Drill Run

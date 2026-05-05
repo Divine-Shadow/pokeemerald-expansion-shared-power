@@ -9,6 +9,7 @@
 #include "battle_interface.h"
 #include "battle_message.h"
 #include "battle_setup.h"
+#include "battle_shared_power.h"
 #include "battle_tv.h"
 #include "cable_club.h"
 #include "event_object_movement.h"
@@ -918,7 +919,13 @@ void BtlController_EmitPrintString(u32 battler, u32 bufferId, enum StringID stri
     stringInfo->moveType = GetMoveType(gCurrentMove);
 
     for (i = 0; i < MAX_BATTLERS_COUNT; i++)
+    {
         stringInfo->abilities[i] = gBattleMons[i].ability;
+        if (SharedPower_IsEnabled()
+         && gBattleStruct->sharedPowerPopupAbility[i] != ABILITY_NONE
+         && gBattleStruct->sharedPowerPopupAbility[i] == gLastUsedAbility)
+            stringInfo->abilities[i] = gBattleStruct->sharedPowerPopupAbility[i];
+    }
     for (i = 0; i < TEXT_BUFF_ARRAY_COUNT; i++)
     {
         stringInfo->textBuffs[0][i] = gBattleTextBuff1[i];
