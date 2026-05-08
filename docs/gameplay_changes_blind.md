@@ -4,8 +4,7 @@ This file contains gameplay changes that may affect routing or discoveries. Read
 
 ## Early Resources
 
-- Useful items are available from the player's PC.
-- Former wild Marill encounter slots now contain Lotad.
+- The player's PC starts with Rare Candies, Master Balls, Full Restores, and Max Repels.
 - A Condition Coach now appears on 1F of each Pokemon Center and offers controlled pre-battle status preparation with tailored advice for some status-based builds.
 - The Mauville City Mart now has a broker who unlocks a free shop of wild-held-item drops after seeing a Pokemon with item-stealing or item-swapping capability.
 - Former Slateport, Lilycove Department Store, and Mauville Game Corner TMs now appear as exploration rewards instead of purchases or coin prizes.
@@ -24,7 +23,11 @@ This file contains gameplay changes that may affect routing or discoveries. Read
 
 ## Move Changes
 
-- Strength is now a Rock-type move.
+| Move | Change |
+| --- | --- |
+| Strength | Rock-type |
+| Rock Slide | 100 accuracy |
+| Rock Tomb | 100 accuracy |
 
 ## Trainer Sets
 

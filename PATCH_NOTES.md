@@ -1,5 +1,7 @@
-- Gameplay/Encounters: Replace wild Marill encounter slots with Lotad (commit 1360eac83e).
-- Docs/Gameplay: Note the Marill-to-Lotad wild encounter swap in blind-friendly notes (commit 1360eac83e).
+- Gameplay/Items: Add 99 Full Restores and 99 Max Repels to the starting PC item storage (commit pending).
+- Gameplay/Moves: Rock Slide and Rock Tomb now have 100 accuracy (commit pending).
+- Gameplay/Encounters: Revert the wild Marill-to-Lotad encounter swap (commit pending).
+- Docs/Gameplay: Update player-facing notes for restored wild Marill slots, Rock move accuracy, and starting PC items (commit pending).
 - Docs/Gameplay: Note that pooled Shield Dust blocks secondary effects under Shared Power (commit abefc73861).
 - Battle/Shared Power: Let pooled Shield Dust block secondary effects for the active Pokemon (commit abefc73861).
 - Tests/Battle: Cover pooled Shield Dust blocking secondary effects under Shared Power (commit abefc73861).

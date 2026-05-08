@@ -21,7 +21,11 @@ These notes cover gameplay rules and move access that are safe to know before st
 
 ## Move Changes
 
-- Strength is now a Rock-type move.
+| Move | Change |
+| --- | --- |
+| Strength | Rock-type |
+| Rock Slide | 100 accuracy |
+| Rock Tomb | 100 accuracy |
 
 ## Move Access
 

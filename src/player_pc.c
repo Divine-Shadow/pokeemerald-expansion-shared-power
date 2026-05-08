@@ -237,6 +237,8 @@ static const u16 sNewGamePCItems[][2] =
 {
     { ITEM_RARE_CANDY, 999 },
     { ITEM_MASTER_BALL, 99 },
+    { ITEM_FULL_RESTORE, 99 },
+    { ITEM_MAX_REPEL, 99 },
     { ITEM_NONE, 0 }
 };
 
