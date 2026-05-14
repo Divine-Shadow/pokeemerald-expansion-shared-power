@@ -1,6 +1,6 @@
-- Gameplay/NPCs: Start the Condition Coach selector on Poison after reordering the options (commit pending).
-- Gameplay/NPCs: Gate Condition Coach options by badge count and document their unlock thresholds (commit pending).
-- Gameplay/NPCs: Reorder the Condition Coach options to put poison before burn (commit pending).
+- Gameplay/NPCs: Start the Condition Coach selector on Poison after reordering the options (commit 9033a53231).
+- Gameplay/NPCs: Gate Condition Coach options by badge count and document their unlock thresholds (commit 9033a53231).
+- Gameplay/NPCs: Reorder the Condition Coach options to put poison before burn (commit 9033a53231).
 - Overworld/Fishing: Hold hooked fishing encounters until the player presses A so fish no longer get away (commit 80cd0e73e5).
 - Gameplay/Items: Move the Old Rod Fisherman from Dewford Town to Oldale Town (commit 80cd0e73e5).
 - Gameplay/Trainers: Replace Champion Wallace's Whiscash with a Drizzle Kyogre and move Wailord to Whiscash's former slot (commit 80cd0e73e5).
