@@ -1,4 +1,4 @@
-- Gameplay/Pokemon: Set base friendship to 255 for Pokemon in friendship-evolution lines (commit pending).
+- Gameplay/Pokemon: Set base friendship to 255 for Pokemon in friendship-evolution lines (commit b2f21ce351).
 - Battle/Shared Power: Share ability pools by side in tag and multi partner battles (commit 00c7683e54).
 - Battle/Shared Power: Let pooled Run Away satisfy flee checks for active teammates (commit 56cb2b60cb).
 - Gameplay/Moves: Make Cut a 50-power Steel-type move with 100% accuracy (commit 56cb2b60cb).
