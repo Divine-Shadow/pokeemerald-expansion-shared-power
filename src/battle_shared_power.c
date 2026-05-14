@@ -210,9 +210,26 @@ void SharedPower_EnsurePoolsSeeded(void)
     SharedPower_SeedPoolsForActiveBattlers();
 }
 
-u8 SharedPower_GetTrainerIndex(u8 battler)
+static bool32 SharedPower_UsesSidePool(u8 battler)
 {
     if (IsPartnerMonFromSameTrainer(battler))
+        return TRUE;
+
+    if (gBattleTypeFlags & BATTLE_TYPE_MULTI)
+        return TRUE;
+
+    if (IsOnPlayerSide(battler) && gBattleTypeFlags & BATTLE_TYPE_INGAME_PARTNER)
+        return TRUE;
+
+    if (!IsOnPlayerSide(battler) && gBattleTypeFlags & BATTLE_TYPE_TWO_OPPONENTS)
+        return TRUE;
+
+    return FALSE;
+}
+
+u8 SharedPower_GetTrainerIndex(u8 battler)
+{
+    if (SharedPower_UsesSidePool(battler))
         return GetBattlerSide(battler);
 
     return battler;

@@ -68,3 +68,42 @@ TEST("Wild battle setup enables Shared Power")
     EXPECT_EQ(roamerFlags, BATTLE_TYPE_ROAMER);
 #endif
 }
+
+TEST("Shared Power pools tag and multi partners by side")
+{
+    u32 prevBattleTypeFlags = gBattleTypeFlags;
+    u8 prevPositions[MAX_BATTLERS_COUNT];
+
+    memcpy(prevPositions, gBattlerPositions, sizeof(prevPositions));
+    gBattlerPositions[B_BATTLER_0] = B_POSITION_PLAYER_LEFT;
+    gBattlerPositions[B_BATTLER_1] = B_POSITION_OPPONENT_LEFT;
+    gBattlerPositions[B_BATTLER_2] = B_POSITION_PLAYER_RIGHT;
+    gBattlerPositions[B_BATTLER_3] = B_POSITION_OPPONENT_RIGHT;
+
+    gBattleTypeFlags = BATTLE_TYPE_SHARED_POWER;
+    EXPECT_EQ(SharedPower_GetTrainerIndex(B_BATTLER_0), B_SIDE_PLAYER);
+    EXPECT_EQ(SharedPower_GetTrainerIndex(B_BATTLER_2), B_SIDE_PLAYER);
+    EXPECT_EQ(SharedPower_GetTrainerIndex(B_BATTLER_1), B_SIDE_OPPONENT);
+    EXPECT_EQ(SharedPower_GetTrainerIndex(B_BATTLER_3), B_SIDE_OPPONENT);
+
+    gBattleTypeFlags = BATTLE_TYPE_SHARED_POWER | BATTLE_TYPE_INGAME_PARTNER;
+    EXPECT_EQ(SharedPower_GetTrainerIndex(B_BATTLER_0), B_SIDE_PLAYER);
+    EXPECT_EQ(SharedPower_GetTrainerIndex(B_BATTLER_2), B_SIDE_PLAYER);
+    EXPECT_EQ(SharedPower_GetTrainerIndex(B_BATTLER_1), B_BATTLER_1);
+    EXPECT_EQ(SharedPower_GetTrainerIndex(B_BATTLER_3), B_BATTLER_3);
+
+    gBattleTypeFlags = BATTLE_TYPE_SHARED_POWER | BATTLE_TYPE_TWO_OPPONENTS;
+    EXPECT_EQ(SharedPower_GetTrainerIndex(B_BATTLER_0), B_SIDE_PLAYER);
+    EXPECT_EQ(SharedPower_GetTrainerIndex(B_BATTLER_2), B_SIDE_PLAYER);
+    EXPECT_EQ(SharedPower_GetTrainerIndex(B_BATTLER_1), B_SIDE_OPPONENT);
+    EXPECT_EQ(SharedPower_GetTrainerIndex(B_BATTLER_3), B_SIDE_OPPONENT);
+
+    gBattleTypeFlags = BATTLE_TYPE_SHARED_POWER | BATTLE_TYPE_MULTI;
+    EXPECT_EQ(SharedPower_GetTrainerIndex(B_BATTLER_0), B_SIDE_PLAYER);
+    EXPECT_EQ(SharedPower_GetTrainerIndex(B_BATTLER_2), B_SIDE_PLAYER);
+    EXPECT_EQ(SharedPower_GetTrainerIndex(B_BATTLER_1), B_SIDE_OPPONENT);
+    EXPECT_EQ(SharedPower_GetTrainerIndex(B_BATTLER_3), B_SIDE_OPPONENT);
+
+    memcpy(gBattlerPositions, prevPositions, sizeof(prevPositions));
+    gBattleTypeFlags = prevBattleTypeFlags;
+}
