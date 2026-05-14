@@ -1,4 +1,4 @@
-- Battle/Shared Power: Share ability pools by side in tag and multi partner battles (commit pending).
+- Battle/Shared Power: Share ability pools by side in tag and multi partner battles (commit 00c7683e54).
 - Battle/Shared Power: Let pooled Run Away satisfy flee checks for active teammates (commit 56cb2b60cb).
 - Gameplay/Moves: Make Cut a 50-power Steel-type move with 100% accuracy (commit 56cb2b60cb).
 - Battle/Items: Make the no-battle-aid-items flag block opposing trainer item use too (commit 56cb2b60cb).
