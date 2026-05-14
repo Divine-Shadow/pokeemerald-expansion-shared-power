@@ -23,6 +23,7 @@ These notes cover gameplay rules and move access that are safe to know before st
 
 ## Pokemon Changes
 
+- Pokemon in evolution lines that include a friendship evolution now have 255 base friendship.
 - Manectric's hidden ability is now Plus instead of Minus.
 - The player's starter Pokemon is marked as obtained in a fateful encounter.
 
