@@ -1,10 +1,10 @@
-- Overworld/Fishing: Hold hooked fishing encounters until the player presses A so fish no longer get away (commit pending).
-- Gameplay/Items: Move the Old Rod Fisherman from Dewford Town to Oldale Town (commit pending).
-- Gameplay/Trainers: Replace Champion Wallace's Whiscash with a Drizzle Kyogre and move Wailord to Whiscash's former slot (commit pending).
-- Gameplay/Starters: Mark the player's starter as a fateful encounter in summary data (commit pending).
-- Gameplay/Items: Add 999 Max Repels to the player's starting PC item storage (commit pending).
-- Gameplay/Moves: Set Rock Slide and Rock Tomb to 100% accuracy (commit pending).
-- Gameplay/Encounters: Restore Marill to wild encounter slots that had been changed to Lotad (commit pending).
+- Overworld/Fishing: Hold hooked fishing encounters until the player presses A so fish no longer get away (commit 80cd0e73e5).
+- Gameplay/Items: Move the Old Rod Fisherman from Dewford Town to Oldale Town (commit 80cd0e73e5).
+- Gameplay/Trainers: Replace Champion Wallace's Whiscash with a Drizzle Kyogre and move Wailord to Whiscash's former slot (commit 80cd0e73e5).
+- Gameplay/Starters: Mark the player's starter as a fateful encounter in summary data (commit 80cd0e73e5).
+- Gameplay/Items: Add 999 Max Repels to the player's starting PC item storage (commit 80cd0e73e5).
+- Gameplay/Moves: Set Rock Slide and Rock Tomb to 100% accuracy (commit 80cd0e73e5).
+- Gameplay/Encounters: Restore Marill to wild encounter slots that had been changed to Lotad (commit 80cd0e73e5).
 - Docs/Gameplay: Note that pooled Shield Dust blocks secondary effects under Shared Power (commit abefc73861).
 - Battle/Shared Power: Let pooled Shield Dust block secondary effects for the active Pokemon (commit abefc73861).
 - Tests/Battle: Cover pooled Shield Dust blocking secondary effects under Shared Power (commit abefc73861).
