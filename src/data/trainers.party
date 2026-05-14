@@ -9183,13 +9183,14 @@ Double Battle: No
 AI: Basic Trainer
 Mugshot: Yellow
 
-Wailord
-Level: 57
+Kyogre
+Ability: Drizzle
+Level: 56
 IVs: 31 HP / 31 Atk / 31 Def / 31 SpA / 31 SpD / 31 Spe
-- Rain Dance
-- Water Spout
-- Double Edge
-- Blizzard
+- Surf
+- Thunder
+- Ice Beam
+- Calm Mind
 
 Tentacruel
 Level: 55
@@ -9207,13 +9208,13 @@ IVs: 31 HP / 31 Atk / 31 Def / 31 SpA / 31 SpD / 31 Spe
 - Leech Seed
 - Double Team
 
-Whiscash
-Level: 56
+Wailord
+Level: 57
 IVs: 31 HP / 31 Atk / 31 Def / 31 SpA / 31 SpD / 31 Spe
-- Earthquake
-- Surf
-- Amnesia
-- Hyper Beam
+- Rain Dance
+- Water Spout
+- Double Edge
+- Blizzard
 
 Gyarados
 Level: 56

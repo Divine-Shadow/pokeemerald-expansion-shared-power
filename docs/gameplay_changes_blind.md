@@ -4,8 +4,8 @@ This file contains gameplay changes that may affect routing or discoveries. Read
 
 ## Early Resources
 
-- Useful items are available from the player's PC.
-- Former wild Marill encounter slots now contain Lotad.
+- Rare Candies, Master Balls, and Max Repels are available from the player's PC.
+- The Old Rod is now given by a Fisherman in Oldale Town instead of Dewford Town.
 - A Condition Coach now appears on 1F of each Pokemon Center and offers controlled pre-battle status preparation with tailored advice for some status-based builds.
 - The Mauville City Mart now has a broker who unlocks a free shop of wild-held-item drops after seeing a Pokemon with item-stealing or item-swapping capability.
 - Former Slateport, Lilycove Department Store, and Mauville Game Corner TMs now appear as exploration rewards instead of purchases or coin prizes.
@@ -30,6 +30,7 @@ This file contains gameplay changes that may affect routing or discoveries. Read
 
 - Gym leader teams have been updated; exact Showdown-format sets are documented in [gym_leader_sets_showdown.md](gym_leader_sets_showdown.md).
 - Elite Four teams have been updated with Smogon-inspired sets; exact Showdown-format sets are documented in [elite_four_sets_showdown.md](elite_four_sets_showdown.md).
+- Champion Wallace's team has been updated.
 - Non-boss trainer teams have been updated with Smogon-inspired sets; exact Showdown-format sets are documented in [mob_trainer_sets_showdown.md](mob_trainer_sets_showdown.md).
 - Trainer battle sets no longer opt into Terastallization.
 - Former Ninjask battle, facility, and contest opponent slots now use Beedrill.

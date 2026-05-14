@@ -17,6 +17,7 @@
 #include "starter_choose.h"
 #include "script_pokemon_util.h"
 #include "palette.h"
+#include "pokemon.h"
 #include "window.h"
 #include "event_object_movement.h"
 #include "event_scripts.h"
@@ -885,10 +886,14 @@ void ChooseStarter(void)
 static void CB2_GiveStarter(void)
 {
     u16 starterMon;
+    u8 metLocation = METLOC_FATEFUL_ENCOUNTER;
+    bool8 isModernFatefulEncounter = TRUE;
 
     *GetVarPointer(VAR_STARTER_MON) = gSpecialVar_Result;
     starterMon = GetStarterPokemon(gSpecialVar_Result);
     ScriptGiveMon(starterMon, 5, ITEM_NONE);
+    SetMonData(&gPlayerParty[0], MON_DATA_MET_LOCATION, &metLocation);
+    SetMonData(&gPlayerParty[0], MON_DATA_MODERN_FATEFUL_ENCOUNTER, &isModernFatefulEncounter);
     ResetTasks();
     PlayBattleBGM();
     SetMainCallback2(CB2_StartFirstBattle);

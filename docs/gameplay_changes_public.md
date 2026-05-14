@@ -11,6 +11,10 @@ These notes cover gameplay rules and move access that are safe to know before st
 - Some battles or areas can disable combat aid items such as X items, healing items, status cures, revives, and PP restorers while still allowing Poke Balls under the normal catching rules.
 - Under Shared Power, Shield Dust now shares correctly and blocks secondary effects for active teammates.
 
+## Field Rules
+
+- Hooked fishing encounters wait for the player to press A and no longer get away.
+
 ## Pokemon Center Services
 
 - Pokemon Centers now have Condition Coaches who can intentionally prepare burn, regular poison, paralysis, a one-turn Rest-style wakeup sleep, or clear status from a conscious non-Egg party Pokemon.
@@ -18,10 +22,12 @@ These notes cover gameplay rules and move access that are safe to know before st
 ## Pokemon Changes
 
 - Manectric's hidden ability is now Plus instead of Minus.
+- The player's starter Pokemon is marked as obtained in a fateful encounter.
 
 ## Move Changes
 
 - Strength is now a Rock-type move.
+- Rock Slide and Rock Tomb now have 100% accuracy.
 
 ## Move Access
 

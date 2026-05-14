@@ -33,6 +33,47 @@ OldaleTown_EventScript_Girl::
 	msgbox OldaleTown_Text_SavingMyProgress, MSGBOX_NPC
 	end
 
+OldaleTown_EventScript_OldRodFisherman::
+	lock
+	faceplayer
+	goto_if_set FLAG_RECEIVED_OLD_ROD, OldaleTown_EventScript_HowsFishing
+	msgbox OldaleTown_Text_GettingItchToFish, MSGBOX_YESNO
+	goto_if_eq VAR_RESULT, YES, OldaleTown_EventScript_GiveOldRod
+	goto_if_eq VAR_RESULT, NO, OldaleTown_EventScript_NotGettingItchToFish
+	end
+
+OldaleTown_EventScript_GiveOldRod::
+	msgbox OldaleTown_Text_GiveYouOneOfMyRods, MSGBOX_DEFAULT
+	giveitem ITEM_OLD_ROD
+	goto_if_eq VAR_RESULT, FALSE, Common_EventScript_ShowBagIsFull
+	setflag FLAG_RECEIVED_OLD_ROD
+	msgbox OldaleTown_Text_ThrowInFishingAdvice, MSGBOX_DEFAULT
+	release
+	end
+
+OldaleTown_EventScript_NotGettingItchToFish::
+	msgbox OldaleTown_Text_ThatsTooBadThen, MSGBOX_DEFAULT
+	release
+	end
+
+OldaleTown_EventScript_HowsFishing::
+	message OldaleTown_Text_HowsYourFishing
+	waitmessage
+	multichoice 20, 8, MULTI_HOWS_FISHING, TRUE
+	goto_if_eq VAR_RESULT, 0, OldaleTown_EventScript_FishingExcellent
+	goto_if_eq VAR_RESULT, 1, OldaleTown_EventScript_FishingNotSoGood
+	end
+
+OldaleTown_EventScript_FishingExcellent::
+	msgbox OldaleTown_Text_GreatHaulInSomeBigOnes, MSGBOX_DEFAULT
+	release
+	end
+
+OldaleTown_EventScript_FishingNotSoGood::
+	msgbox OldaleTown_Text_FishingAdvice, MSGBOX_DEFAULT
+	release
+	end
+
 OldaleTown_EventScript_MartEmployee::
 	lock
 	faceplayer
@@ -361,6 +402,51 @@ OldaleTown_Text_PotionExplanation:
 	.string "even more useful than a POKéMON CENTER\l"
 	.string "in certain situations.$"
 
+OldaleTown_Text_GettingItchToFish:
+	.string "This is a renowned fishing spot.\n"
+	.string "Are you getting the itch to fish?$"
+
+OldaleTown_Text_GiveYouOneOfMyRods:
+	.string "I hear you, and I like what\n"
+	.string "you're saying!\p"
+	.string "I'll give you one of my fishing RODS.$"
+
+OldaleTown_Text_ThrowInFishingAdvice:
+	.string "And, as an added bonus, I'll even throw\n"
+	.string "in a little fishing advice!\p"
+	.string "First, you want to face the water,\n"
+	.string "then use the ROD.\p"
+	.string "Focus your mind…\n"
+	.string "If you get a bite, pull on the ROD.\p"
+	.string "Sometimes you can snag something\n"
+	.string "immediately, but with bigger catches,\l"
+	.string "you need to time the pulls on your ROD\l"
+	.string "to haul them in.$"
+
+OldaleTown_Text_ThatsTooBadThen:
+	.string "Oh, is that so?\n"
+	.string "That's too bad, then.$"
+
+OldaleTown_Text_HowsYourFishing:
+	.string "Yo!\n"
+	.string "How's your fishing?$"
+
+OldaleTown_Text_GreatHaulInSomeBigOnes:
+	.string "Is that right! That's great!\n"
+	.string "Haul in some big ones!$"
+
+OldaleTown_Text_FishingAdvice:
+	.string "Oh, hey, don't get down on yourself!\n"
+	.string "I'll give you a little fishing advice.\p"
+	.string "First, you want to face the water,\n"
+	.string "then use the ROD.\p"
+	.string "Focus your mind…\n"
+	.string "If you get a bite, pull the ROD.\p"
+	.string "Sometimes you can snag something\n"
+	.string "immediately, but with bigger catches,\l"
+	.string "you need to time the pulls on your ROD\l"
+	.string "to haul them in.$"
+
 OldaleTown_Text_WaitDontComeInHere:
 	.string "Aaaaah! Wait!\n"
 	.string "Please don't come in here.\p"
@@ -394,4 +480,3 @@ OldaleTown_Text_BrendanLetsGoBack:
 OldaleTown_Text_TownSign:
 	.string "OLDALE TOWN\n"
 	.string "“Where things start off scarce.”$"
-
