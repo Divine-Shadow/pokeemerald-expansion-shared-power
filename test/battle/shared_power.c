@@ -134,6 +134,26 @@ SINGLE_BATTLE_TEST("Shared Power: Inner Focus prevents pooled Intimidate")
     }
 }
 
+SINGLE_BATTLE_TEST("Shared Power: Run Away lets teammates flee")
+{
+    GIVEN {
+        BATTLE_TYPE(BATTLE_TYPE_SHARED_POWER);
+        PLAYER(SPECIES_RATTATA) { Ability(ABILITY_RUN_AWAY); Speed(1); }
+        PLAYER(SPECIES_WOBBUFFET) { Ability(ABILITY_SHADOW_TAG); Speed(1); }
+        OPPONENT(SPECIES_WOBBUFFET) { Ability(ABILITY_SHADOW_TAG); Speed(100); }
+    } WHEN {
+        TURN { SWITCH(player, 1); MOVE(opponent, MOVE_CELEBRATE); }
+    } THEN {
+        u32 fleeType;
+
+        EXPECT_EQ(IsRunningFromBattleImpossible(B_POSITION_PLAYER_LEFT), BATTLE_RUN_SUCCESS);
+        EXPECT(TryRunFromBattle(B_POSITION_PLAYER_LEFT));
+        EXPECT_EQ(gBattleOutcome, B_OUTCOME_RAN);
+        fleeType = gProtectStructs[B_POSITION_PLAYER_LEFT].fleeType;
+        EXPECT_EQ(fleeType, FLEE_ABILITY);
+    }
+}
+
 SINGLE_BATTLE_TEST("Shared Power: Shield Dust blocks secondary effects when pooled")
 {
     GIVEN {

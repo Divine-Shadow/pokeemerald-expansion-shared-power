@@ -10,6 +10,7 @@
 #include "constants/hold_effects.h"
 #include "battle_setup.h"
 #include "data.h"
+#include "event_data.h"
 #include "item.h"
 #include "party_menu.h"
 #include "pokemon.h"
@@ -2455,6 +2456,11 @@ static bool32 ShouldUseItem(u32 battler)
 
     if (IsAiVsAiBattle())
         return FALSE;
+
+#if B_FLAG_NO_BATTLE_AID_ITEMS != 0
+    if (FlagGet(B_FLAG_NO_BATTLE_AID_ITEMS))
+        return FALSE;
+#endif
 
     // If teaming up with player and Pokemon is on the right, or Pokemon is currently held by Sky Drop
     if ((gBattleTypeFlags & BATTLE_TYPE_INGAME_PARTNER && GetBattlerPosition(battler) == B_POSITION_PLAYER_RIGHT)

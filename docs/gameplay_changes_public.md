@@ -8,7 +8,8 @@ These notes cover gameplay rules and move access that are safe to know before st
 
 ## Battle Rules
 
-- Some battles or areas can disable combat aid items such as X items, healing items, status cures, revives, and PP restorers while still allowing Poke Balls under the normal catching rules.
+- Some battles or areas can disable combat aid items such as X items, healing items, status cures, revives, and PP restorers for both the player and opposing trainers while still allowing Poke Balls under the normal catching rules.
+- Under Shared Power, Run Away now shares correctly and lets active teammates flee when fleeing is otherwise allowed.
 - Under Shared Power, Shield Dust now shares correctly and blocks secondary effects for active teammates.
 
 ## Field Rules
@@ -26,6 +27,7 @@ These notes cover gameplay rules and move access that are safe to know before st
 
 ## Move Changes
 
+- Cut is now a Steel-type move with 50 power and 100% accuracy.
 - Strength is now a Rock-type move.
 - Rock Slide and Rock Tomb now have 100% accuracy.
 
