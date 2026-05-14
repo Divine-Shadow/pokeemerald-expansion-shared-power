@@ -1,6 +1,6 @@
-- Battle/Shared Power: Let pooled Run Away satisfy flee checks for active teammates (commit 93db6ee4a0).
-- Gameplay/Moves: Make Cut a 50-power Steel-type move with 100% accuracy (commit 93db6ee4a0).
-- Battle/Items: Make the no-battle-aid-items flag block opposing trainer item use too (commit 93db6ee4a0).
+- Battle/Shared Power: Let pooled Run Away satisfy flee checks for active teammates (commit 56cb2b60cb).
+- Gameplay/Moves: Make Cut a 50-power Steel-type move with 100% accuracy (commit 56cb2b60cb).
+- Battle/Items: Make the no-battle-aid-items flag block opposing trainer item use too (commit 56cb2b60cb).
 - Gameplay/NPCs: Start the Condition Coach selector on Poison after reordering the options (commit 9033a53231).
 - Gameplay/NPCs: Gate Condition Coach options by badge count and document their unlock thresholds (commit 9033a53231).
 - Gameplay/NPCs: Reorder the Condition Coach options to put poison before burn (commit 9033a53231).
