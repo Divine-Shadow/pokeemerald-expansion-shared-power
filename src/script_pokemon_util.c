@@ -620,6 +620,46 @@ static bool32 ConditionCoach_ItemCuresChoice(u16 item, u16 choice)
     return FALSE;
 }
 
+static u8 ConditionCoach_GetRequiredBadgeCount(u16 choice)
+{
+    switch (choice)
+    {
+    case CONDITION_COACH_CHOICE_POISON:
+    case CONDITION_COACH_CHOICE_CLEAR:
+        return 0;
+    case CONDITION_COACH_CHOICE_BURN:
+        return 2;
+    case CONDITION_COACH_CHOICE_PARALYSIS:
+        return 4;
+    case CONDITION_COACH_CHOICE_REST_WAKE:
+        return 6;
+    }
+
+    return NUM_BADGES + 1;
+}
+
+static u8 ConditionCoach_CountBadges(void)
+{
+    u8 i;
+    u8 badgeCount = 0;
+
+    for (i = 0; i < NUM_BADGES; i++)
+    {
+        if (FlagGet(gBadgeFlags[i]))
+            badgeCount++;
+    }
+
+    return badgeCount;
+}
+
+u16 ConditionCoach_IsChoiceUnlocked(void)
+{
+    u8 requiredBadgeCount = ConditionCoach_GetRequiredBadgeCount(gSpecialVar_0x8005);
+
+    gSpecialVar_0x8006 = requiredBadgeCount;
+    return ConditionCoach_CountBadges() >= requiredBadgeCount;
+}
+
 static u32 ConditionCoach_GetStatusForChoice(u16 choice)
 {
     switch (choice)
@@ -697,6 +737,8 @@ u16 ConditionCoach_TryApplyStatus(void)
         return CONDITION_COACH_RESULT_CANCELLED;
     if (choice > CONDITION_COACH_CHOICE_CLEAR)
         return CONDITION_COACH_RESULT_INVALID_CHOICE;
+    if (!ConditionCoach_IsChoiceUnlocked())
+        return CONDITION_COACH_RESULT_LOCKED;
 
     mon = &gPlayerParty[slot];
     species = GetMonData(mon, MON_DATA_SPECIES);

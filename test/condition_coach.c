@@ -5,8 +5,20 @@
 #include "test/test.h"
 #include "constants/battle.h"
 #include "constants/condition_coach.h"
+#include "constants/flags.h"
 #include "constants/items.h"
 #include "constants/species.h"
+
+static void SetConditionCoachBadgeCount(u8 badgeCount)
+{
+    u8 i;
+
+    for (i = 0; i < NUM_BADGES; i++)
+        FlagClear(gBadgeFlags[i]);
+
+    for (i = 0; i < badgeCount; i++)
+        FlagSet(gBadgeFlags[i]);
+}
 
 static void CreateConditionCoachTestMon(u16 species)
 {
@@ -19,6 +31,7 @@ static void CreateConditionCoachTestMon(u16 species)
     gSpecialVar_0x8004 = 0;
     gSpecialVar_0x8005 = CONDITION_COACH_CHOICE_BURN;
     gSpecialVar_0x8006 = CONDITION_COACH_HINT_NONE;
+    SetConditionCoachBadgeCount(NUM_BADGES);
 }
 
 static u16 TryConditionCoachChoice(u16 choice)
@@ -35,9 +48,25 @@ TEST("Condition Coach applies burn")
     EXPECT_EQ(GetMonData(&gPlayerParty[0], MON_DATA_STATUS), STATUS1_BURN);
 }
 
+TEST("Condition Coach requires two badges for burn")
+{
+    CreateConditionCoachTestMon(SPECIES_WOBBUFFET);
+    SetConditionCoachBadgeCount(1);
+
+    EXPECT_EQ(TryConditionCoachChoice(CONDITION_COACH_CHOICE_BURN), CONDITION_COACH_RESULT_LOCKED);
+    EXPECT_EQ(gSpecialVar_0x8006, 2);
+    EXPECT_EQ(GetMonData(&gPlayerParty[0], MON_DATA_STATUS), STATUS1_NONE);
+
+    SetConditionCoachBadgeCount(2);
+
+    EXPECT_EQ(TryConditionCoachChoice(CONDITION_COACH_CHOICE_BURN), CONDITION_COACH_RESULT_APPLIED);
+    EXPECT_EQ(GetMonData(&gPlayerParty[0], MON_DATA_STATUS), STATUS1_BURN);
+}
+
 TEST("Condition Coach applies regular poison")
 {
     CreateConditionCoachTestMon(SPECIES_WOBBUFFET);
+    SetConditionCoachBadgeCount(0);
 
     EXPECT_EQ(TryConditionCoachChoice(CONDITION_COACH_CHOICE_POISON), CONDITION_COACH_RESULT_APPLIED);
     EXPECT_EQ(GetMonData(&gPlayerParty[0], MON_DATA_STATUS), STATUS1_POISON);
@@ -46,6 +75,21 @@ TEST("Condition Coach applies regular poison")
 TEST("Condition Coach applies paralysis")
 {
     CreateConditionCoachTestMon(SPECIES_WOBBUFFET);
+
+    EXPECT_EQ(TryConditionCoachChoice(CONDITION_COACH_CHOICE_PARALYSIS), CONDITION_COACH_RESULT_APPLIED);
+    EXPECT_EQ(GetMonData(&gPlayerParty[0], MON_DATA_STATUS), STATUS1_PARALYSIS);
+}
+
+TEST("Condition Coach requires four badges for paralysis")
+{
+    CreateConditionCoachTestMon(SPECIES_WOBBUFFET);
+    SetConditionCoachBadgeCount(3);
+
+    EXPECT_EQ(TryConditionCoachChoice(CONDITION_COACH_CHOICE_PARALYSIS), CONDITION_COACH_RESULT_LOCKED);
+    EXPECT_EQ(gSpecialVar_0x8006, 4);
+    EXPECT_EQ(GetMonData(&gPlayerParty[0], MON_DATA_STATUS), STATUS1_NONE);
+
+    SetConditionCoachBadgeCount(4);
 
     EXPECT_EQ(TryConditionCoachChoice(CONDITION_COACH_CHOICE_PARALYSIS), CONDITION_COACH_RESULT_APPLIED);
     EXPECT_EQ(GetMonData(&gPlayerParty[0], MON_DATA_STATUS), STATUS1_PARALYSIS);
@@ -60,11 +104,27 @@ TEST("Condition Coach applies one-turn Rest-wake sleep")
     EXPECT_EQ(gSpecialVar_0x8006, CONDITION_COACH_HINT_REST_WAKE);
 }
 
+TEST("Condition Coach requires six badges for Rest-wake sleep")
+{
+    CreateConditionCoachTestMon(SPECIES_WOBBUFFET);
+    SetConditionCoachBadgeCount(5);
+
+    EXPECT_EQ(TryConditionCoachChoice(CONDITION_COACH_CHOICE_REST_WAKE), CONDITION_COACH_RESULT_LOCKED);
+    EXPECT_EQ(gSpecialVar_0x8006, 6);
+    EXPECT_EQ(GetMonData(&gPlayerParty[0], MON_DATA_STATUS), STATUS1_NONE);
+
+    SetConditionCoachBadgeCount(6);
+
+    EXPECT_EQ(TryConditionCoachChoice(CONDITION_COACH_CHOICE_REST_WAKE), CONDITION_COACH_RESULT_APPLIED);
+    EXPECT_EQ(GetMonData(&gPlayerParty[0], MON_DATA_STATUS), STATUS1_SLEEP_TURN(1));
+}
+
 TEST("Condition Coach clears status")
 {
     u32 status = STATUS1_BURN;
 
     CreateConditionCoachTestMon(SPECIES_WOBBUFFET);
+    SetConditionCoachBadgeCount(0);
     SetMonData(&gPlayerParty[0], MON_DATA_STATUS, &status);
 
     EXPECT_EQ(TryConditionCoachChoice(CONDITION_COACH_CHOICE_CLEAR), CONDITION_COACH_RESULT_APPLIED);

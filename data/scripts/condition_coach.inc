@@ -7,16 +7,16 @@ Common_EventScript_ConditionCoach::
 
 ConditionCoach_EventScript_Menu:
 	msgbox ConditionCoach_Text_MenuPrompt, MSGBOX_DEFAULT
-	dynmultipush ConditionCoach_Text_MenuBurn, CONDITION_COACH_CHOICE_BURN
 	dynmultipush ConditionCoach_Text_MenuPoison, CONDITION_COACH_CHOICE_POISON
+	dynmultipush ConditionCoach_Text_MenuBurn, CONDITION_COACH_CHOICE_BURN
 	dynmultipush ConditionCoach_Text_MenuParalysis, CONDITION_COACH_CHOICE_PARALYSIS
 	dynmultipush ConditionCoach_Text_MenuRestWake, CONDITION_COACH_CHOICE_REST_WAKE
 	dynmultipush ConditionCoach_Text_MenuClear, CONDITION_COACH_CHOICE_CLEAR
 	dynmultipush ConditionCoach_Text_MenuExit, CONDITION_COACH_CHOICE_EXIT
-	dynmultistack 0, 0, FALSE, 6, FALSE, 0, NULL
+	dynmultistack 0, 0, FALSE, 6, FALSE, CONDITION_COACH_CHOICE_POISON, NULL
 	switch VAR_RESULT
-	case CONDITION_COACH_CHOICE_BURN, ConditionCoach_EventScript_SelectBurn
 	case CONDITION_COACH_CHOICE_POISON, ConditionCoach_EventScript_SelectPoison
+	case CONDITION_COACH_CHOICE_BURN, ConditionCoach_EventScript_SelectBurn
 	case CONDITION_COACH_CHOICE_PARALYSIS, ConditionCoach_EventScript_SelectParalysis
 	case CONDITION_COACH_CHOICE_REST_WAKE, ConditionCoach_EventScript_SelectRestWake
 	case CONDITION_COACH_CHOICE_CLEAR, ConditionCoach_EventScript_SelectClear
@@ -26,23 +26,33 @@ ConditionCoach_EventScript_Menu:
 
 ConditionCoach_EventScript_SelectBurn:
 	setvar VAR_0x8005, CONDITION_COACH_CHOICE_BURN
+	specialvar VAR_RESULT, ConditionCoach_IsChoiceUnlocked
+	goto_if_eq VAR_RESULT, FALSE, ConditionCoach_EventScript_Locked
 	goto ConditionCoach_EventScript_SelectMon
 
 ConditionCoach_EventScript_SelectPoison:
 	setvar VAR_0x8005, CONDITION_COACH_CHOICE_POISON
+	specialvar VAR_RESULT, ConditionCoach_IsChoiceUnlocked
+	goto_if_eq VAR_RESULT, FALSE, ConditionCoach_EventScript_Locked
 	goto ConditionCoach_EventScript_SelectMon
 
 ConditionCoach_EventScript_SelectParalysis:
 	setvar VAR_0x8005, CONDITION_COACH_CHOICE_PARALYSIS
+	specialvar VAR_RESULT, ConditionCoach_IsChoiceUnlocked
+	goto_if_eq VAR_RESULT, FALSE, ConditionCoach_EventScript_Locked
 	goto ConditionCoach_EventScript_SelectMon
 
 ConditionCoach_EventScript_SelectRestWake:
 	setvar VAR_0x8005, CONDITION_COACH_CHOICE_REST_WAKE
+	specialvar VAR_RESULT, ConditionCoach_IsChoiceUnlocked
+	goto_if_eq VAR_RESULT, FALSE, ConditionCoach_EventScript_Locked
 	msgbox ConditionCoach_Text_RestWakeExplain, MSGBOX_DEFAULT
 	goto ConditionCoach_EventScript_SelectMon
 
 ConditionCoach_EventScript_SelectClear:
 	setvar VAR_0x8005, CONDITION_COACH_CHOICE_CLEAR
+	specialvar VAR_RESULT, ConditionCoach_IsChoiceUnlocked
+	goto_if_eq VAR_RESULT, FALSE, ConditionCoach_EventScript_Locked
 	goto ConditionCoach_EventScript_SelectMon
 
 ConditionCoach_EventScript_SelectMon:
@@ -59,7 +69,13 @@ ConditionCoach_EventScript_SelectMon:
 	case CONDITION_COACH_RESULT_ALREADY_STATUS, ConditionCoach_EventScript_AlreadyStatus
 	case CONDITION_COACH_RESULT_ALREADY_CLEAR, ConditionCoach_EventScript_AlreadyClear
 	case CONDITION_COACH_RESULT_INVALID_CHOICE, ConditionCoach_EventScript_Goodbye
+	case CONDITION_COACH_RESULT_LOCKED, ConditionCoach_EventScript_Locked
 	goto ConditionCoach_EventScript_Goodbye
+
+ConditionCoach_EventScript_Locked:
+	buffernumberstring STR_VAR_1, VAR_0x8006
+	msgbox ConditionCoach_Text_Locked, MSGBOX_DEFAULT
+	goto ConditionCoach_EventScript_Menu
 
 ConditionCoach_EventScript_Applied:
 	msgbox ConditionCoach_Text_Applied, MSGBOX_DEFAULT
@@ -260,6 +276,10 @@ ConditionCoach_Text_AlreadyStatus:
 ConditionCoach_Text_AlreadyClear:
 	.string "{STR_VAR_1} is already clear.\n"
 	.string "No adjustment needed.$"
+
+ConditionCoach_Text_Locked:
+	.string "That drill opens once you\n"
+	.string "have {STR_VAR_1} GYM BADGES.$"
 
 ConditionCoach_Text_NoPokemon:
 	.string "Bring me a conscious POKéMON\n"
