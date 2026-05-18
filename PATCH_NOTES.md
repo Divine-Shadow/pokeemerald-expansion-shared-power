@@ -1,3 +1,5 @@
+- Gameplay/Trainers: Give Winona's Altaria Cloud Nine and Skarmory Roar (commit pending).
+- Gameplay/Trainers: Update Winona's lead core with burned physical attackers (commit pending).
 - Gameplay/Trainers: Remove EV investment from enemy trainer Pokemon (commit 31f347f36b).
 - Gameplay/Trainers: Raise Winstrate Vito's team to the Elite Four level cap (commit 00f57c13cc).
 - Gameplay/Items: Make TMs reusable and update TM guidance text and notes (commit 00f57c13cc).

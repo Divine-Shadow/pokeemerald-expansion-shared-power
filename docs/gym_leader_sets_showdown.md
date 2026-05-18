@@ -166,36 +166,38 @@ Level: 31
 
 === [gen9anythinggoes] Winona ===
 
-Pelipper @ Choice Specs
-Ability: Drizzle
+Swellow @ Choice Band
+Ability: Guts
+Status: Burn
 Level: 29
-- Hurricane
+- Facade
+- Brave Bird
 - U-turn
-- Hydro Pump
-- Ice Beam
+- Quick Attack
 
-Dragonite @ Lum Berry
-Ability: Multiscale
+Altaria @ Altarianite
+Ability: Cloud Nine
+Status: Burn
 Level: 30
-- Dragon Dance
+- Facade
 - Outrage
+- Dragon Dance
 - Earthquake
-- Hurricane
 
 Tropius @ Sitrus Berry
 Ability: Chlorophyll
+Status: Burn
 Level: 29
-IVs: 0 Atk
-- Substitute
-- Protect
+- Dragon Dance
 - Leech Seed
-- Hurricane
+- Dual Wingbeat
+- Leaf Blade
 
 Skarmory @ Sitrus Berry
 Ability: Sturdy
 Level: 31
 - Brave Bird
-- Hurricane
+- Roar
 - Iron Head
 - Stealth Rock
 
