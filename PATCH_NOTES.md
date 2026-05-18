@@ -1,4 +1,4 @@
-- Gameplay/Moves: Raise Icy Wind and Mud Shot accuracy to 100% (commit pending).
+- Gameplay/Moves: Raise Icy Wind and Mud Shot accuracy to 100% (commit ad455b76c1).
 - Maps: Rename route underwater map sections so caught Pokemon show the route-specific underwater location (commit b06e69eca2).
 - Gameplay/Trainers: Give Winona's Altaria Cloud Nine and Skarmory Roar (commit 1c81652882).
 - Gameplay/Trainers: Update Winona's lead core with burned physical attackers (commit 1c81652882).
