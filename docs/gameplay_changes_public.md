@@ -65,6 +65,7 @@ These notes cover gameplay rules and move access that are safe to know before st
 
 - Cut is now a Steel-type move with 50 power and 100% accuracy.
 - Strength is now a Rock-type move.
+- Icy Wind and Mud Shot now have 100% accuracy.
 - Rock Slide and Rock Tomb now have 100% accuracy.
 
 ## Move Access
