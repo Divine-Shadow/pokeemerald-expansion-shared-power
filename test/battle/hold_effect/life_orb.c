@@ -64,6 +64,24 @@ SINGLE_BATTLE_TEST("Life Orb does not activate if using a status move")
     }
 }
 
+SINGLE_BATTLE_TEST("Life Orb does not activate if using Substitute")
+{
+    GIVEN {
+        PLAYER(SPECIES_WOBBUFFET) { Item(ITEM_LIFE_ORB); HP(100); MaxHP(100); }
+        OPPONENT(SPECIES_WOBBUFFET);
+    } WHEN {
+        TURN { MOVE(player, MOVE_SUBSTITUTE); }
+    } SCENE {
+        ANIMATION(ANIM_TYPE_MOVE, MOVE_SUBSTITUTE, player);
+        HP_BAR(player);
+        MESSAGE("Wobbuffet put in a substitute!");
+        NONE_OF {
+            HP_BAR(player);
+            MESSAGE("Wobbuffet was hurt by the Life Orb!");
+        }
+    }
+}
+
 SINGLE_BATTLE_TEST("Life Orb doesn't cause any HP loss if user is unable to attack")
 {
     PASSES_RANDOMLY(25, 100, RNG_PARALYSIS);
