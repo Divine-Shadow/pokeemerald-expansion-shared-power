@@ -239,3 +239,22 @@ Party Size: 2
 Wynaut
 
 Wobbuffet
+
+=== 11 ===
+Name: Test11
+Class: Pkmn Trainer 1
+Pic: Red
+Gender: Male
+Music: Male
+Battle Type: Singles
+Party Size: 2
+Scale To Level Cap: Yes
+
+Wynaut
+Level: 5
+
+Wobbuffet
+Level: 99
+
+Eevee
+Level: 50

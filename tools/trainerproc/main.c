@@ -161,6 +161,9 @@ struct Trainer
 
     struct String back_pic;
     int back_pic_line;
+
+    bool scale_to_level_cap;
+    int scale_to_level_cap_line;
 };
 
 static bool is_empty_string(struct String s)
@@ -1313,9 +1316,17 @@ static bool parse_trainer(struct Parser *p, const struct Parsed *parsed, struct 
             trainer->back_pic_line = value.location.line;
             trainer->back_pic = token_string(&value);
         }
+        else if (is_literal_token(&key, "Scale To Level Cap"))
+        {
+            if (trainer->scale_to_level_cap_line)
+                any_error = !set_show_parse_error(p, key.location, "duplicate 'Scale To Level Cap'");
+            trainer->scale_to_level_cap_line = value.location.line;
+            if (!token_bool(p, &value, &trainer->scale_to_level_cap))
+                any_error = !show_parse_error(p);
+        }
         else
         {
-            any_error = !set_show_parse_error(p, key.location, "expected one of 'Name', 'Class', 'Pic', 'Gender', 'Music', 'Items', 'Battle Type', 'Difficulty', 'Party Size', 'Pool Rules', 'Pool Pick Functions', 'Pool Prune' or 'AI'");
+            any_error = !set_show_parse_error(p, key.location, "expected one of 'Name', 'Class', 'Pic', 'Gender', 'Music', 'Items', 'Battle Type', 'Difficulty', 'Party Size', 'Pool Rules', 'Pool Pick Functions', 'Pool Prune', 'Scale To Level Cap' or 'AI'");
         }
     }
     if (!trainer->pic_line && !trainer->macro_line)
@@ -1914,6 +1925,12 @@ static void fprint_trainers(const char *output_path, FILE *f, struct Parsed *par
             fprintf(f, "        .trainerBackPic = ");
             fprint_constant(f, "TRAINER_PIC", trainer->pic);
             fprintf(f, ",\n");
+        }
+
+        if (trainer->scale_to_level_cap)
+        {
+            fprintf(f, "#line %d\n", trainer->scale_to_level_cap_line);
+            fprintf(f, "        .partyLevelMode = TRAINER_PARTY_LEVEL_CAP,\n");
         }
         
         if (trainer->macro_line)

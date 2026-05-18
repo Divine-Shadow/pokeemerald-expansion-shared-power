@@ -3,21 +3,32 @@
 #include "battle.h"
 #include "battle_main.h"
 #include "data.h"
+#include "event_data.h"
 #include "malloc.h"
 #include "random.h"
 #include "string_util.h"
 #include "trainer_pools.h"
 #include "constants/item.h"
 #include "constants/abilities.h"
+#include "constants/flags.h"
 #include "constants/trainers.h"
 #include "constants/battle.h"
 
-#define NUM_TEST_TRAINERS 11
+#define NUM_TEST_TRAINERS 12
 
 static const struct Trainer sTestTrainers[DIFFICULTY_COUNT][NUM_TEST_TRAINERS] =
 {
 #include "trainer_control.h"
 };
+
+static void ClearLevelCapFlags(void)
+{
+    u32 i;
+
+    for (i = 0; i < NUM_BADGES; i++)
+        FlagClear(gBadgeFlags[i]);
+    FlagClear(FLAG_IS_CHAMPION);
+}
 
 enum DifficultyLevel GetTrainerDifficultyLevelTest(u16 trainerId)
 {
@@ -300,4 +311,23 @@ TEST("trainerproc supports both Double Battle: Yes and Battle Type: Doubles")
     PARAMETRIZE { currTrainer = 10; }
     const struct Trainer trainer = sTestTrainers[GetTrainerDifficultyLevelTest(currTrainer)][currTrainer];
     EXPECT(trainer.battleType == TRAINER_BATTLE_TYPE_DOUBLES);
+}
+
+TEST("CreateNPCTrainerPartyForTrainer can scale authored levels to the current level cap")
+{
+    struct Pokemon *testParty = Alloc(6 * sizeof(struct Pokemon));
+    u32 currTrainer = 11;
+
+    ClearLevelCapFlags();
+    CreateNPCTrainerPartyFromTrainer(testParty, &sTestTrainers[GetTrainerDifficultyLevelTest(currTrainer)][currTrainer], TRUE, BATTLE_TYPE_TRAINER);
+    EXPECT(GetMonData(&testParty[0], MON_DATA_LEVEL) == 15);
+    EXPECT(GetMonData(&testParty[1], MON_DATA_LEVEL) == 15);
+
+    FlagSet(FLAG_BADGE01_GET);
+    CreateNPCTrainerPartyFromTrainer(testParty, &sTestTrainers[GetTrainerDifficultyLevelTest(currTrainer)][currTrainer], TRUE, BATTLE_TYPE_TRAINER);
+    EXPECT(GetMonData(&testParty[0], MON_DATA_LEVEL) == 19);
+    EXPECT(GetMonData(&testParty[1], MON_DATA_LEVEL) == 19);
+    ClearLevelCapFlags();
+
+    Free(testParty);
 }

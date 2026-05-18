@@ -26,6 +26,7 @@ Optional (but still recommended) fields for trainers:
     - Mugshot (enable Mugshots during battle transition
                set to one of Purple, Green, Pink, Blue or Yellow)
     - Starting Status (see include/constants/battle.h for values)
+    - Scale To Level Cap (Yes/No, sets all Pokemon to the current player level cap)
 
 Pokemon are then specified using the Showdown Export format.
 If a field is not specified, it will use it's default value.
@@ -2077,7 +2078,7 @@ Nature: Timid
 
 === TRAINER_VITO ===
 Name: VITO
-Class: Cooltrainer
+Class: Winstrate
 Pic: Cooltrainer M
 Gender: Male
 Music: Cool

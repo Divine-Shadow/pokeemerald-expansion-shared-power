@@ -54,6 +54,12 @@ struct TrainerBacksprite
 #define TRAINER_PARTY_IVS(hp, atk, def, speed, spatk, spdef) (hp | (atk << 5) | (def << 10) | (speed << 15) | (spatk << 20) | (spdef << 25))
 #define TRAINER_PARTY_EVS(hp, atk, def, speed, spatk, spdef) ((const u8[6]){hp,atk,def,spatk,spdef,speed})
 
+enum TrainerPartyLevelMode
+{
+    TRAINER_PARTY_LEVEL_AUTHORED,
+    TRAINER_PARTY_LEVEL_CAP,
+};
+
 // Shared by both trainer and frontier mons
 // See CreateNPCTrainerPartyFromTrainer and CreateFacilityMon
 struct TrainerMon
@@ -108,6 +114,7 @@ struct Trainer
     /*0x24*/ u8 poolPruneIndex;
     /*0x25*/ u16 overrideTrainer;
     /*0x26*/ u8 trainerBackPic;
+    /*0x27*/ u8 partyLevelMode;
 };
 
 struct TrainerClass
