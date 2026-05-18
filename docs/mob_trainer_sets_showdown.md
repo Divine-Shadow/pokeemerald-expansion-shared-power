@@ -15,7 +15,6 @@ Updated trainers: 746
 Geodude @ Berry Juice
 Ability: Sturdy
 Level: 21
-EVs: 36 HP / 196 Atk / 116 Def / 36 SpD / 116 Spe
 Nature: Adamant
 - Stealth Rock
 - Rock Blast
@@ -28,7 +27,6 @@ Nature: Adamant
 Poochyena
 Ability: Rattled
 Level: 32
-EVs: 236 Atk / 36 SpD / 236 Spe
 Nature: Jolly
 - Howl
 - Crunch
@@ -40,7 +38,6 @@ Nature: Jolly
 
 Zubat @ Choice Scarf
 Level: 31
-EVs: 36 HP / 236 Atk / 236 Spe
 Nature: Jolly
 - Brave Bird
 - U-turn
@@ -50,7 +47,6 @@ Nature: Jolly
 Carvanha @ Life Orb
 Ability: Speed Boost
 Level: 31
-EVs: 236 SpA / 36 SpD / 236 Spe
 Nature: Modest
 IVs: 9 HP / 0 Atk
 - Protect
@@ -63,7 +59,6 @@ IVs: 9 HP / 0 Atk
 
 Zubat @ Choice Scarf
 Level: 32
-EVs: 36 HP / 236 Atk / 236 Spe
 Nature: Jolly
 - Brave Bird
 - U-turn
@@ -76,7 +71,6 @@ Nature: Jolly
 Carvanha @ Life Orb
 Ability: Speed Boost
 Level: 32
-EVs: 236 SpA / 36 SpD / 236 Spe
 Nature: Modest
 IVs: 9 HP / 0 Atk
 - Protect
@@ -90,7 +84,6 @@ IVs: 9 HP / 0 Atk
 Poochyena
 Ability: Rattled
 Level: 36
-EVs: 236 Atk / 36 SpD / 236 Spe
 Nature: Jolly
 - Howl
 - Crunch
@@ -103,7 +96,6 @@ Nature: Jolly
 Carvanha @ Life Orb
 Ability: Speed Boost
 Level: 36
-EVs: 236 SpA / 36 SpD / 236 Spe
 Nature: Modest
 IVs: 9 HP / 0 Atk
 - Protect
@@ -116,7 +108,6 @@ IVs: 9 HP / 0 Atk
 
 Zubat @ Choice Scarf
 Level: 36
-EVs: 36 HP / 236 Atk / 236 Spe
 Nature: Jolly
 - Brave Bird
 - U-turn
@@ -129,7 +120,6 @@ Nature: Jolly
 Skitty @ Life Orb
 Ability: Normalize
 Level: 26
-EVs: 236 Atk / 76 SpD / 196 Spe
 Nature: Jolly
 - Fake Out
 - Sucker Punch
@@ -139,7 +129,6 @@ Nature: Jolly
 Poochyena
 Ability: Rattled
 Level: 26
-EVs: 236 Atk / 36 SpD / 236 Spe
 Nature: Jolly
 - Howl
 - Crunch
@@ -148,7 +137,6 @@ Nature: Jolly
 
 Zigzagoon @ Berry Juice
 Level: 26
-EVs: 132 HP / 196 Atk / 108 Def / 28 SpD / 36 Spe
 Nature: Adamant
 - Belly Drum
 - Extreme Speed
@@ -157,7 +145,6 @@ Nature: Adamant
 
 Lotad @ Life Orb
 Level: 26
-EVs: 116 Def / 196 SpA / 196 Spe
 Nature: Modest
 IVs: 19 HP
 - Surf
@@ -167,7 +154,6 @@ IVs: 19 HP
 
 Seedot @ Life Orb
 Level: 26
-EVs: 40 Atk / 36 Def / 200 SpA / 200 Spe
 Nature: Rash
 IVs: 19 HP
 - Growth
@@ -178,7 +164,6 @@ IVs: 19 HP
 Taillow @ Life Orb
 Ability: Guts
 Level: 26
-EVs: 36 Def / 200 SpA / 36 SpD / 236 Spe
 Nature: Naive
 IVs: 19 HP
 - Boomburst
@@ -192,7 +177,6 @@ IVs: 19 HP
 Poochyena
 Ability: Rattled
 Level: 9
-EVs: 236 Atk / 36 SpD / 236 Spe
 Nature: Jolly
 - Howl
 - Crunch
@@ -205,7 +189,6 @@ Nature: Jolly
 Manectric
 Ability: Lightning Rod
 Level: 29
-EVs: 252 SpA / 4 SpD / 252 Spe
 Nature: Timid
 IVs: 0 Atk
 - Volt Switch
@@ -215,7 +198,6 @@ IVs: 0 Atk
 
 Shiftry @ Life Orb
 Level: 29
-EVs: 252 Atk / 4 Def / 252 Spe
 Nature: Adamant
 - Growth
 - Solar Blade
@@ -228,7 +210,6 @@ Nature: Adamant
 Pelipper @ Damp Rock
 Ability: Drizzle
 Level: 30
-EVs: 248 HP / 252 Def / 8 SpD
 Nature: Relaxed
 IVs: 0 Spe
 - Hurricane
@@ -239,7 +220,6 @@ IVs: 0 Spe
 Xatu @ Heavy-Duty Boots
 Ability: Magic Bounce
 Level: 30
-EVs: 252 HP / 252 Def / 4 SpD
 Nature: Bold
 - Psychic
 - Roost
@@ -252,7 +232,6 @@ Nature: Bold
 Zangoose @ Toxic Orb
 Ability: Toxic Boost
 Level: 30
-EVs: 252 Atk / 4 SpD / 252 Spe
 Nature: Jolly
 - Swords Dance
 - Facade
@@ -261,7 +240,6 @@ Nature: Jolly
 
 Seviper @ Life Orb
 Level: 30
-EVs: 8 HP / 56 Atk / 224 SpA / 220 Spe
 Nature: Naughty
 - Sludge Wave
 - Giga Drain
@@ -274,7 +252,6 @@ Nature: Naughty
 Carvanha @ Life Orb
 Ability: Speed Boost
 Level: 36
-EVs: 236 SpA / 36 SpD / 236 Spe
 Nature: Modest
 IVs: 9 HP / 0 Atk
 - Protect
@@ -288,7 +265,6 @@ IVs: 9 HP / 0 Atk
 Gyarados @ Leftovers
 Ability: Moxie
 Level: 34
-EVs: 252 Atk / 4 SpD / 252 Spe
 Nature: Adamant
 - Dragon Dance
 - Waterfall
@@ -301,7 +277,6 @@ Nature: Adamant
 Poochyena
 Ability: Rattled
 Level: 11
-EVs: 236 Atk / 36 SpD / 236 Spe
 Nature: Jolly
 - Howl
 - Crunch
@@ -313,7 +288,6 @@ Nature: Jolly
 
 Zubat @ Choice Scarf
 Level: 27
-EVs: 36 HP / 236 Atk / 236 Spe
 Nature: Jolly
 - Brave Bird
 - U-turn
@@ -323,7 +297,6 @@ Nature: Jolly
 Poochyena
 Ability: Rattled
 Level: 27
-EVs: 236 Atk / 36 SpD / 236 Spe
 Nature: Jolly
 - Howl
 - Crunch
@@ -336,7 +309,6 @@ Nature: Jolly
 Poochyena
 Ability: Rattled
 Level: 27
-EVs: 236 Atk / 36 SpD / 236 Spe
 Nature: Jolly
 - Howl
 - Crunch
@@ -346,7 +318,6 @@ Nature: Jolly
 Carvanha @ Life Orb
 Ability: Speed Boost
 Level: 27
-EVs: 236 SpA / 36 SpD / 236 Spe
 Nature: Modest
 IVs: 9 HP / 0 Atk
 - Protect
@@ -360,7 +331,6 @@ IVs: 9 HP / 0 Atk
 Poochyena
 Ability: Rattled
 Level: 26
-EVs: 236 Atk / 36 SpD / 236 Spe
 Nature: Jolly
 - Howl
 - Crunch
@@ -369,7 +339,6 @@ Nature: Jolly
 
 Zubat @ Choice Scarf
 Level: 26
-EVs: 36 HP / 236 Atk / 236 Spe
 Nature: Jolly
 - Brave Bird
 - U-turn
@@ -379,7 +348,6 @@ Nature: Jolly
 Carvanha @ Life Orb
 Ability: Speed Boost
 Level: 26
-EVs: 236 SpA / 36 SpD / 236 Spe
 Nature: Modest
 IVs: 9 HP / 0 Atk
 - Protect
@@ -393,7 +361,6 @@ IVs: 9 HP / 0 Atk
 Carvanha @ Life Orb
 Ability: Speed Boost
 Level: 15
-EVs: 236 SpA / 36 SpD / 236 Spe
 Nature: Modest
 IVs: 9 HP / 0 Atk
 - Protect
@@ -406,7 +373,6 @@ IVs: 9 HP / 0 Atk
 
 Zubat @ Choice Scarf
 Level: 14
-EVs: 36 HP / 236 Atk / 236 Spe
 Nature: Jolly
 - Brave Bird
 - U-turn
@@ -416,7 +382,6 @@ Nature: Jolly
 Carvanha @ Life Orb
 Ability: Speed Boost
 Level: 14
-EVs: 236 SpA / 36 SpD / 236 Spe
 Nature: Modest
 IVs: 9 HP / 0 Atk
 - Protect
@@ -430,7 +395,6 @@ IVs: 9 HP / 0 Atk
 Numel @ Eviolite
 Ability: Simple
 Level: 32
-EVs: 36 Def / 236 SpA / 236 Spe
 Nature: Modest
 - Flame Charge
 - Fire Blast
@@ -442,7 +406,6 @@ Nature: Modest
 
 Zubat @ Choice Scarf
 Level: 32
-EVs: 36 HP / 236 Atk / 236 Spe
 Nature: Jolly
 - Brave Bird
 - U-turn
@@ -455,7 +418,6 @@ Nature: Jolly
 Carvanha @ Life Orb
 Ability: Speed Boost
 Level: 32
-EVs: 236 SpA / 36 SpD / 236 Spe
 Nature: Modest
 IVs: 9 HP / 0 Atk
 - Protect
@@ -469,7 +431,6 @@ IVs: 9 HP / 0 Atk
 Poochyena
 Ability: Rattled
 Level: 30
-EVs: 236 Atk / 36 SpD / 236 Spe
 Nature: Jolly
 - Howl
 - Crunch
@@ -479,7 +440,6 @@ Nature: Jolly
 Carvanha @ Life Orb
 Ability: Speed Boost
 Level: 30
-EVs: 236 SpA / 36 SpD / 236 Spe
 Nature: Modest
 IVs: 9 HP / 0 Atk
 - Protect
@@ -493,7 +453,6 @@ IVs: 9 HP / 0 Atk
 Carvanha @ Life Orb
 Ability: Speed Boost
 Level: 28
-EVs: 236 SpA / 36 SpD / 236 Spe
 Nature: Modest
 IVs: 9 HP / 0 Atk
 - Protect
@@ -507,7 +466,6 @@ IVs: 9 HP / 0 Atk
 Carvanha @ Life Orb
 Ability: Speed Boost
 Level: 32
-EVs: 236 SpA / 36 SpD / 236 Spe
 Nature: Modest
 IVs: 9 HP / 0 Atk
 - Protect
@@ -520,7 +478,6 @@ IVs: 9 HP / 0 Atk
 
 Zubat @ Choice Scarf
 Level: 32
-EVs: 36 HP / 236 Atk / 236 Spe
 Nature: Jolly
 - Brave Bird
 - U-turn
@@ -532,7 +489,6 @@ Nature: Jolly
 
 Makuhita @ Berry Juice
 Level: 30
-EVs: 20 HP / 196 Atk / 36 Def / 236 Spe
 Nature: Jolly
 - Belly Drum
 - Close Combat
@@ -542,7 +498,6 @@ Nature: Jolly
 Machoke @ Eviolite
 Ability: No Guard
 Level: 30
-EVs: 252 HP / 252 Def / 4 SpD
 Nature: Impish
 - Dynamic Punch
 - Knock Off
@@ -555,7 +510,6 @@ Nature: Impish
 Hariyama @ Sitrus Berry
 Ability: Guts
 Level: 31
-EVs: 4 HP / 252 Atk / 252 Spe
 Nature: Adamant
 - Belly Drum
 - Drain Punch
@@ -567,7 +521,6 @@ Nature: Adamant
 
 Spoink @ Eviolite
 Level: 31
-EVs: 80 Def / 200 SpA / 200 Spe
 Nature: Timid
 - Calm Mind
 - Psychic
@@ -579,7 +532,6 @@ Nature: Timid
 
 Shroomish @ Eviolite
 Level: 14
-EVs: 36 HP / 36 Atk / 196 Def / 116 SpD / 76 Spe
 Nature: Impish
 - Spore
 - Bullet Seed
@@ -589,7 +541,6 @@ Nature: Impish
 Roselia @ Eviolite
 Ability: Poison Point
 Level: 14
-EVs: 252 HP / 200 Def / 56 Spe
 Nature: Bold
 - Spikes
 - Sludge Bomb
@@ -602,7 +553,6 @@ Nature: Bold
 Roselia @ Eviolite
 Ability: Poison Point
 Level: 14
-EVs: 252 HP / 200 Def / 56 Spe
 Nature: Bold
 - Spikes
 - Sludge Bomb
@@ -611,7 +561,6 @@ Nature: Bold
 
 Shroomish @ Eviolite
 Level: 14
-EVs: 36 HP / 36 Atk / 196 Def / 116 SpD / 76 Spe
 Nature: Impish
 - Spore
 - Bullet Seed
@@ -621,7 +570,6 @@ Nature: Impish
 Roselia @ Eviolite
 Ability: Poison Point
 Level: 14
-EVs: 252 HP / 200 Def / 56 Spe
 Nature: Bold
 - Spikes
 - Sludge Bomb
@@ -633,7 +581,6 @@ Nature: Bold
 
 Medicham @ Choice Scarf
 Level: 43
-EVs: 252 Atk / 4 SpD / 252 Spe
 Nature: Jolly
 - Close Combat
 - Zen Headbutt
@@ -642,7 +589,6 @@ Nature: Jolly
 
 Claydol @ Colbur Berry
 Level: 43
-EVs: 252 HP / 240 Def / 16 Spe
 Nature: Bold
 - Stealth Rock
 - Toxic
@@ -655,7 +601,6 @@ Nature: Bold
 Roselia @ Eviolite
 Ability: Poison Point
 Level: 26
-EVs: 252 HP / 200 Def / 56 Spe
 Nature: Bold
 - Spikes
 - Sludge Bomb
@@ -664,7 +609,6 @@ Nature: Bold
 
 Gloom @ Eviolite
 Level: 26
-EVs: 248 HP / 252 Def / 8 SpD
 Nature: Bold
 IVs: 0 Atk
 - Sludge Bomb
@@ -677,7 +621,6 @@ IVs: 0 Atk
 
 Shroomish @ Eviolite
 Level: 26
-EVs: 36 HP / 36 Atk / 196 Def / 116 SpD / 76 Spe
 Nature: Impish
 - Spore
 - Bullet Seed
@@ -687,7 +630,6 @@ Nature: Impish
 Roselia @ Eviolite
 Ability: Poison Point
 Level: 26
-EVs: 252 HP / 200 Def / 56 Spe
 Nature: Bold
 - Spikes
 - Sludge Bomb
@@ -699,7 +641,6 @@ Nature: Bold
 
 Shroomish @ Eviolite
 Level: 28
-EVs: 36 HP / 36 Atk / 196 Def / 116 SpD / 76 Spe
 Nature: Impish
 - Spore
 - Bullet Seed
@@ -708,7 +649,6 @@ Nature: Impish
 
 Gloom @ Eviolite
 Level: 28
-EVs: 248 HP / 252 Def / 8 SpD
 Nature: Bold
 IVs: 0 Atk
 - Sludge Bomb
@@ -719,7 +659,6 @@ IVs: 0 Atk
 Roselia @ Eviolite
 Ability: Poison Point
 Level: 28
-EVs: 252 HP / 200 Def / 56 Spe
 Nature: Bold
 - Spikes
 - Sludge Bomb
@@ -731,7 +670,6 @@ Nature: Bold
 
 Shroomish @ Eviolite
 Level: 31
-EVs: 36 HP / 36 Atk / 196 Def / 116 SpD / 76 Spe
 Nature: Impish
 - Spore
 - Bullet Seed
@@ -740,7 +678,6 @@ Nature: Impish
 
 Gloom @ Eviolite
 Level: 31
-EVs: 248 HP / 252 Def / 8 SpD
 Nature: Bold
 IVs: 0 Atk
 - Sludge Bomb
@@ -751,7 +688,6 @@ IVs: 0 Atk
 Roselia @ Eviolite
 Ability: Poison Point
 Level: 31
-EVs: 252 HP / 200 Def / 56 Spe
 Nature: Bold
 - Spikes
 - Sludge Bomb
@@ -764,7 +700,6 @@ Nature: Bold
 Breloom @ Toxic Orb
 Ability: Poison Heal
 Level: 34
-EVs: 252 HP / 80 Atk / 176 Spe
 Nature: Adamant
 - Close Combat
 - Seed Bomb
@@ -773,7 +708,6 @@ Nature: Adamant
 
 Gloom @ Eviolite
 Level: 34
-EVs: 248 HP / 252 Def / 8 SpD
 Nature: Bold
 IVs: 0 Atk
 - Sludge Bomb
@@ -784,7 +718,6 @@ IVs: 0 Atk
 Roselia @ Eviolite
 Ability: Poison Point
 Level: 34
-EVs: 252 HP / 200 Def / 56 Spe
 Nature: Bold
 - Spikes
 - Sludge Bomb
@@ -797,7 +730,6 @@ Nature: Bold
 Sandslash @ Life Orb
 Ability: Sand Rush
 Level: 23
-EVs: 252 Atk / 4 SpD / 252 Spe
 Nature: Adamant
 - Swords Dance
 - Earthquake
@@ -809,7 +741,6 @@ Nature: Adamant
 
 Baltoy @ Berry Juice
 Level: 27
-EVs: 36 HP / 236 Def / 36 SpA / 196 SpD
 Nature: Bold
 - Rapid Spin
 - Stealth Rock
@@ -819,7 +750,6 @@ Nature: Bold
 Sandshrew @ Eviolite
 Ability: Sand Rush
 Level: 27
-EVs: 236 Atk / 76 Def / 196 Spe
 Nature: Adamant
 - Swords Dance
 - Earthquake
@@ -829,7 +759,6 @@ Nature: Adamant
 Sandslash @ Life Orb
 Ability: Sand Rush
 Level: 27
-EVs: 252 Atk / 4 SpD / 252 Spe
 Nature: Adamant
 - Swords Dance
 - Earthquake
@@ -842,7 +771,6 @@ Nature: Adamant
 Sandshrew @ Eviolite
 Ability: Sand Rush
 Level: 25
-EVs: 236 Atk / 76 Def / 196 Spe
 Nature: Adamant
 - Swords Dance
 - Earthquake
@@ -852,7 +780,6 @@ Nature: Adamant
 Sandslash @ Life Orb
 Ability: Sand Rush
 Level: 25
-EVs: 252 Atk / 4 SpD / 252 Spe
 Nature: Adamant
 - Swords Dance
 - Earthquake
@@ -865,7 +792,6 @@ Nature: Adamant
 Sandslash @ Life Orb
 Ability: Sand Rush
 Level: 27
-EVs: 252 Atk / 4 SpD / 252 Spe
 Nature: Adamant
 - Swords Dance
 - Earthquake
@@ -878,7 +804,6 @@ Nature: Adamant
 Sandslash @ Life Orb
 Ability: Sand Rush
 Level: 30
-EVs: 252 Atk / 4 SpD / 252 Spe
 Nature: Adamant
 - Swords Dance
 - Earthquake
@@ -891,7 +816,6 @@ Nature: Adamant
 Sandslash @ Life Orb
 Ability: Sand Rush
 Level: 33
-EVs: 252 Atk / 4 SpD / 252 Spe
 Nature: Adamant
 - Swords Dance
 - Earthquake
@@ -904,7 +828,6 @@ Nature: Adamant
 Sandslash @ Life Orb
 Ability: Sand Rush
 Level: 36
-EVs: 252 Atk / 4 SpD / 252 Spe
 Nature: Adamant
 - Swords Dance
 - Earthquake
@@ -916,7 +839,6 @@ Nature: Adamant
 
 Magnemite @ Choice Scarf
 Level: 17
-EVs: 36 Def / 236 SpA / 236 Spe
 Nature: Modest
 - Thunderbolt
 - Flash Cannon
@@ -925,7 +847,6 @@ Nature: Modest
 
 Whismur @ Life Orb
 Level: 17
-EVs: 244 HP / 36 Def / 188 SpA / 36 SpD
 Nature: Quiet
 - Hyper Voice
 - Shadow Ball
@@ -937,7 +858,6 @@ Nature: Quiet
 
 Magnemite @ Choice Scarf
 Level: 27
-EVs: 36 Def / 236 SpA / 236 Spe
 Nature: Modest
 - Thunderbolt
 - Flash Cannon
@@ -946,7 +866,6 @@ Nature: Modest
 
 Loudred @ Leftovers
 Level: 27
-EVs: 100 HP / 252 Atk / 16 SpA / 140 Spe
 Nature: Naughty
 - Return
 - Shadow Ball
@@ -959,7 +878,6 @@ Nature: Naughty
 Magneton @ Eviolite
 Ability: Analytic
 Level: 30
-EVs: 252 SpA / 4 SpD / 252 Spe
 Nature: Timid
 - Thunderbolt
 - Flash Cannon
@@ -968,7 +886,6 @@ Nature: Timid
 
 Loudred @ Leftovers
 Level: 30
-EVs: 100 HP / 252 Atk / 16 SpA / 140 Spe
 Nature: Naughty
 - Return
 - Shadow Ball
@@ -981,7 +898,6 @@ Nature: Naughty
 Magneton @ Eviolite
 Ability: Analytic
 Level: 33
-EVs: 252 SpA / 4 SpD / 252 Spe
 Nature: Timid
 - Thunderbolt
 - Flash Cannon
@@ -990,7 +906,6 @@ Nature: Timid
 
 Loudred @ Leftovers
 Level: 33
-EVs: 100 HP / 252 Atk / 16 SpA / 140 Spe
 Nature: Naughty
 - Return
 - Shadow Ball
@@ -1003,7 +918,6 @@ Nature: Naughty
 Magneton @ Eviolite
 Ability: Analytic
 Level: 36
-EVs: 252 SpA / 4 SpD / 252 Spe
 Nature: Timid
 - Thunderbolt
 - Flash Cannon
@@ -1012,7 +926,6 @@ Nature: Timid
 
 Loudred @ Leftovers
 Level: 36
-EVs: 100 HP / 252 Atk / 16 SpA / 140 Spe
 Nature: Naughty
 - Return
 - Shadow Ball
@@ -1025,7 +938,6 @@ Nature: Naughty
 Magneton @ Eviolite
 Ability: Analytic
 Level: 39
-EVs: 252 SpA / 4 SpD / 252 Spe
 Nature: Timid
 - Thunderbolt
 - Flash Cannon
@@ -1035,7 +947,6 @@ Nature: Timid
 Exploud @ Choice Specs
 Ability: Scrappy
 Level: 39
-EVs: 252 SpA / 4 SpD / 252 Spe
 Nature: Timid
 - Boomburst
 - Overheat
@@ -1048,7 +959,6 @@ Nature: Timid
 Azurill @ Oran Berry
 Ability: Huge Power
 Level: 12
-EVs: 36 HP / 196 Atk / 116 Def / 36 SpD / 116 Spe
 Nature: Adamant
 - Belly Drum
 - Facade
@@ -1058,7 +968,6 @@ Nature: Adamant
 Azurill @ Oran Berry
 Ability: Huge Power
 Level: 12
-EVs: 36 HP / 196 Atk / 116 Def / 36 SpD / 116 Spe
 Nature: Adamant
 - Belly Drum
 - Facade
@@ -1071,7 +980,6 @@ Nature: Adamant
 Marill @ Choice Band
 Ability: Huge Power
 Level: 26
-EVs: 52 HP / 252 Atk / 204 Spe
 Nature: Adamant
 - Play Rough
 - Waterfall
@@ -1084,7 +992,6 @@ Nature: Adamant
 Marill @ Choice Band
 Ability: Huge Power
 Level: 26
-EVs: 52 HP / 252 Atk / 204 Spe
 Nature: Adamant
 - Play Rough
 - Waterfall
@@ -1097,7 +1004,6 @@ Nature: Adamant
 Marill @ Choice Band
 Ability: Huge Power
 Level: 26
-EVs: 52 HP / 252 Atk / 204 Spe
 Nature: Adamant
 - Play Rough
 - Waterfall
@@ -1107,7 +1013,6 @@ Nature: Adamant
 Marill @ Choice Band
 Ability: Huge Power
 Level: 26
-EVs: 52 HP / 252 Atk / 204 Spe
 Nature: Adamant
 - Play Rough
 - Waterfall
@@ -1120,7 +1025,6 @@ Nature: Adamant
 Marill @ Choice Band
 Ability: Huge Power
 Level: 29
-EVs: 52 HP / 252 Atk / 204 Spe
 Nature: Adamant
 - Play Rough
 - Waterfall
@@ -1130,7 +1034,6 @@ Nature: Adamant
 Marill @ Choice Band
 Ability: Huge Power
 Level: 29
-EVs: 52 HP / 252 Atk / 204 Spe
 Nature: Adamant
 - Play Rough
 - Waterfall
@@ -1143,7 +1046,6 @@ Nature: Adamant
 Marill @ Choice Band
 Ability: Huge Power
 Level: 32
-EVs: 52 HP / 252 Atk / 204 Spe
 Nature: Adamant
 - Play Rough
 - Waterfall
@@ -1153,7 +1055,6 @@ Nature: Adamant
 Marill @ Choice Band
 Ability: Huge Power
 Level: 32
-EVs: 52 HP / 252 Atk / 204 Spe
 Nature: Adamant
 - Play Rough
 - Waterfall
@@ -1166,7 +1067,6 @@ Nature: Adamant
 Azumarill @ Sitrus Berry
 Ability: Huge Power
 Level: 35
-EVs: 4 HP / 252 Atk / 252 Spe
 Nature: Adamant
 - Belly Drum
 - Play Rough
@@ -1176,7 +1076,6 @@ Nature: Adamant
 Azumarill @ Sitrus Berry
 Ability: Huge Power
 Level: 35
-EVs: 4 HP / 252 Atk / 252 Spe
 Nature: Adamant
 - Belly Drum
 - Play Rough
@@ -1188,7 +1087,6 @@ Nature: Adamant
 
 Zigzagoon @ Berry Juice
 Level: 13
-EVs: 132 HP / 196 Atk / 108 Def / 28 SpD / 36 Spe
 Nature: Adamant
 - Belly Drum
 - Extreme Speed
@@ -1201,7 +1099,6 @@ Nature: Adamant
 Azurill @ Oran Berry
 Ability: Huge Power
 Level: 12
-EVs: 36 HP / 196 Atk / 116 Def / 36 SpD / 116 Spe
 Nature: Adamant
 - Belly Drum
 - Facade
@@ -1211,7 +1108,6 @@ Nature: Adamant
 Marill @ Choice Band
 Ability: Huge Power
 Level: 12
-EVs: 52 HP / 252 Atk / 204 Spe
 Nature: Adamant
 - Play Rough
 - Waterfall
@@ -1224,7 +1120,6 @@ Nature: Adamant
 Marill @ Choice Band
 Ability: Huge Power
 Level: 26
-EVs: 52 HP / 252 Atk / 204 Spe
 Nature: Adamant
 - Play Rough
 - Waterfall
@@ -1237,7 +1132,6 @@ Nature: Adamant
 Linoone @ Figy Berry
 Ability: Gluttony
 Level: 27
-EVs: 60 HP / 252 Atk / 196 Spe
 Nature: Adamant
 - Belly Drum
 - Extreme Speed
@@ -1250,7 +1144,6 @@ Nature: Adamant
 Linoone @ Figy Berry
 Ability: Gluttony
 Level: 30
-EVs: 60 HP / 252 Atk / 196 Spe
 Nature: Adamant
 - Belly Drum
 - Extreme Speed
@@ -1263,7 +1156,6 @@ Nature: Adamant
 Linoone @ Figy Berry
 Ability: Gluttony
 Level: 33
-EVs: 60 HP / 252 Atk / 196 Spe
 Nature: Adamant
 - Belly Drum
 - Extreme Speed
@@ -1276,7 +1168,6 @@ Nature: Adamant
 Linoone @ Figy Berry
 Ability: Gluttony
 Level: 36
-EVs: 60 HP / 252 Atk / 196 Spe
 Nature: Adamant
 - Belly Drum
 - Extreme Speed
@@ -1289,7 +1180,6 @@ Nature: Adamant
 Swellow @ Choice Specs
 Ability: Scrappy
 Level: 26
-EVs: 4 Def / 252 SpA / 252 Spe
 Nature: Timid
 - Boomburst
 - U-turn
@@ -1302,7 +1192,6 @@ Nature: Timid
 Spinda @ Life Orb
 Ability: Contrary
 Level: 26
-EVs: 252 HP / 252 Atk / 4 Def
 Nature: Brave
 IVs: 0 Spe
 - Trick Room
@@ -1315,7 +1204,6 @@ IVs: 0 Spe
 
 Slakoth @ Choice Band
 Level: 26
-EVs: 196 HP / 196 Atk / 36 Def / 76 SpD
 Nature: Adamant
 - Return
 - Pursuit
@@ -1327,7 +1215,6 @@ Nature: Adamant
 
 Vigoroth @ Eviolite
 Level: 26
-EVs: 252 HP / 164 SpD / 92 Spe
 Nature: Jolly
 - Bulk Up
 - Facade
@@ -1340,7 +1227,6 @@ Nature: Jolly
 Swellow @ Choice Specs
 Ability: Scrappy
 Level: 28
-EVs: 4 Def / 252 SpA / 252 Spe
 Nature: Timid
 - Boomburst
 - U-turn
@@ -1350,7 +1236,6 @@ Nature: Timid
 Trapinch @ Eviolite
 Ability: Arena Trap
 Level: 28
-EVs: 196 Atk / 156 Def / 76 SpD / 36 Spe
 Nature: Impish
 - Earthquake
 - Stone Edge
@@ -1360,7 +1245,6 @@ Nature: Impish
 Wailmer @ Choice Scarf
 Ability: Pressure
 Level: 28
-EVs: 36 HP / 200 SpA / 200 Spe
 Nature: Timid
 - Water Spout
 - Hydro Pump
@@ -1370,7 +1254,6 @@ Nature: Timid
 Magneton @ Eviolite
 Ability: Analytic
 Level: 28
-EVs: 252 SpA / 4 SpD / 252 Spe
 Nature: Timid
 - Thunderbolt
 - Flash Cannon
@@ -1379,7 +1262,6 @@ Nature: Timid
 
 Shiftry @ Life Orb
 Level: 28
-EVs: 252 Atk / 4 Def / 252 Spe
 Nature: Adamant
 - Growth
 - Solar Blade
@@ -1392,7 +1274,6 @@ Nature: Adamant
 Sableye @ Heavy-Duty Boots
 Ability: Prankster
 Level: 44
-EVs: 252 HP / 252 Def / 4 SpD
 Nature: Impish
 - Encore
 - Will-O-Wisp
@@ -1401,7 +1282,6 @@ Nature: Impish
 
 Medicham @ Choice Scarf
 Level: 44
-EVs: 252 Atk / 4 SpD / 252 Spe
 Nature: Jolly
 - Close Combat
 - Zen Headbutt
@@ -1411,7 +1291,6 @@ Nature: Jolly
 Sharpedo
 Ability: Speed Boost
 Level: 44
-EVs: 252 Atk / 4 SpD / 252 Spe
 Nature: Adamant
 - Crunch
 - Psychic Fangs
@@ -1424,7 +1303,6 @@ Nature: Adamant
 Mawile
 Ability: Intimidate
 Level: 46
-EVs: 116 HP / 252 Atk / 140 Spe
 Nature: Adamant
 - Swords Dance
 - Play Rough
@@ -1434,7 +1312,6 @@ Nature: Adamant
 Starmie @ Life Orb
 Ability: Analytic
 Level: 46
-EVs: 252 SpA / 4 SpD / 252 Spe
 Nature: Timid
 - Hydro Pump
 - Ice Beam
@@ -1447,7 +1324,6 @@ Nature: Timid
 Electrike @ Choice Scarf
 Ability: Lightning Rod
 Level: 17
-EVs: 240 SpA / 236 Spe
 Nature: Timid
 IVs: 0 Atk / 30 SpA
 - Volt Switch
@@ -1458,7 +1334,6 @@ IVs: 0 Atk / 30 SpA
 Wailmer @ Choice Scarf
 Ability: Pressure
 Level: 17
-EVs: 36 HP / 200 SpA / 200 Spe
 Nature: Timid
 - Water Spout
 - Hydro Pump
@@ -1467,7 +1342,6 @@ Nature: Timid
 
 Makuhita @ Berry Juice
 Level: 17
-EVs: 20 HP / 196 Atk / 36 Def / 236 Spe
 Nature: Jolly
 - Belly Drum
 - Close Combat
@@ -1480,7 +1354,6 @@ Nature: Jolly
 Cacturne @ Life Orb
 Ability: Water Absorb
 Level: 43
-EVs: 4 Atk / 252 SpA / 252 Spe
 Nature: Mild
 - Spikes
 - Dark Pulse
@@ -1490,7 +1363,6 @@ Nature: Mild
 Pelipper @ Damp Rock
 Ability: Drizzle
 Level: 43
-EVs: 248 HP / 252 Def / 8 SpD
 Nature: Relaxed
 IVs: 0 Spe
 - Hurricane
@@ -1504,7 +1376,6 @@ IVs: 0 Spe
 Magneton @ Eviolite
 Ability: Analytic
 Level: 43
-EVs: 252 SpA / 4 SpD / 252 Spe
 Nature: Timid
 - Thunderbolt
 - Flash Cannon
@@ -1514,7 +1385,6 @@ Nature: Timid
 Muk @ Leftovers
 Ability: Sticky Hold
 Level: 43
-EVs: 248 HP / 252 Def / 8 SpD
 Nature: Impish
 - Toxic
 - Protect
@@ -1527,7 +1397,6 @@ Nature: Impish
 Swellow @ Choice Specs
 Ability: Scrappy
 Level: 42
-EVs: 4 Def / 252 SpA / 252 Spe
 Nature: Timid
 - Boomburst
 - U-turn
@@ -1537,7 +1406,6 @@ Nature: Timid
 Mawile
 Ability: Intimidate
 Level: 42
-EVs: 116 HP / 252 Atk / 140 Spe
 Nature: Adamant
 - Swords Dance
 - Play Rough
@@ -1547,7 +1415,6 @@ Nature: Adamant
 Kadabra @ Focus Sash
 Ability: Magic Guard
 Level: 42
-EVs: 4 HP / 252 SpA / 252 Spe
 Nature: Timid
 - Psychic
 - Counter
@@ -1561,7 +1428,6 @@ Breloom @ Leftovers
 Ability: Poison Heal
 Status: Poison
 Level: 58
-EVs: 252 Atk / 4 SpD / 252 Spe
 Nature: Jolly
 - Spore
 - Substitute
@@ -1572,7 +1438,6 @@ Gyarados @ Sitrus Berry
 Ability: Intimidate
 Status: Poison
 Level: 58
-EVs: 252 Atk / 4 SpD / 252 Spe
 Nature: Adamant
 - Dragon Dance
 - Waterfall
@@ -1583,7 +1448,6 @@ Machamp @ Expert Belt
 Ability: No Guard
 Status: Poison
 Level: 58
-EVs: 252 HP / 252 Atk / 4 SpD
 Nature: Adamant
 - Bulk Up
 - Dynamic Punch
@@ -1594,7 +1458,6 @@ Flygon @ Yache Berry
 Ability: Levitate
 Status: Poison
 Level: 58
-EVs: 252 Atk / 4 Def / 252 Spe
 Nature: Jolly
 - Dragon Dance
 - Fissure
@@ -1605,7 +1468,6 @@ Numel @ Eviolite
 Ability: Simple
 Status: Poison
 Level: 58
-EVs: 252 Atk / 4 SpA / 252 Spe
 Nature: Naive
 - Fissure
 - Earthquake
@@ -1616,7 +1478,6 @@ Seaking @ Focus Sash
 Ability: Swift Swim
 Status: Poison
 Level: 58
-EVs: 252 Atk / 4 SpD / 252 Spe
 Nature: Jolly
 - Agility
 - Soak
@@ -1629,7 +1490,6 @@ Nature: Jolly
 Kecleon @ Assault Vest
 Ability: Protean
 Level: 42
-EVs: 172 HP / 252 Atk / 84 Spe
 Nature: Adamant
 - Knock Off
 - Drain Punch
@@ -1639,7 +1499,6 @@ Nature: Adamant
 Graveler @ Weakness Policy
 Ability: Sturdy
 Level: 42
-EVs: 92 HP / 252 Atk / 164 Spe
 Nature: Adamant
 - Stealth Rock
 - Stone Edge
@@ -1649,7 +1508,6 @@ Nature: Adamant
 Wailord @ Leftovers
 Ability: Pressure
 Level: 42
-EVs: 252 Def / 252 SpD / 4 Spe
 Nature: Calm
 - Block
 - Rest
@@ -1662,7 +1520,6 @@ Nature: Calm
 Electrike @ Choice Scarf
 Ability: Lightning Rod
 Level: 26
-EVs: 240 SpA / 236 Spe
 Nature: Timid
 IVs: 0 Atk / 30 SpA
 - Volt Switch
@@ -1673,7 +1530,6 @@ IVs: 0 Atk / 30 SpA
 Wailmer @ Choice Scarf
 Ability: Pressure
 Level: 26
-EVs: 36 HP / 200 SpA / 200 Spe
 Nature: Timid
 - Water Spout
 - Hydro Pump
@@ -1682,7 +1538,6 @@ Nature: Timid
 
 Makuhita @ Berry Juice
 Level: 26
-EVs: 20 HP / 196 Atk / 36 Def / 236 Spe
 Nature: Jolly
 - Belly Drum
 - Close Combat
@@ -1695,7 +1550,6 @@ Nature: Jolly
 Manectric
 Ability: Lightning Rod
 Level: 29
-EVs: 252 SpA / 4 SpD / 252 Spe
 Nature: Timid
 IVs: 0 Atk
 - Volt Switch
@@ -1706,7 +1560,6 @@ IVs: 0 Atk
 Wailmer @ Choice Scarf
 Ability: Pressure
 Level: 29
-EVs: 36 HP / 200 SpA / 200 Spe
 Nature: Timid
 - Water Spout
 - Hydro Pump
@@ -1715,7 +1568,6 @@ Nature: Timid
 
 Makuhita @ Berry Juice
 Level: 29
-EVs: 20 HP / 196 Atk / 36 Def / 236 Spe
 Nature: Jolly
 - Belly Drum
 - Close Combat
@@ -1728,7 +1580,6 @@ Nature: Jolly
 Manectric
 Ability: Lightning Rod
 Level: 32
-EVs: 252 SpA / 4 SpD / 252 Spe
 Nature: Timid
 IVs: 0 Atk
 - Volt Switch
@@ -1739,7 +1590,6 @@ IVs: 0 Atk
 Wailmer @ Choice Scarf
 Ability: Pressure
 Level: 32
-EVs: 36 HP / 200 SpA / 200 Spe
 Nature: Timid
 - Water Spout
 - Hydro Pump
@@ -1748,7 +1598,6 @@ Nature: Timid
 
 Makuhita @ Berry Juice
 Level: 32
-EVs: 20 HP / 196 Atk / 36 Def / 236 Spe
 Nature: Jolly
 - Belly Drum
 - Close Combat
@@ -1761,7 +1610,6 @@ Nature: Jolly
 Manectric
 Ability: Lightning Rod
 Level: 35
-EVs: 252 SpA / 4 SpD / 252 Spe
 Nature: Timid
 IVs: 0 Atk
 - Volt Switch
@@ -1772,7 +1620,6 @@ IVs: 0 Atk
 Wailmer @ Choice Scarf
 Ability: Pressure
 Level: 35
-EVs: 36 HP / 200 SpA / 200 Spe
 Nature: Timid
 - Water Spout
 - Hydro Pump
@@ -1782,7 +1629,6 @@ Nature: Timid
 Hariyama @ Sitrus Berry
 Ability: Guts
 Level: 35
-EVs: 4 HP / 252 Atk / 252 Spe
 Nature: Adamant
 - Belly Drum
 - Drain Punch
@@ -1795,7 +1641,6 @@ Nature: Adamant
 Graveler @ Weakness Policy
 Ability: Sturdy
 Level: 33
-EVs: 92 HP / 252 Atk / 164 Spe
 Nature: Adamant
 - Stealth Rock
 - Stone Edge
@@ -1804,7 +1649,6 @@ Nature: Adamant
 
 Ludicolo @ Life Orb
 Level: 33
-EVs: 252 SpA / 4 SpD / 252 Spe
 Nature: Modest
 IVs: 0 Atk
 - Hydro Pump
@@ -1818,7 +1662,6 @@ IVs: 0 Atk
 Delcatty @ Silk Scarf
 Ability: Normalize
 Level: 26
-EVs: 252 Atk / 4 Def / 252 Spe
 Nature: Jolly
 - Fake Out
 - Sucker Punch
@@ -1831,7 +1674,6 @@ Nature: Jolly
 Wigglytuff @ Leftovers
 Ability: Frisk
 Level: 26
-EVs: 252 HP / 4 Def / 252 SpD
 Nature: Careful
 - Wish
 - Teleport
@@ -1844,7 +1686,6 @@ Nature: Careful
 Zangoose @ Toxic Orb
 Ability: Toxic Boost
 Level: 26
-EVs: 252 Atk / 4 SpD / 252 Spe
 Nature: Jolly
 - Swords Dance
 - Facade
@@ -1857,7 +1698,6 @@ Nature: Jolly
 Mawile
 Ability: Intimidate
 Level: 29
-EVs: 116 HP / 252 Atk / 140 Spe
 Nature: Adamant
 - Swords Dance
 - Play Rough
@@ -1867,7 +1707,6 @@ Nature: Adamant
 Roselia @ Eviolite
 Ability: Poison Point
 Level: 29
-EVs: 252 HP / 200 Def / 56 Spe
 Nature: Bold
 - Spikes
 - Sludge Bomb
@@ -1877,7 +1716,6 @@ Nature: Bold
 Pelipper @ Damp Rock
 Ability: Drizzle
 Level: 29
-EVs: 248 HP / 252 Def / 8 SpD
 Nature: Relaxed
 IVs: 0 Spe
 - Hurricane
@@ -1891,7 +1729,6 @@ IVs: 0 Spe
 Lairon @ Choice Band
 Ability: Rock Head
 Level: 45
-EVs: 252 Atk / 4 SpD / 252 Spe
 Nature: Adamant
 - Head Smash
 - Heavy Slam
@@ -1901,7 +1738,6 @@ Nature: Adamant
 Manectric
 Ability: Lightning Rod
 Level: 45
-EVs: 252 SpA / 4 SpD / 252 Spe
 Nature: Timid
 IVs: 0 Atk
 - Volt Switch
@@ -1915,7 +1751,6 @@ IVs: 0 Atk
 Wingull @ Life Orb
 Ability: Hydration
 Level: 17
-EVs: 36 Def / 236 SpA / 236 Spe
 Nature: Timid
 IVs: 19 HP
 - Surf
@@ -1926,7 +1761,6 @@ IVs: 19 HP
 Numel @ Eviolite
 Ability: Simple
 Level: 17
-EVs: 36 Def / 236 SpA / 236 Spe
 Nature: Modest
 - Flame Charge
 - Fire Blast
@@ -1936,7 +1770,6 @@ Nature: Modest
 Roselia @ Eviolite
 Ability: Poison Point
 Level: 17
-EVs: 252 HP / 200 Def / 56 Spe
 Nature: Bold
 - Spikes
 - Sludge Bomb
@@ -1949,7 +1782,6 @@ Nature: Bold
 Sableye @ Heavy-Duty Boots
 Ability: Prankster
 Level: 30
-EVs: 252 HP / 252 Def / 4 SpD
 Nature: Impish
 - Encore
 - Will-O-Wisp
@@ -1962,7 +1794,6 @@ Nature: Impish
 Roselia @ Eviolite
 Ability: Poison Point
 Level: 45
-EVs: 252 HP / 200 Def / 56 Spe
 Nature: Bold
 - Spikes
 - Sludge Bomb
@@ -1974,7 +1805,6 @@ Nature: Bold
 
 Claydol @ Colbur Berry
 Level: 45
-EVs: 252 HP / 240 Def / 16 Spe
 Nature: Bold
 - Stealth Rock
 - Toxic
@@ -1987,7 +1817,6 @@ Nature: Bold
 Torkoal @ Heat Rock
 Ability: Drought
 Level: 42
-EVs: 248 HP / 252 Def / 8 SpD
 Nature: Bold
 - Lava Plume
 - Rapid Spin
@@ -1996,7 +1825,6 @@ Nature: Bold
 
 Medicham @ Choice Scarf
 Level: 42
-EVs: 252 Atk / 4 SpD / 252 Spe
 Nature: Jolly
 - Close Combat
 - Zen Headbutt
@@ -2005,7 +1833,6 @@ Nature: Jolly
 
 Ludicolo @ Life Orb
 Level: 42
-EVs: 252 SpA / 4 SpD / 252 Spe
 Nature: Modest
 IVs: 0 Atk
 - Hydro Pump
@@ -2019,7 +1846,6 @@ IVs: 0 Atk
 Skarmory @ Rocky Helmet
 Ability: Sturdy
 Level: 43
-EVs: 252 HP / 160 Def / 96 Spe
 Nature: Bold
 - Body Press
 - Iron Defense
@@ -2029,7 +1855,6 @@ Nature: Bold
 Sableye @ Heavy-Duty Boots
 Ability: Prankster
 Level: 43
-EVs: 252 HP / 252 Def / 4 SpD
 Nature: Impish
 - Encore
 - Will-O-Wisp
@@ -2042,7 +1867,6 @@ Nature: Impish
 Sandslash @ Life Orb
 Ability: Sand Rush
 Level: 42
-EVs: 252 Atk / 4 SpD / 252 Spe
 Nature: Adamant
 - Swords Dance
 - Earthquake
@@ -2052,7 +1876,6 @@ Nature: Adamant
 Ninetales @ Heat Rock
 Ability: Drought
 Level: 42
-EVs: 252 HP / 4 Def / 252 Spe
 Nature: Timid
 IVs: 0 Atk
 - Weather Ball
@@ -2063,7 +1886,6 @@ IVs: 0 Atk
 Tropius @ Sitrus Berry
 Ability: Harvest
 Level: 42
-EVs: 248 HP / 252 Def / 8 SpD
 Nature: Bold
 - Leech Seed
 - Substitute
@@ -2076,7 +1898,6 @@ Nature: Bold
 Wingull @ Life Orb
 Ability: Hydration
 Level: 26
-EVs: 36 Def / 236 SpA / 236 Spe
 Nature: Timid
 IVs: 19 HP
 - Surf
@@ -2087,7 +1908,6 @@ IVs: 19 HP
 Numel @ Eviolite
 Ability: Simple
 Level: 26
-EVs: 36 Def / 236 SpA / 236 Spe
 Nature: Modest
 - Flame Charge
 - Fire Blast
@@ -2097,7 +1917,6 @@ Nature: Modest
 Roselia @ Eviolite
 Ability: Poison Point
 Level: 26
-EVs: 252 HP / 200 Def / 56 Spe
 Nature: Bold
 - Spikes
 - Sludge Bomb
@@ -2110,7 +1929,6 @@ Nature: Bold
 Pelipper @ Damp Rock
 Ability: Drizzle
 Level: 29
-EVs: 248 HP / 252 Def / 8 SpD
 Nature: Relaxed
 IVs: 0 Spe
 - Hurricane
@@ -2121,7 +1939,6 @@ IVs: 0 Spe
 Numel @ Eviolite
 Ability: Simple
 Level: 29
-EVs: 36 Def / 236 SpA / 236 Spe
 Nature: Modest
 - Flame Charge
 - Fire Blast
@@ -2131,7 +1948,6 @@ Nature: Modest
 Roselia @ Eviolite
 Ability: Poison Point
 Level: 29
-EVs: 252 HP / 200 Def / 56 Spe
 Nature: Bold
 - Spikes
 - Sludge Bomb
@@ -2144,7 +1960,6 @@ Nature: Bold
 Pelipper @ Damp Rock
 Ability: Drizzle
 Level: 32
-EVs: 248 HP / 252 Def / 8 SpD
 Nature: Relaxed
 IVs: 0 Spe
 - Hurricane
@@ -2155,7 +1970,6 @@ IVs: 0 Spe
 Numel @ Eviolite
 Ability: Simple
 Level: 32
-EVs: 36 Def / 236 SpA / 236 Spe
 Nature: Modest
 - Flame Charge
 - Fire Blast
@@ -2165,7 +1979,6 @@ Nature: Modest
 Roselia @ Eviolite
 Ability: Poison Point
 Level: 32
-EVs: 252 HP / 200 Def / 56 Spe
 Nature: Bold
 - Spikes
 - Sludge Bomb
@@ -2178,7 +1991,6 @@ Nature: Bold
 Pelipper @ Damp Rock
 Ability: Drizzle
 Level: 34
-EVs: 248 HP / 252 Def / 8 SpD
 Nature: Relaxed
 IVs: 0 Spe
 - Hurricane
@@ -2189,7 +2001,6 @@ IVs: 0 Spe
 Camerupt @ Leftovers
 Ability: Solid Rock
 Level: 34
-EVs: 252 HP / 4 Def / 252 SpD
 Nature: Calm
 IVs: 0 Atk
 - Stealth Rock
@@ -2200,7 +2011,6 @@ IVs: 0 Atk
 Roselia @ Eviolite
 Ability: Poison Point
 Level: 34
-EVs: 252 HP / 200 Def / 56 Spe
 Nature: Bold
 - Spikes
 - Sludge Bomb
@@ -2212,7 +2022,6 @@ Nature: Bold
 
 Banette @ Life Orb
 Level: 41
-EVs: 252 Atk / 4 Def / 252 Spe
 Nature: Adamant
 - Shadow Claw
 - Knock Off
@@ -2221,7 +2030,6 @@ Nature: Adamant
 
 Lunatone @ Power Herb
 Level: 41
-EVs: 4 Def / 252 SpA / 252 Spe
 Nature: Modest
 - Meteor Beam
 - Psyshock
@@ -2233,7 +2041,6 @@ Nature: Modest
 
 Duskull @ Eviolite
 Level: 30
-EVs: 196 HP / 196 Def / 116 SpD
 Nature: Relaxed
 - Pain Split
 - Will-O-Wisp
@@ -2243,7 +2050,6 @@ Nature: Relaxed
 Shuppet @ Focus Sash
 Ability: Frisk
 Level: 30
-EVs: 4 HP / 236 Atk / 156 Def / 92 SpD
 Nature: Brave
 IVs: 0 Spe
 - Trick Room
@@ -2256,7 +2062,6 @@ IVs: 0 Spe
 
 Duskull @ Eviolite
 Level: 29
-EVs: 196 HP / 196 Def / 116 SpD
 Nature: Relaxed
 - Pain Split
 - Will-O-Wisp
@@ -2266,7 +2071,6 @@ Nature: Relaxed
 Shuppet @ Focus Sash
 Ability: Frisk
 Level: 29
-EVs: 4 HP / 236 Atk / 156 Def / 92 SpD
 Nature: Brave
 IVs: 0 Spe
 - Trick Room
@@ -2280,7 +2084,6 @@ IVs: 0 Spe
 Sableye @ Heavy-Duty Boots
 Ability: Prankster
 Level: 32
-EVs: 252 HP / 252 Def / 4 SpD
 Nature: Impish
 - Encore
 - Will-O-Wisp
@@ -2293,7 +2096,6 @@ Nature: Impish
 Shuppet @ Focus Sash
 Ability: Frisk
 Level: 32
-EVs: 4 HP / 236 Atk / 156 Def / 92 SpD
 Nature: Brave
 IVs: 0 Spe
 - Trick Room
@@ -2307,7 +2109,6 @@ IVs: 0 Spe
 Sableye @ Heavy-Duty Boots
 Ability: Prankster
 Level: 31
-EVs: 252 HP / 252 Def / 4 SpD
 Nature: Impish
 - Encore
 - Will-O-Wisp
@@ -2316,7 +2117,6 @@ Nature: Impish
 
 Spoink @ Eviolite
 Level: 31
-EVs: 80 Def / 200 SpA / 200 Spe
 Nature: Timid
 - Calm Mind
 - Psychic
@@ -2328,7 +2128,6 @@ Nature: Timid
 
 Spoink @ Eviolite
 Level: 35
-EVs: 80 Def / 200 SpA / 200 Spe
 Nature: Timid
 - Calm Mind
 - Psychic
@@ -2338,7 +2137,6 @@ Nature: Timid
 Sableye @ Heavy-Duty Boots
 Ability: Prankster
 Level: 35
-EVs: 252 HP / 252 Def / 4 SpD
 Nature: Impish
 - Encore
 - Will-O-Wisp
@@ -2350,7 +2148,6 @@ Nature: Impish
 
 Spoink @ Eviolite
 Level: 40
-EVs: 80 Def / 200 SpA / 200 Spe
 Nature: Timid
 - Calm Mind
 - Psychic
@@ -2360,7 +2157,6 @@ Nature: Timid
 Sableye @ Heavy-Duty Boots
 Ability: Prankster
 Level: 40
-EVs: 252 HP / 252 Def / 4 SpD
 Nature: Impish
 - Encore
 - Will-O-Wisp
@@ -2372,7 +2168,6 @@ Nature: Impish
 
 Duskull @ Eviolite
 Level: 42
-EVs: 196 HP / 196 Def / 116 SpD
 Nature: Relaxed
 - Pain Split
 - Will-O-Wisp
@@ -2382,7 +2177,6 @@ Nature: Relaxed
 Sableye @ Heavy-Duty Boots
 Ability: Prankster
 Level: 42
-EVs: 252 HP / 252 Def / 4 SpD
 Nature: Impish
 - Encore
 - Will-O-Wisp
@@ -2391,7 +2185,6 @@ Nature: Impish
 
 Grumpig @ Colbur Berry
 Level: 42
-EVs: 80 HP / 252 SpA / 176 Spe
 Nature: Timid
 - Psychic
 - Focus Blast
@@ -2403,7 +2196,6 @@ Nature: Timid
 
 Zigzagoon @ Berry Juice
 Level: 7
-EVs: 132 HP / 196 Atk / 108 Def / 28 SpD / 36 Spe
 Nature: Adamant
 - Belly Drum
 - Extreme Speed
@@ -2415,7 +2207,6 @@ Nature: Adamant
 
 Luvdisc @ Life Orb
 Level: 39
-EVs: 252 SpA / 4 SpD / 252 Spe
 Nature: Modest
 - Hydro Pump
 - Ice Beam
@@ -2424,7 +2215,6 @@ Nature: Modest
 
 Luvdisc @ Life Orb
 Level: 39
-EVs: 252 SpA / 4 SpD / 252 Spe
 Nature: Modest
 - Hydro Pump
 - Ice Beam
@@ -2437,7 +2227,6 @@ Nature: Modest
 Mightyena @ Life Orb
 Ability: Moxie
 Level: 26
-EVs: 252 Atk / 4 SpD / 252 Spe
 Nature: Adamant
 - Crunch
 - Sucker Punch
@@ -2447,7 +2236,6 @@ Nature: Adamant
 Mightyena @ Life Orb
 Ability: Moxie
 Level: 28
-EVs: 252 Atk / 4 SpD / 252 Spe
 Nature: Adamant
 - Crunch
 - Sucker Punch
@@ -2457,7 +2245,6 @@ Nature: Adamant
 Numel @ Eviolite
 Ability: Simple
 Level: 30
-EVs: 36 Def / 236 SpA / 236 Spe
 Nature: Modest
 - Flame Charge
 - Fire Blast
@@ -2469,7 +2256,6 @@ Nature: Modest
 
 Zigzagoon @ Berry Juice
 Level: 11
-EVs: 132 HP / 196 Atk / 108 Def / 28 SpD / 36 Spe
 Nature: Adamant
 - Belly Drum
 - Extreme Speed
@@ -2482,7 +2268,6 @@ Nature: Adamant
 Seaking @ Heavy-Duty Boots
 Ability: Lightning Rod
 Level: 40
-EVs: 252 HP / 220 Def / 36 Spe
 Nature: Impish
 - Flip Turn
 - Knock Off
@@ -2495,7 +2280,6 @@ Nature: Impish
 Roselia @ Eviolite
 Ability: Poison Point
 Level: 45
-EVs: 252 HP / 200 Def / 56 Spe
 Nature: Bold
 - Spikes
 - Sludge Bomb
@@ -2508,7 +2292,6 @@ Nature: Bold
 Linoone @ Figy Berry
 Ability: Gluttony
 Level: 27
-EVs: 60 HP / 252 Atk / 196 Spe
 Nature: Adamant
 - Belly Drum
 - Extreme Speed
@@ -2521,7 +2304,6 @@ Nature: Adamant
 Linoone @ Figy Berry
 Ability: Gluttony
 Level: 30
-EVs: 60 HP / 252 Atk / 196 Spe
 Nature: Adamant
 - Belly Drum
 - Extreme Speed
@@ -2534,7 +2316,6 @@ Nature: Adamant
 Linoone @ Figy Berry
 Ability: Gluttony
 Level: 33
-EVs: 60 HP / 252 Atk / 196 Spe
 Nature: Adamant
 - Belly Drum
 - Extreme Speed
@@ -2547,7 +2328,6 @@ Nature: Adamant
 Linoone @ Figy Berry
 Ability: Gluttony
 Level: 36
-EVs: 60 HP / 252 Atk / 196 Spe
 Nature: Adamant
 - Belly Drum
 - Extreme Speed
@@ -2560,7 +2340,6 @@ Nature: Adamant
 Marill @ Choice Band
 Ability: Huge Power
 Level: 21
-EVs: 52 HP / 252 Atk / 204 Spe
 Nature: Adamant
 - Play Rough
 - Waterfall
@@ -2572,7 +2351,6 @@ Nature: Adamant
 
 Shroomish @ Eviolite
 Level: 21
-EVs: 36 HP / 36 Atk / 196 Def / 116 SpD / 76 Spe
 Nature: Impish
 - Spore
 - Bullet Seed
@@ -2585,7 +2363,6 @@ Nature: Impish
 Numel @ Eviolite
 Ability: Simple
 Level: 21
-EVs: 36 Def / 236 SpA / 236 Spe
 Nature: Modest
 - Flame Charge
 - Fire Blast
@@ -2598,7 +2375,6 @@ Nature: Modest
 Kecleon @ Assault Vest
 Ability: Protean
 Level: 29
-EVs: 172 HP / 252 Atk / 84 Spe
 Nature: Adamant
 - Knock Off
 - Drain Punch
@@ -2607,7 +2383,6 @@ Nature: Adamant
 
 Seviper @ Life Orb
 Level: 29
-EVs: 8 HP / 56 Atk / 224 SpA / 220 Spe
 Nature: Naughty
 - Sludge Wave
 - Giga Drain
@@ -2620,7 +2395,6 @@ Nature: Naughty
 Goldeen
 Ability: Lightning Rod
 Level: 40
-EVs: 220 Atk / 36 SpD / 252 Spe
 Nature: Jolly
 - Bounce
 - Waterfall
@@ -2633,7 +2407,6 @@ Nature: Jolly
 Azumarill @ Sitrus Berry
 Ability: Huge Power
 Level: 40
-EVs: 4 HP / 252 Atk / 252 Spe
 Nature: Adamant
 - Belly Drum
 - Play Rough
@@ -2646,7 +2419,6 @@ Nature: Adamant
 Clamperl @ Deep Sea Tooth
 Ability: Rattled
 Level: 35
-EVs: 76 HP / 248 SpA / 184 Spe
 Nature: Timid
 - Shell Smash
 - Surf
@@ -2656,7 +2428,6 @@ Nature: Timid
 Corphish @ Eviolite
 Ability: Adaptability
 Level: 37
-EVs: 196 Atk / 76 Def / 236 Spe
 Nature: Jolly
 - Dragon Dance
 - Crabhammer
@@ -2665,7 +2436,6 @@ Nature: Jolly
 
 Lombre @ Leftovers
 Level: 39
-EVs: 160 HP / 232 SpA / 116 Spe
 Nature: Modest
 IVs: 2 Atk / 30 SpA
 - Hydro Pump
@@ -2679,7 +2449,6 @@ IVs: 2 Atk / 30 SpA
 Carvanha @ Life Orb
 Ability: Speed Boost
 Level: 39
-EVs: 236 SpA / 36 SpD / 236 Spe
 Nature: Modest
 IVs: 9 HP / 0 Atk
 - Protect
@@ -2690,7 +2459,6 @@ IVs: 9 HP / 0 Atk
 Sharpedo
 Ability: Speed Boost
 Level: 39
-EVs: 252 Atk / 4 SpD / 252 Spe
 Nature: Adamant
 - Crunch
 - Psychic Fangs
@@ -2703,7 +2471,6 @@ Nature: Adamant
 Kecleon @ Assault Vest
 Ability: Protean
 Level: 35
-EVs: 172 HP / 252 Atk / 84 Spe
 Nature: Adamant
 - Knock Off
 - Drain Punch
@@ -2712,7 +2479,6 @@ Nature: Adamant
 
 Seviper @ Life Orb
 Level: 35
-EVs: 8 HP / 56 Atk / 224 SpA / 220 Spe
 Nature: Naughty
 - Sludge Wave
 - Giga Drain
@@ -2725,7 +2491,6 @@ Nature: Naughty
 Kecleon @ Assault Vest
 Ability: Protean
 Level: 38
-EVs: 172 HP / 252 Atk / 84 Spe
 Nature: Adamant
 - Knock Off
 - Drain Punch
@@ -2734,7 +2499,6 @@ Nature: Adamant
 
 Seviper @ Life Orb
 Level: 38
-EVs: 8 HP / 56 Atk / 224 SpA / 220 Spe
 Nature: Naughty
 - Sludge Wave
 - Giga Drain
@@ -2747,7 +2511,6 @@ Nature: Naughty
 Kecleon @ Assault Vest
 Ability: Protean
 Level: 41
-EVs: 172 HP / 252 Atk / 84 Spe
 Nature: Adamant
 - Knock Off
 - Drain Punch
@@ -2756,7 +2519,6 @@ Nature: Adamant
 
 Seviper @ Life Orb
 Level: 41
-EVs: 8 HP / 56 Atk / 224 SpA / 220 Spe
 Nature: Naughty
 - Sludge Wave
 - Giga Drain
@@ -2769,7 +2531,6 @@ Nature: Naughty
 Kecleon @ Assault Vest
 Ability: Protean
 Level: 44
-EVs: 172 HP / 252 Atk / 84 Spe
 Nature: Adamant
 - Knock Off
 - Drain Punch
@@ -2778,7 +2539,6 @@ Nature: Adamant
 
 Seviper @ Life Orb
 Level: 44
-EVs: 8 HP / 56 Atk / 224 SpA / 220 Spe
 Nature: Naughty
 - Sludge Wave
 - Giga Drain
@@ -2790,7 +2550,6 @@ Nature: Naughty
 
 Zigzagoon @ Berry Juice
 Level: 7
-EVs: 132 HP / 196 Atk / 108 Def / 28 SpD / 36 Spe
 Nature: Adamant
 - Belly Drum
 - Extreme Speed
@@ -2802,7 +2561,6 @@ Nature: Adamant
 
 Whiscash @ Heavy-Duty Boots
 Level: 33
-EVs: 248 HP / 8 Def / 252 SpD
 Nature: Sassy
 - Stealth Rock
 - Earth Power
@@ -2811,7 +2569,6 @@ Nature: Sassy
 
 Meditite @ Choice Band
 Level: 33
-EVs: 252 Atk / 4 SpD / 252 Spe
 Nature: Adamant
 - Close Combat
 - Zen Headbutt
@@ -2824,7 +2581,6 @@ Nature: Adamant
 Azumarill @ Sitrus Berry
 Ability: Huge Power
 Level: 45
-EVs: 4 HP / 252 Atk / 252 Spe
 Nature: Adamant
 - Belly Drum
 - Play Rough
@@ -2837,7 +2593,6 @@ Nature: Adamant
 Linoone @ Figy Berry
 Ability: Gluttony
 Level: 27
-EVs: 60 HP / 252 Atk / 196 Spe
 Nature: Adamant
 - Belly Drum
 - Extreme Speed
@@ -2850,7 +2605,6 @@ Nature: Adamant
 Linoone @ Figy Berry
 Ability: Gluttony
 Level: 30
-EVs: 60 HP / 252 Atk / 196 Spe
 Nature: Adamant
 - Belly Drum
 - Extreme Speed
@@ -2863,7 +2617,6 @@ Nature: Adamant
 Linoone @ Figy Berry
 Ability: Gluttony
 Level: 33
-EVs: 60 HP / 252 Atk / 196 Spe
 Nature: Adamant
 - Belly Drum
 - Extreme Speed
@@ -2876,7 +2629,6 @@ Nature: Adamant
 Linoone @ Figy Berry
 Ability: Gluttony
 Level: 36
-EVs: 60 HP / 252 Atk / 196 Spe
 Nature: Adamant
 - Belly Drum
 - Extreme Speed
@@ -2889,7 +2641,6 @@ Nature: Adamant
 Aron @ Eviolite
 Ability: Rock Head
 Level: 19
-EVs: 196 Atk / 116 SpD / 196 Spe
 Nature: Jolly
 - Rock Polish
 - Head Smash
@@ -2902,7 +2653,6 @@ Nature: Jolly
 Wailmer @ Choice Scarf
 Ability: Pressure
 Level: 25
-EVs: 36 HP / 200 SpA / 200 Spe
 Nature: Timid
 - Water Spout
 - Hydro Pump
@@ -2911,7 +2661,6 @@ Nature: Timid
 
 Horsea @ Life Orb
 Level: 25
-EVs: 116 HP / 196 SpA / 196 Spe
 Nature: Modest
 - Hydro Pump
 - Ice Beam
@@ -2923,7 +2672,6 @@ Nature: Modest
 
 Rhyhorn @ Eviolite
 Level: 31
-EVs: 236 Atk / 116 SpD / 156 Spe
 Nature: Adamant
 - Swords Dance
 - Rock Polish
@@ -2936,7 +2684,6 @@ Nature: Adamant
 Numel @ Eviolite
 Ability: Simple
 Level: 20
-EVs: 36 Def / 236 SpA / 236 Spe
 Nature: Modest
 - Flame Charge
 - Fire Blast
@@ -2949,7 +2696,6 @@ Nature: Modest
 Lairon @ Choice Band
 Ability: Rock Head
 Level: 27
-EVs: 252 Atk / 4 SpD / 252 Spe
 Nature: Adamant
 - Head Smash
 - Heavy Slam
@@ -2962,7 +2708,6 @@ Nature: Adamant
 Lairon @ Choice Band
 Ability: Rock Head
 Level: 29
-EVs: 252 Atk / 4 SpD / 252 Spe
 Nature: Adamant
 - Head Smash
 - Heavy Slam
@@ -2971,7 +2716,6 @@ Nature: Adamant
 
 Rhyhorn @ Eviolite
 Level: 29
-EVs: 236 Atk / 116 SpD / 156 Spe
 Nature: Adamant
 - Swords Dance
 - Rock Polish
@@ -2984,7 +2728,6 @@ Nature: Adamant
 Lairon @ Choice Band
 Ability: Rock Head
 Level: 32
-EVs: 252 Atk / 4 SpD / 252 Spe
 Nature: Adamant
 - Head Smash
 - Heavy Slam
@@ -2993,7 +2736,6 @@ Nature: Adamant
 
 Rhyhorn @ Eviolite
 Level: 32
-EVs: 236 Atk / 116 SpD / 156 Spe
 Nature: Adamant
 - Swords Dance
 - Rock Polish
@@ -3005,7 +2747,6 @@ Nature: Adamant
 
 Aggron
 Level: 35
-EVs: 252 HP / 4 Def / 252 SpD
 Nature: Careful
 - Stealth Rock
 - Heavy Slam
@@ -3014,7 +2755,6 @@ Nature: Careful
 
 Rhydon @ Eviolite
 Level: 35
-EVs: 248 HP / 16 Atk / 244 SpD
 Nature: Adamant
 - Stealth Rock
 - Earthquake
@@ -3027,7 +2767,6 @@ Nature: Adamant
 Carvanha @ Life Orb
 Ability: Speed Boost
 Level: 26
-EVs: 236 SpA / 36 SpD / 236 Spe
 Nature: Modest
 IVs: 9 HP / 0 Atk
 - Protect
@@ -3040,7 +2779,6 @@ IVs: 9 HP / 0 Atk
 
 Tentacool @ Eviolite
 Level: 26
-EVs: 36 HP / 116 Atk / 156 Def / 196 Spe
 Nature: Jolly
 - Flip Turn
 - Gunk Shot
@@ -3052,7 +2790,6 @@ Nature: Jolly
 
 Tentacool @ Eviolite
 Level: 24
-EVs: 36 HP / 116 Atk / 156 Def / 196 Spe
 Nature: Jolly
 - Flip Turn
 - Gunk Shot
@@ -3061,7 +2798,6 @@ Nature: Jolly
 
 Tentacool @ Eviolite
 Level: 24
-EVs: 36 HP / 116 Atk / 156 Def / 196 Spe
 Nature: Jolly
 - Flip Turn
 - Gunk Shot
@@ -3073,7 +2809,6 @@ Nature: Jolly
 
 Tentacool @ Eviolite
 Level: 24
-EVs: 36 HP / 116 Atk / 156 Def / 196 Spe
 Nature: Jolly
 - Flip Turn
 - Gunk Shot
@@ -3083,7 +2818,6 @@ Nature: Jolly
 Wingull @ Life Orb
 Ability: Hydration
 Level: 24
-EVs: 36 Def / 236 SpA / 236 Spe
 Nature: Timid
 IVs: 19 HP
 - Surf
@@ -3093,7 +2827,6 @@ IVs: 19 HP
 
 Tentacool @ Eviolite
 Level: 24
-EVs: 36 HP / 116 Atk / 156 Def / 196 Spe
 Nature: Jolly
 - Flip Turn
 - Gunk Shot
@@ -3106,7 +2839,6 @@ Nature: Jolly
 Carvanha @ Life Orb
 Ability: Speed Boost
 Level: 26
-EVs: 236 SpA / 36 SpD / 236 Spe
 Nature: Modest
 IVs: 9 HP / 0 Atk
 - Protect
@@ -3120,7 +2852,6 @@ IVs: 9 HP / 0 Atk
 Tentacruel @ Leftovers
 Ability: Liquid Ooze
 Level: 26
-EVs: 252 HP / 120 Def / 136 Spe
 Nature: Jolly
 - Flip Turn
 - Rapid Spin
@@ -3133,7 +2864,6 @@ Nature: Jolly
 Carvanha @ Life Orb
 Ability: Speed Boost
 Level: 26
-EVs: 236 SpA / 36 SpD / 236 Spe
 Nature: Modest
 IVs: 9 HP / 0 Atk
 - Protect
@@ -3146,7 +2876,6 @@ IVs: 9 HP / 0 Atk
 
 Tentacool @ Eviolite
 Level: 25
-EVs: 36 HP / 116 Atk / 156 Def / 196 Spe
 Nature: Jolly
 - Flip Turn
 - Gunk Shot
@@ -3156,7 +2885,6 @@ Nature: Jolly
 Carvanha @ Life Orb
 Ability: Speed Boost
 Level: 25
-EVs: 236 SpA / 36 SpD / 236 Spe
 Nature: Modest
 IVs: 9 HP / 0 Atk
 - Protect
@@ -3169,7 +2897,6 @@ IVs: 9 HP / 0 Atk
 
 Tentacool @ Eviolite
 Level: 33
-EVs: 36 HP / 116 Atk / 156 Def / 196 Spe
 Nature: Jolly
 - Flip Turn
 - Gunk Shot
@@ -3179,7 +2906,6 @@ Nature: Jolly
 Wingull @ Life Orb
 Ability: Hydration
 Level: 33
-EVs: 36 Def / 236 SpA / 236 Spe
 Nature: Timid
 IVs: 19 HP
 - Surf
@@ -3193,7 +2919,6 @@ IVs: 19 HP
 Carvanha @ Life Orb
 Ability: Speed Boost
 Level: 34
-EVs: 236 SpA / 36 SpD / 236 Spe
 Nature: Modest
 IVs: 9 HP / 0 Atk
 - Protect
@@ -3207,7 +2932,6 @@ IVs: 9 HP / 0 Atk
 Tentacruel @ Leftovers
 Ability: Liquid Ooze
 Level: 34
-EVs: 252 HP / 120 Def / 136 Spe
 Nature: Jolly
 - Flip Turn
 - Rapid Spin
@@ -3219,7 +2943,6 @@ Nature: Jolly
 
 Horsea @ Life Orb
 Level: 34
-EVs: 116 HP / 196 SpA / 196 Spe
 Nature: Modest
 - Hydro Pump
 - Ice Beam
@@ -3232,7 +2955,6 @@ Nature: Modest
 Carvanha @ Life Orb
 Ability: Speed Boost
 Level: 31
-EVs: 236 SpA / 36 SpD / 236 Spe
 Nature: Modest
 IVs: 9 HP / 0 Atk
 - Protect
@@ -3243,7 +2965,6 @@ IVs: 9 HP / 0 Atk
 Wingull @ Life Orb
 Ability: Hydration
 Level: 31
-EVs: 36 Def / 236 SpA / 236 Spe
 Nature: Timid
 IVs: 19 HP
 - Surf
@@ -3254,7 +2975,6 @@ IVs: 19 HP
 Carvanha @ Life Orb
 Ability: Speed Boost
 Level: 31
-EVs: 236 SpA / 36 SpD / 236 Spe
 Nature: Modest
 IVs: 9 HP / 0 Atk
 - Protect
@@ -3268,7 +2988,6 @@ IVs: 9 HP / 0 Atk
 Gyarados @ Leftovers
 Ability: Moxie
 Level: 34
-EVs: 252 Atk / 4 SpD / 252 Spe
 Nature: Adamant
 - Dragon Dance
 - Waterfall
@@ -3281,7 +3000,6 @@ Nature: Adamant
 Pelipper @ Damp Rock
 Ability: Drizzle
 Level: 34
-EVs: 248 HP / 252 Def / 8 SpD
 Nature: Relaxed
 IVs: 0 Spe
 - Hurricane
@@ -3295,7 +3013,6 @@ IVs: 0 Spe
 Wingull @ Life Orb
 Ability: Hydration
 Level: 33
-EVs: 36 Def / 236 SpA / 236 Spe
 Nature: Timid
 IVs: 19 HP
 - Surf
@@ -3306,7 +3023,6 @@ IVs: 19 HP
 Tentacruel @ Leftovers
 Ability: Liquid Ooze
 Level: 33
-EVs: 252 HP / 120 Def / 136 Spe
 Nature: Jolly
 - Flip Turn
 - Rapid Spin
@@ -3319,7 +3035,6 @@ Nature: Jolly
 Tentacruel @ Leftovers
 Ability: Liquid Ooze
 Level: 33
-EVs: 252 HP / 120 Def / 136 Spe
 Nature: Jolly
 - Flip Turn
 - Rapid Spin
@@ -3329,7 +3044,6 @@ Nature: Jolly
 Wailmer @ Choice Scarf
 Ability: Pressure
 Level: 33
-EVs: 36 HP / 200 SpA / 200 Spe
 Nature: Timid
 - Water Spout
 - Hydro Pump
@@ -3342,7 +3056,6 @@ Nature: Timid
 Sharpedo
 Ability: Speed Boost
 Level: 34
-EVs: 252 Atk / 4 SpD / 252 Spe
 Nature: Adamant
 - Crunch
 - Psychic Fangs
@@ -3354,7 +3067,6 @@ Nature: Adamant
 
 Sealeo @ Leftovers
 Level: 34
-EVs: 236 SpA / 48 SpD / 224 Spe
 Nature: Timid
 IVs: 2 Atk / 30 SpA
 - Surf
@@ -3367,7 +3079,6 @@ IVs: 2 Atk / 30 SpA
 
 Spheal @ Berry Juice
 Level: 34
-EVs: 36 HP / 36 Def / 240 SpA / 36 SpD / 156 Spe
 Nature: Modest
 IVs: 0 Atk / 30 SpA
 - Yawn
@@ -3381,7 +3092,6 @@ IVs: 0 Atk / 30 SpA
 Gyarados @ Leftovers
 Ability: Moxie
 Level: 34
-EVs: 252 Atk / 4 SpD / 252 Spe
 Nature: Adamant
 - Dragon Dance
 - Waterfall
@@ -3393,7 +3103,6 @@ Nature: Adamant
 
 Tentacool @ Eviolite
 Level: 33
-EVs: 36 HP / 116 Atk / 156 Def / 196 Spe
 Nature: Jolly
 - Flip Turn
 - Gunk Shot
@@ -3403,7 +3112,6 @@ Nature: Jolly
 Wingull @ Life Orb
 Ability: Hydration
 Level: 33
-EVs: 36 Def / 236 SpA / 236 Spe
 Nature: Timid
 IVs: 19 HP
 - Surf
@@ -3414,7 +3122,6 @@ IVs: 19 HP
 Tentacruel @ Leftovers
 Ability: Liquid Ooze
 Level: 33
-EVs: 252 HP / 120 Def / 136 Spe
 Nature: Jolly
 - Flip Turn
 - Rapid Spin
@@ -3426,7 +3133,6 @@ Nature: Jolly
 
 Tentacool @ Eviolite
 Level: 33
-EVs: 36 HP / 116 Atk / 156 Def / 196 Spe
 Nature: Jolly
 - Flip Turn
 - Gunk Shot
@@ -3436,7 +3142,6 @@ Nature: Jolly
 Wailmer @ Choice Scarf
 Ability: Pressure
 Level: 33
-EVs: 36 HP / 200 SpA / 200 Spe
 Nature: Timid
 - Water Spout
 - Hydro Pump
@@ -3449,7 +3154,6 @@ Nature: Timid
 Sharpedo
 Ability: Speed Boost
 Level: 30
-EVs: 252 Atk / 4 SpD / 252 Spe
 Nature: Adamant
 - Crunch
 - Psychic Fangs
@@ -3462,7 +3166,6 @@ Nature: Adamant
 Sharpedo
 Ability: Speed Boost
 Level: 33
-EVs: 252 Atk / 4 SpD / 252 Spe
 Nature: Adamant
 - Crunch
 - Psychic Fangs
@@ -3475,7 +3178,6 @@ Nature: Adamant
 Staryu @ Eviolite
 Ability: Natural Cure
 Level: 34
-EVs: 252 HP / 252 Def / 4 SpD
 Nature: Bold
 - Scald
 - Rapid Spin
@@ -3485,7 +3187,6 @@ Nature: Bold
 Sharpedo
 Ability: Speed Boost
 Level: 36
-EVs: 252 Atk / 4 SpD / 252 Spe
 Nature: Adamant
 - Crunch
 - Psychic Fangs
@@ -3498,7 +3199,6 @@ Nature: Adamant
 Starmie @ Life Orb
 Ability: Analytic
 Level: 37
-EVs: 252 SpA / 4 SpD / 252 Spe
 Nature: Timid
 - Hydro Pump
 - Ice Beam
@@ -3508,7 +3208,6 @@ Nature: Timid
 Sharpedo
 Ability: Speed Boost
 Level: 39
-EVs: 252 Atk / 4 SpD / 252 Spe
 Nature: Adamant
 - Crunch
 - Psychic Fangs
@@ -3521,7 +3220,6 @@ Nature: Adamant
 Machop @ Choice Scarf
 Ability: No Guard
 Level: 13
-EVs: 36 HP / 196 Atk / 36 Def / 236 Spe
 Nature: Jolly
 - Dynamic Punch
 - Knock Off
@@ -3534,7 +3232,6 @@ Nature: Jolly
 Machop @ Choice Scarf
 Ability: No Guard
 Level: 32
-EVs: 36 HP / 196 Atk / 36 Def / 236 Spe
 Nature: Jolly
 - Dynamic Punch
 - Knock Off
@@ -3544,7 +3241,6 @@ Nature: Jolly
 Machoke @ Eviolite
 Ability: No Guard
 Level: 32
-EVs: 252 HP / 252 Def / 4 SpD
 Nature: Impish
 - Dynamic Punch
 - Knock Off
@@ -3557,7 +3253,6 @@ Nature: Impish
 Hariyama @ Sitrus Berry
 Ability: Guts
 Level: 34
-EVs: 4 HP / 252 Atk / 252 Spe
 Nature: Adamant
 - Belly Drum
 - Drain Punch
@@ -3570,7 +3265,6 @@ Nature: Adamant
 Machop @ Choice Scarf
 Ability: No Guard
 Level: 24
-EVs: 36 HP / 196 Atk / 36 Def / 236 Spe
 Nature: Jolly
 - Dynamic Punch
 - Knock Off
@@ -3580,7 +3274,6 @@ Nature: Jolly
 Machoke @ Eviolite
 Ability: No Guard
 Level: 28
-EVs: 252 HP / 252 Def / 4 SpD
 Nature: Impish
 - Dynamic Punch
 - Knock Off
@@ -3593,7 +3286,6 @@ Nature: Impish
 Machop @ Choice Scarf
 Ability: No Guard
 Level: 19
-EVs: 36 HP / 196 Atk / 36 Def / 236 Spe
 Nature: Jolly
 - Dynamic Punch
 - Knock Off
@@ -3606,7 +3298,6 @@ Nature: Jolly
 Machoke @ Eviolite
 Ability: No Guard
 Level: 27
-EVs: 252 HP / 252 Def / 4 SpD
 Nature: Impish
 - Dynamic Punch
 - Knock Off
@@ -3619,7 +3310,6 @@ Nature: Impish
 Machop @ Choice Scarf
 Ability: No Guard
 Level: 29
-EVs: 36 HP / 196 Atk / 36 Def / 236 Spe
 Nature: Jolly
 - Dynamic Punch
 - Knock Off
@@ -3629,7 +3319,6 @@ Nature: Jolly
 Machoke @ Eviolite
 Ability: No Guard
 Level: 29
-EVs: 252 HP / 252 Def / 4 SpD
 Nature: Impish
 - Dynamic Punch
 - Knock Off
@@ -3642,7 +3331,6 @@ Nature: Impish
 Machop @ Choice Scarf
 Ability: No Guard
 Level: 31
-EVs: 36 HP / 196 Atk / 36 Def / 236 Spe
 Nature: Jolly
 - Dynamic Punch
 - Knock Off
@@ -3652,7 +3340,6 @@ Nature: Jolly
 Machoke @ Eviolite
 Ability: No Guard
 Level: 31
-EVs: 252 HP / 252 Def / 4 SpD
 Nature: Impish
 - Dynamic Punch
 - Knock Off
@@ -3662,7 +3349,6 @@ Nature: Impish
 Machoke @ Eviolite
 Ability: No Guard
 Level: 31
-EVs: 252 HP / 252 Def / 4 SpD
 Nature: Impish
 - Dynamic Punch
 - Knock Off
@@ -3675,7 +3361,6 @@ Nature: Impish
 Machop @ Choice Scarf
 Ability: No Guard
 Level: 33
-EVs: 36 HP / 196 Atk / 36 Def / 236 Spe
 Nature: Jolly
 - Dynamic Punch
 - Knock Off
@@ -3685,7 +3370,6 @@ Nature: Jolly
 Machoke @ Eviolite
 Ability: No Guard
 Level: 33
-EVs: 252 HP / 252 Def / 4 SpD
 Nature: Impish
 - Dynamic Punch
 - Knock Off
@@ -3695,7 +3379,6 @@ Nature: Impish
 Machoke @ Eviolite
 Ability: No Guard
 Level: 33
-EVs: 252 HP / 252 Def / 4 SpD
 Nature: Impish
 - Dynamic Punch
 - Knock Off
@@ -3704,7 +3387,6 @@ Nature: Impish
 
 Machamp @ Flame Orb
 Level: 33
-EVs: 252 Atk / 4 SpD / 252 Spe
 Nature: Adamant
 - Close Combat
 - Facade
@@ -3716,7 +3398,6 @@ Nature: Adamant
 
 Makuhita @ Berry Juice
 Level: 26
-EVs: 20 HP / 196 Atk / 36 Def / 236 Spe
 Nature: Jolly
 - Belly Drum
 - Close Combat
@@ -3726,7 +3407,6 @@ Nature: Jolly
 Machoke @ Eviolite
 Ability: No Guard
 Level: 26
-EVs: 252 HP / 252 Def / 4 SpD
 Nature: Impish
 - Dynamic Punch
 - Knock Off
@@ -3739,7 +3419,6 @@ Nature: Impish
 Machop @ Choice Scarf
 Ability: No Guard
 Level: 19
-EVs: 36 HP / 196 Atk / 36 Def / 236 Spe
 Nature: Jolly
 - Dynamic Punch
 - Knock Off
@@ -3752,7 +3431,6 @@ Nature: Jolly
 Hariyama @ Sitrus Berry
 Ability: Guts
 Level: 32
-EVs: 4 HP / 252 Atk / 252 Spe
 Nature: Adamant
 - Belly Drum
 - Drain Punch
@@ -3765,7 +3443,6 @@ Nature: Adamant
 Electrike @ Choice Scarf
 Ability: Lightning Rod
 Level: 17
-EVs: 240 SpA / 236 Spe
 Nature: Timid
 IVs: 0 Atk / 30 SpA
 - Volt Switch
@@ -3776,7 +3453,6 @@ IVs: 0 Atk / 30 SpA
 Voltorb @ Light Clay
 Ability: Aftermath
 Level: 17
-EVs: 196 HP / 36 Def / 76 SpD / 196 Spe
 Nature: Timid
 - Reflect
 - Light Screen
@@ -3789,7 +3465,6 @@ Nature: Timid
 Poochyena
 Ability: Rattled
 Level: 31
-EVs: 236 Atk / 36 SpD / 236 Spe
 Nature: Jolly
 - Howl
 - Crunch
@@ -3798,7 +3473,6 @@ Nature: Jolly
 
 Zubat @ Choice Scarf
 Level: 31
-EVs: 36 HP / 236 Atk / 236 Spe
 Nature: Jolly
 - Brave Bird
 - U-turn
@@ -3811,7 +3485,6 @@ Nature: Jolly
 Carvanha @ Life Orb
 Ability: Speed Boost
 Level: 32
-EVs: 236 SpA / 36 SpD / 236 Spe
 Nature: Modest
 IVs: 9 HP / 0 Atk
 - Protect
@@ -3825,7 +3498,6 @@ IVs: 9 HP / 0 Atk
 Voltorb @ Light Clay
 Ability: Aftermath
 Level: 17
-EVs: 196 HP / 36 Def / 76 SpD / 196 Spe
 Nature: Timid
 - Reflect
 - Light Screen
@@ -3834,7 +3506,6 @@ Nature: Timid
 
 Magnemite @ Choice Scarf
 Level: 17
-EVs: 36 Def / 236 SpA / 236 Spe
 Nature: Modest
 - Thunderbolt
 - Flash Cannon
@@ -3847,7 +3518,6 @@ Nature: Modest
 Electrike @ Choice Scarf
 Ability: Lightning Rod
 Level: 30
-EVs: 240 SpA / 236 Spe
 Nature: Timid
 IVs: 0 Atk / 30 SpA
 - Volt Switch
@@ -3857,7 +3527,6 @@ IVs: 0 Atk / 30 SpA
 
 Loudred @ Leftovers
 Level: 30
-EVs: 100 HP / 252 Atk / 16 SpA / 140 Spe
 Nature: Naughty
 - Return
 - Shadow Ball
@@ -3869,7 +3538,6 @@ Nature: Naughty
 
 Magnemite @ Choice Scarf
 Level: 15
-EVs: 36 Def / 236 SpA / 236 Spe
 Nature: Modest
 - Thunderbolt
 - Flash Cannon
@@ -3878,7 +3546,6 @@ Nature: Modest
 
 Whismur @ Life Orb
 Level: 15
-EVs: 244 HP / 36 Def / 188 SpA / 36 SpD
 Nature: Quiet
 - Hyper Voice
 - Shadow Ball
@@ -3890,7 +3557,6 @@ Nature: Quiet
 
 Magnemite @ Choice Scarf
 Level: 25
-EVs: 36 Def / 236 SpA / 236 Spe
 Nature: Modest
 - Thunderbolt
 - Flash Cannon
@@ -3899,7 +3565,6 @@ Nature: Modest
 
 Whismur @ Life Orb
 Level: 25
-EVs: 244 HP / 36 Def / 188 SpA / 36 SpD
 Nature: Quiet
 - Hyper Voice
 - Shadow Ball
@@ -3908,7 +3573,6 @@ Nature: Quiet
 
 Magnemite @ Choice Scarf
 Level: 25
-EVs: 36 Def / 236 SpA / 236 Spe
 Nature: Modest
 - Thunderbolt
 - Flash Cannon
@@ -3920,7 +3584,6 @@ Nature: Modest
 
 Magnemite @ Choice Scarf
 Level: 28
-EVs: 36 Def / 236 SpA / 236 Spe
 Nature: Modest
 - Thunderbolt
 - Flash Cannon
@@ -3929,7 +3592,6 @@ Nature: Modest
 
 Loudred @ Leftovers
 Level: 28
-EVs: 100 HP / 252 Atk / 16 SpA / 140 Spe
 Nature: Naughty
 - Return
 - Shadow Ball
@@ -3938,7 +3600,6 @@ Nature: Naughty
 
 Magnemite @ Choice Scarf
 Level: 28
-EVs: 36 Def / 236 SpA / 236 Spe
 Nature: Modest
 - Thunderbolt
 - Flash Cannon
@@ -3951,7 +3612,6 @@ Nature: Modest
 Magneton @ Eviolite
 Ability: Analytic
 Level: 31
-EVs: 252 SpA / 4 SpD / 252 Spe
 Nature: Timid
 - Thunderbolt
 - Flash Cannon
@@ -3960,7 +3620,6 @@ Nature: Timid
 
 Loudred @ Leftovers
 Level: 31
-EVs: 100 HP / 252 Atk / 16 SpA / 140 Spe
 Nature: Naughty
 - Return
 - Shadow Ball
@@ -3970,7 +3629,6 @@ Nature: Naughty
 Magneton @ Eviolite
 Ability: Analytic
 Level: 31
-EVs: 252 SpA / 4 SpD / 252 Spe
 Nature: Timid
 - Thunderbolt
 - Flash Cannon
@@ -3983,7 +3641,6 @@ Nature: Timid
 Magneton @ Eviolite
 Ability: Analytic
 Level: 34
-EVs: 252 SpA / 4 SpD / 252 Spe
 Nature: Timid
 - Thunderbolt
 - Flash Cannon
@@ -3993,7 +3650,6 @@ Nature: Timid
 Exploud @ Choice Specs
 Ability: Scrappy
 Level: 34
-EVs: 252 SpA / 4 SpD / 252 Spe
 Nature: Timid
 - Boomburst
 - Overheat
@@ -4003,7 +3659,6 @@ Nature: Timid
 Magneton @ Eviolite
 Ability: Analytic
 Level: 34
-EVs: 252 SpA / 4 SpD / 252 Spe
 Nature: Timid
 - Thunderbolt
 - Flash Cannon
@@ -4016,7 +3671,6 @@ Nature: Timid
 Numel @ Eviolite
 Ability: Simple
 Level: 23
-EVs: 36 Def / 236 SpA / 236 Spe
 Nature: Modest
 - Flame Charge
 - Fire Blast
@@ -4029,7 +3683,6 @@ Nature: Modest
 Slugma @ Eviolite
 Ability: Flame Body
 Level: 22
-EVs: 36 HP / 196 Def / 116 SpA / 116 SpD / 36 Spe
 Nature: Bold
 - Lava Plume
 - Clear Smog
@@ -4039,7 +3692,6 @@ Nature: Bold
 Slugma @ Eviolite
 Ability: Flame Body
 Level: 22
-EVs: 36 HP / 196 Def / 116 SpA / 116 SpD / 36 Spe
 Nature: Bold
 - Lava Plume
 - Clear Smog
@@ -4052,7 +3704,6 @@ Nature: Bold
 Numel @ Eviolite
 Ability: Simple
 Level: 23
-EVs: 36 Def / 236 SpA / 236 Spe
 Nature: Modest
 - Flame Charge
 - Fire Blast
@@ -4065,7 +3716,6 @@ Nature: Modest
 Slugma @ Eviolite
 Ability: Flame Body
 Level: 23
-EVs: 36 HP / 196 Def / 116 SpA / 116 SpD / 36 Spe
 Nature: Bold
 - Lava Plume
 - Clear Smog
@@ -4078,7 +3728,6 @@ Nature: Bold
 Slugma @ Eviolite
 Ability: Flame Body
 Level: 23
-EVs: 36 HP / 196 Def / 116 SpA / 116 SpD / 36 Spe
 Nature: Bold
 - Lava Plume
 - Clear Smog
@@ -4091,7 +3740,6 @@ Nature: Bold
 Slugma @ Eviolite
 Ability: Flame Body
 Level: 18
-EVs: 36 HP / 196 Def / 116 SpA / 116 SpD / 36 Spe
 Nature: Bold
 - Lava Plume
 - Clear Smog
@@ -4101,7 +3749,6 @@ Nature: Bold
 Wingull @ Life Orb
 Ability: Hydration
 Level: 18
-EVs: 36 Def / 236 SpA / 236 Spe
 Nature: Timid
 IVs: 19 HP
 - Surf
@@ -4115,7 +3762,6 @@ IVs: 19 HP
 Slugma @ Eviolite
 Ability: Flame Body
 Level: 26
-EVs: 36 HP / 196 Def / 116 SpA / 116 SpD / 36 Spe
 Nature: Bold
 - Lava Plume
 - Clear Smog
@@ -4125,7 +3771,6 @@ Nature: Bold
 Wingull @ Life Orb
 Ability: Hydration
 Level: 26
-EVs: 36 Def / 236 SpA / 236 Spe
 Nature: Timid
 IVs: 19 HP
 - Surf
@@ -4139,7 +3784,6 @@ IVs: 19 HP
 Slugma @ Eviolite
 Ability: Flame Body
 Level: 29
-EVs: 36 HP / 196 Def / 116 SpA / 116 SpD / 36 Spe
 Nature: Bold
 - Lava Plume
 - Clear Smog
@@ -4149,7 +3793,6 @@ Nature: Bold
 Pelipper @ Damp Rock
 Ability: Drizzle
 Level: 29
-EVs: 248 HP / 252 Def / 8 SpD
 Nature: Relaxed
 IVs: 0 Spe
 - Hurricane
@@ -4163,7 +3806,6 @@ IVs: 0 Spe
 Slugma @ Eviolite
 Ability: Flame Body
 Level: 32
-EVs: 36 HP / 196 Def / 116 SpA / 116 SpD / 36 Spe
 Nature: Bold
 - Lava Plume
 - Clear Smog
@@ -4173,7 +3815,6 @@ Nature: Bold
 Pelipper @ Damp Rock
 Ability: Drizzle
 Level: 32
-EVs: 248 HP / 252 Def / 8 SpD
 Nature: Relaxed
 IVs: 0 Spe
 - Hurricane
@@ -4187,7 +3828,6 @@ IVs: 0 Spe
 Magcargo @ Leftovers
 Ability: Flame Body
 Level: 35
-EVs: 248 HP / 8 Def / 252 SpD
 Nature: Calm
 - Stealth Rock
 - Recover
@@ -4197,7 +3837,6 @@ Nature: Calm
 Pelipper @ Damp Rock
 Ability: Drizzle
 Level: 35
-EVs: 248 HP / 252 Def / 8 SpD
 Nature: Relaxed
 IVs: 0 Spe
 - Hurricane
@@ -4211,7 +3850,6 @@ IVs: 0 Spe
 Sandshrew @ Eviolite
 Ability: Sand Rush
 Level: 23
-EVs: 236 Atk / 76 Def / 196 Spe
 Nature: Adamant
 - Swords Dance
 - Earthquake
@@ -4223,7 +3861,6 @@ Nature: Adamant
 
 Baltoy @ Berry Juice
 Level: 21
-EVs: 36 HP / 236 Def / 36 SpA / 196 SpD
 Nature: Bold
 - Rapid Spin
 - Stealth Rock
@@ -4233,7 +3870,6 @@ Nature: Bold
 Sandshrew @ Eviolite
 Ability: Sand Rush
 Level: 21
-EVs: 236 Atk / 76 Def / 196 Spe
 Nature: Adamant
 - Swords Dance
 - Earthquake
@@ -4242,7 +3878,6 @@ Nature: Adamant
 
 Baltoy @ Berry Juice
 Level: 21
-EVs: 36 HP / 236 Def / 36 SpA / 196 SpD
 Nature: Bold
 - Rapid Spin
 - Stealth Rock
@@ -4255,7 +3890,6 @@ Nature: Bold
 Sandshrew @ Eviolite
 Ability: Sand Rush
 Level: 18
-EVs: 236 Atk / 76 Def / 196 Spe
 Nature: Adamant
 - Swords Dance
 - Earthquake
@@ -4268,7 +3902,6 @@ Nature: Adamant
 Kecleon @ Assault Vest
 Ability: Protean
 Level: 24
-EVs: 172 HP / 252 Atk / 84 Spe
 Nature: Adamant
 - Knock Off
 - Drain Punch
@@ -4280,7 +3913,6 @@ Nature: Adamant
 
 Zigzagoon @ Berry Juice
 Level: 20
-EVs: 132 HP / 196 Atk / 108 Def / 28 SpD / 36 Spe
 Nature: Adamant
 - Belly Drum
 - Extreme Speed
@@ -4290,7 +3922,6 @@ Nature: Adamant
 Taillow @ Life Orb
 Ability: Guts
 Level: 20
-EVs: 36 Def / 200 SpA / 36 SpD / 236 Spe
 Nature: Naive
 IVs: 19 HP
 - Boomburst
@@ -4303,7 +3934,6 @@ IVs: 19 HP
 
 Shroomish @ Eviolite
 Level: 21
-EVs: 36 HP / 36 Atk / 196 Def / 116 SpD / 76 Spe
 Nature: Impish
 - Spore
 - Bullet Seed
@@ -4316,7 +3946,6 @@ Nature: Impish
 Sandshrew @ Eviolite
 Ability: Sand Rush
 Level: 18
-EVs: 236 Atk / 76 Def / 196 Spe
 Nature: Adamant
 - Swords Dance
 - Earthquake
@@ -4328,7 +3957,6 @@ Nature: Adamant
 
 Zigzagoon @ Berry Juice
 Level: 26
-EVs: 132 HP / 196 Atk / 108 Def / 28 SpD / 36 Spe
 Nature: Adamant
 - Belly Drum
 - Extreme Speed
@@ -4338,7 +3966,6 @@ Nature: Adamant
 Taillow @ Life Orb
 Ability: Guts
 Level: 26
-EVs: 36 Def / 200 SpA / 36 SpD / 236 Spe
 Nature: Naive
 IVs: 19 HP
 - Boomburst
@@ -4352,7 +3979,6 @@ IVs: 19 HP
 Linoone @ Figy Berry
 Ability: Gluttony
 Level: 29
-EVs: 60 HP / 252 Atk / 196 Spe
 Nature: Adamant
 - Belly Drum
 - Extreme Speed
@@ -4362,7 +3988,6 @@ Nature: Adamant
 Swellow @ Choice Specs
 Ability: Scrappy
 Level: 29
-EVs: 4 Def / 252 SpA / 252 Spe
 Nature: Timid
 - Boomburst
 - U-turn
@@ -4375,7 +4000,6 @@ Nature: Timid
 Sandshrew @ Eviolite
 Ability: Sand Rush
 Level: 31
-EVs: 236 Atk / 76 Def / 196 Spe
 Nature: Adamant
 - Swords Dance
 - Earthquake
@@ -4385,7 +4009,6 @@ Nature: Adamant
 Swellow @ Choice Specs
 Ability: Scrappy
 Level: 31
-EVs: 4 Def / 252 SpA / 252 Spe
 Nature: Timid
 - Boomburst
 - U-turn
@@ -4395,7 +4018,6 @@ Nature: Timid
 Linoone @ Figy Berry
 Ability: Gluttony
 Level: 31
-EVs: 60 HP / 252 Atk / 196 Spe
 Nature: Adamant
 - Belly Drum
 - Extreme Speed
@@ -4408,7 +4030,6 @@ Nature: Adamant
 Swellow @ Choice Specs
 Ability: Scrappy
 Level: 34
-EVs: 4 Def / 252 SpA / 252 Spe
 Nature: Timid
 - Boomburst
 - U-turn
@@ -4418,7 +4039,6 @@ Nature: Timid
 Sandslash @ Life Orb
 Ability: Sand Rush
 Level: 34
-EVs: 252 Atk / 4 SpD / 252 Spe
 Nature: Adamant
 - Swords Dance
 - Earthquake
@@ -4428,7 +4048,6 @@ Nature: Adamant
 Linoone @ Figy Berry
 Ability: Gluttony
 Level: 34
-EVs: 60 HP / 252 Atk / 196 Spe
 Nature: Adamant
 - Belly Drum
 - Extreme Speed
@@ -4440,7 +4059,6 @@ Nature: Adamant
 
 Surskit @ Focus Sash
 Level: 26
-EVs: 36 HP / 20 Def / 196 SpA / 20 SpD / 236 Spe
 Nature: Timid
 IVs: 0 Atk
 - Sticky Web
@@ -4461,7 +4079,6 @@ Level: 24
 
 Beautifly
 Level: 24
-EVs: 252 SpA / 4 SpD / 252 Spe
 Nature: Timid
 - Quiver Dance
 - Bug Buzz
@@ -4481,7 +4098,6 @@ Level: 27
 
 Dustox @ Black Sludge
 Level: 27
-EVs: 248 HP / 120 Def / 140 Spe
 Nature: Bold
 IVs: 0 Atk
 - Quiver Dance
@@ -4494,7 +4110,6 @@ IVs: 0 Atk
 
 Surskit @ Focus Sash
 Level: 27
-EVs: 36 HP / 20 Def / 196 SpA / 20 SpD / 236 Spe
 Nature: Timid
 IVs: 0 Atk
 - Sticky Web
@@ -4504,7 +4119,6 @@ IVs: 0 Atk
 
 Surskit @ Focus Sash
 Level: 27
-EVs: 36 HP / 20 Def / 196 SpA / 20 SpD / 236 Spe
 Nature: Timid
 IVs: 0 Atk
 - Sticky Web
@@ -4514,7 +4128,6 @@ IVs: 0 Atk
 
 Surskit @ Focus Sash
 Level: 27
-EVs: 36 HP / 20 Def / 196 SpA / 20 SpD / 236 Spe
 Nature: Timid
 IVs: 0 Atk
 - Sticky Web
@@ -4527,7 +4140,6 @@ IVs: 0 Atk
 
 Dustox @ Black Sludge
 Level: 16
-EVs: 248 HP / 120 Def / 140 Spe
 Nature: Bold
 IVs: 0 Atk
 - Quiver Dance
@@ -4537,7 +4149,6 @@ IVs: 0 Atk
 
 Beautifly
 Level: 16
-EVs: 252 SpA / 4 SpD / 252 Spe
 Nature: Timid
 - Quiver Dance
 - Bug Buzz
@@ -4549,7 +4160,6 @@ Nature: Timid
 
 Surskit @ Focus Sash
 Level: 31
-EVs: 36 HP / 20 Def / 196 SpA / 20 SpD / 236 Spe
 Nature: Timid
 IVs: 0 Atk
 - Sticky Web
@@ -4559,7 +4169,6 @@ IVs: 0 Atk
 
 Surskit @ Focus Sash
 Level: 31
-EVs: 36 HP / 20 Def / 196 SpA / 20 SpD / 236 Spe
 Nature: Timid
 IVs: 0 Atk
 - Sticky Web
@@ -4569,7 +4178,6 @@ IVs: 0 Atk
 
 Surskit @ Focus Sash
 Level: 31
-EVs: 36 HP / 20 Def / 196 SpA / 20 SpD / 236 Spe
 Nature: Timid
 IVs: 0 Atk
 - Sticky Web
@@ -4582,7 +4190,6 @@ IVs: 0 Atk
 
 Surskit @ Focus Sash
 Level: 34
-EVs: 36 HP / 20 Def / 196 SpA / 20 SpD / 236 Spe
 Nature: Timid
 IVs: 0 Atk
 - Sticky Web
@@ -4592,7 +4199,6 @@ IVs: 0 Atk
 
 Surskit @ Focus Sash
 Level: 34
-EVs: 36 HP / 20 Def / 196 SpA / 20 SpD / 236 Spe
 Nature: Timid
 IVs: 0 Atk
 - Sticky Web
@@ -4602,7 +4208,6 @@ IVs: 0 Atk
 
 Masquerain @ Focus Sash
 Level: 34
-EVs: 252 SpA / 4 SpD / 252 Spe
 Nature: Timid
 - Sticky Web
 - Bug Buzz
@@ -4614,7 +4219,6 @@ Nature: Timid
 
 Surskit @ Focus Sash
 Level: 36
-EVs: 36 HP / 20 Def / 196 SpA / 20 SpD / 236 Spe
 Nature: Timid
 IVs: 0 Atk
 - Sticky Web
@@ -4632,7 +4236,6 @@ Level: 36
 
 Surskit @ Focus Sash
 Level: 36
-EVs: 36 HP / 20 Def / 196 SpA / 20 SpD / 236 Spe
 Nature: Timid
 IVs: 0 Atk
 - Sticky Web
@@ -4642,7 +4245,6 @@ IVs: 0 Atk
 
 Masquerain @ Focus Sash
 Level: 36
-EVs: 252 SpA / 4 SpD / 252 Spe
 Nature: Timid
 - Sticky Web
 - Bug Buzz
@@ -4654,7 +4256,6 @@ Nature: Timid
 
 Surskit @ Focus Sash
 Level: 38
-EVs: 36 HP / 20 Def / 196 SpA / 20 SpD / 236 Spe
 Nature: Timid
 IVs: 0 Atk
 - Sticky Web
@@ -4664,7 +4265,6 @@ IVs: 0 Atk
 
 Dustox @ Black Sludge
 Level: 38
-EVs: 248 HP / 120 Def / 140 Spe
 Nature: Bold
 IVs: 0 Atk
 - Quiver Dance
@@ -4674,7 +4274,6 @@ IVs: 0 Atk
 
 Surskit @ Focus Sash
 Level: 38
-EVs: 36 HP / 20 Def / 196 SpA / 20 SpD / 236 Spe
 Nature: Timid
 IVs: 0 Atk
 - Sticky Web
@@ -4684,7 +4283,6 @@ IVs: 0 Atk
 
 Masquerain @ Focus Sash
 Level: 38
-EVs: 252 SpA / 4 SpD / 252 Spe
 Nature: Timid
 - Sticky Web
 - Bug Buzz
@@ -4693,7 +4291,6 @@ Nature: Timid
 
 Beautifly
 Level: 38
-EVs: 252 SpA / 4 SpD / 252 Spe
 Nature: Timid
 - Quiver Dance
 - Bug Buzz
@@ -4706,7 +4303,6 @@ Nature: Timid
 Abra @ Life Orb
 Ability: Magic Guard
 Level: 15
-EVs: 252 SpA / 4 SpD / 252 Spe
 Nature: Timid
 - Psychic
 - Shadow Ball
@@ -4719,7 +4315,6 @@ Nature: Timid
 Ralts @ Choice Scarf
 Ability: Trace
 Level: 36
-EVs: 52 HP / 236 SpA / 196 Spe
 Nature: Timid
 - Psychic
 - Dazzling Gleam
@@ -4732,7 +4327,6 @@ Nature: Timid
 Girafarig @ Choice Specs
 Ability: Sap Sipper
 Level: 36
-EVs: 252 SpA / 4 SpD / 252 Spe
 Nature: Timid
 - Psychic
 - Hyper Voice
@@ -4745,7 +4339,6 @@ Nature: Timid
 Ralts @ Choice Scarf
 Ability: Trace
 Level: 26
-EVs: 52 HP / 236 SpA / 196 Spe
 Nature: Timid
 - Psychic
 - Dazzling Gleam
@@ -4755,7 +4348,6 @@ Nature: Timid
 Ralts @ Choice Scarf
 Ability: Trace
 Level: 26
-EVs: 52 HP / 236 SpA / 196 Spe
 Nature: Timid
 - Psychic
 - Dazzling Gleam
@@ -4768,7 +4360,6 @@ Nature: Timid
 Kadabra @ Focus Sash
 Ability: Magic Guard
 Level: 41
-EVs: 4 HP / 252 SpA / 252 Spe
 Nature: Timid
 - Psychic
 - Counter
@@ -4777,7 +4368,6 @@ Nature: Timid
 
 Solrock @ Rocky Helmet
 Level: 41
-EVs: 252 HP / 200 Def / 56 Spe
 Nature: Impish
 - Morning Sun
 - Stealth Rock
@@ -4789,7 +4379,6 @@ Nature: Impish
 
 Solrock @ Rocky Helmet
 Level: 31
-EVs: 252 HP / 200 Def / 56 Spe
 Nature: Impish
 - Morning Sun
 - Stealth Rock
@@ -4802,7 +4391,6 @@ Nature: Impish
 Kadabra @ Focus Sash
 Ability: Magic Guard
 Level: 33
-EVs: 4 HP / 252 SpA / 252 Spe
 Nature: Timid
 - Psychic
 - Counter
@@ -4811,7 +4399,6 @@ Nature: Timid
 
 Solrock @ Rocky Helmet
 Level: 33
-EVs: 252 HP / 200 Def / 56 Spe
 Nature: Impish
 - Morning Sun
 - Stealth Rock
@@ -4824,7 +4411,6 @@ Nature: Impish
 Kadabra @ Focus Sash
 Ability: Magic Guard
 Level: 38
-EVs: 4 HP / 252 SpA / 252 Spe
 Nature: Timid
 - Psychic
 - Counter
@@ -4833,7 +4419,6 @@ Nature: Timid
 
 Solrock @ Rocky Helmet
 Level: 38
-EVs: 252 HP / 200 Def / 56 Spe
 Nature: Impish
 - Morning Sun
 - Stealth Rock
@@ -4846,7 +4431,6 @@ Nature: Impish
 Kadabra @ Focus Sash
 Ability: Magic Guard
 Level: 41
-EVs: 4 HP / 252 SpA / 252 Spe
 Nature: Timid
 - Psychic
 - Counter
@@ -4855,7 +4439,6 @@ Nature: Timid
 
 Solrock @ Rocky Helmet
 Level: 41
-EVs: 252 HP / 200 Def / 56 Spe
 Nature: Impish
 - Morning Sun
 - Stealth Rock
@@ -4867,7 +4450,6 @@ Nature: Impish
 
 Solrock @ Rocky Helmet
 Level: 45
-EVs: 252 HP / 200 Def / 56 Spe
 Nature: Impish
 - Morning Sun
 - Stealth Rock
@@ -4877,7 +4459,6 @@ Nature: Impish
 Alakazam @ Focus Sash
 Ability: Magic Guard
 Level: 45
-EVs: 4 Def / 252 SpA / 252 Spe
 Nature: Timid
 IVs: 0 Atk
 - Nasty Plot
@@ -4891,7 +4472,6 @@ IVs: 0 Atk
 Abra @ Life Orb
 Ability: Magic Guard
 Level: 16
-EVs: 252 SpA / 4 SpD / 252 Spe
 Nature: Timid
 - Psychic
 - Shadow Ball
@@ -4904,7 +4484,6 @@ Nature: Timid
 Xatu @ Heavy-Duty Boots
 Ability: Magic Bounce
 Level: 36
-EVs: 252 HP / 252 Def / 4 SpD
 Nature: Bold
 - Psychic
 - Roost
@@ -4917,7 +4496,6 @@ Nature: Bold
 Kadabra @ Focus Sash
 Ability: Magic Guard
 Level: 36
-EVs: 4 HP / 252 SpA / 252 Spe
 Nature: Timid
 - Psychic
 - Counter
@@ -4930,7 +4508,6 @@ Nature: Timid
 Wobbuffet @ Leftovers
 Ability: Telepathy
 Level: 26
-EVs: 252 HP / 4 Def / 252 SpD
 Nature: Calm
 - Encore
 - Counter
@@ -4940,7 +4517,6 @@ Nature: Calm
 Natu @ Eviolite
 Ability: Magic Bounce
 Level: 26
-EVs: 36 HP / 76 Def / 36 SpA / 156 SpD / 196 Spe
 Nature: Timid
 - Psychic
 - Heat Wave
@@ -4950,7 +4526,6 @@ Nature: Timid
 Kadabra @ Focus Sash
 Ability: Magic Guard
 Level: 26
-EVs: 4 HP / 252 SpA / 252 Spe
 Nature: Timid
 - Psychic
 - Counter
@@ -4963,7 +4538,6 @@ Nature: Timid
 Xatu @ Heavy-Duty Boots
 Ability: Magic Bounce
 Level: 41
-EVs: 252 HP / 252 Def / 4 SpD
 Nature: Bold
 - Psychic
 - Roost
@@ -4976,7 +4550,6 @@ Nature: Bold
 Kadabra @ Focus Sash
 Ability: Magic Guard
 Level: 30
-EVs: 4 HP / 252 SpA / 252 Spe
 Nature: Timid
 - Psychic
 - Counter
@@ -4985,7 +4558,6 @@ Nature: Timid
 
 Lunatone @ Power Herb
 Level: 30
-EVs: 4 Def / 252 SpA / 252 Spe
 Nature: Modest
 - Meteor Beam
 - Psyshock
@@ -4998,7 +4570,6 @@ Nature: Modest
 Kadabra @ Focus Sash
 Ability: Magic Guard
 Level: 34
-EVs: 4 HP / 252 SpA / 252 Spe
 Nature: Timid
 - Psychic
 - Counter
@@ -5007,7 +4578,6 @@ Nature: Timid
 
 Lunatone @ Power Herb
 Level: 34
-EVs: 4 Def / 252 SpA / 252 Spe
 Nature: Modest
 - Meteor Beam
 - Psyshock
@@ -5020,7 +4590,6 @@ Nature: Modest
 Kadabra @ Focus Sash
 Ability: Magic Guard
 Level: 37
-EVs: 4 HP / 252 SpA / 252 Spe
 Nature: Timid
 - Psychic
 - Counter
@@ -5029,7 +4598,6 @@ Nature: Timid
 
 Lunatone @ Power Herb
 Level: 37
-EVs: 4 Def / 252 SpA / 252 Spe
 Nature: Modest
 - Meteor Beam
 - Psyshock
@@ -5042,7 +4610,6 @@ Nature: Modest
 Kadabra @ Focus Sash
 Ability: Magic Guard
 Level: 40
-EVs: 4 HP / 252 SpA / 252 Spe
 Nature: Timid
 - Psychic
 - Counter
@@ -5051,7 +4618,6 @@ Nature: Timid
 
 Lunatone @ Power Herb
 Level: 40
-EVs: 4 Def / 252 SpA / 252 Spe
 Nature: Modest
 - Meteor Beam
 - Psyshock
@@ -5063,7 +4629,6 @@ Nature: Modest
 
 Lunatone @ Power Herb
 Level: 43
-EVs: 4 Def / 252 SpA / 252 Spe
 Nature: Modest
 - Meteor Beam
 - Psyshock
@@ -5073,7 +4638,6 @@ Nature: Modest
 Alakazam @ Focus Sash
 Ability: Magic Guard
 Level: 43
-EVs: 4 Def / 252 SpA / 252 Spe
 Nature: Timid
 IVs: 0 Atk
 - Nasty Plot
@@ -5087,7 +4651,6 @@ IVs: 0 Atk
 Manectric
 Ability: Lightning Rod
 Level: 29
-EVs: 252 SpA / 4 SpD / 252 Spe
 Nature: Timid
 IVs: 0 Atk
 - Volt Switch
@@ -5101,7 +4664,6 @@ IVs: 0 Atk
 Manectric
 Ability: Lightning Rod
 Level: 44
-EVs: 252 SpA / 4 SpD / 252 Spe
 Nature: Timid
 IVs: 0 Atk
 - Volt Switch
@@ -5112,7 +4674,6 @@ IVs: 0 Atk
 Manectric
 Ability: Lightning Rod
 Level: 44
-EVs: 252 SpA / 4 SpD / 252 Spe
 Nature: Timid
 IVs: 0 Atk
 - Volt Switch
@@ -5126,7 +4687,6 @@ IVs: 0 Atk
 Zangoose @ Toxic Orb
 Ability: Toxic Boost
 Level: 45
-EVs: 252 Atk / 4 SpD / 252 Spe
 Nature: Jolly
 - Swords Dance
 - Facade
@@ -5139,7 +4699,6 @@ Nature: Jolly
 Manectric
 Ability: Lightning Rod
 Level: 34
-EVs: 252 SpA / 4 SpD / 252 Spe
 Nature: Timid
 IVs: 0 Atk
 - Volt Switch
@@ -5153,7 +4712,6 @@ IVs: 0 Atk
 Linoone @ Figy Berry
 Ability: Gluttony
 Level: 36
-EVs: 60 HP / 252 Atk / 196 Spe
 Nature: Adamant
 - Belly Drum
 - Extreme Speed
@@ -5163,7 +4721,6 @@ Nature: Adamant
 Manectric
 Ability: Lightning Rod
 Level: 36
-EVs: 252 SpA / 4 SpD / 252 Spe
 Nature: Timid
 IVs: 0 Atk
 - Volt Switch
@@ -5177,7 +4734,6 @@ IVs: 0 Atk
 Linoone @ Figy Berry
 Ability: Gluttony
 Level: 39
-EVs: 60 HP / 252 Atk / 196 Spe
 Nature: Adamant
 - Belly Drum
 - Extreme Speed
@@ -5187,7 +4743,6 @@ Nature: Adamant
 Manectric
 Ability: Lightning Rod
 Level: 39
-EVs: 252 SpA / 4 SpD / 252 Spe
 Nature: Timid
 IVs: 0 Atk
 - Volt Switch
@@ -5201,7 +4756,6 @@ IVs: 0 Atk
 Linoone @ Figy Berry
 Ability: Gluttony
 Level: 41
-EVs: 60 HP / 252 Atk / 196 Spe
 Nature: Adamant
 - Belly Drum
 - Extreme Speed
@@ -5211,7 +4765,6 @@ Nature: Adamant
 Golduck @ Choice Specs
 Ability: Cloud Nine
 Level: 41
-EVs: 252 SpA / 4 SpD / 252 Spe
 Nature: Modest
 - Hydro Pump
 - Ice Beam
@@ -5221,7 +4774,6 @@ Nature: Modest
 Manectric
 Ability: Lightning Rod
 Level: 41
-EVs: 252 SpA / 4 SpD / 252 Spe
 Nature: Timid
 IVs: 0 Atk
 - Volt Switch
@@ -5235,7 +4787,6 @@ IVs: 0 Atk
 Ralts @ Choice Scarf
 Ability: Trace
 Level: 9
-EVs: 52 HP / 236 SpA / 196 Spe
 Nature: Timid
 - Psychic
 - Dazzling Gleam
@@ -5248,7 +4799,6 @@ Nature: Timid
 Ralts @ Choice Scarf
 Ability: Trace
 Level: 17
-EVs: 52 HP / 236 SpA / 196 Spe
 Nature: Timid
 - Psychic
 - Dazzling Gleam
@@ -5261,7 +4811,6 @@ Nature: Timid
 Numel @ Eviolite
 Ability: Simple
 Level: 15
-EVs: 36 Def / 236 SpA / 236 Spe
 Nature: Modest
 - Flame Charge
 - Fire Blast
@@ -5270,7 +4819,6 @@ Nature: Modest
 
 Oddish @ Eviolite
 Level: 15
-EVs: 156 HP / 236 Def / 76 SpD / 36 Spe
 Nature: Bold
 - Sleep Powder
 - Strength Sap
@@ -5280,7 +4828,6 @@ Nature: Bold
 Wingull @ Life Orb
 Ability: Hydration
 Level: 15
-EVs: 36 Def / 236 SpA / 236 Spe
 Nature: Timid
 IVs: 19 HP
 - Surf
@@ -5294,7 +4841,6 @@ IVs: 19 HP
 Ralts @ Choice Scarf
 Ability: Trace
 Level: 26
-EVs: 52 HP / 236 SpA / 196 Spe
 Nature: Timid
 - Psychic
 - Dazzling Gleam
@@ -5303,7 +4849,6 @@ Nature: Timid
 
 Meditite @ Choice Band
 Level: 26
-EVs: 252 Atk / 4 SpD / 252 Spe
 Nature: Adamant
 - Close Combat
 - Zen Headbutt
@@ -5315,7 +4860,6 @@ Nature: Adamant
 
 Meditite @ Choice Band
 Level: 29
-EVs: 252 Atk / 4 SpD / 252 Spe
 Nature: Adamant
 - Close Combat
 - Zen Headbutt
@@ -5327,7 +4871,6 @@ Nature: Adamant
 
 Medicham @ Choice Scarf
 Level: 32
-EVs: 252 Atk / 4 SpD / 252 Spe
 Nature: Jolly
 - Close Combat
 - Zen Headbutt
@@ -5339,7 +4882,6 @@ Nature: Jolly
 
 Banette @ Life Orb
 Level: 34
-EVs: 252 Atk / 4 Def / 252 Spe
 Nature: Adamant
 - Shadow Claw
 - Knock Off
@@ -5348,7 +4890,6 @@ Nature: Adamant
 
 Medicham @ Choice Scarf
 Level: 34
-EVs: 252 Atk / 4 SpD / 252 Spe
 Nature: Jolly
 - Close Combat
 - Zen Headbutt
@@ -5360,7 +4901,6 @@ Nature: Jolly
 
 Shroomish @ Eviolite
 Level: 9
-EVs: 36 HP / 36 Atk / 196 Def / 116 SpD / 76 Spe
 Nature: Impish
 - Spore
 - Bullet Seed
@@ -5372,7 +4912,6 @@ Nature: Impish
 
 Shroomish @ Eviolite
 Level: 16
-EVs: 36 HP / 36 Atk / 196 Def / 116 SpD / 76 Spe
 Nature: Impish
 - Spore
 - Bullet Seed
@@ -5381,7 +4920,6 @@ Nature: Impish
 
 Beautifly
 Level: 16
-EVs: 252 SpA / 4 SpD / 252 Spe
 Nature: Timid
 - Quiver Dance
 - Bug Buzz
@@ -5393,7 +4931,6 @@ Nature: Timid
 
 Shroomish @ Eviolite
 Level: 26
-EVs: 36 HP / 36 Atk / 196 Def / 116 SpD / 76 Spe
 Nature: Impish
 - Spore
 - Bullet Seed
@@ -5402,7 +4939,6 @@ Nature: Impish
 
 Whismur @ Life Orb
 Level: 26
-EVs: 244 HP / 36 Def / 188 SpA / 36 SpD
 Nature: Quiet
 - Hyper Voice
 - Shadow Ball
@@ -5414,7 +4950,6 @@ Nature: Quiet
 
 Shroomish @ Eviolite
 Level: 29
-EVs: 36 HP / 36 Atk / 196 Def / 116 SpD / 76 Spe
 Nature: Impish
 - Spore
 - Bullet Seed
@@ -5423,7 +4958,6 @@ Nature: Impish
 
 Loudred @ Leftovers
 Level: 29
-EVs: 100 HP / 252 Atk / 16 SpA / 140 Spe
 Nature: Naughty
 - Return
 - Shadow Ball
@@ -5436,7 +4970,6 @@ Nature: Naughty
 Breloom @ Toxic Orb
 Ability: Poison Heal
 Level: 32
-EVs: 252 HP / 80 Atk / 176 Spe
 Nature: Adamant
 - Close Combat
 - Seed Bomb
@@ -5445,7 +4978,6 @@ Nature: Adamant
 
 Loudred @ Leftovers
 Level: 32
-EVs: 100 HP / 252 Atk / 16 SpA / 140 Spe
 Nature: Naughty
 - Return
 - Shadow Ball
@@ -5458,7 +4990,6 @@ Nature: Naughty
 Breloom @ Toxic Orb
 Ability: Poison Heal
 Level: 35
-EVs: 252 HP / 80 Atk / 176 Spe
 Nature: Adamant
 - Close Combat
 - Seed Bomb
@@ -5468,7 +4999,6 @@ Nature: Adamant
 Exploud @ Choice Specs
 Ability: Scrappy
 Level: 35
-EVs: 252 SpA / 4 SpD / 252 Spe
 Nature: Timid
 - Boomburst
 - Overheat
@@ -5481,7 +5011,6 @@ Nature: Timid
 Spinda @ Life Orb
 Ability: Contrary
 Level: 30
-EVs: 252 HP / 252 Atk / 4 Def
 Nature: Brave
 IVs: 0 Spe
 - Trick Room
@@ -5491,7 +5020,6 @@ IVs: 0 Spe
 
 Slaking @ Life Orb
 Level: 32
-EVs: 252 Atk / 4 SpA / 252 Spe
 Nature: Naive
 - Return
 - Pursuit
@@ -5503,7 +5031,6 @@ Nature: Naive
 
 Zigzagoon @ Berry Juice
 Level: 15
-EVs: 132 HP / 196 Atk / 108 Def / 28 SpD / 36 Spe
 Nature: Adamant
 - Belly Drum
 - Extreme Speed
@@ -5512,7 +5039,6 @@ Nature: Adamant
 
 Makuhita @ Berry Juice
 Level: 17
-EVs: 20 HP / 196 Atk / 36 Def / 236 Spe
 Nature: Jolly
 - Belly Drum
 - Close Combat
@@ -5524,7 +5050,6 @@ Nature: Jolly
 
 Zigzagoon @ Berry Juice
 Level: 28
-EVs: 132 HP / 196 Atk / 108 Def / 28 SpD / 36 Spe
 Nature: Adamant
 - Belly Drum
 - Extreme Speed
@@ -5533,7 +5058,6 @@ Nature: Adamant
 
 Makuhita @ Berry Juice
 Level: 30
-EVs: 20 HP / 196 Atk / 36 Def / 236 Spe
 Nature: Jolly
 - Belly Drum
 - Close Combat
@@ -5545,7 +5069,6 @@ Nature: Jolly
 
 Zigzagoon @ Berry Juice
 Level: 31
-EVs: 132 HP / 196 Atk / 108 Def / 28 SpD / 36 Spe
 Nature: Adamant
 - Belly Drum
 - Extreme Speed
@@ -5554,7 +5077,6 @@ Nature: Adamant
 
 Makuhita @ Berry Juice
 Level: 33
-EVs: 20 HP / 196 Atk / 36 Def / 236 Spe
 Nature: Jolly
 - Belly Drum
 - Close Combat
@@ -5567,7 +5089,6 @@ Nature: Jolly
 Linoone @ Figy Berry
 Ability: Gluttony
 Level: 34
-EVs: 60 HP / 252 Atk / 196 Spe
 Nature: Adamant
 - Belly Drum
 - Extreme Speed
@@ -5576,7 +5097,6 @@ Nature: Adamant
 
 Makuhita @ Berry Juice
 Level: 36
-EVs: 20 HP / 196 Atk / 36 Def / 236 Spe
 Nature: Jolly
 - Belly Drum
 - Close Combat
@@ -5589,7 +5109,6 @@ Nature: Jolly
 Linoone @ Figy Berry
 Ability: Gluttony
 Level: 36
-EVs: 60 HP / 252 Atk / 196 Spe
 Nature: Adamant
 - Belly Drum
 - Extreme Speed
@@ -5599,7 +5118,6 @@ Nature: Adamant
 Hariyama @ Sitrus Berry
 Ability: Guts
 Level: 38
-EVs: 4 HP / 252 Atk / 252 Spe
 Nature: Adamant
 - Belly Drum
 - Drain Punch
@@ -5612,7 +5130,6 @@ Nature: Adamant
 Taillow @ Life Orb
 Ability: Guts
 Level: 16
-EVs: 36 Def / 200 SpA / 36 SpD / 236 Spe
 Nature: Naive
 IVs: 19 HP
 - Boomburst
@@ -5622,7 +5139,6 @@ IVs: 19 HP
 
 Zigzagoon @ Berry Juice
 Level: 16
-EVs: 132 HP / 196 Atk / 108 Def / 28 SpD / 36 Spe
 Nature: Adamant
 - Belly Drum
 - Extreme Speed
@@ -5635,7 +5151,6 @@ Nature: Adamant
 Skitty @ Life Orb
 Ability: Normalize
 Level: 15
-EVs: 236 Atk / 76 SpD / 196 Spe
 Nature: Jolly
 - Fake Out
 - Sucker Punch
@@ -5648,7 +5163,6 @@ Nature: Jolly
 Skitty @ Life Orb
 Ability: Normalize
 Level: 22
-EVs: 236 Atk / 76 SpD / 196 Spe
 Nature: Jolly
 - Fake Out
 - Sucker Punch
@@ -5658,7 +5172,6 @@ Nature: Jolly
 Skitty @ Life Orb
 Ability: Normalize
 Level: 36
-EVs: 236 Atk / 76 SpD / 196 Spe
 Nature: Jolly
 - Fake Out
 - Sucker Punch
@@ -5668,7 +5181,6 @@ Nature: Jolly
 Skitty @ Life Orb
 Ability: Normalize
 Level: 40
-EVs: 236 Atk / 76 SpD / 196 Spe
 Nature: Jolly
 - Fake Out
 - Sucker Punch
@@ -5678,7 +5190,6 @@ Nature: Jolly
 Skitty @ Life Orb
 Ability: Normalize
 Level: 12
-EVs: 236 Atk / 76 SpD / 196 Spe
 Nature: Jolly
 - Fake Out
 - Sucker Punch
@@ -5688,7 +5199,6 @@ Nature: Jolly
 Skitty @ Life Orb
 Ability: Normalize
 Level: 30
-EVs: 236 Atk / 76 SpD / 196 Spe
 Nature: Jolly
 - Fake Out
 - Sucker Punch
@@ -5698,7 +5208,6 @@ Nature: Jolly
 Delcatty @ Silk Scarf
 Ability: Normalize
 Level: 42
-EVs: 252 Atk / 4 Def / 252 Spe
 Nature: Jolly
 - Fake Out
 - Sucker Punch
@@ -5711,7 +5220,6 @@ Nature: Jolly
 Skitty @ Life Orb
 Ability: Normalize
 Level: 29
-EVs: 236 Atk / 76 SpD / 196 Spe
 Nature: Jolly
 - Fake Out
 - Sucker Punch
@@ -5724,7 +5232,6 @@ Nature: Jolly
 Skitty @ Life Orb
 Ability: Normalize
 Level: 32
-EVs: 236 Atk / 76 SpD / 196 Spe
 Nature: Jolly
 - Fake Out
 - Sucker Punch
@@ -5737,7 +5244,6 @@ Nature: Jolly
 Delcatty @ Silk Scarf
 Ability: Normalize
 Level: 35
-EVs: 252 Atk / 4 Def / 252 Spe
 Nature: Jolly
 - Fake Out
 - Sucker Punch
@@ -5750,7 +5256,6 @@ Nature: Jolly
 Delcatty @ Silk Scarf
 Ability: Normalize
 Level: 38
-EVs: 252 Atk / 4 Def / 252 Spe
 Nature: Jolly
 - Fake Out
 - Sucker Punch
@@ -5763,7 +5268,6 @@ Nature: Jolly
 Roselia @ Eviolite
 Ability: Poison Point
 Level: 17
-EVs: 252 HP / 200 Def / 56 Spe
 Nature: Bold
 - Spikes
 - Sludge Bomb
@@ -5776,7 +5280,6 @@ Nature: Bold
 Pikachu @ Light Ball
 Ability: Lightning Rod
 Level: 30
-EVs: 252 SpA / 4 SpD / 252 Spe
 Nature: Timid
 - Thunderbolt
 - Surf
@@ -5789,7 +5292,6 @@ Nature: Timid
 Azurill @ Oran Berry
 Ability: Huge Power
 Level: 35
-EVs: 36 HP / 196 Atk / 116 Def / 36 SpD / 116 Spe
 Nature: Adamant
 - Belly Drum
 - Facade
@@ -5799,7 +5301,6 @@ Nature: Adamant
 Marill @ Choice Band
 Ability: Huge Power
 Level: 37
-EVs: 52 HP / 252 Atk / 204 Spe
 Nature: Adamant
 - Play Rough
 - Waterfall
@@ -5809,7 +5310,6 @@ Nature: Adamant
 Azumarill @ Sitrus Berry
 Ability: Huge Power
 Level: 39
-EVs: 4 HP / 252 Atk / 252 Spe
 Nature: Adamant
 - Belly Drum
 - Play Rough
@@ -5822,7 +5322,6 @@ Nature: Adamant
 Plusle @ Life Orb
 Ability: Lightning Rod
 Level: 14
-EVs: 252 SpA / 4 SpD / 252 Spe
 Nature: Timid
 - Nasty Plot
 - Thunderbolt
@@ -5832,7 +5331,6 @@ Nature: Timid
 Minun @ Life Orb
 Ability: Volt Absorb
 Level: 14
-EVs: 252 SpA / 4 SpD / 252 Spe
 Nature: Timid
 - Nasty Plot
 - Thunderbolt
@@ -5845,7 +5343,6 @@ Nature: Timid
 Plusle @ Life Orb
 Ability: Lightning Rod
 Level: 26
-EVs: 252 SpA / 4 SpD / 252 Spe
 Nature: Timid
 - Nasty Plot
 - Thunderbolt
@@ -5855,7 +5352,6 @@ Nature: Timid
 Minun @ Life Orb
 Ability: Volt Absorb
 Level: 26
-EVs: 252 SpA / 4 SpD / 252 Spe
 Nature: Timid
 - Nasty Plot
 - Thunderbolt
@@ -5868,7 +5364,6 @@ Nature: Timid
 Plusle @ Life Orb
 Ability: Lightning Rod
 Level: 29
-EVs: 252 SpA / 4 SpD / 252 Spe
 Nature: Timid
 - Nasty Plot
 - Thunderbolt
@@ -5878,7 +5373,6 @@ Nature: Timid
 Minun @ Life Orb
 Ability: Volt Absorb
 Level: 29
-EVs: 252 SpA / 4 SpD / 252 Spe
 Nature: Timid
 - Nasty Plot
 - Thunderbolt
@@ -5891,7 +5385,6 @@ Nature: Timid
 Plusle @ Life Orb
 Ability: Lightning Rod
 Level: 32
-EVs: 252 SpA / 4 SpD / 252 Spe
 Nature: Timid
 - Nasty Plot
 - Thunderbolt
@@ -5901,7 +5394,6 @@ Nature: Timid
 Minun @ Life Orb
 Ability: Volt Absorb
 Level: 32
-EVs: 252 SpA / 4 SpD / 252 Spe
 Nature: Timid
 - Nasty Plot
 - Thunderbolt
@@ -5914,7 +5406,6 @@ Nature: Timid
 Plusle @ Life Orb
 Ability: Lightning Rod
 Level: 35
-EVs: 252 SpA / 4 SpD / 252 Spe
 Nature: Timid
 - Nasty Plot
 - Thunderbolt
@@ -5924,7 +5415,6 @@ Nature: Timid
 Minun @ Life Orb
 Ability: Volt Absorb
 Level: 35
-EVs: 252 SpA / 4 SpD / 252 Spe
 Nature: Timid
 - Nasty Plot
 - Thunderbolt
@@ -5937,7 +5427,6 @@ Nature: Timid
 Hariyama @ Sitrus Berry
 Ability: Guts
 Level: 27
-EVs: 4 HP / 252 Atk / 252 Spe
 Nature: Adamant
 - Belly Drum
 - Drain Punch
@@ -5950,7 +5439,6 @@ Nature: Adamant
 Hariyama @ Sitrus Berry
 Ability: Guts
 Level: 33
-EVs: 4 HP / 252 Atk / 252 Spe
 Nature: Adamant
 - Belly Drum
 - Drain Punch
@@ -5963,7 +5451,6 @@ Nature: Adamant
 Hariyama @ Sitrus Berry
 Ability: Guts
 Level: 36
-EVs: 4 HP / 252 Atk / 252 Spe
 Nature: Adamant
 - Belly Drum
 - Drain Punch
@@ -5976,7 +5463,6 @@ Nature: Adamant
 Hariyama @ Sitrus Berry
 Ability: Guts
 Level: 39
-EVs: 4 HP / 252 Atk / 252 Spe
 Nature: Adamant
 - Belly Drum
 - Drain Punch
@@ -5989,7 +5475,6 @@ Nature: Adamant
 Hariyama @ Sitrus Berry
 Ability: Guts
 Level: 42
-EVs: 4 HP / 252 Atk / 252 Spe
 Nature: Adamant
 - Belly Drum
 - Drain Punch
@@ -6001,7 +5486,6 @@ Nature: Adamant
 
 Meditite @ Choice Band
 Level: 18
-EVs: 252 Atk / 4 SpD / 252 Spe
 Nature: Adamant
 - Close Combat
 - Zen Headbutt
@@ -6013,7 +5497,6 @@ Nature: Adamant
 
 Meditite @ Choice Band
 Level: 21
-EVs: 252 Atk / 4 SpD / 252 Spe
 Nature: Adamant
 - Close Combat
 - Zen Headbutt
@@ -6022,7 +5505,6 @@ Nature: Adamant
 
 Makuhita @ Berry Juice
 Level: 21
-EVs: 20 HP / 196 Atk / 36 Def / 236 Spe
 Nature: Jolly
 - Belly Drum
 - Close Combat
@@ -6034,7 +5516,6 @@ Nature: Jolly
 
 Meditite @ Choice Band
 Level: 30
-EVs: 252 Atk / 4 SpD / 252 Spe
 Nature: Adamant
 - Close Combat
 - Zen Headbutt
@@ -6043,7 +5524,6 @@ Nature: Adamant
 
 Makuhita @ Berry Juice
 Level: 30
-EVs: 20 HP / 196 Atk / 36 Def / 236 Spe
 Nature: Jolly
 - Belly Drum
 - Close Combat
@@ -6055,7 +5535,6 @@ Nature: Jolly
 
 Medicham @ Choice Scarf
 Level: 33
-EVs: 252 Atk / 4 SpD / 252 Spe
 Nature: Jolly
 - Close Combat
 - Zen Headbutt
@@ -6065,7 +5544,6 @@ Nature: Jolly
 Hariyama @ Sitrus Berry
 Ability: Guts
 Level: 33
-EVs: 4 HP / 252 Atk / 252 Spe
 Nature: Adamant
 - Belly Drum
 - Drain Punch
@@ -6077,7 +5555,6 @@ Nature: Adamant
 
 Medicham @ Choice Scarf
 Level: 36
-EVs: 252 Atk / 4 SpD / 252 Spe
 Nature: Jolly
 - Close Combat
 - Zen Headbutt
@@ -6087,7 +5564,6 @@ Nature: Jolly
 Hariyama @ Sitrus Berry
 Ability: Guts
 Level: 36
-EVs: 4 HP / 252 Atk / 252 Spe
 Nature: Adamant
 - Belly Drum
 - Drain Punch
@@ -6099,7 +5575,6 @@ Nature: Adamant
 
 Medicham @ Choice Scarf
 Level: 39
-EVs: 252 Atk / 4 SpD / 252 Spe
 Nature: Jolly
 - Close Combat
 - Zen Headbutt
@@ -6109,7 +5584,6 @@ Nature: Jolly
 Hariyama @ Sitrus Berry
 Ability: Guts
 Level: 39
-EVs: 4 HP / 252 Atk / 252 Spe
 Nature: Adamant
 - Belly Drum
 - Drain Punch
@@ -6122,7 +5596,6 @@ Nature: Adamant
 Poochyena
 Ability: Rattled
 Level: 5
-EVs: 236 Atk / 36 SpD / 236 Spe
 Nature: Jolly
 - Howl
 - Crunch
@@ -6134,7 +5607,6 @@ Nature: Jolly
 
 Zigzagoon @ Berry Juice
 Level: 5
-EVs: 132 HP / 196 Atk / 108 Def / 28 SpD / 36 Spe
 Nature: Adamant
 - Belly Drum
 - Extreme Speed
@@ -6143,7 +5615,6 @@ Nature: Adamant
 
 Seedot @ Life Orb
 Level: 7
-EVs: 40 Atk / 36 Def / 200 SpA / 200 Spe
 Nature: Rash
 IVs: 19 HP
 - Growth
@@ -6157,7 +5628,6 @@ IVs: 19 HP
 Geodude @ Berry Juice
 Ability: Sturdy
 Level: 10
-EVs: 36 HP / 196 Atk / 116 Def / 36 SpD / 116 Spe
 Nature: Adamant
 - Stealth Rock
 - Rock Blast
@@ -6170,7 +5640,6 @@ Nature: Adamant
 Geodude @ Berry Juice
 Ability: Sturdy
 Level: 8
-EVs: 36 HP / 196 Atk / 116 Def / 36 SpD / 116 Spe
 Nature: Adamant
 - Stealth Rock
 - Rock Blast
@@ -6180,7 +5649,6 @@ Nature: Adamant
 Geodude @ Berry Juice
 Ability: Sturdy
 Level: 8
-EVs: 36 HP / 196 Atk / 116 Def / 36 SpD / 116 Spe
 Nature: Adamant
 - Stealth Rock
 - Rock Blast
@@ -6193,7 +5661,6 @@ Nature: Adamant
 Machop @ Choice Scarf
 Ability: No Guard
 Level: 9
-EVs: 36 HP / 196 Atk / 36 Def / 236 Spe
 Nature: Jolly
 - Dynamic Punch
 - Knock Off
@@ -6205,7 +5672,6 @@ Nature: Jolly
 
 Zigzagoon @ Berry Juice
 Level: 17
-EVs: 132 HP / 196 Atk / 108 Def / 28 SpD / 36 Spe
 Nature: Adamant
 - Belly Drum
 - Extreme Speed
@@ -6214,7 +5680,6 @@ Nature: Adamant
 
 Gulpin @ Eviolite
 Level: 17
-EVs: 116 HP / 172 Def / 12 SpA / 172 SpD
 Nature: Modest
 - Stockpile
 - Pain Split
@@ -6226,7 +5691,6 @@ Nature: Modest
 
 Slaking @ Life Orb
 Level: 43
-EVs: 252 Atk / 4 SpA / 252 Spe
 Nature: Naive
 - Return
 - Pursuit
@@ -6235,7 +5699,6 @@ Nature: Naive
 
 Dusclops @ Eviolite
 Level: 43
-EVs: 252 HP / 252 SpD / 4 Spe
 Nature: Calm
 - Night Shade
 - Will-O-Wisp
@@ -6248,7 +5711,6 @@ Nature: Calm
 Gardevoir @ Choice Scarf
 Ability: Trace
 Level: 43
-EVs: 252 SpA / 4 SpD / 252 Spe
 Nature: Modest
 IVs: 0 Atk
 - Moonblast
@@ -6258,7 +5720,6 @@ IVs: 0 Atk
 
 Slaking @ Life Orb
 Level: 43
-EVs: 252 Atk / 4 SpA / 252 Spe
 Nature: Naive
 - Return
 - Pursuit
@@ -6271,7 +5732,6 @@ Nature: Naive
 Trapinch @ Eviolite
 Ability: Arena Trap
 Level: 19
-EVs: 196 Atk / 156 Def / 76 SpD / 36 Spe
 Nature: Impish
 - Earthquake
 - Stone Edge
@@ -6284,7 +5744,6 @@ Nature: Impish
 Aron @ Eviolite
 Ability: Rock Head
 Level: 19
-EVs: 196 Atk / 116 SpD / 196 Spe
 Nature: Jolly
 - Rock Polish
 - Head Smash
@@ -6297,7 +5756,6 @@ Nature: Jolly
 Mightyena @ Life Orb
 Ability: Moxie
 Level: 27
-EVs: 252 Atk / 4 SpD / 252 Spe
 Nature: Adamant
 - Crunch
 - Sucker Punch
@@ -6310,7 +5768,6 @@ Nature: Adamant
 Swellow @ Choice Specs
 Ability: Scrappy
 Level: 28
-EVs: 4 Def / 252 SpA / 252 Spe
 Nature: Timid
 - Boomburst
 - U-turn
@@ -6320,7 +5777,6 @@ Nature: Timid
 Mightyena @ Life Orb
 Ability: Moxie
 Level: 30
-EVs: 252 Atk / 4 SpD / 252 Spe
 Nature: Adamant
 - Crunch
 - Sucker Punch
@@ -6333,7 +5789,6 @@ Nature: Adamant
 Swellow @ Choice Specs
 Ability: Scrappy
 Level: 31
-EVs: 4 Def / 252 SpA / 252 Spe
 Nature: Timid
 - Boomburst
 - U-turn
@@ -6343,7 +5798,6 @@ Nature: Timid
 Linoone @ Figy Berry
 Ability: Gluttony
 Level: 29
-EVs: 60 HP / 252 Atk / 196 Spe
 Nature: Adamant
 - Belly Drum
 - Extreme Speed
@@ -6353,7 +5807,6 @@ Nature: Adamant
 Mightyena @ Life Orb
 Ability: Moxie
 Level: 33
-EVs: 252 Atk / 4 SpD / 252 Spe
 Nature: Adamant
 - Crunch
 - Sucker Punch
@@ -6366,7 +5819,6 @@ Nature: Adamant
 Swellow @ Choice Specs
 Ability: Scrappy
 Level: 34
-EVs: 4 Def / 252 SpA / 252 Spe
 Nature: Timid
 - Boomburst
 - U-turn
@@ -6376,7 +5828,6 @@ Nature: Timid
 Linoone @ Figy Berry
 Ability: Gluttony
 Level: 32
-EVs: 60 HP / 252 Atk / 196 Spe
 Nature: Adamant
 - Belly Drum
 - Extreme Speed
@@ -6386,7 +5837,6 @@ Nature: Adamant
 Mightyena @ Life Orb
 Ability: Moxie
 Level: 36
-EVs: 252 Atk / 4 SpD / 252 Spe
 Nature: Adamant
 - Crunch
 - Sucker Punch
@@ -6398,7 +5848,6 @@ Nature: Adamant
 
 Zigzagoon @ Berry Juice
 Level: 14
-EVs: 132 HP / 196 Atk / 108 Def / 28 SpD / 36 Spe
 Nature: Adamant
 - Belly Drum
 - Extreme Speed
@@ -6407,7 +5856,6 @@ Nature: Adamant
 
 Zigzagoon @ Berry Juice
 Level: 16
-EVs: 132 HP / 196 Atk / 108 Def / 28 SpD / 36 Spe
 Nature: Adamant
 - Belly Drum
 - Extreme Speed
@@ -6419,7 +5867,6 @@ Nature: Adamant
 
 Zigzagoon @ Berry Juice
 Level: 4
-EVs: 132 HP / 196 Atk / 108 Def / 28 SpD / 36 Spe
 Nature: Adamant
 - Belly Drum
 - Extreme Speed
@@ -6429,7 +5876,6 @@ Nature: Adamant
 Taillow @ Life Orb
 Ability: Guts
 Level: 3
-EVs: 36 Def / 200 SpA / 36 SpD / 236 Spe
 Nature: Naive
 IVs: 19 HP
 - Boomburst
@@ -6443,7 +5889,6 @@ IVs: 19 HP
 Aron @ Eviolite
 Ability: Rock Head
 Level: 15
-EVs: 196 Atk / 116 SpD / 196 Spe
 Nature: Jolly
 - Rock Polish
 - Head Smash
@@ -6453,7 +5898,6 @@ Nature: Jolly
 Electrike @ Choice Scarf
 Ability: Lightning Rod
 Level: 13
-EVs: 240 SpA / 236 Spe
 Nature: Timid
 IVs: 0 Atk / 30 SpA
 - Volt Switch
@@ -6467,7 +5911,6 @@ IVs: 0 Atk / 30 SpA
 Magikarp @ Bright Powder
 Ability: Rattled
 Level: 5
-EVs: 36 HP / 196 Atk / 76 Def / 196 Spe
 Nature: Jolly
 - Splash
 - Flail
@@ -6476,7 +5919,6 @@ Nature: Jolly
 
 Tentacool @ Eviolite
 Level: 10
-EVs: 36 HP / 116 Atk / 156 Def / 196 Spe
 Nature: Jolly
 - Flip Turn
 - Gunk Shot
@@ -6486,7 +5928,6 @@ Nature: Jolly
 Magikarp @ Bright Powder
 Ability: Rattled
 Level: 15
-EVs: 36 HP / 196 Atk / 76 Def / 196 Spe
 Nature: Jolly
 - Splash
 - Flail
@@ -6499,7 +5940,6 @@ Nature: Jolly
 Magikarp @ Bright Powder
 Ability: Rattled
 Level: 5
-EVs: 36 HP / 196 Atk / 76 Def / 196 Spe
 Nature: Jolly
 - Splash
 - Flail
@@ -6509,7 +5949,6 @@ Nature: Jolly
 Magikarp @ Bright Powder
 Ability: Rattled
 Level: 6
-EVs: 36 HP / 196 Atk / 76 Def / 196 Spe
 Nature: Jolly
 - Splash
 - Flail
@@ -6519,7 +5958,6 @@ Nature: Jolly
 Magikarp @ Bright Powder
 Ability: Rattled
 Level: 7
-EVs: 36 HP / 196 Atk / 76 Def / 196 Spe
 Nature: Jolly
 - Splash
 - Flail
@@ -6532,7 +5970,6 @@ Nature: Jolly
 Magikarp @ Bright Powder
 Ability: Rattled
 Level: 16
-EVs: 36 HP / 196 Atk / 76 Def / 196 Spe
 Nature: Jolly
 - Splash
 - Flail
@@ -6542,7 +5979,6 @@ Nature: Jolly
 Goldeen
 Ability: Lightning Rod
 Level: 17
-EVs: 220 Atk / 36 SpD / 252 Spe
 Nature: Jolly
 - Bounce
 - Waterfall
@@ -6551,7 +5987,6 @@ Nature: Jolly
 
 Barboach
 Level: 18
-EVs: 36 HP / 212 Atk / 12 Def / 28 SpD / 196 Spe
 Nature: Adamant
 - Dragon Dance
 - Earthquake
@@ -6564,7 +5999,6 @@ Nature: Adamant
 Magikarp @ Bright Powder
 Ability: Rattled
 Level: 10
-EVs: 36 HP / 196 Atk / 76 Def / 196 Spe
 Nature: Jolly
 - Splash
 - Flail
@@ -6573,7 +6007,6 @@ Nature: Jolly
 
 Tentacool @ Eviolite
 Level: 7
-EVs: 36 HP / 116 Atk / 156 Def / 196 Spe
 Nature: Jolly
 - Flip Turn
 - Gunk Shot
@@ -6583,7 +6016,6 @@ Nature: Jolly
 Magikarp @ Bright Powder
 Ability: Rattled
 Level: 10
-EVs: 36 HP / 196 Atk / 76 Def / 196 Spe
 Nature: Jolly
 - Splash
 - Flail
@@ -6595,7 +6027,6 @@ Nature: Jolly
 
 Tentacool @ Eviolite
 Level: 11
-EVs: 36 HP / 116 Atk / 156 Def / 196 Spe
 Nature: Jolly
 - Flip Turn
 - Gunk Shot
@@ -6607,7 +6038,6 @@ Nature: Jolly
 
 Tentacool @ Eviolite
 Level: 11
-EVs: 36 HP / 116 Atk / 156 Def / 196 Spe
 Nature: Jolly
 - Flip Turn
 - Gunk Shot
@@ -6617,7 +6047,6 @@ Nature: Jolly
 Wailmer @ Choice Scarf
 Ability: Pressure
 Level: 14
-EVs: 36 HP / 200 SpA / 200 Spe
 Nature: Timid
 - Water Spout
 - Hydro Pump
@@ -6626,7 +6055,6 @@ Nature: Timid
 
 Tentacool @ Eviolite
 Level: 11
-EVs: 36 HP / 116 Atk / 156 Def / 196 Spe
 Nature: Jolly
 - Flip Turn
 - Gunk Shot
@@ -6636,7 +6064,6 @@ Nature: Jolly
 Wailmer @ Choice Scarf
 Ability: Pressure
 Level: 14
-EVs: 36 HP / 200 SpA / 200 Spe
 Nature: Timid
 - Water Spout
 - Hydro Pump
@@ -6648,7 +6075,6 @@ Nature: Timid
 
 Barboach
 Level: 19
-EVs: 36 HP / 212 Atk / 12 Def / 28 SpD / 196 Spe
 Nature: Adamant
 - Dragon Dance
 - Earthquake
@@ -6660,7 +6086,6 @@ Nature: Adamant
 
 Tentacool @ Eviolite
 Level: 25
-EVs: 36 HP / 116 Atk / 156 Def / 196 Spe
 Nature: Jolly
 - Flip Turn
 - Gunk Shot
@@ -6670,7 +6095,6 @@ Nature: Jolly
 Carvanha @ Life Orb
 Ability: Speed Boost
 Level: 25
-EVs: 236 SpA / 36 SpD / 236 Spe
 Nature: Modest
 IVs: 9 HP / 0 Atk
 - Protect
@@ -6683,7 +6107,6 @@ IVs: 9 HP / 0 Atk
 
 Tentacool @ Eviolite
 Level: 16
-EVs: 36 HP / 116 Atk / 156 Def / 196 Spe
 Nature: Jolly
 - Flip Turn
 - Gunk Shot
@@ -6696,7 +6119,6 @@ Nature: Jolly
 Wailmer @ Choice Scarf
 Ability: Pressure
 Level: 25
-EVs: 36 HP / 200 SpA / 200 Spe
 Nature: Timid
 - Water Spout
 - Hydro Pump
@@ -6706,7 +6128,6 @@ Nature: Timid
 Tentacruel @ Leftovers
 Ability: Liquid Ooze
 Level: 25
-EVs: 252 HP / 120 Def / 136 Spe
 Nature: Jolly
 - Flip Turn
 - Rapid Spin
@@ -6718,7 +6139,6 @@ Nature: Jolly
 
 Tentacool @ Eviolite
 Level: 24
-EVs: 36 HP / 116 Atk / 156 Def / 196 Spe
 Nature: Jolly
 - Flip Turn
 - Gunk Shot
@@ -6728,7 +6148,6 @@ Nature: Jolly
 Gyarados @ Leftovers
 Ability: Moxie
 Level: 27
-EVs: 252 Atk / 4 SpD / 252 Spe
 Nature: Adamant
 - Dragon Dance
 - Waterfall
@@ -6738,7 +6157,6 @@ Nature: Adamant
 Gyarados @ Leftovers
 Ability: Moxie
 Level: 27
-EVs: 252 Atk / 4 SpD / 252 Spe
 Nature: Adamant
 - Dragon Dance
 - Waterfall
@@ -6751,7 +6169,6 @@ Nature: Adamant
 Gyarados @ Leftovers
 Ability: Moxie
 Level: 29
-EVs: 252 Atk / 4 SpD / 252 Spe
 Nature: Adamant
 - Dragon Dance
 - Waterfall
@@ -6761,7 +6178,6 @@ Nature: Adamant
 Carvanha @ Life Orb
 Ability: Speed Boost
 Level: 26
-EVs: 236 SpA / 36 SpD / 236 Spe
 Nature: Modest
 IVs: 9 HP / 0 Atk
 - Protect
@@ -6771,7 +6187,6 @@ IVs: 9 HP / 0 Atk
 
 Tentacool @ Eviolite
 Level: 26
-EVs: 36 HP / 116 Atk / 156 Def / 196 Spe
 Nature: Jolly
 - Flip Turn
 - Gunk Shot
@@ -6781,7 +6196,6 @@ Nature: Jolly
 Gyarados @ Leftovers
 Ability: Moxie
 Level: 29
-EVs: 252 Atk / 4 SpD / 252 Spe
 Nature: Adamant
 - Dragon Dance
 - Waterfall
@@ -6794,7 +6208,6 @@ Nature: Adamant
 Gyarados @ Leftovers
 Ability: Moxie
 Level: 31
-EVs: 252 Atk / 4 SpD / 252 Spe
 Nature: Adamant
 - Dragon Dance
 - Waterfall
@@ -6804,7 +6217,6 @@ Nature: Adamant
 Carvanha @ Life Orb
 Ability: Speed Boost
 Level: 30
-EVs: 236 SpA / 36 SpD / 236 Spe
 Nature: Modest
 IVs: 9 HP / 0 Atk
 - Protect
@@ -6815,7 +6227,6 @@ IVs: 9 HP / 0 Atk
 Tentacruel @ Leftovers
 Ability: Liquid Ooze
 Level: 30
-EVs: 252 HP / 120 Def / 136 Spe
 Nature: Jolly
 - Flip Turn
 - Rapid Spin
@@ -6825,7 +6236,6 @@ Nature: Jolly
 Gyarados @ Leftovers
 Ability: Moxie
 Level: 31
-EVs: 252 Atk / 4 SpD / 252 Spe
 Nature: Adamant
 - Dragon Dance
 - Waterfall
@@ -6838,7 +6248,6 @@ Nature: Adamant
 Gyarados @ Leftovers
 Ability: Moxie
 Level: 33
-EVs: 252 Atk / 4 SpD / 252 Spe
 Nature: Adamant
 - Dragon Dance
 - Waterfall
@@ -6848,7 +6257,6 @@ Nature: Adamant
 Sharpedo
 Ability: Speed Boost
 Level: 33
-EVs: 252 Atk / 4 SpD / 252 Spe
 Nature: Adamant
 - Crunch
 - Psychic Fangs
@@ -6858,7 +6266,6 @@ Nature: Adamant
 Gyarados @ Leftovers
 Ability: Moxie
 Level: 33
-EVs: 252 Atk / 4 SpD / 252 Spe
 Nature: Adamant
 - Dragon Dance
 - Waterfall
@@ -6868,7 +6275,6 @@ Nature: Adamant
 Tentacruel @ Leftovers
 Ability: Liquid Ooze
 Level: 35
-EVs: 252 HP / 120 Def / 136 Spe
 Nature: Jolly
 - Flip Turn
 - Rapid Spin
@@ -6881,7 +6287,6 @@ Nature: Jolly
 Magikarp @ Bright Powder
 Ability: Rattled
 Level: 19
-EVs: 36 HP / 196 Atk / 76 Def / 196 Spe
 Nature: Jolly
 - Splash
 - Flail
@@ -6891,7 +6296,6 @@ Nature: Jolly
 Gyarados @ Leftovers
 Ability: Moxie
 Level: 21
-EVs: 252 Atk / 4 SpD / 252 Spe
 Nature: Adamant
 - Dragon Dance
 - Waterfall
@@ -6901,7 +6305,6 @@ Nature: Adamant
 Gyarados @ Leftovers
 Ability: Moxie
 Level: 23
-EVs: 252 Atk / 4 SpD / 252 Spe
 Nature: Adamant
 - Dragon Dance
 - Waterfall
@@ -6911,7 +6314,6 @@ Nature: Adamant
 Gyarados @ Leftovers
 Ability: Moxie
 Level: 26
-EVs: 252 Atk / 4 SpD / 252 Spe
 Nature: Adamant
 - Dragon Dance
 - Waterfall
@@ -6921,7 +6323,6 @@ Nature: Adamant
 Gyarados @ Leftovers
 Ability: Moxie
 Level: 30
-EVs: 252 Atk / 4 SpD / 252 Spe
 Nature: Adamant
 - Dragon Dance
 - Waterfall
@@ -6931,7 +6332,6 @@ Nature: Adamant
 Gyarados @ Leftovers
 Ability: Moxie
 Level: 35
-EVs: 252 Atk / 4 SpD / 252 Spe
 Nature: Adamant
 - Dragon Dance
 - Waterfall
@@ -6944,7 +6344,6 @@ Nature: Adamant
 Voltorb @ Light Clay
 Ability: Aftermath
 Level: 6
-EVs: 196 HP / 36 Def / 76 SpD / 196 Spe
 Nature: Timid
 - Reflect
 - Light Screen
@@ -6954,7 +6353,6 @@ Nature: Timid
 Voltorb @ Light Clay
 Ability: Aftermath
 Level: 6
-EVs: 196 HP / 36 Def / 76 SpD / 196 Spe
 Nature: Timid
 - Reflect
 - Light Screen
@@ -6963,7 +6361,6 @@ Nature: Timid
 
 Magnemite @ Choice Scarf
 Level: 14
-EVs: 36 Def / 236 SpA / 236 Spe
 Nature: Modest
 - Thunderbolt
 - Flash Cannon
@@ -6975,7 +6372,6 @@ Nature: Modest
 
 Magnemite @ Choice Scarf
 Level: 14
-EVs: 36 Def / 236 SpA / 236 Spe
 Nature: Modest
 - Thunderbolt
 - Flash Cannon
@@ -6984,7 +6380,6 @@ Nature: Modest
 
 Magnemite @ Choice Scarf
 Level: 14
-EVs: 36 Def / 236 SpA / 236 Spe
 Nature: Modest
 - Thunderbolt
 - Flash Cannon
@@ -6996,7 +6391,6 @@ Nature: Modest
 
 Magnemite @ Choice Scarf
 Level: 16
-EVs: 36 Def / 236 SpA / 236 Spe
 Nature: Modest
 - Thunderbolt
 - Flash Cannon
@@ -7008,7 +6402,6 @@ Nature: Modest
 
 Magnemite @ Choice Scarf
 Level: 30
-EVs: 36 Def / 236 SpA / 236 Spe
 Nature: Modest
 - Thunderbolt
 - Flash Cannon
@@ -7020,7 +6413,6 @@ Nature: Modest
 
 Magnemite @ Choice Scarf
 Level: 33
-EVs: 36 Def / 236 SpA / 236 Spe
 Nature: Modest
 - Thunderbolt
 - Flash Cannon
@@ -7033,7 +6425,6 @@ Nature: Modest
 Magneton @ Eviolite
 Ability: Analytic
 Level: 36
-EVs: 252 SpA / 4 SpD / 252 Spe
 Nature: Timid
 - Thunderbolt
 - Flash Cannon
@@ -7046,7 +6437,6 @@ Nature: Timid
 Magneton @ Eviolite
 Ability: Analytic
 Level: 39
-EVs: 252 SpA / 4 SpD / 252 Spe
 Nature: Timid
 - Thunderbolt
 - Flash Cannon
@@ -7058,7 +6448,6 @@ Nature: Timid
 
 Magnemite @ Choice Scarf
 Level: 16
-EVs: 36 Def / 236 SpA / 236 Spe
 Nature: Modest
 - Thunderbolt
 - Flash Cannon
@@ -7070,7 +6459,6 @@ Nature: Modest
 
 Magnemite @ Choice Scarf
 Level: 14
-EVs: 36 Def / 236 SpA / 236 Spe
 Nature: Modest
 - Thunderbolt
 - Flash Cannon
@@ -7079,7 +6467,6 @@ Nature: Modest
 
 Magnemite @ Choice Scarf
 Level: 14
-EVs: 36 Def / 236 SpA / 236 Spe
 Nature: Modest
 - Thunderbolt
 - Flash Cannon
@@ -7089,7 +6476,6 @@ Nature: Modest
 Voltorb @ Light Clay
 Ability: Aftermath
 Level: 6
-EVs: 196 HP / 36 Def / 76 SpD / 196 Spe
 Nature: Timid
 - Reflect
 - Light Screen
@@ -7101,7 +6487,6 @@ Nature: Timid
 
 Magnemite @ Choice Scarf
 Level: 28
-EVs: 36 Def / 236 SpA / 236 Spe
 Nature: Modest
 - Thunderbolt
 - Flash Cannon
@@ -7113,7 +6498,6 @@ Nature: Modest
 
 Magnemite @ Choice Scarf
 Level: 31
-EVs: 36 Def / 236 SpA / 236 Spe
 Nature: Modest
 - Thunderbolt
 - Flash Cannon
@@ -7126,7 +6510,6 @@ Nature: Modest
 Magneton @ Eviolite
 Ability: Analytic
 Level: 34
-EVs: 252 SpA / 4 SpD / 252 Spe
 Nature: Timid
 - Thunderbolt
 - Flash Cannon
@@ -7139,7 +6522,6 @@ Nature: Timid
 Magneton @ Eviolite
 Ability: Analytic
 Level: 37
-EVs: 252 SpA / 4 SpD / 252 Spe
 Nature: Timid
 - Thunderbolt
 - Flash Cannon
@@ -7152,7 +6534,6 @@ Nature: Timid
 Doduo @ Sky Plate
 Ability: Early Bird
 Level: 17
-EVs: 236 Atk / 236 Spe
 Nature: Jolly
 - Brave Bird
 - Knock Off
@@ -7165,7 +6546,6 @@ Nature: Jolly
 Doduo @ Sky Plate
 Ability: Early Bird
 Level: 28
-EVs: 236 Atk / 236 Spe
 Nature: Jolly
 - Brave Bird
 - Knock Off
@@ -7178,7 +6558,6 @@ Nature: Jolly
 Doduo @ Sky Plate
 Ability: Early Bird
 Level: 31
-EVs: 236 Atk / 236 Spe
 Nature: Jolly
 - Brave Bird
 - Knock Off
@@ -7191,7 +6570,6 @@ Nature: Jolly
 Dodrio @ Heavy-Duty Boots
 Ability: Tangled Feet
 Level: 34
-EVs: 252 Atk / 4 SpD / 252 Spe
 Nature: Jolly
 - Swords Dance
 - Brave Bird
@@ -7204,7 +6582,6 @@ Nature: Jolly
 Dodrio @ Heavy-Duty Boots
 Ability: Tangled Feet
 Level: 37
-EVs: 252 Atk / 4 SpD / 252 Spe
 Nature: Jolly
 - Swords Dance
 - Brave Bird
@@ -7217,7 +6594,6 @@ Nature: Jolly
 Doduo @ Sky Plate
 Ability: Early Bird
 Level: 17
-EVs: 236 Atk / 236 Spe
 Nature: Jolly
 - Brave Bird
 - Knock Off
@@ -7230,7 +6606,6 @@ Nature: Jolly
 Doduo @ Sky Plate
 Ability: Early Bird
 Level: 28
-EVs: 236 Atk / 236 Spe
 Nature: Jolly
 - Brave Bird
 - Knock Off
@@ -7243,7 +6618,6 @@ Nature: Jolly
 Doduo @ Sky Plate
 Ability: Early Bird
 Level: 31
-EVs: 236 Atk / 236 Spe
 Nature: Jolly
 - Brave Bird
 - Knock Off
@@ -7256,7 +6630,6 @@ Nature: Jolly
 Dodrio @ Heavy-Duty Boots
 Ability: Tangled Feet
 Level: 34
-EVs: 252 Atk / 4 SpD / 252 Spe
 Nature: Jolly
 - Swords Dance
 - Brave Bird
@@ -7269,7 +6642,6 @@ Nature: Jolly
 Dodrio @ Heavy-Duty Boots
 Ability: Tangled Feet
 Level: 37
-EVs: 252 Atk / 4 SpD / 252 Spe
 Nature: Jolly
 - Swords Dance
 - Brave Bird
@@ -7282,7 +6654,6 @@ Nature: Jolly
 Staryu @ Eviolite
 Ability: Natural Cure
 Level: 33
-EVs: 252 HP / 252 Def / 4 SpD
 Nature: Bold
 - Scald
 - Rapid Spin
@@ -7292,7 +6663,6 @@ Nature: Bold
 Staryu @ Eviolite
 Ability: Natural Cure
 Level: 33
-EVs: 252 HP / 252 Def / 4 SpD
 Nature: Bold
 - Scald
 - Rapid Spin
@@ -7304,7 +6674,6 @@ Nature: Bold
 
 Zigzagoon @ Berry Juice
 Level: 25
-EVs: 132 HP / 196 Atk / 108 Def / 28 SpD / 36 Spe
 Nature: Adamant
 - Belly Drum
 - Extreme Speed
@@ -7314,7 +6683,6 @@ Nature: Adamant
 Electrike @ Choice Scarf
 Ability: Lightning Rod
 Level: 25
-EVs: 240 SpA / 236 Spe
 Nature: Timid
 IVs: 0 Atk / 30 SpA
 - Volt Switch
@@ -7328,7 +6696,6 @@ IVs: 0 Atk / 30 SpA
 Staryu @ Eviolite
 Ability: Natural Cure
 Level: 35
-EVs: 252 HP / 252 Def / 4 SpD
 Nature: Bold
 - Scald
 - Rapid Spin
@@ -7341,7 +6708,6 @@ Nature: Bold
 Staryu @ Eviolite
 Ability: Natural Cure
 Level: 33
-EVs: 252 HP / 252 Def / 4 SpD
 Nature: Bold
 - Scald
 - Rapid Spin
@@ -7351,7 +6717,6 @@ Nature: Bold
 Staryu @ Eviolite
 Ability: Natural Cure
 Level: 33
-EVs: 252 HP / 252 Def / 4 SpD
 Nature: Bold
 - Scald
 - Rapid Spin
@@ -7364,7 +6729,6 @@ Nature: Bold
 Wingull @ Life Orb
 Ability: Hydration
 Level: 26
-EVs: 36 Def / 236 SpA / 236 Spe
 Nature: Timid
 IVs: 19 HP
 - Surf
@@ -7375,7 +6739,6 @@ IVs: 19 HP
 Staryu @ Eviolite
 Ability: Natural Cure
 Level: 34
-EVs: 252 HP / 252 Def / 4 SpD
 Nature: Bold
 - Scald
 - Rapid Spin
@@ -7388,7 +6751,6 @@ Nature: Bold
 Staryu @ Eviolite
 Ability: Natural Cure
 Level: 39
-EVs: 252 HP / 252 Def / 4 SpD
 Nature: Bold
 - Scald
 - Rapid Spin
@@ -7401,7 +6763,6 @@ Nature: Bold
 Staryu @ Eviolite
 Ability: Natural Cure
 Level: 42
-EVs: 252 HP / 252 Def / 4 SpD
 Nature: Bold
 - Scald
 - Rapid Spin
@@ -7414,7 +6775,6 @@ Nature: Bold
 Starmie @ Life Orb
 Ability: Analytic
 Level: 45
-EVs: 252 SpA / 4 SpD / 252 Spe
 Nature: Timid
 - Hydro Pump
 - Ice Beam
@@ -7427,7 +6787,6 @@ Nature: Timid
 Starmie @ Life Orb
 Ability: Analytic
 Level: 48
-EVs: 252 SpA / 4 SpD / 252 Spe
 Nature: Timid
 - Hydro Pump
 - Ice Beam
@@ -7440,7 +6799,6 @@ Nature: Timid
 Staryu @ Eviolite
 Ability: Natural Cure
 Level: 34
-EVs: 252 HP / 252 Def / 4 SpD
 Nature: Bold
 - Scald
 - Rapid Spin
@@ -7453,7 +6811,6 @@ Nature: Bold
 Wingull @ Life Orb
 Ability: Hydration
 Level: 26
-EVs: 36 Def / 236 SpA / 236 Spe
 Nature: Timid
 IVs: 19 HP
 - Surf
@@ -7464,7 +6821,6 @@ IVs: 19 HP
 Staryu @ Eviolite
 Ability: Natural Cure
 Level: 34
-EVs: 252 HP / 252 Def / 4 SpD
 Nature: Bold
 - Scald
 - Rapid Spin
@@ -7477,7 +6833,6 @@ Nature: Bold
 Staryu @ Eviolite
 Ability: Natural Cure
 Level: 34
-EVs: 252 HP / 252 Def / 4 SpD
 Nature: Bold
 - Scald
 - Rapid Spin
@@ -7490,7 +6845,6 @@ Nature: Bold
 Staryu @ Eviolite
 Ability: Natural Cure
 Level: 35
-EVs: 252 HP / 252 Def / 4 SpD
 Nature: Bold
 - Scald
 - Rapid Spin
@@ -7503,7 +6857,6 @@ Nature: Bold
 Wingull @ Life Orb
 Ability: Hydration
 Level: 27
-EVs: 36 Def / 236 SpA / 236 Spe
 Nature: Timid
 IVs: 19 HP
 - Surf
@@ -7514,7 +6867,6 @@ IVs: 19 HP
 Staryu @ Eviolite
 Ability: Natural Cure
 Level: 33
-EVs: 252 HP / 252 Def / 4 SpD
 Nature: Bold
 - Scald
 - Rapid Spin
@@ -7527,7 +6879,6 @@ Nature: Bold
 Staryu @ Eviolite
 Ability: Natural Cure
 Level: 39
-EVs: 252 HP / 252 Def / 4 SpD
 Nature: Bold
 - Scald
 - Rapid Spin
@@ -7540,7 +6891,6 @@ Nature: Bold
 Staryu @ Eviolite
 Ability: Natural Cure
 Level: 42
-EVs: 252 HP / 252 Def / 4 SpD
 Nature: Bold
 - Scald
 - Rapid Spin
@@ -7553,7 +6903,6 @@ Nature: Bold
 Starmie @ Life Orb
 Ability: Analytic
 Level: 45
-EVs: 252 SpA / 4 SpD / 252 Spe
 Nature: Timid
 - Hydro Pump
 - Ice Beam
@@ -7566,7 +6915,6 @@ Nature: Timid
 Starmie @ Life Orb
 Ability: Analytic
 Level: 48
-EVs: 252 SpA / 4 SpD / 252 Spe
 Nature: Timid
 - Hydro Pump
 - Ice Beam
@@ -7578,7 +6926,6 @@ Nature: Timid
 
 Altaria @ Heavy-Duty Boots
 Level: 37
-EVs: 252 HP / 240 Def / 16 Spe
 Nature: Impish
 - Defog
 - Roost
@@ -7587,7 +6934,6 @@ Nature: Impish
 
 Altaria @ Heavy-Duty Boots
 Level: 37
-EVs: 252 HP / 240 Def / 16 Spe
 Nature: Impish
 - Defog
 - Roost
@@ -7599,7 +6945,6 @@ Nature: Impish
 
 Altaria @ Heavy-Duty Boots
 Level: 41
-EVs: 252 HP / 240 Def / 16 Spe
 Nature: Impish
 - Defog
 - Roost
@@ -7608,7 +6953,6 @@ Nature: Impish
 
 Altaria @ Heavy-Duty Boots
 Level: 41
-EVs: 252 HP / 240 Def / 16 Spe
 Nature: Impish
 - Defog
 - Roost
@@ -7620,7 +6964,6 @@ Nature: Impish
 
 Altaria @ Heavy-Duty Boots
 Level: 44
-EVs: 252 HP / 240 Def / 16 Spe
 Nature: Impish
 - Defog
 - Roost
@@ -7629,7 +6972,6 @@ Nature: Impish
 
 Altaria @ Heavy-Duty Boots
 Level: 44
-EVs: 252 HP / 240 Def / 16 Spe
 Nature: Impish
 - Defog
 - Roost
@@ -7642,7 +6984,6 @@ Nature: Impish
 Bagon @ Life Orb
 Ability: Sheer Force
 Level: 46
-EVs: 236 Atk / 76 Def / 196 Spe
 Nature: Adamant
 IVs: 0 HP
 - Dragon Dance
@@ -7652,7 +6993,6 @@ IVs: 0 HP
 
 Altaria @ Heavy-Duty Boots
 Level: 46
-EVs: 252 HP / 240 Def / 16 Spe
 Nature: Impish
 - Defog
 - Roost
@@ -7661,7 +7001,6 @@ Nature: Impish
 
 Altaria @ Heavy-Duty Boots
 Level: 46
-EVs: 252 HP / 240 Def / 16 Spe
 Nature: Impish
 - Defog
 - Roost
@@ -7673,7 +7012,6 @@ Nature: Impish
 
 Altaria @ Heavy-Duty Boots
 Level: 49
-EVs: 252 HP / 240 Def / 16 Spe
 Nature: Impish
 - Defog
 - Roost
@@ -7682,7 +7020,6 @@ Nature: Impish
 
 Altaria @ Heavy-Duty Boots
 Level: 49
-EVs: 252 HP / 240 Def / 16 Spe
 Nature: Impish
 - Defog
 - Roost
@@ -7691,7 +7028,6 @@ Nature: Impish
 
 Shelgon @ Eviolite
 Level: 49
-EVs: 252 HP / 4 Atk / 252 Def
 Nature: Impish
 - Wish
 - Protect
@@ -7704,7 +7040,6 @@ Nature: Impish
 Bagon @ Life Orb
 Ability: Sheer Force
 Level: 34
-EVs: 236 Atk / 76 Def / 196 Spe
 Nature: Adamant
 IVs: 0 HP
 - Dragon Dance
@@ -7718,7 +7053,6 @@ IVs: 0 HP
 Wingull @ Life Orb
 Ability: Hydration
 Level: 26
-EVs: 36 Def / 236 SpA / 236 Spe
 Nature: Timid
 IVs: 19 HP
 - Surf
@@ -7732,7 +7066,6 @@ IVs: 19 HP
 Wingull @ Life Orb
 Ability: Hydration
 Level: 25
-EVs: 36 Def / 236 SpA / 236 Spe
 Nature: Timid
 IVs: 19 HP
 - Surf
@@ -7743,7 +7076,6 @@ IVs: 19 HP
 Tropius @ Sitrus Berry
 Ability: Harvest
 Level: 25
-EVs: 248 HP / 252 Def / 8 SpD
 Nature: Bold
 - Leech Seed
 - Substitute
@@ -7756,7 +7088,6 @@ Nature: Bold
 Swellow @ Choice Specs
 Ability: Scrappy
 Level: 26
-EVs: 4 Def / 252 SpA / 252 Spe
 Nature: Timid
 - Boomburst
 - U-turn
@@ -7769,7 +7100,6 @@ Nature: Timid
 Doduo @ Sky Plate
 Ability: Early Bird
 Level: 27
-EVs: 236 Atk / 236 Spe
 Nature: Jolly
 - Brave Bird
 - Knock Off
@@ -7779,7 +7109,6 @@ Nature: Jolly
 Skarmory @ Rocky Helmet
 Ability: Sturdy
 Level: 27
-EVs: 252 HP / 160 Def / 96 Spe
 Nature: Bold
 - Body Press
 - Iron Defense
@@ -7789,7 +7118,6 @@ Nature: Bold
 Tropius @ Sitrus Berry
 Ability: Harvest
 Level: 27
-EVs: 248 HP / 252 Def / 8 SpD
 Nature: Bold
 - Leech Seed
 - Substitute
@@ -7802,7 +7130,6 @@ Nature: Bold
 Skarmory @ Rocky Helmet
 Ability: Sturdy
 Level: 30
-EVs: 252 HP / 160 Def / 96 Spe
 Nature: Bold
 - Body Press
 - Iron Defense
@@ -7815,7 +7142,6 @@ Nature: Bold
 Tropius @ Sitrus Berry
 Ability: Harvest
 Level: 33
-EVs: 248 HP / 252 Def / 8 SpD
 Nature: Bold
 - Leech Seed
 - Substitute
@@ -7825,7 +7151,6 @@ Nature: Bold
 Xatu @ Heavy-Duty Boots
 Ability: Magic Bounce
 Level: 33
-EVs: 252 HP / 252 Def / 4 SpD
 Nature: Bold
 - Psychic
 - Roost
@@ -7838,7 +7163,6 @@ Nature: Bold
 Doduo @ Sky Plate
 Ability: Early Bird
 Level: 29
-EVs: 236 Atk / 236 Spe
 Nature: Jolly
 - Brave Bird
 - Knock Off
@@ -7848,7 +7172,6 @@ Nature: Jolly
 Pelipper @ Damp Rock
 Ability: Drizzle
 Level: 29
-EVs: 248 HP / 252 Def / 8 SpD
 Nature: Relaxed
 IVs: 0 Spe
 - Hurricane
@@ -7862,7 +7185,6 @@ IVs: 0 Spe
 Wingull @ Life Orb
 Ability: Hydration
 Level: 28
-EVs: 36 Def / 236 SpA / 236 Spe
 Nature: Timid
 IVs: 19 HP
 - Surf
@@ -7873,7 +7195,6 @@ IVs: 19 HP
 Natu @ Eviolite
 Ability: Magic Bounce
 Level: 28
-EVs: 36 HP / 76 Def / 36 SpA / 156 SpD / 196 Spe
 Nature: Timid
 - Psychic
 - Heat Wave
@@ -7885,7 +7206,6 @@ Nature: Timid
 
 Swablu @ Eviolite
 Level: 29
-EVs: 156 HP / 196 Atk / 156 SpD
 Nature: Adamant
 - Return
 - Roost
@@ -7898,7 +7218,6 @@ Nature: Adamant
 Swellow @ Choice Specs
 Ability: Scrappy
 Level: 36
-EVs: 4 Def / 252 SpA / 252 Spe
 Nature: Timid
 - Boomburst
 - U-turn
@@ -7908,7 +7227,6 @@ Nature: Timid
 Pelipper @ Damp Rock
 Ability: Drizzle
 Level: 36
-EVs: 248 HP / 252 Def / 8 SpD
 Nature: Relaxed
 IVs: 0 Spe
 - Hurricane
@@ -7919,7 +7237,6 @@ IVs: 0 Spe
 Xatu @ Heavy-Duty Boots
 Ability: Magic Bounce
 Level: 36
-EVs: 252 HP / 252 Def / 4 SpD
 Nature: Bold
 - Psychic
 - Roost
@@ -7932,7 +7249,6 @@ Nature: Bold
 Taillow @ Life Orb
 Ability: Guts
 Level: 25
-EVs: 36 Def / 200 SpA / 36 SpD / 236 Spe
 Nature: Naive
 IVs: 19 HP
 - Boomburst
@@ -7943,7 +7259,6 @@ IVs: 19 HP
 Swellow @ Choice Specs
 Ability: Scrappy
 Level: 25
-EVs: 4 Def / 252 SpA / 252 Spe
 Nature: Timid
 - Boomburst
 - U-turn
@@ -7956,7 +7271,6 @@ Nature: Timid
 Natu @ Eviolite
 Ability: Magic Bounce
 Level: 32
-EVs: 36 HP / 76 Def / 36 SpA / 156 SpD / 196 Spe
 Nature: Timid
 - Psychic
 - Heat Wave
@@ -7965,7 +7279,6 @@ Nature: Timid
 
 Swablu @ Eviolite
 Level: 32
-EVs: 156 HP / 196 Atk / 156 SpD
 Nature: Adamant
 - Return
 - Roost
@@ -7978,7 +7291,6 @@ Nature: Adamant
 Natu @ Eviolite
 Ability: Magic Bounce
 Level: 35
-EVs: 36 HP / 76 Def / 36 SpA / 156 SpD / 196 Spe
 Nature: Timid
 - Psychic
 - Heat Wave
@@ -7987,7 +7299,6 @@ Nature: Timid
 
 Altaria @ Heavy-Duty Boots
 Level: 35
-EVs: 252 HP / 240 Def / 16 Spe
 Nature: Impish
 - Defog
 - Roost
@@ -8000,7 +7311,6 @@ Nature: Impish
 Natu @ Eviolite
 Ability: Magic Bounce
 Level: 38
-EVs: 36 HP / 76 Def / 36 SpA / 156 SpD / 196 Spe
 Nature: Timid
 - Psychic
 - Heat Wave
@@ -8009,7 +7319,6 @@ Nature: Timid
 
 Altaria @ Heavy-Duty Boots
 Level: 38
-EVs: 252 HP / 240 Def / 16 Spe
 Nature: Impish
 - Defog
 - Roost
@@ -8021,7 +7330,6 @@ Nature: Impish
 
 Altaria @ Heavy-Duty Boots
 Level: 41
-EVs: 252 HP / 240 Def / 16 Spe
 Nature: Impish
 - Defog
 - Roost
@@ -8031,7 +7339,6 @@ Nature: Impish
 Xatu @ Heavy-Duty Boots
 Ability: Magic Bounce
 Level: 41
-EVs: 252 HP / 252 Def / 4 SpD
 Nature: Bold
 - Psychic
 - Roost
@@ -8044,7 +7351,6 @@ Nature: Bold
 Natu @ Eviolite
 Ability: Magic Bounce
 Level: 33
-EVs: 36 HP / 76 Def / 36 SpA / 156 SpD / 196 Spe
 Nature: Timid
 - Psychic
 - Heat Wave
@@ -8054,7 +7360,6 @@ Nature: Timid
 Swellow @ Choice Specs
 Ability: Scrappy
 Level: 33
-EVs: 4 Def / 252 SpA / 252 Spe
 Nature: Timid
 - Boomburst
 - U-turn
@@ -8067,7 +7372,6 @@ Nature: Timid
 Tropius @ Sitrus Berry
 Ability: Harvest
 Level: 34
-EVs: 248 HP / 252 Def / 8 SpD
 Nature: Bold
 - Leech Seed
 - Substitute
@@ -8079,7 +7383,6 @@ Nature: Bold
 
 Beedrill
 Level: 26
-EVs: 252 Atk / 4 SpD / 252 Spe
 Nature: Jolly
 - Swords Dance
 - Poison Jab
@@ -8091,7 +7394,6 @@ Nature: Jolly
 
 Beedrill
 Level: 25
-EVs: 252 Atk / 4 SpD / 252 Spe
 Nature: Jolly
 - Swords Dance
 - Poison Jab
@@ -8101,7 +7403,6 @@ Nature: Jolly
 Koffing @ Eviolite
 Ability: Neutralizing Gas
 Level: 25
-EVs: 252 HP / 252 Def / 4 SpD
 Nature: Bold
 - Sludge Bomb
 - Pain Split
@@ -8113,7 +7414,6 @@ Nature: Bold
 
 Claydol @ Colbur Berry
 Level: 43
-EVs: 252 HP / 240 Def / 16 Spe
 Nature: Bold
 - Stealth Rock
 - Toxic
@@ -8123,7 +7423,6 @@ Nature: Bold
 Lanturn @ Heavy-Duty Boots
 Ability: Water Absorb
 Level: 43
-EVs: 216 HP / 252 SpD / 40 Spe
 Nature: Calm
 - Scald
 - Volt Switch
@@ -8136,7 +7435,6 @@ Nature: Calm
 Marill @ Choice Band
 Ability: Huge Power
 Level: 26
-EVs: 52 HP / 252 Atk / 204 Spe
 Nature: Adamant
 - Play Rough
 - Waterfall
@@ -8149,7 +7447,6 @@ Nature: Adamant
 Koffing @ Eviolite
 Ability: Neutralizing Gas
 Level: 17
-EVs: 252 HP / 252 Def / 4 SpD
 Nature: Bold
 - Sludge Bomb
 - Pain Split
@@ -8159,7 +7456,6 @@ Nature: Bold
 Koffing @ Eviolite
 Ability: Neutralizing Gas
 Level: 17
-EVs: 252 HP / 252 Def / 4 SpD
 Nature: Bold
 - Sludge Bomb
 - Pain Split
@@ -8169,7 +7465,6 @@ Nature: Bold
 Koffing @ Eviolite
 Ability: Neutralizing Gas
 Level: 17
-EVs: 252 HP / 252 Def / 4 SpD
 Nature: Bold
 - Sludge Bomb
 - Pain Split
@@ -8182,7 +7477,6 @@ Nature: Bold
 Koffing @ Eviolite
 Ability: Neutralizing Gas
 Level: 18
-EVs: 252 HP / 252 Def / 4 SpD
 Nature: Bold
 - Sludge Bomb
 - Pain Split
@@ -8191,7 +7485,6 @@ Nature: Bold
 
 Beedrill
 Level: 18
-EVs: 252 Atk / 4 SpD / 252 Spe
 Nature: Jolly
 - Swords Dance
 - Poison Jab
@@ -8204,7 +7497,6 @@ Nature: Jolly
 Koffing @ Eviolite
 Ability: Neutralizing Gas
 Level: 24
-EVs: 252 HP / 252 Def / 4 SpD
 Nature: Bold
 - Sludge Bomb
 - Pain Split
@@ -8214,7 +7506,6 @@ Nature: Bold
 Koffing @ Eviolite
 Ability: Neutralizing Gas
 Level: 24
-EVs: 252 HP / 252 Def / 4 SpD
 Nature: Bold
 - Sludge Bomb
 - Pain Split
@@ -8224,7 +7515,6 @@ Nature: Bold
 Koffing @ Eviolite
 Ability: Neutralizing Gas
 Level: 24
-EVs: 252 HP / 252 Def / 4 SpD
 Nature: Bold
 - Sludge Bomb
 - Pain Split
@@ -8234,7 +7524,6 @@ Nature: Bold
 Koffing @ Eviolite
 Ability: Neutralizing Gas
 Level: 26
-EVs: 252 HP / 252 Def / 4 SpD
 Nature: Bold
 - Sludge Bomb
 - Pain Split
@@ -8247,7 +7536,6 @@ Nature: Bold
 Koffing @ Eviolite
 Ability: Neutralizing Gas
 Level: 27
-EVs: 252 HP / 252 Def / 4 SpD
 Nature: Bold
 - Sludge Bomb
 - Pain Split
@@ -8257,7 +7545,6 @@ Nature: Bold
 Koffing @ Eviolite
 Ability: Neutralizing Gas
 Level: 27
-EVs: 252 HP / 252 Def / 4 SpD
 Nature: Bold
 - Sludge Bomb
 - Pain Split
@@ -8267,7 +7554,6 @@ Nature: Bold
 Koffing @ Eviolite
 Ability: Neutralizing Gas
 Level: 27
-EVs: 252 HP / 252 Def / 4 SpD
 Nature: Bold
 - Sludge Bomb
 - Pain Split
@@ -8277,7 +7563,6 @@ Nature: Bold
 Koffing @ Eviolite
 Ability: Neutralizing Gas
 Level: 29
-EVs: 252 HP / 252 Def / 4 SpD
 Nature: Bold
 - Sludge Bomb
 - Pain Split
@@ -8290,7 +7575,6 @@ Nature: Bold
 Koffing @ Eviolite
 Ability: Neutralizing Gas
 Level: 30
-EVs: 252 HP / 252 Def / 4 SpD
 Nature: Bold
 - Sludge Bomb
 - Pain Split
@@ -8300,7 +7584,6 @@ Nature: Bold
 Koffing @ Eviolite
 Ability: Neutralizing Gas
 Level: 30
-EVs: 252 HP / 252 Def / 4 SpD
 Nature: Bold
 - Sludge Bomb
 - Pain Split
@@ -8310,7 +7593,6 @@ Nature: Bold
 Koffing @ Eviolite
 Ability: Neutralizing Gas
 Level: 30
-EVs: 252 HP / 252 Def / 4 SpD
 Nature: Bold
 - Sludge Bomb
 - Pain Split
@@ -8320,7 +7602,6 @@ Nature: Bold
 Koffing @ Eviolite
 Ability: Neutralizing Gas
 Level: 32
-EVs: 252 HP / 252 Def / 4 SpD
 Nature: Bold
 - Sludge Bomb
 - Pain Split
@@ -8333,7 +7614,6 @@ Nature: Bold
 Koffing @ Eviolite
 Ability: Neutralizing Gas
 Level: 33
-EVs: 252 HP / 252 Def / 4 SpD
 Nature: Bold
 - Sludge Bomb
 - Pain Split
@@ -8343,7 +7623,6 @@ Nature: Bold
 Koffing @ Eviolite
 Ability: Neutralizing Gas
 Level: 33
-EVs: 252 HP / 252 Def / 4 SpD
 Nature: Bold
 - Sludge Bomb
 - Pain Split
@@ -8353,7 +7632,6 @@ Nature: Bold
 Koffing @ Eviolite
 Ability: Neutralizing Gas
 Level: 33
-EVs: 252 HP / 252 Def / 4 SpD
 Nature: Bold
 - Sludge Bomb
 - Pain Split
@@ -8362,7 +7640,6 @@ Nature: Bold
 
 Weezing @ Rocky Helmet
 Level: 35
-EVs: 252 HP / 212 Def / 44 Spe
 Nature: Bold
 - Sludge Bomb
 - Flamethrower
@@ -8374,7 +7651,6 @@ Nature: Bold
 
 Meditite @ Choice Band
 Level: 13
-EVs: 252 Atk / 4 SpD / 252 Spe
 Nature: Adamant
 - Close Combat
 - Zen Headbutt
@@ -8386,7 +7662,6 @@ Nature: Adamant
 
 Meditite @ Choice Band
 Level: 13
-EVs: 252 Atk / 4 SpD / 252 Spe
 Nature: Adamant
 - Close Combat
 - Zen Headbutt
@@ -8398,7 +7673,6 @@ Nature: Adamant
 
 Meditite @ Choice Band
 Level: 18
-EVs: 252 Atk / 4 SpD / 252 Spe
 Nature: Adamant
 - Close Combat
 - Zen Headbutt
@@ -8407,7 +7681,6 @@ Nature: Adamant
 
 Makuhita @ Berry Juice
 Level: 18
-EVs: 20 HP / 196 Atk / 36 Def / 236 Spe
 Nature: Jolly
 - Belly Drum
 - Close Combat
@@ -8419,7 +7692,6 @@ Nature: Jolly
 
 Meditite @ Choice Band
 Level: 27
-EVs: 252 Atk / 4 SpD / 252 Spe
 Nature: Adamant
 - Close Combat
 - Zen Headbutt
@@ -8432,7 +7704,6 @@ Nature: Adamant
 Breloom @ Toxic Orb
 Ability: Poison Heal
 Level: 27
-EVs: 252 HP / 80 Atk / 176 Spe
 Nature: Adamant
 - Close Combat
 - Seed Bomb
@@ -8444,7 +7715,6 @@ Nature: Adamant
 
 Meditite @ Choice Band
 Level: 26
-EVs: 252 Atk / 4 SpD / 252 Spe
 Nature: Adamant
 - Close Combat
 - Zen Headbutt
@@ -8453,7 +7723,6 @@ Nature: Adamant
 
 Makuhita @ Berry Juice
 Level: 26
-EVs: 20 HP / 196 Atk / 36 Def / 236 Spe
 Nature: Jolly
 - Belly Drum
 - Close Combat
@@ -8465,7 +7734,6 @@ Nature: Jolly
 
 Meditite @ Choice Band
 Level: 29
-EVs: 252 Atk / 4 SpD / 252 Spe
 Nature: Adamant
 - Close Combat
 - Zen Headbutt
@@ -8474,7 +7742,6 @@ Nature: Adamant
 
 Makuhita @ Berry Juice
 Level: 29
-EVs: 20 HP / 196 Atk / 36 Def / 236 Spe
 Nature: Jolly
 - Belly Drum
 - Close Combat
@@ -8486,7 +7753,6 @@ Nature: Jolly
 
 Medicham @ Choice Scarf
 Level: 32
-EVs: 252 Atk / 4 SpD / 252 Spe
 Nature: Jolly
 - Close Combat
 - Zen Headbutt
@@ -8496,7 +7762,6 @@ Nature: Jolly
 Hariyama @ Sitrus Berry
 Ability: Guts
 Level: 32
-EVs: 4 HP / 252 Atk / 252 Spe
 Nature: Adamant
 - Belly Drum
 - Drain Punch
@@ -8508,7 +7773,6 @@ Nature: Adamant
 
 Medicham @ Choice Scarf
 Level: 35
-EVs: 252 Atk / 4 SpD / 252 Spe
 Nature: Jolly
 - Close Combat
 - Zen Headbutt
@@ -8518,7 +7782,6 @@ Nature: Jolly
 Hariyama @ Sitrus Berry
 Ability: Guts
 Level: 35
-EVs: 4 HP / 252 Atk / 252 Spe
 Nature: Adamant
 - Belly Drum
 - Drain Punch
@@ -8531,7 +7794,6 @@ Nature: Adamant
 Numel @ Eviolite
 Ability: Simple
 Level: 19
-EVs: 36 Def / 236 SpA / 236 Spe
 Nature: Modest
 - Flame Charge
 - Fire Blast
@@ -8544,7 +7806,6 @@ Nature: Modest
 Roselia @ Eviolite
 Ability: Poison Point
 Level: 28
-EVs: 252 HP / 200 Def / 56 Spe
 Nature: Bold
 - Spikes
 - Sludge Bomb
@@ -8554,7 +7815,6 @@ Nature: Bold
 Wailmer @ Choice Scarf
 Ability: Pressure
 Level: 28
-EVs: 36 HP / 200 SpA / 200 Spe
 Nature: Timid
 - Water Spout
 - Hydro Pump
@@ -8566,7 +7826,6 @@ Nature: Timid
 
 Castform
 Level: 30
-EVs: 252 SpA / 4 SpD / 252 Spe
 Nature: Timid
 - Rain Dance
 - Hydro Pump
@@ -8579,7 +7838,6 @@ Nature: Timid
 Numel @ Eviolite
 Ability: Simple
 Level: 29
-EVs: 36 Def / 236 SpA / 236 Spe
 Nature: Modest
 - Flame Charge
 - Fire Blast
@@ -8592,7 +7850,6 @@ Nature: Modest
 Numel @ Eviolite
 Ability: Simple
 Level: 32
-EVs: 36 Def / 236 SpA / 236 Spe
 Nature: Modest
 - Flame Charge
 - Fire Blast
@@ -8605,7 +7862,6 @@ Nature: Modest
 Roselia @ Eviolite
 Ability: Poison Point
 Level: 34
-EVs: 252 HP / 200 Def / 56 Spe
 Nature: Bold
 - Spikes
 - Sludge Bomb
@@ -8615,7 +7871,6 @@ Nature: Bold
 Numel @ Eviolite
 Ability: Simple
 Level: 34
-EVs: 36 Def / 236 SpA / 236 Spe
 Nature: Modest
 - Flame Charge
 - Fire Blast
@@ -8628,7 +7883,6 @@ Nature: Modest
 Roselia @ Eviolite
 Ability: Poison Point
 Level: 37
-EVs: 252 HP / 200 Def / 56 Spe
 Nature: Bold
 - Spikes
 - Sludge Bomb
@@ -8638,7 +7892,6 @@ Nature: Bold
 Camerupt @ Leftovers
 Ability: Solid Rock
 Level: 37
-EVs: 252 HP / 4 Def / 252 SpD
 Nature: Calm
 IVs: 0 Atk
 - Stealth Rock
@@ -8652,7 +7905,6 @@ IVs: 0 Atk
 Wingull @ Life Orb
 Ability: Hydration
 Level: 25
-EVs: 36 Def / 236 SpA / 236 Spe
 Nature: Timid
 IVs: 19 HP
 - Surf
@@ -8663,7 +7915,6 @@ IVs: 19 HP
 Wailmer @ Choice Scarf
 Ability: Pressure
 Level: 25
-EVs: 36 HP / 200 SpA / 200 Spe
 Nature: Timid
 - Water Spout
 - Hydro Pump
@@ -8676,7 +7927,6 @@ Nature: Timid
 Marill @ Choice Band
 Ability: Huge Power
 Level: 26
-EVs: 52 HP / 252 Atk / 204 Spe
 Nature: Adamant
 - Play Rough
 - Waterfall
@@ -8689,7 +7939,6 @@ Nature: Adamant
 Wailmer @ Choice Scarf
 Ability: Pressure
 Level: 26
-EVs: 36 HP / 200 SpA / 200 Spe
 Nature: Timid
 - Water Spout
 - Hydro Pump
@@ -8702,7 +7951,6 @@ Nature: Timid
 Wingull @ Life Orb
 Ability: Hydration
 Level: 25
-EVs: 36 Def / 236 SpA / 236 Spe
 Nature: Timid
 IVs: 19 HP
 - Surf
@@ -8713,7 +7961,6 @@ IVs: 19 HP
 Goldeen
 Ability: Lightning Rod
 Level: 25
-EVs: 220 Atk / 36 SpD / 252 Spe
 Nature: Jolly
 - Bounce
 - Waterfall
@@ -8726,7 +7973,6 @@ Nature: Jolly
 Goldeen
 Ability: Lightning Rod
 Level: 26
-EVs: 220 Atk / 36 SpD / 252 Spe
 Nature: Jolly
 - Bounce
 - Waterfall
@@ -8738,7 +7984,6 @@ Nature: Jolly
 
 Horsea @ Life Orb
 Level: 25
-EVs: 116 HP / 196 SpA / 196 Spe
 Nature: Modest
 - Hydro Pump
 - Ice Beam
@@ -8748,7 +7993,6 @@ Nature: Modest
 Marill @ Choice Band
 Ability: Huge Power
 Level: 25
-EVs: 52 HP / 252 Atk / 204 Spe
 Nature: Adamant
 - Play Rough
 - Waterfall
@@ -8761,7 +8005,6 @@ Nature: Adamant
 Goldeen
 Ability: Lightning Rod
 Level: 26
-EVs: 220 Atk / 36 SpD / 252 Spe
 Nature: Jolly
 - Bounce
 - Waterfall
@@ -8774,7 +8017,6 @@ Nature: Jolly
 Goldeen
 Ability: Lightning Rod
 Level: 24
-EVs: 220 Atk / 36 SpD / 252 Spe
 Nature: Jolly
 - Bounce
 - Waterfall
@@ -8784,7 +8026,6 @@ Nature: Jolly
 Wingull @ Life Orb
 Ability: Hydration
 Level: 24
-EVs: 36 Def / 236 SpA / 236 Spe
 Nature: Timid
 IVs: 19 HP
 - Surf
@@ -8795,7 +8036,6 @@ IVs: 19 HP
 Goldeen
 Ability: Lightning Rod
 Level: 24
-EVs: 220 Atk / 36 SpD / 252 Spe
 Nature: Jolly
 - Bounce
 - Waterfall
@@ -8808,7 +8048,6 @@ Nature: Jolly
 Wailmer @ Choice Scarf
 Ability: Pressure
 Level: 34
-EVs: 36 HP / 200 SpA / 200 Spe
 Nature: Timid
 - Water Spout
 - Hydro Pump
@@ -8821,7 +8060,6 @@ Nature: Timid
 Marill @ Choice Band
 Ability: Huge Power
 Level: 34
-EVs: 52 HP / 252 Atk / 204 Spe
 Nature: Adamant
 - Play Rough
 - Waterfall
@@ -8833,7 +8071,6 @@ Nature: Adamant
 
 Luvdisc @ Life Orb
 Level: 34
-EVs: 252 SpA / 4 SpD / 252 Spe
 Nature: Modest
 - Hydro Pump
 - Ice Beam
@@ -8846,7 +8083,6 @@ Nature: Modest
 Seaking @ Heavy-Duty Boots
 Ability: Lightning Rod
 Level: 34
-EVs: 252 HP / 220 Def / 36 Spe
 Nature: Impish
 - Flip Turn
 - Knock Off
@@ -8859,7 +8095,6 @@ Nature: Impish
 Marill @ Choice Band
 Ability: Huge Power
 Level: 33
-EVs: 52 HP / 252 Atk / 204 Spe
 Nature: Adamant
 - Play Rough
 - Waterfall
@@ -8868,7 +8103,6 @@ Nature: Adamant
 
 Spheal @ Berry Juice
 Level: 33
-EVs: 36 HP / 36 Def / 240 SpA / 36 SpD / 156 Spe
 Nature: Modest
 IVs: 0 Atk / 30 SpA
 - Yawn
@@ -8882,7 +8116,6 @@ IVs: 0 Atk / 30 SpA
 Goldeen
 Ability: Lightning Rod
 Level: 34
-EVs: 220 Atk / 36 SpD / 252 Spe
 Nature: Jolly
 - Bounce
 - Waterfall
@@ -8895,7 +8128,6 @@ Nature: Jolly
 Goldeen
 Ability: Lightning Rod
 Level: 33
-EVs: 220 Atk / 36 SpD / 252 Spe
 Nature: Jolly
 - Bounce
 - Waterfall
@@ -8904,7 +8136,6 @@ Nature: Jolly
 
 Spheal @ Berry Juice
 Level: 33
-EVs: 36 HP / 36 Def / 240 SpA / 36 SpD / 156 Spe
 Nature: Modest
 IVs: 0 Atk / 30 SpA
 - Yawn
@@ -8917,7 +8148,6 @@ IVs: 0 Atk / 30 SpA
 
 Luvdisc @ Life Orb
 Level: 34
-EVs: 252 SpA / 4 SpD / 252 Spe
 Nature: Modest
 - Hydro Pump
 - Ice Beam
@@ -8930,7 +8160,6 @@ Nature: Modest
 Seaking @ Heavy-Duty Boots
 Ability: Lightning Rod
 Level: 34
-EVs: 252 HP / 220 Def / 36 Spe
 Nature: Impish
 - Flip Turn
 - Knock Off
@@ -8943,7 +8172,6 @@ Nature: Impish
 Azumarill @ Sitrus Berry
 Ability: Huge Power
 Level: 34
-EVs: 4 HP / 252 Atk / 252 Spe
 Nature: Adamant
 - Belly Drum
 - Play Rough
@@ -8955,7 +8183,6 @@ Nature: Adamant
 
 Luvdisc @ Life Orb
 Level: 33
-EVs: 252 SpA / 4 SpD / 252 Spe
 Nature: Modest
 - Hydro Pump
 - Ice Beam
@@ -8964,7 +8191,6 @@ Nature: Modest
 
 Luvdisc @ Life Orb
 Level: 33
-EVs: 252 SpA / 4 SpD / 252 Spe
 Nature: Modest
 - Hydro Pump
 - Ice Beam
@@ -8977,7 +8203,6 @@ Nature: Modest
 Seaking @ Heavy-Duty Boots
 Ability: Lightning Rod
 Level: 34
-EVs: 252 HP / 220 Def / 36 Spe
 Nature: Impish
 - Flip Turn
 - Knock Off
@@ -8989,7 +8214,6 @@ Nature: Impish
 
 Horsea @ Life Orb
 Level: 33
-EVs: 116 HP / 196 SpA / 196 Spe
 Nature: Modest
 - Hydro Pump
 - Ice Beam
@@ -8998,7 +8222,6 @@ Nature: Modest
 
 Seadra @ Eviolite
 Level: 33
-EVs: 252 HP / 240 Def / 16 Spe
 Nature: Bold
 - Flip Turn
 - Surf
@@ -9011,7 +8234,6 @@ Nature: Bold
 Lanturn @ Heavy-Duty Boots
 Ability: Water Absorb
 Level: 34
-EVs: 216 HP / 252 SpD / 40 Spe
 Nature: Calm
 - Scald
 - Volt Switch
@@ -9021,7 +8243,6 @@ Nature: Calm
 Pelipper @ Damp Rock
 Ability: Drizzle
 Level: 34
-EVs: 248 HP / 252 Def / 8 SpD
 Nature: Relaxed
 IVs: 0 Spe
 - Hurricane
@@ -9034,7 +8255,6 @@ IVs: 0 Spe
 
 Luvdisc @ Life Orb
 Level: 33
-EVs: 252 SpA / 4 SpD / 252 Spe
 Nature: Modest
 - Hydro Pump
 - Ice Beam
@@ -9043,7 +8263,6 @@ Nature: Modest
 
 Luvdisc @ Life Orb
 Level: 33
-EVs: 252 SpA / 4 SpD / 252 Spe
 Nature: Modest
 - Hydro Pump
 - Ice Beam
@@ -9056,7 +8275,6 @@ Nature: Modest
 Seaking @ Heavy-Duty Boots
 Ability: Lightning Rod
 Level: 35
-EVs: 252 HP / 220 Def / 36 Spe
 Nature: Impish
 - Flip Turn
 - Knock Off
@@ -9069,7 +8287,6 @@ Nature: Impish
 Wailmer @ Choice Scarf
 Ability: Pressure
 Level: 38
-EVs: 36 HP / 200 SpA / 200 Spe
 Nature: Timid
 - Water Spout
 - Hydro Pump
@@ -9082,7 +8299,6 @@ Nature: Timid
 Wailmer @ Choice Scarf
 Ability: Pressure
 Level: 41
-EVs: 36 HP / 200 SpA / 200 Spe
 Nature: Timid
 - Water Spout
 - Hydro Pump
@@ -9095,7 +8311,6 @@ Nature: Timid
 Staryu @ Eviolite
 Ability: Natural Cure
 Level: 43
-EVs: 252 HP / 252 Def / 4 SpD
 Nature: Bold
 - Scald
 - Rapid Spin
@@ -9105,7 +8320,6 @@ Nature: Bold
 Wailmer @ Choice Scarf
 Ability: Pressure
 Level: 43
-EVs: 36 HP / 200 SpA / 200 Spe
 Nature: Timid
 - Water Spout
 - Hydro Pump
@@ -9117,7 +8331,6 @@ Nature: Timid
 
 Luvdisc @ Life Orb
 Level: 45
-EVs: 252 SpA / 4 SpD / 252 Spe
 Nature: Modest
 - Hydro Pump
 - Ice Beam
@@ -9127,7 +8340,6 @@ Nature: Modest
 Wailmer @ Choice Scarf
 Ability: Pressure
 Level: 45
-EVs: 36 HP / 200 SpA / 200 Spe
 Nature: Timid
 - Water Spout
 - Hydro Pump
@@ -9137,7 +8349,6 @@ Nature: Timid
 Starmie @ Life Orb
 Ability: Analytic
 Level: 45
-EVs: 252 SpA / 4 SpD / 252 Spe
 Nature: Timid
 - Hydro Pump
 - Ice Beam
@@ -9150,7 +8361,6 @@ Nature: Timid
 Sandshrew @ Eviolite
 Ability: Sand Rush
 Level: 22
-EVs: 236 Atk / 76 Def / 196 Spe
 Nature: Adamant
 - Swords Dance
 - Earthquake
@@ -9159,7 +8369,6 @@ Nature: Adamant
 
 Baltoy @ Berry Juice
 Level: 22
-EVs: 36 HP / 236 Def / 36 SpA / 196 SpD
 Nature: Bold
 - Rapid Spin
 - Stealth Rock
@@ -9172,7 +8381,6 @@ Nature: Bold
 Sandshrew @ Eviolite
 Ability: Sand Rush
 Level: 22
-EVs: 236 Atk / 76 Def / 196 Spe
 Nature: Adamant
 - Swords Dance
 - Earthquake
@@ -9182,7 +8390,6 @@ Nature: Adamant
 Marill @ Choice Band
 Ability: Huge Power
 Level: 22
-EVs: 52 HP / 252 Atk / 204 Spe
 Nature: Adamant
 - Play Rough
 - Waterfall
@@ -9195,7 +8402,6 @@ Nature: Adamant
 Taillow @ Life Orb
 Ability: Guts
 Level: 17
-EVs: 36 Def / 200 SpA / 36 SpD / 236 Spe
 Nature: Naive
 IVs: 19 HP
 - Boomburst
@@ -9205,7 +8411,6 @@ IVs: 19 HP
 
 Lombre @ Leftovers
 Level: 17
-EVs: 160 HP / 232 SpA / 116 Spe
 Nature: Modest
 IVs: 2 Atk / 30 SpA
 - Hydro Pump
@@ -9219,7 +8424,6 @@ IVs: 2 Atk / 30 SpA
 Marill @ Choice Band
 Ability: Huge Power
 Level: 18
-EVs: 52 HP / 252 Atk / 204 Spe
 Nature: Adamant
 - Play Rough
 - Waterfall
@@ -9228,7 +8432,6 @@ Nature: Adamant
 
 Lombre @ Leftovers
 Level: 18
-EVs: 160 HP / 232 SpA / 116 Spe
 Nature: Modest
 IVs: 2 Atk / 30 SpA
 - Hydro Pump
@@ -9242,7 +8445,6 @@ IVs: 2 Atk / 30 SpA
 Skitty @ Life Orb
 Ability: Normalize
 Level: 23
-EVs: 236 Atk / 76 SpD / 196 Spe
 Nature: Jolly
 - Fake Out
 - Sucker Punch
@@ -9251,7 +8453,6 @@ Nature: Jolly
 
 Swablu @ Eviolite
 Level: 23
-EVs: 156 HP / 196 Atk / 156 SpD
 Nature: Adamant
 - Return
 - Roost
@@ -9263,7 +8464,6 @@ Nature: Adamant
 
 Shroomish @ Eviolite
 Level: 19
-EVs: 36 HP / 36 Atk / 196 Def / 116 SpD / 76 Spe
 Nature: Impish
 - Spore
 - Bullet Seed
@@ -9272,7 +8472,6 @@ Nature: Impish
 
 Oddish @ Eviolite
 Level: 19
-EVs: 156 HP / 236 Def / 76 SpD / 36 Spe
 Nature: Bold
 - Sleep Powder
 - Strength Sap
@@ -9281,7 +8480,6 @@ Nature: Bold
 
 Swablu @ Eviolite
 Level: 19
-EVs: 156 HP / 196 Atk / 156 SpD
 Nature: Adamant
 - Return
 - Roost
@@ -9294,7 +8492,6 @@ Nature: Adamant
 Wobbuffet @ Leftovers
 Ability: Telepathy
 Level: 32
-EVs: 252 HP / 4 Def / 252 SpD
 Nature: Calm
 - Encore
 - Counter
@@ -9306,7 +8503,6 @@ Nature: Calm
 
 Shroomish @ Eviolite
 Level: 17
-EVs: 36 HP / 36 Atk / 196 Def / 116 SpD / 76 Spe
 Nature: Impish
 - Spore
 - Bullet Seed
@@ -9316,7 +8512,6 @@ Nature: Impish
 Marill @ Choice Band
 Ability: Huge Power
 Level: 17
-EVs: 52 HP / 252 Atk / 204 Spe
 Nature: Adamant
 - Play Rough
 - Waterfall
@@ -9328,7 +8523,6 @@ Nature: Adamant
 
 Shroomish @ Eviolite
 Level: 25
-EVs: 36 HP / 36 Atk / 196 Def / 116 SpD / 76 Spe
 Nature: Impish
 - Spore
 - Bullet Seed
@@ -9337,7 +8531,6 @@ Nature: Impish
 
 Gloom @ Eviolite
 Level: 25
-EVs: 248 HP / 252 Def / 8 SpD
 Nature: Bold
 IVs: 0 Atk
 - Sludge Bomb
@@ -9347,7 +8540,6 @@ IVs: 0 Atk
 
 Swablu @ Eviolite
 Level: 25
-EVs: 156 HP / 196 Atk / 156 SpD
 Nature: Adamant
 - Return
 - Roost
@@ -9360,7 +8552,6 @@ Nature: Adamant
 Breloom @ Toxic Orb
 Ability: Poison Heal
 Level: 28
-EVs: 252 HP / 80 Atk / 176 Spe
 Nature: Adamant
 - Close Combat
 - Seed Bomb
@@ -9369,7 +8560,6 @@ Nature: Adamant
 
 Gloom @ Eviolite
 Level: 28
-EVs: 248 HP / 252 Def / 8 SpD
 Nature: Bold
 IVs: 0 Atk
 - Sludge Bomb
@@ -9379,7 +8569,6 @@ IVs: 0 Atk
 
 Swablu @ Eviolite
 Level: 28
-EVs: 156 HP / 196 Atk / 156 SpD
 Nature: Adamant
 - Return
 - Roost
@@ -9392,7 +8581,6 @@ Nature: Adamant
 Breloom @ Toxic Orb
 Ability: Poison Heal
 Level: 31
-EVs: 252 HP / 80 Atk / 176 Spe
 Nature: Adamant
 - Close Combat
 - Seed Bomb
@@ -9401,7 +8589,6 @@ Nature: Adamant
 
 Gloom @ Eviolite
 Level: 31
-EVs: 248 HP / 252 Def / 8 SpD
 Nature: Bold
 IVs: 0 Atk
 - Sludge Bomb
@@ -9411,7 +8598,6 @@ IVs: 0 Atk
 
 Swablu @ Eviolite
 Level: 31
-EVs: 156 HP / 196 Atk / 156 SpD
 Nature: Adamant
 - Return
 - Roost
@@ -9424,7 +8610,6 @@ Nature: Adamant
 Breloom @ Toxic Orb
 Ability: Poison Heal
 Level: 40
-EVs: 252 HP / 80 Atk / 176 Spe
 Nature: Adamant
 - Close Combat
 - Seed Bomb
@@ -9434,7 +8619,6 @@ Nature: Adamant
 Vileplume @ Leftovers
 Ability: Effect Spore
 Level: 40
-EVs: 252 HP / 252 Def / 4 SpD
 Nature: Bold
 IVs: 0 Atk
 - Sludge Wave
@@ -9444,7 +8628,6 @@ IVs: 0 Atk
 
 Altaria @ Heavy-Duty Boots
 Level: 40
-EVs: 252 HP / 240 Def / 16 Spe
 Nature: Impish
 - Defog
 - Roost
@@ -9457,7 +8640,6 @@ Nature: Impish
 Plusle @ Life Orb
 Ability: Lightning Rod
 Level: 15
-EVs: 252 SpA / 4 SpD / 252 Spe
 Nature: Timid
 - Nasty Plot
 - Thunderbolt
@@ -9467,7 +8649,6 @@ Nature: Timid
 Minun @ Life Orb
 Ability: Volt Absorb
 Level: 15
-EVs: 252 SpA / 4 SpD / 252 Spe
 Nature: Timid
 - Nasty Plot
 - Thunderbolt
@@ -9480,7 +8661,6 @@ Nature: Timid
 Plusle @ Life Orb
 Ability: Lightning Rod
 Level: 27
-EVs: 252 SpA / 4 SpD / 252 Spe
 Nature: Timid
 - Nasty Plot
 - Thunderbolt
@@ -9490,7 +8670,6 @@ Nature: Timid
 Minun @ Life Orb
 Ability: Volt Absorb
 Level: 27
-EVs: 252 SpA / 4 SpD / 252 Spe
 Nature: Timid
 - Nasty Plot
 - Thunderbolt
@@ -9502,7 +8681,6 @@ Nature: Timid
 
 Seedot @ Life Orb
 Level: 6
-EVs: 40 Atk / 36 Def / 200 SpA / 200 Spe
 Nature: Rash
 IVs: 19 HP
 - Growth
@@ -9512,7 +8690,6 @@ IVs: 19 HP
 
 Lotad @ Life Orb
 Level: 6
-EVs: 116 Def / 196 SpA / 196 Spe
 Nature: Modest
 IVs: 19 HP
 - Surf
@@ -9525,7 +8702,6 @@ IVs: 19 HP
 
 Beautifly
 Level: 26
-EVs: 252 SpA / 4 SpD / 252 Spe
 Nature: Timid
 - Quiver Dance
 - Bug Buzz
@@ -9534,7 +8710,6 @@ Nature: Timid
 
 Dustox @ Black Sludge
 Level: 26
-EVs: 248 HP / 120 Def / 140 Spe
 Nature: Bold
 IVs: 0 Atk
 - Quiver Dance
@@ -9548,7 +8723,6 @@ IVs: 0 Atk
 Plusle @ Life Orb
 Ability: Lightning Rod
 Level: 9
-EVs: 252 SpA / 4 SpD / 252 Spe
 Nature: Timid
 - Nasty Plot
 - Thunderbolt
@@ -9558,7 +8732,6 @@ Nature: Timid
 Minun @ Life Orb
 Ability: Volt Absorb
 Level: 9
-EVs: 252 SpA / 4 SpD / 252 Spe
 Nature: Timid
 - Nasty Plot
 - Thunderbolt
@@ -9570,7 +8743,6 @@ Nature: Timid
 
 Duskull @ Eviolite
 Level: 10
-EVs: 196 HP / 196 Def / 116 SpD
 Nature: Relaxed
 - Pain Split
 - Will-O-Wisp
@@ -9579,7 +8751,6 @@ Nature: Relaxed
 
 Shroomish @ Eviolite
 Level: 10
-EVs: 36 HP / 36 Atk / 196 Def / 116 SpD / 76 Spe
 Nature: Impish
 - Spore
 - Bullet Seed
@@ -9592,7 +8763,6 @@ Nature: Impish
 Plusle @ Life Orb
 Ability: Lightning Rod
 Level: 30
-EVs: 252 SpA / 4 SpD / 252 Spe
 Nature: Timid
 - Nasty Plot
 - Thunderbolt
@@ -9602,7 +8772,6 @@ Nature: Timid
 Minun @ Life Orb
 Ability: Volt Absorb
 Level: 30
-EVs: 252 SpA / 4 SpD / 252 Spe
 Nature: Timid
 - Nasty Plot
 - Thunderbolt
@@ -9615,7 +8784,6 @@ Nature: Timid
 Plusle @ Life Orb
 Ability: Lightning Rod
 Level: 33
-EVs: 252 SpA / 4 SpD / 252 Spe
 Nature: Timid
 - Nasty Plot
 - Thunderbolt
@@ -9625,7 +8793,6 @@ Nature: Timid
 Minun @ Life Orb
 Ability: Volt Absorb
 Level: 33
-EVs: 252 SpA / 4 SpD / 252 Spe
 Nature: Timid
 - Nasty Plot
 - Thunderbolt
@@ -9638,7 +8805,6 @@ Nature: Timid
 Plusle @ Life Orb
 Ability: Lightning Rod
 Level: 36
-EVs: 252 SpA / 4 SpD / 252 Spe
 Nature: Timid
 - Nasty Plot
 - Thunderbolt
@@ -9648,7 +8814,6 @@ Nature: Timid
 Minun @ Life Orb
 Ability: Volt Absorb
 Level: 36
-EVs: 252 SpA / 4 SpD / 252 Spe
 Nature: Timid
 - Nasty Plot
 - Thunderbolt
@@ -9661,7 +8826,6 @@ Nature: Timid
 Wingull @ Life Orb
 Ability: Hydration
 Level: 12
-EVs: 36 Def / 236 SpA / 236 Spe
 Nature: Timid
 IVs: 19 HP
 - Surf
@@ -9672,7 +8836,6 @@ IVs: 19 HP
 Machop @ Choice Scarf
 Ability: No Guard
 Level: 12
-EVs: 36 HP / 196 Atk / 36 Def / 236 Spe
 Nature: Jolly
 - Dynamic Punch
 - Knock Off
@@ -9685,7 +8848,6 @@ Nature: Jolly
 Wingull @ Life Orb
 Ability: Hydration
 Level: 13
-EVs: 36 Def / 236 SpA / 236 Spe
 Nature: Timid
 IVs: 19 HP
 - Surf
@@ -9699,7 +8861,6 @@ IVs: 19 HP
 Wingull @ Life Orb
 Ability: Hydration
 Level: 33
-EVs: 36 Def / 236 SpA / 236 Spe
 Nature: Timid
 IVs: 19 HP
 - Surf
@@ -9710,7 +8871,6 @@ IVs: 19 HP
 Machoke @ Eviolite
 Ability: No Guard
 Level: 33
-EVs: 252 HP / 252 Def / 4 SpD
 Nature: Impish
 - Dynamic Punch
 - Knock Off
@@ -9723,7 +8883,6 @@ Nature: Impish
 Wingull @ Life Orb
 Ability: Hydration
 Level: 11
-EVs: 36 Def / 236 SpA / 236 Spe
 Nature: Timid
 IVs: 19 HP
 - Surf
@@ -9734,7 +8893,6 @@ IVs: 19 HP
 Machop @ Choice Scarf
 Ability: No Guard
 Level: 11
-EVs: 36 HP / 196 Atk / 36 Def / 236 Spe
 Nature: Jolly
 - Dynamic Punch
 - Knock Off
@@ -9743,7 +8901,6 @@ Nature: Jolly
 
 Tentacool @ Eviolite
 Level: 11
-EVs: 36 HP / 116 Atk / 156 Def / 196 Spe
 Nature: Jolly
 - Flip Turn
 - Gunk Shot
@@ -9756,7 +8913,6 @@ Nature: Jolly
 Tentacruel @ Leftovers
 Ability: Liquid Ooze
 Level: 44
-EVs: 252 HP / 120 Def / 136 Spe
 Nature: Jolly
 - Flip Turn
 - Rapid Spin
@@ -9766,7 +8922,6 @@ Nature: Jolly
 Machoke @ Eviolite
 Ability: No Guard
 Level: 44
-EVs: 252 HP / 252 Def / 4 SpD
 Nature: Impish
 - Dynamic Punch
 - Knock Off
@@ -9779,7 +8934,6 @@ Nature: Impish
 Machop @ Choice Scarf
 Ability: No Guard
 Level: 43
-EVs: 36 HP / 196 Atk / 36 Def / 236 Spe
 Nature: Jolly
 - Dynamic Punch
 - Knock Off
@@ -9789,7 +8943,6 @@ Nature: Jolly
 Pelipper @ Damp Rock
 Ability: Drizzle
 Level: 43
-EVs: 248 HP / 252 Def / 8 SpD
 Nature: Relaxed
 IVs: 0 Spe
 - Hurricane
@@ -9800,7 +8953,6 @@ IVs: 0 Spe
 Machoke @ Eviolite
 Ability: No Guard
 Level: 43
-EVs: 252 HP / 252 Def / 4 SpD
 Nature: Impish
 - Dynamic Punch
 - Knock Off
@@ -9812,7 +8964,6 @@ Nature: Impish
 
 Spheal @ Berry Juice
 Level: 25
-EVs: 36 HP / 36 Def / 240 SpA / 36 SpD / 156 Spe
 Nature: Modest
 IVs: 0 Atk / 30 SpA
 - Yawn
@@ -9823,7 +8974,6 @@ IVs: 0 Atk / 30 SpA
 Machoke @ Eviolite
 Ability: No Guard
 Level: 25
-EVs: 252 HP / 252 Def / 4 SpD
 Nature: Impish
 - Dynamic Punch
 - Knock Off
@@ -9836,7 +8986,6 @@ Nature: Impish
 Wingull @ Life Orb
 Ability: Hydration
 Level: 36
-EVs: 36 Def / 236 SpA / 236 Spe
 Nature: Timid
 IVs: 19 HP
 - Surf
@@ -9846,7 +8995,6 @@ IVs: 19 HP
 
 Tentacool @ Eviolite
 Level: 36
-EVs: 36 HP / 116 Atk / 156 Def / 196 Spe
 Nature: Jolly
 - Flip Turn
 - Gunk Shot
@@ -9856,7 +9004,6 @@ Nature: Jolly
 Machoke @ Eviolite
 Ability: No Guard
 Level: 36
-EVs: 252 HP / 252 Def / 4 SpD
 Nature: Impish
 - Dynamic Punch
 - Knock Off
@@ -9869,7 +9016,6 @@ Nature: Impish
 Pelipper @ Damp Rock
 Ability: Drizzle
 Level: 39
-EVs: 248 HP / 252 Def / 8 SpD
 Nature: Relaxed
 IVs: 0 Spe
 - Hurricane
@@ -9879,7 +9025,6 @@ IVs: 0 Spe
 
 Tentacool @ Eviolite
 Level: 39
-EVs: 36 HP / 116 Atk / 156 Def / 196 Spe
 Nature: Jolly
 - Flip Turn
 - Gunk Shot
@@ -9889,7 +9034,6 @@ Nature: Jolly
 Machoke @ Eviolite
 Ability: No Guard
 Level: 39
-EVs: 252 HP / 252 Def / 4 SpD
 Nature: Impish
 - Dynamic Punch
 - Knock Off
@@ -9902,7 +9046,6 @@ Nature: Impish
 Pelipper @ Damp Rock
 Ability: Drizzle
 Level: 42
-EVs: 248 HP / 252 Def / 8 SpD
 Nature: Relaxed
 IVs: 0 Spe
 - Hurricane
@@ -9912,7 +9055,6 @@ IVs: 0 Spe
 
 Tentacool @ Eviolite
 Level: 42
-EVs: 36 HP / 116 Atk / 156 Def / 196 Spe
 Nature: Jolly
 - Flip Turn
 - Gunk Shot
@@ -9922,7 +9064,6 @@ Nature: Jolly
 Machoke @ Eviolite
 Ability: No Guard
 Level: 42
-EVs: 252 HP / 252 Def / 4 SpD
 Nature: Impish
 - Dynamic Punch
 - Knock Off
@@ -9935,7 +9076,6 @@ Nature: Impish
 Pelipper @ Damp Rock
 Ability: Drizzle
 Level: 45
-EVs: 248 HP / 252 Def / 8 SpD
 Nature: Relaxed
 IVs: 0 Spe
 - Hurricane
@@ -9946,7 +9086,6 @@ IVs: 0 Spe
 Machoke @ Eviolite
 Ability: No Guard
 Level: 45
-EVs: 252 HP / 252 Def / 4 SpD
 Nature: Impish
 - Dynamic Punch
 - Knock Off
@@ -9956,7 +9095,6 @@ Nature: Impish
 Tentacruel @ Leftovers
 Ability: Liquid Ooze
 Level: 45
-EVs: 252 HP / 120 Def / 136 Spe
 Nature: Jolly
 - Flip Turn
 - Rapid Spin
@@ -9969,7 +9107,6 @@ Nature: Jolly
 Numel @ Eviolite
 Ability: Simple
 Level: 23
-EVs: 36 Def / 236 SpA / 236 Spe
 Nature: Modest
 - Flame Charge
 - Fire Blast
@@ -9982,7 +9119,6 @@ Nature: Modest
 Absol
 Ability: Magic Bounce
 Level: 27
-EVs: 252 Atk / 4 SpD / 252 Spe
 Nature: Jolly
 - Knock Off
 - Pursuit
@@ -9995,7 +9131,6 @@ Nature: Jolly
 Koffing @ Eviolite
 Ability: Neutralizing Gas
 Level: 31
-EVs: 252 HP / 252 Def / 4 SpD
 Nature: Bold
 - Sludge Bomb
 - Pain Split
@@ -10007,7 +9142,6 @@ Nature: Bold
 
 Castform
 Level: 31
-EVs: 252 SpA / 4 SpD / 252 Spe
 Nature: Timid
 - Rain Dance
 - Hydro Pump
@@ -10020,7 +9154,6 @@ Nature: Timid
 Manectric
 Ability: Lightning Rod
 Level: 33
-EVs: 252 SpA / 4 SpD / 252 Spe
 Nature: Timid
 IVs: 0 Atk
 - Volt Switch
@@ -10030,7 +9163,6 @@ IVs: 0 Atk
 
 Machamp @ Flame Orb
 Level: 33
-EVs: 252 Atk / 4 SpD / 252 Spe
 Nature: Adamant
 - Close Combat
 - Facade
@@ -10043,7 +9175,6 @@ Nature: Adamant
 Machoke @ Eviolite
 Ability: No Guard
 Level: 33
-EVs: 252 HP / 252 Def / 4 SpD
 Nature: Impish
 - Dynamic Punch
 - Knock Off
@@ -10052,7 +9183,6 @@ Nature: Impish
 
 Spheal @ Berry Juice
 Level: 33
-EVs: 36 HP / 36 Def / 240 SpA / 36 SpD / 156 Spe
 Nature: Modest
 IVs: 0 Atk / 30 SpA
 - Yawn
@@ -10066,7 +9196,6 @@ IVs: 0 Atk / 30 SpA
 Manectric
 Ability: Lightning Rod
 Level: 34
-EVs: 252 SpA / 4 SpD / 252 Spe
 Nature: Timid
 IVs: 0 Atk
 - Volt Switch
@@ -10079,7 +9208,6 @@ IVs: 0 Atk
 
 Meditite @ Choice Band
 Level: 33
-EVs: 252 Atk / 4 SpD / 252 Spe
 Nature: Adamant
 - Close Combat
 - Zen Headbutt
@@ -10089,7 +9217,6 @@ Nature: Adamant
 Hariyama @ Sitrus Berry
 Ability: Guts
 Level: 33
-EVs: 4 HP / 252 Atk / 252 Spe
 Nature: Adamant
 - Belly Drum
 - Drain Punch
@@ -10102,7 +9229,6 @@ Nature: Adamant
 Wailmer @ Choice Scarf
 Ability: Pressure
 Level: 34
-EVs: 36 HP / 200 SpA / 200 Spe
 Nature: Timid
 - Water Spout
 - Hydro Pump
@@ -10115,7 +9241,6 @@ Nature: Timid
 Chinchou @ Eviolite
 Ability: Water Absorb
 Level: 33
-EVs: 96 HP / 252 SpA / 160 Spe
 Nature: Modest
 IVs: 0 Atk
 - Hydro Pump
@@ -10126,7 +9251,6 @@ IVs: 0 Atk
 Hariyama @ Sitrus Berry
 Ability: Guts
 Level: 33
-EVs: 4 HP / 252 Atk / 252 Spe
 Nature: Adamant
 - Belly Drum
 - Drain Punch
@@ -10138,7 +9262,6 @@ Nature: Adamant
 
 Lombre @ Leftovers
 Level: 14
-EVs: 160 HP / 232 SpA / 116 Spe
 Nature: Modest
 IVs: 2 Atk / 30 SpA
 - Hydro Pump
@@ -10152,7 +9275,6 @@ IVs: 2 Atk / 30 SpA
 Zangoose @ Toxic Orb
 Ability: Toxic Boost
 Level: 18
-EVs: 252 Atk / 4 SpD / 252 Spe
 Nature: Jolly
 - Swords Dance
 - Facade
@@ -10161,7 +9283,6 @@ Nature: Jolly
 
 Seviper @ Life Orb
 Level: 18
-EVs: 8 HP / 56 Atk / 224 SpA / 220 Spe
 Nature: Naughty
 - Sludge Wave
 - Giga Drain
@@ -10173,7 +9294,6 @@ Nature: Naughty
 
 Lombre @ Leftovers
 Level: 26
-EVs: 160 HP / 232 SpA / 116 Spe
 Nature: Modest
 IVs: 2 Atk / 30 SpA
 - Hydro Pump
@@ -10186,7 +9306,6 @@ IVs: 2 Atk / 30 SpA
 
 Lombre @ Leftovers
 Level: 29
-EVs: 160 HP / 232 SpA / 116 Spe
 Nature: Modest
 IVs: 2 Atk / 30 SpA
 - Hydro Pump
@@ -10199,7 +9318,6 @@ IVs: 2 Atk / 30 SpA
 
 Lombre @ Leftovers
 Level: 32
-EVs: 160 HP / 232 SpA / 116 Spe
 Nature: Modest
 IVs: 2 Atk / 30 SpA
 - Hydro Pump
@@ -10212,7 +9330,6 @@ IVs: 2 Atk / 30 SpA
 
 Ludicolo @ Life Orb
 Level: 35
-EVs: 252 SpA / 4 SpD / 252 Spe
 Nature: Modest
 IVs: 0 Atk
 - Hydro Pump
@@ -10222,7 +9339,6 @@ IVs: 0 Atk
 
 Shiftry @ Life Orb
 Level: 35
-EVs: 252 Atk / 4 Def / 252 Spe
 Nature: Adamant
 - Growth
 - Solar Blade
@@ -10234,7 +9350,6 @@ Nature: Adamant
 
 Whismur @ Life Orb
 Level: 11
-EVs: 244 HP / 36 Def / 188 SpA / 36 SpD
 Nature: Quiet
 - Hyper Voice
 - Shadow Ball
@@ -10243,7 +9358,6 @@ Nature: Quiet
 
 Zigzagoon @ Berry Juice
 Level: 11
-EVs: 132 HP / 196 Atk / 108 Def / 28 SpD / 36 Spe
 Nature: Adamant
 - Belly Drum
 - Extreme Speed
@@ -10253,7 +9367,6 @@ Nature: Adamant
 Aron @ Eviolite
 Ability: Rock Head
 Level: 11
-EVs: 196 Atk / 116 SpD / 196 Spe
 Nature: Jolly
 - Rock Polish
 - Head Smash
@@ -10263,7 +9376,6 @@ Nature: Jolly
 Poochyena
 Ability: Rattled
 Level: 11
-EVs: 236 Atk / 36 SpD / 236 Spe
 Nature: Jolly
 - Howl
 - Crunch
@@ -10273,7 +9385,6 @@ Nature: Jolly
 Taillow @ Life Orb
 Ability: Guts
 Level: 11
-EVs: 36 Def / 200 SpA / 36 SpD / 236 Spe
 Nature: Naive
 IVs: 19 HP
 - Boomburst
@@ -10283,7 +9394,6 @@ IVs: 19 HP
 
 Makuhita @ Berry Juice
 Level: 11
-EVs: 20 HP / 196 Atk / 36 Def / 236 Spe
 Nature: Jolly
 - Belly Drum
 - Close Combat
@@ -10296,7 +9406,6 @@ Nature: Jolly
 Pinsir
 Ability: Moxie
 Level: 27
-EVs: 252 Atk / 4 SpD / 252 Spe
 Nature: Jolly
 - Swords Dance
 - Return
@@ -10308,7 +9417,6 @@ Nature: Jolly
 
 Lunatone @ Power Herb
 Level: 43
-EVs: 4 Def / 252 SpA / 252 Spe
 Nature: Modest
 - Meteor Beam
 - Psyshock
@@ -10317,7 +9425,6 @@ Nature: Modest
 
 Solrock @ Rocky Helmet
 Level: 43
-EVs: 252 HP / 200 Def / 56 Spe
 Nature: Impish
 - Morning Sun
 - Stealth Rock
@@ -10329,7 +9436,6 @@ Nature: Impish
 
 Loudred @ Leftovers
 Level: 22
-EVs: 100 HP / 252 Atk / 16 SpA / 140 Spe
 Nature: Naughty
 - Return
 - Shadow Ball
@@ -10339,7 +9445,6 @@ Nature: Naughty
 Linoone @ Figy Berry
 Ability: Gluttony
 Level: 22
-EVs: 60 HP / 252 Atk / 196 Spe
 Nature: Adamant
 - Belly Drum
 - Extreme Speed
@@ -10349,7 +9454,6 @@ Nature: Adamant
 Aron @ Eviolite
 Ability: Rock Head
 Level: 22
-EVs: 196 Atk / 116 SpD / 196 Spe
 Nature: Jolly
 - Rock Polish
 - Head Smash
@@ -10359,7 +9463,6 @@ Nature: Jolly
 Mightyena @ Life Orb
 Ability: Moxie
 Level: 22
-EVs: 252 Atk / 4 SpD / 252 Spe
 Nature: Adamant
 - Crunch
 - Sucker Punch
@@ -10369,7 +9472,6 @@ Nature: Adamant
 Swellow @ Choice Specs
 Ability: Scrappy
 Level: 22
-EVs: 4 Def / 252 SpA / 252 Spe
 Nature: Timid
 - Boomburst
 - U-turn
@@ -10378,7 +9480,6 @@ Nature: Timid
 
 Makuhita @ Berry Juice
 Level: 22
-EVs: 20 HP / 196 Atk / 36 Def / 236 Spe
 Nature: Jolly
 - Belly Drum
 - Close Combat
@@ -10390,7 +9491,6 @@ Nature: Jolly
 
 Loudred @ Leftovers
 Level: 25
-EVs: 100 HP / 252 Atk / 16 SpA / 140 Spe
 Nature: Naughty
 - Return
 - Shadow Ball
@@ -10400,7 +9500,6 @@ Nature: Naughty
 Linoone @ Figy Berry
 Ability: Gluttony
 Level: 25
-EVs: 60 HP / 252 Atk / 196 Spe
 Nature: Adamant
 - Belly Drum
 - Extreme Speed
@@ -10410,7 +9509,6 @@ Nature: Adamant
 Aron @ Eviolite
 Ability: Rock Head
 Level: 25
-EVs: 196 Atk / 116 SpD / 196 Spe
 Nature: Jolly
 - Rock Polish
 - Head Smash
@@ -10420,7 +9518,6 @@ Nature: Jolly
 Mightyena @ Life Orb
 Ability: Moxie
 Level: 25
-EVs: 252 Atk / 4 SpD / 252 Spe
 Nature: Adamant
 - Crunch
 - Sucker Punch
@@ -10430,7 +9527,6 @@ Nature: Adamant
 Swellow @ Choice Specs
 Ability: Scrappy
 Level: 25
-EVs: 4 Def / 252 SpA / 252 Spe
 Nature: Timid
 - Boomburst
 - U-turn
@@ -10440,7 +9536,6 @@ Nature: Timid
 Hariyama @ Sitrus Berry
 Ability: Guts
 Level: 25
-EVs: 4 HP / 252 Atk / 252 Spe
 Nature: Adamant
 - Belly Drum
 - Drain Punch
@@ -10452,7 +9547,6 @@ Nature: Adamant
 
 Loudred @ Leftovers
 Level: 28
-EVs: 100 HP / 252 Atk / 16 SpA / 140 Spe
 Nature: Naughty
 - Return
 - Shadow Ball
@@ -10462,7 +9556,6 @@ Nature: Naughty
 Linoone @ Figy Berry
 Ability: Gluttony
 Level: 28
-EVs: 60 HP / 252 Atk / 196 Spe
 Nature: Adamant
 - Belly Drum
 - Extreme Speed
@@ -10472,7 +9565,6 @@ Nature: Adamant
 Aron @ Eviolite
 Ability: Rock Head
 Level: 28
-EVs: 196 Atk / 116 SpD / 196 Spe
 Nature: Jolly
 - Rock Polish
 - Head Smash
@@ -10482,7 +9574,6 @@ Nature: Jolly
 Mightyena @ Life Orb
 Ability: Moxie
 Level: 28
-EVs: 252 Atk / 4 SpD / 252 Spe
 Nature: Adamant
 - Crunch
 - Sucker Punch
@@ -10492,7 +9583,6 @@ Nature: Adamant
 Swellow @ Choice Specs
 Ability: Scrappy
 Level: 28
-EVs: 4 Def / 252 SpA / 252 Spe
 Nature: Timid
 - Boomburst
 - U-turn
@@ -10502,7 +9592,6 @@ Nature: Timid
 Hariyama @ Sitrus Berry
 Ability: Guts
 Level: 28
-EVs: 4 HP / 252 Atk / 252 Spe
 Nature: Adamant
 - Belly Drum
 - Drain Punch
@@ -10514,7 +9603,6 @@ Nature: Adamant
 
 Loudred @ Leftovers
 Level: 31
-EVs: 100 HP / 252 Atk / 16 SpA / 140 Spe
 Nature: Naughty
 - Return
 - Shadow Ball
@@ -10524,7 +9612,6 @@ Nature: Naughty
 Linoone @ Figy Berry
 Ability: Gluttony
 Level: 31
-EVs: 60 HP / 252 Atk / 196 Spe
 Nature: Adamant
 - Belly Drum
 - Extreme Speed
@@ -10534,7 +9621,6 @@ Nature: Adamant
 Lairon @ Choice Band
 Ability: Rock Head
 Level: 31
-EVs: 252 Atk / 4 SpD / 252 Spe
 Nature: Adamant
 - Head Smash
 - Heavy Slam
@@ -10544,7 +9630,6 @@ Nature: Adamant
 Mightyena @ Life Orb
 Ability: Moxie
 Level: 31
-EVs: 252 Atk / 4 SpD / 252 Spe
 Nature: Adamant
 - Crunch
 - Sucker Punch
@@ -10554,7 +9639,6 @@ Nature: Adamant
 Swellow @ Choice Specs
 Ability: Scrappy
 Level: 31
-EVs: 4 Def / 252 SpA / 252 Spe
 Nature: Timid
 - Boomburst
 - U-turn
@@ -10564,7 +9648,6 @@ Nature: Timid
 Hariyama @ Sitrus Berry
 Ability: Guts
 Level: 31
-EVs: 4 HP / 252 Atk / 252 Spe
 Nature: Adamant
 - Belly Drum
 - Drain Punch
@@ -10577,7 +9660,6 @@ Nature: Adamant
 Wingull @ Life Orb
 Ability: Hydration
 Level: 11
-EVs: 36 Def / 236 SpA / 236 Spe
 Nature: Timid
 IVs: 19 HP
 - Surf
@@ -10587,7 +9669,6 @@ IVs: 19 HP
 
 Shroomish @ Eviolite
 Level: 11
-EVs: 36 HP / 36 Atk / 196 Def / 116 SpD / 76 Spe
 Nature: Impish
 - Spore
 - Bullet Seed
@@ -10597,7 +9678,6 @@ Nature: Impish
 Marill @ Choice Band
 Ability: Huge Power
 Level: 11
-EVs: 52 HP / 252 Atk / 204 Spe
 Nature: Adamant
 - Play Rough
 - Waterfall
@@ -10607,7 +9687,6 @@ Nature: Adamant
 Roselia @ Eviolite
 Ability: Poison Point
 Level: 11
-EVs: 252 HP / 200 Def / 56 Spe
 Nature: Bold
 - Spikes
 - Sludge Bomb
@@ -10617,7 +9696,6 @@ Nature: Bold
 Skitty @ Life Orb
 Ability: Normalize
 Level: 11
-EVs: 236 Atk / 76 SpD / 196 Spe
 Nature: Jolly
 - Fake Out
 - Sucker Punch
@@ -10627,7 +9705,6 @@ Nature: Jolly
 Goldeen
 Ability: Lightning Rod
 Level: 11
-EVs: 220 Atk / 36 SpD / 252 Spe
 Nature: Jolly
 - Bounce
 - Waterfall
@@ -10640,7 +9717,6 @@ Nature: Jolly
 Sableye @ Heavy-Duty Boots
 Ability: Prankster
 Level: 43
-EVs: 252 HP / 252 Def / 4 SpD
 Nature: Impish
 - Encore
 - Will-O-Wisp
@@ -10650,7 +9726,6 @@ Nature: Impish
 Absol
 Ability: Magic Bounce
 Level: 43
-EVs: 252 Atk / 4 SpD / 252 Spe
 Nature: Jolly
 - Knock Off
 - Pursuit
@@ -10663,7 +9738,6 @@ Nature: Jolly
 Sandslash @ Life Orb
 Ability: Sand Rush
 Level: 26
-EVs: 252 Atk / 4 SpD / 252 Spe
 Nature: Adamant
 - Swords Dance
 - Earthquake
@@ -10676,7 +9750,6 @@ Nature: Adamant
 Wingull @ Life Orb
 Ability: Hydration
 Level: 22
-EVs: 36 Def / 236 SpA / 236 Spe
 Nature: Timid
 IVs: 19 HP
 - Surf
@@ -10686,7 +9759,6 @@ IVs: 19 HP
 
 Shroomish @ Eviolite
 Level: 22
-EVs: 36 HP / 36 Atk / 196 Def / 116 SpD / 76 Spe
 Nature: Impish
 - Spore
 - Bullet Seed
@@ -10696,7 +9768,6 @@ Nature: Impish
 Marill @ Choice Band
 Ability: Huge Power
 Level: 22
-EVs: 52 HP / 252 Atk / 204 Spe
 Nature: Adamant
 - Play Rough
 - Waterfall
@@ -10706,7 +9777,6 @@ Nature: Adamant
 Roselia @ Eviolite
 Ability: Poison Point
 Level: 22
-EVs: 252 HP / 200 Def / 56 Spe
 Nature: Bold
 - Spikes
 - Sludge Bomb
@@ -10716,7 +9786,6 @@ Nature: Bold
 Skitty @ Life Orb
 Ability: Normalize
 Level: 22
-EVs: 236 Atk / 76 SpD / 196 Spe
 Nature: Jolly
 - Fake Out
 - Sucker Punch
@@ -10726,7 +9795,6 @@ Nature: Jolly
 Goldeen
 Ability: Lightning Rod
 Level: 22
-EVs: 220 Atk / 36 SpD / 252 Spe
 Nature: Jolly
 - Bounce
 - Waterfall
@@ -10739,7 +9807,6 @@ Nature: Jolly
 Pelipper @ Damp Rock
 Ability: Drizzle
 Level: 25
-EVs: 248 HP / 252 Def / 8 SpD
 Nature: Relaxed
 IVs: 0 Spe
 - Hurricane
@@ -10750,7 +9817,6 @@ IVs: 0 Spe
 Breloom @ Toxic Orb
 Ability: Poison Heal
 Level: 25
-EVs: 252 HP / 80 Atk / 176 Spe
 Nature: Adamant
 - Close Combat
 - Seed Bomb
@@ -10760,7 +9826,6 @@ Nature: Adamant
 Marill @ Choice Band
 Ability: Huge Power
 Level: 25
-EVs: 52 HP / 252 Atk / 204 Spe
 Nature: Adamant
 - Play Rough
 - Waterfall
@@ -10770,7 +9835,6 @@ Nature: Adamant
 Roselia @ Eviolite
 Ability: Poison Point
 Level: 25
-EVs: 252 HP / 200 Def / 56 Spe
 Nature: Bold
 - Spikes
 - Sludge Bomb
@@ -10780,7 +9844,6 @@ Nature: Bold
 Delcatty @ Silk Scarf
 Ability: Normalize
 Level: 25
-EVs: 252 Atk / 4 Def / 252 Spe
 Nature: Jolly
 - Fake Out
 - Sucker Punch
@@ -10790,7 +9853,6 @@ Nature: Jolly
 Goldeen
 Ability: Lightning Rod
 Level: 25
-EVs: 220 Atk / 36 SpD / 252 Spe
 Nature: Jolly
 - Bounce
 - Waterfall
@@ -10803,7 +9865,6 @@ Nature: Jolly
 Pelipper @ Damp Rock
 Ability: Drizzle
 Level: 28
-EVs: 248 HP / 252 Def / 8 SpD
 Nature: Relaxed
 IVs: 0 Spe
 - Hurricane
@@ -10814,7 +9875,6 @@ IVs: 0 Spe
 Breloom @ Toxic Orb
 Ability: Poison Heal
 Level: 28
-EVs: 252 HP / 80 Atk / 176 Spe
 Nature: Adamant
 - Close Combat
 - Seed Bomb
@@ -10824,7 +9884,6 @@ Nature: Adamant
 Marill @ Choice Band
 Ability: Huge Power
 Level: 28
-EVs: 52 HP / 252 Atk / 204 Spe
 Nature: Adamant
 - Play Rough
 - Waterfall
@@ -10834,7 +9893,6 @@ Nature: Adamant
 Roselia @ Eviolite
 Ability: Poison Point
 Level: 28
-EVs: 252 HP / 200 Def / 56 Spe
 Nature: Bold
 - Spikes
 - Sludge Bomb
@@ -10844,7 +9902,6 @@ Nature: Bold
 Delcatty @ Silk Scarf
 Ability: Normalize
 Level: 28
-EVs: 252 Atk / 4 Def / 252 Spe
 Nature: Jolly
 - Fake Out
 - Sucker Punch
@@ -10854,7 +9911,6 @@ Nature: Jolly
 Goldeen
 Ability: Lightning Rod
 Level: 28
-EVs: 220 Atk / 36 SpD / 252 Spe
 Nature: Jolly
 - Bounce
 - Waterfall
@@ -10867,7 +9923,6 @@ Nature: Jolly
 Pelipper @ Damp Rock
 Ability: Drizzle
 Level: 31
-EVs: 248 HP / 252 Def / 8 SpD
 Nature: Relaxed
 IVs: 0 Spe
 - Hurricane
@@ -10878,7 +9933,6 @@ IVs: 0 Spe
 Breloom @ Toxic Orb
 Ability: Poison Heal
 Level: 31
-EVs: 252 HP / 80 Atk / 176 Spe
 Nature: Adamant
 - Close Combat
 - Seed Bomb
@@ -10888,7 +9942,6 @@ Nature: Adamant
 Azumarill @ Sitrus Berry
 Ability: Huge Power
 Level: 31
-EVs: 4 HP / 252 Atk / 252 Spe
 Nature: Adamant
 - Belly Drum
 - Play Rough
@@ -10898,7 +9951,6 @@ Nature: Adamant
 Roselia @ Eviolite
 Ability: Poison Point
 Level: 31
-EVs: 252 HP / 200 Def / 56 Spe
 Nature: Bold
 - Spikes
 - Sludge Bomb
@@ -10908,7 +9960,6 @@ Nature: Bold
 Delcatty @ Silk Scarf
 Ability: Normalize
 Level: 31
-EVs: 252 Atk / 4 Def / 252 Spe
 Nature: Jolly
 - Fake Out
 - Sucker Punch
@@ -10918,7 +9969,6 @@ Nature: Jolly
 Seaking @ Heavy-Duty Boots
 Ability: Lightning Rod
 Level: 31
-EVs: 252 HP / 220 Def / 36 Spe
 Nature: Impish
 - Flip Turn
 - Knock Off
@@ -10931,7 +9981,6 @@ Nature: Impish
 Breloom @ Toxic Orb
 Ability: Poison Heal
 Level: 27
-EVs: 252 HP / 80 Atk / 176 Spe
 Nature: Adamant
 - Close Combat
 - Seed Bomb
@@ -10943,7 +9992,6 @@ Nature: Adamant
 
 Seedot @ Life Orb
 Level: 28
-EVs: 40 Atk / 36 Def / 200 SpA / 200 Spe
 Nature: Rash
 IVs: 19 HP
 - Growth
@@ -10953,7 +10001,6 @@ IVs: 19 HP
 
 Lombre @ Leftovers
 Level: 28
-EVs: 160 HP / 232 SpA / 116 Spe
 Nature: Modest
 IVs: 2 Atk / 30 SpA
 - Hydro Pump
@@ -10967,7 +10014,6 @@ IVs: 2 Atk / 30 SpA
 Cacturne @ Life Orb
 Ability: Water Absorb
 Level: 39
-EVs: 4 Atk / 252 SpA / 252 Spe
 Nature: Mild
 - Spikes
 - Dark Pulse
@@ -10980,7 +10026,6 @@ Nature: Mild
 Breloom @ Toxic Orb
 Ability: Poison Heal
 Level: 31
-EVs: 252 HP / 80 Atk / 176 Spe
 Nature: Adamant
 - Close Combat
 - Seed Bomb
@@ -10993,7 +10038,6 @@ Nature: Adamant
 Breloom @ Toxic Orb
 Ability: Poison Heal
 Level: 34
-EVs: 252 HP / 80 Atk / 176 Spe
 Nature: Adamant
 - Close Combat
 - Seed Bomb
@@ -11006,7 +10050,6 @@ Nature: Adamant
 Breloom @ Toxic Orb
 Ability: Poison Heal
 Level: 37
-EVs: 252 HP / 80 Atk / 176 Spe
 Nature: Adamant
 - Close Combat
 - Seed Bomb
@@ -11019,7 +10062,6 @@ Nature: Adamant
 Kecleon @ Assault Vest
 Ability: Protean
 Level: 39
-EVs: 172 HP / 252 Atk / 84 Spe
 Nature: Adamant
 - Knock Off
 - Drain Punch
@@ -11029,7 +10071,6 @@ Nature: Adamant
 Breloom @ Toxic Orb
 Ability: Poison Heal
 Level: 39
-EVs: 252 HP / 80 Atk / 176 Spe
 Nature: Adamant
 - Close Combat
 - Seed Bomb
@@ -11041,7 +10082,6 @@ Nature: Adamant
 
 Gloom @ Eviolite
 Level: 26
-EVs: 248 HP / 252 Def / 8 SpD
 Nature: Bold
 IVs: 0 Atk
 - Sludge Bomb
@@ -11052,7 +10092,6 @@ IVs: 0 Atk
 Roselia @ Eviolite
 Ability: Poison Point
 Level: 26
-EVs: 252 HP / 200 Def / 56 Spe
 Nature: Bold
 - Spikes
 - Sludge Bomb
@@ -11064,7 +10103,6 @@ Nature: Bold
 
 Lotad @ Life Orb
 Level: 28
-EVs: 116 Def / 196 SpA / 196 Spe
 Nature: Modest
 IVs: 19 HP
 - Surf
@@ -11074,7 +10112,6 @@ IVs: 19 HP
 
 Lombre @ Leftovers
 Level: 28
-EVs: 160 HP / 232 SpA / 116 Spe
 Nature: Modest
 IVs: 2 Atk / 30 SpA
 - Hydro Pump
@@ -11087,7 +10124,6 @@ IVs: 2 Atk / 30 SpA
 
 Swablu @ Eviolite
 Level: 38
-EVs: 156 HP / 196 Atk / 156 SpD
 Nature: Adamant
 - Return
 - Roost
@@ -11097,7 +10133,6 @@ Nature: Adamant
 Roselia @ Eviolite
 Ability: Poison Point
 Level: 38
-EVs: 252 HP / 200 Def / 56 Spe
 Nature: Bold
 - Spikes
 - Sludge Bomb
@@ -11109,7 +10144,6 @@ Nature: Bold
 
 Gloom @ Eviolite
 Level: 30
-EVs: 248 HP / 252 Def / 8 SpD
 Nature: Bold
 IVs: 0 Atk
 - Sludge Bomb
@@ -11120,7 +10154,6 @@ IVs: 0 Atk
 Roselia @ Eviolite
 Ability: Poison Point
 Level: 30
-EVs: 252 HP / 200 Def / 56 Spe
 Nature: Bold
 - Spikes
 - Sludge Bomb
@@ -11132,7 +10165,6 @@ Nature: Bold
 
 Gloom @ Eviolite
 Level: 33
-EVs: 248 HP / 252 Def / 8 SpD
 Nature: Bold
 IVs: 0 Atk
 - Sludge Bomb
@@ -11143,7 +10175,6 @@ IVs: 0 Atk
 Roselia @ Eviolite
 Ability: Poison Point
 Level: 33
-EVs: 252 HP / 200 Def / 56 Spe
 Nature: Bold
 - Spikes
 - Sludge Bomb
@@ -11155,7 +10186,6 @@ Nature: Bold
 
 Gloom @ Eviolite
 Level: 36
-EVs: 248 HP / 252 Def / 8 SpD
 Nature: Bold
 IVs: 0 Atk
 - Sludge Bomb
@@ -11166,7 +10196,6 @@ IVs: 0 Atk
 Roselia @ Eviolite
 Ability: Poison Point
 Level: 36
-EVs: 252 HP / 200 Def / 56 Spe
 Nature: Bold
 - Spikes
 - Sludge Bomb
@@ -11178,7 +10207,6 @@ Nature: Bold
 
 Bellossom @ Leftovers
 Level: 39
-EVs: 252 HP / 4 SpD / 252 Spe
 Nature: Timid
 - Quiver Dance
 - Strength Sap
@@ -11188,7 +10216,6 @@ Nature: Timid
 Roselia @ Eviolite
 Ability: Poison Point
 Level: 39
-EVs: 252 HP / 200 Def / 56 Spe
 Nature: Bold
 - Spikes
 - Sludge Bomb
@@ -11200,7 +10227,6 @@ Nature: Bold
 
 Magnemite @ Choice Scarf
 Level: 21
-EVs: 36 Def / 236 SpA / 236 Spe
 Nature: Modest
 - Thunderbolt
 - Flash Cannon
@@ -11213,7 +10239,6 @@ Nature: Modest
 Mightyena @ Life Orb
 Ability: Moxie
 Level: 35
-EVs: 252 Atk / 4 SpD / 252 Spe
 Nature: Adamant
 - Crunch
 - Sucker Punch
@@ -11223,7 +10248,6 @@ Nature: Adamant
 Golbat @ Eviolite
 Ability: Infiltrator
 Level: 35
-EVs: 248 HP / 44 Def / 216 Spe
 Nature: Jolly
 - Toxic
 - Taunt
@@ -11236,7 +10260,6 @@ Nature: Jolly
 Wailmer @ Choice Scarf
 Ability: Pressure
 Level: 31
-EVs: 36 HP / 200 SpA / 200 Spe
 Nature: Timid
 - Water Spout
 - Hydro Pump
@@ -11245,7 +10268,6 @@ Nature: Timid
 
 Zubat @ Choice Scarf
 Level: 31
-EVs: 36 HP / 236 Atk / 236 Spe
 Nature: Jolly
 - Brave Bird
 - U-turn
@@ -11258,7 +10280,6 @@ Nature: Jolly
 Wailmer @ Choice Scarf
 Ability: Pressure
 Level: 30
-EVs: 36 HP / 200 SpA / 200 Spe
 Nature: Timid
 - Water Spout
 - Hydro Pump
@@ -11267,7 +10288,6 @@ Nature: Timid
 
 Zubat @ Choice Scarf
 Level: 30
-EVs: 36 HP / 236 Atk / 236 Spe
 Nature: Jolly
 - Brave Bird
 - U-turn
@@ -11280,7 +10300,6 @@ Nature: Jolly
 Poochyena
 Ability: Rattled
 Level: 22
-EVs: 236 Atk / 36 SpD / 236 Spe
 Nature: Jolly
 - Howl
 - Crunch
@@ -11290,7 +10309,6 @@ Nature: Jolly
 Numel @ Eviolite
 Ability: Simple
 Level: 22
-EVs: 36 Def / 236 SpA / 236 Spe
 Nature: Modest
 - Flame Charge
 - Fire Blast
@@ -11303,7 +10321,6 @@ Nature: Modest
 Geodude @ Berry Juice
 Ability: Sturdy
 Level: 8
-EVs: 36 HP / 196 Atk / 116 Def / 36 SpD / 116 Spe
 Nature: Adamant
 - Stealth Rock
 - Rock Blast
@@ -11313,7 +10330,6 @@ Nature: Adamant
 Geodude @ Berry Juice
 Ability: Sturdy
 Level: 8
-EVs: 36 HP / 196 Atk / 116 Def / 36 SpD / 116 Spe
 Nature: Adamant
 - Stealth Rock
 - Rock Blast
@@ -11326,7 +10342,6 @@ Nature: Adamant
 Machop @ Choice Scarf
 Ability: No Guard
 Level: 13
-EVs: 36 HP / 196 Atk / 36 Def / 236 Spe
 Nature: Jolly
 - Dynamic Punch
 - Knock Off
@@ -11338,7 +10353,6 @@ Nature: Jolly
 
 Meditite @ Choice Band
 Level: 13
-EVs: 252 Atk / 4 SpD / 252 Spe
 Nature: Adamant
 - Close Combat
 - Zen Headbutt
@@ -11350,7 +10364,6 @@ Nature: Adamant
 
 Makuhita @ Berry Juice
 Level: 13
-EVs: 20 HP / 196 Atk / 36 Def / 236 Spe
 Nature: Jolly
 - Belly Drum
 - Close Combat
@@ -11362,7 +10375,6 @@ Nature: Jolly
 
 Meditite @ Choice Band
 Level: 36
-EVs: 252 Atk / 4 SpD / 252 Spe
 Nature: Adamant
 - Close Combat
 - Zen Headbutt
@@ -11375,7 +10387,6 @@ Nature: Adamant
 Carvanha @ Life Orb
 Ability: Speed Boost
 Level: 34
-EVs: 236 SpA / 36 SpD / 236 Spe
 Nature: Modest
 IVs: 9 HP / 0 Atk
 - Protect
@@ -11389,7 +10400,6 @@ IVs: 9 HP / 0 Atk
 Manectric
 Ability: Lightning Rod
 Level: 32
-EVs: 252 SpA / 4 SpD / 252 Spe
 Nature: Timid
 IVs: 0 Atk
 - Volt Switch
@@ -11400,7 +10410,6 @@ IVs: 0 Atk
 Linoone @ Figy Berry
 Ability: Gluttony
 Level: 32
-EVs: 60 HP / 252 Atk / 196 Spe
 Nature: Adamant
 - Belly Drum
 - Extreme Speed
@@ -11413,7 +10422,6 @@ Nature: Adamant
 Tentacruel @ Leftovers
 Ability: Liquid Ooze
 Level: 35
-EVs: 252 HP / 120 Def / 136 Spe
 Nature: Jolly
 - Flip Turn
 - Rapid Spin
@@ -11425,7 +10433,6 @@ Nature: Jolly
 
 Zubat @ Choice Scarf
 Level: 20
-EVs: 36 HP / 236 Atk / 236 Spe
 Nature: Jolly
 - Brave Bird
 - U-turn
@@ -11438,7 +10445,6 @@ Nature: Jolly
 Sharpedo
 Ability: Speed Boost
 Level: 34
-EVs: 252 Atk / 4 SpD / 252 Spe
 Nature: Adamant
 - Crunch
 - Psychic Fangs
@@ -11451,7 +10457,6 @@ Nature: Adamant
 Girafarig @ Choice Specs
 Ability: Sap Sipper
 Level: 37
-EVs: 252 SpA / 4 SpD / 252 Spe
 Nature: Timid
 - Psychic
 - Hyper Voice
@@ -11463,7 +10468,6 @@ Nature: Timid
 
 Spoink @ Eviolite
 Level: 36
-EVs: 80 Def / 200 SpA / 200 Spe
 Nature: Timid
 - Calm Mind
 - Psychic
@@ -11476,7 +10480,6 @@ Nature: Timid
 Kadabra @ Focus Sash
 Ability: Magic Guard
 Level: 36
-EVs: 4 HP / 252 SpA / 252 Spe
 Nature: Timid
 - Psychic
 - Counter
@@ -11489,7 +10492,6 @@ Nature: Timid
 Girafarig @ Choice Specs
 Ability: Sap Sipper
 Level: 36
-EVs: 252 SpA / 4 SpD / 252 Spe
 Nature: Timid
 - Psychic
 - Hyper Voice
@@ -11502,7 +10504,6 @@ Nature: Timid
 Wobbuffet @ Leftovers
 Ability: Telepathy
 Level: 36
-EVs: 252 HP / 4 Def / 252 SpD
 Nature: Calm
 - Encore
 - Counter
@@ -11514,7 +10515,6 @@ Nature: Calm
 
 Zubat @ Choice Scarf
 Level: 31
-EVs: 36 HP / 236 Atk / 236 Spe
 Nature: Jolly
 - Brave Bird
 - U-turn
@@ -11524,7 +10524,6 @@ Nature: Jolly
 Poochyena
 Ability: Rattled
 Level: 31
-EVs: 236 Atk / 36 SpD / 236 Spe
 Nature: Jolly
 - Howl
 - Crunch
@@ -11536,7 +10535,6 @@ Nature: Jolly
 
 Baltoy @ Berry Juice
 Level: 32
-EVs: 36 HP / 236 Def / 36 SpA / 196 SpD
 Nature: Bold
 - Rapid Spin
 - Stealth Rock
@@ -11548,7 +10546,6 @@ Nature: Bold
 
 Zubat @ Choice Scarf
 Level: 32
-EVs: 36 HP / 236 Atk / 236 Spe
 Nature: Jolly
 - Brave Bird
 - U-turn
@@ -11561,7 +10558,6 @@ Nature: Jolly
 Mightyena @ Life Orb
 Ability: Moxie
 Level: 32
-EVs: 252 Atk / 4 SpD / 252 Spe
 Nature: Adamant
 - Crunch
 - Sucker Punch
@@ -11573,7 +10569,6 @@ Nature: Adamant
 
 Baltoy @ Berry Juice
 Level: 32
-EVs: 36 HP / 236 Def / 36 SpA / 196 SpD
 Nature: Bold
 - Rapid Spin
 - Stealth Rock
@@ -11586,7 +10581,6 @@ Nature: Bold
 Natu @ Eviolite
 Ability: Magic Bounce
 Level: 36
-EVs: 36 HP / 76 Def / 36 SpA / 156 SpD / 196 Spe
 Nature: Timid
 - Psychic
 - Heat Wave
@@ -11599,7 +10593,6 @@ Nature: Timid
 Swellow @ Choice Specs
 Ability: Scrappy
 Level: 33
-EVs: 4 Def / 252 SpA / 252 Spe
 Nature: Timid
 - Boomburst
 - U-turn
@@ -11609,7 +10602,6 @@ Nature: Timid
 Breloom @ Toxic Orb
 Ability: Poison Heal
 Level: 33
-EVs: 252 HP / 80 Atk / 176 Spe
 Nature: Adamant
 - Close Combat
 - Seed Bomb
@@ -11622,7 +10614,6 @@ Nature: Adamant
 Staryu @ Eviolite
 Ability: Natural Cure
 Level: 34
-EVs: 252 HP / 252 Def / 4 SpD
 Nature: Bold
 - Scald
 - Rapid Spin
@@ -11634,7 +10625,6 @@ Nature: Bold
 
 Zubat @ Choice Scarf
 Level: 27
-EVs: 36 HP / 236 Atk / 236 Spe
 Nature: Jolly
 - Brave Bird
 - U-turn
@@ -11644,7 +10634,6 @@ Nature: Jolly
 Poochyena
 Ability: Rattled
 Level: 27
-EVs: 236 Atk / 36 SpD / 236 Spe
 Nature: Jolly
 - Howl
 - Crunch
@@ -11657,7 +10646,6 @@ Nature: Jolly
 Kecleon @ Assault Vest
 Ability: Protean
 Level: 33
-EVs: 172 HP / 252 Atk / 84 Spe
 Nature: Adamant
 - Knock Off
 - Drain Punch
@@ -11666,7 +10654,6 @@ Nature: Adamant
 
 Loudred @ Leftovers
 Level: 33
-EVs: 100 HP / 252 Atk / 16 SpA / 140 Spe
 Nature: Naughty
 - Return
 - Shadow Ball
@@ -11678,7 +10665,6 @@ Nature: Naughty
 
 Zigzagoon @ Berry Juice
 Level: 4
-EVs: 132 HP / 196 Atk / 108 Def / 28 SpD / 36 Spe
 Nature: Adamant
 - Belly Drum
 - Extreme Speed
@@ -11687,7 +10673,6 @@ Nature: Adamant
 
 Shroomish @ Eviolite
 Level: 4
-EVs: 36 HP / 36 Atk / 196 Def / 116 SpD / 76 Spe
 Nature: Impish
 - Spore
 - Bullet Seed
@@ -11699,7 +10684,6 @@ Nature: Impish
 
 Lotad @ Life Orb
 Level: 6
-EVs: 116 Def / 196 SpA / 196 Spe
 Nature: Modest
 IVs: 19 HP
 - Surf
@@ -11709,7 +10693,6 @@ IVs: 19 HP
 
 Shroomish @ Eviolite
 Level: 6
-EVs: 36 HP / 36 Atk / 196 Def / 116 SpD / 76 Spe
 Nature: Impish
 - Spore
 - Bullet Seed
@@ -11722,7 +10705,6 @@ Nature: Impish
 Marill @ Choice Band
 Ability: Huge Power
 Level: 9
-EVs: 52 HP / 252 Atk / 204 Spe
 Nature: Adamant
 - Play Rough
 - Waterfall
@@ -11735,7 +10717,6 @@ Nature: Adamant
 Marill @ Choice Band
 Ability: Huge Power
 Level: 15
-EVs: 52 HP / 252 Atk / 204 Spe
 Nature: Adamant
 - Play Rough
 - Waterfall
@@ -11744,7 +10725,6 @@ Nature: Adamant
 
 Shroomish @ Eviolite
 Level: 15
-EVs: 36 HP / 36 Atk / 196 Def / 116 SpD / 76 Spe
 Nature: Impish
 - Spore
 - Bullet Seed
@@ -11754,7 +10734,6 @@ Nature: Impish
 Numel @ Eviolite
 Ability: Simple
 Level: 15
-EVs: 36 Def / 236 SpA / 236 Spe
 Nature: Modest
 - Flame Charge
 - Fire Blast
@@ -11766,7 +10745,6 @@ Nature: Modest
 
 Lombre @ Leftovers
 Level: 26
-EVs: 160 HP / 232 SpA / 116 Spe
 Nature: Modest
 IVs: 2 Atk / 30 SpA
 - Hydro Pump
@@ -11776,7 +10754,6 @@ IVs: 2 Atk / 30 SpA
 
 Shroomish @ Eviolite
 Level: 26
-EVs: 36 HP / 36 Atk / 196 Def / 116 SpD / 76 Spe
 Nature: Impish
 - Spore
 - Bullet Seed
@@ -11788,7 +10765,6 @@ Nature: Impish
 
 Lombre @ Leftovers
 Level: 29
-EVs: 160 HP / 232 SpA / 116 Spe
 Nature: Modest
 IVs: 2 Atk / 30 SpA
 - Hydro Pump
@@ -11799,7 +10775,6 @@ IVs: 2 Atk / 30 SpA
 Breloom @ Toxic Orb
 Ability: Poison Heal
 Level: 29
-EVs: 252 HP / 80 Atk / 176 Spe
 Nature: Adamant
 - Close Combat
 - Seed Bomb
@@ -11811,7 +10786,6 @@ Nature: Adamant
 
 Lombre @ Leftovers
 Level: 32
-EVs: 160 HP / 232 SpA / 116 Spe
 Nature: Modest
 IVs: 2 Atk / 30 SpA
 - Hydro Pump
@@ -11822,7 +10796,6 @@ IVs: 2 Atk / 30 SpA
 Breloom @ Toxic Orb
 Ability: Poison Heal
 Level: 32
-EVs: 252 HP / 80 Atk / 176 Spe
 Nature: Adamant
 - Close Combat
 - Seed Bomb
@@ -11835,7 +10808,6 @@ Nature: Adamant
 Swellow @ Choice Specs
 Ability: Scrappy
 Level: 34
-EVs: 4 Def / 252 SpA / 252 Spe
 Nature: Timid
 - Boomburst
 - U-turn
@@ -11844,7 +10816,6 @@ Nature: Timid
 
 Lombre @ Leftovers
 Level: 34
-EVs: 160 HP / 232 SpA / 116 Spe
 Nature: Modest
 IVs: 2 Atk / 30 SpA
 - Hydro Pump
@@ -11855,7 +10826,6 @@ IVs: 2 Atk / 30 SpA
 Breloom @ Toxic Orb
 Ability: Poison Heal
 Level: 34
-EVs: 252 HP / 80 Atk / 176 Spe
 Nature: Adamant
 - Close Combat
 - Seed Bomb
@@ -11867,7 +10837,6 @@ Nature: Adamant
 
 Oddish @ Eviolite
 Level: 16
-EVs: 156 HP / 236 Def / 76 SpD / 36 Spe
 Nature: Bold
 - Sleep Powder
 - Strength Sap
@@ -11880,7 +10849,6 @@ Nature: Bold
 Skitty @ Life Orb
 Ability: Normalize
 Level: 14
-EVs: 236 Atk / 76 SpD / 196 Spe
 Nature: Jolly
 - Fake Out
 - Sucker Punch
@@ -11889,7 +10857,6 @@ Nature: Jolly
 
 Shroomish @ Eviolite
 Level: 14
-EVs: 36 HP / 36 Atk / 196 Def / 116 SpD / 76 Spe
 Nature: Impish
 - Spore
 - Bullet Seed
@@ -11899,7 +10866,6 @@ Nature: Impish
 Marill @ Choice Band
 Ability: Huge Power
 Level: 14
-EVs: 52 HP / 252 Atk / 204 Spe
 Nature: Adamant
 - Play Rough
 - Waterfall
@@ -11911,7 +10877,6 @@ Nature: Adamant
 
 Luvdisc @ Life Orb
 Level: 40
-EVs: 252 SpA / 4 SpD / 252 Spe
 Nature: Modest
 - Hydro Pump
 - Ice Beam
@@ -11924,7 +10889,6 @@ Nature: Modest
 Goldeen
 Ability: Lightning Rod
 Level: 39
-EVs: 220 Atk / 36 SpD / 252 Spe
 Nature: Jolly
 - Bounce
 - Waterfall
@@ -11934,7 +10898,6 @@ Nature: Jolly
 Wailmer @ Choice Scarf
 Ability: Pressure
 Level: 39
-EVs: 36 HP / 200 SpA / 200 Spe
 Nature: Timid
 - Water Spout
 - Hydro Pump
@@ -12008,7 +10971,6 @@ Level: 8
 
 Nincada @ Eviolite
 Level: 8
-EVs: 188 HP / 76 Atk / 36 Def / 196 Spe
 Nature: Naive
 - Final Gambit
 - Leech Life
@@ -12020,7 +10982,6 @@ Nature: Naive
 
 Nincada @ Eviolite
 Level: 28
-EVs: 188 HP / 76 Atk / 36 Def / 196 Spe
 Nature: Naive
 - Final Gambit
 - Leech Life
@@ -12029,7 +10990,6 @@ Nature: Naive
 
 Beedrill
 Level: 28
-EVs: 252 Atk / 4 SpD / 252 Spe
 Nature: Jolly
 - Swords Dance
 - Poison Jab
@@ -12042,7 +11002,6 @@ Nature: Jolly
 Volbeat @ Heavy-Duty Boots
 Ability: Prankster
 Level: 25
-EVs: 252 HP / 4 Def / 252 SpD
 Nature: Sassy
 IVs: 0 Spe
 - Encore
@@ -12053,7 +11012,6 @@ IVs: 0 Spe
 Illumise @ Heat Rock
 Ability: Prankster
 Level: 25
-EVs: 252 HP / 4 Atk / 252 Def
 Nature: Relaxed
 IVs: 0 Spe
 - Sunny Day
@@ -12066,7 +11024,6 @@ IVs: 0 Spe
 
 Beedrill
 Level: 25
-EVs: 252 Atk / 4 SpD / 252 Spe
 Nature: Jolly
 - Swords Dance
 - Poison Jab
@@ -12078,7 +11035,6 @@ Nature: Jolly
 
 Nincada @ Eviolite
 Level: 6
-EVs: 188 HP / 76 Atk / 36 Def / 196 Spe
 Nature: Naive
 - Final Gambit
 - Leech Life
@@ -12087,7 +11043,6 @@ Nature: Naive
 
 Nincada @ Eviolite
 Level: 6
-EVs: 188 HP / 76 Atk / 36 Def / 196 Spe
 Nature: Naive
 - Final Gambit
 - Leech Life
@@ -12099,7 +11054,6 @@ Nature: Naive
 
 Beedrill
 Level: 27
-EVs: 252 Atk / 4 SpD / 252 Spe
 Nature: Jolly
 - Swords Dance
 - Poison Jab
@@ -12111,7 +11065,6 @@ Nature: Jolly
 
 Dustox @ Black Sludge
 Level: 29
-EVs: 248 HP / 120 Def / 140 Spe
 Nature: Bold
 IVs: 0 Atk
 - Quiver Dance
@@ -12121,7 +11074,6 @@ IVs: 0 Atk
 
 Beedrill
 Level: 29
-EVs: 252 Atk / 4 SpD / 252 Spe
 Nature: Jolly
 - Swords Dance
 - Poison Jab
@@ -12133,7 +11085,6 @@ Nature: Jolly
 
 Surskit @ Focus Sash
 Level: 31
-EVs: 36 HP / 20 Def / 196 SpA / 20 SpD / 236 Spe
 Nature: Timid
 IVs: 0 Atk
 - Sticky Web
@@ -12143,7 +11094,6 @@ IVs: 0 Atk
 
 Dustox @ Black Sludge
 Level: 31
-EVs: 248 HP / 120 Def / 140 Spe
 Nature: Bold
 IVs: 0 Atk
 - Quiver Dance
@@ -12153,7 +11103,6 @@ IVs: 0 Atk
 
 Beedrill
 Level: 31
-EVs: 252 Atk / 4 SpD / 252 Spe
 Nature: Jolly
 - Swords Dance
 - Poison Jab
@@ -12165,7 +11114,6 @@ Nature: Jolly
 
 Surskit @ Focus Sash
 Level: 33
-EVs: 36 HP / 20 Def / 196 SpA / 20 SpD / 236 Spe
 Nature: Timid
 IVs: 0 Atk
 - Sticky Web
@@ -12175,7 +11123,6 @@ IVs: 0 Atk
 
 Beedrill
 Level: 33
-EVs: 252 Atk / 4 SpD / 252 Spe
 Nature: Jolly
 - Swords Dance
 - Poison Jab
@@ -12184,7 +11131,6 @@ Nature: Jolly
 
 Dustox @ Black Sludge
 Level: 33
-EVs: 248 HP / 120 Def / 140 Spe
 Nature: Bold
 IVs: 0 Atk
 - Quiver Dance
@@ -12194,7 +11140,6 @@ IVs: 0 Atk
 
 Beedrill
 Level: 33
-EVs: 252 Atk / 4 SpD / 252 Spe
 Nature: Jolly
 - Swords Dance
 - Poison Jab
@@ -12207,7 +11152,6 @@ Nature: Jolly
 Numel @ Eviolite
 Ability: Simple
 Level: 17
-EVs: 36 Def / 236 SpA / 236 Spe
 Nature: Modest
 - Flame Charge
 - Fire Blast
@@ -12217,7 +11161,6 @@ Nature: Modest
 Machop @ Choice Scarf
 Ability: No Guard
 Level: 17
-EVs: 36 HP / 196 Atk / 36 Def / 236 Spe
 Nature: Jolly
 - Dynamic Punch
 - Knock Off
@@ -12230,7 +11173,6 @@ Nature: Jolly
 Geodude @ Berry Juice
 Ability: Sturdy
 Level: 16
-EVs: 36 HP / 196 Atk / 116 Def / 36 SpD / 116 Spe
 Nature: Adamant
 - Stealth Rock
 - Rock Blast
@@ -12240,7 +11182,6 @@ Nature: Adamant
 Geodude @ Berry Juice
 Ability: Sturdy
 Level: 17
-EVs: 36 HP / 196 Atk / 116 Def / 36 SpD / 116 Spe
 Nature: Adamant
 - Stealth Rock
 - Rock Blast
@@ -12250,7 +11191,6 @@ Nature: Adamant
 Geodude @ Berry Juice
 Ability: Sturdy
 Level: 16
-EVs: 36 HP / 196 Atk / 116 Def / 36 SpD / 116 Spe
 Nature: Adamant
 - Stealth Rock
 - Rock Blast
@@ -12263,7 +11203,6 @@ Nature: Adamant
 Geodude @ Berry Juice
 Ability: Sturdy
 Level: 18
-EVs: 36 HP / 196 Atk / 116 Def / 36 SpD / 116 Spe
 Nature: Adamant
 - Stealth Rock
 - Rock Blast
@@ -12273,7 +11212,6 @@ Nature: Adamant
 Machop @ Choice Scarf
 Ability: No Guard
 Level: 18
-EVs: 36 HP / 196 Atk / 36 Def / 236 Spe
 Nature: Jolly
 - Dynamic Punch
 - Knock Off
@@ -12286,7 +11224,6 @@ Nature: Jolly
 Geodude @ Berry Juice
 Ability: Sturdy
 Level: 18
-EVs: 36 HP / 196 Atk / 116 Def / 36 SpD / 116 Spe
 Nature: Adamant
 - Stealth Rock
 - Rock Blast
@@ -12296,7 +11233,6 @@ Nature: Adamant
 Numel @ Eviolite
 Ability: Simple
 Level: 18
-EVs: 36 Def / 236 SpA / 236 Spe
 Nature: Modest
 - Flame Charge
 - Fire Blast
@@ -12309,7 +11245,6 @@ Nature: Modest
 Geodude @ Berry Juice
 Ability: Sturdy
 Level: 22
-EVs: 36 HP / 196 Atk / 116 Def / 36 SpD / 116 Spe
 Nature: Adamant
 - Stealth Rock
 - Rock Blast
@@ -12318,7 +11253,6 @@ Nature: Adamant
 
 Nosepass @ Berry Juice
 Level: 22
-EVs: 76 Atk / 236 Def / 196 SpD
 Nature: Relaxed
 - Stealth Rock
 - Rock Blast
@@ -12328,7 +11262,6 @@ Nature: Relaxed
 Graveler @ Weakness Policy
 Ability: Sturdy
 Level: 22
-EVs: 92 HP / 252 Atk / 164 Spe
 Nature: Adamant
 - Stealth Rock
 - Stone Edge
@@ -12341,7 +11274,6 @@ Nature: Adamant
 Geodude @ Berry Juice
 Ability: Sturdy
 Level: 8
-EVs: 36 HP / 196 Atk / 116 Def / 36 SpD / 116 Spe
 Nature: Adamant
 - Stealth Rock
 - Rock Blast
@@ -12354,7 +11286,6 @@ Nature: Adamant
 Geodude @ Berry Juice
 Ability: Sturdy
 Level: 20
-EVs: 36 HP / 196 Atk / 116 Def / 36 SpD / 116 Spe
 Nature: Adamant
 - Stealth Rock
 - Rock Blast
@@ -12363,7 +11294,6 @@ Nature: Adamant
 
 Baltoy @ Berry Juice
 Level: 20
-EVs: 36 HP / 236 Def / 36 SpA / 196 SpD
 Nature: Bold
 - Rapid Spin
 - Stealth Rock
@@ -12376,7 +11306,6 @@ Nature: Bold
 Wailmer @ Choice Scarf
 Ability: Pressure
 Level: 9
-EVs: 36 HP / 200 SpA / 200 Spe
 Nature: Timid
 - Water Spout
 - Hydro Pump
@@ -12389,7 +11318,6 @@ Nature: Timid
 Pelipper @ Damp Rock
 Ability: Drizzle
 Level: 10
-EVs: 248 HP / 252 Def / 8 SpD
 Nature: Relaxed
 IVs: 0 Spe
 - Hurricane
@@ -12400,7 +11328,6 @@ IVs: 0 Spe
 Poochyena
 Ability: Rattled
 Level: 10
-EVs: 236 Atk / 36 SpD / 236 Spe
 Nature: Jolly
 - Howl
 - Crunch
@@ -12413,7 +11340,6 @@ Nature: Jolly
 Geodude @ Berry Juice
 Ability: Sturdy
 Level: 16
-EVs: 36 HP / 196 Atk / 116 Def / 36 SpD / 116 Spe
 Nature: Adamant
 - Stealth Rock
 - Rock Blast
@@ -12423,7 +11349,6 @@ Nature: Adamant
 Geodude @ Berry Juice
 Ability: Sturdy
 Level: 16
-EVs: 36 HP / 196 Atk / 116 Def / 36 SpD / 116 Spe
 Nature: Adamant
 - Stealth Rock
 - Rock Blast
@@ -12433,7 +11358,6 @@ Nature: Adamant
 Machop @ Choice Scarf
 Ability: No Guard
 Level: 16
-EVs: 36 HP / 196 Atk / 36 Def / 236 Spe
 Nature: Jolly
 - Dynamic Punch
 - Knock Off
@@ -12446,7 +11370,6 @@ Nature: Jolly
 Geodude @ Berry Juice
 Ability: Sturdy
 Level: 24
-EVs: 36 HP / 196 Atk / 116 Def / 36 SpD / 116 Spe
 Nature: Adamant
 - Stealth Rock
 - Rock Blast
@@ -12456,7 +11379,6 @@ Nature: Adamant
 Geodude @ Berry Juice
 Ability: Sturdy
 Level: 24
-EVs: 36 HP / 196 Atk / 116 Def / 36 SpD / 116 Spe
 Nature: Adamant
 - Stealth Rock
 - Rock Blast
@@ -12466,7 +11388,6 @@ Nature: Adamant
 Geodude @ Berry Juice
 Ability: Sturdy
 Level: 24
-EVs: 36 HP / 196 Atk / 116 Def / 36 SpD / 116 Spe
 Nature: Adamant
 - Stealth Rock
 - Rock Blast
@@ -12476,7 +11397,6 @@ Nature: Adamant
 Graveler @ Weakness Policy
 Ability: Sturdy
 Level: 24
-EVs: 92 HP / 252 Atk / 164 Spe
 Nature: Adamant
 - Stealth Rock
 - Stone Edge
@@ -12489,7 +11409,6 @@ Nature: Adamant
 Geodude @ Berry Juice
 Ability: Sturdy
 Level: 27
-EVs: 36 HP / 196 Atk / 116 Def / 36 SpD / 116 Spe
 Nature: Adamant
 - Stealth Rock
 - Rock Blast
@@ -12499,7 +11418,6 @@ Nature: Adamant
 Geodude @ Berry Juice
 Ability: Sturdy
 Level: 27
-EVs: 36 HP / 196 Atk / 116 Def / 36 SpD / 116 Spe
 Nature: Adamant
 - Stealth Rock
 - Rock Blast
@@ -12509,7 +11427,6 @@ Nature: Adamant
 Graveler @ Weakness Policy
 Ability: Sturdy
 Level: 27
-EVs: 92 HP / 252 Atk / 164 Spe
 Nature: Adamant
 - Stealth Rock
 - Stone Edge
@@ -12519,7 +11436,6 @@ Nature: Adamant
 Graveler @ Weakness Policy
 Ability: Sturdy
 Level: 27
-EVs: 92 HP / 252 Atk / 164 Spe
 Nature: Adamant
 - Stealth Rock
 - Stone Edge
@@ -12532,7 +11448,6 @@ Nature: Adamant
 Geodude @ Berry Juice
 Ability: Sturdy
 Level: 30
-EVs: 36 HP / 196 Atk / 116 Def / 36 SpD / 116 Spe
 Nature: Adamant
 - Stealth Rock
 - Rock Blast
@@ -12542,7 +11457,6 @@ Nature: Adamant
 Graveler @ Weakness Policy
 Ability: Sturdy
 Level: 30
-EVs: 92 HP / 252 Atk / 164 Spe
 Nature: Adamant
 - Stealth Rock
 - Stone Edge
@@ -12552,7 +11466,6 @@ Nature: Adamant
 Graveler @ Weakness Policy
 Ability: Sturdy
 Level: 30
-EVs: 92 HP / 252 Atk / 164 Spe
 Nature: Adamant
 - Stealth Rock
 - Stone Edge
@@ -12562,7 +11475,6 @@ Nature: Adamant
 Graveler @ Weakness Policy
 Ability: Sturdy
 Level: 30
-EVs: 92 HP / 252 Atk / 164 Spe
 Nature: Adamant
 - Stealth Rock
 - Stone Edge
@@ -12575,7 +11487,6 @@ Nature: Adamant
 Graveler @ Weakness Policy
 Ability: Sturdy
 Level: 33
-EVs: 92 HP / 252 Atk / 164 Spe
 Nature: Adamant
 - Stealth Rock
 - Stone Edge
@@ -12585,7 +11496,6 @@ Nature: Adamant
 Graveler @ Weakness Policy
 Ability: Sturdy
 Level: 33
-EVs: 92 HP / 252 Atk / 164 Spe
 Nature: Adamant
 - Stealth Rock
 - Stone Edge
@@ -12595,7 +11505,6 @@ Nature: Adamant
 Graveler @ Weakness Policy
 Ability: Sturdy
 Level: 33
-EVs: 92 HP / 252 Atk / 164 Spe
 Nature: Adamant
 - Stealth Rock
 - Stone Edge
@@ -12605,7 +11514,6 @@ Nature: Adamant
 Golem @ Custap Berry
 Ability: Sturdy
 Level: 33
-EVs: 252 Atk / 4 Def / 252 Spe
 Nature: Adamant
 - Stealth Rock
 - Earthquake
@@ -12618,7 +11526,6 @@ Nature: Adamant
 Delcatty @ Silk Scarf
 Ability: Normalize
 Level: 31
-EVs: 252 Atk / 4 Def / 252 Spe
 Nature: Jolly
 - Fake Out
 - Sucker Punch
@@ -12628,7 +11535,6 @@ Nature: Jolly
 Manectric
 Ability: Lightning Rod
 Level: 31
-EVs: 252 SpA / 4 SpD / 252 Spe
 Nature: Timid
 IVs: 0 Atk
 - Volt Switch
@@ -12641,7 +11547,6 @@ IVs: 0 Atk
 
 Luvdisc @ Life Orb
 Level: 45
-EVs: 252 SpA / 4 SpD / 252 Spe
 Nature: Modest
 - Hydro Pump
 - Ice Beam
@@ -12650,7 +11555,6 @@ Nature: Modest
 
 Luvdisc @ Life Orb
 Level: 45
-EVs: 252 SpA / 4 SpD / 252 Spe
 Nature: Modest
 - Hydro Pump
 - Ice Beam
@@ -12663,7 +11567,6 @@ Nature: Modest
 Volbeat @ Heavy-Duty Boots
 Ability: Prankster
 Level: 25
-EVs: 252 HP / 4 Def / 252 SpD
 Nature: Sassy
 IVs: 0 Spe
 - Encore
@@ -12674,7 +11577,6 @@ IVs: 0 Spe
 Illumise @ Heat Rock
 Ability: Prankster
 Level: 25
-EVs: 252 HP / 4 Atk / 252 Def
 Nature: Relaxed
 IVs: 0 Spe
 - Sunny Day
@@ -12688,7 +11590,6 @@ IVs: 0 Spe
 Volbeat @ Heavy-Duty Boots
 Ability: Prankster
 Level: 30
-EVs: 252 HP / 4 Def / 252 SpD
 Nature: Sassy
 IVs: 0 Spe
 - Encore
@@ -12699,7 +11600,6 @@ IVs: 0 Spe
 Illumise @ Heat Rock
 Ability: Prankster
 Level: 30
-EVs: 252 HP / 4 Atk / 252 Def
 Nature: Relaxed
 IVs: 0 Spe
 - Sunny Day
@@ -12713,7 +11613,6 @@ IVs: 0 Spe
 Volbeat @ Heavy-Duty Boots
 Ability: Prankster
 Level: 33
-EVs: 252 HP / 4 Def / 252 SpD
 Nature: Sassy
 IVs: 0 Spe
 - Encore
@@ -12724,7 +11623,6 @@ IVs: 0 Spe
 Illumise @ Heat Rock
 Ability: Prankster
 Level: 33
-EVs: 252 HP / 4 Atk / 252 Def
 Nature: Relaxed
 IVs: 0 Spe
 - Sunny Day
@@ -12738,7 +11636,6 @@ IVs: 0 Spe
 Volbeat @ Heavy-Duty Boots
 Ability: Prankster
 Level: 36
-EVs: 252 HP / 4 Def / 252 SpD
 Nature: Sassy
 IVs: 0 Spe
 - Encore
@@ -12749,7 +11646,6 @@ IVs: 0 Spe
 Illumise @ Heat Rock
 Ability: Prankster
 Level: 36
-EVs: 252 HP / 4 Atk / 252 Def
 Nature: Relaxed
 IVs: 0 Spe
 - Sunny Day
@@ -12763,7 +11659,6 @@ IVs: 0 Spe
 Volbeat @ Heavy-Duty Boots
 Ability: Prankster
 Level: 39
-EVs: 252 HP / 4 Def / 252 SpD
 Nature: Sassy
 IVs: 0 Spe
 - Encore
@@ -12774,7 +11669,6 @@ IVs: 0 Spe
 Illumise @ Heat Rock
 Ability: Prankster
 Level: 39
-EVs: 252 HP / 4 Atk / 252 Def
 Nature: Relaxed
 IVs: 0 Spe
 - Sunny Day
@@ -12788,7 +11682,6 @@ IVs: 0 Spe
 Goldeen
 Ability: Lightning Rod
 Level: 13
-EVs: 220 Atk / 36 SpD / 252 Spe
 Nature: Jolly
 - Bounce
 - Waterfall
@@ -12801,7 +11694,6 @@ Nature: Jolly
 Kecleon @ Assault Vest
 Ability: Protean
 Level: 23
-EVs: 172 HP / 252 Atk / 84 Spe
 Nature: Adamant
 - Knock Off
 - Drain Punch
@@ -12813,7 +11705,6 @@ Nature: Adamant
 
 Meditite @ Choice Band
 Level: 17
-EVs: 252 Atk / 4 SpD / 252 Spe
 Nature: Adamant
 - Close Combat
 - Zen Headbutt
@@ -12822,7 +11713,6 @@ Nature: Adamant
 
 Meditite @ Choice Band
 Level: 17
-EVs: 252 Atk / 4 SpD / 252 Spe
 Nature: Adamant
 - Close Combat
 - Zen Headbutt
@@ -12834,7 +11724,6 @@ Nature: Adamant
 
 Meditite @ Choice Band
 Level: 23
-EVs: 252 Atk / 4 SpD / 252 Spe
 Nature: Adamant
 - Close Combat
 - Zen Headbutt
@@ -12847,7 +11736,6 @@ Nature: Adamant
 Koffing @ Eviolite
 Ability: Neutralizing Gas
 Level: 25
-EVs: 252 HP / 252 Def / 4 SpD
 Nature: Bold
 - Sludge Bomb
 - Pain Split
@@ -12857,7 +11745,6 @@ Nature: Bold
 Koffing @ Eviolite
 Ability: Neutralizing Gas
 Level: 25
-EVs: 252 HP / 252 Def / 4 SpD
 Nature: Bold
 - Sludge Bomb
 - Pain Split
@@ -12870,7 +11757,6 @@ Nature: Bold
 Koffing @ Eviolite
 Ability: Neutralizing Gas
 Level: 28
-EVs: 252 HP / 252 Def / 4 SpD
 Nature: Bold
 - Sludge Bomb
 - Pain Split
@@ -12879,7 +11765,6 @@ Nature: Bold
 
 Beedrill
 Level: 28
-EVs: 252 Atk / 4 SpD / 252 Spe
 Nature: Jolly
 - Swords Dance
 - Poison Jab
@@ -12891,7 +11776,6 @@ Nature: Jolly
 
 Nincada @ Eviolite
 Level: 28
-EVs: 188 HP / 76 Atk / 36 Def / 196 Spe
 Nature: Naive
 - Final Gambit
 - Leech Life
@@ -12901,7 +11785,6 @@ Nature: Naive
 Koffing @ Eviolite
 Ability: Neutralizing Gas
 Level: 28
-EVs: 252 HP / 252 Def / 4 SpD
 Nature: Bold
 - Sludge Bomb
 - Pain Split
@@ -12914,7 +11797,6 @@ Nature: Bold
 Swellow @ Choice Specs
 Ability: Scrappy
 Level: 29
-EVs: 4 Def / 252 SpA / 252 Spe
 Nature: Timid
 - Boomburst
 - U-turn
@@ -12924,7 +11806,6 @@ Nature: Timid
 Xatu @ Heavy-Duty Boots
 Ability: Magic Bounce
 Level: 29
-EVs: 252 HP / 252 Def / 4 SpD
 Nature: Bold
 - Psychic
 - Roost
@@ -12936,7 +11817,6 @@ Nature: Bold
 
 Swablu @ Eviolite
 Level: 27
-EVs: 156 HP / 196 Atk / 156 SpD
 Nature: Adamant
 - Return
 - Roost
@@ -12945,7 +11825,6 @@ Nature: Adamant
 
 Swablu @ Eviolite
 Level: 27
-EVs: 156 HP / 196 Atk / 156 SpD
 Nature: Adamant
 - Return
 - Roost
@@ -12954,7 +11833,6 @@ Nature: Adamant
 
 Swablu @ Eviolite
 Level: 27
-EVs: 156 HP / 196 Atk / 156 SpD
 Nature: Adamant
 - Return
 - Roost
@@ -12967,7 +11845,6 @@ Nature: Adamant
 Wailmer @ Choice Scarf
 Ability: Pressure
 Level: 30
-EVs: 36 HP / 200 SpA / 200 Spe
 Nature: Timid
 - Water Spout
 - Hydro Pump
@@ -12976,7 +11853,6 @@ Nature: Timid
 
 Tentacool @ Eviolite
 Level: 31
-EVs: 36 HP / 116 Atk / 156 Def / 196 Spe
 Nature: Jolly
 - Flip Turn
 - Gunk Shot
@@ -12986,7 +11862,6 @@ Nature: Jolly
 Sharpedo
 Ability: Speed Boost
 Level: 32
-EVs: 252 Atk / 4 SpD / 252 Spe
 Nature: Adamant
 - Crunch
 - Psychic Fangs
@@ -12999,7 +11874,6 @@ Nature: Adamant
 Carvanha @ Life Orb
 Ability: Speed Boost
 Level: 31
-EVs: 236 SpA / 36 SpD / 236 Spe
 Nature: Modest
 IVs: 9 HP / 0 Atk
 - Protect
@@ -13010,7 +11884,6 @@ IVs: 9 HP / 0 Atk
 Tentacruel @ Leftovers
 Ability: Liquid Ooze
 Level: 34
-EVs: 252 HP / 120 Def / 136 Spe
 Nature: Jolly
 - Flip Turn
 - Rapid Spin
@@ -13023,7 +11896,6 @@ Nature: Jolly
 Magikarp @ Bright Powder
 Ability: Rattled
 Level: 15
-EVs: 36 HP / 196 Atk / 76 Def / 196 Spe
 Nature: Jolly
 - Splash
 - Flail
@@ -13033,7 +11905,6 @@ Nature: Jolly
 Magikarp @ Bright Powder
 Ability: Rattled
 Level: 25
-EVs: 36 HP / 196 Atk / 76 Def / 196 Spe
 Nature: Jolly
 - Splash
 - Flail
@@ -13043,7 +11914,6 @@ Nature: Jolly
 Gyarados @ Leftovers
 Ability: Moxie
 Level: 35
-EVs: 252 Atk / 4 SpD / 252 Spe
 Nature: Adamant
 - Dragon Dance
 - Waterfall
@@ -13055,7 +11925,6 @@ Nature: Adamant
 
 Gloom @ Eviolite
 Level: 34
-EVs: 248 HP / 252 Def / 8 SpD
 Nature: Bold
 IVs: 0 Atk
 - Sludge Bomb
@@ -13066,7 +11935,6 @@ IVs: 0 Atk
 Azumarill @ Sitrus Berry
 Ability: Huge Power
 Level: 34
-EVs: 4 HP / 252 Atk / 252 Spe
 Nature: Adamant
 - Belly Drum
 - Play Rough
@@ -13078,7 +11946,6 @@ Nature: Adamant
 
 Shiftry @ Life Orb
 Level: 34
-EVs: 252 Atk / 4 Def / 252 Spe
 Nature: Adamant
 - Growth
 - Solar Blade
@@ -13087,7 +11954,6 @@ Nature: Adamant
 
 Nosepass @ Berry Juice
 Level: 34
-EVs: 76 Atk / 236 Def / 196 SpD
 Nature: Relaxed
 - Stealth Rock
 - Rock Blast
@@ -13100,7 +11966,6 @@ Nature: Relaxed
 Machoke @ Eviolite
 Ability: No Guard
 Level: 34
-EVs: 252 HP / 252 Def / 4 SpD
 Nature: Impish
 - Dynamic Punch
 - Knock Off
@@ -13112,7 +11977,6 @@ Nature: Impish
 
 Tentacool @ Eviolite
 Level: 31
-EVs: 36 HP / 116 Atk / 156 Def / 196 Spe
 Nature: Jolly
 - Flip Turn
 - Gunk Shot
@@ -13121,7 +11985,6 @@ Nature: Jolly
 
 Tentacool @ Eviolite
 Level: 31
-EVs: 36 HP / 116 Atk / 156 Def / 196 Spe
 Nature: Jolly
 - Flip Turn
 - Gunk Shot
@@ -13131,7 +11994,6 @@ Nature: Jolly
 Wailmer @ Choice Scarf
 Ability: Pressure
 Level: 36
-EVs: 36 HP / 200 SpA / 200 Spe
 Nature: Timid
 - Water Spout
 - Hydro Pump
@@ -13144,7 +12006,6 @@ Nature: Timid
 Swellow @ Choice Specs
 Ability: Scrappy
 Level: 32
-EVs: 4 Def / 252 SpA / 252 Spe
 Nature: Timid
 - Boomburst
 - U-turn
@@ -13154,7 +12015,6 @@ Nature: Timid
 Skarmory @ Rocky Helmet
 Ability: Sturdy
 Level: 32
-EVs: 252 HP / 160 Def / 96 Spe
 Nature: Bold
 - Body Press
 - Iron Defense
@@ -13166,7 +12026,6 @@ Nature: Bold
 
 Spheal @ Berry Juice
 Level: 33
-EVs: 36 HP / 36 Def / 240 SpA / 36 SpD / 156 Spe
 Nature: Modest
 IVs: 0 Atk / 30 SpA
 - Yawn
@@ -13177,7 +12036,6 @@ IVs: 0 Atk / 30 SpA
 Sharpedo
 Ability: Speed Boost
 Level: 33
-EVs: 252 Atk / 4 SpD / 252 Spe
 Nature: Adamant
 - Crunch
 - Psychic Fangs
@@ -13190,7 +12048,6 @@ Nature: Adamant
 Chinchou @ Eviolite
 Ability: Water Absorb
 Level: 34
-EVs: 96 HP / 252 SpA / 160 Spe
 Nature: Modest
 IVs: 0 Atk
 - Hydro Pump
@@ -13204,7 +12061,6 @@ IVs: 0 Atk
 Spinda @ Life Orb
 Ability: Contrary
 Level: 19
-EVs: 252 HP / 252 Atk / 4 Def
 Nature: Brave
 IVs: 0 Spe
 - Trick Room
@@ -13215,7 +12071,6 @@ IVs: 0 Spe
 Spinda @ Life Orb
 Ability: Contrary
 Level: 19
-EVs: 252 HP / 252 Atk / 4 Def
 Nature: Brave
 IVs: 0 Spe
 - Trick Room
@@ -13228,7 +12083,6 @@ IVs: 0 Spe
 
 Swablu @ Eviolite
 Level: 32
-EVs: 156 HP / 196 Atk / 156 SpD
 Nature: Adamant
 - Return
 - Roost
@@ -13238,7 +12092,6 @@ Nature: Adamant
 Numel @ Eviolite
 Ability: Simple
 Level: 35
-EVs: 36 Def / 236 SpA / 236 Spe
 Nature: Modest
 - Flame Charge
 - Fire Blast
@@ -13251,7 +12104,6 @@ Nature: Modest
 Roselia @ Eviolite
 Ability: Poison Point
 Level: 18
-EVs: 252 HP / 200 Def / 56 Spe
 Nature: Bold
 - Spikes
 - Sludge Bomb
@@ -13261,7 +12113,6 @@ Nature: Bold
 Graveler @ Weakness Policy
 Ability: Sturdy
 Level: 20
-EVs: 92 HP / 252 Atk / 164 Spe
 Nature: Adamant
 - Stealth Rock
 - Stone Edge
@@ -13273,7 +12124,6 @@ Nature: Adamant
 
 Dustox @ Black Sludge
 Level: 27
-EVs: 248 HP / 120 Def / 140 Spe
 Nature: Bold
 IVs: 0 Atk
 - Quiver Dance
@@ -13283,7 +12133,6 @@ IVs: 0 Atk
 
 Beautifly
 Level: 27
-EVs: 252 SpA / 4 SpD / 252 Spe
 Nature: Timid
 - Quiver Dance
 - Bug Buzz
@@ -13295,7 +12144,6 @@ Nature: Timid
 
 Medicham @ Choice Scarf
 Level: 39
-EVs: 252 Atk / 4 SpD / 252 Spe
 Nature: Jolly
 - Close Combat
 - Zen Headbutt
@@ -13305,7 +12153,6 @@ Nature: Jolly
 Hariyama @ Sitrus Berry
 Ability: Guts
 Level: 39
-EVs: 4 HP / 252 Atk / 252 Spe
 Nature: Adamant
 - Belly Drum
 - Drain Punch
@@ -13317,7 +12164,6 @@ Nature: Adamant
 
 Medicham @ Choice Scarf
 Level: 43
-EVs: 252 Atk / 4 SpD / 252 Spe
 Nature: Jolly
 - Close Combat
 - Zen Headbutt
@@ -13327,7 +12173,6 @@ Nature: Jolly
 Hariyama @ Sitrus Berry
 Ability: Guts
 Level: 43
-EVs: 4 HP / 252 Atk / 252 Spe
 Nature: Adamant
 - Belly Drum
 - Drain Punch
@@ -13339,7 +12184,6 @@ Nature: Adamant
 
 Medicham @ Choice Scarf
 Level: 46
-EVs: 252 Atk / 4 SpD / 252 Spe
 Nature: Jolly
 - Close Combat
 - Zen Headbutt
@@ -13349,7 +12193,6 @@ Nature: Jolly
 Hariyama @ Sitrus Berry
 Ability: Guts
 Level: 46
-EVs: 4 HP / 252 Atk / 252 Spe
 Nature: Adamant
 - Belly Drum
 - Drain Punch
@@ -13361,7 +12204,6 @@ Nature: Adamant
 
 Medicham @ Choice Scarf
 Level: 49
-EVs: 252 Atk / 4 SpD / 252 Spe
 Nature: Jolly
 - Close Combat
 - Zen Headbutt
@@ -13371,7 +12213,6 @@ Nature: Jolly
 Hariyama @ Sitrus Berry
 Ability: Guts
 Level: 49
-EVs: 4 HP / 252 Atk / 252 Spe
 Nature: Adamant
 - Belly Drum
 - Drain Punch
@@ -13383,7 +12224,6 @@ Nature: Adamant
 
 Medicham @ Choice Scarf
 Level: 52
-EVs: 252 Atk / 4 SpD / 252 Spe
 Nature: Jolly
 - Close Combat
 - Zen Headbutt
@@ -13393,7 +12233,6 @@ Nature: Jolly
 Hariyama @ Sitrus Berry
 Ability: Guts
 Level: 52
-EVs: 4 HP / 252 Atk / 252 Spe
 Nature: Adamant
 - Belly Drum
 - Drain Punch
@@ -13406,7 +12245,6 @@ Nature: Adamant
 Azumarill @ Sitrus Berry
 Ability: Huge Power
 Level: 35
-EVs: 4 HP / 252 Atk / 252 Spe
 Nature: Adamant
 - Belly Drum
 - Play Rough
@@ -13416,7 +12254,6 @@ Nature: Adamant
 Wingull @ Life Orb
 Ability: Hydration
 Level: 33
-EVs: 36 Def / 236 SpA / 236 Spe
 Nature: Timid
 IVs: 19 HP
 - Surf
@@ -13430,7 +12267,6 @@ IVs: 19 HP
 Chinchou @ Eviolite
 Ability: Water Absorb
 Level: 34
-EVs: 96 HP / 252 SpA / 160 Spe
 Nature: Modest
 IVs: 0 Atk
 - Hydro Pump
@@ -13441,7 +12277,6 @@ IVs: 0 Atk
 Carvanha @ Life Orb
 Ability: Speed Boost
 Level: 33
-EVs: 236 SpA / 36 SpD / 236 Spe
 Nature: Modest
 IVs: 9 HP / 0 Atk
 - Protect
@@ -13455,7 +12290,6 @@ IVs: 9 HP / 0 Atk
 Chinchou @ Eviolite
 Ability: Water Absorb
 Level: 42
-EVs: 96 HP / 252 SpA / 160 Spe
 Nature: Modest
 IVs: 0 Atk
 - Hydro Pump
@@ -13466,7 +12300,6 @@ IVs: 0 Atk
 Carvanha @ Life Orb
 Ability: Speed Boost
 Level: 40
-EVs: 236 SpA / 36 SpD / 236 Spe
 Nature: Modest
 IVs: 9 HP / 0 Atk
 - Protect
@@ -13480,7 +12313,6 @@ IVs: 9 HP / 0 Atk
 Lanturn @ Heavy-Duty Boots
 Ability: Water Absorb
 Level: 45
-EVs: 216 HP / 252 SpD / 40 Spe
 Nature: Calm
 - Scald
 - Volt Switch
@@ -13490,7 +12322,6 @@ Nature: Calm
 Carvanha @ Life Orb
 Ability: Speed Boost
 Level: 43
-EVs: 236 SpA / 36 SpD / 236 Spe
 Nature: Modest
 IVs: 9 HP / 0 Atk
 - Protect
@@ -13504,7 +12335,6 @@ IVs: 9 HP / 0 Atk
 Lanturn @ Heavy-Duty Boots
 Ability: Water Absorb
 Level: 48
-EVs: 216 HP / 252 SpD / 40 Spe
 Nature: Calm
 - Scald
 - Volt Switch
@@ -13514,7 +12344,6 @@ Nature: Calm
 Sharpedo
 Ability: Speed Boost
 Level: 46
-EVs: 252 Atk / 4 SpD / 252 Spe
 Nature: Adamant
 - Crunch
 - Psychic Fangs
@@ -13527,7 +12356,6 @@ Nature: Adamant
 Lanturn @ Heavy-Duty Boots
 Ability: Water Absorb
 Level: 51
-EVs: 216 HP / 252 SpD / 40 Spe
 Nature: Calm
 - Scald
 - Volt Switch
@@ -13537,7 +12365,6 @@ Nature: Calm
 Sharpedo
 Ability: Speed Boost
 Level: 49
-EVs: 252 Atk / 4 SpD / 252 Spe
 Nature: Adamant
 - Crunch
 - Psychic Fangs
@@ -13550,7 +12377,6 @@ Nature: Adamant
 Goldeen
 Ability: Lightning Rod
 Level: 27
-EVs: 220 Atk / 36 SpD / 252 Spe
 Nature: Jolly
 - Bounce
 - Waterfall
@@ -13559,7 +12385,6 @@ Nature: Jolly
 
 Tentacool @ Eviolite
 Level: 25
-EVs: 36 HP / 116 Atk / 156 Def / 196 Spe
 Nature: Jolly
 - Flip Turn
 - Gunk Shot
@@ -13572,7 +12397,6 @@ Nature: Jolly
 Magikarp @ Bright Powder
 Ability: Rattled
 Level: 29
-EVs: 36 HP / 196 Atk / 76 Def / 196 Spe
 Nature: Jolly
 - Splash
 - Flail
@@ -13581,7 +12405,6 @@ Nature: Jolly
 
 Tentacool @ Eviolite
 Level: 20
-EVs: 36 HP / 116 Atk / 156 Def / 196 Spe
 Nature: Jolly
 - Flip Turn
 - Gunk Shot
@@ -13591,7 +12414,6 @@ Nature: Jolly
 Carvanha @ Life Orb
 Ability: Speed Boost
 Level: 23
-EVs: 236 SpA / 36 SpD / 236 Spe
 Nature: Modest
 IVs: 9 HP / 0 Atk
 - Protect
@@ -13604,7 +12426,6 @@ IVs: 9 HP / 0 Atk
 
 Zigzagoon @ Berry Juice
 Level: 8
-EVs: 132 HP / 196 Atk / 108 Def / 28 SpD / 36 Spe
 Nature: Adamant
 - Belly Drum
 - Extreme Speed
@@ -13614,7 +12435,6 @@ Nature: Adamant
 Poochyena
 Ability: Rattled
 Level: 8
-EVs: 236 Atk / 36 SpD / 236 Spe
 Nature: Jolly
 - Howl
 - Crunch
@@ -13626,7 +12446,6 @@ Nature: Jolly
 
 Lotad @ Life Orb
 Level: 8
-EVs: 116 Def / 196 SpA / 196 Spe
 Nature: Modest
 IVs: 19 HP
 - Surf
@@ -13636,7 +12455,6 @@ IVs: 19 HP
 
 Zigzagoon @ Berry Juice
 Level: 8
-EVs: 132 HP / 196 Atk / 108 Def / 28 SpD / 36 Spe
 Nature: Adamant
 - Belly Drum
 - Extreme Speed
@@ -13649,7 +12467,6 @@ Nature: Adamant
 Magikarp @ Bright Powder
 Ability: Rattled
 Level: 9
-EVs: 36 HP / 196 Atk / 76 Def / 196 Spe
 Nature: Jolly
 - Splash
 - Flail
@@ -13662,7 +12479,6 @@ Nature: Jolly
 Marill @ Choice Band
 Ability: Huge Power
 Level: 13
-EVs: 52 HP / 252 Atk / 204 Spe
 Nature: Adamant
 - Play Rough
 - Waterfall
@@ -13674,7 +12490,6 @@ Nature: Adamant
 
 Tentacool @ Eviolite
 Level: 12
-EVs: 36 HP / 116 Atk / 156 Def / 196 Spe
 Nature: Jolly
 - Flip Turn
 - Gunk Shot
@@ -13683,7 +12498,6 @@ Nature: Jolly
 
 Tentacool @ Eviolite
 Level: 12
-EVs: 36 HP / 116 Atk / 156 Def / 196 Spe
 Nature: Jolly
 - Flip Turn
 - Gunk Shot
@@ -13696,7 +12510,6 @@ Nature: Jolly
 Minun @ Life Orb
 Ability: Volt Absorb
 Level: 14
-EVs: 252 SpA / 4 SpD / 252 Spe
 Nature: Timid
 - Nasty Plot
 - Thunderbolt
@@ -13706,7 +12519,6 @@ Nature: Timid
 Plusle @ Life Orb
 Ability: Lightning Rod
 Level: 14
-EVs: 252 SpA / 4 SpD / 252 Spe
 Nature: Timid
 - Nasty Plot
 - Thunderbolt
@@ -13719,7 +12531,6 @@ Nature: Timid
 Electrike @ Choice Scarf
 Ability: Lightning Rod
 Level: 14
-EVs: 240 SpA / 236 Spe
 Nature: Timid
 IVs: 0 Atk / 30 SpA
 - Volt Switch
@@ -13730,7 +12541,6 @@ IVs: 0 Atk / 30 SpA
 Voltorb @ Light Clay
 Ability: Aftermath
 Level: 14
-EVs: 196 HP / 36 Def / 76 SpD / 196 Spe
 Nature: Timid
 - Reflect
 - Light Screen
@@ -13742,7 +12552,6 @@ Nature: Timid
 
 Magnemite @ Choice Scarf
 Level: 15
-EVs: 36 Def / 236 SpA / 236 Spe
 Nature: Modest
 - Thunderbolt
 - Flash Cannon
@@ -13755,7 +12564,6 @@ Nature: Modest
 Voltorb @ Light Clay
 Ability: Aftermath
 Level: 15
-EVs: 196 HP / 36 Def / 76 SpD / 196 Spe
 Nature: Timid
 - Reflect
 - Light Screen
@@ -13767,7 +12575,6 @@ Nature: Timid
 
 Makuhita @ Berry Juice
 Level: 15
-EVs: 20 HP / 196 Atk / 36 Def / 236 Spe
 Nature: Jolly
 - Belly Drum
 - Close Combat
@@ -13780,7 +12587,6 @@ Nature: Jolly
 Sandshrew @ Eviolite
 Ability: Sand Rush
 Level: 19
-EVs: 236 Atk / 76 Def / 196 Spe
 Nature: Adamant
 - Swords Dance
 - Earthquake
@@ -13793,7 +12599,6 @@ Nature: Adamant
 Roselia @ Eviolite
 Ability: Poison Point
 Level: 18
-EVs: 252 HP / 200 Def / 56 Spe
 Nature: Bold
 - Spikes
 - Sludge Bomb
@@ -13805,7 +12610,6 @@ Nature: Bold
 
 Shroomish @ Eviolite
 Level: 18
-EVs: 36 HP / 36 Atk / 196 Def / 116 SpD / 76 Spe
 Nature: Impish
 - Spore
 - Bullet Seed
@@ -13818,7 +12622,6 @@ Nature: Impish
 Numel @ Eviolite
 Ability: Simple
 Level: 18
-EVs: 36 Def / 236 SpA / 236 Spe
 Nature: Modest
 - Flame Charge
 - Fire Blast
@@ -13831,7 +12634,6 @@ Nature: Modest
 Marill @ Choice Band
 Ability: Huge Power
 Level: 17
-EVs: 52 HP / 252 Atk / 204 Spe
 Nature: Adamant
 - Play Rough
 - Waterfall
@@ -13840,7 +12642,6 @@ Nature: Adamant
 
 Lombre @ Leftovers
 Level: 19
-EVs: 160 HP / 232 SpA / 116 Spe
 Nature: Modest
 IVs: 2 Atk / 30 SpA
 - Hydro Pump
@@ -13854,7 +12655,6 @@ IVs: 2 Atk / 30 SpA
 Skarmory @ Rocky Helmet
 Ability: Sturdy
 Level: 17
-EVs: 252 HP / 160 Def / 96 Spe
 Nature: Bold
 - Body Press
 - Iron Defense
@@ -13864,7 +12664,6 @@ Nature: Bold
 Swellow @ Choice Specs
 Ability: Scrappy
 Level: 19
-EVs: 4 Def / 252 SpA / 252 Spe
 Nature: Timid
 - Boomburst
 - U-turn
@@ -13876,7 +12675,6 @@ Nature: Timid
 
 Baltoy @ Berry Juice
 Level: 18
-EVs: 36 HP / 236 Def / 36 SpA / 196 SpD
 Nature: Bold
 - Rapid Spin
 - Stealth Rock
@@ -13886,7 +12684,6 @@ Nature: Bold
 Sandshrew @ Eviolite
 Ability: Sand Rush
 Level: 18
-EVs: 236 Atk / 76 Def / 196 Spe
 Nature: Adamant
 - Swords Dance
 - Earthquake
@@ -13899,7 +12696,6 @@ Nature: Adamant
 Aron @ Eviolite
 Ability: Rock Head
 Level: 18
-EVs: 196 Atk / 116 SpD / 196 Spe
 Nature: Jolly
 - Rock Polish
 - Head Smash
@@ -13909,7 +12705,6 @@ Nature: Jolly
 Aron @ Eviolite
 Ability: Rock Head
 Level: 18
-EVs: 196 Atk / 116 SpD / 196 Spe
 Nature: Jolly
 - Rock Polish
 - Head Smash
@@ -13921,7 +12716,6 @@ Nature: Jolly
 
 Lombre @ Leftovers
 Level: 18
-EVs: 160 HP / 232 SpA / 116 Spe
 Nature: Modest
 IVs: 2 Atk / 30 SpA
 - Hydro Pump
@@ -13932,7 +12726,6 @@ IVs: 2 Atk / 30 SpA
 Marill @ Choice Band
 Ability: Huge Power
 Level: 18
-EVs: 52 HP / 252 Atk / 204 Spe
 Nature: Adamant
 - Play Rough
 - Waterfall
@@ -13944,7 +12737,6 @@ Nature: Adamant
 
 Barboach
 Level: 19
-EVs: 36 HP / 212 Atk / 12 Def / 28 SpD / 196 Spe
 Nature: Adamant
 - Dragon Dance
 - Earthquake
@@ -13956,7 +12748,6 @@ Nature: Adamant
 
 Zigzagoon @ Berry Juice
 Level: 14
-EVs: 132 HP / 196 Atk / 108 Def / 28 SpD / 36 Spe
 Nature: Adamant
 - Belly Drum
 - Extreme Speed
@@ -13966,7 +12757,6 @@ Nature: Adamant
 Aron @ Eviolite
 Ability: Rock Head
 Level: 14
-EVs: 196 Atk / 116 SpD / 196 Spe
 Nature: Jolly
 - Rock Polish
 - Head Smash
@@ -13976,7 +12766,6 @@ Nature: Jolly
 Electrike @ Choice Scarf
 Ability: Lightning Rod
 Level: 14
-EVs: 240 SpA / 236 Spe
 Nature: Timid
 IVs: 0 Atk / 30 SpA
 - Volt Switch
@@ -13989,7 +12778,6 @@ IVs: 0 Atk / 30 SpA
 
 Zubat @ Choice Scarf
 Level: 29
-EVs: 36 HP / 236 Atk / 236 Spe
 Nature: Jolly
 - Brave Bird
 - U-turn
@@ -14002,7 +12790,6 @@ Nature: Jolly
 Poochyena
 Ability: Rattled
 Level: 29
-EVs: 236 Atk / 36 SpD / 236 Spe
 Nature: Jolly
 - Howl
 - Crunch
@@ -14015,7 +12802,6 @@ Nature: Jolly
 Numel @ Eviolite
 Ability: Simple
 Level: 29
-EVs: 36 Def / 236 SpA / 236 Spe
 Nature: Modest
 - Flame Charge
 - Fire Blast
@@ -14027,7 +12813,6 @@ Nature: Modest
 
 Baltoy @ Berry Juice
 Level: 28
-EVs: 36 HP / 236 Def / 36 SpA / 196 SpD
 Nature: Bold
 - Rapid Spin
 - Stealth Rock
@@ -14036,7 +12821,6 @@ Nature: Bold
 
 Zubat @ Choice Scarf
 Level: 28
-EVs: 36 HP / 236 Atk / 236 Spe
 Nature: Jolly
 - Brave Bird
 - U-turn
@@ -14048,7 +12832,6 @@ Nature: Jolly
 
 Baltoy @ Berry Juice
 Level: 28
-EVs: 36 HP / 236 Def / 36 SpA / 196 SpD
 Nature: Bold
 - Rapid Spin
 - Stealth Rock
@@ -14058,7 +12841,6 @@ Nature: Bold
 Numel @ Eviolite
 Ability: Simple
 Level: 28
-EVs: 36 Def / 236 SpA / 236 Spe
 Nature: Modest
 - Flame Charge
 - Fire Blast
@@ -14071,7 +12853,6 @@ Nature: Modest
 Mightyena @ Life Orb
 Ability: Moxie
 Level: 29
-EVs: 252 Atk / 4 SpD / 252 Spe
 Nature: Adamant
 - Crunch
 - Sucker Punch
@@ -14083,7 +12864,6 @@ Nature: Adamant
 
 Zubat @ Choice Scarf
 Level: 29
-EVs: 36 HP / 236 Atk / 236 Spe
 Nature: Jolly
 - Brave Bird
 - U-turn
@@ -14096,7 +12876,6 @@ Nature: Jolly
 Poochyena
 Ability: Rattled
 Level: 29
-EVs: 236 Atk / 36 SpD / 236 Spe
 Nature: Jolly
 - Howl
 - Crunch
@@ -14108,7 +12887,6 @@ Nature: Jolly
 
 Zubat @ Choice Scarf
 Level: 29
-EVs: 36 HP / 236 Atk / 236 Spe
 Nature: Jolly
 - Brave Bird
 - U-turn
@@ -14121,7 +12899,6 @@ Nature: Jolly
 Mightyena @ Life Orb
 Ability: Moxie
 Level: 29
-EVs: 252 Atk / 4 SpD / 252 Spe
 Nature: Adamant
 - Crunch
 - Sucker Punch
@@ -14133,7 +12910,6 @@ Nature: Adamant
 
 Baltoy @ Berry Juice
 Level: 29
-EVs: 36 HP / 236 Def / 36 SpA / 196 SpD
 Nature: Bold
 - Rapid Spin
 - Stealth Rock
@@ -14146,7 +12922,6 @@ Nature: Bold
 Numel @ Eviolite
 Ability: Simple
 Level: 29
-EVs: 36 Def / 236 SpA / 236 Spe
 Nature: Modest
 - Flame Charge
 - Fire Blast
@@ -14158,7 +12933,6 @@ Nature: Modest
 
 Zubat @ Choice Scarf
 Level: 29
-EVs: 36 HP / 236 Atk / 236 Spe
 Nature: Jolly
 - Brave Bird
 - U-turn
@@ -14171,7 +12945,6 @@ Nature: Jolly
 Mightyena @ Life Orb
 Ability: Moxie
 Level: 29
-EVs: 252 Atk / 4 SpD / 252 Spe
 Nature: Adamant
 - Crunch
 - Sucker Punch
@@ -14184,7 +12957,6 @@ Nature: Adamant
 Numel @ Eviolite
 Ability: Simple
 Level: 29
-EVs: 36 Def / 236 SpA / 236 Spe
 Nature: Modest
 - Flame Charge
 - Fire Blast
@@ -14196,7 +12968,6 @@ Nature: Modest
 
 Baltoy @ Berry Juice
 Level: 29
-EVs: 36 HP / 236 Def / 36 SpA / 196 SpD
 Nature: Bold
 - Rapid Spin
 - Stealth Rock
@@ -14209,7 +12980,6 @@ Nature: Bold
 Pelipper @ Damp Rock
 Ability: Drizzle
 Level: 33
-EVs: 248 HP / 252 Def / 8 SpD
 Nature: Relaxed
 IVs: 0 Spe
 - Hurricane
@@ -14220,7 +12990,6 @@ IVs: 0 Spe
 Camerupt @ Leftovers
 Ability: Solid Rock
 Level: 33
-EVs: 252 HP / 4 Def / 252 SpD
 Nature: Calm
 IVs: 0 Atk
 - Stealth Rock
@@ -14233,7 +13002,6 @@ IVs: 0 Atk
 
 Tentacool @ Eviolite
 Level: 15
-EVs: 36 HP / 116 Atk / 156 Def / 196 Spe
 Nature: Jolly
 - Flip Turn
 - Gunk Shot
@@ -14246,7 +13014,6 @@ Nature: Jolly
 Marill @ Choice Band
 Ability: Huge Power
 Level: 15
-EVs: 52 HP / 252 Atk / 204 Spe
 Nature: Adamant
 - Play Rough
 - Waterfall
@@ -14259,7 +13026,6 @@ Nature: Adamant
 Sandshrew @ Eviolite
 Ability: Sand Rush
 Level: 25
-EVs: 236 Atk / 76 Def / 196 Spe
 Nature: Adamant
 - Swords Dance
 - Earthquake
@@ -14269,7 +13035,6 @@ Nature: Adamant
 Sandshrew @ Eviolite
 Ability: Sand Rush
 Level: 25
-EVs: 236 Atk / 76 Def / 196 Spe
 Nature: Adamant
 - Swords Dance
 - Earthquake
@@ -14282,7 +13047,6 @@ Nature: Adamant
 Taillow @ Life Orb
 Ability: Guts
 Level: 25
-EVs: 36 Def / 200 SpA / 36 SpD / 236 Spe
 Nature: Naive
 IVs: 19 HP
 - Boomburst
@@ -14293,7 +13057,6 @@ IVs: 19 HP
 Wingull @ Life Orb
 Ability: Hydration
 Level: 25
-EVs: 36 Def / 236 SpA / 236 Spe
 Nature: Timid
 IVs: 19 HP
 - Surf
@@ -14307,7 +13070,6 @@ IVs: 19 HP
 Staryu @ Eviolite
 Ability: Natural Cure
 Level: 26
-EVs: 252 HP / 252 Def / 4 SpD
 Nature: Bold
 - Scald
 - Rapid Spin
@@ -14320,7 +13082,6 @@ Nature: Bold
 Wingull @ Life Orb
 Ability: Hydration
 Level: 24
-EVs: 36 Def / 236 SpA / 236 Spe
 Nature: Timid
 IVs: 19 HP
 - Surf
@@ -14331,7 +13092,6 @@ IVs: 19 HP
 Machop @ Choice Scarf
 Ability: No Guard
 Level: 24
-EVs: 36 HP / 196 Atk / 36 Def / 236 Spe
 Nature: Jolly
 - Dynamic Punch
 - Knock Off
@@ -14340,7 +13100,6 @@ Nature: Jolly
 
 Tentacool @ Eviolite
 Level: 24
-EVs: 36 HP / 116 Atk / 156 Def / 196 Spe
 Nature: Jolly
 - Flip Turn
 - Gunk Shot
@@ -14353,7 +13112,6 @@ Nature: Jolly
 Manectric
 Ability: Lightning Rod
 Level: 24
-EVs: 252 SpA / 4 SpD / 252 Spe
 Nature: Timid
 IVs: 0 Atk
 - Volt Switch
@@ -14364,7 +13122,6 @@ IVs: 0 Atk
 Swellow @ Choice Specs
 Ability: Scrappy
 Level: 24
-EVs: 4 Def / 252 SpA / 252 Spe
 Nature: Timid
 - Boomburst
 - U-turn
@@ -14374,7 +13131,6 @@ Nature: Timid
 Manectric
 Ability: Lightning Rod
 Level: 24
-EVs: 252 SpA / 4 SpD / 252 Spe
 Nature: Timid
 IVs: 0 Atk
 - Volt Switch
@@ -14388,7 +13144,6 @@ IVs: 0 Atk
 Skarmory @ Rocky Helmet
 Ability: Sturdy
 Level: 25
-EVs: 252 HP / 160 Def / 96 Spe
 Nature: Bold
 - Body Press
 - Iron Defense
@@ -14398,7 +13153,6 @@ Nature: Bold
 Skarmory @ Rocky Helmet
 Ability: Sturdy
 Level: 25
-EVs: 252 HP / 160 Def / 96 Spe
 Nature: Bold
 - Body Press
 - Iron Defense
@@ -14411,7 +13165,6 @@ Nature: Bold
 Marill @ Choice Band
 Ability: Huge Power
 Level: 22
-EVs: 52 HP / 252 Atk / 204 Spe
 Nature: Adamant
 - Play Rough
 - Waterfall
@@ -14420,7 +13173,6 @@ Nature: Adamant
 
 Lombre @ Leftovers
 Level: 22
-EVs: 160 HP / 232 SpA / 116 Spe
 Nature: Modest
 IVs: 2 Atk / 30 SpA
 - Hydro Pump
@@ -14434,7 +13186,6 @@ IVs: 2 Atk / 30 SpA
 Sandshrew @ Eviolite
 Ability: Sand Rush
 Level: 22
-EVs: 236 Atk / 76 Def / 196 Spe
 Nature: Adamant
 - Swords Dance
 - Earthquake
@@ -14444,7 +13195,6 @@ Nature: Adamant
 Sandslash @ Life Orb
 Ability: Sand Rush
 Level: 22
-EVs: 252 Atk / 4 SpD / 252 Spe
 Nature: Adamant
 - Swords Dance
 - Earthquake
@@ -14457,7 +13207,6 @@ Nature: Adamant
 Taillow @ Life Orb
 Ability: Guts
 Level: 22
-EVs: 36 Def / 200 SpA / 36 SpD / 236 Spe
 Nature: Naive
 IVs: 19 HP
 - Boomburst
@@ -14471,7 +13220,6 @@ IVs: 19 HP
 Numel @ Eviolite
 Ability: Simple
 Level: 18
-EVs: 36 Def / 236 SpA / 236 Spe
 Nature: Modest
 - Flame Charge
 - Fire Blast
@@ -14481,7 +13229,6 @@ Nature: Modest
 Slugma @ Eviolite
 Ability: Flame Body
 Level: 18
-EVs: 36 HP / 196 Def / 116 SpA / 116 SpD / 36 Spe
 Nature: Bold
 - Lava Plume
 - Clear Smog
@@ -14493,7 +13240,6 @@ Nature: Bold
 
 Shroomish @ Eviolite
 Level: 18
-EVs: 36 HP / 36 Atk / 196 Def / 116 SpD / 76 Spe
 Nature: Impish
 - Spore
 - Bullet Seed
@@ -14503,7 +13249,6 @@ Nature: Impish
 Roselia @ Eviolite
 Ability: Poison Point
 Level: 18
-EVs: 252 HP / 200 Def / 56 Spe
 Nature: Bold
 - Spikes
 - Sludge Bomb
@@ -14516,7 +13261,6 @@ Nature: Bold
 Doduo @ Sky Plate
 Ability: Early Bird
 Level: 26
-EVs: 236 Atk / 236 Spe
 Nature: Jolly
 - Brave Bird
 - Knock Off
@@ -14526,7 +13270,6 @@ Nature: Jolly
 Dodrio @ Heavy-Duty Boots
 Ability: Tangled Feet
 Level: 26
-EVs: 252 Atk / 4 SpD / 252 Spe
 Nature: Jolly
 - Swords Dance
 - Brave Bird
@@ -14538,7 +13281,6 @@ Nature: Jolly
 
 Beedrill
 Level: 26
-EVs: 252 Atk / 4 SpD / 252 Spe
 Nature: Jolly
 - Swords Dance
 - Poison Jab
@@ -14547,7 +13289,6 @@ Nature: Jolly
 
 Gulpin @ Eviolite
 Level: 26
-EVs: 116 HP / 172 Def / 12 SpA / 172 SpD
 Nature: Modest
 - Stockpile
 - Pain Split
@@ -14560,7 +13301,6 @@ Nature: Modest
 Kadabra @ Focus Sash
 Ability: Magic Guard
 Level: 26
-EVs: 4 HP / 252 SpA / 252 Spe
 Nature: Timid
 - Psychic
 - Counter
@@ -14572,7 +13312,6 @@ Nature: Timid
 
 Meditite @ Choice Band
 Level: 26
-EVs: 252 Atk / 4 SpD / 252 Spe
 Nature: Adamant
 - Close Combat
 - Zen Headbutt
@@ -14581,7 +13320,6 @@ Nature: Adamant
 
 Makuhita @ Berry Juice
 Level: 26
-EVs: 20 HP / 196 Atk / 36 Def / 236 Spe
 Nature: Jolly
 - Belly Drum
 - Close Combat
@@ -14593,7 +13331,6 @@ Nature: Jolly
 
 Meditite @ Choice Band
 Level: 18
-EVs: 252 Atk / 4 SpD / 252 Spe
 Nature: Adamant
 - Close Combat
 - Zen Headbutt
@@ -14602,7 +13339,6 @@ Nature: Adamant
 
 Spoink @ Eviolite
 Level: 18
-EVs: 80 Def / 200 SpA / 200 Spe
 Nature: Timid
 - Calm Mind
 - Psychic
@@ -14615,7 +13351,6 @@ Nature: Timid
 Geodude @ Berry Juice
 Ability: Sturdy
 Level: 8
-EVs: 36 HP / 196 Atk / 116 Def / 36 SpD / 116 Spe
 Nature: Adamant
 - Stealth Rock
 - Rock Blast
@@ -14625,7 +13360,6 @@ Nature: Adamant
 Geodude @ Berry Juice
 Ability: Sturdy
 Level: 8
-EVs: 36 HP / 196 Atk / 116 Def / 36 SpD / 116 Spe
 Nature: Adamant
 - Stealth Rock
 - Rock Blast
@@ -14637,7 +13371,6 @@ Nature: Adamant
 
 Shroomish @ Eviolite
 Level: 8
-EVs: 36 HP / 36 Atk / 196 Def / 116 SpD / 76 Spe
 Nature: Impish
 - Spore
 - Bullet Seed
@@ -14646,7 +13379,6 @@ Nature: Impish
 
 Lotad @ Life Orb
 Level: 8
-EVs: 116 Def / 196 SpA / 196 Spe
 Nature: Modest
 IVs: 19 HP
 - Surf
@@ -14660,7 +13392,6 @@ IVs: 19 HP
 Doduo @ Sky Plate
 Ability: Early Bird
 Level: 17
-EVs: 236 Atk / 236 Spe
 Nature: Jolly
 - Brave Bird
 - Knock Off
@@ -14673,7 +13404,6 @@ Nature: Jolly
 Ralts @ Choice Scarf
 Ability: Trace
 Level: 17
-EVs: 52 HP / 236 SpA / 196 Spe
 Nature: Timid
 - Psychic
 - Dazzling Gleam
@@ -14685,7 +13415,6 @@ Nature: Timid
 
 Meditite @ Choice Band
 Level: 17
-EVs: 252 Atk / 4 SpD / 252 Spe
 Nature: Adamant
 - Close Combat
 - Zen Headbutt
@@ -14698,7 +13427,6 @@ Nature: Adamant
 Roselia @ Eviolite
 Ability: Poison Point
 Level: 33
-EVs: 252 HP / 200 Def / 56 Spe
 Nature: Bold
 - Spikes
 - Sludge Bomb
@@ -14707,7 +13435,6 @@ Nature: Bold
 
 Medicham @ Choice Scarf
 Level: 33
-EVs: 252 Atk / 4 SpD / 252 Spe
 Nature: Jolly
 - Close Combat
 - Zen Headbutt
@@ -14720,7 +13447,6 @@ Nature: Jolly
 Manectric
 Ability: Lightning Rod
 Level: 26
-EVs: 252 SpA / 4 SpD / 252 Spe
 Nature: Timid
 IVs: 0 Atk
 - Volt Switch
@@ -14734,7 +13460,6 @@ IVs: 0 Atk
 Slugma @ Eviolite
 Ability: Flame Body
 Level: 25
-EVs: 36 HP / 196 Def / 116 SpA / 116 SpD / 36 Spe
 Nature: Bold
 - Lava Plume
 - Clear Smog
@@ -14744,7 +13469,6 @@ Nature: Bold
 Numel @ Eviolite
 Ability: Simple
 Level: 25
-EVs: 36 Def / 236 SpA / 236 Spe
 Nature: Modest
 - Flame Charge
 - Fire Blast
@@ -14757,7 +13481,6 @@ Nature: Modest
 Goldeen
 Ability: Lightning Rod
 Level: 26
-EVs: 220 Atk / 36 SpD / 252 Spe
 Nature: Jolly
 - Bounce
 - Waterfall
@@ -14770,7 +13493,6 @@ Nature: Jolly
 Manectric
 Ability: Lightning Rod
 Level: 30
-EVs: 252 SpA / 4 SpD / 252 Spe
 Nature: Timid
 IVs: 0 Atk
 - Volt Switch
@@ -14783,7 +13505,6 @@ IVs: 0 Atk
 
 Meditite @ Choice Band
 Level: 28
-EVs: 252 Atk / 4 SpD / 252 Spe
 Nature: Adamant
 - Close Combat
 - Zen Headbutt
@@ -14792,7 +13513,6 @@ Nature: Adamant
 
 Makuhita @ Berry Juice
 Level: 28
-EVs: 20 HP / 196 Atk / 36 Def / 236 Spe
 Nature: Jolly
 - Belly Drum
 - Close Combat
@@ -14804,7 +13524,6 @@ Nature: Jolly
 
 Dustox @ Black Sludge
 Level: 29
-EVs: 248 HP / 120 Def / 140 Spe
 Nature: Bold
 IVs: 0 Atk
 - Quiver Dance
@@ -14814,7 +13533,6 @@ IVs: 0 Atk
 
 Beautifly
 Level: 29
-EVs: 252 SpA / 4 SpD / 252 Spe
 Nature: Timid
 - Quiver Dance
 - Bug Buzz
@@ -14826,7 +13544,6 @@ Nature: Timid
 
 Makuhita @ Berry Juice
 Level: 25
-EVs: 20 HP / 196 Atk / 36 Def / 236 Spe
 Nature: Jolly
 - Belly Drum
 - Close Combat
@@ -14836,7 +13553,6 @@ Nature: Jolly
 Wingull @ Life Orb
 Ability: Hydration
 Level: 25
-EVs: 36 Def / 236 SpA / 236 Spe
 Nature: Timid
 IVs: 19 HP
 - Surf
@@ -14847,7 +13563,6 @@ IVs: 19 HP
 Tropius @ Sitrus Berry
 Ability: Harvest
 Level: 25
-EVs: 248 HP / 252 Def / 8 SpD
 Nature: Bold
 - Leech Seed
 - Substitute
@@ -14856,7 +13571,6 @@ Nature: Bold
 
 Zigzagoon @ Berry Juice
 Level: 25
-EVs: 132 HP / 196 Atk / 108 Def / 28 SpD / 36 Spe
 Nature: Adamant
 - Belly Drum
 - Extreme Speed
@@ -14866,7 +13580,6 @@ Nature: Adamant
 Electrike @ Choice Scarf
 Ability: Lightning Rod
 Level: 25
-EVs: 240 SpA / 236 Spe
 Nature: Timid
 IVs: 0 Atk / 30 SpA
 - Volt Switch
@@ -14877,7 +13590,6 @@ IVs: 0 Atk / 30 SpA
 Numel @ Eviolite
 Ability: Simple
 Level: 25
-EVs: 36 Def / 236 SpA / 236 Spe
 Nature: Modest
 - Flame Charge
 - Fire Blast
@@ -14890,7 +13602,6 @@ Nature: Modest
 Poochyena
 Ability: Rattled
 Level: 25
-EVs: 236 Atk / 36 SpD / 236 Spe
 Nature: Jolly
 - Howl
 - Crunch
@@ -14899,7 +13610,6 @@ Nature: Jolly
 
 Shroomish @ Eviolite
 Level: 25
-EVs: 36 HP / 36 Atk / 196 Def / 116 SpD / 76 Spe
 Nature: Impish
 - Spore
 - Bullet Seed
@@ -14909,7 +13619,6 @@ Nature: Impish
 Electrike @ Choice Scarf
 Ability: Lightning Rod
 Level: 25
-EVs: 240 SpA / 236 Spe
 Nature: Timid
 IVs: 0 Atk / 30 SpA
 - Volt Switch
@@ -14920,7 +13629,6 @@ IVs: 0 Atk / 30 SpA
 Marill @ Choice Band
 Ability: Huge Power
 Level: 25
-EVs: 52 HP / 252 Atk / 204 Spe
 Nature: Adamant
 - Play Rough
 - Waterfall
@@ -14930,7 +13638,6 @@ Nature: Adamant
 Sandshrew @ Eviolite
 Ability: Sand Rush
 Level: 25
-EVs: 236 Atk / 76 Def / 196 Spe
 Nature: Adamant
 - Swords Dance
 - Earthquake
@@ -14939,7 +13646,6 @@ Nature: Adamant
 
 Gulpin @ Eviolite
 Level: 25
-EVs: 116 HP / 172 Def / 12 SpA / 172 SpD
 Nature: Modest
 - Stockpile
 - Pain Split
@@ -14951,7 +13657,6 @@ Nature: Modest
 
 Loudred @ Leftovers
 Level: 29
-EVs: 100 HP / 252 Atk / 16 SpA / 140 Spe
 Nature: Naughty
 - Return
 - Shadow Ball
@@ -14960,7 +13665,6 @@ Nature: Naughty
 
 Vigoroth @ Eviolite
 Level: 29
-EVs: 252 HP / 164 SpD / 92 Spe
 Nature: Jolly
 - Bulk Up
 - Facade
@@ -14973,7 +13677,6 @@ Nature: Jolly
 Illumise @ Heat Rock
 Ability: Prankster
 Level: 17
-EVs: 252 HP / 4 Atk / 252 Def
 Nature: Relaxed
 IVs: 0 Spe
 - Sunny Day
@@ -14984,7 +13687,6 @@ IVs: 0 Spe
 Volbeat @ Heavy-Duty Boots
 Ability: Prankster
 Level: 17
-EVs: 252 HP / 4 Def / 252 SpD
 Nature: Sassy
 IVs: 0 Spe
 - Encore
@@ -14998,7 +13700,6 @@ IVs: 0 Spe
 Tropius @ Sitrus Berry
 Ability: Harvest
 Level: 30
-EVs: 248 HP / 252 Def / 8 SpD
 Nature: Bold
 - Leech Seed
 - Substitute
@@ -15011,7 +13712,6 @@ Nature: Bold
 Sandshrew @ Eviolite
 Ability: Sand Rush
 Level: 31
-EVs: 236 Atk / 76 Def / 196 Spe
 Nature: Adamant
 - Swords Dance
 - Earthquake
@@ -15021,7 +13721,6 @@ Nature: Adamant
 Sandshrew @ Eviolite
 Ability: Sand Rush
 Level: 31
-EVs: 236 Atk / 76 Def / 196 Spe
 Nature: Adamant
 - Swords Dance
 - Earthquake
@@ -15033,7 +13732,6 @@ Nature: Adamant
 
 Nosepass @ Berry Juice
 Level: 33
-EVs: 76 Atk / 236 Def / 196 SpD
 Nature: Relaxed
 - Stealth Rock
 - Rock Blast
@@ -15043,7 +13741,6 @@ Nature: Relaxed
 Sandshrew @ Eviolite
 Ability: Sand Rush
 Level: 33
-EVs: 236 Atk / 76 Def / 196 Spe
 Nature: Adamant
 - Swords Dance
 - Earthquake
@@ -15053,7 +13750,6 @@ Nature: Adamant
 Sandshrew @ Eviolite
 Ability: Sand Rush
 Level: 33
-EVs: 236 Atk / 76 Def / 196 Spe
 Nature: Adamant
 - Swords Dance
 - Earthquake
@@ -15065,7 +13761,6 @@ Nature: Adamant
 
 Nosepass @ Berry Juice
 Level: 35
-EVs: 76 Atk / 236 Def / 196 SpD
 Nature: Relaxed
 - Stealth Rock
 - Rock Blast
@@ -15075,7 +13770,6 @@ Nature: Relaxed
 Sandshrew @ Eviolite
 Ability: Sand Rush
 Level: 35
-EVs: 236 Atk / 76 Def / 196 Spe
 Nature: Adamant
 - Swords Dance
 - Earthquake
@@ -15085,7 +13779,6 @@ Nature: Adamant
 Sandshrew @ Eviolite
 Ability: Sand Rush
 Level: 35
-EVs: 236 Atk / 76 Def / 196 Spe
 Nature: Adamant
 - Swords Dance
 - Earthquake
@@ -15097,7 +13790,6 @@ Nature: Adamant
 
 Nosepass @ Berry Juice
 Level: 37
-EVs: 76 Atk / 236 Def / 196 SpD
 Nature: Relaxed
 - Stealth Rock
 - Rock Blast
@@ -15107,7 +13799,6 @@ Nature: Relaxed
 Sandslash @ Life Orb
 Ability: Sand Rush
 Level: 37
-EVs: 252 Atk / 4 SpD / 252 Spe
 Nature: Adamant
 - Swords Dance
 - Earthquake
@@ -15117,7 +13808,6 @@ Nature: Adamant
 Sandslash @ Life Orb
 Ability: Sand Rush
 Level: 37
-EVs: 252 Atk / 4 SpD / 252 Spe
 Nature: Adamant
 - Swords Dance
 - Earthquake
@@ -15130,7 +13820,6 @@ Nature: Adamant
 Wingull @ Life Orb
 Ability: Hydration
 Level: 30
-EVs: 36 Def / 236 SpA / 236 Spe
 Nature: Timid
 IVs: 19 HP
 - Surf
@@ -15141,7 +13830,6 @@ IVs: 19 HP
 Machop @ Choice Scarf
 Ability: No Guard
 Level: 30
-EVs: 36 HP / 196 Atk / 36 Def / 236 Spe
 Nature: Jolly
 - Dynamic Punch
 - Knock Off
@@ -15150,7 +13838,6 @@ Nature: Jolly
 
 Tentacool @ Eviolite
 Level: 30
-EVs: 36 HP / 116 Atk / 156 Def / 196 Spe
 Nature: Jolly
 - Flip Turn
 - Gunk Shot
@@ -15163,7 +13850,6 @@ Nature: Jolly
 Pelipper @ Damp Rock
 Ability: Drizzle
 Level: 32
-EVs: 248 HP / 252 Def / 8 SpD
 Nature: Relaxed
 IVs: 0 Spe
 - Hurricane
@@ -15174,7 +13860,6 @@ IVs: 0 Spe
 Machop @ Choice Scarf
 Ability: No Guard
 Level: 32
-EVs: 36 HP / 196 Atk / 36 Def / 236 Spe
 Nature: Jolly
 - Dynamic Punch
 - Knock Off
@@ -15183,7 +13868,6 @@ Nature: Jolly
 
 Tentacool @ Eviolite
 Level: 32
-EVs: 36 HP / 116 Atk / 156 Def / 196 Spe
 Nature: Jolly
 - Flip Turn
 - Gunk Shot
@@ -15196,7 +13880,6 @@ Nature: Jolly
 Pelipper @ Damp Rock
 Ability: Drizzle
 Level: 34
-EVs: 248 HP / 252 Def / 8 SpD
 Nature: Relaxed
 IVs: 0 Spe
 - Hurricane
@@ -15207,7 +13890,6 @@ IVs: 0 Spe
 Machop @ Choice Scarf
 Ability: No Guard
 Level: 34
-EVs: 36 HP / 196 Atk / 36 Def / 236 Spe
 Nature: Jolly
 - Dynamic Punch
 - Knock Off
@@ -15217,7 +13899,6 @@ Nature: Jolly
 Tentacruel @ Leftovers
 Ability: Liquid Ooze
 Level: 34
-EVs: 252 HP / 120 Def / 136 Spe
 Nature: Jolly
 - Flip Turn
 - Rapid Spin
@@ -15230,7 +13911,6 @@ Nature: Jolly
 Pelipper @ Damp Rock
 Ability: Drizzle
 Level: 36
-EVs: 248 HP / 252 Def / 8 SpD
 Nature: Relaxed
 IVs: 0 Spe
 - Hurricane
@@ -15241,7 +13921,6 @@ IVs: 0 Spe
 Machoke @ Eviolite
 Ability: No Guard
 Level: 36
-EVs: 252 HP / 252 Def / 4 SpD
 Nature: Impish
 - Dynamic Punch
 - Knock Off
@@ -15251,7 +13930,6 @@ Nature: Impish
 Tentacruel @ Leftovers
 Ability: Liquid Ooze
 Level: 36
-EVs: 252 HP / 120 Def / 136 Spe
 Nature: Jolly
 - Flip Turn
 - Rapid Spin
@@ -15264,7 +13942,6 @@ Nature: Jolly
 Staryu @ Eviolite
 Ability: Natural Cure
 Level: 37
-EVs: 252 HP / 252 Def / 4 SpD
 Nature: Bold
 - Scald
 - Rapid Spin
@@ -15274,7 +13951,6 @@ Nature: Bold
 Staryu @ Eviolite
 Ability: Natural Cure
 Level: 37
-EVs: 252 HP / 252 Def / 4 SpD
 Nature: Bold
 - Scald
 - Rapid Spin
@@ -15287,7 +13963,6 @@ Nature: Bold
 Wingull @ Life Orb
 Ability: Hydration
 Level: 39
-EVs: 36 Def / 236 SpA / 236 Spe
 Nature: Timid
 IVs: 19 HP
 - Surf
@@ -15298,7 +13973,6 @@ IVs: 19 HP
 Staryu @ Eviolite
 Ability: Natural Cure
 Level: 39
-EVs: 252 HP / 252 Def / 4 SpD
 Nature: Bold
 - Scald
 - Rapid Spin
@@ -15308,7 +13982,6 @@ Nature: Bold
 Staryu @ Eviolite
 Ability: Natural Cure
 Level: 39
-EVs: 252 HP / 252 Def / 4 SpD
 Nature: Bold
 - Scald
 - Rapid Spin
@@ -15321,7 +13994,6 @@ Nature: Bold
 Pelipper @ Damp Rock
 Ability: Drizzle
 Level: 41
-EVs: 248 HP / 252 Def / 8 SpD
 Nature: Relaxed
 IVs: 0 Spe
 - Hurricane
@@ -15332,7 +14004,6 @@ IVs: 0 Spe
 Staryu @ Eviolite
 Ability: Natural Cure
 Level: 41
-EVs: 252 HP / 252 Def / 4 SpD
 Nature: Bold
 - Scald
 - Rapid Spin
@@ -15342,7 +14013,6 @@ Nature: Bold
 Staryu @ Eviolite
 Ability: Natural Cure
 Level: 41
-EVs: 252 HP / 252 Def / 4 SpD
 Nature: Bold
 - Scald
 - Rapid Spin
@@ -15355,7 +14025,6 @@ Nature: Bold
 Pelipper @ Damp Rock
 Ability: Drizzle
 Level: 43
-EVs: 248 HP / 252 Def / 8 SpD
 Nature: Relaxed
 IVs: 0 Spe
 - Hurricane
@@ -15366,7 +14035,6 @@ IVs: 0 Spe
 Starmie @ Life Orb
 Ability: Analytic
 Level: 43
-EVs: 252 SpA / 4 SpD / 252 Spe
 Nature: Timid
 - Hydro Pump
 - Ice Beam
@@ -15376,7 +14044,6 @@ Nature: Timid
 Starmie @ Life Orb
 Ability: Analytic
 Level: 43
-EVs: 252 SpA / 4 SpD / 252 Spe
 Nature: Timid
 - Hydro Pump
 - Ice Beam
@@ -15389,7 +14056,6 @@ Nature: Timid
 Machoke @ Eviolite
 Ability: No Guard
 Level: 37
-EVs: 252 HP / 252 Def / 4 SpD
 Nature: Impish
 - Dynamic Punch
 - Knock Off
@@ -15399,7 +14065,6 @@ Nature: Impish
 Machoke @ Eviolite
 Ability: No Guard
 Level: 37
-EVs: 252 HP / 252 Def / 4 SpD
 Nature: Impish
 - Dynamic Punch
 - Knock Off
@@ -15411,7 +14076,6 @@ Nature: Impish
 
 Makuhita @ Berry Juice
 Level: 39
-EVs: 20 HP / 196 Atk / 36 Def / 236 Spe
 Nature: Jolly
 - Belly Drum
 - Close Combat
@@ -15421,7 +14085,6 @@ Nature: Jolly
 Machoke @ Eviolite
 Ability: No Guard
 Level: 39
-EVs: 252 HP / 252 Def / 4 SpD
 Nature: Impish
 - Dynamic Punch
 - Knock Off
@@ -15431,7 +14094,6 @@ Nature: Impish
 Machoke @ Eviolite
 Ability: No Guard
 Level: 39
-EVs: 252 HP / 252 Def / 4 SpD
 Nature: Impish
 - Dynamic Punch
 - Knock Off
@@ -15444,7 +14106,6 @@ Nature: Impish
 Hariyama @ Sitrus Berry
 Ability: Guts
 Level: 41
-EVs: 4 HP / 252 Atk / 252 Spe
 Nature: Adamant
 - Belly Drum
 - Drain Punch
@@ -15454,7 +14115,6 @@ Nature: Adamant
 Machoke @ Eviolite
 Ability: No Guard
 Level: 41
-EVs: 252 HP / 252 Def / 4 SpD
 Nature: Impish
 - Dynamic Punch
 - Knock Off
@@ -15464,7 +14124,6 @@ Nature: Impish
 Machoke @ Eviolite
 Ability: No Guard
 Level: 41
-EVs: 252 HP / 252 Def / 4 SpD
 Nature: Impish
 - Dynamic Punch
 - Knock Off
@@ -15477,7 +14136,6 @@ Nature: Impish
 Hariyama @ Sitrus Berry
 Ability: Guts
 Level: 43
-EVs: 4 HP / 252 Atk / 252 Spe
 Nature: Adamant
 - Belly Drum
 - Drain Punch
@@ -15486,7 +14144,6 @@ Nature: Adamant
 
 Machamp @ Flame Orb
 Level: 43
-EVs: 252 Atk / 4 SpD / 252 Spe
 Nature: Adamant
 - Close Combat
 - Facade
@@ -15495,7 +14152,6 @@ Nature: Adamant
 
 Machamp @ Flame Orb
 Level: 43
-EVs: 252 Atk / 4 SpD / 252 Spe
 Nature: Adamant
 - Close Combat
 - Facade
@@ -15507,7 +14163,6 @@ Nature: Adamant
 
 Loudred @ Leftovers
 Level: 35
-EVs: 100 HP / 252 Atk / 16 SpA / 140 Spe
 Nature: Naughty
 - Return
 - Shadow Ball
@@ -15516,7 +14171,6 @@ Nature: Naughty
 
 Vigoroth @ Eviolite
 Level: 35
-EVs: 252 HP / 164 SpD / 92 Spe
 Nature: Jolly
 - Bulk Up
 - Facade
@@ -15529,7 +14183,6 @@ Nature: Jolly
 Spinda @ Life Orb
 Ability: Contrary
 Level: 37
-EVs: 252 HP / 252 Atk / 4 Def
 Nature: Brave
 IVs: 0 Spe
 - Trick Room
@@ -15539,7 +14192,6 @@ IVs: 0 Spe
 
 Loudred @ Leftovers
 Level: 37
-EVs: 100 HP / 252 Atk / 16 SpA / 140 Spe
 Nature: Naughty
 - Return
 - Shadow Ball
@@ -15548,7 +14200,6 @@ Nature: Naughty
 
 Vigoroth @ Eviolite
 Level: 37
-EVs: 252 HP / 164 SpD / 92 Spe
 Nature: Jolly
 - Bulk Up
 - Facade
@@ -15561,7 +14212,6 @@ Nature: Jolly
 Spinda @ Life Orb
 Ability: Contrary
 Level: 39
-EVs: 252 HP / 252 Atk / 4 Def
 Nature: Brave
 IVs: 0 Spe
 - Trick Room
@@ -15571,7 +14221,6 @@ IVs: 0 Spe
 
 Loudred @ Leftovers
 Level: 39
-EVs: 100 HP / 252 Atk / 16 SpA / 140 Spe
 Nature: Naughty
 - Return
 - Shadow Ball
@@ -15580,7 +14229,6 @@ Nature: Naughty
 
 Vigoroth @ Eviolite
 Level: 39
-EVs: 252 HP / 164 SpD / 92 Spe
 Nature: Jolly
 - Bulk Up
 - Facade
@@ -15593,7 +14241,6 @@ Nature: Jolly
 Spinda @ Life Orb
 Ability: Contrary
 Level: 41
-EVs: 252 HP / 252 Atk / 4 Def
 Nature: Brave
 IVs: 0 Spe
 - Trick Room
@@ -15604,7 +14251,6 @@ IVs: 0 Spe
 Exploud @ Choice Specs
 Ability: Scrappy
 Level: 41
-EVs: 252 SpA / 4 SpD / 252 Spe
 Nature: Timid
 - Boomburst
 - Overheat
@@ -15613,7 +14259,6 @@ Nature: Timid
 
 Slaking @ Life Orb
 Level: 41
-EVs: 252 Atk / 4 SpA / 252 Spe
 Nature: Naive
 - Return
 - Pursuit
@@ -15626,7 +14271,6 @@ Nature: Naive
 Electrike @ Choice Scarf
 Ability: Lightning Rod
 Level: 35
-EVs: 240 SpA / 236 Spe
 Nature: Timid
 IVs: 0 Atk / 30 SpA
 - Volt Switch
@@ -15637,7 +14281,6 @@ IVs: 0 Atk / 30 SpA
 Electrike @ Choice Scarf
 Ability: Lightning Rod
 Level: 35
-EVs: 240 SpA / 236 Spe
 Nature: Timid
 IVs: 0 Atk / 30 SpA
 - Volt Switch
@@ -15647,7 +14290,6 @@ IVs: 0 Atk / 30 SpA
 
 Loudred @ Leftovers
 Level: 35
-EVs: 100 HP / 252 Atk / 16 SpA / 140 Spe
 Nature: Naughty
 - Return
 - Shadow Ball
@@ -15660,7 +14302,6 @@ Nature: Naughty
 Electrike @ Choice Scarf
 Ability: Lightning Rod
 Level: 37
-EVs: 240 SpA / 236 Spe
 Nature: Timid
 IVs: 0 Atk / 30 SpA
 - Volt Switch
@@ -15671,7 +14312,6 @@ IVs: 0 Atk / 30 SpA
 Manectric
 Ability: Lightning Rod
 Level: 37
-EVs: 252 SpA / 4 SpD / 252 Spe
 Nature: Timid
 IVs: 0 Atk
 - Volt Switch
@@ -15681,7 +14321,6 @@ IVs: 0 Atk
 
 Loudred @ Leftovers
 Level: 37
-EVs: 100 HP / 252 Atk / 16 SpA / 140 Spe
 Nature: Naughty
 - Return
 - Shadow Ball
@@ -15694,7 +14333,6 @@ Nature: Naughty
 Manectric
 Ability: Lightning Rod
 Level: 39
-EVs: 252 SpA / 4 SpD / 252 Spe
 Nature: Timid
 IVs: 0 Atk
 - Volt Switch
@@ -15705,7 +14343,6 @@ IVs: 0 Atk
 Manectric
 Ability: Lightning Rod
 Level: 39
-EVs: 252 SpA / 4 SpD / 252 Spe
 Nature: Timid
 IVs: 0 Atk
 - Volt Switch
@@ -15715,7 +14352,6 @@ IVs: 0 Atk
 
 Loudred @ Leftovers
 Level: 39
-EVs: 100 HP / 252 Atk / 16 SpA / 140 Spe
 Nature: Naughty
 - Return
 - Shadow Ball
@@ -15728,7 +14364,6 @@ Nature: Naughty
 Manectric
 Ability: Lightning Rod
 Level: 41
-EVs: 252 SpA / 4 SpD / 252 Spe
 Nature: Timid
 IVs: 0 Atk
 - Volt Switch
@@ -15739,7 +14374,6 @@ IVs: 0 Atk
 Manectric
 Ability: Lightning Rod
 Level: 41
-EVs: 252 SpA / 4 SpD / 252 Spe
 Nature: Timid
 IVs: 0 Atk
 - Volt Switch
@@ -15750,7 +14384,6 @@ IVs: 0 Atk
 Exploud @ Choice Specs
 Ability: Scrappy
 Level: 41
-EVs: 252 SpA / 4 SpD / 252 Spe
 Nature: Timid
 - Boomburst
 - Overheat
@@ -15763,7 +14396,6 @@ Nature: Timid
 Geodude @ Berry Juice
 Ability: Sturdy
 Level: 26
-EVs: 36 HP / 196 Atk / 116 Def / 36 SpD / 116 Spe
 Nature: Adamant
 - Stealth Rock
 - Rock Blast
@@ -15773,7 +14405,6 @@ Nature: Adamant
 Numel @ Eviolite
 Ability: Simple
 Level: 26
-EVs: 36 Def / 236 SpA / 236 Spe
 Nature: Modest
 - Flame Charge
 - Fire Blast
@@ -15786,7 +14417,6 @@ Nature: Modest
 Machop @ Choice Scarf
 Ability: No Guard
 Level: 28
-EVs: 36 HP / 196 Atk / 36 Def / 236 Spe
 Nature: Jolly
 - Dynamic Punch
 - Knock Off
@@ -15796,7 +14426,6 @@ Nature: Jolly
 Numel @ Eviolite
 Ability: Simple
 Level: 28
-EVs: 36 Def / 236 SpA / 236 Spe
 Nature: Modest
 - Flame Charge
 - Fire Blast
@@ -15806,7 +14435,6 @@ Nature: Modest
 Graveler @ Weakness Policy
 Ability: Sturdy
 Level: 28
-EVs: 92 HP / 252 Atk / 164 Spe
 Nature: Adamant
 - Stealth Rock
 - Stone Edge
@@ -15819,7 +14447,6 @@ Nature: Adamant
 Machop @ Choice Scarf
 Ability: No Guard
 Level: 30
-EVs: 36 HP / 196 Atk / 36 Def / 236 Spe
 Nature: Jolly
 - Dynamic Punch
 - Knock Off
@@ -15829,7 +14456,6 @@ Nature: Jolly
 Numel @ Eviolite
 Ability: Simple
 Level: 30
-EVs: 36 Def / 236 SpA / 236 Spe
 Nature: Modest
 - Flame Charge
 - Fire Blast
@@ -15839,7 +14465,6 @@ Nature: Modest
 Graveler @ Weakness Policy
 Ability: Sturdy
 Level: 30
-EVs: 92 HP / 252 Atk / 164 Spe
 Nature: Adamant
 - Stealth Rock
 - Stone Edge
@@ -15852,7 +14477,6 @@ Nature: Adamant
 Machoke @ Eviolite
 Ability: No Guard
 Level: 33
-EVs: 252 HP / 252 Def / 4 SpD
 Nature: Impish
 - Dynamic Punch
 - Knock Off
@@ -15862,7 +14486,6 @@ Nature: Impish
 Camerupt @ Leftovers
 Ability: Solid Rock
 Level: 33
-EVs: 252 HP / 4 Def / 252 SpD
 Nature: Calm
 IVs: 0 Atk
 - Stealth Rock
@@ -15873,7 +14496,6 @@ IVs: 0 Atk
 Golem @ Custap Berry
 Ability: Sturdy
 Level: 33
-EVs: 252 Atk / 4 Def / 252 Spe
 Nature: Adamant
 - Stealth Rock
 - Earthquake
@@ -15886,7 +14508,6 @@ Nature: Adamant
 Skitty @ Life Orb
 Ability: Normalize
 Level: 31
-EVs: 236 Atk / 76 SpD / 196 Spe
 Nature: Jolly
 - Fake Out
 - Sucker Punch
@@ -15896,7 +14517,6 @@ Nature: Jolly
 Mightyena @ Life Orb
 Ability: Moxie
 Level: 31
-EVs: 252 Atk / 4 SpD / 252 Spe
 Nature: Adamant
 - Crunch
 - Sucker Punch
@@ -15905,7 +14525,6 @@ Nature: Adamant
 
 Zigzagoon @ Berry Juice
 Level: 31
-EVs: 132 HP / 196 Atk / 108 Def / 28 SpD / 36 Spe
 Nature: Adamant
 - Belly Drum
 - Extreme Speed
@@ -15914,7 +14533,6 @@ Nature: Adamant
 
 Lotad @ Life Orb
 Level: 31
-EVs: 116 Def / 196 SpA / 196 Spe
 Nature: Modest
 IVs: 19 HP
 - Surf
@@ -15924,7 +14542,6 @@ IVs: 19 HP
 
 Seedot @ Life Orb
 Level: 31
-EVs: 40 Atk / 36 Def / 200 SpA / 200 Spe
 Nature: Rash
 IVs: 19 HP
 - Growth
@@ -15935,7 +14552,6 @@ IVs: 19 HP
 Taillow @ Life Orb
 Ability: Guts
 Level: 31
-EVs: 36 Def / 200 SpA / 36 SpD / 236 Spe
 Nature: Naive
 IVs: 19 HP
 - Boomburst
@@ -15949,7 +14565,6 @@ IVs: 19 HP
 Skitty @ Life Orb
 Ability: Normalize
 Level: 33
-EVs: 236 Atk / 76 SpD / 196 Spe
 Nature: Jolly
 - Fake Out
 - Sucker Punch
@@ -15959,7 +14574,6 @@ Nature: Jolly
 Mightyena @ Life Orb
 Ability: Moxie
 Level: 33
-EVs: 252 Atk / 4 SpD / 252 Spe
 Nature: Adamant
 - Crunch
 - Sucker Punch
@@ -15969,7 +14583,6 @@ Nature: Adamant
 Linoone @ Figy Berry
 Ability: Gluttony
 Level: 33
-EVs: 60 HP / 252 Atk / 196 Spe
 Nature: Adamant
 - Belly Drum
 - Extreme Speed
@@ -15978,7 +14591,6 @@ Nature: Adamant
 
 Lombre @ Leftovers
 Level: 33
-EVs: 160 HP / 232 SpA / 116 Spe
 Nature: Modest
 IVs: 2 Atk / 30 SpA
 - Hydro Pump
@@ -15989,7 +14601,6 @@ IVs: 2 Atk / 30 SpA
 Taillow @ Life Orb
 Ability: Guts
 Level: 33
-EVs: 36 Def / 200 SpA / 36 SpD / 236 Spe
 Nature: Naive
 IVs: 19 HP
 - Boomburst
@@ -16003,7 +14614,6 @@ IVs: 19 HP
 Delcatty @ Silk Scarf
 Ability: Normalize
 Level: 35
-EVs: 252 Atk / 4 Def / 252 Spe
 Nature: Jolly
 - Fake Out
 - Sucker Punch
@@ -16013,7 +14623,6 @@ Nature: Jolly
 Mightyena @ Life Orb
 Ability: Moxie
 Level: 35
-EVs: 252 Atk / 4 SpD / 252 Spe
 Nature: Adamant
 - Crunch
 - Sucker Punch
@@ -16023,7 +14632,6 @@ Nature: Adamant
 Linoone @ Figy Berry
 Ability: Gluttony
 Level: 35
-EVs: 60 HP / 252 Atk / 196 Spe
 Nature: Adamant
 - Belly Drum
 - Extreme Speed
@@ -16032,7 +14640,6 @@ Nature: Adamant
 
 Lombre @ Leftovers
 Level: 35
-EVs: 160 HP / 232 SpA / 116 Spe
 Nature: Modest
 IVs: 2 Atk / 30 SpA
 - Hydro Pump
@@ -16043,7 +14650,6 @@ IVs: 2 Atk / 30 SpA
 Swellow @ Choice Specs
 Ability: Scrappy
 Level: 35
-EVs: 4 Def / 252 SpA / 252 Spe
 Nature: Timid
 - Boomburst
 - U-turn
@@ -16056,7 +14662,6 @@ Nature: Timid
 Delcatty @ Silk Scarf
 Ability: Normalize
 Level: 37
-EVs: 252 Atk / 4 Def / 252 Spe
 Nature: Jolly
 - Fake Out
 - Sucker Punch
@@ -16066,7 +14671,6 @@ Nature: Jolly
 Mightyena @ Life Orb
 Ability: Moxie
 Level: 37
-EVs: 252 Atk / 4 SpD / 252 Spe
 Nature: Adamant
 - Crunch
 - Sucker Punch
@@ -16076,7 +14680,6 @@ Nature: Adamant
 Linoone @ Figy Berry
 Ability: Gluttony
 Level: 37
-EVs: 60 HP / 252 Atk / 196 Spe
 Nature: Adamant
 - Belly Drum
 - Extreme Speed
@@ -16085,7 +14688,6 @@ Nature: Adamant
 
 Ludicolo @ Life Orb
 Level: 37
-EVs: 252 SpA / 4 SpD / 252 Spe
 Nature: Modest
 IVs: 0 Atk
 - Hydro Pump
@@ -16095,7 +14697,6 @@ IVs: 0 Atk
 
 Shiftry @ Life Orb
 Level: 37
-EVs: 252 Atk / 4 Def / 252 Spe
 Nature: Adamant
 - Growth
 - Solar Blade
@@ -16105,7 +14706,6 @@ Nature: Adamant
 Swellow @ Choice Specs
 Ability: Scrappy
 Level: 37
-EVs: 4 Def / 252 SpA / 252 Spe
 Nature: Timid
 - Boomburst
 - U-turn
@@ -16118,7 +14718,6 @@ Nature: Timid
 Wailmer @ Choice Scarf
 Ability: Pressure
 Level: 34
-EVs: 36 HP / 200 SpA / 200 Spe
 Nature: Timid
 - Water Spout
 - Hydro Pump
@@ -16127,7 +14726,6 @@ Nature: Timid
 
 Horsea @ Life Orb
 Level: 34
-EVs: 116 HP / 196 SpA / 196 Spe
 Nature: Modest
 - Hydro Pump
 - Ice Beam
@@ -16139,7 +14737,6 @@ Nature: Modest
 
 Luvdisc @ Life Orb
 Level: 36
-EVs: 252 SpA / 4 SpD / 252 Spe
 Nature: Modest
 - Hydro Pump
 - Ice Beam
@@ -16149,7 +14746,6 @@ Nature: Modest
 Wailmer @ Choice Scarf
 Ability: Pressure
 Level: 36
-EVs: 36 HP / 200 SpA / 200 Spe
 Nature: Timid
 - Water Spout
 - Hydro Pump
@@ -16158,7 +14754,6 @@ Nature: Timid
 
 Seadra @ Eviolite
 Level: 36
-EVs: 252 HP / 240 Def / 16 Spe
 Nature: Bold
 - Flip Turn
 - Surf
@@ -16170,7 +14765,6 @@ Nature: Bold
 
 Luvdisc @ Life Orb
 Level: 38
-EVs: 252 SpA / 4 SpD / 252 Spe
 Nature: Modest
 - Hydro Pump
 - Ice Beam
@@ -16180,7 +14774,6 @@ Nature: Modest
 Wailmer @ Choice Scarf
 Ability: Pressure
 Level: 38
-EVs: 36 HP / 200 SpA / 200 Spe
 Nature: Timid
 - Water Spout
 - Hydro Pump
@@ -16189,7 +14782,6 @@ Nature: Timid
 
 Seadra @ Eviolite
 Level: 38
-EVs: 252 HP / 240 Def / 16 Spe
 Nature: Bold
 - Flip Turn
 - Surf
@@ -16201,7 +14793,6 @@ Nature: Bold
 
 Luvdisc @ Life Orb
 Level: 40
-EVs: 252 SpA / 4 SpD / 252 Spe
 Nature: Modest
 - Hydro Pump
 - Ice Beam
@@ -16211,7 +14802,6 @@ Nature: Modest
 Wailord @ Leftovers
 Ability: Pressure
 Level: 40
-EVs: 252 Def / 252 SpD / 4 Spe
 Nature: Calm
 - Block
 - Rest
@@ -16220,7 +14810,6 @@ Nature: Calm
 
 Kingdra @ Choice Specs
 Level: 40
-EVs: 252 SpA / 4 SpD / 252 Spe
 Nature: Modest
 IVs: 0 Atk
 - Hydro Pump
@@ -16233,7 +14822,6 @@ IVs: 0 Atk
 
 Chimecho @ Leftovers
 Level: 41
-EVs: 252 HP / 4 Def / 252 SpD
 Nature: Calm
 - Healing Wish
 - Recover
@@ -16245,7 +14833,6 @@ Nature: Calm
 
 Banette @ Life Orb
 Level: 41
-EVs: 252 Atk / 4 Def / 252 Spe
 Nature: Adamant
 - Shadow Claw
 - Knock Off
@@ -16255,7 +14842,6 @@ Nature: Adamant
 Kadabra @ Focus Sash
 Ability: Magic Guard
 Level: 41
-EVs: 4 HP / 252 SpA / 252 Spe
 Nature: Timid
 - Psychic
 - Counter
@@ -16268,7 +14854,6 @@ Nature: Timid
 Wobbuffet @ Leftovers
 Ability: Telepathy
 Level: 41
-EVs: 252 HP / 4 Def / 252 SpD
 Nature: Calm
 - Encore
 - Counter
