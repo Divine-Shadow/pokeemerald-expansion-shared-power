@@ -177,6 +177,71 @@ SINGLE_BATTLE_TEST("Shared Power: Shield Dust blocks secondary effects when pool
     }
 }
 
+SINGLE_BATTLE_TEST("Shared Power: Sturdy prevents lethal damage when pooled")
+{
+    GIVEN {
+        BATTLE_TYPE(BATTLE_TYPE_SHARED_POWER);
+        PLAYER(SPECIES_GEODUDE) { Ability(ABILITY_STURDY); Speed(20); }
+        PLAYER(SPECIES_WOBBUFFET) { MaxHP(100); HP(100); Speed(10); }
+        OPPONENT(SPECIES_WOBBUFFET) { Speed(5); }
+    } WHEN {
+        TURN { SWITCH(player, 1); MOVE(opponent, MOVE_SEISMIC_TOSS); }
+    } SCENE {
+        ANIMATION(ANIM_TYPE_MOVE, MOVE_SEISMIC_TOSS, opponent);
+        HP_BAR(player, hp: 1);
+        ABILITY_POPUP(player, ABILITY_STURDY);
+        MESSAGE("Wobbuffet endured the hit using Sturdy!");
+    }
+}
+
+SINGLE_BATTLE_TEST("Shared Power: Sturdy prevents OHKO moves when pooled")
+{
+    GIVEN {
+        BATTLE_TYPE(BATTLE_TYPE_SHARED_POWER);
+        ASSUME(GetMoveEffect(MOVE_FISSURE) == EFFECT_OHKO);
+        PLAYER(SPECIES_GEODUDE) { Ability(ABILITY_STURDY); Speed(20); }
+        PLAYER(SPECIES_WOBBUFFET) { Speed(10); }
+        OPPONENT(SPECIES_WOBBUFFET) { Speed(5); }
+    } WHEN {
+        TURN { SWITCH(player, 1); MOVE(opponent, MOVE_FISSURE); }
+    } SCENE {
+        MESSAGE("The opposing Wobbuffet used Fissure!");
+        ABILITY_POPUP(player, ABILITY_STURDY);
+        MESSAGE("Wobbuffet was protected by Sturdy!");
+    } THEN {
+        EXPECT_EQ(player->hp, player->maxHP);
+    }
+}
+
+SINGLE_BATTLE_TEST("Shared Power: Levitate grants Ground immunity when pooled")
+{
+    GIVEN {
+        BATTLE_TYPE(BATTLE_TYPE_SHARED_POWER);
+        PLAYER(SPECIES_KOFFING) { Ability(ABILITY_LEVITATE); Speed(20); }
+        PLAYER(SPECIES_WOBBUFFET) { Speed(10); }
+        OPPONENT(SPECIES_WOBBUFFET) { Speed(5); }
+    } WHEN {
+        TURN { SWITCH(player, 1); MOVE(opponent, MOVE_EARTHQUAKE); }
+    } THEN {
+        EXPECT_EQ(player->hp, player->maxHP);
+    }
+}
+
+SINGLE_BATTLE_TEST("Shared Power: Battle Armor blocks critical hits when pooled")
+{
+    GIVEN {
+        BATTLE_TYPE(BATTLE_TYPE_SHARED_POWER);
+        PLAYER(SPECIES_ARMALDO) { Ability(ABILITY_BATTLE_ARMOR); Speed(20); }
+        PLAYER(SPECIES_WOBBUFFET) { Speed(10); }
+        OPPONENT(SPECIES_WOBBUFFET) { Speed(5); }
+    } WHEN {
+        TURN { SWITCH(player, 1); MOVE(opponent, MOVE_SCRATCH, criticalHit: TRUE); }
+    } SCENE {
+        ANIMATION(ANIM_TYPE_MOVE, MOVE_SCRATCH, opponent);
+        NOT MESSAGE("A critical hit!");
+    }
+}
+
 SINGLE_BATTLE_TEST("Shared Power: Quick Feet ignores paralysis Speed drop when pooled")
 {
     GIVEN {

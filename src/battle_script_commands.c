@@ -1651,6 +1651,7 @@ static inline u32 GetHoldEffectCritChanceIncrease(u32 battler, enum ItemHoldEffe
 s32 CalcCritChanceStage(u32 battlerAtk, u32 battlerDef, u32 move, bool32 recordAbility, u32 abilityAtk, u32 abilityDef, enum ItemHoldEffect holdEffectAtk)
 {
     s32 critChance = 0;
+    u32 critBlockingAbility = ABILITY_NONE;
 
     if (gSideStatuses[battlerDef] & SIDE_STATUS_LUCKY_CHANT)
     {
@@ -1676,15 +1677,20 @@ s32 CalcCritChanceStage(u32 battlerAtk, u32 battlerDef, u32 move, bool32 recordA
             critChance = ARRAY_COUNT(sCriticalHitOdds) - 1;
     }
 
-    if (critChance != CRITICAL_HIT_BLOCKED && (abilityDef == ABILITY_BATTLE_ARMOR || abilityDef == ABILITY_SHELL_ARMOR))
+    if (HasActiveAbility(battlerDef, ABILITY_BATTLE_ARMOR))
+        critBlockingAbility = ABILITY_BATTLE_ARMOR;
+    else if (HasActiveAbility(battlerDef, ABILITY_SHELL_ARMOR))
+        critBlockingAbility = ABILITY_SHELL_ARMOR;
+
+    if (critChance != CRITICAL_HIT_BLOCKED && critBlockingAbility != ABILITY_NONE)
     {
         // Record ability only if move had 100% chance to get a crit
         if (recordAbility)
         {
             if (critChance == CRITICAL_HIT_ALWAYS)
-                RecordAbilityBattle(battlerDef, abilityDef);
+                RecordAbilityBattle(battlerDef, critBlockingAbility);
             else if (GetCriticalHitOdds(critChance) == 1)
-                RecordAbilityBattle(battlerDef, abilityDef);
+                RecordAbilityBattle(battlerDef, critBlockingAbility);
         }
         critChance = CRITICAL_HIT_BLOCKED;
     }
@@ -1704,6 +1710,7 @@ s32 CalcCritChanceStageGen1(u32 battlerAtk, u32 battlerDef, u32 move, bool32 rec
     s32 bonusCritStage = gBattleStruct->bonusCritStages[battlerAtk]; // G-Max Chi Strike
     u32 holdEffectCritStage = GetHoldEffectCritChanceIncrease(battlerAtk, holdEffectAtk);
     u16 baseSpeed = GetSpeciesBaseSpeed(gBattleMons[battlerAtk].species);
+    u32 critBlockingAbility = ABILITY_NONE;
 
     critChance = baseSpeed / 2;
 
@@ -1729,12 +1736,17 @@ s32 CalcCritChanceStageGen1(u32 battlerAtk, u32 battlerDef, u32 move, bool32 rec
         critChance = 255;
 
     // Prevented crits
+    if (HasActiveAbility(battlerDef, ABILITY_BATTLE_ARMOR))
+        critBlockingAbility = ABILITY_BATTLE_ARMOR;
+    else if (HasActiveAbility(battlerDef, ABILITY_SHELL_ARMOR))
+        critBlockingAbility = ABILITY_SHELL_ARMOR;
+
     if (gSideStatuses[battlerDef] & SIDE_STATUS_LUCKY_CHANT)
         critChance = CRITICAL_HIT_BLOCKED;
-    else if (abilityDef == ABILITY_BATTLE_ARMOR || abilityDef == ABILITY_SHELL_ARMOR)
+    else if (critBlockingAbility != ABILITY_NONE)
     {
         if (recordAbility)
-            RecordAbilityBattle(battlerDef, abilityDef);
+            RecordAbilityBattle(battlerDef, critBlockingAbility);
         critChance = CRITICAL_HIT_BLOCKED;
     }
 
@@ -1966,7 +1978,7 @@ static void Cmd_adjustdamage(void)
             gLastUsedItem = gBattleMons[battlerDef].item;
             gBattleStruct->moveResultFlags[battlerDef] |= MOVE_RESULT_FOE_HUNG_ON;
         }
-        else if (B_STURDY >= GEN_5 && GetBattlerAbility(battlerDef) == ABILITY_STURDY && IsBattlerAtMaxHp(battlerDef))
+        else if (B_STURDY >= GEN_5 && HasActiveAbility(battlerDef, ABILITY_STURDY) && IsBattlerAtMaxHp(battlerDef))
         {
             enduredHit |= 1u << battlerDef;
             RecordAbilityBattle(battlerDef, ABILITY_STURDY);
@@ -10979,10 +10991,11 @@ static void Cmd_tryKO(void)
             endured = AFFECTION_ENDURED;
     }
 
-    if (targetAbility == ABILITY_STURDY)
+    if (HasActiveAbility(gBattlerTarget, ABILITY_STURDY))
     {
         gBattleStruct->moveResultFlags[gBattlerTarget] |= MOVE_RESULT_MISSED;
         gLastUsedAbility = ABILITY_STURDY;
+        RecordAbilityBattle(gBattlerTarget, ABILITY_STURDY);
         gBattlescriptCurrInstr = BattleScript_SturdyPreventsOHKO;
         gBattlerAbility = gBattlerTarget;
     }

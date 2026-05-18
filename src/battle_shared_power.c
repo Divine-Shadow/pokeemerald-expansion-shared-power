@@ -212,9 +212,6 @@ void SharedPower_EnsurePoolsSeeded(void)
 
 static bool32 SharedPower_UsesSidePool(u8 battler)
 {
-    if (IsPartnerMonFromSameTrainer(battler))
-        return TRUE;
-
     if (gBattleTypeFlags & BATTLE_TYPE_MULTI)
         return TRUE;
 
@@ -222,6 +219,12 @@ static bool32 SharedPower_UsesSidePool(u8 battler)
         return TRUE;
 
     if (!IsOnPlayerSide(battler) && gBattleTypeFlags & BATTLE_TYPE_TWO_OPPONENTS)
+        return TRUE;
+
+    if (!IsOnPlayerSide(battler) && gBattleTypeFlags & BATTLE_TYPE_INGAME_PARTNER)
+        return FALSE;
+
+    if (IsPartnerMonFromSameTrainer(battler))
         return TRUE;
 
     return FALSE;
