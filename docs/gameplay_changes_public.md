@@ -25,8 +25,39 @@ These notes cover gameplay rules and move access that are safe to know before st
 ## Pokemon Changes
 
 - Pokemon in evolution lines that include a friendship evolution now have 255 base friendship.
+- Former trade evolutions now happen by leveling up. If the trade evolution previously required a held item, the Pokemon must hold that item while leveling up; directly using that item no longer triggers that trade replacement.
 - Manectric's hidden ability is now Plus instead of Minus.
 - The player's starter Pokemon is marked as obtained in a fateful encounter.
+
+| Pokemon | Evolves into | Level | Held item |
+| --- | --- | --- | --- |
+| Poliwhirl | Politoed | 26 | King's Rock |
+| Kadabra | Alakazam | 17 | None |
+| Machoke | Machamp | 29 | None |
+| Graveler | Golem | 26 | None |
+| Alolan Graveler | Alolan Golem | 26 | None |
+| Slowpoke | Slowking | 38 | King's Rock |
+| Haunter | Gengar | 26 | None |
+| Onix | Steelix | 1 | Metal Coat |
+| Rhydon | Rhyperior | 43 | Protector |
+| Seadra | Kingdra | 33 | Dragon Scale |
+| Scyther | Scizor | 1 | Metal Coat |
+| Electabuzz | Electivire | 31 | Electirizer |
+| Magmar | Magmortar | 31 | Magmarizer |
+| Porygon | Porygon2 | 1 | Up-Grade |
+| Porygon2 | Porygon-Z | 2 | Dubious Disc |
+| Feebas | Milotic | 1 | Prism Scale |
+| Dusclops | Dusknoir | 38 | Reaper Cloth |
+| Clamperl | Huntail | 1 | Deep Sea Tooth |
+| Clamperl | Gorebyss | 1 | Deep Sea Scale |
+| Boldore | Gigalith | 26 | None |
+| Gurdurr | Conkeldurr | 26 | None |
+| Karrablast | Escavalier | 1 | None |
+| Shelmet | Accelgor | 1 | None |
+| Spritzee | Aromatisse | 1 | Sachet |
+| Swirlix | Slurpuff | 1 | Whipped Dream |
+| Phantump | Trevenant | 1 | None |
+| Pumpkaboo | Gourgeist | 1 | None |
 
 ## Move Changes
 

@@ -1,6 +1,8 @@
 #include "global.h"
+#include "pokemon.h"
 #include "string_util.h"
 #include "test/test.h"
+#include "constants/items.h"
 #include "constants/form_change_types.h"
 
 TEST("Form species ID tables are shared between all forms")
@@ -137,6 +139,46 @@ TEST("No species has two evolutions that use the evolution tracker")
     }
 
     EXPECT(evolutionTrackerEvolutions < 2);
+}
+
+TEST("No species uses trade evolution methods")
+{
+    u32 i;
+    u32 species = SPECIES_NONE;
+    const struct Evolution *evolutions;
+
+    for (i = 0; i < NUM_SPECIES; i++)
+    {
+        if (GetSpeciesEvolutions(i) != NULL) PARAMETRIZE { species = i; }
+    }
+
+    evolutions = GetSpeciesEvolutions(species);
+    for (i = 0; evolutions[i].method != EVOLUTIONS_END; i++)
+        EXPECT_NE(evolutions[i].method, EVO_TRADE);
+}
+
+TEST("Former pure trade evolutions now evolve by level")
+{
+    struct Pokemon mon;
+
+    CreateMon(&mon, SPECIES_KADABRA, 16, 0, FALSE, 0, OT_ID_PRESET, 0);
+    EXPECT_EQ(GetEvolutionTargetSpecies(&mon, EVO_MODE_NORMAL, ITEM_NONE, NULL, NULL, CHECK_EVO), SPECIES_NONE);
+
+    CreateMon(&mon, SPECIES_KADABRA, 17, 0, FALSE, 0, OT_ID_PRESET, 0);
+    EXPECT_EQ(GetEvolutionTargetSpecies(&mon, EVO_MODE_NORMAL, ITEM_NONE, NULL, NULL, CHECK_EVO), SPECIES_ALAKAZAM);
+}
+
+TEST("Former held item trade evolutions require holding the item on level up")
+{
+    struct Pokemon mon;
+    u16 item = ITEM_KINGS_ROCK;
+
+    CreateMon(&mon, SPECIES_POLIWHIRL, 26, 0, FALSE, 0, OT_ID_PRESET, 0);
+    EXPECT_EQ(GetEvolutionTargetSpecies(&mon, EVO_MODE_NORMAL, ITEM_NONE, NULL, NULL, CHECK_EVO), SPECIES_NONE);
+    EXPECT_EQ(GetEvolutionTargetSpecies(&mon, EVO_MODE_ITEM_USE, ITEM_KINGS_ROCK, NULL, NULL, CHECK_EVO), SPECIES_NONE);
+
+    SetMonData(&mon, MON_DATA_HELD_ITEM, &item);
+    EXPECT_EQ(GetEvolutionTargetSpecies(&mon, EVO_MODE_NORMAL, ITEM_NONE, NULL, NULL, CHECK_EVO), SPECIES_POLITOED);
 }
 
 extern const u8 gFallbackPokedexText[];
