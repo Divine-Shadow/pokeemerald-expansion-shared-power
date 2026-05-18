@@ -15439,17 +15439,56 @@ Items: Super Potion / Super Potion
 Double Battle: No
 AI: Basic Trainer
 
-Mightyena
+Groudon @ Red Orb
+Ability: Drought
+Level: 5
+- Stealth Rock
+- Solar Beam
+- Lava Plume
+- Scorching Sands
+
+Sunflora @ Charcoal
+Ability: Chlorophyll
 Level: 37
-IVs: 18 HP / 18 Atk / 18 Def / 18 SpA / 18 SpD / 18 Spe
+IVs: 30 HP / 2 Atk / 30 Def / 31 SpA / 31 SpD / 31 Spe
+- Growth
+- Weather Ball
+- Solar Beam
+- Hidden Power
 
-Crobat
-Level: 38
-IVs: 18 HP / 18 Atk / 18 Def / 18 SpA / 18 SpD / 18 Spe
+Sunflora @ Charcoal
+Ability: Solar Power
+Level: 37
+IVs: 30 HP / 2 Atk / 30 Def / 31 SpA / 31 SpD / 31 Spe
+- Growth
+- Weather Ball
+- Solar Beam
+- Hidden Power
 
-Camerupt
-Level: 39
-IVs: 18 HP / 18 Atk / 18 Def / 18 SpA / 18 SpD / 18 Spe
+Rotom-Heat @ Sitrus Berry
+Ability: Levitate
+Level: 37
+IVs: 0 Atk
+- Volt Switch
+- Overheat
+- Pain Split
+- Will-O-Wisp
+
+Arcanine @ Heavy-Duty Boots
+Ability: Flash Fire
+Level: 37
+- Extreme Speed
+- Flare Blitz
+- Snarl
+- Wild Charge
+
+Blaziken @ Scope Lens
+Ability: Speed Boost
+Level: 37
+- Blaze Kick
+- Shadow Claw
+- Brick Break
+- Solar Beam
 
 === TRAINER_MAXIE_MT_CHIMNEY ===
 Name: MAXIE
