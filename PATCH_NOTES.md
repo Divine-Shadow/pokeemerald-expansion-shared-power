@@ -1,4 +1,4 @@
-- Maps: Rename route underwater map sections so caught Pokemon show the route-specific underwater location (commit pending).
+- Maps: Rename route underwater map sections so caught Pokemon show the route-specific underwater location (commit b06e69eca2).
 - Gameplay/Trainers: Give Winona's Altaria Cloud Nine and Skarmory Roar (commit 1c81652882).
 - Gameplay/Trainers: Update Winona's lead core with burned physical attackers (commit 1c81652882).
 - Gameplay/Trainers: Remove EV investment from enemy trainer Pokemon (commit 31f347f36b).
