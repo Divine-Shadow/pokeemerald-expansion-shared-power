@@ -77,3 +77,21 @@ SINGLE_BATTLE_TEST("Thunder Wave doesn't affect Electric types in Gen6+")
         MESSAGE("It doesn't affect the opposing Pikachu…");
     }
 }
+
+SINGLE_BATTLE_TEST("Thunder Wave does not print damage effectiveness messages")
+{
+    GIVEN {
+        ASSUME(GetMoveCategory(MOVE_THUNDER_WAVE) == DAMAGE_CATEGORY_STATUS);
+        ASSUME(GetMoveType(MOVE_THUNDER_WAVE) == TYPE_ELECTRIC);
+        ASSUME(GetSpeciesType(SPECIES_WAILMER, 0) == TYPE_WATER);
+        PLAYER(SPECIES_WOBBUFFET);
+        OPPONENT(SPECIES_WAILMER);
+    } WHEN {
+        TURN { MOVE(player, MOVE_THUNDER_WAVE); }
+    } SCENE {
+        MESSAGE("Wobbuffet used Thunder Wave!");
+        ANIMATION(ANIM_TYPE_MOVE, MOVE_THUNDER_WAVE, player);
+        MESSAGE("The opposing Wailmer is paralyzed, so it may be unable to move!");
+        NOT MESSAGE("It's super effective!");
+    }
+}

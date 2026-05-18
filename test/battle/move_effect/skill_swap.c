@@ -23,6 +23,23 @@ SINGLE_BATTLE_TEST("Skill Swap swaps user and target's abilities")
     } 
 }
 
+SINGLE_BATTLE_TEST("Skill Swap does not print damage effectiveness messages")
+{
+    GIVEN {
+        ASSUME(GetMoveCategory(MOVE_SKILL_SWAP) == DAMAGE_CATEGORY_STATUS);
+        ASSUME(GetMoveType(MOVE_SKILL_SWAP) == TYPE_PSYCHIC);
+        ASSUME(GetSpeciesType(SPECIES_MAKUHITA, 0) == TYPE_FIGHTING);
+        PLAYER(SPECIES_WOBBUFFET) { Ability(ABILITY_TELEPATHY); }
+        OPPONENT(SPECIES_MAKUHITA) { Ability(ABILITY_THICK_FAT); }
+    } WHEN {
+        TURN { MOVE(player, MOVE_SKILL_SWAP); }
+    } SCENE {
+        ANIMATION(ANIM_TYPE_MOVE, MOVE_SKILL_SWAP, player);
+        MESSAGE("Wobbuffet swapped Abilities with its target!");
+        NOT MESSAGE("It's super effective!");
+    }
+}
+
 DOUBLE_BATTLE_TEST("Skill Swap only swaps user's ability with target's ability")
 {
     GIVEN {

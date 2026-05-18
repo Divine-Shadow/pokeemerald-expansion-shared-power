@@ -55,6 +55,22 @@ SINGLE_BATTLE_TEST("Will-O-Wisp burns target")
     }
 }
 
+SINGLE_BATTLE_TEST("Will-O-Wisp does not print damage effectiveness messages")
+{
+    GIVEN {
+        ASSUME(GetMoveCategory(MOVE_WILL_O_WISP) == DAMAGE_CATEGORY_STATUS);
+        ASSUME(GetMoveType(MOVE_WILL_O_WISP) == TYPE_FIRE);
+        ASSUME(GetSpeciesType(SPECIES_CHIKORITA, 0) == TYPE_GRASS);
+        PLAYER(SPECIES_WOBBUFFET);
+        OPPONENT(SPECIES_CHIKORITA);
+    } WHEN {
+        TURN { MOVE(player, MOVE_WILL_O_WISP); }
+    } SCENE {
+        ANIMATION(ANIM_TYPE_MOVE, MOVE_WILL_O_WISP, player);
+        MESSAGE("The opposing Chikorita was burned!");
+        NOT MESSAGE("It's super effective!");
+    }
+}
 
 SINGLE_BATTLE_TEST("Will-O-Wisp can't burn a fire type")
 {

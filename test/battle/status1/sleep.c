@@ -36,6 +36,23 @@ SINGLE_BATTLE_TEST("Sleep: Spore doesn't affect grass types (Gen 6+)")
     }
 }
 
+SINGLE_BATTLE_TEST("Sleep: Spore does not print damage effectiveness messages")
+{
+    GIVEN {
+        ASSUME(GetMoveCategory(MOVE_SPORE) == DAMAGE_CATEGORY_STATUS);
+        ASSUME(GetMoveType(MOVE_SPORE) == TYPE_GRASS);
+        ASSUME(GetSpeciesType(SPECIES_WAILMER, 0) == TYPE_WATER);
+        PLAYER(SPECIES_WOBBUFFET);
+        OPPONENT(SPECIES_WAILMER);
+    } WHEN {
+        TURN { MOVE(player, MOVE_SPORE); }
+    } SCENE {
+        ANIMATION(ANIM_TYPE_MOVE, MOVE_SPORE, player);
+        MESSAGE("The opposing Wailmer fell asleep!");
+        NOT MESSAGE("It's super effective!");
+    }
+}
+
 AI_SINGLE_BATTLE_TEST("AI avoids hypnosis when it can not put target to sleep")
 {
     u32 species, ability;
