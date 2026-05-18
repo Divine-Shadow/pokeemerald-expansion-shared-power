@@ -11,6 +11,7 @@ This file contains gameplay changes that may affect routing or discoveries. Read
 - The Lavaridge, Lilycove, and Pacifidlog Pokemon Center Condition Coaches were repositioned so nearby NPCs remain accessible.
 - Lilycove Department Store sells held items needed for held-item trade-replacement evolutions.
 - Lavaridge Gym and Rusturf Tunnel no longer apply permanent Misty Terrain to battles.
+- The Route 111 Winstrate family reward is now Eviolite and Life Orb.
 - Winstrate Vito now waits near Victory Road's Pokemon League-side exit.
 - The Mauville City Mart now has a broker who unlocks a free shop of wild-held-item drops after seeing a Pokemon with item-stealing or item-swapping capability.
 - Former Slateport, Lilycove Department Store, and Mauville Game Corner TMs now appear as exploration rewards instead of purchases or coin prizes.
@@ -38,6 +39,7 @@ This file contains gameplay changes that may affect routing or discoveries. Read
 - Champion Wallace's team has been updated.
 - Maxie's Magma Hideout team has been updated.
 - Archie's Seafloor Cavern team has been updated.
+- Winstrate class trainers now scale their teams to the current level cap.
 - Non-boss trainer teams have been updated with Smogon-inspired sets; exact Showdown-format sets are documented in [mob_trainer_sets_showdown.md](mob_trainer_sets_showdown.md).
 - Trainer battle sets no longer opt into Terastallization.
 - Former Ninjask battle, facility, and contest opponent slots now use Beedrill.

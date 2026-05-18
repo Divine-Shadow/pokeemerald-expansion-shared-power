@@ -2084,6 +2084,7 @@ Gender: Male
 Music: Cool
 Items: Full Restore
 Double Battle: No
+Scale To Level Cap: Yes
 AI: Basic Trainer
 
 Breloom @ Leftovers
@@ -7623,6 +7624,7 @@ Pic: Pokefan M
 Gender: Male
 Music: Twins
 Double Battle: No
+Scale To Level Cap: Yes
 AI: Check Bad Move
 
 Taillow @ Life Orb
@@ -7803,6 +7805,7 @@ Pic: Pokefan F
 Gender: Female
 Music: Twins
 Double Battle: No
+Scale To Level Cap: Yes
 AI: Check Bad Move / Try To Faint
 
 Roselia @ Eviolite
@@ -8100,6 +8103,7 @@ Pic: Expert F
 Gender: Female
 Music: Intense
 Double Battle: No
+Scale To Level Cap: Yes
 AI: Basic Trainer
 
 Meditite @ Choice Band
@@ -15620,6 +15624,7 @@ Pic: Lass
 Gender: Female
 Music: Female
 Double Battle: No
+Scale To Level Cap: Yes
 AI: Basic Trainer
 
 Marill @ Choice Band
