@@ -831,17 +831,50 @@ Items: Super Potion / Super Potion
 Double Battle: No
 AI: Basic Trainer
 
-Mightyena
-Level: 41
-IVs: 18 HP / 18 Atk / 18 Def / 18 SpA / 18 SpD / 18 Spe
+Kyogre @ Blue Orb
+Ability: Drizzle
+Level: 5
+- Lock-On
+- Sheer Cold
 
-Crobat
-Level: 41
-IVs: 18 HP / 18 Atk / 18 Def / 18 SpA / 18 SpD / 18 Spe
+Zapdos @ Expert Belt
+Ability: Static
+Level: 39
+- Weather Ball
+- Hurricane
+- Thunder
+- U-turn
 
-Sharpedo
-Level: 43
-IVs: 18 HP / 18 Atk / 18 Def / 18 SpA / 18 SpD / 18 Spe
+Toxicroak @ Choice Band
+Level: 41
+- Brick Break
+- Sucker Punch
+- Poison Jab
+
+Tentacruel @ Black Sludge
+Ability: Rain Dish
+Level: 41
+IVs: 0 Atk
+- Muddy Water
+- Sludge Bomb
+- Rapid Spin
+- Toxic Spikes
+
+Araquanid @ Mystic Water
+Ability: Water Bubble
+Level: 41
+- Mirror Coat
+- Leech Life
+- Sticky Web
+- Waterfall
+
+Lanturn @ Air Balloon
+Ability: Volt Absorb
+Level: 41
+- Earthquake
+- Thunderbolt
+- Scald
+- Ice Beam
 
 === TRAINER_LEAH ===
 Name: LEAH
@@ -6922,14 +6955,12 @@ Level: 26
 - Trailblaze
 - Body Press
 
-Charizard @ Heavy-Duty Boots
-Ability: Solar Power
+Charmeleon @ Eviolite
 Level: 29
-IVs: 0 Atk
-- Hurricane
-- Flamethrower
-- Scorching Sands
-- Will-O-Wisp
+- Belly Drum
+- Dig
+- Fire Punch
+- Metal Claw
 
 === TRAINER_NORMAN_1 ===
 Name: NORMAN

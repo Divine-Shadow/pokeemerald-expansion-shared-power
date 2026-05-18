@@ -120,14 +120,12 @@ Level: 26
 - Trailblaze
 - Body Press
 
-Charizard @ Heavy-Duty Boots
-Ability: Solar Power
+Charmeleon @ Eviolite
 Level: 29
-IVs: 0 Atk
-- Hurricane
-- Flamethrower
-- Scorching Sands
-- Will-O-Wisp
+- Belly Drum
+- Dig
+- Fire Punch
+- Metal Claw
 
 
 === [gen9anythinggoes] Norman ===

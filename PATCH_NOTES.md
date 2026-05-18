@@ -1,3 +1,5 @@
+- Gameplay/Trainers: Replace Flannery's Charizard with an Eviolite Charmeleon setup attacker (commit pending).
+- Gameplay/Trainers: Replace Archie's Seafloor Cavern team with a rain-focused six-Pokemon team (commit pending).
 - Gameplay/Trainers: Replace Maxie's Magma Hideout team with a sun-focused six-Pokemon team (commit a89cba1f19).
 - Gameplay/Moves: Raise Blaze Kick accuracy to 100% (commit bc2241edff).
 - Gameplay/Moves: Raise Icy Wind and Mud Shot accuracy to 100% (commit ad455b76c1).
