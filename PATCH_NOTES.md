@@ -1,4 +1,4 @@
-- Gameplay/NPCs: Let Condition Coaches replace a Pokemon's existing status with the selected condition (commit pending).
+- Gameplay/NPCs: Let Condition Coaches replace a Pokemon's existing status with the selected condition (commit 221baa3fb5).
 - Battle/Weather: Make Drizzle, Drought, Sand Stream, and Snow Warning set permanent battle weather (commit 7c72e3d923).
 - Gameplay/Shops: Add held-item trade evolution requirements to the Lilycove Department Store held-item clerk (commit 3a8234388b).
 - Maps/Battle: Remove permanent Misty Terrain from Lavaridge Gym and Rusturf Tunnel by clearing their fog weather (commit 8da84a08e3).
