@@ -1,3 +1,4 @@
+- Battle: Prevent Thunder Wave from printing damage effectiveness text when it only applies paralysis, with coverage for similar non-damaging moves (commit 651f66f422).
 - Maps/NPCs: Add a Condition Coach to the Pokemon League lobby (commit 9697fea62b).
 - Maps/NPCs: Reposition Lavaridge, Lilycove, and Pacifidlog Pokemon Center Condition Coaches so nearby NPCs remain accessible (commit 9697fea62b).
 - Battle/Shared Power: Fix tag partner pool selection so in-game partner opponent battlers keep separate pools unless the battle is multi or two-opponent (commit 19bad3fffd).
