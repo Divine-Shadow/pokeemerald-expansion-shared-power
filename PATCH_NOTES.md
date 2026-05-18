@@ -1,4 +1,4 @@
-- Gameplay/Trainers: Replace Maxie's Magma Hideout team with a sun-focused six-Pokemon team (commit pending).
+- Gameplay/Trainers: Replace Maxie's Magma Hideout team with a sun-focused six-Pokemon team (commit a89cba1f19).
 - Gameplay/Moves: Raise Blaze Kick accuracy to 100% (commit bc2241edff).
 - Gameplay/Moves: Raise Icy Wind and Mud Shot accuracy to 100% (commit ad455b76c1).
 - Maps: Rename route underwater map sections so caught Pokemon show the route-specific underwater location (commit b06e69eca2).
