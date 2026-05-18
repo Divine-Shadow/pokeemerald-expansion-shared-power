@@ -140,15 +140,15 @@ TEST("Condition Coach reports already-clear Pokemon")
     EXPECT_EQ(GetMonData(&gPlayerParty[0], MON_DATA_STATUS), STATUS1_NONE);
 }
 
-TEST("Condition Coach does not overwrite existing status")
+TEST("Condition Coach overwrites existing status")
 {
     u32 status = STATUS1_BURN;
 
     CreateConditionCoachTestMon(SPECIES_WOBBUFFET);
     SetMonData(&gPlayerParty[0], MON_DATA_STATUS, &status);
 
-    EXPECT_EQ(TryConditionCoachChoice(CONDITION_COACH_CHOICE_POISON), CONDITION_COACH_RESULT_ALREADY_STATUS);
-    EXPECT_EQ(GetMonData(&gPlayerParty[0], MON_DATA_STATUS), STATUS1_BURN);
+    EXPECT_EQ(TryConditionCoachChoice(CONDITION_COACH_CHOICE_POISON), CONDITION_COACH_RESULT_APPLIED);
+    EXPECT_EQ(GetMonData(&gPlayerParty[0], MON_DATA_STATUS), STATUS1_POISON);
 }
 
 TEST("Condition Coach rejects Eggs")

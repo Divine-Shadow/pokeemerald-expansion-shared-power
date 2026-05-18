@@ -755,10 +755,6 @@ u16 ConditionCoach_TryApplyStatus(void)
         if ((status & STATUS1_ANY) == STATUS1_NONE)
             return CONDITION_COACH_RESULT_ALREADY_CLEAR;
     }
-    else if (status & STATUS1_ANY)
-    {
-        return CONDITION_COACH_RESULT_ALREADY_STATUS;
-    }
 
     status = ConditionCoach_GetStatusForChoice(choice);
     Script_RequestEffects(SCREFF_V1 | SCREFF_SAVE);
