@@ -1,3 +1,4 @@
+- Gameplay/Shops: Add held-item trade evolution requirements to the Lilycove Department Store held-item clerk (commit pending).
 - Maps/Battle: Remove permanent Misty Terrain from Lavaridge Gym and Rusturf Tunnel by clearing their fog weather (commit 8da84a08e3).
 - Gameplay/Pokemon: Replace trade evolutions with level-up evolutions, preserving held-item requirements as held-item level-up conditions (commit 454dbe15bb).
 - Battle/Shared Power: Show shared ability names in ability popup updates and related battle text instead of the active Pokemon's native ability (commit c31f4ef331).
