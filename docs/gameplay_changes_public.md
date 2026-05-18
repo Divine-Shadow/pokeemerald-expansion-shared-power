@@ -17,6 +17,7 @@ These notes cover gameplay rules and move access that are safe to know before st
 
 ## Field Rules
 
+- Underwater route areas now show their route number in caught-location text, such as Route 127 Underwater.
 - Hooked fishing encounters wait for the player to press A and no longer get away.
 
 ## Pokemon Center Services
