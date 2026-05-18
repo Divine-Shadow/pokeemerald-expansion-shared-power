@@ -1,5 +1,5 @@
-- Gameplay/Items: Change the Route 111 Winstrate family reward from Macho Brace to Eviolite and Life Orb (commit pending).
-- Gameplay/Trainers: Enable level-cap scaling for Winstrate class trainer battles (commit pending).
+- Gameplay/Items: Change the Route 111 Winstrate family reward from Macho Brace to Eviolite and Life Orb (commit 168bd4f6b7).
+- Gameplay/Trainers: Enable level-cap scaling for Winstrate class trainer battles (commit 168bd4f6b7).
 - Gameplay/Trainers: Change Vito to the Winstrate trainer class and give Winstrate trainers Ultra Balls by default (commit f8a0595548).
 - Gameplay/Trainers: Add an opt-in trainer setting that scales NPC battle teams to the current player level cap (commit f8a0595548).
 - Gameplay/Trainers: Replace Flannery's Charizard with an Eviolite Charmeleon setup attacker (commit 81b61f994f).
