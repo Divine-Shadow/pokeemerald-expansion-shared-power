@@ -832,6 +832,7 @@ SINGLE_BATTLE_TEST("Shared Power: Rain Dish heals from pooled ability")
         TURN { MOVE(player, MOVE_SPLASH); MOVE(opponent, MOVE_RAIN_DANCE); }
     } SCENE {
         ABILITY_POPUP(player, ABILITY_RAIN_DISH);
+        MESSAGE("Wobbuffet's Rain Dish restored its HP a little!");
         HP_BAR(player, damage: -(100 / 16));
     }
 }

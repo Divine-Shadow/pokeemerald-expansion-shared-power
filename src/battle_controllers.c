@@ -51,6 +51,27 @@ static u32 ReturnAnimIdForBattler(bool32 isPlayerSide, u32 specificBattler);
 static void LaunchKOAnimation(u32 battlerId, u16 animId, bool32 isFront);
 static void AnimateMonAfterKnockout(u32 battler);
 
+static u16 GetDisplayedAbilityForMessage(u32 battler)
+{
+    u16 ability = gBattleMons[battler].ability;
+
+    if (!SharedPower_IsEnabled())
+        return ability;
+
+    if (gBattleStruct->sharedPowerPopupAbility[battler] != ABILITY_NONE
+     && gBattleStruct->sharedPowerPopupAbility[battler] == gLastUsedAbility)
+        return gBattleStruct->sharedPowerPopupAbility[battler];
+
+    if (battler == gBattlerAbility
+     && gLastUsedAbility != ABILITY_NONE
+     && gLastUsedAbility < ABILITIES_COUNT
+     && gLastUsedAbility != ability
+     && HasActiveAbility(battler, gLastUsedAbility))
+        return gLastUsedAbility;
+
+    return ability;
+}
+
 void HandleLinkBattleSetup(void)
 {
     if (gBattleTypeFlags & BATTLE_TYPE_LINK)
@@ -919,13 +940,7 @@ void BtlController_EmitPrintString(u32 battler, u32 bufferId, enum StringID stri
     stringInfo->moveType = GetMoveType(gCurrentMove);
 
     for (i = 0; i < MAX_BATTLERS_COUNT; i++)
-    {
-        stringInfo->abilities[i] = gBattleMons[i].ability;
-        if (SharedPower_IsEnabled()
-         && gBattleStruct->sharedPowerPopupAbility[i] != ABILITY_NONE
-         && gBattleStruct->sharedPowerPopupAbility[i] == gLastUsedAbility)
-            stringInfo->abilities[i] = gBattleStruct->sharedPowerPopupAbility[i];
-    }
+        stringInfo->abilities[i] = GetDisplayedAbilityForMessage(i);
     for (i = 0; i < TEXT_BUFF_ARRAY_COUNT; i++)
     {
         stringInfo->textBuffs[0][i] = gBattleTextBuff1[i];
@@ -954,7 +969,7 @@ void BtlController_EmitPrintSelectionString(u32 battler, u32 bufferId, enum Stri
     stringInfo->bakScriptPartyIdx = gBattleStruct->scriptPartyIdx;
 
     for (i = 0; i < MAX_BATTLERS_COUNT; i++)
-        stringInfo->abilities[i] = gBattleMons[i].ability;
+        stringInfo->abilities[i] = GetDisplayedAbilityForMessage(i);
     for (i = 0; i < TEXT_BUFF_ARRAY_COUNT; i++)
     {
         stringInfo->textBuffs[0][i] = gBattleTextBuff1[i];

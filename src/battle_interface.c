@@ -5,6 +5,7 @@
 #include "pokemon.h"
 #include "battle_controllers.h"
 #include "battle_interface.h"
+#include "battle_shared_power.h"
 #include "battle_z_move.h"
 #include "graphics.h"
 #include "sprite.h"
@@ -30,6 +31,7 @@
 #include "item_icon.h"
 #include "item_use.h"
 #include "test_runner.h"
+#include "constants/abilities.h"
 #include "constants/battle_anim.h"
 #include "constants/rgb.h"
 #include "constants/songs.h"
@@ -2704,6 +2706,18 @@ void UpdateAbilityPopup(u8 battler)
     u8 *spriteIds = gBattleStruct->abilityPopUpSpriteIds[battler];
     u16 ability = (gBattleScripting.abilityPopupOverwrite) ? gBattleScripting.abilityPopupOverwrite
                                                            : gBattleMons[battler].ability;
+
+    if (!gBattleScripting.abilityPopupOverwrite && SharedPower_IsEnabled())
+    {
+        if (gBattleStruct->sharedPowerPopupActive[battler])
+            ability = gBattleStruct->sharedPowerPopupAbility[battler];
+        else if (gLastUsedAbility != ABILITY_NONE
+              && gLastUsedAbility < ABILITIES_COUNT
+              && gLastUsedAbility != ability
+              && HasActiveAbility(battler, gLastUsedAbility))
+            ability = gLastUsedAbility;
+    }
+
     PrintAbilityOnAbilityPopUp(ability, spriteIds[0], spriteIds[1]);
 }
 
