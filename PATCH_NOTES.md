@@ -1,3 +1,6 @@
+- Battle/Shared Power: Fix tag partner pool selection so in-game partner opponent battlers keep separate pools unless the battle is multi or two-opponent (commit 19bad3fffd).
+- Battle: Disable in-battle friendship and affection bonuses (commit 19bad3fffd).
+- Battle: Shared Power defensive ability checks and Sturdy text now respect pooled Sturdy, Levitate, Battle Armor, and Shell Armor, with regression coverage (commit 19bad3fffd).
 - Gameplay/Pokemon: Set base friendship to 255 for Pokemon in friendship-evolution lines (commit b2f21ce351).
 - Battle/Shared Power: Share ability pools by side in tag and multi partner battles (commit 00c7683e54).
 - Battle/Shared Power: Let pooled Run Away satisfy flee checks for active teammates (commit 56cb2b60cb).
