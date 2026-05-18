@@ -126,3 +126,43 @@ DOUBLE_BATTLE_TEST("Switch-in abilities trigger in Speed Order after post-KO swi
         }
     }
 }
+
+SINGLE_BATTLE_TEST("Entry weather abilities last until replaced")
+{
+    u32 ability, expectedWeather;
+
+    PARAMETRIZE { ability = ABILITY_DRIZZLE; expectedWeather = B_WEATHER_RAIN_NORMAL; }
+    PARAMETRIZE { ability = ABILITY_DROUGHT; expectedWeather = B_WEATHER_SUN_NORMAL; }
+    PARAMETRIZE { ability = ABILITY_SAND_STREAM; expectedWeather = B_WEATHER_SANDSTORM; }
+    PARAMETRIZE { ability = ABILITY_SNOW_WARNING; expectedWeather = (B_SNOW_WARNING >= GEN_9 ? B_WEATHER_SNOW : B_WEATHER_HAIL); }
+
+    GIVEN {
+        PLAYER(SPECIES_WOBBUFFET);
+        OPPONENT(SPECIES_TYRANITAR) { Ability(ability); }
+    } WHEN {
+        TURN { ; }
+    } THEN {
+        EXPECT_EQ(gBattleWeather, expectedWeather);
+        EXPECT_EQ(gWishFutureKnock.weatherDuration, 0);
+    }
+}
+
+SINGLE_BATTLE_TEST("Weather moves still use timed weather")
+{
+    u32 move, expectedWeather;
+
+    PARAMETRIZE { move = MOVE_RAIN_DANCE; expectedWeather = B_WEATHER_RAIN_NORMAL; }
+    PARAMETRIZE { move = MOVE_SUNNY_DAY; expectedWeather = B_WEATHER_SUN_NORMAL; }
+    PARAMETRIZE { move = MOVE_SANDSTORM; expectedWeather = B_WEATHER_SANDSTORM; }
+    PARAMETRIZE { move = MOVE_SNOWSCAPE; expectedWeather = B_WEATHER_SNOW; }
+
+    GIVEN {
+        PLAYER(SPECIES_WOBBUFFET);
+        OPPONENT(SPECIES_WOBBUFFET) { Moves(move); }
+    } WHEN {
+        TURN { MOVE(opponent, move); }
+    } THEN {
+        EXPECT_EQ(gBattleWeather, expectedWeather);
+        EXPECT_EQ(gWishFutureKnock.weatherDuration, 4);
+    }
+}

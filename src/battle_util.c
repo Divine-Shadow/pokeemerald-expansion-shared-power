@@ -270,6 +270,23 @@ bool32 EndOrContinueWeather(void)
     return FALSE;
 }
 
+static bool32 IsPermanentAbilityWeather(u32 battler, bool32 viaAbility)
+{
+    if (!viaAbility)
+        return FALSE;
+
+    switch (GetBattlerAbility(battler))
+    {
+    case ABILITY_DRIZZLE:
+    case ABILITY_DROUGHT:
+    case ABILITY_SAND_STREAM:
+    case ABILITY_SNOW_WARNING:
+        return TRUE;
+    default:
+        return FALSE;
+    }
+}
+
 static u32 CalcBeatUpPower(void)
 {
     u32 basePower;
@@ -2848,7 +2865,7 @@ bool32 TryChangeBattleWeather(u32 battler, u32 battleWeatherId, bool32 viaAbilit
     {
         u32 rock = sBattleWeatherInfo[battleWeatherId].rock;
         gBattleWeather = sBattleWeatherInfo[battleWeatherId].flag;
-        if (gBattleWeather & B_WEATHER_PRIMAL_ANY)
+        if (gBattleWeather & B_WEATHER_PRIMAL_ANY || IsPermanentAbilityWeather(battler, viaAbility))
             gWishFutureKnock.weatherDuration = 0;
         else if (rock != 0 && GetBattlerHoldEffect(battler, TRUE) == rock)
             gWishFutureKnock.weatherDuration = 8;
