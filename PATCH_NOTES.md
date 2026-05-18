@@ -1,5 +1,5 @@
-- Gameplay/Trainers: Change Vito to the Winstrate trainer class and give Winstrate trainers Ultra Balls by default (commit 2776269b01).
-- Gameplay/Trainers: Add an opt-in trainer setting that scales NPC battle teams to the current player level cap (commit 2776269b01).
+- Gameplay/Trainers: Change Vito to the Winstrate trainer class and give Winstrate trainers Ultra Balls by default (commit f8a0595548).
+- Gameplay/Trainers: Add an opt-in trainer setting that scales NPC battle teams to the current player level cap (commit f8a0595548).
 - Gameplay/Trainers: Replace Flannery's Charizard with an Eviolite Charmeleon setup attacker (commit 81b61f994f).
 - Gameplay/Trainers: Replace Archie's Seafloor Cavern team with a rain-focused six-Pokemon team (commit 81b61f994f).
 - Gameplay/Trainers: Replace Maxie's Magma Hideout team with a sun-focused six-Pokemon team (commit a89cba1f19).
