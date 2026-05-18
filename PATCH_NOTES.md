@@ -1,7 +1,7 @@
-- Gameplay/Trainers: Replace Winstrate Vicky's team with Medicham, Azumarill, and Deoxys-Attack sets (commit b664b7ec99).
-- Gameplay/Trainers: Replace Winstrate Vivi's team with poisoned Clefable, Flareon, and max-power Frustration Zangoose sets (commit b664b7ec99).
-- Gameplay/Trainers: Replace Winstrate Victoria's team with Claydol, Gengar, and Galarian Slowbro sets (commit b664b7ec99).
-- Gameplay/Trainers: Replace Winstrate Victor's team with a sun and setup-focused three-Pokemon team (commit b664b7ec99).
+- Gameplay/Trainers: Replace Winstrate Vicky's team with Medicham, Azumarill, and Deoxys-Attack sets (commit 9ab152c4c5).
+- Gameplay/Trainers: Replace Winstrate Vivi's team with poisoned Clefable, Flareon, and max-power Frustration Zangoose sets (commit 9ab152c4c5).
+- Gameplay/Trainers: Replace Winstrate Victoria's team with Claydol, Gengar, and Galarian Slowbro sets (commit 9ab152c4c5).
+- Gameplay/Trainers: Replace Winstrate Victor's team with a sun and setup-focused three-Pokemon team (commit 9ab152c4c5).
 - Gameplay/Items: Change the Route 111 Winstrate family reward from Macho Brace to Eviolite and Life Orb (commit 168bd4f6b7).
 - Gameplay/Trainers: Enable level-cap scaling for Winstrate class trainer battles (commit 168bd4f6b7).
 - Gameplay/Trainers: Change Vito to the Winstrate trainer class and give Winstrate trainers Ultra Balls by default (commit f8a0595548).
