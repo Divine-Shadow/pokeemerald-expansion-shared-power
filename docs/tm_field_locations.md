@@ -25,5 +25,5 @@ The Slateport TM clerk, Lilycove Department Store 4F TM clerks, and Mauville Gam
 ## Follow-Up Pass
 
 - Playtest whether each TM's timing feels rewarding without warping progression.
-- Decide whether consumable TMs need reusable TM rules, duplicate placements, or a later catch-up source.
+- Reusable TM rules are enabled; no duplicate placements or catch-up source are needed for consumed TMs.
 - Continue replacing low-impact open-world items with rewards that are more interesting than standard shop inventory.

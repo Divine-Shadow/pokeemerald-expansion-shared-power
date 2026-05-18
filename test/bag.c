@@ -48,6 +48,13 @@ TEST("TMs and HMs are sorted correctly in the bag")
     EXPECT_EQ(pocket->itemSlots[8].itemId, ITEM_NONE);
 }
 
+TEST("TMs are reusable")
+{
+    EXPECT_EQ(GetItemImportance(ITEM_TM01), TRUE);
+    EXPECT_EQ(GetItemImportance(ITEM_TM25), TRUE);
+    EXPECT_EQ(GetItemImportance(ITEM_HM01), TRUE);
+}
+
 TEST("Berries are sorted correctly in the bag")
 {
     struct BagPocket *pocket = &gBagPockets[POCKET_BERRIES];

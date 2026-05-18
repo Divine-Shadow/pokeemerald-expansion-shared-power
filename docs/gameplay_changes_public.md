@@ -82,6 +82,7 @@ These notes cover gameplay rules and move access that are safe to know before st
 ## Item Availability
 
 - A new NPC can unlock free access to wild-held-item drops after you show a Pokemon with a move or Ability that can steal or swap held items.
+- TMs are now reusable and are not consumed when they teach a move.
 - TMs formerly sold in Slateport, sold on Lilycove Department Store 4F, or offered as Mauville Game Corner prizes are now found through exploration instead of purchased with money or coins. Exact locations are spoiler-protected.
 - Held-item rewards now follow the item reward economy in [Item Reward Economy](design/item_reward_economy.md): eventually infinite items may be found early, mid-tier build items can be exploration/NPC rewards or late-shop stock, and strict competitive items are reserved for authored rewards.
 - Choice items, Eviolite, Focus Sash, Leftovers, Life Orb, and Assault Vest are not available from normal field loot, regular shops, exchange counters, or the wild-held-item broker.

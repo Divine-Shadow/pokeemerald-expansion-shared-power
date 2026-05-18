@@ -1,3 +1,5 @@
+- Gameplay/Trainers: Raise Winstrate Vito's team to the Elite Four level cap (commit pending).
+- Gameplay/Items: Make TMs reusable and update TM guidance text and notes (commit pending).
 - Tests: Cover trainer party starting status transfer onto generated Pokemon (commit e1efdef144).
 - Gameplay/Trainers: Replace Winstrate Vito's party with a poisoned six-Pokemon endgame team (commit e1efdef144).
 - Gameplay/Trainers: Move Winstrate Vito beside Victory Road's Pokemon League-side exit so players must battle him before leaving (commit e1efdef144).

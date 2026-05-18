@@ -1560,7 +1560,7 @@ Nature: Timid
 Breloom @ Leftovers
 Ability: Poison Heal
 Status: Poison
-Level: 42
+Level: 58
 EVs: 252 Atk / 4 SpD / 252 Spe
 Nature: Jolly
 - Spore
@@ -1571,7 +1571,7 @@ Nature: Jolly
 Gyarados @ Sitrus Berry
 Ability: Intimidate
 Status: Poison
-Level: 42
+Level: 58
 EVs: 252 Atk / 4 SpD / 252 Spe
 Nature: Adamant
 - Dragon Dance
@@ -1582,7 +1582,7 @@ Nature: Adamant
 Machamp @ Expert Belt
 Ability: No Guard
 Status: Poison
-Level: 42
+Level: 58
 EVs: 252 HP / 252 Atk / 4 SpD
 Nature: Adamant
 - Bulk Up
@@ -1593,7 +1593,7 @@ Nature: Adamant
 Flygon @ Yache Berry
 Ability: Levitate
 Status: Poison
-Level: 42
+Level: 58
 EVs: 252 Atk / 4 Def / 252 Spe
 Nature: Jolly
 - Dragon Dance
@@ -1604,7 +1604,7 @@ Nature: Jolly
 Numel @ Eviolite
 Ability: Simple
 Status: Poison
-Level: 42
+Level: 58
 EVs: 252 Atk / 4 SpA / 252 Spe
 Nature: Naive
 - Fissure
@@ -1615,7 +1615,7 @@ Nature: Naive
 Seaking @ Focus Sash
 Ability: Swift Swim
 Status: Poison
-Level: 42
+Level: 58
 EVs: 252 Atk / 4 SpD / 252 Spe
 Nature: Jolly
 - Agility
