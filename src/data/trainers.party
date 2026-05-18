@@ -7627,23 +7627,33 @@ Double Battle: No
 Scale To Level Cap: Yes
 AI: Check Bad Move
 
-Taillow @ Life Orb
-Ability: Guts
+Torkoal @ Sitrus Berry
+Ability: Drought
 Level: 16
-Nature: Naive
-IVs: 19 HP
-- Boomburst
-- Heat Wave
-- Hidden Power
-- Brave Bird
+Nature: Bold
+- Stealth Rock
+- Lava Plume
+- Body Press
+- Yawn
 
-Zigzagoon @ Berry Juice
+Exeggutor @ Sitrus Berry
+Ability: Harvest
 Level: 16
-Nature: Adamant
-- Belly Drum
-- Extreme Speed
-- Thief
-- Seed Bomb
+Nature: Modest
+IVs: 31 HP / 30 Atk / 31 Def / 30 SpA / 31 SpD / 30 Spe
+- Calm Mind
+- Solar Beam
+- Psychic
+- Hidden Power
+
+Muk @ Starf Berry
+Ability: Sticky Hold
+Level: 16
+Nature: Careful
+- Minimize
+- Substitute
+- Rest
+- Knock Off
 
 === TRAINER_MIGUEL_1 ===
 Name: MIGUEL
@@ -7808,14 +7818,29 @@ Double Battle: No
 Scale To Level Cap: Yes
 AI: Check Bad Move / Try To Faint
 
-Roselia @ Eviolite
-Ability: Poison Point
+Claydol @ Choice Band
+Ability: Levitate
+Level: 17
+Nature: Adamant
+- Explosion
+
+Gengar @ Life Orb
+Ability: Cursed Body
+Level: 17
+Nature: Timid
+- Nasty Plot
+- Shadow Ball
+- Sludge Wave
+- Focus Blast
+
+Slowbro-Galar @ Leftovers
+Ability: Shell Armor
 Level: 17
 Nature: Bold
-- Spikes
+- Iron Defense
+- Body Press
+- Slack Off
 - Sludge Bomb
-- Giga Drain
-- Synthesis
 
 === TRAINER_VANESSA ===
 Name: VANESSA
@@ -8106,13 +8131,32 @@ Double Battle: No
 Scale To Level Cap: Yes
 AI: Basic Trainer
 
-Meditite @ Choice Band
+Medicham @ Expert Belt
+Ability: Pure Power
 Level: 18
 Nature: Adamant
 - Close Combat
-- Zen Headbutt
 - Ice Punch
-- Trick
+- Zen Headbutt
+- Thunder Punch
+
+Azumarill @ Sitrus Berry
+Ability: Huge Power
+Level: 18
+Nature: Adamant
+- Belly Drum
+- Aqua Jet
+- Play Rough
+- Liquidation
+
+Deoxys-Attack @ Focus Sash
+Ability: Pressure
+Level: 18
+Nature: Jolly
+- Extreme Speed
+- Zen Headbutt
+- Knock Off
+- Drain Punch
 
 === TRAINER_SHELBY_1 ===
 Name: SHELBY
@@ -15627,31 +15671,36 @@ Double Battle: No
 Scale To Level Cap: Yes
 AI: Basic Trainer
 
-Marill @ Choice Band
-Ability: Huge Power
-Level: 15
-Nature: Adamant
-- Play Rough
-- Waterfall
-- Aqua Jet
-- Ice Punch
-
-Shroomish @ Eviolite
-Level: 15
-Nature: Impish
-- Spore
-- Bullet Seed
-- Drain Punch
-- Synthesis
-
-Numel @ Eviolite
-Ability: Simple
+Clefable @ Life Orb
+Ability: Magic Guard
+Status: Poison
 Level: 15
 Nature: Modest
-- Flame Charge
+- Moonblast
+- Calm Mind
 - Fire Blast
-- Earth Power
-- Will-O-Wisp
+- Moonlight
+
+Flareon @ Life Orb
+Ability: Guts
+Status: Poison
+Level: 15
+Nature: Adamant
+- Facade
+- Trailblaze
+- Flare Blitz
+- Quick Attack
+
+Zangoose @ Life Orb
+Ability: Toxic Boost
+Status: Poison
+Level: 15
+Happiness: 0
+Nature: Adamant
+- Swords Dance
+- Frustration
+- Knock Off
+- Quick Attack
 
 === TRAINER_HALEY_2 ===
 Name: HALEY
