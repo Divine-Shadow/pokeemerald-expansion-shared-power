@@ -1,4 +1,4 @@
-- Gameplay/Trainers: Remove EV investment from enemy trainer Pokemon (commit pending).
+- Gameplay/Trainers: Remove EV investment from enemy trainer Pokemon (commit 31f347f36b).
 - Gameplay/Trainers: Raise Winstrate Vito's team to the Elite Four level cap (commit 00f57c13cc).
 - Gameplay/Items: Make TMs reusable and update TM guidance text and notes (commit 00f57c13cc).
 - Tests: Cover trainer party starting status transfer onto generated Pokemon (commit e1efdef144).
