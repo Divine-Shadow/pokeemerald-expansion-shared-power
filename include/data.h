@@ -65,6 +65,7 @@ struct TrainerMon
     u16 species;
     u16 heldItem;
     u16 ability;
+    u32 status1;
     u8 lvl;
     u8 ball;
     u8 friendship;

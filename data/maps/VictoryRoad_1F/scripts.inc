@@ -17,6 +17,11 @@ VictoryRoad_1F_EventScript_SetEntranceWallyPos2::
 	setobjectmovementtype LOCALID_VICTORY_ROAD_ENTRANCE_WALLY, MOVEMENT_TYPE_FACE_DOWN
 	return
 
+VictoryRoad_1F_EventScript_Vito::
+	trainerbattle_single TRAINER_VITO, VictoryRoad_1F_Text_VitoIntro, VictoryRoad_1F_Text_VitoDefeat
+	msgbox VictoryRoad_1F_Text_VitoPostBattle, MSGBOX_AUTOCLOSE
+	end
+
 VictoryRoad_1F_EventScript_WallyBattleTrigger1::
 	lockall
 	setvar VAR_0x8008, 1
@@ -74,6 +79,21 @@ VictoryRoad_1F_Movement_WallyApproachPlayer2:
 	walk_left
 	walk_up
 	step_end
+
+VictoryRoad_1F_Text_VitoIntro:
+	.string "I trained together with my whole family,\n"
+	.string "every one of us!\l"
+	.string "I'm not losing to anyone!$"
+
+VictoryRoad_1F_Text_VitoDefeat:
+	.string "Better than my family?!\n"
+	.string "Is that possible?!$"
+
+VictoryRoad_1F_Text_VitoPostBattle:
+	.string "I was better than everyone in my\n"
+	.string "family. I've never lost before…\p"
+	.string "I've lost my confidence…\n"
+	.string "Maybe I'll go home…$"
 
 @ This Wally appears near the entrance once his battle is triggered and remains there until the Hall of Fame is entered
 VictoryRoad_1F_EventScript_EntranceWally::

@@ -11,6 +11,7 @@ This file contains gameplay changes that may affect routing or discoveries. Read
 - The Lavaridge, Lilycove, and Pacifidlog Pokemon Center Condition Coaches were repositioned so nearby NPCs remain accessible.
 - Lilycove Department Store sells held items needed for held-item trade-replacement evolutions.
 - Lavaridge Gym and Rusturf Tunnel no longer apply permanent Misty Terrain to battles.
+- Winstrate Vito now waits near Victory Road's Pokemon League-side exit.
 - The Mauville City Mart now has a broker who unlocks a free shop of wild-held-item drops after seeing a Pokemon with item-stealing or item-swapping capability.
 - Former Slateport, Lilycove Department Store, and Mauville Game Corner TMs now appear as exploration rewards instead of purchases or coin prizes.
 

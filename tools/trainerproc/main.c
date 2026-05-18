@@ -62,6 +62,9 @@ struct Pokemon
     struct String ability;
     int ability_line;
 
+    struct String status;
+    int status_line;
+
     int level;
     int level_line;
 
@@ -1423,6 +1426,13 @@ static bool parse_trainer(struct Parser *p, const struct Parsed *parsed, struct 
                 pokemon->ability_line = value.location.line;
                 pokemon->ability = token_string(&value);
             }
+            else if (is_literal_token(&key, "Status"))
+            {
+                if (pokemon->status_line)
+                    any_error = !set_show_parse_error(p, key.location, "duplicate 'Status'");
+                pokemon->status_line = value.location.line;
+                pokemon->status = token_string(&value);
+            }
             else if (is_literal_token(&key, "Level"))
             {
                 if (pokemon->level_line)
@@ -1494,7 +1504,7 @@ static bool parse_trainer(struct Parser *p, const struct Parsed *parsed, struct 
             }
             else
             {
-                any_error = !set_show_parse_error(p, key.location, "expected one of 'EVs', 'IVs', 'Ability', 'Level', 'Ball', 'Happiness', 'Nature', 'Shiny', 'Dynamax Level', 'Gigantamax', or 'Tera Type'");
+                any_error = !set_show_parse_error(p, key.location, "expected one of 'EVs', 'IVs', 'Ability', 'Status', 'Level', 'Ball', 'Happiness', 'Nature', 'Shiny', 'Dynamax Level', 'Gigantamax', or 'Tera Type'");
             }
         }
 
@@ -1994,6 +2004,14 @@ static void fprint_trainers(const char *output_path, FILE *f, struct Parsed *par
                 fprintf(f, "#line %d\n", pokemon->ability_line);
                 fprintf(f, "            .ability = ");
                 fprint_constant(f, "ABILITY", pokemon->ability);
+                fprintf(f, ",\n");
+            }
+
+            if (pokemon->status_line)
+            {
+                fprintf(f, "#line %d\n", pokemon->status_line);
+                fprintf(f, "            .status1 = ");
+                fprint_constant(f, "STATUS1", pokemon->status);
                 fprintf(f, ",\n");
             }
 

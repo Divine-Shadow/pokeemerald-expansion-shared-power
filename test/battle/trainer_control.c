@@ -136,6 +136,7 @@ static const struct TrainerMon sTestParty2[] =
 {
     {
         .species = SPECIES_WYNAUT,
+        .status1 = STATUS1_POISON,
         .lvl = 5,
     },
     {
@@ -176,6 +177,15 @@ TEST("Trainer Class Balls apply to the entire party")
     {
         EXPECT(GetMonData(&testParty[j], MON_DATA_POKEBALL, 0) == gTrainerClasses[sTestTrainer2.trainerClass].ball);
     }
+    Free(testParty);
+}
+
+TEST("CreateNPCTrainerPartyForTrainer applies starting status")
+{
+    struct Pokemon *testParty = Alloc(6 * sizeof(struct Pokemon));
+    CreateNPCTrainerPartyFromTrainer(testParty, &sTestTrainer2, TRUE, BATTLE_TYPE_TRAINER);
+    EXPECT_EQ(GetMonData(&testParty[0], MON_DATA_STATUS), STATUS1_POISON);
+    EXPECT_EQ(GetMonData(&testParty[1], MON_DATA_STATUS), STATUS1_NONE);
     Free(testParty);
 }
 

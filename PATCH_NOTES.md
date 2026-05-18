@@ -1,3 +1,6 @@
+- Tests: Cover trainer party starting status transfer onto generated Pokemon (commit e8fd13f11b).
+- Gameplay/Trainers: Replace Winstrate Vito's party with a poisoned six-Pokemon endgame team (commit e8fd13f11b).
+- Gameplay/Trainers: Move Winstrate Vito beside Victory Road's Pokemon League-side exit so players must battle him before leaving (commit e8fd13f11b).
 - Gameplay/NPCs: Let Condition Coaches replace a Pokemon's existing status with the selected condition (commit 221baa3fb5).
 - Battle/Weather: Make Drizzle, Drought, Sand Stream, and Snow Warning set permanent battle weather (commit 7c72e3d923).
 - Gameplay/Shops: Add held-item trade evolution requirements to the Lilycove Department Store held-item clerk (commit 3a8234388b).

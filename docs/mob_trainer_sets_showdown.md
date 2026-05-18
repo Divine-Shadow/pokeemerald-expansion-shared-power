@@ -1557,44 +1557,71 @@ Nature: Timid
 
 === TRAINER_VITO ===
 
-Dodrio @ Heavy-Duty Boots
-Ability: Tangled Feet
+Breloom @ Leftovers
+Ability: Poison Heal
+Status: Poison
 Level: 42
 EVs: 252 Atk / 4 SpD / 252 Spe
 Nature: Jolly
-- Swords Dance
-- Brave Bird
-- Low Kick
-- Quick Attack
+- Spore
+- Substitute
+- Focus Punch
+- Leech Seed
 
-Kadabra @ Focus Sash
-Ability: Magic Guard
+Gyarados @ Sitrus Berry
+Ability: Intimidate
+Status: Poison
 Level: 42
-EVs: 4 HP / 252 SpA / 252 Spe
-Nature: Timid
-- Psychic
-- Counter
-- Taunt
-- Dazzling Gleam
+EVs: 252 Atk / 4 SpD / 252 Spe
+Nature: Adamant
+- Dragon Dance
+- Waterfall
+- Crunch
+- Earthquake
 
-Electrode @ Light Clay
-Ability: Aftermath
+Machamp @ Expert Belt
+Ability: No Guard
+Status: Poison
 Level: 42
-EVs: 252 HP / 4 Def / 252 Spe
-Nature: Jolly
-- Reflect
-- Light Screen
-- Taunt
-- Explosion
+EVs: 252 HP / 252 Atk / 4 SpD
+Nature: Adamant
+- Bulk Up
+- Dynamic Punch
+- Knock Off
+- Strength
 
-Shiftry @ Life Orb
+Flygon @ Yache Berry
+Ability: Levitate
+Status: Poison
 Level: 42
 EVs: 252 Atk / 4 Def / 252 Spe
-Nature: Adamant
-- Growth
-- Solar Blade
-- Knock Off
-- Low Kick
+Nature: Jolly
+- Dragon Dance
+- Fissure
+- Earthquake
+- Dragon Claw
+
+Numel @ Eviolite
+Ability: Simple
+Status: Poison
+Level: 42
+EVs: 252 Atk / 4 SpA / 252 Spe
+Nature: Naive
+- Fissure
+- Earthquake
+- Lava Plume
+- Flame Charge
+
+Seaking @ Focus Sash
+Ability: Swift Swim
+Status: Poison
+Level: 42
+EVs: 252 Atk / 4 SpD / 252 Spe
+Nature: Jolly
+- Agility
+- Soak
+- Waterfall
+- Horn Drill
 
 
 === TRAINER_OWEN ===
