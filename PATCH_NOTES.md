@@ -1,6 +1,6 @@
-- Tests: Add Shared Power Sheer Force coverage for preventing Life Orb recoil from pooled ability (commit 1d03783a67).
-- Battle/Shared Power: Let pooled Magic Guard prevent Life Orb recoil for active teammates (commit 1d03783a67).
-- Gameplay/Trainers: Apply the Smart Trainer AI profile to all Winstrate class trainers (commit 1d03783a67).
+- Tests: Add Shared Power Sheer Force coverage for preventing Life Orb recoil from pooled ability (commit 1b84c1d4a7).
+- Battle/Shared Power: Let pooled Magic Guard prevent Life Orb recoil for active teammates (commit 1b84c1d4a7).
+- Gameplay/Trainers: Apply the Smart Trainer AI profile to all Winstrate class trainers (commit 1b84c1d4a7).
 - Battle/Items: Disable opposing trainer use of configured non-held battle items such as Potions and X items (commit b4c9527400).
 - Battle/Shared Power: Show shared Poison Heal and Liquid Ooze instead of a battler's native ability for their end-turn popups (commit ef78247325).
 - Gameplay/Trainers: Replace Winstrate Vicky's team with Medicham, Azumarill, and Deoxys-Attack sets (commit 9ab152c4c5).
