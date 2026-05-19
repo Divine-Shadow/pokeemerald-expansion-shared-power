@@ -15,6 +15,7 @@ These notes cover gameplay rules and move access that are safe to know before st
 - Under Shared Power, tag and multi battle partners now share abilities with their whole side.
 - Under Shared Power, Run Away now shares correctly and lets active teammates flee when fleeing is otherwise allowed.
 - Under Shared Power, Shield Dust now shares correctly and blocks secondary effects for active teammates.
+- Under Shared Power, Magic Guard now shares correctly and prevents Life Orb recoil for active teammates.
 - Under Shared Power, end-turn ability popups for Poison Heal and Liquid Ooze now show the shared ability when they activate on a Pokemon with a different native ability.
 
 ## Field Rules

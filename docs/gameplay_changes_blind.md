@@ -43,6 +43,7 @@ This file contains gameplay changes that may affect routing or discoveries. Read
 - Winstrate Victoria's team has been updated.
 - Winstrate Vivi's team has been updated.
 - Winstrate Vicky's team has been updated.
+- Winstrate class trainers now use the Smart Trainer AI profile.
 - Winstrate class trainers now scale their teams to the current level cap.
 - Non-boss trainer teams have been updated with Smogon-inspired sets; exact Showdown-format sets are documented in [mob_trainer_sets_showdown.md](mob_trainer_sets_showdown.md).
 - Trainer battle sets no longer opt into Terastallization.

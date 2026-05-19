@@ -149,3 +149,50 @@ SINGLE_BATTLE_TEST("Life Orb activates if move connected but no damage was dealt
         MESSAGE("Wobbuffet was hurt by the Life Orb!");
     }
 }
+
+SINGLE_BATTLE_TEST("Shared Power: Magic Guard prevents Life Orb recoil from pooled ability")
+{
+    GIVEN {
+        BATTLE_TYPE(BATTLE_TYPE_SHARED_POWER);
+        ASSUME(gItemsInfo[ITEM_LIFE_ORB].holdEffect == HOLD_EFFECT_LIFE_ORB);
+        PLAYER(SPECIES_CLEFABLE) { Ability(ABILITY_MAGIC_GUARD); Speed(100); }
+        PLAYER(SPECIES_WOBBUFFET) { Item(ITEM_LIFE_ORB); HP(100); MaxHP(100); Speed(100); }
+        OPPONENT(SPECIES_WOBBUFFET) { Speed(50); }
+    } WHEN {
+        TURN { SWITCH(player, 1); MOVE(opponent, MOVE_SPLASH); }
+        TURN { MOVE(player, MOVE_POUND); MOVE(opponent, MOVE_SPLASH); }
+    } SCENE {
+        ANIMATION(ANIM_TYPE_MOVE, MOVE_POUND, player);
+        HP_BAR(opponent);
+        NONE_OF {
+            HP_BAR(player);
+            MESSAGE("Wobbuffet was hurt by the Life Orb!");
+        }
+    } THEN {
+        EXPECT_EQ(player->hp, 100);
+    }
+}
+
+SINGLE_BATTLE_TEST("Shared Power: Sheer Force prevents Life Orb recoil from pooled ability")
+{
+    GIVEN {
+        BATTLE_TYPE(BATTLE_TYPE_SHARED_POWER);
+        ASSUME(gItemsInfo[ITEM_LIFE_ORB].holdEffect == HOLD_EFFECT_LIFE_ORB);
+        ASSUME(MoveIsAffectedBySheerForce(MOVE_WATER_PULSE));
+        PLAYER(SPECIES_TAUROS) { Ability(ABILITY_SHEER_FORCE); Speed(100); }
+        PLAYER(SPECIES_WOBBUFFET) { Item(ITEM_LIFE_ORB); HP(100); MaxHP(100); Speed(100); }
+        OPPONENT(SPECIES_WOBBUFFET) { Speed(50); }
+    } WHEN {
+        TURN { SWITCH(player, 1); MOVE(opponent, MOVE_SPLASH); }
+        TURN { MOVE(player, MOVE_WATER_PULSE); MOVE(opponent, MOVE_SPLASH); }
+    } SCENE {
+        ANIMATION(ANIM_TYPE_MOVE, MOVE_WATER_PULSE, player);
+        HP_BAR(opponent);
+        NONE_OF {
+            HP_BAR(player);
+            MESSAGE("Wobbuffet was hurt by the Life Orb!");
+        }
+    } THEN {
+        EXPECT_EQ(player->hp, 100);
+    }
+}

@@ -7241,7 +7241,7 @@ u32 ItemBattleEffects(enum ItemCaseId caseID, u32 battler)
                 && !(gHitMarker & HITMARKER_UNABLE_TO_USE_MOVE)
                 && GetMoveCategory(gCurrentMove) != DAMAGE_CATEGORY_STATUS
                 && (IsBattlerTurnDamaged(gBattlerTarget) || gBattleScripting.savedDmg > 0)
-                && !IsAbilityAndRecord(gBattlerAttacker, GetBattlerAbility(gBattlerAttacker), ABILITY_MAGIC_GUARD)
+                && !HasActiveAbility(gBattlerAttacker, ABILITY_MAGIC_GUARD)
                 && !IsFutureSightAttackerInParty(gBattlerAttacker, gBattlerTarget, gCurrentMove))
             {
                 gBattleStruct->moveDamage[gBattlerAttacker] = GetNonDynamaxMaxHP(gBattlerAttacker) / 10;
