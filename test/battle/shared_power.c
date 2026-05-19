@@ -892,6 +892,47 @@ SINGLE_BATTLE_TEST("Shared Power: Magic Guard prevents poison damage from pooled
     }
 }
 
+SINGLE_BATTLE_TEST("Shared Power: Poison Heal popup uses pooled ability over native ability")
+{
+    GIVEN {
+        BATTLE_TYPE(BATTLE_TYPE_SHARED_POWER);
+        PLAYER(SPECIES_SHROOMISH) { Ability(ABILITY_POISON_HEAL); }
+        PLAYER(SPECIES_DUSTOX) { Ability(ABILITY_SHIELD_DUST); Status1(STATUS1_POISON); HP(1); MaxHP(400); }
+        OPPONENT(SPECIES_WOBBUFFET);
+    } WHEN {
+        TURN { SWITCH(player, 1); MOVE(opponent, MOVE_SPLASH); }
+    } SCENE {
+        ABILITY_POPUP(player, ABILITY_POISON_HEAL);
+        MESSAGE("The poisoning healed Dustox a little bit!");
+        HP_BAR(player, damage: -50);
+        NONE_OF {
+            ABILITY_POPUP(player, ABILITY_SHIELD_DUST);
+        }
+    }
+}
+
+SINGLE_BATTLE_TEST("Shared Power: Liquid Ooze popup uses pooled ability over native ability")
+{
+    GIVEN {
+        BATTLE_TYPE(BATTLE_TYPE_SHARED_POWER);
+        ASSUME(GetMoveEffect(MOVE_LEECH_SEED) == EFFECT_LEECH_SEED);
+        PLAYER(SPECIES_TENTACOOL) { Ability(ABILITY_LIQUID_OOZE); }
+        PLAYER(SPECIES_DUSTOX) { Ability(ABILITY_SHIELD_DUST); HP(100); MaxHP(400); }
+        OPPONENT(SPECIES_BULBASAUR) { HP(100); MaxHP(400); }
+    } WHEN {
+        TURN { SWITCH(player, 1); MOVE(opponent, MOVE_LEECH_SEED); }
+    } SCENE {
+        ANIMATION(ANIM_TYPE_MOVE, MOVE_LEECH_SEED, opponent);
+        HP_BAR(player, damage: 50);
+        ABILITY_POPUP(player, ABILITY_LIQUID_OOZE);
+        HP_BAR(opponent, damage: 50);
+        MESSAGE("The opposing Bulbasaur sucked up the liquid ooze!");
+        NONE_OF {
+            ABILITY_POPUP(player, ABILITY_SHIELD_DUST);
+        }
+    }
+}
+
 SINGLE_BATTLE_TEST("Shared Power off: Bench ability does not grant pooled end-turn effects")
 {
     GIVEN {

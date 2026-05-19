@@ -823,6 +823,7 @@ static bool32 HandleEndTurnLeechSeed(u32 battler)
         gHitMarker |= HITMARKER_IGNORE_SUBSTITUTE | HITMARKER_PASSIVE_HP_UPDATE;
         if (HasActiveAbility(battler, ABILITY_LIQUID_OOZE))
         {
+            gLastUsedAbility = ABILITY_LIQUID_OOZE;
             gBattleStruct->moveDamage[gBattlerTarget] = gBattleStruct->moveDamage[gBattlerTarget] * -1;
             gBattleCommunication[MULTISTRING_CHOOSER] = B_MSG_LEECH_SEED_OOZE;
             BattleScriptExecute(BattleScript_LeechSeedTurnDrainLiquidOoze);
@@ -856,6 +857,7 @@ static bool32 HandleEndTurnPoison(u32 battler)
         {
             if (!IsBattlerAtMaxHp(battler) && !gBattleMons[battler].volatiles.healBlock)
             {
+                gLastUsedAbility = ABILITY_POISON_HEAL;
                 gBattleStruct->moveDamage[battler] = GetNonDynamaxMaxHP(battler) / 8;
                 if (gBattleStruct->moveDamage[battler] == 0)
                     gBattleStruct->moveDamage[battler] = 1;
