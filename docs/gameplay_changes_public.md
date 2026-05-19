@@ -11,7 +11,7 @@ These notes cover gameplay rules and move access that are safe to know before st
 - In-battle friendship/affection bonuses are disabled. High friendship no longer grants random survival, evasion, critical-hit, status-curing, or bonus Exp. effects in battle.
 - Drizzle, Drought, Sand Stream, and Snow Warning now set weather for the rest of the battle instead of for a limited number of turns.
 - Some trainers can be configured to have their battle team match the player's current level cap.
-- Some battles or areas can disable combat aid items such as X items, healing items, status cures, revives, and PP restorers for both the player and opposing trainers while still allowing Poke Balls under the normal catching rules.
+- Opposing trainers do not use non-held combat aid items such as X items, healing items, status cures, revives, or PP restorers. Some battles or areas can also disable those combat aid items for the player while still allowing Poke Balls under the normal catching rules.
 - Under Shared Power, tag and multi battle partners now share abilities with their whole side.
 - Under Shared Power, Run Away now shares correctly and lets active teammates flee when fleeing is otherwise allowed.
 - Under Shared Power, Shield Dust now shares correctly and blocks secondary effects for active teammates.

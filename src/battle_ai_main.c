@@ -139,12 +139,14 @@ void BattleAI_SetupItems(void)
 {
     s32 i;
     u8 *data = (u8 *)gBattleHistory;
-    const u16 *items = GetTrainerItemsFromId(TRAINER_BATTLE_PARAM.opponentA);
 
     for (i = 0; i < sizeof(struct BattleHistory); i++)
         data[i] = 0;
 
     // Items are allowed to use in ONLY trainer battles.
+#if B_TRAINERS_USE_BAG_ITEMS == TRUE
+    const u16 *items = GetTrainerItemsFromId(TRAINER_BATTLE_PARAM.opponentA);
+
     if ((gBattleTypeFlags & BATTLE_TYPE_TRAINER)
         && !(gBattleTypeFlags & (BATTLE_TYPE_LINK | BATTLE_TYPE_SAFARI | BATTLE_TYPE_BATTLE_TOWER
                                | BATTLE_TYPE_EREADER_TRAINER | BATTLE_TYPE_SECRET_BASE | BATTLE_TYPE_FRONTIER
@@ -161,6 +163,7 @@ void BattleAI_SetupItems(void)
             }
         }
     }
+#endif
 }
 
 static u64 GetWildAiFlags(void)

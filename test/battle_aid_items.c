@@ -1,15 +1,18 @@
 #include "global.h"
 #include "battle.h"
+#include "battle_setup.h"
 #include "event_data.h"
 #include "item.h"
 #include "item_use.h"
 #include "party_menu.h"
 #include "pokemon.h"
-#include "test/test.h"
+#include "test/battle.h"
 #include "constants/battle.h"
+#include "constants/battle_ai.h"
 #include "constants/items.h"
 #include "constants/pokemon.h"
 #include "constants/species.h"
+#include "constants/trainers.h"
 
 static void InitBattleAidItemTestState(void)
 {
@@ -107,4 +110,19 @@ TEST("No combat aid flag allows Poke Balls through normal catching rules")
     CleanupBattleAidItemTestState();
 
     EXPECT(!cannotUse);
+}
+
+AI_SINGLE_BATTLE_TEST("Opposing trainers do not use configured bag items")
+{
+    gBattleTestRunnerState->data.recordedBattle.opponentA = TRAINER_WATTSON_1;
+
+    GIVEN {
+        ASSUME(B_TRAINERS_USE_BAG_ITEMS == FALSE);
+        ASSUME(GetTrainerItemsFromId(TRAINER_WATTSON_1)[0] == ITEM_SUPER_POTION);
+        AI_FLAGS(AI_FLAG_CHECK_BAD_MOVE | AI_FLAG_CHECK_VIABILITY | AI_FLAG_HP_AWARE);
+        PLAYER(SPECIES_WOBBUFFET) { Moves(MOVE_CELEBRATE); }
+        OPPONENT(SPECIES_WOBBUFFET) { HP(1); MaxHP(100); Moves(MOVE_CELEBRATE); }
+    } WHEN {
+        TURN { MOVE(player, MOVE_CELEBRATE); EXPECT_MOVE(opponent, MOVE_CELEBRATE); }
+    }
 }

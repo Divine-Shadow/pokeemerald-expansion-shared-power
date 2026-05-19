@@ -2457,6 +2457,10 @@ static bool32 ShouldUseItem(u32 battler)
     if (IsAiVsAiBattle())
         return FALSE;
 
+#if B_TRAINERS_USE_BAG_ITEMS == FALSE
+    return FALSE;
+#endif
+
 #if B_FLAG_NO_BATTLE_AID_ITEMS != 0
     if (FlagGet(B_FLAG_NO_BATTLE_AID_ITEMS))
         return FALSE;
