@@ -1,4 +1,4 @@
-- Battle/Shared Power: Show shared Poison Heal and Liquid Ooze instead of a battler's native ability for their end-turn popups (commit pending).
+- Battle/Shared Power: Show shared Poison Heal and Liquid Ooze instead of a battler's native ability for their end-turn popups (commit ef78247325).
 - Gameplay/Trainers: Replace Winstrate Vicky's team with Medicham, Azumarill, and Deoxys-Attack sets (commit 9ab152c4c5).
 - Gameplay/Trainers: Replace Winstrate Vivi's team with poisoned Clefable, Flareon, and max-power Frustration Zangoose sets (commit 9ab152c4c5).
 - Gameplay/Trainers: Replace Winstrate Victoria's team with Claydol, Gengar, and Galarian Slowbro sets (commit 9ab152c4c5).
