@@ -13440,19 +13440,37 @@ Pic: Brendan
 Gender: Male
 Music: Male
 Double Battle: No
-AI: Basic Trainer
+AI: Smart Trainer
 
-Slugma
+Slugma @ Eviolite
+Ability: Flame Body
 Level: 29
+Nature: Bold
 IVs: 12 HP / 12 Atk / 12 Def / 12 SpA / 12 SpD / 12 Spe
+- Lava Plume
+- Clear Smog
+- Memento
+- Will-O-Wisp
 
-Pelipper
+Pelipper @ Damp Rock
+Ability: Drizzle
 Level: 29
-IVs: 12 HP / 12 Atk / 12 Def / 12 SpA / 12 SpD / 12 Spe
+Nature: Relaxed
+IVs: 12 HP / 12 Atk / 12 Def / 12 SpA / 12 SpD / 0 Spe
+- Hurricane
+- U-turn
+- Roost
+- Knock Off
 
-Grovyle
+Grovyle @ Eviolite
+Ability: Overgrow
 Level: 31
+Nature: Jolly
 IVs: 18 HP / 18 Atk / 18 Def / 18 SpA / 18 SpD / 18 Spe
+- Swords Dance
+- Leaf Blade
+- Rock Slide
+- Brick Break
 
 === TRAINER_BRENDAN_ROUTE_103_TREECKO ===
 Name: BRENDAN
@@ -13495,19 +13513,36 @@ Pic: Brendan
 Gender: Male
 Music: Male
 Double Battle: No
-AI: Basic Trainer
+AI: Smart Trainer
 
-Pelipper
+Pelipper @ Damp Rock
+Ability: Drizzle
 Level: 29
-IVs: 12 HP / 12 Atk / 12 Def / 12 SpA / 12 SpD / 12 Spe
+Nature: Relaxed
+IVs: 12 HP / 12 Atk / 12 Def / 12 SpA / 12 SpD / 0 Spe
+- Hurricane
+- U-turn
+- Roost
+- Knock Off
 
-Lombre
+Lombre @ Leftovers
 Level: 29
-IVs: 12 HP / 12 Atk / 12 Def / 12 SpA / 12 SpD / 12 Spe
+Nature: Modest
+IVs: 12 HP / 2 Atk / 12 Def / 30 SpA / 12 SpD / 12 Spe
+- Hydro Pump
+- Hidden Power
+- Ice Beam
+- Rain Dance
 
-Combusken
+Combusken @ Eviolite
+Ability: Speed Boost
 Level: 31
+Nature: Jolly
 IVs: 18 HP / 18 Atk / 18 Def / 18 SpA / 18 SpD / 18 Spe
+- Bulk Up
+- Blaze Kick
+- Brick Break
+- Rock Slide
 
 === TRAINER_BRENDAN_ROUTE_103_TORCHIC ===
 Name: BRENDAN
@@ -13550,19 +13585,36 @@ Pic: Brendan
 Gender: Male
 Music: Male
 Double Battle: No
-AI: Basic Trainer
+AI: Smart Trainer
 
-Lombre
+Lombre @ Leftovers
 Level: 29
-IVs: 12 HP / 12 Atk / 12 Def / 12 SpA / 12 SpD / 12 Spe
+Nature: Modest
+IVs: 12 HP / 2 Atk / 12 Def / 30 SpA / 12 SpD / 12 Spe
+- Hydro Pump
+- Hidden Power
+- Ice Beam
+- Rain Dance
 
-Slugma
+Slugma @ Eviolite
+Ability: Flame Body
 Level: 29
+Nature: Bold
 IVs: 12 HP / 12 Atk / 12 Def / 12 SpA / 12 SpD / 12 Spe
+- Lava Plume
+- Clear Smog
+- Memento
+- Will-O-Wisp
 
-Marshtomp
+Marshtomp @ Eviolite
+Ability: Torrent
 Level: 31
+Nature: Adamant
 IVs: 18 HP / 18 Atk / 18 Def / 18 SpA / 18 SpD / 18 Spe
+- Stealth Rock
+- Earthquake
+- Waterfall
+- Ice Punch
 
 === TRAINER_MAY_ROUTE_103_MUDKIP ===
 Name: MAY
@@ -13605,19 +13657,36 @@ Pic: May
 Gender: Female
 Music: Female
 Double Battle: No
-AI: Basic Trainer
+AI: Smart Trainer
 
-Slugma
+Slugma @ Eviolite
+Ability: Flame Body
 Level: 29
+Nature: Bold
 IVs: 12 HP / 12 Atk / 12 Def / 12 SpA / 12 SpD / 12 Spe
+- Lava Plume
+- Clear Smog
+- Memento
+- Will-O-Wisp
 
-Lombre
+Lombre @ Leftovers
 Level: 29
-IVs: 12 HP / 12 Atk / 12 Def / 12 SpA / 12 SpD / 12 Spe
+Nature: Modest
+IVs: 12 HP / 2 Atk / 12 Def / 30 SpA / 12 SpD / 12 Spe
+- Hydro Pump
+- Hidden Power
+- Ice Beam
+- Rain Dance
 
-Grovyle
+Grovyle @ Eviolite
+Ability: Overgrow
 Level: 31
+Nature: Jolly
 IVs: 18 HP / 18 Atk / 18 Def / 18 SpA / 18 SpD / 18 Spe
+- Swords Dance
+- Leaf Blade
+- Rock Slide
+- Brick Break
 
 === TRAINER_MAY_ROUTE_103_TREECKO ===
 Name: MAY
@@ -13660,19 +13729,36 @@ Pic: May
 Gender: Female
 Music: Female
 Double Battle: No
-AI: Basic Trainer
+AI: Smart Trainer
 
-Pelipper
+Pelipper @ Damp Rock
+Ability: Drizzle
 Level: 29
-IVs: 12 HP / 12 Atk / 12 Def / 12 SpA / 12 SpD / 12 Spe
+Nature: Relaxed
+IVs: 12 HP / 12 Atk / 12 Def / 12 SpA / 12 SpD / 0 Spe
+- Hurricane
+- U-turn
+- Roost
+- Knock Off
 
-Lombre
+Lombre @ Leftovers
 Level: 29
-IVs: 12 HP / 12 Atk / 12 Def / 12 SpA / 12 SpD / 12 Spe
+Nature: Modest
+IVs: 12 HP / 2 Atk / 12 Def / 30 SpA / 12 SpD / 12 Spe
+- Hydro Pump
+- Hidden Power
+- Ice Beam
+- Rain Dance
 
-Combusken
+Combusken @ Eviolite
+Ability: Speed Boost
 Level: 31
+Nature: Jolly
 IVs: 18 HP / 18 Atk / 18 Def / 18 SpA / 18 SpD / 18 Spe
+- Bulk Up
+- Blaze Kick
+- Brick Break
+- Rock Slide
 
 === TRAINER_MAY_ROUTE_103_TORCHIC ===
 Name: MAY
@@ -13715,19 +13801,36 @@ Pic: May
 Gender: Female
 Music: Female
 Double Battle: No
-AI: Basic Trainer
+AI: Smart Trainer
 
-Lombre
+Lombre @ Leftovers
 Level: 29
-IVs: 12 HP / 12 Atk / 12 Def / 12 SpA / 12 SpD / 12 Spe
+Nature: Modest
+IVs: 12 HP / 2 Atk / 12 Def / 30 SpA / 12 SpD / 12 Spe
+- Hydro Pump
+- Hidden Power
+- Ice Beam
+- Rain Dance
 
-Slugma
+Slugma @ Eviolite
+Ability: Flame Body
 Level: 29
+Nature: Bold
 IVs: 12 HP / 12 Atk / 12 Def / 12 SpA / 12 SpD / 12 Spe
+- Lava Plume
+- Clear Smog
+- Memento
+- Will-O-Wisp
 
-Marshtomp
+Marshtomp @ Eviolite
+Ability: Torrent
 Level: 31
+Nature: Adamant
 IVs: 18 HP / 18 Atk / 18 Def / 18 SpA / 18 SpD / 18 Spe
+- Stealth Rock
+- Earthquake
+- Waterfall
+- Ice Punch
 
 === TRAINER_ISAAC_1 ===
 Name: ISAAC
