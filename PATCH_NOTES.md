@@ -1,4 +1,4 @@
-- Gameplay/Trainers: Give Flannery's Eviolite Charmeleon Solar Power (commit pending).
+- Gameplay/Trainers: Give Flannery's Eviolite Charmeleon Solar Power (commit 78d5bb9aa7).
 - Gameplay/Trainers: Change Winstrate Vivi's Clefable moveset to Dazzling Gleam, Knock Off, Moonlight, and Thunder Wave (commit e2e72c3b42).
 - Tests: Add Shared Power Sheer Force coverage for preventing Life Orb recoil from pooled ability (commit 1b84c1d4a7).
 - Battle/Shared Power: Let pooled Magic Guard prevent Life Orb recoil for active teammates (commit 1b84c1d4a7).
