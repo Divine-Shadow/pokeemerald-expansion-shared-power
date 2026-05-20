@@ -1,4 +1,4 @@
-- Battle/Moves: Clear recharge state after the required recharge turn so Giga Impact and similar moves do not lock the user forever (commit pending).
+- Battle/Moves: Clear recharge state after the required recharge turn so Giga Impact and similar moves do not lock the user forever (commit 5f2145ab6d).
 - Gameplay/Trainers: Give Flannery's Eviolite Charmeleon Solar Power (commit 78d5bb9aa7).
 - Gameplay/Trainers: Change Winstrate Vivi's Clefable moveset to Dazzling Gleam, Knock Off, Moonlight, and Thunder Wave (commit e2e72c3b42).
 - Tests: Add Shared Power Sheer Force coverage for preventing Life Orb recoil from pooled ability (commit 1b84c1d4a7).
