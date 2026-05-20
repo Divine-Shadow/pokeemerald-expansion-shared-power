@@ -2709,13 +2709,20 @@ void UpdateAbilityPopup(u8 battler)
 
     if (!gBattleScripting.abilityPopupOverwrite && SharedPower_IsEnabled())
     {
-        if (gBattleStruct->sharedPowerPopupActive[battler])
+        if (gBattleStruct->sharedPowerPopupActive[battler]
+         && (gLastUsedAbility == ABILITY_NONE
+          || gBattleStruct->sharedPowerPopupAbility[battler] == gLastUsedAbility))
             ability = gBattleStruct->sharedPowerPopupAbility[battler];
-        else if (gLastUsedAbility != ABILITY_NONE
-              && gLastUsedAbility < ABILITIES_COUNT
-              && gLastUsedAbility != ability
-              && HasActiveAbility(battler, gLastUsedAbility))
-            ability = gLastUsedAbility;
+        else
+        {
+            if (gBattleStruct->sharedPowerPopupActive[battler] && gLastUsedAbility != ABILITY_NONE)
+                gBattleStruct->sharedPowerPopupActive[battler] = FALSE;
+            if (gLastUsedAbility != ABILITY_NONE
+             && gLastUsedAbility < ABILITIES_COUNT
+             && gLastUsedAbility != ability
+             && (!IsBattlerAlive(battler) || HasActiveAbility(battler, gLastUsedAbility)))
+                ability = gLastUsedAbility;
+        }
     }
 
     PrintAbilityOnAbilityPopUp(ability, spriteIds[0], spriteIds[1]);

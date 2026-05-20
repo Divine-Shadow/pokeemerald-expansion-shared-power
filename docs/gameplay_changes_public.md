@@ -17,6 +17,7 @@ These notes cover gameplay rules and move access that are safe to know before st
 - Under Shared Power, Shield Dust now shares correctly and blocks secondary effects for active teammates.
 - Under Shared Power, Magic Guard now shares correctly and prevents Life Orb recoil for active teammates.
 - Under Shared Power, end-turn ability popups for Poison Heal and Liquid Ooze now show the shared ability when they activate on a Pokemon with a different native ability.
+- Under Shared Power, Sturdy popups now show Sturdy even if the Pokemon also has another active ability such as Clear Body.
 - Recharge moves such as Giga Impact now release the user after the required recharge turn.
 
 ## Field Rules

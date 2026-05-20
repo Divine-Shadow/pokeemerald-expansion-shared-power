@@ -1,3 +1,4 @@
+- Battle/Shared Power: Prevent a defender's other active ability from replacing Sturdy in Shared Power ability popups (commit pending).
 - Battle/Moves: Clear recharge state after the required recharge turn so Giga Impact and similar moves do not lock the user forever (commit 5f2145ab6d).
 - Gameplay/Trainers: Give Flannery's Eviolite Charmeleon Solar Power (commit 78d5bb9aa7).
 - Gameplay/Trainers: Change Winstrate Vivi's Clefable moveset to Dazzling Gleam, Knock Off, Moonlight, and Thunder Wave (commit e2e72c3b42).

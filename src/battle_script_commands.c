@@ -17688,13 +17688,24 @@ void BS_ShowAbilityPopup(void)
 
     if (gBattleScripting.abilityPopupOverwrite)
         ability = gBattleScripting.abilityPopupOverwrite;
-    else if (SharedPower_IsEnabled() && gBattleStruct->sharedPowerPopupActive[gBattlerAbility])
+    else if (SharedPower_IsEnabled()
+          && gBattleStruct->sharedPowerPopupActive[gBattlerAbility]
+          && (gLastUsedAbility == ABILITY_NONE
+           || gBattleStruct->sharedPowerPopupAbility[gBattlerAbility] == gLastUsedAbility))
     {
         ability = gBattleStruct->sharedPowerPopupAbility[gBattlerAbility];
         gBattleStruct->sharedPowerPopupActive[gBattlerAbility] = FALSE;
     }
-    else if (SharedPower_IsEnabled() && gLastUsedAbility != ABILITY_NONE && gLastUsedAbility != ability)
+    else if (SharedPower_IsEnabled()
+          && gLastUsedAbility != ABILITY_NONE
+          && gLastUsedAbility < ABILITIES_COUNT
+          && gLastUsedAbility != ability
+          && (!IsBattlerAlive(gBattlerAbility) || HasActiveAbility(gBattlerAbility, gLastUsedAbility)))
+    {
+        if (gBattleStruct->sharedPowerPopupActive[gBattlerAbility])
+            gBattleStruct->sharedPowerPopupActive[gBattlerAbility] = FALSE;
         ability = gLastUsedAbility;
+    }
 
     CreateAbilityPopUp(gBattlerAbility, ability, (IsDoubleBattle()) != 0);
     gBattlescriptCurrInstr = cmd->nextInstr;

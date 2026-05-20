@@ -194,6 +194,31 @@ SINGLE_BATTLE_TEST("Shared Power: Sturdy prevents lethal damage when pooled")
     }
 }
 
+DOUBLE_BATTLE_TEST("Shared Power: Sturdy popup is not replaced by the defender's native Clear Body")
+{
+    GIVEN {
+        BATTLE_TYPE(BATTLE_TYPE_SHARED_POWER);
+        PLAYER(SPECIES_WOBBUFFET) { Speed(40); }
+        PLAYER(SPECIES_WYNAUT) { Speed(30); }
+        OPPONENT(SPECIES_SKARMORY) { Ability(ABILITY_CLEAR_BODY); MaxHP(1); HP(1); Speed(20); }
+        OPPONENT(SPECIES_GEODUDE) { Ability(ABILITY_STURDY); Speed(10); }
+    } WHEN {
+        TURN {
+            MOVE(playerLeft, MOVE_SCRATCH, target: opponentLeft);
+            MOVE(playerRight, MOVE_CELEBRATE);
+            MOVE(opponentLeft, MOVE_CELEBRATE);
+            MOVE(opponentRight, MOVE_CELEBRATE);
+        }
+    } SCENE {
+        MESSAGE("Wobbuffet used Scratch!");
+        ABILITY_POPUP(opponentLeft, ABILITY_STURDY);
+        MESSAGE("The opposing Skarmory endured the hit using Sturdy!");
+        NONE_OF {
+            ABILITY_POPUP(opponentLeft, ABILITY_CLEAR_BODY);
+        }
+    }
+}
+
 SINGLE_BATTLE_TEST("Shared Power: Sturdy prevents OHKO moves when pooled")
 {
     GIVEN {
