@@ -31,8 +31,13 @@ These replacements target underwhelming basic consumables in optional or route-s
 | Electric Gem | New Mauville visible item ball | Paralyze Heal |
 | Ghost Gem | Mt. Pyre 3F visible item ball | Super Repel |
 | Lum Berry | Lilycove City visible item ball | Max Repel |
+| Poison Gem | Route 125 visible item ball | Big Pearl |
+| Psychic Gem | Mossdeep City visible item ball | Net Ball |
 | Ice Gem | Shoal Cave low-tide stairs room visible item ball | Ice Heal |
 | Dragon Gem | Victory Road B2F hidden item | Max Repel |
+| Dark Gem | Route 127 visible item ball | Zinc |
+| Bug Gem | Route 127 visible item ball | Carbos |
+| Fairy Gem | Route 127 visible item ball | Rare Candy |
 
 ## Follow-Up
 

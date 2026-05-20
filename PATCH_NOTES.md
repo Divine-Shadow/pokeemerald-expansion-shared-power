@@ -1,3 +1,6 @@
+- Gameplay/Items: Replace Route 125's visible Big Pearl pickup with a Poison Gem (commit a521be35f3).
+- Gameplay/Items: Replace Route 127's Zinc, Carbos, and Rare Candy pickups with Dark, Bug, and Fairy Gems (commit a521be35f3).
+- Gameplay/Items: Replace Mossdeep City's visible Net Ball pickup with a Psychic Gem (commit a521be35f3).
 - Gameplay/Trainers: Upgrade the Route 119 Weather Institute rival teams with Smart Trainer AI, held items, and custom movesets (commit a8415668f7).
 - Gameplay/Bag: Increase the regular Items pocket capacity from 30 to 99 distinct item slots (commit bbf02f92f0).
 - Battle/Shared Power: Prevent a defender's other active ability from replacing Sturdy in Shared Power ability popups (commit 58b66b26bd).
