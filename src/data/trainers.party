@@ -2085,7 +2085,7 @@ Music: Cool
 Items: Full Restore
 Double Battle: No
 Scale To Level Cap: Yes
-AI: Smart Trainer
+AI: Basic Trainer
 
 Breloom @ Leftovers
 Ability: Poison Heal
@@ -7626,7 +7626,7 @@ Gender: Male
 Music: Twins
 Double Battle: No
 Scale To Level Cap: Yes
-AI: Smart Trainer
+AI: Basic Trainer
 
 Torkoal @ Sitrus Berry
 Ability: Drought
@@ -7817,7 +7817,7 @@ Gender: Female
 Music: Twins
 Double Battle: No
 Scale To Level Cap: Yes
-AI: Smart Trainer
+AI: Basic Trainer
 
 Claydol @ Choice Band
 Ability: Levitate
@@ -8130,7 +8130,7 @@ Gender: Female
 Music: Intense
 Double Battle: No
 Scale To Level Cap: Yes
-AI: Smart Trainer
+AI: Basic Trainer
 
 Medicham @ Expert Belt
 Ability: Pure Power
@@ -13440,7 +13440,7 @@ Pic: Brendan
 Gender: Male
 Music: Male
 Double Battle: No
-AI: Smart Trainer
+AI: Basic Trainer
 
 Slugma @ Eviolite
 Ability: Flame Body
@@ -13513,7 +13513,7 @@ Pic: Brendan
 Gender: Male
 Music: Male
 Double Battle: No
-AI: Smart Trainer
+AI: Basic Trainer
 
 Pelipper @ Damp Rock
 Ability: Drizzle
@@ -13585,7 +13585,7 @@ Pic: Brendan
 Gender: Male
 Music: Male
 Double Battle: No
-AI: Smart Trainer
+AI: Basic Trainer
 
 Lombre @ Leftovers
 Level: 29
@@ -13657,7 +13657,7 @@ Pic: May
 Gender: Female
 Music: Female
 Double Battle: No
-AI: Smart Trainer
+AI: Basic Trainer
 
 Slugma @ Eviolite
 Ability: Flame Body
@@ -13729,7 +13729,7 @@ Pic: May
 Gender: Female
 Music: Female
 Double Battle: No
-AI: Smart Trainer
+AI: Basic Trainer
 
 Pelipper @ Damp Rock
 Ability: Drizzle
@@ -13801,7 +13801,7 @@ Pic: May
 Gender: Female
 Music: Female
 Double Battle: No
-AI: Smart Trainer
+AI: Basic Trainer
 
 Lombre @ Leftovers
 Level: 29
@@ -15773,7 +15773,7 @@ Gender: Female
 Music: Female
 Double Battle: No
 Scale To Level Cap: Yes
-AI: Smart Trainer
+AI: Basic Trainer
 
 Clefable @ Life Orb
 Ability: Magic Guard

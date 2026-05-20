@@ -38,13 +38,13 @@ This file contains gameplay changes that may affect routing or discoveries. Read
 - Elite Four teams have been updated with Smogon-inspired sets; exact Showdown-format sets are documented in [elite_four_sets_showdown.md](elite_four_sets_showdown.md).
 - Champion Wallace's team has been updated.
 - Maxie's Magma Hideout team has been updated.
-- The Route 119 rival battle near the Weather Institute has been updated with stronger AI, held items, and custom movesets.
+- The Route 119 rival battle near the Weather Institute has been updated with held items and custom movesets.
 - Archie's Seafloor Cavern team has been updated.
 - Winstrate Victor's team has been updated.
 - Winstrate Victoria's team has been updated.
 - Winstrate Vivi's team has been updated.
 - Winstrate Vicky's team has been updated.
-- Winstrate class trainers now use the Smart Trainer AI profile.
+- Winstrate class trainers use the Basic Trainer AI profile.
 - Winstrate class trainers now scale their teams to the current level cap.
 - Non-boss trainer teams have been updated with Smogon-inspired sets; exact Showdown-format sets are documented in [mob_trainer_sets_showdown.md](mob_trainer_sets_showdown.md).
 - Trainer battle sets no longer opt into Terastallization.

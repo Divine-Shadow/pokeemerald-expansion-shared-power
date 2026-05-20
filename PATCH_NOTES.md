@@ -1,3 +1,4 @@
+- Gameplay/Trainers: Set all current Smart Trainer AI users back to Basic Trainer AI (commit pending).
 - Gameplay/Items: Replace Route 125's visible Big Pearl pickup with a Poison Gem (commit 61c70c9aee).
 - Gameplay/Items: Replace Route 127's Zinc, Carbos, and Rare Candy pickups with Dark, Bug, and Fairy Gems (commit 61c70c9aee).
 - Gameplay/Items: Replace Mossdeep City's visible Net Ball pickup with a Psychic Gem (commit 61c70c9aee).
