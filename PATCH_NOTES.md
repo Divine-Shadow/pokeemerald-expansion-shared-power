@@ -1,4 +1,4 @@
-- Gameplay/Trainers: Upgrade the Route 119 Weather Institute rival teams with Smart Trainer AI, held items, and custom movesets (commit 714d55826d).
+- Gameplay/Trainers: Upgrade the Route 119 Weather Institute rival teams with Smart Trainer AI, held items, and custom movesets (commit a8415668f7).
 - Gameplay/Bag: Increase the regular Items pocket capacity from 30 to 99 distinct item slots (commit bbf02f92f0).
 - Battle/Shared Power: Prevent a defender's other active ability from replacing Sturdy in Shared Power ability popups (commit 58b66b26bd).
 - Battle/Moves: Clear recharge state after the required recharge turn so Giga Impact and similar moves do not lock the user forever (commit 5f2145ab6d).
