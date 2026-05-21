@@ -134,6 +134,28 @@ SINGLE_BATTLE_TEST("Shared Power: Inner Focus prevents pooled Intimidate")
     }
 }
 
+DOUBLE_BATTLE_TEST("Shared Power: pooled Clear Body prevents Intimidate in doubles")
+{
+    GIVEN {
+        BATTLE_TYPE(BATTLE_TYPE_SHARED_POWER);
+        PLAYER(SPECIES_MIGHTYENA) { Ability(ABILITY_INTIMIDATE); Speed(20); }
+        PLAYER(SPECIES_WOBBUFFET) { Speed(10); }
+        OPPONENT(SPECIES_ESPATHRA) { Speed(5); }
+        OPPONENT(SPECIES_METAGROSS) { Ability(ABILITY_CLEAR_BODY); Speed(5); }
+    } WHEN {
+        TURN { ; }
+    } SCENE {
+        ABILITY_POPUP(playerLeft, ABILITY_INTIMIDATE);
+        ABILITY_POPUP(opponentLeft, ABILITY_CLEAR_BODY);
+        MESSAGE("The opposing Espathra's Clear Body prevents stat loss!");
+        NONE_OF {
+            MESSAGE("Mightyena's Intimidate cuts the opposing Espathra's Attack!");
+        }
+    } THEN {
+        EXPECT_EQ(opponentLeft->statStages[STAT_ATK], DEFAULT_STAT_STAGE);
+    }
+}
+
 SINGLE_BATTLE_TEST("Shared Power: Run Away lets teammates flee")
 {
     GIVEN {

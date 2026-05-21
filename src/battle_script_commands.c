@@ -330,6 +330,9 @@ void ApplyExperienceMultipliers(s32 *expAmount, u8 expGetterMonId, u8 faintedBat
 static void RemoveAllWeather(void);
 static void RemoveAllTerrains(void);
 static bool32 CanAbilityPreventStatLoss(u32 abilityDef);
+static u32 GetActiveStatLossPreventionAbility(u32 battler);
+static u32 GetActiveSpecificStatLossPreventionAbility(u32 battler, u32 statId);
+static bool32 IsStatLossPreventedBySpecificAbility(u32 ability, u32 statId);
 static u32 GetNextTarget(u32 moveTarget, bool32 excludeCurrent);
 static void TryUpdateEvolutionTracker(u32 evolutionCondition, u32 upAmount, u16 usedMove);
 static void AccuracyCheck(bool32 recalcDragonDarts, const u8 *nextInstr, const u8 *failInstr, u16 move);
@@ -3018,7 +3021,7 @@ void SetMoveEffect(u32 battler, u32 effectBattler, bool32 primary, bool32 certai
 {
     s32 i;
     bool32 affectsUser = (battler == effectBattler);
-    bool32 mirrorArmorReflected = (GetBattlerAbility(gBattlerTarget) == ABILITY_MIRROR_ARMOR);
+    bool32 mirrorArmorReflected = HasActiveAbility(gBattlerTarget, ABILITY_MIRROR_ARMOR);
     union StatChangeFlags flags = {0};
     u32 battlerAbility;
     bool32 activateAfterFaint = FALSE;
@@ -10163,6 +10166,8 @@ static void TryPlayStatChangeAnimation(u32 battler, u32 ability, u32 stats, s32 
     u32 statAnimId = statId;
     bool32 statChangeByTwo = statValue > 1 || statValue < -1;
 
+    (void)ability;
+
     if (statValue <= -1) // goes down
     {
         if (statChangeByTwo)
@@ -10182,10 +10187,7 @@ static void TryPlayStatChangeAnimation(u32 battler, u32 ability, u32 stats, s32 
                         break;
                     }
                 }
-                else if (!((ability == ABILITY_KEEN_EYE || ability == ABILITY_MINDS_EYE) && currStat == STAT_ACC)
-                        && !(GetGenConfig(GEN_ILLUMINATE_EFFECT) >= GEN_9 && ability == ABILITY_ILLUMINATE && currStat == STAT_ACC)
-                        && !(ability == ABILITY_HYPER_CUTTER && currStat == STAT_ATK)
-                        && !(ability == ABILITY_BIG_PECKS && currStat == STAT_DEF))
+                else if (GetActiveSpecificStatLossPreventionAbility(battler, currStat) == ABILITY_NONE)
                 {
                     if (gBattleMons[battler].statStages[currStat] > MIN_STAT_STAGE)
                     {
@@ -10247,10 +10249,14 @@ static void TryPlayStatChangeAnimation(u32 battler, u32 ability, u32 stats, s32 
 static u32 ChangeStatBuffs(u32 battler, s8 statValue, u32 statId, union StatChangeFlags flags, u32 stats, const u8 *BS_ptr)
 {
     u32 index, battlerAbility;
+    u32 statLossPreventionAbility;
+    u32 specificStatLossPreventionAbility;
     enum ItemHoldEffect battlerHoldEffect;
     bool32 hasContrary = HasActiveAbility(battler, ABILITY_CONTRARY);
     bool32 hasSimple = HasActiveAbility(battler, ABILITY_SIMPLE);
     battlerAbility = GetBattlerAbility(battler);
+    statLossPreventionAbility = GetActiveStatLossPreventionAbility(battler);
+    specificStatLossPreventionAbility = GetActiveSpecificStatLossPreventionAbility(battler, statId);
     battlerHoldEffect = GetBattlerHoldEffect(battler, TRUE);
     gSpecialStatuses[battler].changedStatsBattlerId = gBattlerAttacker;
 
@@ -10300,7 +10306,7 @@ static u32 ChangeStatBuffs(u32 battler, s8 statValue, u32 statId, union StatChan
         {
             return STAT_CHANGE_DIDNT_WORK;
         }
-        else if ((battlerHoldEffect == HOLD_EFFECT_CLEAR_AMULET || CanAbilityPreventStatLoss(battlerAbility))
+        else if ((battlerHoldEffect == HOLD_EFFECT_CLEAR_AMULET || statLossPreventionAbility != ABILITY_NONE)
               && (flags.statDropPrevention || gBattlerAttacker != gBattlerTarget || flags.mirrorArmored) && !flags.certain && gCurrentMove != MOVE_CURSE)
         {
             if (flags.allowPtr)
@@ -10324,7 +10330,7 @@ static u32 ChangeStatBuffs(u32 battler, s8 statValue, u32 statId, union StatChan
                         gBattlerAbility = battler;
                         BattleScriptPush(BS_ptr);
                         gBattlescriptCurrInstr = BattleScript_AbilityNoStatLoss;
-                        gLastUsedAbility = battlerAbility;
+                        gLastUsedAbility = statLossPreventionAbility;
                         RecordAbilityBattle(battler, gLastUsedAbility);
                     }
                     gSpecialStatuses[battler].statLowered = TRUE;
@@ -10352,11 +10358,7 @@ static u32 ChangeStatBuffs(u32 battler, s8 statValue, u32 statId, union StatChan
             }
             return STAT_CHANGE_DIDNT_WORK;
         }
-        else if (!flags.certain
-                && (((battlerAbility == ABILITY_KEEN_EYE || battlerAbility == ABILITY_MINDS_EYE) && statId == STAT_ACC)
-                || (GetGenConfig(GEN_ILLUMINATE_EFFECT) >= GEN_9 && battlerAbility == ABILITY_ILLUMINATE && statId == STAT_ACC)
-                || (battlerAbility == ABILITY_HYPER_CUTTER && statId == STAT_ATK)
-                || (battlerAbility == ABILITY_BIG_PECKS && statId == STAT_DEF)))
+        else if (!flags.certain && specificStatLossPreventionAbility != ABILITY_NONE)
         {
             if (flags.allowPtr)
             {
@@ -10364,12 +10366,12 @@ static u32 ChangeStatBuffs(u32 battler, s8 statValue, u32 statId, union StatChan
                 gBattleScripting.battler = battler;
                 gBattlerAbility = battler;
                 gBattlescriptCurrInstr = BattleScript_AbilityNoSpecificStatLoss;
-                gLastUsedAbility = battlerAbility;
+                gLastUsedAbility = specificStatLossPreventionAbility;
                 RecordAbilityBattle(battler, gLastUsedAbility);
             }
             return STAT_CHANGE_DIDNT_WORK;
         }
-        else if (battlerAbility == ABILITY_MIRROR_ARMOR && !flags.mirrorArmored && gBattlerAttacker != gBattlerTarget && battler == gBattlerTarget)
+        else if (HasActiveAbility(battler, ABILITY_MIRROR_ARMOR) && !flags.mirrorArmored && gBattlerAttacker != gBattlerTarget && battler == gBattlerTarget)
         {
             if (flags.allowPtr)
             {
@@ -10378,7 +10380,8 @@ static u32 ChangeStatBuffs(u32 battler, s8 statValue, u32 statId, union StatChan
                 gBattleScripting.battler = battler;
                 gBattlerAbility = battler;
                 gBattlescriptCurrInstr = BattleScript_MirrorArmorReflect;
-                RecordAbilityBattle(battler, gBattleMons[battler].ability);
+                gLastUsedAbility = ABILITY_MIRROR_ARMOR;
+                RecordAbilityBattle(battler, gLastUsedAbility);
             }
             return STAT_CHANGE_DIDNT_WORK;
         }
@@ -14910,6 +14913,65 @@ static bool32 CanAbilityPreventStatLoss(u32 abilityDef)
         return TRUE;
     }
     return FALSE;
+}
+
+static bool32 IsStatLossPreventedBySpecificAbility(u32 ability, u32 statId)
+{
+    if ((ability == ABILITY_KEEN_EYE || ability == ABILITY_MINDS_EYE) && statId == STAT_ACC)
+        return TRUE;
+    if (GetGenConfig(GEN_ILLUMINATE_EFFECT) >= GEN_9 && ability == ABILITY_ILLUMINATE && statId == STAT_ACC)
+        return TRUE;
+    if (ability == ABILITY_HYPER_CUTTER && statId == STAT_ATK)
+        return TRUE;
+    if (ability == ABILITY_BIG_PECKS && statId == STAT_DEF)
+        return TRUE;
+
+    return FALSE;
+}
+
+static u32 GetActiveStatLossPreventionAbility(u32 battler)
+{
+    u32 nativeAbility = GetBattlerAbility(battler);
+
+    if (CanAbilityPreventStatLoss(nativeAbility) && HasActiveAbility(battler, nativeAbility))
+        return nativeAbility;
+    if (HasActiveAbility(battler, ABILITY_CLEAR_BODY))
+        return ABILITY_CLEAR_BODY;
+    if (HasActiveAbility(battler, ABILITY_FULL_METAL_BODY))
+        return ABILITY_FULL_METAL_BODY;
+    if (HasActiveAbility(battler, ABILITY_WHITE_SMOKE))
+        return ABILITY_WHITE_SMOKE;
+
+    return ABILITY_NONE;
+}
+
+static u32 GetActiveSpecificStatLossPreventionAbility(u32 battler, u32 statId)
+{
+    static const u32 sStatLossPreventionAbilities[] =
+    {
+        ABILITY_KEEN_EYE,
+        ABILITY_MINDS_EYE,
+        ABILITY_ILLUMINATE,
+        ABILITY_HYPER_CUTTER,
+        ABILITY_BIG_PECKS,
+    };
+    u32 nativeAbility = GetBattlerAbility(battler);
+
+    if (IsStatLossPreventedBySpecificAbility(nativeAbility, statId)
+     && HasActiveAbility(battler, nativeAbility))
+        return nativeAbility;
+
+    for (u32 i = 0; i < ARRAY_COUNT(sStatLossPreventionAbilities); i++)
+    {
+        u32 ability = sStatLossPreventionAbilities[i];
+
+        if (ability != nativeAbility
+         && IsStatLossPreventedBySpecificAbility(ability, statId)
+         && HasActiveAbility(battler, ability))
+            return ability;
+    }
+
+    return ABILITY_NONE;
 }
 
 bool32 CanBurnHitThaw(u16 move)
