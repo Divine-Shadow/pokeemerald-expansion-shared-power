@@ -1,4 +1,4 @@
-- Gameplay/Trainers: Change Winstrate Vivi's Clefable held item from Life Orb to Leftovers (commit pending).
+- Gameplay/Trainers: Change Winstrate Vivi's Clefable held item from Life Orb to Leftovers (commit 1c71959974).
 - Battle/Weather: Make overworld fog visual-only so it no longer starts Misty Terrain or battle fog (commit 6a16d88229).
 - Gameplay/Trainers: Set all current Smart Trainer AI users back to Basic Trainer AI (commit 3142d2bef7).
 - Gameplay/Items: Replace Route 125's visible Big Pearl pickup with a Poison Gem (commit 61c70c9aee).
