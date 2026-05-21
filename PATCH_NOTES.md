@@ -1,4 +1,4 @@
-- Battle/Weather: Make overworld fog visual-only so it no longer starts Misty Terrain or battle fog (commit pending).
+- Battle/Weather: Make overworld fog visual-only so it no longer starts Misty Terrain or battle fog (commit 6a16d88229).
 - Gameplay/Trainers: Set all current Smart Trainer AI users back to Basic Trainer AI (commit 3142d2bef7).
 - Gameplay/Items: Replace Route 125's visible Big Pearl pickup with a Poison Gem (commit 61c70c9aee).
 - Gameplay/Items: Replace Route 127's Zinc, Carbos, and Rare Candy pickups with Dark, Bug, and Fairy Gems (commit 61c70c9aee).
