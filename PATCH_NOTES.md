@@ -1,3 +1,4 @@
+- Gameplay/Trainers: Replace Tate and Liza's Metagross Swords Dance with Explosion (commit pending).
 - Battle/Shared Power: Let shared stat-loss prevention abilities such as Clear Body block Intimidate and other stat drops for active teammates (commit 0c54675c61).
 - Gameplay/Trainers: Change Winstrate Vivi's Clefable held item from Life Orb to Leftovers (commit 1c71959974).
 - Battle/Weather: Make overworld fog visual-only so it no longer starts Misty Terrain or battle fog (commit 6a16d88229).
