@@ -260,6 +260,25 @@ SINGLE_BATTLE_TEST("Shared Power: Sturdy prevents OHKO moves when pooled")
     }
 }
 
+SINGLE_BATTLE_TEST("Shared Power: No Guard makes pooled Horn Drill always hit")
+{
+    GIVEN {
+        BATTLE_TYPE(BATTLE_TYPE_SHARED_POWER);
+        ASSUME(GetMoveEffect(MOVE_HORN_DRILL) == EFFECT_OHKO);
+        ASSUME(GetMoveAccuracy(MOVE_HORN_DRILL) == 30);
+        PLAYER(SPECIES_MACHAMP) { Ability(ABILITY_NO_GUARD); Speed(20); }
+        PLAYER(SPECIES_SEAKING) { Moves(MOVE_HORN_DRILL); Speed(10); }
+        OPPONENT(SPECIES_WOBBUFFET) { Speed(5); }
+    } WHEN {
+        TURN { SWITCH(player, 1); MOVE(opponent, MOVE_CELEBRATE); }
+        TURN { MOVE(player, MOVE_HORN_DRILL, WITH_RNG(RNG_ACCURACY, FALSE)); MOVE(opponent, MOVE_CELEBRATE); }
+    } SCENE {
+        MESSAGE("Seaking used Horn Drill!");
+        ANIMATION(ANIM_TYPE_MOVE, MOVE_HORN_DRILL, player);
+        HP_BAR(opponent, hp: 0);
+    }
+}
+
 SINGLE_BATTLE_TEST("Shared Power: Levitate grants Ground immunity when pooled")
 {
     GIVEN {

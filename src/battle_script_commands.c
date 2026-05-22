@@ -10960,7 +10960,6 @@ static void Cmd_tryKO(void)
     bool32 lands = FALSE;
     enum BattleMoveEffects effect = GetMoveEffect(gCurrentMove);
     enum ItemHoldEffect holdEffect = GetBattlerHoldEffect(gBattlerTarget, TRUE);
-    u16 targetAbility = GetBattlerAbility(gBattlerTarget);
     u32 rand = Random() % 100;
     u32 affectionScore = GetBattlerAffectionHearts(gBattlerTarget);
     u32 endured = NOT_ENDURED;
@@ -11007,9 +11006,13 @@ static void Cmd_tryKO(void)
         if (gBattleMons[gBattlerAttacker].level >= gBattleMons[gBattlerTarget].level
          && ((gBattleMons[gBattlerTarget].volatiles.lockOn
                 && gDisableStructs[gBattlerTarget].battlerWithSureHit == gBattlerAttacker)
-            || IsAbilityAndRecord(gBattlerAttacker, GetBattlerAbility(gBattlerAttacker), ABILITY_NO_GUARD)
-            || IsAbilityAndRecord(gBattlerTarget, targetAbility, ABILITY_NO_GUARD)))
+            || HasActiveAbility(gBattlerAttacker, ABILITY_NO_GUARD)
+            || HasActiveAbility(gBattlerTarget, ABILITY_NO_GUARD)))
         {
+            if (HasActiveAbility(gBattlerAttacker, ABILITY_NO_GUARD))
+                RecordAbilityBattle(gBattlerAttacker, ABILITY_NO_GUARD);
+            else if (HasActiveAbility(gBattlerTarget, ABILITY_NO_GUARD))
+                RecordAbilityBattle(gBattlerTarget, ABILITY_NO_GUARD);
             lands = TRUE;
         }
         else
