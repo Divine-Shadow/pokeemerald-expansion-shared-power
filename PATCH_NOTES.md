@@ -1,3 +1,4 @@
+- Gameplay/Maps: Move the Pokemon League condition coach one tile left to avoid overlapping another sprite (commit pending).
 - Gameplay/Trainers: Move Winstrate Vito two spaces above Victory Road's Pokemon League-side exit facing down so players must fight him before leaving (commit 9e1c375556).
 - Gameplay/Trainers: Replace Tate and Liza's Metagross Swords Dance with Explosion (commit 1d23f28787).
 - Battle/Shared Power: Let shared stat-loss prevention abilities such as Clear Body block Intimidate and other stat drops for active teammates (commit 0c54675c61).
