@@ -1,4 +1,4 @@
-- Gameplay/Trainers: Move Winstrate Vito two spaces above Victory Road's Pokemon League-side exit facing down so players must fight him before leaving (commit 7252564e21).
+- Gameplay/Trainers: Move Winstrate Vito two spaces above Victory Road's Pokemon League-side exit facing down so players must fight him before leaving (commit 9e1c375556).
 - Gameplay/Trainers: Replace Tate and Liza's Metagross Swords Dance with Explosion (commit 1d23f28787).
 - Battle/Shared Power: Let shared stat-loss prevention abilities such as Clear Body block Intimidate and other stat drops for active teammates (commit 0c54675c61).
 - Gameplay/Trainers: Change Winstrate Vivi's Clefable held item from Life Orb to Leftovers (commit 1c71959974).
