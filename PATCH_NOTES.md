@@ -1,5 +1,5 @@
 - Docs/Gameplay: Note that pooled No Guard bypasses accuracy checks under Shared Power (commit pending).
-- Battle/Shared Power: Let pooled No Guard bypass accuracy and OHKO checks such as Horn Drill (commit pending).
+- Battle/Shared Power: Let pooled No Guard bypass accuracy and OHKO checks such as Horn Drill (commit 9df4bf2207).
 - Gameplay/Maps: Move the Pokemon League condition coach one tile left to avoid overlapping another sprite (commit 995b46d89b).
 - Gameplay/Trainers: Move Winstrate Vito two spaces above Victory Road's Pokemon League-side exit facing down so players must fight him before leaving (commit 9e1c375556).
 - Gameplay/Trainers: Replace Tate and Liza's Metagross Swords Dance with Explosion (commit 1d23f28787).
