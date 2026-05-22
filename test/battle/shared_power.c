@@ -327,6 +327,23 @@ SINGLE_BATTLE_TEST("Shared Power: Quick Feet ignores paralysis Speed drop when p
     }
 }
 
+SINGLE_BATTLE_TEST("Shared Power: Swift Swim doubles Speed in rain when pooled")
+{
+    GIVEN {
+        BATTLE_TYPE(BATTLE_TYPE_SHARED_POWER);
+        PLAYER(SPECIES_SEAKING) { Ability(ABILITY_SWIFT_SWIM); Speed(100); }
+        PLAYER(SPECIES_WOBBUFFET) { Speed(100); }
+        OPPONENT(SPECIES_WOBBUFFET) { Speed(199); }
+    } WHEN {
+        TURN { SWITCH(player, 1); MOVE(opponent, MOVE_RAIN_DANCE); }
+        TURN { MOVE(player, MOVE_CELEBRATE); MOVE(opponent, MOVE_CELEBRATE); }
+    } SCENE {
+        ANIMATION(ANIM_TYPE_MOVE, MOVE_RAIN_DANCE, opponent);
+        ANIMATION(ANIM_TYPE_MOVE, MOVE_CELEBRATE, player);
+        ANIMATION(ANIM_TYPE_MOVE, MOVE_CELEBRATE, opponent);
+    }
+}
+
 SINGLE_BATTLE_TEST("Shared Power: Guts ignores burn Attack drop when pooled", s16 damage)
 {
     u32 ability;

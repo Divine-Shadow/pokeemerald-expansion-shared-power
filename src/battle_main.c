@@ -4742,9 +4742,24 @@ u32 GetBattlerTotalSpeedStatArgs(u32 battler, u32 ability, enum ItemHoldEffect h
 {
     u32 speed = gBattleMons[battler].speed;
     bool32 hasQuickFeet = ability == ABILITY_QUICK_FEET;
+    bool32 hasSwiftSwim = ability == ABILITY_SWIFT_SWIM;
+    bool32 hasChlorophyll = ability == ABILITY_CHLOROPHYLL;
+    bool32 hasSandRush = ability == ABILITY_SAND_RUSH;
+    bool32 hasSlushRush = ability == ABILITY_SLUSH_RUSH;
 
     if (!hasQuickFeet && SharedPower_IsEnabled())
         hasQuickFeet = HasActiveAbility(battler, ABILITY_QUICK_FEET);
+    if (SharedPower_IsEnabled())
+    {
+        if (!hasSwiftSwim)
+            hasSwiftSwim = HasActiveAbility(battler, ABILITY_SWIFT_SWIM);
+        if (!hasChlorophyll)
+            hasChlorophyll = HasActiveAbility(battler, ABILITY_CHLOROPHYLL);
+        if (!hasSandRush)
+            hasSandRush = HasActiveAbility(battler, ABILITY_SAND_RUSH);
+        if (!hasSlushRush)
+            hasSlushRush = HasActiveAbility(battler, ABILITY_SLUSH_RUSH);
+    }
 
     // stat stages
     speed *= gStatStageRatios[gBattleMons[battler].statStages[STAT_SPEED]][0];
@@ -4753,13 +4768,13 @@ u32 GetBattlerTotalSpeedStatArgs(u32 battler, u32 ability, enum ItemHoldEffect h
     // weather abilities
     if (HasWeatherEffect())
     {
-        if (ability == ABILITY_SWIFT_SWIM       && holdEffect != HOLD_EFFECT_UTILITY_UMBRELLA && gBattleWeather & B_WEATHER_RAIN)
+        if (hasSwiftSwim       && holdEffect != HOLD_EFFECT_UTILITY_UMBRELLA && gBattleWeather & B_WEATHER_RAIN)
             speed *= 2;
-        else if (ability == ABILITY_CHLOROPHYLL && holdEffect != HOLD_EFFECT_UTILITY_UMBRELLA && gBattleWeather & B_WEATHER_SUN)
+        else if (hasChlorophyll && holdEffect != HOLD_EFFECT_UTILITY_UMBRELLA && gBattleWeather & B_WEATHER_SUN)
             speed *= 2;
-        else if (ability == ABILITY_SAND_RUSH   && gBattleWeather & B_WEATHER_SANDSTORM)
+        else if (hasSandRush   && gBattleWeather & B_WEATHER_SANDSTORM)
             speed *= 2;
-        else if (ability == ABILITY_SLUSH_RUSH  && (gBattleWeather & (B_WEATHER_HAIL | B_WEATHER_SNOW)))
+        else if (hasSlushRush  && (gBattleWeather & (B_WEATHER_HAIL | B_WEATHER_SNOW)))
             speed *= 2;
     }
 
