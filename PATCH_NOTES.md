@@ -1,4 +1,4 @@
-- Battle/Shared Power: Let pooled weather speed abilities such as Swift Swim double active teammates' Speed in matching weather (commit pending).
+- Battle/Shared Power: Let pooled weather speed abilities such as Swift Swim double active teammates' Speed in matching weather (commit ae90084f6b).
 - Docs/Gameplay: Note that pooled weather speed abilities double Speed under Shared Power (commit pending).
 - Docs/Gameplay: Note that pooled No Guard bypasses accuracy checks under Shared Power (commit e61703255b).
 - Battle/Shared Power: Let pooled No Guard bypass accuracy and OHKO checks such as Horn Drill (commit 9df4bf2207).

@@ -18,6 +18,7 @@ These notes cover gameplay rules and move access that are safe to know before st
 - Under Shared Power, stat-loss prevention abilities such as Clear Body now share correctly and block Intimidate and other stat drops for active teammates.
 - Under Shared Power, Magic Guard now shares correctly and prevents Life Orb recoil for active teammates.
 - Under Shared Power, No Guard now shares correctly and lets active teammates bypass accuracy checks, including OHKO moves such as Horn Drill.
+- Under Shared Power, weather speed abilities such as Swift Swim now share correctly and double active teammates' Speed in matching weather.
 - Under Shared Power, end-turn ability popups for Poison Heal and Liquid Ooze now show the shared ability when they activate on a Pokemon with a different native ability.
 - Under Shared Power, Sturdy popups now show Sturdy even if the Pokemon also has another active ability such as Clear Body.
 - Recharge moves such as Giga Impact now release the user after the required recharge turn.
