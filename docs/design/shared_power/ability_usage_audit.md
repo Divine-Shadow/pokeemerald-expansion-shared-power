@@ -23,7 +23,7 @@ The risky callsites are not just `GetBattlerAbility(...) == ABILITY_*`. They als
 | `AB_POPUP_ATTRIBUTION` | Stay or clarify | UI/message identity, usually through `gLastUsedAbility`, `gBattlerAbility`, and popup override state. |
 | `AB_RECORD_ATTRIBUTION` | Clarify | Battle history or AI knowledge recording; the recorded ability may differ from native holder. |
 | `AB_MUTATION_NATIVE_SLOT` | Stay | Ability copy, overwrite, swap, or suppress mechanics that mutate native battle state. |
-| `AB_NATIVE_ONLY_FORM_OR_SPECIES_GATE` | Stay or clarify | Species/form identity checks that should not automatically use donated abilities. |
+| `AB_NATIVE_ONLY_FORM_OR_SPECIES_GATE` | Stay except explicit shareable cases | Species/form identity checks that stay native-only unless the ability is explicitly allowed to share. |
 | `AB_AI_CACHED_PREDICTION` | Clarify | AI known/predicted ability state, not necessarily live Shared Power truth. |
 
 ## Decision Rules
@@ -34,6 +34,16 @@ The risky callsites are not just `GetBattlerAbility(...) == ABILITY_*`. They als
 - Mark **clarify** when source identity, affected battler, popup battler, holder semantics, duplicate behavior, AI knowledge, or form/species policy changes the answer.
 - For hardcoded globals, classify by intended roles: ability source, active battler, attacker, target, effect battler, damaged battler, popup battler.
 
+## Clarified Decisions
+
+- Partner auras are ally- or side-owned passive modifiers that affect another active Pokemon, such as Battery, Power Spot, Steely Spirit, Flower Gift, Friend Guard, and Victory Star.
+- Partner blockers are ally- or side-owned prevention effects, such as Dazzling, Queenly Majesty, Armor Tail, and partner Magic Bounce-style protection. Migrated blockers need both the triggering ability and the blocking battler for popup and record attribution.
+- Native mutation/copy effects stay native-slot based. Trace, Role Play, Skill Swap, Doodle, Entrainment, and similar effects copy, suppress, or overwrite one native ability, not every ability in the Shared Power pool.
+- Form/species-gated transformation or shield mechanics are native-only by default. Ice Face, Disguise, Battle Bond, Gulp Missile, and similar gates should not be activated by donated abilities. Imposter is explicitly fine to share.
+- Damage-context ambiguity is about whether `DamageContext.abilityAtk/abilityDef` are authoritative selected abilities or whether a helper may re-query live effective abilities. This includes Mold Breaker and Unaware-style paths: if the context says target abilities are ignored or a specific ability was selected, a nested live `HasActiveAbility` call can accidentally reintroduce a different pooled ability.
+- AI should reason over the full current Shared Power pool, not only one native or revealed ability.
+- Pooled priority modifiers should stack additively. A single selected priority ability is not enough for Prankster, Triage, Gale Wings, and similar priority deltas under Shared Power.
+
 ## Inventory
 
 | Area | Callsite | Label | Decision | Rationale |
@@ -41,21 +51,21 @@ The risky callsites are not just `GetBattlerAbility(...) == ABILITY_*`. They als
 | Shared Power core | [`HasActiveAbility`, `ForEachEffectiveAbility*`](../../../src/battle_shared_power.c) | `AB_EFFECTIVE_SHARED_MEMBERSHIP`, `AB_EFFECTIVE_SHARED_ITERATION_UNIQUE` | Stay | These are the intended abstraction for native plus pool queries. |
 | Shared Power core | temporary ability override in popup/switch-in dispatch | `AB_MUTATION_NATIVE_SLOT`, `AB_POPUP_ATTRIBUTION` | Stay | This intentionally shims vanilla scripts; do not replace with generic effective checks. |
 | Field/side helpers | [`IsAbilityOnSide`, `IsAbilityOnField`, `IsAbilityOnFieldExcept`](../../../src/battle_util.c) | `AB_EFFECTIVE_SHARED_MEMBERSHIP` | Stay | Already centralizes field/side checks through active ability membership. |
-| Move blocking | [`CanAbilityBlockMove`](../../../src/battle_util.c) | `AB_HELPER_SUPPLIED_TARGET_STATE` | Migrate | Takes explicit abilities but also fetches partner ability and can record the wrong battler/ability when an ally blocks. |
+| Move blocking | [`CanAbilityBlockMove`](../../../src/battle_util.c) | `AB_HELPER_SUPPLIED_TARGET_STATE` | Migrate | Takes explicit abilities but also fetches partner blocker abilities and can record the wrong battler/ability when an ally blocks. |
 | Move absorption | [`CanAbilityAbsorbMove`](../../../src/battle_util.c) | `AB_HELPER_SUPPLIED_TARGET_STATE` | Stay, audit callers | Cleaner explicit-ability helper; callers must pass the selected effective ability and attribution owner. |
 | Accuracy skip | [`CanMoveSkipAccuracyCalc`](../../../src/battle_util.c) | `AB_HELPER_SUPPLIED_TARGET_STATE` | Migrate contract | It accepts `abilityAtk`/`abilityDef` but ignores them for No Guard. Decide whether to remove params or honor supplied ability context. |
 | Accuracy math | [`GetTotalAccuracy`](../../../src/battle_util.c) | `AB_HELPER_SUPPLIED_TARGET_STATE` | Clarify | Mostly uses supplied abilities, but ally Victory Star still uses native partner ability. |
-| Type effectiveness | [`CalcTypeEffectivenessMultiplierInternal`](../../../src/battle_util.c) | `AB_HELPER_SUPPLIED_TARGET_STATE` | Clarify | Uses `DamageContext`, but some immunity checks use `HasActiveAbility`; define context-vs-live semantics. |
-| Damage calc entry | [`CalculateMoveDamage` / `CalculateMoveDamageVars`](../../../src/battle_util.c) | `AB_HELPER_SUPPLIED_TARGET_STATE` | Clarify | Live calc refreshes native abilities; AI calc expects prefilled context. Audit callers before changing. |
+| Type effectiveness | [`CalcTypeEffectivenessMultiplierInternal`](../../../src/battle_util.c) | `AB_HELPER_SUPPLIED_TARGET_STATE` | Clarify contract | Uses `DamageContext`, but some immunity checks use `HasActiveAbility`; define when context-selected abilities, Mold Breaker suppression, and live pooled immunities are authoritative. |
+| Damage calc entry | [`CalculateMoveDamage` / `CalculateMoveDamageVars`](../../../src/battle_util.c) | `AB_HELPER_SUPPLIED_TARGET_STATE` | Clarify contract | Live calc refreshes native abilities; AI calc expects prefilled context. Shared Power damage paths need an explicit rule for context-selected abilities versus iterating the full pool. |
 | Damage modifiers | base power, attack, defense, final damage callbacks | `AB_EFFECTIVE_SHARED_ITERATION_UNIQUE` | Stay | Existing unique effective iteration is the right model for passive numeric modifiers. |
-| Partner damage auras | Battery, Power Spot, Steely Spirit, Flower Gift, Friend Guard, Victory Star | `AB_EFFECTIVE_SHARED_MEMBERSHIP` | Migrate or clarify | Several partner checks still use native partner ability; decide if shared partner auras apply from pooled abilities. |
+| Partner damage auras | Battery, Power Spot, Steely Spirit, Flower Gift, Friend Guard, Victory Star | `AB_EFFECTIVE_SHARED_MEMBERSHIP` | Migrate | Several partner aura checks still use native partner ability; Shared Power should query the relevant ally or side effective pool while preserving source attribution. |
 | Contact helpers | [`IsMoveMakingContact`, `CanBattlerAvoidContactEffects`](../../../src/battle_util.c) | `AB_HELPER_SUPPLIED_TARGET_STATE` | Clarify | Callers sometimes pass `ABILITY_NONE` deliberately; define raw contact vs contact after active ability modifiers. |
 | Status helpers | [`CanSetNonVolatileStatus`, `CanBe*`](../../../src/battle_util.c) | `AB_HELPER_SUPPLIED_TARGET_STATE` | Clarify | Callers supply abilities, while helper mutates `battlerDef` for side blockers and uses move globals. |
 | Move-end iteration | [`SharedPower_GetNextMoveEndAbility`](../../../src/battle_util.c) | `AB_EFFECTIVE_SHARED_ITERATION_EVENT` | Stay, audit callbacks | Iteration is shared-aware, but callbacks use global target/attacker state. |
 | Move-end target callbacks | [`TryMoveEndAbilityEffect`](../../../src/battle_util.c) | `AB_CLARIFY_HARDCODED_TARGET_STATE` | Clarify | Some cases use `battler`, others hardcode `gBattlerTarget` or mutate native ability. |
 | Move-end attacker callbacks | [`TryMoveEndAttackerAbilityEffect`](../../../src/battle_util.c) | `AB_CLARIFY_HARDCODED_TARGET_STATE` | Clarify | Poison Touch/Toxic Chain consult target native ability and contact globals while executing pooled attacker abilities. |
-| Native mutation effects | Mummy, Lingering Aroma, Wandering Spirit, Trace state | `AB_MUTATION_NATIVE_SLOT` | Stay, clarify shared source | These mutate or store native ability slots; shared donated abilities should not be overwritten blindly. |
-| Form/species gates | Cramorant/Gulp Missile, Pecharunt/Poison Puppeteer, form-change tables | `AB_NATIVE_ONLY_FORM_OR_SPECIES_GATE` | Stay or denylist | Species/form identity behavior should not automatically become shareable. |
+| Native mutation effects | Mummy, Lingering Aroma, Wandering Spirit, Trace state | `AB_MUTATION_NATIVE_SLOT` | Stay | These mutate or store native ability slots. Trace and similar copy effects should select one native ability, not the full donated pool. |
+| Form/species gates | Imposter, Ice Face, Disguise, Battle Bond, Gulp Missile, form-change tables | `AB_NATIVE_ONLY_FORM_OR_SPECIES_GATE` | Mixed | Imposter may share. Ice Face, Disguise, Battle Bond, Gulp Missile, and similar form-locked mechanics stay native-only. |
 | Powder check | [`IsMovePowderBlocked`](../../../src/battle_script_commands.c) | `AB_CLARIFY_HARDCODED_TARGET_STATE` | Migrate | Accepts `battlerDef` but records Overcoat against `gBattlerTarget`; attribution should use the actual defender. |
 | Attack canceler | [`Cmd_attackcanceler`](../../../src/battle_script_commands.c) | `AB_CLARIFY_HARDCODED_TARGET_STATE` | Migrate | Top-level script path into block/absorb helpers; Magic Bounce partner logic uses native ability. |
 | Accuracy command | [`AccuracyCheck`](../../../src/battle_script_commands.c) | `AB_HELPER_SUPPLIED_TARGET_STATE` | Migrate | Recomputes native abilities while iterating real targets and mutates `gBattlerTarget` for Dragon Darts. |
@@ -72,7 +82,8 @@ The risky callsites are not just `GetBattlerAbility(...) == ABILITY_*`. They als
 | End-turn iterators | weather, first/third/fourth blocks, ability block | `AB_EFFECTIVE_SHARED_ITERATION_EVENT` | Stay, audit filters | Current filters explicitly select end-turn abilities; review missing entries and duplicate behavior. |
 | End-turn passive damage | weather damage, poison, burn, nightmare, curse, leech seed, Yawn | `AB_EFFECTIVE_SHARED_MEMBERSHIP` | Mixed | Many use `HasActiveAbility`; Leech Seed/Yawn still need source/target contract clarification. |
 | Speed calc | [`GetBattlerTotalSpeedStatArgs`](../../../src/battle_main.c) | `AB_EFFECTIVE_SHARED_MEMBERSHIP` | Migrate remainder | Weather speed and Quick Feet are fixed; Surge Surfer, Slow Start, Protosynthesis, Quark Drive, and Unburden remain native comparisons. |
-| Priority/order | priority, Stall/Mycelium Might, Quick Draw | `AB_EFFECTIVE_SHARED_MEMBERSHIP` | Migrate or clarify | Decide if pooled priority and ordering penalties are intended under Shared Power. |
+| Priority modifiers | Prankster, Triage, Gale Wings, similar priority deltas | `AB_EFFECTIVE_SHARED_ITERATION_UNIQUE` | Migrate, stack | Pooled priority should sum all matching effective priority modifiers; a single selected ability check will miss combinations. |
+| Order tiebreakers | Stall, Mycelium Might, Quick Draw, Custap-style first/last flags | `AB_EFFECTIVE_SHARED_MEMBERSHIP` | Clarify separately | These do not add priority stages; audit them as within-bracket ordering effects after additive priority is defined. |
 | Dynamic move type | Ate abilities, Liquid Voice, Normalize | `AB_EFFECTIVE_SHARED_MEMBERSHIP` | Clarify | Type conversion can have source/order implications; do not migrate blindly. |
 | Run Away/trapping | run checks and displayed trap ability | `AB_RECORD_ATTRIBUTION` | Clarify | Run Away is active-aware; trapping report may still expose native holder ability. |
 | Terastal STAB | Adaptability in terastal damage path | `AB_EFFECTIVE_SHARED_MEMBERSHIP` | Migrate | If Shared Power grants Adaptability elsewhere, this path should match. |
@@ -80,7 +91,7 @@ The risky callsites are not just `GetBattlerAbility(...) == ABILITY_*`. They als
 | Player preview | effectiveness preview damage context | `AB_HELPER_SUPPLIED_TARGET_STATE` | Migrate or clarify | UI can diverge if it previews native abilities while battle uses effective ability sets. |
 | AI wrappers | `AI_HasActiveAbility`, `AI_CanAbilityBlockMove`, `AI_CanAbilityAbsorbMove`, AI status helpers | `AB_AI_CACHED_PREDICTION` | Stay | These are the current Shared Power-aware AI adapters. |
 | AI damage usability | `IsDamageMoveUnusable`, `AI_CalcDamage` | `AB_AI_CACHED_PREDICTION` | Clarify | Some paths use `DamageContext`, others reread `gAiLogicData`; align contracts after live helper decisions. |
-| AI known ability | `AI_DecideKnownAbilityForTurn`, switch prediction, switch items | `AB_AI_CACHED_PREDICTION` | Clarify | Decide whether AI knows one revealed native ability or the full Shared Power pool. |
+| AI known ability | `AI_DecideKnownAbilityForTurn`, switch prediction, switch items | `AB_AI_CACHED_PREDICTION` | Migrate to full pool | AI should see and reason about the current Shared Power pool rather than one revealed native ability. |
 
 ## Hardcoded Target-State Queue
 
@@ -103,12 +114,11 @@ These helpers deserve a per-case owner/target review before behavior changes:
 | Priority | Topic | Default until clarified |
 | --- | --- | --- |
 | High | Status helper contract | Do not migrate individual status wrappers until `CanSetNonVolatileStatus` defines source, target, and attribution semantics. |
-| High | Partner/side ability ownership | Treat partner auras/blockers as clarify unless the effect has an existing `HasActiveAbility` pattern. |
+| High | Partner/side ability ownership | Partner auras and blockers should use the relevant ally or side effective pool, with explicit popup and record source attribution. |
 | High | Popup and record attribution | Use triggering ability constants for migrated behavior; do not record native slot by default. |
-| High | Native mutation/copy mechanics | Keep native-only; document whether donated abilities can be copied, suppressed, or overwritten. |
-| Medium | Form/species ability gates | Keep native-only or add explicit Shared Power eligibility denylist entries. |
-| Medium | Damage context semantics | Decide when `DamageContext.abilityAtk/Def` are authoritative versus live effective ability queries. |
-| Medium | AI pool knowledge | Decide if AI sees current Shared Power pools or only one known native ability. |
+| High | Native mutation/copy mechanics | Keep native-only; donated abilities are not copied, suppressed, or overwritten as a pool. |
+| Medium | Form/species ability gates | Share Imposter; keep Ice Face, Disguise, Battle Bond, Gulp Missile, and similar form-locked gates native-only. |
+| Medium | Damage context semantics | Define when `DamageContext.abilityAtk/Def`, Mold Breaker suppression, and Unaware-style decisions are authoritative versus live effective ability queries. |
 | Medium | Duplicate source behavior | Keep unique iteration unless the underlying vanilla event intentionally triggers per source. |
 | Low | UI previews | Align move previews after live battle semantics are settled. |
 
@@ -117,14 +127,14 @@ These helpers deserve a per-case owner/target review before behavior changes:
 | Behavior class | Current state | Future regression shape |
 | --- | --- | --- |
 | Pooled speed/weather | Quick Feet and Swift Swim covered. | Add remaining speed modifiers only after deciding shareability. |
-| Pooled priority/order | Not broadly covered. | Tests for Prankster/Triage/Gale Wings and Stall/Mycelium Might order if migrated. |
-| Partner auras/blockers | Partial AI/block coverage. | Double battle with pooled partner Battery/Power Spot/Victory Star/Dazzling source differing from target. |
+| Pooled priority/order | Not broadly covered. | Tests for stacked Prankster/Triage/Gale Wings priority, plus separate Stall/Mycelium Might order if migrated. |
+| Partner auras/blockers | Partial AI/block coverage. | Double battle with pooled partner Battery/Power Spot/Victory Star/Dazzling source differing from target and popup owner. |
 | Status blockers | Some AI/status coverage exists. | Pooled blocker with unrelated native ability plus popup/record assertion. |
 | Hardcoded contact callbacks | Some pooled contact abilities covered. | Cases where ability owner, damaged target, and active attacker are all distinct. |
 | Recoil/item backlash | Life Orb Magic Guard/Sheer Force covered. | Rocky Helmet, Jaboca/Rowap, crash/recoil, and shared Magic Guard variants. |
 | End-turn ownership | Poison Heal/Liquid Ooze popups covered. | Leech Seed and Yawn source/target cases once contracts are decided. |
 | Native mutation | Not intended to migrate. | Tests that copied/overwritten abilities operate on native slots and restore Shared Power state. |
-| AI predictions | Some shared AI tests exist. | AI avoids pooled immunities/status blockers and chooses moves using pooled damage modifiers. |
+| AI predictions | Some shared AI tests exist. | AI avoids pooled immunities/status blockers and chooses moves using the full current Shared Power pool. |
 | Shared Power off | Existing off-path checks are limited. | Every migrated class should include a Shared Power disabled bench-inert check when practical. |
 
 ## Reproducible Search Basis

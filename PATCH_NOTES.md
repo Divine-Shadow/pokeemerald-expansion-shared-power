@@ -1,3 +1,4 @@
+- Docs/Shared Power: Capture clarified ability audit decisions for pooled priority, AI pools, native mutation, and form gates (commit pending).
 - Docs/Shared Power: Add an ability usage audit for native, effective, attribution, and clarification callsites (commit pending).
 - Tooling/Codex: Add local autonomy contract skill and enable goal mode (commit e91f7b4155).
 - Battle/Shared Power: Let pooled weather speed abilities such as Swift Swim double active teammates' Speed in matching weather (commit ae90084f6b).
