@@ -1,2 +1,8 @@
+# Skip approval prompts
+approval_policy = "never"
+
+# Full filesystem access
+sandbox_mode = "danger-full-access"
+
 [features]
 goals = true
