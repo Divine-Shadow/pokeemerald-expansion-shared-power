@@ -104,5 +104,6 @@
      - [Activation Order & UX](design/shared_power/activation_ux.md)
      - [Config & Tests](design/shared_power/config_tests.md)
      - [Implementation Map](design/shared_power/implementation_map.md)
+     - [Ability Usage Audit](design/shared_power/ability_usage_audit.md)
      - [Variant: Per-Side Pool](design/shared_power/per_side_pool.md)
      - [Game Mode Explainer](design/shared_power/mode_explainer.md)

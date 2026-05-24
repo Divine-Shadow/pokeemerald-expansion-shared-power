@@ -1,3 +1,5 @@
+- Docs/Shared Power: Add an ability usage audit for native, effective, attribution, and clarification callsites (commit pending).
+- Tooling/Codex: Add local autonomy contract skill and enable goal mode (commit e91f7b4155).
 - Battle/Shared Power: Let pooled weather speed abilities such as Swift Swim double active teammates' Speed in matching weather (commit ae90084f6b).
 - Docs/Gameplay: Note that pooled weather speed abilities double Speed under Shared Power (commit pending).
 - Docs/Gameplay: Note that pooled No Guard bypasses accuracy checks under Shared Power (commit e61703255b).

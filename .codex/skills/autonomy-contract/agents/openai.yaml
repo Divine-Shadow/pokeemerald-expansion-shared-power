@@ -1,0 +1,4 @@
+interface:
+  display_name: "Autonomy Contract"
+  short_description: "Draft compact OCVA autonomy contracts."
+  default_prompt: "Use $autonomy-contract to propose an OCVA for scoped autonomous work."

@@ -20,6 +20,7 @@ Use the sections below for focused details; files reference each other where rel
 - [Activation Order & UX](./activation_ux.md)
 - [Config, Feature Flag & Tests](./config_tests.md)
 - [Implementation Map (touch points)](./implementation_map.md)
+- [Ability Usage Audit](./ability_usage_audit.md)
 - [Variant: Per-Side Ability Pool](./per_side_pool.md)
 - [Game Mode Explainer](./mode_explainer.md)
 
