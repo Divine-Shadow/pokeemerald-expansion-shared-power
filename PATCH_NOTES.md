@@ -1,4 +1,4 @@
-- Tooling/Codex: Enable yolo sandbox and approval defaults for shared-power Codex configs (commit d646b23762).
+- Tooling/Codex: Enable yolo sandbox and approval defaults for shared-power Codex configs (commit dfd7ac03a4).
 - Docs/Shared Power: Capture clarified ability audit decisions for pooled priority, AI pools, native mutation, and form gates (commit pending).
 - Docs/Shared Power: Add an ability usage audit for native, effective, attribution, and clarification callsites (commit pending).
 - Tooling/Codex: Add local autonomy contract skill and enable goal mode (commit e91f7b4155).
