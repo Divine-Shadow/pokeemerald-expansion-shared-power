@@ -54,7 +54,10 @@ u8 PickWildMonNature(void);
 bool8 StandardWildEncounter(u16 curMetatileBehavior, u16 prevMetatileBehavior);
 bool8 SweetScentWildEncounter(void);
 bool8 DoesCurrentMapHaveFishingMons(void);
-void FishingWildEncounter(u8 rod);
+bool8 FishingWildEncounter(u8 rod);
+bool32 IsHighlanderCharmActive(void);
+bool32 WasHighlanderCharmEncounterEmpty(void);
+bool32 TryStartHighlanderCharmEmptyEncounterScript(void);
 u16 GetLocalWildMon(bool8 *isWaterMon);
 u16 GetLocalWaterMon(void);
 bool8 UpdateRepelCounter(void);
@@ -69,5 +72,10 @@ u32 ChooseWildMonIndex_Rocks(void);
 u32 ChooseHiddenMonIndex(void);
 bool32 MapHasNoEncounterData(void);
 enum TimeOfDay GetTimeOfDayForEncounters(u32 headerId, enum WildPokemonArea area);
+
+#if TESTING
+bool32 Test_IsWildSpeciesAllowedByHighlanderCharm(u16 species);
+bool32 Test_TryChooseHighlanderCharmWildMonIndex(const struct WildPokemon *wildMon, enum WildPokemonArea area, u8 rod, u32 roll, u8 *wildMonIndex, u32 *totalWeight);
+#endif
 
 #endif // GUARD_WILD_ENCOUNTER_H

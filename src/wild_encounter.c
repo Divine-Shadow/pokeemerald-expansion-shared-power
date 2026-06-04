@@ -1,10 +1,13 @@
 #include "global.h"
 #include "wild_encounter.h"
+#include "event_scripts.h"
 #include "pokemon.h"
+#include "pokedex.h"
 #include "metatile_behavior.h"
 #include "fieldmap.h"
 #include "follower_npc.h"
 #include "random.h"
+#include "item.h"
 #include "field_player_avatar.h"
 #include "event_data.h"
 #include "safari_zone.h"
@@ -23,6 +26,7 @@
 #include "constants/item.h"
 #include "constants/items.h"
 #include "constants/layouts.h"
+#include "constants/pokedex.h"
 #include "constants/weather.h"
 
 extern const u8 EventScript_SprayWoreOff[];
@@ -40,6 +44,7 @@ extern const u8 EventScript_SprayWoreOff[];
 
 #define WILD_CHECK_REPEL    (1 << 0)
 #define WILD_CHECK_KEEN_EYE (1 << 1)
+#define WILD_CHECK_HIGHLANDER (1 << 2)
 
 static u16 FeebasRandom(void);
 static void FeebasSeedRng(u16 seed);
@@ -48,6 +53,9 @@ static bool8 IsWildLevelAllowedByRepel(u8 level);
 static void ApplyFluteEncounterRateMod(u32 *encRate);
 static void ApplyCleanseTagEncounterRateMod(u32 *encRate);
 static u8 GetMaxLevelOfSpeciesInWildTable(const struct WildPokemon *wildMon, u16 species, enum WildPokemonArea area);
+static bool32 IsWildSpeciesAllowedByHighlanderCharm(u16 species);
+static bool8 TryChooseHighlanderCharmWildMonIndex(const struct WildPokemon *wildMon, enum WildPokemonArea area, u8 rod, u32 roll, u8 *wildMonIndex, u32 *totalWeight);
+static bool8 TryGenerateFishingWildMon(const struct WildPokemonInfo *wildMonInfo, u8 rod, u16 *species);
 #ifdef BUGFIX
 static bool8 TryGetAbilityInfluencedWildMonIndex(const struct WildPokemon *wildMon, u8 type, u16 ability, u8 *monIndex, u32 size);
 #else
@@ -60,10 +68,67 @@ EWRAM_DATA static u32 sFeebasRngValue = 0;
 EWRAM_DATA bool8 gIsFishingEncounter = 0;
 EWRAM_DATA bool8 gIsSurfingEncounter = 0;
 EWRAM_DATA u8 gChainFishingDexNavStreak = 0;
+EWRAM_DATA static bool8 sHighlanderCharmEncounterEmpty = FALSE;
 
 #include "data/wild_encounters.h"
 
 static const struct WildPokemon sWildFeebas = {20, 25, SPECIES_FEEBAS};
+
+static const u8 sLandWildMonWeights[LAND_WILD_COUNT] =
+{
+    ENCOUNTER_CHANCE_LAND_MONS_SLOT_0,
+    (ENCOUNTER_CHANCE_LAND_MONS_SLOT_1) - (ENCOUNTER_CHANCE_LAND_MONS_SLOT_0),
+    (ENCOUNTER_CHANCE_LAND_MONS_SLOT_2) - (ENCOUNTER_CHANCE_LAND_MONS_SLOT_1),
+    (ENCOUNTER_CHANCE_LAND_MONS_SLOT_3) - (ENCOUNTER_CHANCE_LAND_MONS_SLOT_2),
+    (ENCOUNTER_CHANCE_LAND_MONS_SLOT_4) - (ENCOUNTER_CHANCE_LAND_MONS_SLOT_3),
+    (ENCOUNTER_CHANCE_LAND_MONS_SLOT_5) - (ENCOUNTER_CHANCE_LAND_MONS_SLOT_4),
+    (ENCOUNTER_CHANCE_LAND_MONS_SLOT_6) - (ENCOUNTER_CHANCE_LAND_MONS_SLOT_5),
+    (ENCOUNTER_CHANCE_LAND_MONS_SLOT_7) - (ENCOUNTER_CHANCE_LAND_MONS_SLOT_6),
+    (ENCOUNTER_CHANCE_LAND_MONS_SLOT_8) - (ENCOUNTER_CHANCE_LAND_MONS_SLOT_7),
+    (ENCOUNTER_CHANCE_LAND_MONS_SLOT_9) - (ENCOUNTER_CHANCE_LAND_MONS_SLOT_8),
+    (ENCOUNTER_CHANCE_LAND_MONS_SLOT_10) - (ENCOUNTER_CHANCE_LAND_MONS_SLOT_9),
+    (ENCOUNTER_CHANCE_LAND_MONS_SLOT_11) - (ENCOUNTER_CHANCE_LAND_MONS_SLOT_10),
+};
+
+static const u8 sWaterWildMonWeights[WATER_WILD_COUNT] =
+{
+    ENCOUNTER_CHANCE_WATER_MONS_SLOT_0,
+    (ENCOUNTER_CHANCE_WATER_MONS_SLOT_1) - (ENCOUNTER_CHANCE_WATER_MONS_SLOT_0),
+    (ENCOUNTER_CHANCE_WATER_MONS_SLOT_2) - (ENCOUNTER_CHANCE_WATER_MONS_SLOT_1),
+    (ENCOUNTER_CHANCE_WATER_MONS_SLOT_3) - (ENCOUNTER_CHANCE_WATER_MONS_SLOT_2),
+    (ENCOUNTER_CHANCE_WATER_MONS_SLOT_4) - (ENCOUNTER_CHANCE_WATER_MONS_SLOT_3),
+};
+
+static const u8 sRockWildMonWeights[ROCK_WILD_COUNT] =
+{
+    ENCOUNTER_CHANCE_ROCK_SMASH_MONS_SLOT_0,
+    (ENCOUNTER_CHANCE_ROCK_SMASH_MONS_SLOT_1) - (ENCOUNTER_CHANCE_ROCK_SMASH_MONS_SLOT_0),
+    (ENCOUNTER_CHANCE_ROCK_SMASH_MONS_SLOT_2) - (ENCOUNTER_CHANCE_ROCK_SMASH_MONS_SLOT_1),
+    (ENCOUNTER_CHANCE_ROCK_SMASH_MONS_SLOT_3) - (ENCOUNTER_CHANCE_ROCK_SMASH_MONS_SLOT_2),
+    (ENCOUNTER_CHANCE_ROCK_SMASH_MONS_SLOT_4) - (ENCOUNTER_CHANCE_ROCK_SMASH_MONS_SLOT_3),
+};
+
+static const u8 sOldRodWildMonWeights[FISH_WILD_COUNT] =
+{
+    ENCOUNTER_CHANCE_FISHING_MONS_OLD_ROD_SLOT_0,
+    (ENCOUNTER_CHANCE_FISHING_MONS_OLD_ROD_SLOT_1) - (ENCOUNTER_CHANCE_FISHING_MONS_OLD_ROD_SLOT_0),
+};
+
+static const u8 sGoodRodWildMonWeights[FISH_WILD_COUNT] =
+{
+    [2] = ENCOUNTER_CHANCE_FISHING_MONS_GOOD_ROD_SLOT_2,
+    [3] = (ENCOUNTER_CHANCE_FISHING_MONS_GOOD_ROD_SLOT_3) - (ENCOUNTER_CHANCE_FISHING_MONS_GOOD_ROD_SLOT_2),
+    [4] = (ENCOUNTER_CHANCE_FISHING_MONS_GOOD_ROD_SLOT_4) - (ENCOUNTER_CHANCE_FISHING_MONS_GOOD_ROD_SLOT_3),
+};
+
+static const u8 sSuperRodWildMonWeights[FISH_WILD_COUNT] =
+{
+    [5] = ENCOUNTER_CHANCE_FISHING_MONS_SUPER_ROD_SLOT_5,
+    [6] = (ENCOUNTER_CHANCE_FISHING_MONS_SUPER_ROD_SLOT_6) - (ENCOUNTER_CHANCE_FISHING_MONS_SUPER_ROD_SLOT_5),
+    [7] = (ENCOUNTER_CHANCE_FISHING_MONS_SUPER_ROD_SLOT_7) - (ENCOUNTER_CHANCE_FISHING_MONS_SUPER_ROD_SLOT_6),
+    [8] = (ENCOUNTER_CHANCE_FISHING_MONS_SUPER_ROD_SLOT_8) - (ENCOUNTER_CHANCE_FISHING_MONS_SUPER_ROD_SLOT_7),
+    [9] = (ENCOUNTER_CHANCE_FISHING_MONS_SUPER_ROD_SLOT_9) - (ENCOUNTER_CHANCE_FISHING_MONS_SUPER_ROD_SLOT_8),
+};
 
 static const u16 sRoute119WaterTileData[] =
 {
@@ -77,6 +142,218 @@ void DisableWildEncounters(bool8 disabled)
 {
     sWildEncountersDisabled = disabled;
 }
+
+bool32 IsHighlanderCharmActive(void)
+{
+    return CheckBagHasItem(ITEM_HIGHLANDER_CHARM, 1);
+}
+
+bool32 WasHighlanderCharmEncounterEmpty(void)
+{
+    return sHighlanderCharmEncounterEmpty;
+}
+
+bool32 TryStartHighlanderCharmEmptyEncounterScript(void)
+{
+    if (!sHighlanderCharmEncounterEmpty)
+        return FALSE;
+
+    sHighlanderCharmEncounterEmpty = FALSE;
+    ScriptContext_SetupScript(EventScript_HighlanderCharmNoEncounters);
+    return TRUE;
+}
+
+static u16 GetHighlanderCharmFamilyRoot(u16 species)
+{
+    u16 preEvo;
+
+    species = SanitizeSpeciesId(species);
+    if (species == SPECIES_NONE)
+        return SPECIES_NONE;
+
+    while ((preEvo = GetSpeciesPreEvolution(species)) != SPECIES_NONE)
+        species = preEvo;
+
+    return species;
+}
+
+static bool32 IsHighlanderCharmSpeciesCaught(u16 species)
+{
+    enum NationalDexOrder dexNum;
+
+    species = SanitizeSpeciesId(species);
+    if (species == SPECIES_NONE)
+        return FALSE;
+
+    dexNum = SpeciesToNationalPokedexNum(species);
+    if (dexNum == NATIONAL_DEX_NONE)
+        return FALSE;
+
+    return GetSetPokedexFlag(dexNum, FLAG_GET_CAUGHT);
+}
+
+static bool32 IsHighlanderCharmFamilyMemberCaught(u16 species)
+{
+    const struct Evolution *evolutions;
+    u32 i;
+
+    species = SanitizeSpeciesId(species);
+    if (species == SPECIES_NONE)
+        return FALSE;
+    if (IsHighlanderCharmSpeciesCaught(species))
+        return TRUE;
+
+    evolutions = GetSpeciesEvolutions(species);
+    if (evolutions == NULL)
+        return FALSE;
+
+    for (i = 0; evolutions[i].method != EVOLUTIONS_END; i++)
+    {
+        if (IsHighlanderCharmFamilyMemberCaught(evolutions[i].targetSpecies))
+            return TRUE;
+    }
+
+    return FALSE;
+}
+
+static bool32 IsWildSpeciesAllowedByHighlanderCharm(u16 species)
+{
+    species = GetHighlanderCharmFamilyRoot(species);
+    return species != SPECIES_NONE && !IsHighlanderCharmFamilyMemberCaught(species);
+}
+
+static const u8 *GetHighlanderCharmWeights(enum WildPokemonArea area, u8 rod, u8 *count)
+{
+    switch (area)
+    {
+    case WILD_AREA_LAND:
+        *count = LAND_WILD_COUNT;
+        return sLandWildMonWeights;
+    case WILD_AREA_WATER:
+        *count = WATER_WILD_COUNT;
+        return sWaterWildMonWeights;
+    case WILD_AREA_ROCKS:
+        *count = ROCK_WILD_COUNT;
+        return sRockWildMonWeights;
+    case WILD_AREA_FISHING:
+        *count = FISH_WILD_COUNT;
+        switch (rod)
+        {
+        case OLD_ROD:
+            return sOldRodWildMonWeights;
+        case GOOD_ROD:
+            return sGoodRodWildMonWeights;
+        case SUPER_ROD:
+            return sSuperRodWildMonWeights;
+        }
+        break;
+    default:
+        break;
+    }
+
+    *count = 0;
+    return NULL;
+}
+
+static u8 GetHighlanderCharmLureMirrorIndex(enum WildPokemonArea area, u8 rod, u8 index)
+{
+    switch (area)
+    {
+    case WILD_AREA_LAND:
+        return LAND_WILD_COUNT - 1 - index;
+    case WILD_AREA_WATER:
+        return WATER_WILD_COUNT - 1 - index;
+    case WILD_AREA_ROCKS:
+        return ROCK_WILD_COUNT - 1 - index;
+    case WILD_AREA_FISHING:
+        switch (rod)
+        {
+        case OLD_ROD:
+            return 1 - index;
+        case GOOD_ROD:
+            return 6 - index;
+        case SUPER_ROD:
+            return 14 - index;
+        }
+        break;
+    default:
+        break;
+    }
+
+    return index;
+}
+
+static u32 GetHighlanderCharmSlotWeight(const u8 *weights, enum WildPokemonArea area, u8 rod, u8 index)
+{
+    u8 mirrorIndex;
+
+    if (weights[index] == 0)
+        return 0;
+    if (LURE_STEP_COUNT == 0)
+        return weights[index];
+
+    mirrorIndex = GetHighlanderCharmLureMirrorIndex(area, rod, index);
+    return weights[index] * 4 + weights[mirrorIndex];
+}
+
+static bool8 TryChooseHighlanderCharmWildMonIndex(const struct WildPokemon *wildMon, enum WildPokemonArea area, u8 rod, u32 roll, u8 *wildMonIndex, u32 *totalWeight)
+{
+    const u8 *weights;
+    u32 slotWeight;
+    u32 runningWeight = 0;
+    u8 count = 0;
+    u8 i;
+
+    weights = GetHighlanderCharmWeights(area, rod, &count);
+    if (weights == NULL)
+        return FALSE;
+
+    sHighlanderCharmEncounterEmpty = FALSE;
+    for (i = 0; i < count; i++)
+    {
+        if (!IsWildSpeciesAllowedByHighlanderCharm(wildMon[i].species))
+            continue;
+
+        runningWeight += GetHighlanderCharmSlotWeight(weights, area, rod, i);
+    }
+
+    if (totalWeight != NULL)
+        *totalWeight = runningWeight;
+    if (runningWeight == 0)
+    {
+        sHighlanderCharmEncounterEmpty = TRUE;
+        return FALSE;
+    }
+
+    roll %= runningWeight;
+    for (i = 0; i < count; i++)
+    {
+        if (!IsWildSpeciesAllowedByHighlanderCharm(wildMon[i].species))
+            continue;
+
+        slotWeight = GetHighlanderCharmSlotWeight(weights, area, rod, i);
+        if (roll < slotWeight)
+        {
+            *wildMonIndex = i;
+            return TRUE;
+        }
+        roll -= slotWeight;
+    }
+
+    return FALSE;
+}
+
+#if TESTING
+bool32 Test_IsWildSpeciesAllowedByHighlanderCharm(u16 species)
+{
+    return IsWildSpeciesAllowedByHighlanderCharm(species);
+}
+
+bool32 Test_TryChooseHighlanderCharmWildMonIndex(const struct WildPokemon *wildMon, enum WildPokemonArea area, u8 rod, u32 roll, u8 *wildMonIndex, u32 *totalWeight)
+{
+    return TryChooseHighlanderCharmWildMonIndex(wildMon, area, rod, roll, wildMonIndex, totalWeight);
+}
+#endif
 
 // Each fishing spot on Route 119 is given a number between 1 and NUM_FISHING_SPOTS inclusive.
 // The number is determined by counting the valid fishing spots left to right top to bottom.
@@ -523,48 +800,58 @@ static bool8 TryGenerateWildMon(const struct WildPokemonInfo *wildMonInfo, enum 
 {
     u8 wildMonIndex = 0;
     u8 level;
+    bool32 useHighlander = (flags & WILD_CHECK_HIGHLANDER) && IsHighlanderCharmActive();
 
-    switch (area)
+    sHighlanderCharmEncounterEmpty = FALSE;
+    if (useHighlander)
     {
-    case WILD_AREA_LAND:
-        if (TRY_GET_ABILITY_INFLUENCED_WILD_MON_INDEX(wildMonInfo->wildPokemon, TYPE_STEEL, ABILITY_MAGNET_PULL, &wildMonIndex, LAND_WILD_COUNT))
-            break;
-        if (TRY_GET_ABILITY_INFLUENCED_WILD_MON_INDEX(wildMonInfo->wildPokemon, TYPE_ELECTRIC, ABILITY_STATIC, &wildMonIndex, LAND_WILD_COUNT))
-            break;
-        if (OW_LIGHTNING_ROD >= GEN_8 && TRY_GET_ABILITY_INFLUENCED_WILD_MON_INDEX(wildMonInfo->wildPokemon, TYPE_ELECTRIC, ABILITY_LIGHTNING_ROD, &wildMonIndex, LAND_WILD_COUNT))
-            break;
-        if (OW_FLASH_FIRE >= GEN_8 && TRY_GET_ABILITY_INFLUENCED_WILD_MON_INDEX(wildMonInfo->wildPokemon, TYPE_FIRE, ABILITY_FLASH_FIRE, &wildMonIndex, LAND_WILD_COUNT))
-            break;
-        if (OW_HARVEST >= GEN_8 && TRY_GET_ABILITY_INFLUENCED_WILD_MON_INDEX(wildMonInfo->wildPokemon, TYPE_GRASS, ABILITY_HARVEST, &wildMonIndex, LAND_WILD_COUNT))
-            break;
-        if (OW_STORM_DRAIN >= GEN_8 && TRY_GET_ABILITY_INFLUENCED_WILD_MON_INDEX(wildMonInfo->wildPokemon, TYPE_WATER, ABILITY_STORM_DRAIN, &wildMonIndex, LAND_WILD_COUNT))
-            break;
+        if (!TryChooseHighlanderCharmWildMonIndex(wildMonInfo->wildPokemon, area, 0, Random(), &wildMonIndex, NULL))
+            return FALSE;
+    }
+    else
+    {
+        switch (area)
+        {
+        case WILD_AREA_LAND:
+            if (TRY_GET_ABILITY_INFLUENCED_WILD_MON_INDEX(wildMonInfo->wildPokemon, TYPE_STEEL, ABILITY_MAGNET_PULL, &wildMonIndex, LAND_WILD_COUNT))
+                break;
+            if (TRY_GET_ABILITY_INFLUENCED_WILD_MON_INDEX(wildMonInfo->wildPokemon, TYPE_ELECTRIC, ABILITY_STATIC, &wildMonIndex, LAND_WILD_COUNT))
+                break;
+            if (OW_LIGHTNING_ROD >= GEN_8 && TRY_GET_ABILITY_INFLUENCED_WILD_MON_INDEX(wildMonInfo->wildPokemon, TYPE_ELECTRIC, ABILITY_LIGHTNING_ROD, &wildMonIndex, LAND_WILD_COUNT))
+                break;
+            if (OW_FLASH_FIRE >= GEN_8 && TRY_GET_ABILITY_INFLUENCED_WILD_MON_INDEX(wildMonInfo->wildPokemon, TYPE_FIRE, ABILITY_FLASH_FIRE, &wildMonIndex, LAND_WILD_COUNT))
+                break;
+            if (OW_HARVEST >= GEN_8 && TRY_GET_ABILITY_INFLUENCED_WILD_MON_INDEX(wildMonInfo->wildPokemon, TYPE_GRASS, ABILITY_HARVEST, &wildMonIndex, LAND_WILD_COUNT))
+                break;
+            if (OW_STORM_DRAIN >= GEN_8 && TRY_GET_ABILITY_INFLUENCED_WILD_MON_INDEX(wildMonInfo->wildPokemon, TYPE_WATER, ABILITY_STORM_DRAIN, &wildMonIndex, LAND_WILD_COUNT))
+                break;
 
-        wildMonIndex = ChooseWildMonIndex_Land();
-        break;
-    case WILD_AREA_WATER:
-        if (TRY_GET_ABILITY_INFLUENCED_WILD_MON_INDEX(wildMonInfo->wildPokemon, TYPE_STEEL, ABILITY_MAGNET_PULL, &wildMonIndex, WATER_WILD_COUNT))
+            wildMonIndex = ChooseWildMonIndex_Land();
             break;
-        if (TRY_GET_ABILITY_INFLUENCED_WILD_MON_INDEX(wildMonInfo->wildPokemon, TYPE_ELECTRIC, ABILITY_STATIC, &wildMonIndex, WATER_WILD_COUNT))
-            break;
-        if (OW_LIGHTNING_ROD >= GEN_8 && TRY_GET_ABILITY_INFLUENCED_WILD_MON_INDEX(wildMonInfo->wildPokemon, TYPE_ELECTRIC, ABILITY_LIGHTNING_ROD, &wildMonIndex, WATER_WILD_COUNT))
-            break;
-        if (OW_FLASH_FIRE >= GEN_8 && TRY_GET_ABILITY_INFLUENCED_WILD_MON_INDEX(wildMonInfo->wildPokemon, TYPE_FIRE, ABILITY_FLASH_FIRE, &wildMonIndex, WATER_WILD_COUNT))
-            break;
-        if (OW_HARVEST >= GEN_8 && TRY_GET_ABILITY_INFLUENCED_WILD_MON_INDEX(wildMonInfo->wildPokemon, TYPE_GRASS, ABILITY_HARVEST, &wildMonIndex, WATER_WILD_COUNT))
-            break;
-        if (OW_STORM_DRAIN >= GEN_8 && TRY_GET_ABILITY_INFLUENCED_WILD_MON_INDEX(wildMonInfo->wildPokemon, TYPE_WATER, ABILITY_STORM_DRAIN, &wildMonIndex, WATER_WILD_COUNT))
-            break;
+        case WILD_AREA_WATER:
+            if (TRY_GET_ABILITY_INFLUENCED_WILD_MON_INDEX(wildMonInfo->wildPokemon, TYPE_STEEL, ABILITY_MAGNET_PULL, &wildMonIndex, WATER_WILD_COUNT))
+                break;
+            if (TRY_GET_ABILITY_INFLUENCED_WILD_MON_INDEX(wildMonInfo->wildPokemon, TYPE_ELECTRIC, ABILITY_STATIC, &wildMonIndex, WATER_WILD_COUNT))
+                break;
+            if (OW_LIGHTNING_ROD >= GEN_8 && TRY_GET_ABILITY_INFLUENCED_WILD_MON_INDEX(wildMonInfo->wildPokemon, TYPE_ELECTRIC, ABILITY_LIGHTNING_ROD, &wildMonIndex, WATER_WILD_COUNT))
+                break;
+            if (OW_FLASH_FIRE >= GEN_8 && TRY_GET_ABILITY_INFLUENCED_WILD_MON_INDEX(wildMonInfo->wildPokemon, TYPE_FIRE, ABILITY_FLASH_FIRE, &wildMonIndex, WATER_WILD_COUNT))
+                break;
+            if (OW_HARVEST >= GEN_8 && TRY_GET_ABILITY_INFLUENCED_WILD_MON_INDEX(wildMonInfo->wildPokemon, TYPE_GRASS, ABILITY_HARVEST, &wildMonIndex, WATER_WILD_COUNT))
+                break;
+            if (OW_STORM_DRAIN >= GEN_8 && TRY_GET_ABILITY_INFLUENCED_WILD_MON_INDEX(wildMonInfo->wildPokemon, TYPE_WATER, ABILITY_STORM_DRAIN, &wildMonIndex, WATER_WILD_COUNT))
+                break;
 
-        wildMonIndex = ChooseWildMonIndex_Water();
-        break;
-    case WILD_AREA_ROCKS:
-        wildMonIndex = ChooseWildMonIndex_Rocks();
-        break;
-    default:
-    case WILD_AREA_FISHING:
-    case WILD_AREA_HIDDEN:
-        break;
+            wildMonIndex = ChooseWildMonIndex_Water();
+            break;
+        case WILD_AREA_ROCKS:
+            wildMonIndex = ChooseWildMonIndex_Rocks();
+            break;
+        default:
+        case WILD_AREA_FISHING:
+        case WILD_AREA_HIDDEN:
+            break;
+        }
     }
 
     level = ChooseWildMonLevel(wildMonInfo->wildPokemon, wildMonIndex, area);
@@ -577,15 +864,27 @@ static bool8 TryGenerateWildMon(const struct WildPokemonInfo *wildMonInfo, enum 
     return TRUE;
 }
 
-static u16 GenerateFishingWildMon(const struct WildPokemonInfo *wildMonInfo, u8 rod)
+static bool8 TryGenerateFishingWildMon(const struct WildPokemonInfo *wildMonInfo, u8 rod, u16 *species)
 {
-    u8 wildMonIndex = ChooseWildMonIndex_Fishing(rod);
-    u16 wildMonSpecies = wildMonInfo->wildPokemon[wildMonIndex].species;
-    u8 level = ChooseWildMonLevel(wildMonInfo->wildPokemon, wildMonIndex, WILD_AREA_FISHING);
+    u8 wildMonIndex;
+    u8 level;
 
+    sHighlanderCharmEncounterEmpty = FALSE;
+    if (IsHighlanderCharmActive())
+    {
+        if (!TryChooseHighlanderCharmWildMonIndex(wildMonInfo->wildPokemon, WILD_AREA_FISHING, rod, Random(), &wildMonIndex, NULL))
+            return FALSE;
+    }
+    else
+    {
+        wildMonIndex = ChooseWildMonIndex_Fishing(rod);
+    }
+
+    *species = wildMonInfo->wildPokemon[wildMonIndex].species;
+    level = ChooseWildMonLevel(wildMonInfo->wildPokemon, wildMonIndex, WILD_AREA_FISHING);
     UpdateChainFishingStreak();
-    CreateWildMon(wildMonSpecies, level);
-    return wildMonSpecies;
+    CreateWildMon(*species, level);
+    return TRUE;
 }
 
 static bool8 SetUpMassOutbreakEncounter(u8 flags)
@@ -760,12 +1059,12 @@ bool8 StandardWildEncounter(u16 curMetatileBehavior, u16 prevMetatileBehavior)
                 }
 
                 // try a regular wild land encounter
-                if (TryGenerateWildMon(gWildMonHeaders[headerId].encounterTypes[timeOfDay].landMonsInfo, WILD_AREA_LAND, WILD_CHECK_REPEL | WILD_CHECK_KEEN_EYE) == TRUE)
+                if (TryGenerateWildMon(gWildMonHeaders[headerId].encounterTypes[timeOfDay].landMonsInfo, WILD_AREA_LAND, WILD_CHECK_REPEL | WILD_CHECK_KEEN_EYE | WILD_CHECK_HIGHLANDER) == TRUE)
                 {
                     if (TryDoDoubleWildBattle())
                     {
                         struct Pokemon mon1 = gEnemyParty[0];
-                        TryGenerateWildMon(gWildMonHeaders[headerId].encounterTypes[timeOfDay].landMonsInfo, WILD_AREA_LAND, WILD_CHECK_KEEN_EYE);
+                        TryGenerateWildMon(gWildMonHeaders[headerId].encounterTypes[timeOfDay].landMonsInfo, WILD_AREA_LAND, WILD_CHECK_KEEN_EYE | WILD_CHECK_HIGHLANDER);
                         gEnemyParty[1] = mon1;
                         BattleSetup_StartDoubleWildBattle();
                     }
@@ -776,6 +1075,8 @@ bool8 StandardWildEncounter(u16 curMetatileBehavior, u16 prevMetatileBehavior)
                     return TRUE;
                 }
 
+                if (TryStartHighlanderCharmEmptyEncounterScript())
+                    return TRUE;
                 return FALSE;
             }
         }
@@ -804,13 +1105,13 @@ bool8 StandardWildEncounter(u16 curMetatileBehavior, u16 prevMetatileBehavior)
             }
             else // try a regular surfing encounter
             {
-                if (TryGenerateWildMon(gWildMonHeaders[headerId].encounterTypes[timeOfDay].waterMonsInfo, WILD_AREA_WATER, WILD_CHECK_REPEL | WILD_CHECK_KEEN_EYE) == TRUE)
+                if (TryGenerateWildMon(gWildMonHeaders[headerId].encounterTypes[timeOfDay].waterMonsInfo, WILD_AREA_WATER, WILD_CHECK_REPEL | WILD_CHECK_KEEN_EYE | WILD_CHECK_HIGHLANDER) == TRUE)
                 {
                     gIsSurfingEncounter = TRUE;
                     if (TryDoDoubleWildBattle())
                     {
                         struct Pokemon mon1 = gEnemyParty[0];
-                        TryGenerateWildMon(gWildMonHeaders[headerId].encounterTypes[timeOfDay].waterMonsInfo, WILD_AREA_WATER, WILD_CHECK_KEEN_EYE);
+                        TryGenerateWildMon(gWildMonHeaders[headerId].encounterTypes[timeOfDay].waterMonsInfo, WILD_AREA_WATER, WILD_CHECK_KEEN_EYE | WILD_CHECK_HIGHLANDER);
                         gEnemyParty[1] = mon1;
                         BattleSetup_StartDoubleWildBattle();
                     }
@@ -821,6 +1122,8 @@ bool8 StandardWildEncounter(u16 curMetatileBehavior, u16 prevMetatileBehavior)
                     return TRUE;
                 }
 
+                if (TryStartHighlanderCharmEmptyEncounterScript())
+                    return TRUE;
                 return FALSE;
             }
         }
@@ -842,32 +1145,36 @@ void RockSmashWildEncounter(void)
 
         if (wildPokemonInfo == NULL)
         {
-            gSpecialVar_Result = FALSE;
+            gSpecialVar_Result = WILD_ENCOUNTER_RESULT_NONE;
         }
         else if (WildEncounterCheck(wildPokemonInfo->encounterRate, TRUE) == TRUE
-         && TryGenerateWildMon(wildPokemonInfo, WILD_AREA_ROCKS, WILD_CHECK_REPEL | WILD_CHECK_KEEN_EYE) == TRUE)
+         && TryGenerateWildMon(wildPokemonInfo, WILD_AREA_ROCKS, WILD_CHECK_REPEL | WILD_CHECK_KEEN_EYE | WILD_CHECK_HIGHLANDER) == TRUE)
         {
             if (TryDoDoubleWildBattle())
             {
                 struct Pokemon mon1 = gEnemyParty[0];
-                TryGenerateWildMon(wildPokemonInfo, WILD_AREA_ROCKS, WILD_CHECK_REPEL | WILD_CHECK_KEEN_EYE);
+                TryGenerateWildMon(wildPokemonInfo, WILD_AREA_ROCKS, WILD_CHECK_REPEL | WILD_CHECK_KEEN_EYE | WILD_CHECK_HIGHLANDER);
                 gEnemyParty[1] = mon1;
                 BattleSetup_StartDoubleWildBattle();
-                gSpecialVar_Result = TRUE;
+                gSpecialVar_Result = WILD_ENCOUNTER_RESULT_STARTED;
             }
             else {
                 BattleSetup_StartWildBattle();
-                gSpecialVar_Result = TRUE;
+                gSpecialVar_Result = WILD_ENCOUNTER_RESULT_STARTED;
             }
+        }
+        else if (WasHighlanderCharmEncounterEmpty())
+        {
+            gSpecialVar_Result = WILD_ENCOUNTER_RESULT_HIGHLANDER_EMPTY;
         }
         else
         {
-            gSpecialVar_Result = FALSE;
+            gSpecialVar_Result = WILD_ENCOUNTER_RESULT_NONE;
         }
     }
     else
     {
-        gSpecialVar_Result = FALSE;
+        gSpecialVar_Result = WILD_ENCOUNTER_RESULT_NONE;
     }
 }
 
@@ -923,8 +1230,8 @@ bool8 SweetScentWildEncounter(void)
 
             if (DoMassOutbreakEncounterTest() == TRUE)
                 SetUpMassOutbreakEncounter(0);
-            else
-                TryGenerateWildMon(gWildMonHeaders[headerId].encounterTypes[timeOfDay].landMonsInfo, WILD_AREA_LAND, 0);
+            else if (TryGenerateWildMon(gWildMonHeaders[headerId].encounterTypes[timeOfDay].landMonsInfo, WILD_AREA_LAND, WILD_CHECK_HIGHLANDER) != TRUE)
+                return FALSE;
 
             BattleSetup_StartWildBattle();
             return TRUE;
@@ -944,7 +1251,9 @@ bool8 SweetScentWildEncounter(void)
                 return TRUE;
             }
 
-            TryGenerateWildMon(gWildMonHeaders[headerId].encounterTypes[timeOfDay].waterMonsInfo, WILD_AREA_WATER, 0);
+            if (TryGenerateWildMon(gWildMonHeaders[headerId].encounterTypes[timeOfDay].waterMonsInfo, WILD_AREA_WATER, WILD_CHECK_HIGHLANDER) != TRUE)
+                return FALSE;
+
             BattleSetup_StartWildBattle();
             return TRUE;
         }
@@ -980,14 +1289,15 @@ static void UpdateChainFishingStreak()
     gChainFishingDexNavStreak++;
 }
 
-void FishingWildEncounter(u8 rod)
+bool8 FishingWildEncounter(u8 rod)
 {
-    u16 species;
+    u16 species = SPECIES_NONE;
     u32 headerId;
     enum TimeOfDay timeOfDay;
 
     gIsFishingEncounter = TRUE;
-    if (CheckFeebas() == TRUE)
+    sHighlanderCharmEncounterEmpty = FALSE;
+    if (CheckFeebas() == TRUE && (!IsHighlanderCharmActive() || IsWildSpeciesAllowedByHighlanderCharm(SPECIES_FEEBAS)))
     {
         u8 level = ChooseWildMonLevel(&sWildFeebas, 0, WILD_AREA_FISHING);
 
@@ -998,12 +1308,17 @@ void FishingWildEncounter(u8 rod)
     {
         headerId = GetCurrentMapWildMonHeaderId();
         timeOfDay = GetTimeOfDayForEncounters(headerId, WILD_AREA_FISHING);
-        species = GenerateFishingWildMon(gWildMonHeaders[headerId].encounterTypes[timeOfDay].fishingMonsInfo, rod);
+        if (!TryGenerateFishingWildMon(gWildMonHeaders[headerId].encounterTypes[timeOfDay].fishingMonsInfo, rod, &species))
+        {
+            TryStartHighlanderCharmEmptyEncounterScript();
+            return FALSE;
+        }
     }
 
     IncrementGameStat(GAME_STAT_FISHING_ENCOUNTERS);
     SetPokemonAnglerSpecies(species);
     BattleSetup_StartWildBattle();
+    return TRUE;
 }
 
 u16 GetLocalWildMon(bool8 *isWaterMon)

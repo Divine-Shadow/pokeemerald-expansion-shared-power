@@ -14331,6 +14331,22 @@ const struct Item gItemsInfo[] =
         .iconPalette = gItemIconPalette_GlimmeringCharm,
     },
 
+    [ITEM_HIGHLANDER_CHARM] =
+    {
+        .name = ITEM_NAME("Highlander Charm"),
+        .price = 0,
+        .description = COMPOUND_STRING(
+            "Blocks caught\n"
+            "families in wild\n"
+            "encounters."),
+        .pocket = POCKET_ITEMS,
+        .sortType = ITEM_TYPE_FIELD_USE,
+        .type = ITEM_USE_BAG_MENU,
+        .fieldUseFunc = ItemUseOutOfBattle_CannotUse,
+        .iconPic = gItemIcon_CatchingCharm,
+        .iconPalette = gItemIconPalette_CatchingCharm,
+    },
+
     [ITEM_METAL_ALLOY] =
     {
         .name = ITEM_NAME("Metal Alloy"),

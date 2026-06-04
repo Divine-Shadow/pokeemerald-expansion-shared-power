@@ -29,6 +29,7 @@ These notes cover gameplay rules and move access that are safe to know before st
 - The regular Items bag pocket can hold up to 99 distinct item slots.
 - Underwater route areas now show their route number in caught-location text, such as Route 127 Underwater.
 - Hooked fishing encounters wait for the player to press A and no longer get away.
+- The Highlander Charm is a passive bag item for no-duplicates routing. While it is in the bag, normal land, water, fishing, Rock Smash, and Sweet Scent encounters are weighted only among evolutionary families you have not caught before; storing it in the PC disables it. If a filtered pool has no legal family left, no battle starts and the game shows a message.
 
 ## Pokemon Center Services
 

@@ -1,3 +1,13 @@
+- Docs/Planning: Record Highlander Charm validation results and remaining broad-suite blockers (commit aba5867665).
+- Gameplay/Items: Shorten Highlander Charm description to fit bag and shop text windows (commit aba5867665).
+- Gameplay/Encounters: Parenthesize generated wild-slot thresholds when deriving Highlander Charm slot weights (commit aba5867665).
+- Docs/Planning: Update Highlander Charm execution plan progress and decisions (commit aba5867665).
+- Docs/Gameplay: Document Highlander Charm behavior and starting PC availability (commit aba5867665).
+- Tests: Cover Highlander Charm activation, family filtering, proportional weights, and empty filtered encounter pools (commit aba5867665).
+- Gameplay/Encounters: Filter Highlander Charm random encounters to uncaught evolutionary families before weighted slot rolls (commit aba5867665).
+- Gameplay/Encounters: Add Highlander Charm item plumbing and empty-pool signal script hooks (commit aba5867665).
+- Gameplay/Items: Add the passive Highlander Charm item and starting PC copy (commit aba5867665).
+- Docs/Planning: Add Highlander Charm execution plan (commit aba5867665).
 - Tooling/Codex: Enable yolo sandbox and approval defaults for shared-power Codex configs (commit dfd7ac03a4).
 - Docs/Shared Power: Capture clarified ability audit decisions for pooled priority, AI pools, native mutation, and form gates (commit pending).
 - Docs/Shared Power: Add an ability usage audit for native, effective, attribution, and clarification callsites (commit pending).

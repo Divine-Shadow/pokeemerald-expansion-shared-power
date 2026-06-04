@@ -116,7 +116,8 @@ static void FailSweetScentEncounter(u8 taskId)
     {
         CpuFastCopy(GetPalBufferPtr(taskId), gPlttBufferUnfaded, PLTT_SIZE);
         SetWeatherPalStateIdle();
-        ScriptContext_SetupScript(EventScript_FailSweetScent);
+        if (!TryStartHighlanderCharmEmptyEncounterScript())
+            ScriptContext_SetupScript(EventScript_FailSweetScent);
         FreeDestroyTask(taskId);
     }
 }

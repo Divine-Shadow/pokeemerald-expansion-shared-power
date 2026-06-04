@@ -87,10 +87,15 @@ EventScript_SmashRock:: @ fallthrough
 	specialvar VAR_RESULT, TryUpdateRusturfTunnelState
 	goto_if_eq VAR_RESULT, TRUE, EventScript_EndSmash
 	special RockSmashWildEncounter
-	goto_if_eq VAR_RESULT, FALSE, EventScript_EndSmash
+	goto_if_eq VAR_RESULT, WILD_ENCOUNTER_RESULT_HIGHLANDER_EMPTY, EventScript_RockSmashHighlanderEmpty
+	goto_if_eq VAR_RESULT, WILD_ENCOUNTER_RESULT_NONE, EventScript_EndSmash
 	waitstate
 	releaseall
 	end
+
+EventScript_RockSmashHighlanderEmpty:
+	call EventScript_ShowHighlanderCharmNoEncounters
+	goto EventScript_EndSmash
 
 EventScript_FollowerFieldMove:
 	getdirectiontoface VAR_0x8005, OBJ_EVENT_ID_FOLLOWER, OBJ_EVENT_ID_PLAYER
