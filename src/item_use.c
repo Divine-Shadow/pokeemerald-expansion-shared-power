@@ -4,6 +4,7 @@
 #include "battle_anim.h"
 #include "battle_pyramid.h"
 #include "battle_pyramid_bag.h"
+#include "boundary_charm.h"
 #include "berry.h"
 #include "berry_powder.h"
 #include "bike.h"
@@ -40,6 +41,7 @@
 #include "task.h"
 #include "text.h"
 #include "vs_seeker.h"
+#include "wild_encounter.h"
 #include "constants/event_bg.h"
 #include "constants/event_objects.h"
 #include "constants/item_effects.h"
@@ -268,6 +270,48 @@ void ItemUseOutOfBattle_ExpShare(u8 taskId)
 #else
     DisplayDadsAdviceCannotUseItemMessage(taskId, gTasks[taskId].tUsingRegisteredKeyItem);
 #endif
+}
+
+void ItemUseOutOfBattle_HighlanderCharm(u8 taskId)
+{
+    ToggleHighlanderCharmActive();
+    if (IsHighlanderCharmActive())
+    {
+        PlaySE(SE_EXP_MAX);
+        if (!gTasks[taskId].data[2])
+            DisplayItemMessageOnField(taskId, gText_HighlanderCharmOn, Task_CloseCantUseKeyItemMessage);
+        else
+            DisplayItemMessage(taskId, FONT_NORMAL, gText_HighlanderCharmOn, CloseItemMessage);
+    }
+    else
+    {
+        PlaySE(SE_PC_OFF);
+        if (!gTasks[taskId].data[2])
+            DisplayItemMessageOnField(taskId, gText_HighlanderCharmOff, Task_CloseCantUseKeyItemMessage);
+        else
+            DisplayItemMessage(taskId, FONT_NORMAL, gText_HighlanderCharmOff, CloseItemMessage);
+    }
+}
+
+void ItemUseOutOfBattle_BoundaryCharm(u8 taskId)
+{
+    ToggleBoundaryCharmActive();
+    if (IsBoundaryCharmActive())
+    {
+        PlaySE(SE_EXP_MAX);
+        if (!gTasks[taskId].data[2])
+            DisplayItemMessageOnField(taskId, gText_BoundaryCharmOn, Task_CloseCantUseKeyItemMessage);
+        else
+            DisplayItemMessage(taskId, FONT_NORMAL, gText_BoundaryCharmOn, CloseItemMessage);
+    }
+    else
+    {
+        PlaySE(SE_PC_OFF);
+        if (!gTasks[taskId].data[2])
+            DisplayItemMessageOnField(taskId, gText_BoundaryCharmOff, Task_CloseCantUseKeyItemMessage);
+        else
+            DisplayItemMessage(taskId, FONT_NORMAL, gText_BoundaryCharmOff, CloseItemMessage);
+    }
 }
 
 void ItemUseOutOfBattle_Bike(u8 taskId)

@@ -14,6 +14,7 @@ static void ResetHighlanderCharmTestState(void)
 {
     ClearBag();
     CpuFastFill(0, gSaveBlock1Ptr->pcItems, sizeof(gSaveBlock1Ptr->pcItems));
+    SetHighlanderCharmActive(FALSE);
     ResetPokedex();
     VarSet(VAR_REPEL_STEP_COUNT, 0);
 }
@@ -23,16 +24,51 @@ static void MarkSpeciesCaught(u16 species)
     GetSetPokedexFlag(SpeciesToNationalPokedexNum(species), FLAG_SET_CAUGHT);
 }
 
-TEST("Highlander Charm is active in the bag but inactive when absent or stored")
+TEST("Highlander Charm uses a saved toggle instead of bag presence")
 {
     ResetHighlanderCharmTestState();
     EXPECT(!IsHighlanderCharmActive());
 
-    EXPECT(AddPCItem(ITEM_HIGHLANDER_CHARM, 1));
+    EXPECT(AddBagItem(ITEM_HIGHLANDER_CHARM, 1));
     EXPECT(!IsHighlanderCharmActive());
 
-    EXPECT(AddBagItem(ITEM_HIGHLANDER_CHARM, 1));
+    SetHighlanderCharmActive(TRUE);
     EXPECT(IsHighlanderCharmActive());
+    EXPECT(gSaveBlock3Ptr->highlanderCharmActive);
+
+    ClearBag();
+    EXPECT(IsHighlanderCharmActive());
+
+    ToggleHighlanderCharmActive();
+    EXPECT(!IsHighlanderCharmActive());
+    EXPECT(!gSaveBlock3Ptr->highlanderCharmActive);
+}
+
+TEST("Highlander Charm disabled does not filter caught encounter families")
+{
+    static const struct WildPokemon wildMons[WATER_WILD_COUNT] =
+    {
+        { 5, 5, SPECIES_RATTATA },
+        { 5, 5, SPECIES_RATTATA },
+        { 5, 5, SPECIES_RATTATA },
+        { 5, 5, SPECIES_RATTATA },
+        { 5, 5, SPECIES_RATTATA },
+    };
+    static const struct WildPokemonInfo wildMonInfo =
+    {
+        .encounterRate = 100,
+        .wildPokemon = wildMons,
+    };
+
+    ResetHighlanderCharmTestState();
+    MarkSpeciesCaught(SPECIES_RATTATA);
+
+    EXPECT(Test_TryGenerateHighlanderWildMon(&wildMonInfo, WILD_AREA_WATER));
+    EXPECT_EQ(GetMonData(&gEnemyParty[0], MON_DATA_SPECIES), SPECIES_RATTATA);
+
+    SetHighlanderCharmActive(TRUE);
+    EXPECT(!Test_TryGenerateHighlanderWildMon(&wildMonInfo, WILD_AREA_WATER));
+    EXPECT(WasHighlanderCharmEncounterEmpty());
 }
 
 TEST("Highlander Charm filters evolutionary families by caught Pokedex state")

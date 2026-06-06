@@ -56,6 +56,8 @@ bool8 SweetScentWildEncounter(void);
 bool8 DoesCurrentMapHaveFishingMons(void);
 bool8 FishingWildEncounter(u8 rod);
 bool32 IsHighlanderCharmActive(void);
+void SetHighlanderCharmActive(bool32 active);
+void ToggleHighlanderCharmActive(void);
 bool32 WasHighlanderCharmEncounterEmpty(void);
 bool32 TryStartHighlanderCharmEmptyEncounterScript(void);
 u16 GetLocalWildMon(bool8 *isWaterMon);
@@ -76,6 +78,10 @@ enum TimeOfDay GetTimeOfDayForEncounters(u32 headerId, enum WildPokemonArea area
 #if TESTING
 bool32 Test_IsWildSpeciesAllowedByHighlanderCharm(u16 species);
 bool32 Test_TryChooseHighlanderCharmWildMonIndex(const struct WildPokemon *wildMon, enum WildPokemonArea area, u8 rod, u32 roll, u8 *wildMonIndex, u32 *totalWeight);
+bool32 Test_TryGenerateHighlanderWildMon(const struct WildPokemonInfo *wildMonInfo, enum WildPokemonArea area);
+bool32 Test_TryGenerateBoundaryWildMonAtMapSec(const struct WildPokemonInfo *wildMonInfo, enum WildPokemonArea area, u8 mapSec);
+bool32 Test_TryGenerateBoundaryFishingWildMonAtMapSec(const struct WildPokemonInfo *wildMonInfo, u8 rod, u8 mapSec);
+bool32 Test_TryGenerateUnfilteredWildMonAtMapSec(const struct WildPokemonInfo *wildMonInfo, enum WildPokemonArea area, u8 mapSec);
 #endif
 
 #endif // GUARD_WILD_ENCOUNTER_H

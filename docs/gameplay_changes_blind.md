@@ -4,7 +4,7 @@ This file contains gameplay changes that may affect routing or discoveries. Read
 
 ## Early Resources
 
-- Rare Candies, Master Balls, Max Repels, and a Highlander Charm are available from the player's PC.
+- Rare Candies, Master Balls, and Max Repels are available from the player's PC. The Highlander Charm and Extinction Charm start in the Key Items pocket and are off until used.
 - The Old Rod is now given by a Fisherman in Oldale Town instead of Dewford Town.
 - A Condition Coach now appears on 1F of each Pokemon Center and offers controlled pre-battle status preparation with tailored advice for some status-based builds.
 - A Condition Coach also appears in the Pokemon League lobby.

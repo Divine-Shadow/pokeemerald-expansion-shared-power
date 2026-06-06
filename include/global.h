@@ -19,6 +19,7 @@
 #include "constants/easy_chat.h"
 #include "constants/trainer_hill.h"
 #include "constants/items.h"
+#include "constants/region_map_sections.h"
 #include "config/save.h"
 
 // Prevent cross-jump optimization.
@@ -235,6 +236,7 @@ struct NPCFollower
 
 #include "constants/items.h"
 #define ITEM_FLAGS_COUNT ((ITEMS_COUNT / 8) + ((ITEMS_COUNT % 8) ? 1 : 0))
+#define BOUNDARY_CHARM_MAPSEC_FLAGS_COUNT ((MAPSEC_COUNT + 7) / 8)
 
 struct SaveBlock3
 {
@@ -251,6 +253,9 @@ struct SaveBlock3
     u8 dexNavSearchLevels[NUM_SPECIES];
 #endif
     u8 dexNavChain;
+    bool8 highlanderCharmActive;
+    bool8 boundaryCharmActive;
+    u8 boundaryCharmMapSecFlags[BOUNDARY_CHARM_MAPSEC_FLAGS_COUNT];
 }; /* max size 1624 bytes */
 
 extern struct SaveBlock3 *gSaveBlock3Ptr;

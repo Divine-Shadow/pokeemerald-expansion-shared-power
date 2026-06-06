@@ -42,8 +42,10 @@
 #include "player_pc.h"
 #include "field_specials.h"
 #include "berry_powder.h"
+#include "boundary_charm.h"
 #include "mystery_gift.h"
 #include "union_room_chat.h"
+#include "wild_encounter.h"
 #include "constants/map_groups.h"
 #include "constants/items.h"
 #include "difficulty.h"
@@ -56,6 +58,8 @@ static void WarpToTruck(void);
 static void ResetMiniGamesRecords(void);
 static void ResetItemFlags(void);
 static void ResetDexNav(void);
+static void ResetHighlanderCharm(void);
+static void ResetBoundaryCharm(void);
 
 EWRAM_DATA bool8 gDifferentSaveFile = FALSE;
 EWRAM_DATA bool8 gEnableContestDebugging = FALSE;
@@ -189,6 +193,8 @@ void NewGameInitData(void)
     DeactivateAllRoamers();
     gSaveBlock1Ptr->registeredItem = ITEM_NONE;
     ClearBag();
+    AddBagItem(ITEM_HIGHLANDER_CHARM, 1);
+    AddBagItem(ITEM_BOUNDARY_CHARM, 1);
     NewGameInitPCItems();
     ClearPokeblocks();
     ClearDecorationInventories();
@@ -212,6 +218,8 @@ void NewGameInitData(void)
     SetCurrentDifficultyLevel(DIFFICULTY_NORMAL);
     ResetItemFlags();
     ResetDexNav();
+    ResetHighlanderCharm();
+    ResetBoundaryCharm();
     ClearFollowerNPCData();
 }
 
@@ -236,4 +244,15 @@ static void ResetDexNav(void)
     memset(gSaveBlock3Ptr->dexNavSearchLevels, 0, sizeof(gSaveBlock3Ptr->dexNavSearchLevels));
 #endif
     gSaveBlock3Ptr->dexNavChain = 0;
+}
+
+static void ResetHighlanderCharm(void)
+{
+    SetHighlanderCharmActive(FALSE);
+}
+
+static void ResetBoundaryCharm(void)
+{
+    SetBoundaryCharmActive(FALSE);
+    ClearBoundaryCharmClaims();
 }

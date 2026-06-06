@@ -7,6 +7,7 @@
 #include "battle_scripts.h"
 #include "battle_environment.h"
 #include "battle_z_move.h"
+#include "boundary_charm.h"
 #include "item.h"
 #include "util.h"
 #include "pokemon.h"
@@ -14206,6 +14207,7 @@ static void Cmd_givecaughtmon(void)
     case GIVECAUGHTMON_GIVE_AND_SHOW_MSG:
     {
         struct Pokemon *caughtMon = GetBattlerMon(GetCatchingBattler());
+        u8 giveResult;
         if (B_RESTORE_HELD_BATTLE_ITEMS >= GEN_9)
         {
             u16 lostItem = gBattleStruct->itemLost[B_SIDE_OPPONENT][gBattlerPartyIndexes[GetCatchingBattler()]].originalItem;
@@ -14213,7 +14215,11 @@ static void Cmd_givecaughtmon(void)
                 SetMonData(caughtMon, MON_DATA_HELD_ITEM, &lostItem);  // Restore non-berry items
         }
 
-        if (GiveMonToPlayer(caughtMon) != MON_GIVEN_TO_PARTY
+        giveResult = GiveMonToPlayer(caughtMon);
+        if (giveResult != MON_CANT_GIVE)
+            ClaimBoundaryCharmLocationForMon(caughtMon);
+
+        if (giveResult != MON_GIVEN_TO_PARTY
          && gBattleCommunication[MULTISTRING_CHOOSER] != B_MSG_SWAPPED_INTO_PARTY)
         {
             if (!ShouldShowBoxWasFullMessage())

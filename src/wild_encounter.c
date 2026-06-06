@@ -1,5 +1,6 @@
 #include "global.h"
 #include "wild_encounter.h"
+#include "boundary_charm.h"
 #include "event_scripts.h"
 #include "pokemon.h"
 #include "pokedex.h"
@@ -45,6 +46,7 @@ extern const u8 EventScript_SprayWoreOff[];
 #define WILD_CHECK_REPEL    (1 << 0)
 #define WILD_CHECK_KEEN_EYE (1 << 1)
 #define WILD_CHECK_HIGHLANDER (1 << 2)
+#define WILD_CHECK_BOUNDARY (1 << 3)
 
 static u16 FeebasRandom(void);
 static void FeebasSeedRng(u16 seed);
@@ -55,6 +57,9 @@ static void ApplyCleanseTagEncounterRateMod(u32 *encRate);
 static u8 GetMaxLevelOfSpeciesInWildTable(const struct WildPokemon *wildMon, u16 species, enum WildPokemonArea area);
 static bool32 IsWildSpeciesAllowedByHighlanderCharm(u16 species);
 static bool8 TryChooseHighlanderCharmWildMonIndex(const struct WildPokemon *wildMon, enum WildPokemonArea area, u8 rod, u32 roll, u8 *wildMonIndex, u32 *totalWeight);
+static bool8 TryGenerateWildMonAtMapSec(const struct WildPokemonInfo *wildMonInfo, enum WildPokemonArea area, u8 flags, u8 mapSec);
+static bool8 TryGenerateWildMon(const struct WildPokemonInfo *wildMonInfo, enum WildPokemonArea area, u8 flags);
+static bool8 TryGenerateFishingWildMonAtMapSec(const struct WildPokemonInfo *wildMonInfo, u8 rod, u16 *species, u8 mapSec);
 static bool8 TryGenerateFishingWildMon(const struct WildPokemonInfo *wildMonInfo, u8 rod, u16 *species);
 #ifdef BUGFIX
 static bool8 TryGetAbilityInfluencedWildMonIndex(const struct WildPokemon *wildMon, u8 type, u16 ability, u8 *monIndex, u32 size);
@@ -145,7 +150,17 @@ void DisableWildEncounters(bool8 disabled)
 
 bool32 IsHighlanderCharmActive(void)
 {
-    return CheckBagHasItem(ITEM_HIGHLANDER_CHARM, 1);
+    return gSaveBlock3Ptr->highlanderCharmActive;
+}
+
+void SetHighlanderCharmActive(bool32 active)
+{
+    gSaveBlock3Ptr->highlanderCharmActive = active ? TRUE : FALSE;
+}
+
+void ToggleHighlanderCharmActive(void)
+{
+    SetHighlanderCharmActive(!IsHighlanderCharmActive());
 }
 
 bool32 WasHighlanderCharmEncounterEmpty(void)
@@ -352,6 +367,28 @@ bool32 Test_IsWildSpeciesAllowedByHighlanderCharm(u16 species)
 bool32 Test_TryChooseHighlanderCharmWildMonIndex(const struct WildPokemon *wildMon, enum WildPokemonArea area, u8 rod, u32 roll, u8 *wildMonIndex, u32 *totalWeight)
 {
     return TryChooseHighlanderCharmWildMonIndex(wildMon, area, rod, roll, wildMonIndex, totalWeight);
+}
+
+bool32 Test_TryGenerateHighlanderWildMon(const struct WildPokemonInfo *wildMonInfo, enum WildPokemonArea area)
+{
+    return TryGenerateWildMon(wildMonInfo, area, WILD_CHECK_HIGHLANDER);
+}
+
+bool32 Test_TryGenerateBoundaryWildMonAtMapSec(const struct WildPokemonInfo *wildMonInfo, enum WildPokemonArea area, u8 mapSec)
+{
+    return TryGenerateWildMonAtMapSec(wildMonInfo, area, WILD_CHECK_BOUNDARY, mapSec);
+}
+
+bool32 Test_TryGenerateBoundaryFishingWildMonAtMapSec(const struct WildPokemonInfo *wildMonInfo, u8 rod, u8 mapSec)
+{
+    u16 species;
+
+    return TryGenerateFishingWildMonAtMapSec(wildMonInfo, rod, &species, mapSec);
+}
+
+bool32 Test_TryGenerateUnfilteredWildMonAtMapSec(const struct WildPokemonInfo *wildMonInfo, enum WildPokemonArea area, u8 mapSec)
+{
+    return TryGenerateWildMonAtMapSec(wildMonInfo, area, 0, mapSec);
 }
 #endif
 
@@ -796,13 +833,16 @@ void CreateWildMon(u16 species, u8 level)
 #define TRY_GET_ABILITY_INFLUENCED_WILD_MON_INDEX(wildPokemon, type, ability, ptr, count) TryGetAbilityInfluencedWildMonIndex(wildPokemon, type, ability, ptr)
 #endif
 
-static bool8 TryGenerateWildMon(const struct WildPokemonInfo *wildMonInfo, enum WildPokemonArea area, u8 flags)
+static bool8 TryGenerateWildMonAtMapSec(const struct WildPokemonInfo *wildMonInfo, enum WildPokemonArea area, u8 flags, u8 mapSec)
 {
     u8 wildMonIndex = 0;
     u8 level;
     bool32 useHighlander = (flags & WILD_CHECK_HIGHLANDER) && IsHighlanderCharmActive();
 
     sHighlanderCharmEncounterEmpty = FALSE;
+    if (flags & WILD_CHECK_BOUNDARY && ShouldSuppressBoundaryCharmEncounterAt(mapSec))
+        return FALSE;
+
     if (useHighlander)
     {
         if (!TryChooseHighlanderCharmWildMonIndex(wildMonInfo->wildPokemon, area, 0, Random(), &wildMonIndex, NULL))
@@ -864,12 +904,20 @@ static bool8 TryGenerateWildMon(const struct WildPokemonInfo *wildMonInfo, enum 
     return TRUE;
 }
 
-static bool8 TryGenerateFishingWildMon(const struct WildPokemonInfo *wildMonInfo, u8 rod, u16 *species)
+static bool8 TryGenerateWildMon(const struct WildPokemonInfo *wildMonInfo, enum WildPokemonArea area, u8 flags)
+{
+    return TryGenerateWildMonAtMapSec(wildMonInfo, area, flags, GetCurrentRegionMapSectionId());
+}
+
+static bool8 TryGenerateFishingWildMonAtMapSec(const struct WildPokemonInfo *wildMonInfo, u8 rod, u16 *species, u8 mapSec)
 {
     u8 wildMonIndex;
     u8 level;
 
     sHighlanderCharmEncounterEmpty = FALSE;
+    if (ShouldSuppressBoundaryCharmEncounterAt(mapSec))
+        return FALSE;
+
     if (IsHighlanderCharmActive())
     {
         if (!TryChooseHighlanderCharmWildMonIndex(wildMonInfo->wildPokemon, WILD_AREA_FISHING, rod, Random(), &wildMonIndex, NULL))
@@ -885,6 +933,11 @@ static bool8 TryGenerateFishingWildMon(const struct WildPokemonInfo *wildMonInfo
     UpdateChainFishingStreak();
     CreateWildMon(*species, level);
     return TRUE;
+}
+
+static bool8 TryGenerateFishingWildMon(const struct WildPokemonInfo *wildMonInfo, u8 rod, u16 *species)
+{
+    return TryGenerateFishingWildMonAtMapSec(wildMonInfo, rod, species, GetCurrentRegionMapSectionId());
 }
 
 static bool8 SetUpMassOutbreakEncounter(u8 flags)
@@ -1059,12 +1112,12 @@ bool8 StandardWildEncounter(u16 curMetatileBehavior, u16 prevMetatileBehavior)
                 }
 
                 // try a regular wild land encounter
-                if (TryGenerateWildMon(gWildMonHeaders[headerId].encounterTypes[timeOfDay].landMonsInfo, WILD_AREA_LAND, WILD_CHECK_REPEL | WILD_CHECK_KEEN_EYE | WILD_CHECK_HIGHLANDER) == TRUE)
+                if (TryGenerateWildMon(gWildMonHeaders[headerId].encounterTypes[timeOfDay].landMonsInfo, WILD_AREA_LAND, WILD_CHECK_REPEL | WILD_CHECK_KEEN_EYE | WILD_CHECK_HIGHLANDER | WILD_CHECK_BOUNDARY) == TRUE)
                 {
                     if (TryDoDoubleWildBattle())
                     {
                         struct Pokemon mon1 = gEnemyParty[0];
-                        TryGenerateWildMon(gWildMonHeaders[headerId].encounterTypes[timeOfDay].landMonsInfo, WILD_AREA_LAND, WILD_CHECK_KEEN_EYE | WILD_CHECK_HIGHLANDER);
+                        TryGenerateWildMon(gWildMonHeaders[headerId].encounterTypes[timeOfDay].landMonsInfo, WILD_AREA_LAND, WILD_CHECK_KEEN_EYE | WILD_CHECK_HIGHLANDER | WILD_CHECK_BOUNDARY);
                         gEnemyParty[1] = mon1;
                         BattleSetup_StartDoubleWildBattle();
                     }
@@ -1075,6 +1128,8 @@ bool8 StandardWildEncounter(u16 curMetatileBehavior, u16 prevMetatileBehavior)
                     return TRUE;
                 }
 
+                if (TryStartBoundaryCharmEncounterSuppressedScript())
+                    return TRUE;
                 if (TryStartHighlanderCharmEmptyEncounterScript())
                     return TRUE;
                 return FALSE;
@@ -1105,13 +1160,13 @@ bool8 StandardWildEncounter(u16 curMetatileBehavior, u16 prevMetatileBehavior)
             }
             else // try a regular surfing encounter
             {
-                if (TryGenerateWildMon(gWildMonHeaders[headerId].encounterTypes[timeOfDay].waterMonsInfo, WILD_AREA_WATER, WILD_CHECK_REPEL | WILD_CHECK_KEEN_EYE | WILD_CHECK_HIGHLANDER) == TRUE)
+                if (TryGenerateWildMon(gWildMonHeaders[headerId].encounterTypes[timeOfDay].waterMonsInfo, WILD_AREA_WATER, WILD_CHECK_REPEL | WILD_CHECK_KEEN_EYE | WILD_CHECK_HIGHLANDER | WILD_CHECK_BOUNDARY) == TRUE)
                 {
                     gIsSurfingEncounter = TRUE;
                     if (TryDoDoubleWildBattle())
                     {
                         struct Pokemon mon1 = gEnemyParty[0];
-                        TryGenerateWildMon(gWildMonHeaders[headerId].encounterTypes[timeOfDay].waterMonsInfo, WILD_AREA_WATER, WILD_CHECK_KEEN_EYE | WILD_CHECK_HIGHLANDER);
+                        TryGenerateWildMon(gWildMonHeaders[headerId].encounterTypes[timeOfDay].waterMonsInfo, WILD_AREA_WATER, WILD_CHECK_KEEN_EYE | WILD_CHECK_HIGHLANDER | WILD_CHECK_BOUNDARY);
                         gEnemyParty[1] = mon1;
                         BattleSetup_StartDoubleWildBattle();
                     }
@@ -1122,6 +1177,8 @@ bool8 StandardWildEncounter(u16 curMetatileBehavior, u16 prevMetatileBehavior)
                     return TRUE;
                 }
 
+                if (TryStartBoundaryCharmEncounterSuppressedScript())
+                    return TRUE;
                 if (TryStartHighlanderCharmEmptyEncounterScript())
                     return TRUE;
                 return FALSE;
@@ -1137,6 +1194,7 @@ void RockSmashWildEncounter(void)
     u32 headerId = GetCurrentMapWildMonHeaderId();
     enum TimeOfDay timeOfDay;
 
+    ClearBoundaryCharmEncounterSuppressed();
     if (headerId != HEADER_NONE)
     {
         timeOfDay = GetTimeOfDayForEncounters(headerId, WILD_AREA_ROCKS);
@@ -1148,12 +1206,12 @@ void RockSmashWildEncounter(void)
             gSpecialVar_Result = WILD_ENCOUNTER_RESULT_NONE;
         }
         else if (WildEncounterCheck(wildPokemonInfo->encounterRate, TRUE) == TRUE
-         && TryGenerateWildMon(wildPokemonInfo, WILD_AREA_ROCKS, WILD_CHECK_REPEL | WILD_CHECK_KEEN_EYE | WILD_CHECK_HIGHLANDER) == TRUE)
+         && TryGenerateWildMon(wildPokemonInfo, WILD_AREA_ROCKS, WILD_CHECK_REPEL | WILD_CHECK_KEEN_EYE | WILD_CHECK_HIGHLANDER | WILD_CHECK_BOUNDARY) == TRUE)
         {
             if (TryDoDoubleWildBattle())
             {
                 struct Pokemon mon1 = gEnemyParty[0];
-                TryGenerateWildMon(wildPokemonInfo, WILD_AREA_ROCKS, WILD_CHECK_REPEL | WILD_CHECK_KEEN_EYE | WILD_CHECK_HIGHLANDER);
+                TryGenerateWildMon(wildPokemonInfo, WILD_AREA_ROCKS, WILD_CHECK_REPEL | WILD_CHECK_KEEN_EYE | WILD_CHECK_HIGHLANDER | WILD_CHECK_BOUNDARY);
                 gEnemyParty[1] = mon1;
                 BattleSetup_StartDoubleWildBattle();
                 gSpecialVar_Result = WILD_ENCOUNTER_RESULT_STARTED;
@@ -1166,6 +1224,10 @@ void RockSmashWildEncounter(void)
         else if (WasHighlanderCharmEncounterEmpty())
         {
             gSpecialVar_Result = WILD_ENCOUNTER_RESULT_HIGHLANDER_EMPTY;
+        }
+        else if (WasBoundaryCharmEncounterSuppressed())
+        {
+            gSpecialVar_Result = WILD_ENCOUNTER_RESULT_BOUNDARY_CLAIMED;
         }
         else
         {
@@ -1230,8 +1292,14 @@ bool8 SweetScentWildEncounter(void)
 
             if (DoMassOutbreakEncounterTest() == TRUE)
                 SetUpMassOutbreakEncounter(0);
-            else if (TryGenerateWildMon(gWildMonHeaders[headerId].encounterTypes[timeOfDay].landMonsInfo, WILD_AREA_LAND, WILD_CHECK_HIGHLANDER) != TRUE)
+            else if (TryGenerateWildMon(gWildMonHeaders[headerId].encounterTypes[timeOfDay].landMonsInfo, WILD_AREA_LAND, WILD_CHECK_HIGHLANDER | WILD_CHECK_BOUNDARY) != TRUE)
+            {
+                if (TryStartBoundaryCharmEncounterSuppressedScript())
+                    return TRUE;
+                if (TryStartHighlanderCharmEmptyEncounterScript())
+                    return TRUE;
                 return FALSE;
+            }
 
             BattleSetup_StartWildBattle();
             return TRUE;
@@ -1251,8 +1319,14 @@ bool8 SweetScentWildEncounter(void)
                 return TRUE;
             }
 
-            if (TryGenerateWildMon(gWildMonHeaders[headerId].encounterTypes[timeOfDay].waterMonsInfo, WILD_AREA_WATER, WILD_CHECK_HIGHLANDER) != TRUE)
+            if (TryGenerateWildMon(gWildMonHeaders[headerId].encounterTypes[timeOfDay].waterMonsInfo, WILD_AREA_WATER, WILD_CHECK_HIGHLANDER | WILD_CHECK_BOUNDARY) != TRUE)
+            {
+                if (TryStartBoundaryCharmEncounterSuppressedScript())
+                    return TRUE;
+                if (TryStartHighlanderCharmEmptyEncounterScript())
+                    return TRUE;
                 return FALSE;
+            }
 
             BattleSetup_StartWildBattle();
             return TRUE;
@@ -1297,6 +1371,12 @@ bool8 FishingWildEncounter(u8 rod)
 
     gIsFishingEncounter = TRUE;
     sHighlanderCharmEncounterEmpty = FALSE;
+    if (ShouldSuppressBoundaryCharmEncounter())
+    {
+        TryStartBoundaryCharmEncounterSuppressedScript();
+        return FALSE;
+    }
+
     if (CheckFeebas() == TRUE && (!IsHighlanderCharmActive() || IsWildSpeciesAllowedByHighlanderCharm(SPECIES_FEEBAS)))
     {
         u8 level = ChooseWildMonLevel(&sWildFeebas, 0, WILD_AREA_FISHING);
@@ -1310,6 +1390,8 @@ bool8 FishingWildEncounter(u8 rod)
         timeOfDay = GetTimeOfDayForEncounters(headerId, WILD_AREA_FISHING);
         if (!TryGenerateFishingWildMon(gWildMonHeaders[headerId].encounterTypes[timeOfDay].fishingMonsInfo, rod, &species))
         {
+            if (TryStartBoundaryCharmEncounterSuppressedScript())
+                return FALSE;
             TryStartHighlanderCharmEmptyEncounterScript();
             return FALSE;
         }

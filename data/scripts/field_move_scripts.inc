@@ -88,6 +88,7 @@ EventScript_SmashRock:: @ fallthrough
 	goto_if_eq VAR_RESULT, TRUE, EventScript_EndSmash
 	special RockSmashWildEncounter
 	goto_if_eq VAR_RESULT, WILD_ENCOUNTER_RESULT_HIGHLANDER_EMPTY, EventScript_RockSmashHighlanderEmpty
+	goto_if_eq VAR_RESULT, WILD_ENCOUNTER_RESULT_BOUNDARY_CLAIMED, EventScript_RockSmashBoundaryClaimed
 	goto_if_eq VAR_RESULT, WILD_ENCOUNTER_RESULT_NONE, EventScript_EndSmash
 	waitstate
 	releaseall
@@ -95,6 +96,10 @@ EventScript_SmashRock:: @ fallthrough
 
 EventScript_RockSmashHighlanderEmpty:
 	call EventScript_ShowHighlanderCharmNoEncounters
+	goto EventScript_EndSmash
+
+EventScript_RockSmashBoundaryClaimed:
+	call EventScript_ShowBoundaryCharmNoEncounters
 	goto EventScript_EndSmash
 
 EventScript_FollowerFieldMove:

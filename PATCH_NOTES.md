@@ -1,3 +1,11 @@
+- Gameplay/Items: Rename the Boundary Charm to Extinction Charm in player-facing text (commit pending).
+- Docs/Planning: Record Extinction Charm validation evidence and audit result (commit pending).
+- Docs/Tests: Document Extinction Charm behavior and cover its saved toggle, claims, and encounter filters (commit pending).
+- Gameplay/Items: Add Extinction Charm item, saved location claims, capture claim tracking, and normal encounter suppression (commit pending).
+- Docs/Planning: Add Extinction Charm execution plan for one-capture-per-location routing (commit pending).
+- Docs/Planning: Record final Highlander Charm toggle validation evidence and audit result (commit pending).
+- Gameplay/Encounters: Show the Highlander Charm empty-pool signal from Sweet Scent encounters (commit pending).
+- Gameplay/Items: Make Highlander Charm a saved toggleable Key Item instead of a passive PC-storable item (commit pending).
 - Docs/Planning: Record Highlander Charm validation results and remaining broad-suite blockers (commit aba5867665).
 - Gameplay/Items: Shorten Highlander Charm description to fit bag and shop text windows (commit aba5867665).
 - Gameplay/Encounters: Parenthesize generated wild-slot thresholds when deriving Highlander Charm slot weights (commit aba5867665).

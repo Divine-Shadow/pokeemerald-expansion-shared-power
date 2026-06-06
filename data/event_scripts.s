@@ -1135,6 +1135,7 @@ EventScript_VsSeekerChargingDone::
 	.include "data/text/trainers.inc"
 	.include "data/scripts/repel.inc"
 	.include "data/scripts/highlander_charm.inc"
+	.include "data/scripts/boundary_charm.inc"
 	.include "data/scripts/safari_zone.inc"
 	.include "data/scripts/roulette.inc"
 	.include "data/text/pokedex_rating.inc"

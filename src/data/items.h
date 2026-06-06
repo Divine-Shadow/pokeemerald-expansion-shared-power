@@ -14335,14 +14335,32 @@ const struct Item gItemsInfo[] =
     {
         .name = ITEM_NAME("Highlander Charm"),
         .price = 0,
+        .importance = 1,
         .description = COMPOUND_STRING(
-            "Blocks caught\n"
-            "families in wild\n"
-            "encounters."),
-        .pocket = POCKET_ITEMS,
+            "Use to filter\n"
+            "caught families\n"
+            "from encounters."),
+        .pocket = POCKET_KEY_ITEMS,
         .sortType = ITEM_TYPE_FIELD_USE,
         .type = ITEM_USE_BAG_MENU,
-        .fieldUseFunc = ItemUseOutOfBattle_CannotUse,
+        .fieldUseFunc = ItemUseOutOfBattle_HighlanderCharm,
+        .iconPic = gItemIcon_CatchingCharm,
+        .iconPalette = gItemIconPalette_CatchingCharm,
+    },
+
+    [ITEM_BOUNDARY_CHARM] =
+    {
+        .name = ITEM_NAME("Extinction Charm"),
+        .price = 0,
+        .importance = 1,
+        .description = COMPOUND_STRING(
+            "Use to block\n"
+            "claimed areas\n"
+            "from encounters."),
+        .pocket = POCKET_KEY_ITEMS,
+        .sortType = ITEM_TYPE_FIELD_USE,
+        .type = ITEM_USE_BAG_MENU,
+        .fieldUseFunc = ItemUseOutOfBattle_BoundaryCharm,
         .iconPic = gItemIcon_CatchingCharm,
         .iconPalette = gItemIconPalette_CatchingCharm,
     },
