@@ -24,7 +24,7 @@ These replacements target underwhelming basic consumables in optional or route-s
 | Resist Feather | Route 116 visible item ball | Potion |
 | Steel Gem | Route 116 hidden item | Super Potion |
 | Grass Gem | Route 117 hidden item | Repel |
-| Flying Gem | Route 119 visible item ball | Super Repel |
+| Prism Scale | Route 119 visible item ball | Super Repel |
 | Ground Gem | Jagged Pass visible item ball | Burn Heal |
 | Fire Gem | Lavaridge Town hidden item | Ice Heal |
 | Swift Feather | Mauville City visible item ball | X Speed |
