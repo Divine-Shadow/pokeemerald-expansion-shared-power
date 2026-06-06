@@ -1,4 +1,5 @@
 #include "global.h"
+#include "pokedex.h"
 #include "test/battle.h"
 
 //test that an active ability is shared
@@ -951,6 +952,36 @@ SINGLE_BATTLE_TEST("Shared Power: End-turn iterator state resets independently p
     } THEN {
         EXPECT_EQ(player->hp, 50 + (100 / 16) * 2);
         EXPECT_EQ(player->statStages[STAT_SPEED], DEFAULT_STAT_STAGE + 1);
+    }
+}
+
+SINGLE_BATTLE_TEST("Shared Power: move effectiveness indicator uses pooled Pixilate for non-native Hyper Voice user")
+{
+    GIVEN {
+        BATTLE_TYPE(BATTLE_TYPE_SHARED_POWER);
+        ASSUME(GetMoveType(MOVE_HYPER_VOICE) == TYPE_NORMAL);
+        ASSUME(IsSoundMove(MOVE_HYPER_VOICE));
+        ASSUME(GetSpeciesAbility(SPECIES_WOBBUFFET, 0) != ABILITY_PIXILATE);
+        ASSUME(GetSpeciesAbility(SPECIES_WOBBUFFET, 1) != ABILITY_PIXILATE);
+        ASSUME(GetSpeciesAbility(SPECIES_WOBBUFFET, 2) != ABILITY_PIXILATE);
+        ASSUME(GetSpeciesType(SPECIES_DRAGONITE, 0) == TYPE_DRAGON || GetSpeciesType(SPECIES_DRAGONITE, 1) == TYPE_DRAGON);
+        GetSetPokedexFlag(SpeciesToNationalPokedexNum(SPECIES_DRAGONITE), FLAG_SET_SEEN);
+        PLAYER(SPECIES_SYLVEON) { Ability(ABILITY_PIXILATE); Speed(20); }
+        PLAYER(SPECIES_WOBBUFFET) { Ability(ABILITY_SHADOW_TAG); Moves(MOVE_HYPER_VOICE); Speed(30); }
+        OPPONENT(SPECIES_DRAGONITE) { Speed(5); }
+    } WHEN {
+        TURN { SWITCH(player, 1); MOVE(opponent, MOVE_CELEBRATE); }
+        TURN { MOVE(player, MOVE_HYPER_VOICE); MOVE(opponent, MOVE_CELEBRATE); }
+    } SCENE {
+        NONE_OF {
+            MOVE_EFFECTIVENESS(player, TEST_MOVE_EFFECTIVENESS_CANNOT_VIEW);
+            MOVE_EFFECTIVENESS(player, TEST_MOVE_EFFECTIVENESS_NO_EFFECT);
+            MOVE_EFFECTIVENESS(player, TEST_MOVE_EFFECTIVENESS_NOT_VERY_EFFECTIVE);
+            MOVE_EFFECTIVENESS(player, TEST_MOVE_EFFECTIVENESS_NORMAL);
+        }
+        MOVE_EFFECTIVENESS(player, TEST_MOVE_EFFECTIVENESS_SUPER_EFFECTIVE);
+        ANIMATION(ANIM_TYPE_MOVE, MOVE_HYPER_VOICE, player);
+        MESSAGE("It's super effective!");
     }
 }
 

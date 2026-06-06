@@ -560,6 +560,8 @@ gSpecials::
 	def_special Script_GetChosenMonDefensiveEVs
 	def_special Script_GetChosenMonOffensiveIVs
 	def_special Script_GetChosenMonDefensiveIVs
+	def_special AbilitySwapper_TryPreview, 1
+	def_special AbilitySwapper_TrySwap, 1
 	def_special ConditionCoach_IsChoiceUnlocked, 1
 	def_special ConditionCoach_TryApplyStatus, 1
 	def_special UseBlankMessageToCancelPokemonPic

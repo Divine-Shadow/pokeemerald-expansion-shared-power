@@ -74,7 +74,9 @@
 #include "constants/event_object_movement.h"
 #include "constants/event_objects.h"
 #include "constants/layouts.h"
+#include "constants/maps.h"
 #include "constants/map_event_ids.h"
+#include "constants/metatile_behaviors.h"
 #include "constants/region_map_sections.h"
 #include "constants/songs.h"
 #include "constants/trainer_hill.h"
@@ -148,6 +150,9 @@ static u8 AutomationBeacon_GetCurrentMapSlot(void);
 static u8 AutomationBeacon_GetPlayerGenderProof(void);
 static u8 AutomationBeacon_GetPlayerNameLen(void);
 static u8 AutomationBeacon_GetPlayerNameChar0(void);
+static u8 GetRoute130RegionMapSectionId(u16 mapLayoutId, s16 x, s16 y);
+static bool32 IsMirageIslandLayoutPosition(const struct MapLayout *route130Layout, const struct MapLayout *mirageIslandLayout, s16 x, s16 y);
+static u8 GetMetatileBehaviorFromLayout(const struct MapLayout *mapLayout, u16 mapBlock);
 static u8 AutomationBeacon_GetLittlerootMomDiagnostic(void);
 static u8 AutomationBeacon_GetLocalCoordLow(s16 coord);
 static u8 AutomationBeacon_GetLocalCoordHigh(s16 coord);
@@ -1486,8 +1491,76 @@ u8 GetSavedWarpRegionMapSectionId(void)
 
 u8 GetCurrentRegionMapSectionId(void)
 {
-    return Overworld_GetMapHeaderByGroupAndId(gSaveBlock1Ptr->location.mapGroup, gSaveBlock1Ptr->location.mapNum)->regionMapSectionId;
+    const struct MapHeader *mapHeader = Overworld_GetMapHeaderByGroupAndId(gSaveBlock1Ptr->location.mapGroup, gSaveBlock1Ptr->location.mapNum);
+
+    if (gSaveBlock1Ptr->location.mapGroup == MAP_GROUP(MAP_ROUTE130)
+     && gSaveBlock1Ptr->location.mapNum == MAP_NUM(MAP_ROUTE130))
+        return GetRoute130RegionMapSectionId(gSaveBlock1Ptr->mapLayoutId, gSaveBlock1Ptr->pos.x, gSaveBlock1Ptr->pos.y);
+
+    return mapHeader->regionMapSectionId;
 }
+
+static u8 GetRoute130RegionMapSectionId(u16 mapLayoutId, s16 x, s16 y)
+{
+    const struct MapLayout *route130Layout;
+    const struct MapLayout *mirageIslandLayout;
+
+    if (mapLayoutId != LAYOUT_ROUTE130_MIRAGE_ISLAND)
+        return MAPSEC_ROUTE_130;
+
+    route130Layout = GetMapLayout(LAYOUT_ROUTE130);
+    mirageIslandLayout = GetMapLayout(LAYOUT_ROUTE130_MIRAGE_ISLAND);
+    if (IsMirageIslandLayoutPosition(route130Layout, mirageIslandLayout, x, y))
+        return MAPSEC_MIRAGE_ISLAND;
+
+    return MAPSEC_ROUTE_130;
+}
+
+static bool32 IsMirageIslandLayoutPosition(const struct MapLayout *route130Layout, const struct MapLayout *mirageIslandLayout, s16 x, s16 y)
+{
+    u16 route130Block;
+    u16 mirageIslandBlock;
+    u8 behavior;
+
+    if (x < 0 || y < 0)
+        return FALSE;
+    if (x >= route130Layout->width || y >= route130Layout->height)
+        return FALSE;
+    if (x >= mirageIslandLayout->width || y >= mirageIslandLayout->height)
+        return FALSE;
+
+    route130Block = route130Layout->map[y * route130Layout->width + x];
+    mirageIslandBlock = mirageIslandLayout->map[y * mirageIslandLayout->width + x];
+    if (route130Block == mirageIslandBlock)
+        return FALSE;
+
+    behavior = GetMetatileBehaviorFromLayout(mirageIslandLayout, mirageIslandBlock);
+    if (MetatileBehavior_IsSurfableWaterOrUnderwater(behavior))
+        return FALSE;
+    if (UNPACK_COLLISION(mirageIslandBlock) != 0)
+        return FALSE;
+
+    return TRUE;
+}
+
+static u8 GetMetatileBehaviorFromLayout(const struct MapLayout *mapLayout, u16 mapBlock)
+{
+    u16 metatile = UNPACK_METATILE(mapBlock);
+
+    if (metatile < NUM_METATILES_IN_PRIMARY)
+        return UNPACK_BEHAVIOR(mapLayout->primaryTileset->metatileAttributes[metatile]);
+    if (metatile < NUM_METATILES_TOTAL && mapLayout->secondaryTileset != NULL)
+        return UNPACK_BEHAVIOR(mapLayout->secondaryTileset->metatileAttributes[metatile - NUM_METATILES_IN_PRIMARY]);
+
+    return MB_INVALID;
+}
+
+#if TESTING
+u8 Test_GetRoute130RegionMapSectionId(u16 mapLayoutId, s16 x, s16 y)
+{
+    return GetRoute130RegionMapSectionId(mapLayoutId, x, y);
+}
+#endif
 
 enum MapBattleScene GetCurrentMapBattleScene(void)
 {

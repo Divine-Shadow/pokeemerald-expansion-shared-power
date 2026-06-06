@@ -18,6 +18,7 @@
 
 #if defined(__INTELLISENSE__)
 #undef TestRunner_Battle_RecordAbilityPopUp
+#undef TestRunner_Battle_RecordMoveEffectiveness
 #undef TestRunner_Battle_RecordAnimation
 #undef TestRunner_Battle_RecordHP
 #undef TestRunner_Battle_RecordMessage
@@ -600,6 +601,67 @@ void TestRunner_Battle_RecordAbilityPopUp(u32 battlerId, u32 ability)
                 continue;
 
             if (TryAbilityPopUp(queuedEvent, event->groupSize, battlerId, ability) != -1)
+                DATA.trial.queuedEvent = queuedEvent + event->groupSize;
+        } while (FALSE);
+        break;
+    }
+}
+
+static s32 TryMoveEffectiveness(s32 i, s32 n, u32 battlerId, u32 effectiveness)
+{
+    struct QueuedMoveEffectivenessEvent *event;
+    s32 iMax = i + n;
+    for (; i < iMax; i++)
+    {
+        if (DATA.queuedEvents[i].type != QUEUED_MOVE_EFFECTIVENESS_EVENT)
+            continue;
+
+        event = &DATA.queuedEvents[i].as.moveEffectiveness;
+
+        if (event->battlerId == battlerId
+         && event->effectiveness == effectiveness)
+            return i;
+    }
+    return -1;
+}
+
+void TestRunner_Battle_RecordMoveEffectiveness(u32 battlerId, u32 effectiveness)
+{
+    s32 queuedEvent;
+    s32 match;
+    struct QueuedEvent *event;
+
+    if (DATA.trial.queuedEvent == DATA.queuedEventsCount)
+        return;
+
+    event = &DATA.queuedEvents[DATA.trial.queuedEvent];
+    switch (event->groupType)
+    {
+    case QUEUE_GROUP_NONE:
+    case QUEUE_GROUP_ONE_OF:
+        if (TryMoveEffectiveness(DATA.trial.queuedEvent, event->groupSize, battlerId, effectiveness) != -1)
+            DATA.trial.queuedEvent += event->groupSize;
+        break;
+    case QUEUE_GROUP_NONE_OF:
+        queuedEvent = DATA.trial.queuedEvent;
+        do
+        {
+            if ((match = TryMoveEffectiveness(queuedEvent, event->groupSize, battlerId, effectiveness)) != -1)
+            {
+                const char *filename = gTestRunnerState.test->filename;
+                u32 line = SourceLine(DATA.queuedEvents[match].sourceLineOffset);
+                Test_ExitWithResult(TEST_RESULT_FAIL, line, ":L%s:%d: Matched MOVE_EFFECTIVENESS", filename, line);
+            }
+
+            queuedEvent += event->groupSize;
+            if (queuedEvent == DATA.queuedEventsCount)
+                break;
+
+            event = &DATA.queuedEvents[queuedEvent];
+            if (event->groupType == QUEUE_GROUP_NONE_OF)
+                continue;
+
+            if (TryMoveEffectiveness(queuedEvent, event->groupSize, battlerId, effectiveness) != -1)
                 DATA.trial.queuedEvent = queuedEvent + event->groupSize;
         } while (FALSE);
         break;
@@ -1303,6 +1365,7 @@ void TestRunner_Battle_RecordStatus1(u32 battlerId, u32 status1)
 static const char *const sEventTypeMacros[] =
 {
     [QUEUED_ABILITY_POPUP_EVENT] = "ABILITY_POPUP",
+    [QUEUED_MOVE_EFFECTIVENESS_EVENT] = "MOVE_EFFECTIVENESS",
     [QUEUED_ANIMATION_EVENT] = "ANIMATION",
     [QUEUED_HP_EVENT] = "HP_BAR",
     [QUEUED_EXP_EVENT] = "EXPERIENCE_BAR",
@@ -2583,6 +2646,25 @@ void QueueAbility(u32 sourceLine, struct BattlePokemon *battler, struct AbilityE
         }},
     };
 #endif
+}
+
+void QueueMoveEffectiveness(u32 sourceLine, struct BattlePokemon *battler, u32 effectiveness)
+{
+    s32 battlerId = battler - gBattleMons;
+
+    INVALID_IF(!STATE->runScene, "MOVE_EFFECTIVENESS outside of SCENE");
+    if (DATA.queuedEventsCount == MAX_QUEUED_EVENTS)
+        Test_ExitWithResult(TEST_RESULT_ERROR, sourceLine, ":L%s:%d: MOVE_EFFECTIVENESS exceeds MAX_QUEUED_EVENTS", gTestRunnerState.test->filename, sourceLine);
+    DATA.queuedEvents[DATA.queuedEventsCount++] = (struct QueuedEvent) {
+        .type = QUEUED_MOVE_EFFECTIVENESS_EVENT,
+        .sourceLineOffset = SourceLineOffset(sourceLine),
+        .groupType = QUEUE_GROUP_NONE,
+        .groupSize = 1,
+        .as = { .moveEffectiveness = {
+            .battlerId = battlerId,
+            .effectiveness = effectiveness,
+        }},
+    };
 }
 
 void QueueAnimation(u32 sourceLine, u32 type, u32 id, struct AnimationEventContext ctx)

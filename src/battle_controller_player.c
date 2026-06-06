@@ -96,7 +96,9 @@ static void Task_UpdateLvlInHealthbox(u8);
 static void PrintLinkStandbyMsg(void);
 
 static void ReloadMoveNames(u32 battler);
+static u32 CheckTypeEffectivenessForMove(u32 battlerAtk, u32 battlerDef, u32 move);
 static u32 CheckTypeEffectiveness(u32 battlerAtk, u32 battlerDef);
+static u32 CheckMoveSlotTypeEffectiveness(u32 battlerAtk, u32 battlerDef, u32 moveSlot);
 static u32 CheckTargetTypeEffectiveness(u32 battler);
 static void MoveSelectionDisplayMoveEffectiveness(u32 foeEffectiveness, u32 battler);
 
@@ -2365,13 +2367,12 @@ static bool32 ShouldShowTypeEffectiveness(u32 targetId)
     return TRUE;
 }
 
-static u32 CheckTypeEffectiveness(u32 battlerAtk, u32 battlerDef)
+static u32 CheckTypeEffectivenessForMove(u32 battlerAtk, u32 battlerDef, u32 move)
 {
-    struct ChooseMoveStruct *moveInfo = (struct ChooseMoveStruct *)(&gBattleResources->bufferA[battlerAtk][4]);
     struct DamageContext ctx = {0};
     ctx.battlerAtk = battlerAtk;
     ctx.battlerDef = battlerDef;
-    ctx.move = moveInfo->moves[gMoveSelectionCursor[battlerAtk]];
+    ctx.move = move;
     ctx.moveType = CheckDynamicMoveType(GetBattlerMon(battlerAtk), ctx.move, battlerAtk, MON_IN_BATTLE);
     ctx.updateFlags = FALSE;
     ctx.abilityAtk = GetBattlerAbility(battlerAtk);
@@ -2393,15 +2394,27 @@ static u32 CheckTypeEffectiveness(u32 battlerAtk, u32 battlerDef)
     return EFFECTIVENESS_NORMAL; // Normal effectiveness
 }
 
-static u32 CheckTargetTypeEffectiveness(u32 battler)
+static u32 CheckTypeEffectiveness(u32 battlerAtk, u32 battlerDef)
+{
+    struct ChooseMoveStruct *moveInfo = (struct ChooseMoveStruct *)(&gBattleResources->bufferA[battlerAtk][4]);
+    return CheckTypeEffectivenessForMove(battlerAtk, battlerDef, moveInfo->moves[gMoveSelectionCursor[battlerAtk]]);
+}
+
+static u32 CheckMoveSlotTypeEffectiveness(u32 battlerAtk, u32 battlerDef, u32 moveSlot)
+{
+    struct ChooseMoveStruct *moveInfo = (struct ChooseMoveStruct *)(&gBattleResources->bufferA[battlerAtk][4]);
+    return CheckTypeEffectivenessForMove(battlerAtk, battlerDef, moveInfo->moves[moveSlot]);
+}
+
+u32 BattleController_CheckMoveSelectionEffectiveness(u32 battler, u32 moveSlot)
 {
     u32 battlerFoe = BATTLE_OPPOSITE(GetBattlerPosition(battler));
-    u32 foeEffectiveness = CheckTypeEffectiveness(battler, battlerFoe);
+    u32 foeEffectiveness = CheckMoveSlotTypeEffectiveness(battler, battlerFoe, moveSlot);
 
     if (IsDoubleBattle())
     {
         u32 partnerFoe = BATTLE_PARTNER(battlerFoe);
-        u32 partnerFoeEffectiveness = CheckTypeEffectiveness(battler, partnerFoe);
+        u32 partnerFoeEffectiveness = CheckMoveSlotTypeEffectiveness(battler, partnerFoe, moveSlot);
         if (!IsBattlerAlive(battlerFoe))
             return partnerFoeEffectiveness;
         if (IsBattlerAlive(battlerFoe) && IsBattlerAlive(partnerFoe)
@@ -2409,6 +2422,11 @@ static u32 CheckTargetTypeEffectiveness(u32 battler)
             return partnerFoeEffectiveness;
     }
     return foeEffectiveness; // fallthrough for any other circumstance
+}
+
+static u32 CheckTargetTypeEffectiveness(u32 battler)
+{
+    return BattleController_CheckMoveSelectionEffectiveness(battler, gMoveSelectionCursor[battler]);
 }
 
 static void MoveSelectionDisplayMoveEffectiveness(u32 foeEffectiveness, u32 battler)
@@ -2420,6 +2438,8 @@ static void MoveSelectionDisplayMoveEffectiveness(u32 foeEffectiveness, u32 batt
     static const u8 immuneIcon[] =  _("{BIG_MULT_X}");
     struct ChooseMoveStruct *moveInfo = (struct ChooseMoveStruct *)(&gBattleResources->bufferA[battler][4]);
     u8 *txtPtr;
+
+    TestRunner_Battle_RecordMoveEffectiveness(battler, foeEffectiveness);
 
     txtPtr = StringCopy(gDisplayedStringBattle, gText_MoveInterfacePP);
 

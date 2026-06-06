@@ -1,5 +1,6 @@
 #include "global.h"
 #include "event_data.h"
+#include "highlander_charm.h"
 #include "item.h"
 #include "pokedex.h"
 #include "pokemon.h"

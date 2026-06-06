@@ -14365,6 +14365,23 @@ const struct Item gItemsInfo[] =
         .iconPalette = gItemIconPalette_CatchingCharm,
     },
 
+    [ITEM_RADIANT_CHARM] =
+    {
+        .name = ITEM_NAME("Radiant Charm"),
+        .price = 0,
+        .importance = 1,
+        .description = COMPOUND_STRING(
+            "Use to make\n"
+            "wild encounters\n"
+            "shiny."),
+        .pocket = POCKET_KEY_ITEMS,
+        .sortType = ITEM_TYPE_FIELD_USE,
+        .type = ITEM_USE_BAG_MENU,
+        .fieldUseFunc = ItemUseOutOfBattle_RadiantCharm,
+        .iconPic = gItemIcon_CatchingCharm,
+        .iconPalette = gItemIconPalette_CatchingCharm,
+    },
+
     [ITEM_METAL_ALLOY] =
     {
         .name = ITEM_NAME("Metal Alloy"),

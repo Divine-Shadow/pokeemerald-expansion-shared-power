@@ -390,6 +390,7 @@ void HandleInputShowEntireFieldTargets(u32 battler);
 void HandleInputShowTargets(u32 battler);
 void HandleMoveSwitching(u32 battler);
 void HandleChooseMoveAfterDma3(u32 battler);
+u32 BattleController_CheckMoveSelectionEffectiveness(u32 battler, u32 moveSlot);
 
 // recorded player controller
 void SetControllerToRecordedPlayer(u32 battler);

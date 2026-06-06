@@ -3,6 +3,7 @@
 #include "pokemon.h"
 #include "script_pokemon_util.h"
 #include "test/test.h"
+#include "constants/abilities.h"
 #include "constants/battle.h"
 #include "constants/condition_coach.h"
 #include "constants/flags.h"
@@ -193,4 +194,67 @@ TEST("Condition Coach gives Guts tailored advice")
 
     EXPECT_EQ(TryConditionCoachChoice(CONDITION_COACH_CHOICE_BURN), CONDITION_COACH_RESULT_APPLIED);
     EXPECT_EQ(gSpecialVar_0x8006, CONDITION_COACH_HINT_GUTS);
+}
+
+TEST("Condition Coach gives Quick Feet tailored advice")
+{
+    u32 abilityNum = 1;
+
+    CreateConditionCoachTestMon(SPECIES_POOCHYENA);
+    SetMonData(&gPlayerParty[0], MON_DATA_ABILITY_NUM, &abilityNum);
+
+    EXPECT_EQ(TryConditionCoachChoice(CONDITION_COACH_CHOICE_PARALYSIS), CONDITION_COACH_RESULT_APPLIED);
+    EXPECT_EQ(gSpecialVar_0x8006, CONDITION_COACH_HINT_QUICK_FEET);
+}
+
+TEST("Condition Coach gives Quick Feet advice for every status prep")
+{
+    u32 abilityNum = 1;
+
+    CreateConditionCoachTestMon(SPECIES_POOCHYENA);
+    SetMonData(&gPlayerParty[0], MON_DATA_ABILITY_NUM, &abilityNum);
+
+    EXPECT_EQ(TryConditionCoachChoice(CONDITION_COACH_CHOICE_BURN), CONDITION_COACH_RESULT_APPLIED);
+    EXPECT_EQ(gSpecialVar_0x8006, CONDITION_COACH_HINT_QUICK_FEET);
+
+    EXPECT_EQ(TryConditionCoachChoice(CONDITION_COACH_CHOICE_CLEAR), CONDITION_COACH_RESULT_APPLIED);
+    EXPECT_EQ(TryConditionCoachChoice(CONDITION_COACH_CHOICE_POISON), CONDITION_COACH_RESULT_APPLIED);
+    EXPECT_EQ(gSpecialVar_0x8006, CONDITION_COACH_HINT_QUICK_FEET);
+
+    EXPECT_EQ(TryConditionCoachChoice(CONDITION_COACH_CHOICE_CLEAR), CONDITION_COACH_RESULT_APPLIED);
+    EXPECT_EQ(TryConditionCoachChoice(CONDITION_COACH_CHOICE_REST_WAKE), CONDITION_COACH_RESULT_APPLIED);
+    EXPECT_EQ(gSpecialVar_0x8006, CONDITION_COACH_HINT_QUICK_FEET);
+}
+
+TEST("Condition Coach foreshadows abilities that may clean up status")
+{
+    u16 species, ability, choice;
+
+    PARAMETRIZE { species = SPECIES_CHANSEY; ability = ABILITY_NATURAL_CURE; choice = CONDITION_COACH_CHOICE_POISON; }
+    PARAMETRIZE { species = SPECIES_SILCOON; ability = ABILITY_SHED_SKIN; choice = CONDITION_COACH_CHOICE_BURN; }
+    PARAMETRIZE { species = SPECIES_PHIONE; ability = ABILITY_HYDRATION; choice = CONDITION_COACH_CHOICE_REST_WAKE; }
+
+    ASSUME(GetSpeciesAbility(species, 0) == ability);
+
+    CreateConditionCoachTestMon(species);
+
+    EXPECT_EQ(TryConditionCoachChoice(choice), CONDITION_COACH_RESULT_APPLIED);
+    EXPECT_EQ(gSpecialVar_0x8006, CONDITION_COACH_HINT_STATUS_MAY_SLIP);
+}
+
+TEST("Condition Coach ignores Heatproof and Synchronize for status advice")
+{
+    u16 species, ability, choice;
+    u32 abilityNum;
+
+    PARAMETRIZE { species = SPECIES_BRONZOR; ability = ABILITY_HEATPROOF; abilityNum = 1; choice = CONDITION_COACH_CHOICE_BURN; }
+    PARAMETRIZE { species = SPECIES_ABRA; ability = ABILITY_SYNCHRONIZE; abilityNum = 0; choice = CONDITION_COACH_CHOICE_POISON; }
+
+    ASSUME(GetSpeciesAbility(species, abilityNum) == ability);
+
+    CreateConditionCoachTestMon(species);
+    SetMonData(&gPlayerParty[0], MON_DATA_ABILITY_NUM, &abilityNum);
+
+    EXPECT_EQ(TryConditionCoachChoice(choice), CONDITION_COACH_RESULT_APPLIED);
+    EXPECT_EQ(gSpecialVar_0x8006, CONDITION_COACH_HINT_NONE);
 }

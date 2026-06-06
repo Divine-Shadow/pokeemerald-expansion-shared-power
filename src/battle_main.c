@@ -5855,6 +5855,55 @@ u32 TrySetAteType(u32 move, u32 battlerAtk, u32 attackerAbility)
     return ateType;
 }
 
+static bool32 HasDynamicMoveTypeAbility(u32 battler, u32 ability, u32 nativeAbility, enum MonState state)
+{
+    if (state == MON_IN_BATTLE)
+        return HasActiveAbility(battler, ability);
+
+    return nativeAbility == ability;
+}
+
+struct DynamicMoveTypeAbilityCtx
+{
+    u32 move;
+    u32 battler;
+    u32 ateType;
+};
+
+static struct DynamicMoveTypeAbilityCtx *sDynamicMoveTypeAbilityCtx;
+
+static bool32 TrySetAteTypeFromEffectiveAbility(u16 ability)
+{
+    struct DynamicMoveTypeAbilityCtx *ctx = sDynamicMoveTypeAbilityCtx;
+    u32 ateType = TrySetAteType(ctx->move, ctx->battler, ability);
+
+    if (ateType == TYPE_NONE)
+        return FALSE;
+
+    ctx->ateType = ateType;
+    return TRUE;
+}
+
+static u32 TrySetAteTypeFromActiveAbilities(u32 move, u32 battler, u32 nativeAbility, enum MonState state)
+{
+    if (state == MON_IN_BATTLE)
+    {
+        struct DynamicMoveTypeAbilityCtx ctx =
+        {
+            .move = move,
+            .battler = battler,
+            .ateType = TYPE_NONE,
+        };
+
+        sDynamicMoveTypeAbilityCtx = &ctx;
+        ForEachEffectiveAbilityUnique(battler, TrySetAteTypeFromEffectiveAbility);
+        sDynamicMoveTypeAbilityCtx = NULL;
+        return ctx.ateType;
+    }
+
+    return TrySetAteType(move, battler, nativeAbility);
+}
+
 // Returns TYPE_NONE if type doesn't change.
 u32 GetDynamicMoveType(struct Pokemon *mon, u32 move, u32 battler, enum MonState state)
 {
@@ -6056,22 +6105,22 @@ u32 GetDynamicMoveType(struct Pokemon *mon, u32 move, u32 battler, enum MonState
         break;
     }
 
-    if (IsSoundMove(move) && ability == ABILITY_LIQUID_VOICE)
+    if (IsSoundMove(move) && HasDynamicMoveTypeAbility(battler, ABILITY_LIQUID_VOICE, ability, state))
     {
         return TYPE_WATER;
     }
     else if (moveEffect == EFFECT_AURA_WHEEL
           && species == SPECIES_MORPEKO_HANGRY
-          && ability != ABILITY_NORMALIZE)
+          && !HasDynamicMoveTypeAbility(battler, ABILITY_NORMALIZE, ability, state))
     {
         return TYPE_DARK;
     }
     else if (moveType == TYPE_NORMAL
-          && ability != ABILITY_NORMALIZE
+          && !HasDynamicMoveTypeAbility(battler, ABILITY_NORMALIZE, ability, state)
           && gimmick != GIMMICK_DYNAMAX
           && gimmick != GIMMICK_Z_MOVE)
     {
-        u32 ateType = TrySetAteType(move, battler, ability);
+        u32 ateType = TrySetAteTypeFromActiveAbilities(move, battler, ability, state);
         if (ateType != TYPE_NONE && state == MON_IN_BATTLE)
             gBattleStruct->battlerState[battler].ateBoost = TRUE;
         return ateType;
@@ -6081,7 +6130,7 @@ u32 GetDynamicMoveType(struct Pokemon *mon, u32 move, u32 battler, enum MonState
           && moveEffect != EFFECT_NATURAL_GIFT
           && moveEffect != EFFECT_HIDDEN_POWER
           && moveEffect != EFFECT_WEATHER_BALL
-          && ability == ABILITY_NORMALIZE
+          && HasDynamicMoveTypeAbility(battler, ABILITY_NORMALIZE, ability, state)
           && gimmick != GIMMICK_Z_MOVE)
     {
         if (state == MON_IN_BATTLE && gimmick != GIMMICK_DYNAMAX)

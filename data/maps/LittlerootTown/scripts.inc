@@ -249,6 +249,23 @@ LittlerootTown_EventScript_Boy::
 	msgbox LittlerootTown_Text_BirchSpendsDaysInLab, MSGBOX_NPC
 	end
 
+LittlerootTown_EventScript_RadiantCharmKid::
+	lock
+	faceplayer
+	goto_if_set FLAG_RECEIVED_RADIANT_CHARM, LittlerootTown_EventScript_RadiantCharmKidReceived
+	msgbox LittlerootTown_Text_RadiantCharmKidIntro, MSGBOX_DEFAULT
+	giveitem ITEM_RADIANT_CHARM
+	goto_if_eq VAR_RESULT, FALSE, Common_EventScript_ShowBagIsFull
+	setflag FLAG_RECEIVED_RADIANT_CHARM
+	msgbox LittlerootTown_Text_RadiantCharmKidExplain, MSGBOX_DEFAULT
+	release
+	end
+
+LittlerootTown_EventScript_RadiantCharmKidReceived::
+	msgbox LittlerootTown_Text_RadiantCharmKidExplain, MSGBOX_DEFAULT
+	release
+	end
+
 LittlerootTown_EventScript_Twin::
 	lock
 	faceplayer
@@ -964,6 +981,19 @@ LittlerootTown_Text_BirchSpendsDaysInLab:
 	.string "When does PROF. BIRCH spend time\n"
 	.string "at home?$"
 
+LittlerootTown_Text_RadiantCharmKidIntro:
+	.string "Shiny POKéMON are so exciting!\p"
+	.string "I found this charm while looking for\n"
+	.string "something radiant.\p"
+	.string "You should take it! I want you to\n"
+	.string "see shiny POKéMON, too!$"
+
+LittlerootTown_Text_RadiantCharmKidExplain:
+	.string "Try using the RADIANT CHARM from\n"
+	.string "your KEY ITEMS.\p"
+	.string "When it's on, wild POKéMON sparkle\n"
+	.string "like shiny stars!$"
+
 LittlerootTown_Text_IfYouGoInGrassPokemonWillJumpOut:
 	.string "Um, um, um!\p"
 	.string "If you go outside and go in the grass,\n"
@@ -1013,4 +1043,3 @@ LittlerootTown_Text_BirchSomethingToShowYouAtLab:
 	.string "I gave you?\p"
 	.string "I have something to show you.\n"
 	.string "Let's go to my LAB.$"
-

@@ -88,6 +88,7 @@ ConditionCoach_EventScript_Applied:
 	case CONDITION_COACH_HINT_TOXIC_BOOST, ConditionCoach_EventScript_HintToxicBoost
 	case CONDITION_COACH_HINT_FLARE_BOOST, ConditionCoach_EventScript_HintFlareBoost
 	case CONDITION_COACH_HINT_MAGIC_GUARD, ConditionCoach_EventScript_HintMagicGuard
+	case CONDITION_COACH_HINT_STATUS_MAY_SLIP, ConditionCoach_EventScript_HintStatusMaySlip
 	case CONDITION_COACH_HINT_REST_WAKE, ConditionCoach_EventScript_HintRestWake
 	case CONDITION_COACH_HINT_CLEAR, ConditionCoach_EventScript_HintClear
 	msgbox ConditionCoach_Text_HintDefault, MSGBOX_DEFAULT
@@ -123,6 +124,10 @@ ConditionCoach_EventScript_HintFlareBoost:
 
 ConditionCoach_EventScript_HintMagicGuard:
 	msgbox ConditionCoach_Text_HintMagicGuard, MSGBOX_DEFAULT
+	goto ConditionCoach_EventScript_Menu
+
+ConditionCoach_EventScript_HintStatusMaySlip:
+	msgbox ConditionCoach_Text_HintStatusMaySlip, MSGBOX_DEFAULT
 	goto ConditionCoach_EventScript_Menu
 
 ConditionCoach_EventScript_HintRestWake:
@@ -215,9 +220,10 @@ ConditionCoach_Text_HintMarvelScale:
 	.string "Use the extra bulk wisely.$"
 
 ConditionCoach_Text_HintQuickFeet:
-	.string "QUICK FEET can make a status\n"
-	.string "feel like a starting signal.\p"
-	.string "Paralysis still has risks.$"
+	.string "QUICK FEET turns pressure\n"
+	.string "into pace.\p"
+	.string "Pick the condition your plan\n"
+	.string "can carry.$"
 
 ConditionCoach_Text_HintPoisonHeal:
 	.string "POISON HEAL turns poison\n"
@@ -238,6 +244,12 @@ ConditionCoach_Text_HintMagicGuard:
 	.string "MAGIC GUARD keeps the usual\n"
 	.string "chip damage quiet.\p"
 	.string "The condition still matters.$"
+
+ConditionCoach_Text_HintStatusMaySlip:
+	.string "One caution: this plan has\n"
+	.string "its own cleanup habits.\p"
+	.string "If it slips, that may be\n"
+	.string "the clue you needed.$"
 
 ConditionCoach_Text_HintRestWake:
 	.string "This is the last beat of REST,\n"

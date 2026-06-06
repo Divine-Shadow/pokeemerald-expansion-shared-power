@@ -2,8 +2,10 @@
 #include "wild_encounter.h"
 #include "boundary_charm.h"
 #include "event_scripts.h"
+#include "highlander_charm.h"
 #include "pokemon.h"
 #include "pokedex.h"
+#include "radiant_charm.h"
 #include "metatile_behavior.h"
 #include "fieldmap.h"
 #include "follower_npc.h"
@@ -73,7 +75,6 @@ EWRAM_DATA static u32 sFeebasRngValue = 0;
 EWRAM_DATA bool8 gIsFishingEncounter = 0;
 EWRAM_DATA bool8 gIsSurfingEncounter = 0;
 EWRAM_DATA u8 gChainFishingDexNavStreak = 0;
-EWRAM_DATA static bool8 sHighlanderCharmEncounterEmpty = FALSE;
 
 #include "data/wild_encounters.h"
 
@@ -146,36 +147,6 @@ static const u16 sRoute119WaterTileData[] =
 void DisableWildEncounters(bool8 disabled)
 {
     sWildEncountersDisabled = disabled;
-}
-
-bool32 IsHighlanderCharmActive(void)
-{
-    return gSaveBlock3Ptr->highlanderCharmActive;
-}
-
-void SetHighlanderCharmActive(bool32 active)
-{
-    gSaveBlock3Ptr->highlanderCharmActive = active ? TRUE : FALSE;
-}
-
-void ToggleHighlanderCharmActive(void)
-{
-    SetHighlanderCharmActive(!IsHighlanderCharmActive());
-}
-
-bool32 WasHighlanderCharmEncounterEmpty(void)
-{
-    return sHighlanderCharmEncounterEmpty;
-}
-
-bool32 TryStartHighlanderCharmEmptyEncounterScript(void)
-{
-    if (!sHighlanderCharmEncounterEmpty)
-        return FALSE;
-
-    sHighlanderCharmEncounterEmpty = FALSE;
-    ScriptContext_SetupScript(EventScript_HighlanderCharmNoEncounters);
-    return TRUE;
 }
 
 static u16 GetHighlanderCharmFamilyRoot(u16 species)
@@ -323,7 +294,7 @@ static bool8 TryChooseHighlanderCharmWildMonIndex(const struct WildPokemon *wild
     if (weights == NULL)
         return FALSE;
 
-    sHighlanderCharmEncounterEmpty = FALSE;
+    ClearHighlanderCharmEncounterEmpty();
     for (i = 0; i < count; i++)
     {
         if (!IsWildSpeciesAllowedByHighlanderCharm(wildMon[i].species))
@@ -336,7 +307,7 @@ static bool8 TryChooseHighlanderCharmWildMonIndex(const struct WildPokemon *wild
         *totalWeight = runningWeight;
     if (runningWeight == 0)
     {
-        sHighlanderCharmEncounterEmpty = TRUE;
+        MarkHighlanderCharmEncounterEmpty();
         return FALSE;
     }
 
@@ -822,10 +793,12 @@ void CreateWildMon(u16 species, u8 level)
             gender = MON_FEMALE;
 
         CreateMonWithGenderNatureLetter(&gEnemyParty[0], species, level, USE_RANDOM_IVS, gender, PickWildMonNature(), 0);
+        ApplyRadiantCharmToEncounterMon(&gEnemyParty[0]);
         return;
     }
 
     CreateMonWithNature(&gEnemyParty[0], species, level, USE_RANDOM_IVS, PickWildMonNature());
+    ApplyRadiantCharmToEncounterMon(&gEnemyParty[0]);
 }
 #ifdef BUGFIX
 #define TRY_GET_ABILITY_INFLUENCED_WILD_MON_INDEX(wildPokemon, type, ability, ptr, count) TryGetAbilityInfluencedWildMonIndex(wildPokemon, type, ability, ptr, count)
@@ -839,7 +812,7 @@ static bool8 TryGenerateWildMonAtMapSec(const struct WildPokemonInfo *wildMonInf
     u8 level;
     bool32 useHighlander = (flags & WILD_CHECK_HIGHLANDER) && IsHighlanderCharmActive();
 
-    sHighlanderCharmEncounterEmpty = FALSE;
+    ClearHighlanderCharmEncounterEmpty();
     if (flags & WILD_CHECK_BOUNDARY && ShouldSuppressBoundaryCharmEncounterAt(mapSec))
         return FALSE;
 
@@ -914,7 +887,7 @@ static bool8 TryGenerateFishingWildMonAtMapSec(const struct WildPokemonInfo *wil
     u8 wildMonIndex;
     u8 level;
 
-    sHighlanderCharmEncounterEmpty = FALSE;
+    ClearHighlanderCharmEncounterEmpty();
     if (ShouldSuppressBoundaryCharmEncounterAt(mapSec))
         return FALSE;
 
@@ -1370,7 +1343,7 @@ bool8 FishingWildEncounter(u8 rod)
     enum TimeOfDay timeOfDay;
 
     gIsFishingEncounter = TRUE;
-    sHighlanderCharmEncounterEmpty = FALSE;
+    ClearHighlanderCharmEncounterEmpty();
     if (ShouldSuppressBoundaryCharmEncounter())
     {
         TryStartBoundaryCharmEncounterSuppressedScript();

@@ -12,6 +12,8 @@ void Script_GetChosenMonOffensiveEVs(void);
 void Script_GetChosenMonDefensiveEVs(void);
 void Script_GetChosenMonOffensiveIVs(void);
 void Script_GetChosenMonDefensiveIVs(void);
+u16 AbilitySwapper_TryPreview(void);
+u16 AbilitySwapper_TrySwap(void);
 u16 ConditionCoach_TryApplyStatus(void);
 u16 ConditionCoach_IsChoiceUnlocked(void);
 

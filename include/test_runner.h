@@ -8,6 +8,7 @@ extern const bool8 gTestRunnerSkipIsFail;
 #if TESTING
 
 void TestRunner_Battle_RecordAbilityPopUp(u32 battlerId, u32 ability);
+void TestRunner_Battle_RecordMoveEffectiveness(u32 battlerId, u32 effectiveness);
 void TestRunner_Battle_RecordAnimation(u32 animType, u32 animId);
 void TestRunner_Battle_RecordHP(u32 battlerId, u32 oldHP, u32 newHP);
 void TestRunner_Battle_RecordExp(u32 battlerId, u32 oldExp, u32 newExp);
@@ -30,6 +31,7 @@ u32 TestRunner_Battle_GetChosenGimmick(u32 side, u32 partyIndex);
 #else
 
 #define TestRunner_Battle_RecordAbilityPopUp(...) (void)0
+#define TestRunner_Battle_RecordMoveEffectiveness(...) (void)0
 #define TestRunner_Battle_RecordAnimation(...) (void)0
 #define TestRunner_Battle_RecordHP(...) (void)0
 #define TestRunner_Battle_RecordExp(...) (void)0

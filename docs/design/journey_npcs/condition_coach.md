@@ -32,13 +32,19 @@ The MVP recognizes these cases after a successful selection:
 - Held status-curing berries that will cure the selected status.
 - Guts with burn, poison, or paralysis.
 - Marvel Scale with any applied major status.
-- Quick Feet with paralysis.
+- Quick Feet with burn, poison, paralysis, or Rest-wake sleep.
 - Poison Heal with poison.
 - Toxic Boost with poison.
 - Flare Boost with burn.
 - Magic Guard with any damaging status.
+- Natural Cure, Shed Skin, and Hydration with any applied status, using a subtle caution rather than a direct mechanics explanation.
 - Rest-wake sleep.
 - Clear status.
+
+Ignored status-adjacent abilities:
+
+- Heatproof, because its burn damage reduction is intentionally obscure.
+- Synchronize, because pre-status from the coach is not the moment that ability teaches.
 
 ## Asset Direction
 

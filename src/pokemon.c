@@ -33,6 +33,7 @@
 #include "pokemon.h"
 #include "pokemon_animation.h"
 #include "pokemon_icon.h"
+#include "radiant_charm.h"
 #include "pokemon_summary_screen.h"
 #include "pokemon_storage_system.h"
 #include "random.h"
@@ -1669,6 +1670,7 @@ void CreateEnemyEventMon(void)
         heldItem[1] = itemId >> 8;
         SetMonData(&gEnemyParty[0], MON_DATA_HELD_ITEM, heldItem);
     }
+    ApplyRadiantCharmToEncounterMon(&gEnemyParty[0]);
 }
 
 static u16 CalculateBoxMonChecksum(struct BoxPokemon *boxMon)

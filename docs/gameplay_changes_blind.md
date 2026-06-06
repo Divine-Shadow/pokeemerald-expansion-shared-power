@@ -5,7 +5,9 @@ This file contains gameplay changes that may affect routing or discoveries. Read
 ## Early Resources
 
 - Rare Candies, Master Balls, and Max Repels are available from the player's PC. The Highlander Charm and Extinction Charm start in the Key Items pocket and are off until used.
+- A kid in Littleroot Town gives the Radiant Charm once. It starts off and can be toggled from the Key Items pocket.
 - The Old Rod is now given by a Fisherman in Oldale Town instead of Dewford Town.
+- An Ability Swapper now appears in the Fallarbor Move Relearner's house and trades 1 Heart Scale for ordinary, non-hidden ability swaps.
 - A Condition Coach now appears on 1F of each Pokemon Center and offers controlled pre-battle status preparation with tailored advice for some status-based builds.
 - A Condition Coach also appears in the Pokemon League lobby.
 - The Lavaridge, Lilycove, and Pacifidlog Pokemon Center Condition Coaches were repositioned so nearby NPCs remain accessible.
@@ -53,4 +55,7 @@ This file contains gameplay changes that may affect routing or discoveries. Read
 
 ## Dialogue
 
+- Condition Coach now gives a subtle caution when status prep may not stay in place.
+- Condition Coach Quick Feet advice now appears for every status prep option.
 - Gym guide NPCs now give non-spoiler tactical hints about the updated gym leader battle styles.
+- Gym guide NPCs now state each gym's level cap before the leader fight.

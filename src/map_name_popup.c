@@ -9,6 +9,7 @@
 #include "main.h"
 #include "menu.h"
 #include "map_name_popup.h"
+#include "overworld.h"
 #include "palette.h"
 #include "region_map.h"
 #include "rtc.h"
@@ -543,7 +544,7 @@ static void ShowMapNamePopUpWindow(void)
     else
     {
         withoutPrefixPtr = &(mapDisplayHeader[3]);
-        GetMapName(withoutPrefixPtr, gMapHeader.regionMapSectionId, 0);
+        GetMapName(withoutPrefixPtr, GetCurrentRegionMapSectionId(), 0);
     }
 
     if (OW_POPUP_GENERATION == GEN_5)
@@ -615,7 +616,7 @@ static void LoadMapNamePopUpWindowBg(void)
 {
     u8 popUpThemeId;
     u8 popupWindowId = GetMapNamePopUpWindowId();
-    u16 regionMapSectionId = gMapHeader.regionMapSectionId;
+    u16 regionMapSectionId = GetCurrentRegionMapSectionId();
     u8 secondaryPopUpWindowId;
 
     if (OW_POPUP_GENERATION == GEN_5)

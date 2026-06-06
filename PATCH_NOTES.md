@@ -1,4 +1,29 @@
+- Gameplay/NPCs: Add subtle Condition Coach caution text for status-cleanup abilities and document ignored adjacent abilities (commit pending).
+- Tooling/Skills: Document unsupported-map handling for the NPC accessibility checker workflow (commit pending).
+- Tooling/Skills: Treat maps without static entrance seeds as unsupported in NPC accessibility audits (commit pending).
+- Tooling/Skills: Bundle an NPC accessibility checker with the gameplay updater skill for map-object placement validation (commit pending).
 - Docs/Release: Add patch distribution format research and application tooling guidance (commit pending).
+- Gameplay/NPCs: Add gym guide dialogue that states each gym's level cap before the leader fight (commit pending).
+- Gameplay/NPCs: Expand Condition Coach Quick Feet advice to every status prep option (commit pending).
+- Gameplay/Maps: Treat Mirage Island as its own Route 130 caught location for map displays and Extinction Charm routing (commit pending).
+- Battle/Tests: Apply pooled Shared Power Pixilate to move effectiveness indicators and cover Hyper Voice (commit pending).
+- Gameplay/Encounters: Move Highlander Charm toggle and empty-pool signal state into a dedicated charm module (commit pending).
+- Docs/Planning: Record Ability Swapper validation evidence and build results (commit pending).
+- Docs/Planning: Record Radiant Charm validation evidence and completion audit (commit pending).
+- Docs/Planning: Record Radiant Charm implementation progress before validation (commit pending).
+- Docs/Gameplay: Document Radiant Charm shiny encounter mode and Littleroot gift availability (commit pending).
+- Tests: Cover Radiant Charm saved toggle, wild/static shiny forcing, gift exclusion, and charm blocking interactions (commit pending).
+- Gameplay/Maps: Add a Littleroot Town kid who gives the Radiant Charm once (commit pending).
+- Gameplay/Encounters: Force eligible wild and static encounters shiny while Radiant Charm is active (commit pending).
+- Gameplay/Items: Add Radiant Charm saved toggle item plumbing and messages (commit pending).
+- Docs/Planning: Add Radiant Charm execution plan for shiny encounter toggle implementation (commit pending).
+- Gameplay/Pokemon: Remove Yanmega Hurricane level-up access (commit pending).
+- Docs/Gameplay: Document the Ability Swapper rule and Fallarbor placement notes (commit pending).
+- Tests: Cover Ability Swapper preview, payment, non-hidden slot eligibility, and refusal cases (commit pending).
+- Gameplay/NPCs: Add the Fallarbor Move Relearner house Ability Swapper NPC and dialogue (commit pending).
+- Gameplay/NPCs: Add script specials for Heart Scale non-hidden ability swapping (commit pending).
+- Docs/Planning: Add the Fallarbor Ability Swapper execution plan (commit pending).
+- Gameplay/Pokemon: Remove Metagross Swords Dance level-up and tutor access (commit pending).
 - Gameplay/Items: Replace Route 119's duplicate Flying Gem pickup with a Prism Scale (commit pending).
 - Gameplay/Items: Rename the Boundary Charm to Extinction Charm in player-facing text (commit 83f7bb90b2).
 - Docs/Planning: Record Extinction Charm validation evidence and audit result (commit 83f7bb90b2).
@@ -147,11 +172,10 @@
 - UI: Remove non-impactful battle-summary troubleshooting changes around global Pokeball gfx loading and opener input clearing (commit pending).
 - UI: Guard in-battle Pokemon summary sprite creation and remove the static summary sprite-buffer workaround (commit 80d961689c).
 - Dialogue: Update the Rustboro Gym guide's Roxanne advice to hint at her team's strengths without exact set spoilers (commit pending).
-- Docs/Gameplay: List Pokemon move-access changes in a structured spoiler-free table (commit pending).
 - Tools/Skills: Clarify that Pokemon move-access changes require explicit structured public notes (commit pending).
 - Tools/Skills: Add repo-local instructions for handing pokeemerald automation ROMs to the Ouroboros Scala mGBA runner (commit pending).
 - Gameplay/Trainers: Update first-time gym leader teams for Shared Power and document exact spoiler-friendly Showdown sets (commit pending).
-- Gameplay/Docs: Make Strength Rock type, document PC item availability, and add Hurricane to Yanmega and Swords Dance to Metagross move access (commit pending).
+- Gameplay/Docs: Make Strength Rock type and document PC item availability (commit pending).
 - Tools/Skills: Add a repo-local gameplay updater skill with spoiler-aware player note guidance (commit pending).
 - Tools/Automation: Seed Master Balls in the player PC and expose PC/bag Master Ball counts through probe v7 for deterministic Scala capture routing (commit pending).
 - Docs/Automation: Document the Python mGBA host as reference-only in the tool README and mark old Python route commands as superseded by Scala (commit pending).

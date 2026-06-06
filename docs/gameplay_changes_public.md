@@ -20,6 +20,7 @@ These notes cover gameplay rules and move access that are safe to know before st
 - Under Shared Power, No Guard now shares correctly and lets active teammates bypass accuracy checks, including OHKO moves such as Horn Drill.
 - Under Shared Power, weather speed abilities such as Swift Swim now share correctly and double active teammates' Speed in matching weather.
 - Under Shared Power, end-turn ability popups for Poison Heal and Liquid Ooze now show the shared ability when they activate on a Pokemon with a different native ability.
+- Under Shared Power, pooled move type-changing abilities such as Pixilate now apply to active teammates' compatible moves and move effectiveness indicators.
 - Under Shared Power, Sturdy popups now show Sturdy even if the Pokemon also has another active ability such as Clear Body.
 - Recharge moves such as Giga Impact now release the user after the required recharge turn.
 - Overworld fog is visual-only and no longer starts battles with Misty Terrain or battle fog.
@@ -27,10 +28,13 @@ These notes cover gameplay rules and move access that are safe to know before st
 ## Field Rules
 
 - The regular Items bag pocket can hold up to 99 distinct item slots.
+- An Ability Swapper service can spend 1 Heart Scale to switch a party Pokemon between its two ordinary, non-hidden ability slots. It does not grant Hidden Abilities and will not alter a Pokemon that currently has its Hidden Ability.
 - Underwater route areas now show their route number in caught-location text, such as Route 127 Underwater.
+- Mirage Island is treated as its own caught location separate from Route 130 for met-location text, map displays, and Extinction Charm routing.
 - Hooked fishing encounters wait for the player to press A and no longer get away.
 - The Highlander Charm is a toggleable Key Item for no-duplicates routing. While turned on, normal land, water, fishing, Rock Smash, and Sweet Scent encounters are weighted only among evolutionary families you have not caught before. If a filtered pool has no legal family left, no battle starts and the game shows a message.
 - The Extinction Charm is a toggleable Key Item for one-capture-per-caught-location routing. While turned on, normal land, water, fishing, Rock Smash, and Sweet Scent encounters do not start in locations where you have already caught a Pokemon. Static captures count once caught, but static battles are not blocked before they start.
+- The Radiant Charm is a toggleable Key Item for cosmetic shiny routing. While turned on, eligible normal wild and static wild encounters are guaranteed shiny after all encounter rules have already allowed them. It does not change species, levels, encounter odds, locations, repel behavior, or catch legality.
 
 ## Pokemon Center Services
 
@@ -80,13 +84,6 @@ These notes cover gameplay rules and move access that are safe to know before st
 - Blaze Kick now has 100% accuracy.
 - Icy Wind and Mud Shot now have 100% accuracy.
 - Rock Slide and Rock Tomb now have 100% accuracy.
-
-## Move Access
-
-| Pokemon | Move | Access | Notes |
-| --- | --- | --- | --- |
-| Yanmega | Hurricane | Level 57 | Added level-up move |
-| Metagross | Swords Dance | Level 57; Swords Dance tutor | Added level-up and tutor access |
 
 ## Trainer Updates
 

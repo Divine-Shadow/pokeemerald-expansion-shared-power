@@ -372,6 +372,7 @@ MossdeepCity_Gym_EventScript_RedFloorSwitch::
 MossdeepCity_Gym_Text_GymGuideAdvice:
 	.string "Yo, how's it going, CHAMPION-bound\n"
 	.string "{PLAYER}?\p"
+	.string "This GYM's level cap is Lv. 42.\p"
 	.string "The GYM LEADERS here use\n"
 	.string "PSYCHIC-type POKéMON.\p"
 	.string "They like items that spring surprises\n"

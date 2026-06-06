@@ -556,6 +556,7 @@ struct BattleTest
 enum
 {
     QUEUED_ABILITY_POPUP_EVENT,
+    QUEUED_MOVE_EFFECTIVENESS_EVENT,
     QUEUED_ANIMATION_EVENT,
     QUEUED_HP_EVENT,
     QUEUED_EXP_EVENT,
@@ -567,6 +568,21 @@ struct QueuedAbilityEvent
 {
     u8 battlerId;
     u16 ability;
+};
+
+enum
+{
+    TEST_MOVE_EFFECTIVENESS_CANNOT_VIEW,
+    TEST_MOVE_EFFECTIVENESS_NO_EFFECT,
+    TEST_MOVE_EFFECTIVENESS_NOT_VERY_EFFECTIVE,
+    TEST_MOVE_EFFECTIVENESS_NORMAL,
+    TEST_MOVE_EFFECTIVENESS_SUPER_EFFECTIVE,
+};
+
+struct QueuedMoveEffectivenessEvent
+{
+    u8 battlerId;
+    u8 effectiveness;
 };
 
 struct QueuedAnimationEvent
@@ -614,6 +630,7 @@ struct QueuedEvent
     union
     {
         struct QueuedAbilityEvent ability;
+        struct QueuedMoveEffectivenessEvent moveEffectiveness;
         struct QueuedAnimationEvent animation;
         struct QueuedHPEvent hp;
         struct QueuedExpEvent exp;
@@ -1036,6 +1053,7 @@ void SendOut(u32 sourceLine, struct BattlePokemon *, u32 partyIndex);
 #define FORCE_MOVE_ANIM(set) gBattleTestRunnerState->forceMoveAnim = (set)
 
 #define ABILITY_POPUP(battler, ...) QueueAbility(__LINE__, battler, (struct AbilityEventContext) { __VA_ARGS__ })
+#define MOVE_EFFECTIVENESS(battler, effectiveness) QueueMoveEffectiveness(__LINE__, battler, effectiveness)
 #define ANIMATION(type, id, ...) QueueAnimation(__LINE__, type, id, (struct AnimationEventContext) { __VA_ARGS__ })
 #define HP_BAR(battler, ...) QueueHP(__LINE__, battler, (struct HPEventContext) { R_APPEND_TRUE(__VA_ARGS__) })
 #define EXPERIENCE_BAR(battler, ...) QueueExp(__LINE__, battler, (struct ExpEventContext) { R_APPEND_TRUE(__VA_ARGS__) })
@@ -1116,6 +1134,7 @@ void OpenQueueGroup(u32 sourceLine, enum QueueGroupType);
 void CloseQueueGroup(u32 sourceLine);
 
 void QueueAbility(u32 sourceLine, struct BattlePokemon *battler, struct AbilityEventContext);
+void QueueMoveEffectiveness(u32 sourceLine, struct BattlePokemon *battler, u32 effectiveness);
 void QueueAnimation(u32 sourceLine, u32 type, u32 id, struct AnimationEventContext);
 void QueueHP(u32 sourceLine, struct BattlePokemon *battler, struct HPEventContext);
 void QueueExp(u32 sourceLine, struct BattlePokemon *battler, struct ExpEventContext);

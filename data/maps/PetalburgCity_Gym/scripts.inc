@@ -1327,6 +1327,7 @@ PetalburgCity_Gym_Text_DadNoAmountOfTrainingIsEnough:
 PetalburgCity_Gym_Text_GymGuideAdvice:
 	.string "Hey, how's it going, CHAMPION-\n"
 	.string "bound {PLAYER}?\p"
+	.string "This GYM's level cap is Lv. 31.\p"
 	.string "NORMAN punishes early switching\n"
 	.string "meant to spark abilities.\p"
 	.string "But his ace does not lead the team\n"

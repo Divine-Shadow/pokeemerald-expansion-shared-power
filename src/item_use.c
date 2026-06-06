@@ -21,6 +21,7 @@
 #include "field_weather.h"
 #include "fldeff.h"
 #include "follower_npc.h"
+#include "highlander_charm.h"
 #include "item.h"
 #include "item_menu.h"
 #include "item_use.h"
@@ -34,6 +35,7 @@
 #include "party_menu.h"
 #include "pokeblock.h"
 #include "pokemon.h"
+#include "radiant_charm.h"
 #include "script.h"
 #include "sound.h"
 #include "strings.h"
@@ -41,7 +43,6 @@
 #include "task.h"
 #include "text.h"
 #include "vs_seeker.h"
-#include "wild_encounter.h"
 #include "constants/event_bg.h"
 #include "constants/event_objects.h"
 #include "constants/item_effects.h"
@@ -311,6 +312,27 @@ void ItemUseOutOfBattle_BoundaryCharm(u8 taskId)
             DisplayItemMessageOnField(taskId, gText_BoundaryCharmOff, Task_CloseCantUseKeyItemMessage);
         else
             DisplayItemMessage(taskId, FONT_NORMAL, gText_BoundaryCharmOff, CloseItemMessage);
+    }
+}
+
+void ItemUseOutOfBattle_RadiantCharm(u8 taskId)
+{
+    ToggleRadiantCharmActive();
+    if (IsRadiantCharmActive())
+    {
+        PlaySE(SE_EXP_MAX);
+        if (!gTasks[taskId].data[2])
+            DisplayItemMessageOnField(taskId, gText_RadiantCharmOn, Task_CloseCantUseKeyItemMessage);
+        else
+            DisplayItemMessage(taskId, FONT_NORMAL, gText_RadiantCharmOn, CloseItemMessage);
+    }
+    else
+    {
+        PlaySE(SE_PC_OFF);
+        if (!gTasks[taskId].data[2])
+            DisplayItemMessageOnField(taskId, gText_RadiantCharmOff, Task_CloseCantUseKeyItemMessage);
+        else
+            DisplayItemMessage(taskId, FONT_NORMAL, gText_RadiantCharmOff, CloseItemMessage);
     }
 }
 

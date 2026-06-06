@@ -138,6 +138,9 @@ bool8 IsMapTypeIndoors(enum MapType mapType);
 u8 GetSavedWarpRegionMapSectionId(void);
 u8 GetCurrentRegionMapSectionId(void);
 enum MapBattleScene GetCurrentMapBattleScene(void);
+#if TESTING
+u8 Test_GetRoute130RegionMapSectionId(u16 mapLayoutId, s16 x, s16 y);
+#endif
 void CleanupOverworldWindowsAndTilemaps(void);
 bool32 IsOverworldLinkActive(void);
 void CB1_Overworld(void);

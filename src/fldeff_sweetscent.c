@@ -7,6 +7,7 @@
 #include "field_screen_effect.h"
 #include "field_weather.h"
 #include "fldeff.h"
+#include "highlander_charm.h"
 #include "malloc.h"
 #include "mirage_tower.h"
 #include "palette.h"

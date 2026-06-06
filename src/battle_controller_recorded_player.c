@@ -357,6 +357,7 @@ static void RecordedPlayerHandleChooseMove(u32 battler)
     {
         u8 moveIndex = RecordedBattle_GetBattlerAction(RECORDED_MOVE_SLOT, battler);
         u8 target = RecordedBattle_GetBattlerAction(RECORDED_MOVE_TARGET, battler);
+        TestRunner_Battle_RecordMoveEffectiveness(battler, BattleController_CheckMoveSelectionEffectiveness(battler, moveIndex));
         BtlController_EmitTwoReturnValues(battler, B_COMM_TO_ENGINE, B_ACTION_EXEC_SCRIPT, moveIndex | (target << 8));
     }
 

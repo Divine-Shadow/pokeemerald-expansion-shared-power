@@ -18,12 +18,14 @@
 #include "pokedex.h"
 #include "pokemon.h"
 #include "pokemon_storage_system.h"
+#include "radiant_charm.h"
 #include "random.h"
 #include "script.h"
 #include "sprite.h"
 #include "string_util.h"
 #include "tv.h"
 #include "wild_encounter.h"
+#include "constants/ability_swapper.h"
 #include "constants/abilities.h"
 #include "constants/items.h"
 #include "constants/condition_coach.h"
@@ -127,6 +129,7 @@ void CreateScriptedWildMon(u16 species, u8 level, u16 item)
         heldItem[1] = item >> 8;
         SetMonData(&gEnemyParty[0], MON_DATA_HELD_ITEM, heldItem);
     }
+    ApplyRadiantCharmToEncounterMon(&gEnemyParty[0]);
 }
 void CreateScriptedDoubleWildMon(u16 species1, u8 level1, u16 item1, u16 species2, u8 level2, u16 item2)
 {
@@ -145,6 +148,7 @@ void CreateScriptedDoubleWildMon(u16 species1, u8 level1, u16 item1, u16 species
         heldItem1[1] = item1 >> 8;
         SetMonData(&gEnemyParty[0], MON_DATA_HELD_ITEM, heldItem1);
     }
+    ApplyRadiantCharmToEncounterMon(&gEnemyParty[0]);
 
     if (OW_SYNCHRONIZE_NATURE > GEN_3)
         CreateMonWithNature(&gEnemyParty[1], species2, level2, 32, PickWildMonNature());
@@ -156,6 +160,7 @@ void CreateScriptedDoubleWildMon(u16 species1, u8 level1, u16 item1, u16 species
         heldItem2[1] = item2 >> 8;
         SetMonData(&gEnemyParty[1], MON_DATA_HELD_ITEM, heldItem2);
     }
+    ApplyRadiantCharmToEncounterMon(&gEnemyParty[1]);
 }
 
 void ScriptSetMonMoveSlot(u8 monIndex, u16 move, u8 slot)
@@ -600,6 +605,72 @@ void Script_GetChosenMonDefensiveIVs(void)
     ConvertIntToDecimalStringN(gStringVar3, GetMonData(&gPlayerParty[gSpecialVar_0x8004], MON_DATA_SPDEF_IV), STR_CONV_MODE_LEFT_ALIGN, 3);
 }
 
+static u16 AbilitySwapper_GetSelection(struct Pokemon **monOut, u8 *targetAbilityNumOut)
+{
+    u16 slot = gSpecialVar_0x8004;
+    struct Pokemon *mon;
+    u16 species;
+    u8 abilityNum;
+    u8 targetAbilityNum;
+    u16 currentAbility;
+    u16 targetAbility;
+
+    if (slot >= PARTY_SIZE)
+        return ABILITY_SWAPPER_RESULT_CANCELLED;
+
+    mon = &gPlayerParty[slot];
+    species = GetMonData(mon, MON_DATA_SPECIES);
+    if (species == SPECIES_NONE)
+        return ABILITY_SWAPPER_RESULT_CANCELLED;
+    if (species == SPECIES_EGG || GetMonData(mon, MON_DATA_IS_EGG))
+        return ABILITY_SWAPPER_RESULT_EGG;
+
+    abilityNum = GetMonData(mon, MON_DATA_ABILITY_NUM);
+    if (abilityNum >= NUM_NORMAL_ABILITY_SLOTS)
+        return ABILITY_SWAPPER_RESULT_HIDDEN_ABILITY;
+
+    targetAbilityNum = abilityNum ^ 1;
+    currentAbility = GetSpeciesAbility(species, abilityNum);
+    targetAbility = GetSpeciesAbility(species, targetAbilityNum);
+    if (currentAbility == ABILITY_NONE || targetAbility == ABILITY_NONE || currentAbility == targetAbility)
+        return ABILITY_SWAPPER_RESULT_NO_ORDINARY_SWAP;
+
+    GetMonNickname(mon, gStringVar1);
+    StringCopy(gStringVar2, gAbilitiesInfo[currentAbility].name);
+    StringCopy(gStringVar3, gAbilitiesInfo[targetAbility].name);
+    gSpecialVar_0x8005 = targetAbilityNum;
+    gSpecialVar_0x8006 = targetAbility;
+
+    *monOut = mon;
+    *targetAbilityNumOut = targetAbilityNum;
+    return ABILITY_SWAPPER_RESULT_READY;
+}
+
+u16 AbilitySwapper_TryPreview(void)
+{
+    struct Pokemon *mon;
+    u8 targetAbilityNum;
+
+    return AbilitySwapper_GetSelection(&mon, &targetAbilityNum);
+}
+
+u16 AbilitySwapper_TrySwap(void)
+{
+    struct Pokemon *mon;
+    u8 targetAbilityNum;
+    u16 result = AbilitySwapper_GetSelection(&mon, &targetAbilityNum);
+
+    if (result != ABILITY_SWAPPER_RESULT_READY)
+        return result;
+    if (!CheckBagHasItem(ITEM_HEART_SCALE, 1))
+        return ABILITY_SWAPPER_RESULT_NO_HEART_SCALE;
+
+    Script_RequestEffects(SCREFF_V1 | SCREFF_SAVE);
+    SetMonData(mon, MON_DATA_ABILITY_NUM, &targetAbilityNum);
+    RemoveBagItem(ITEM_HEART_SCALE, 1);
+    return ABILITY_SWAPPER_RESULT_SWAPPED;
+}
+
 static bool32 ConditionCoach_ItemCuresChoice(u16 item, u16 choice)
 {
     if (item == ITEM_LUM_BERRY)
@@ -688,6 +759,8 @@ static u16 ConditionCoach_GetHint(struct Pokemon *mon, u16 choice)
         return CONDITION_COACH_HINT_CLEAR;
     if (ConditionCoach_ItemCuresChoice(item, choice))
         return CONDITION_COACH_HINT_CURING_ITEM;
+    if (ability == ABILITY_NATURAL_CURE || ability == ABILITY_SHED_SKIN || ability == ABILITY_HYDRATION)
+        return CONDITION_COACH_HINT_STATUS_MAY_SLIP;
 
     switch (choice)
     {
@@ -696,6 +769,8 @@ static u16 ConditionCoach_GetHint(struct Pokemon *mon, u16 choice)
             return CONDITION_COACH_HINT_FLARE_BOOST;
         if (ability == ABILITY_GUTS)
             return CONDITION_COACH_HINT_GUTS;
+        if (ability == ABILITY_QUICK_FEET)
+            return CONDITION_COACH_HINT_QUICK_FEET;
         break;
     case CONDITION_COACH_CHOICE_POISON:
         if (ability == ABILITY_POISON_HEAL)
@@ -704,6 +779,8 @@ static u16 ConditionCoach_GetHint(struct Pokemon *mon, u16 choice)
             return CONDITION_COACH_HINT_TOXIC_BOOST;
         if (ability == ABILITY_GUTS)
             return CONDITION_COACH_HINT_GUTS;
+        if (ability == ABILITY_QUICK_FEET)
+            return CONDITION_COACH_HINT_QUICK_FEET;
         break;
     case CONDITION_COACH_CHOICE_PARALYSIS:
         if (ability == ABILITY_QUICK_FEET)
@@ -712,6 +789,8 @@ static u16 ConditionCoach_GetHint(struct Pokemon *mon, u16 choice)
             return CONDITION_COACH_HINT_GUTS;
         break;
     case CONDITION_COACH_CHOICE_REST_WAKE:
+        if (ability == ABILITY_QUICK_FEET)
+            return CONDITION_COACH_HINT_QUICK_FEET;
         return CONDITION_COACH_HINT_REST_WAKE;
     }
 

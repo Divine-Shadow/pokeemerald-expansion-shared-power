@@ -105,6 +105,7 @@ RustboroCity_Gym_EventScript_RegisterRoxanne::
 
 RustboroCity_Gym_Text_GymGuideAdvice:
 	.string "Yo, how's it going?\p"
+	.string "This GYM's level cap is Lv. 15.\p"
 	.string "Listen, my friend!\n"
 	.string "Would you like to become the CHAMPION?\p"
 	.string "I'm no TRAINER, not me, but I can\n"

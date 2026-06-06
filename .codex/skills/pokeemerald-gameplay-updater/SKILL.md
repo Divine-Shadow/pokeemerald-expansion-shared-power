@@ -22,6 +22,16 @@ Use this skill for gameplay-content work in this repository. Keep technical impl
 5. Keep `PATCH_NOTES.md` current at the top of the file after every code, data, or docs change, using the repository's required `- Area: short description (commit <short-hash>).` format.
 6. Run the narrowest useful validation first, then broader validation when shared mechanics, generated data, or battle behavior changed. Prefer `make check` for risky battle/gameplay logic and `make` for generated data or ROM integration.
 
+## NPC and map-object placement
+
+When adding, moving, or removing checkable NPC object events in `data/maps/*/map.json`, run the bundled static accessibility checker on each touched map before final validation:
+
+```bash
+python3 .codex/skills/pokeemerald-gameplay-updater/scripts/check_npc_access.py data/maps/<MapName>/map.json
+```
+
+Use `--changed` after a batch of map edits to scan changed map JSON files. Use `--include-flagged-targets` when a new NPC is hidden behind an event flag but still needs to be reachable whenever visible. The checker uses layout `map.bin` collision, metatile counter behavior, warps, and map connections to verify that a land player can reach an adjacent or counter-facing talk tile. It reports maps with no static warp or connection seed as `UNSUPPORTED`; use emulator/manual proof for puzzle-state, surf-only, bike-only, story-gated, scripted movement, or unsupported access. Treat `--all --report-only` as an audit to find suspicious placements, not as a clean repo-wide gate.
+
 ## Spoiler policy
 
 Treat these as public unless the user explicitly says otherwise:

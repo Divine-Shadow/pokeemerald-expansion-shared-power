@@ -137,6 +137,7 @@ FortreeCity_Gym_EventScript_GymStatue::
 FortreeCity_Gym_Text_GymGuideAdvice:
 	.string "Yo, how's it going, CHAMPION-\n"
 	.string "bound {PLAYER}?\p"
+	.string "This GYM's level cap is Lv. 33.\p"
 	.string "FORTREE GYM LEADER WINONA is\n"
 	.string "a master of FLYING-type POKéMON.\p"
 	.string "Her team is great at finding tasty\n"

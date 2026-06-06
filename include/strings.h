@@ -2411,6 +2411,8 @@ extern const u8 gText_HighlanderCharmOn[];
 extern const u8 gText_HighlanderCharmOff[];
 extern const u8 gText_BoundaryCharmOn[];
 extern const u8 gText_BoundaryCharmOff[];
+extern const u8 gText_RadiantCharmOn[];
+extern const u8 gText_RadiantCharmOff[];
 
 extern const u8 gText_BasePointsResetToZero[];
 

@@ -255,6 +255,7 @@ struct SaveBlock3
     u8 dexNavChain;
     bool8 highlanderCharmActive;
     bool8 boundaryCharmActive;
+    bool8 radiantCharmActive;
     u8 boundaryCharmMapSecFlags[BOUNDARY_CHARM_MAPSEC_FLAGS_COUNT];
 }; /* max size 1624 bytes */
 

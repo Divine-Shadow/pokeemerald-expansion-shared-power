@@ -5542,7 +5542,6 @@ static const struct LevelUpMove sYanmegaLevelUpLearnset[] = {
     LEVEL_UP_MOVE(43, MOVE_SLASH),
     LEVEL_UP_MOVE(46, MOVE_SCREECH),
     LEVEL_UP_MOVE(49, MOVE_U_TURN),
-    LEVEL_UP_MOVE(57, MOVE_HURRICANE),
     LEVEL_UP_END
 };
 #endif //P_GEN_4_CROSS_EVOS
@@ -9594,7 +9593,6 @@ static const struct LevelUpMove sMetagrossLevelUpLearnset[] = {
     LEVEL_UP_MOVE(34, MOVE_PSYCHIC),
     LEVEL_UP_MOVE(42, MOVE_SCARY_FACE),
     LEVEL_UP_MOVE(52, MOVE_METEOR_MASH),
-    LEVEL_UP_MOVE(57, MOVE_SWORDS_DANCE),
     LEVEL_UP_MOVE(62, MOVE_IRON_DEFENSE),
     LEVEL_UP_MOVE(72, MOVE_AGILITY),
     LEVEL_UP_MOVE(82, MOVE_HYPER_BEAM),
@@ -22315,4 +22313,3 @@ static const struct LevelUpMove sPecharuntLevelUpLearnset[] = {
     LEVEL_UP_END
 };
 #endif //P_FAMILY_PECHARUNT
-
