@@ -1,3 +1,4 @@
+- Docs/Release: Add patch distribution format research and application tooling guidance (commit pending).
 - Gameplay/Items: Replace Route 119's duplicate Flying Gem pickup with a Prism Scale (commit pending).
 - Gameplay/Items: Rename the Boundary Charm to Extinction Charm in player-facing text (commit 83f7bb90b2).
 - Docs/Planning: Record Extinction Charm validation evidence and audit result (commit 83f7bb90b2).

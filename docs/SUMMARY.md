@@ -88,6 +88,7 @@
     - [Scope Guidelines](team_procedures/scope.md)
 - [Engineering]()
     - [Shared Power Memory Audit](engineering/shared_power_memory_audit.md)
+    - [Patch Distribution Options](engineering/patch_distribution_options.md)
  - [Design]()
    - [Agents Guide](design/AGENTS.md)
    - [Automation Reproduction Pipeline](design/automation_repro_pipeline.md)
