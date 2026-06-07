@@ -1,9 +1,9 @@
-- Docs/Planning: Record Shared Power AI Wonder Guard bad-move scoring diff hygiene (commit pending).
-- Docs/Planning: Record Shared Power AI Wonder Guard bad-move scoring validation evidence (commit pending).
-- Docs/Planning: Record Shared Power AI Wonder Guard bad-move scoring progress (commit pending).
-- Docs/Audit: Note that Shared Power AI Wonder Guard bad-move scoring handles pooled Wonder Guard (commit pending).
-- Tests/AI: Cover Shared Power AI Wonder Guard bad-move scoring with pooled Wonder Guard enabled and disabled paths (commit pending).
-- Battle/AI: Let Wonder Guard bad-move scoring see pooled Wonder Guard under Shared Power (commit pending).
+- Docs/Planning: Record Shared Power AI Wonder Guard bad-move scoring diff hygiene (commit 12be7295ed).
+- Docs/Planning: Record Shared Power AI Wonder Guard bad-move scoring validation evidence (commit 12be7295ed).
+- Docs/Planning: Record Shared Power AI Wonder Guard bad-move scoring progress (commit 12be7295ed).
+- Docs/Audit: Note that Shared Power AI Wonder Guard bad-move scoring handles pooled Wonder Guard (commit 12be7295ed).
+- Tests/AI: Cover Shared Power AI Wonder Guard bad-move scoring with pooled Wonder Guard enabled and disabled paths (commit 12be7295ed).
+- Battle/AI: Let Wonder Guard bad-move scoring see pooled Wonder Guard under Shared Power (commit 12be7295ed).
 - Docs/Planning: Record Shared Power AI Prankster Dark-target prediction diff hygiene (commit 616c660057).
 - Docs/Planning: Record Shared Power AI Prankster Dark-target prediction validation evidence (commit 616c660057).
 - Docs/Planning: Record Shared Power AI Prankster Dark-target prediction progress (commit 616c660057).
