@@ -342,6 +342,35 @@ AI_SINGLE_BATTLE_TEST("Shared Power off: partner Magic Guard does not prevent se
     }
 }
 
+AI_DOUBLE_BATTLE_TEST("Shared Power AI: pooled Magic Guard lowers Leech Seed score")
+{
+    GIVEN {
+        BATTLE_TYPE(BATTLE_TYPE_SHARED_POWER);
+        ASSUME(GetMoveEffect(MOVE_LEECH_SEED) == EFFECT_LEECH_SEED);
+        AI_FLAGS(AI_FLAG_CHECK_BAD_MOVE | AI_FLAG_CHECK_VIABILITY | AI_FLAG_OMNISCIENT);
+        PLAYER(SPECIES_WOBBUFFET) { Ability(ABILITY_TELEPATHY); }
+        PLAYER(SPECIES_CLEFAIRY) { Ability(ABILITY_MAGIC_GUARD); }
+        OPPONENT(SPECIES_WOBBUFFET) { Moves(MOVE_LEECH_SEED, MOVE_CELEBRATE); }
+        OPPONENT(SPECIES_WOBBUFFET);
+    } WHEN {
+        TURN { SCORE_EQ_VAL(opponentLeft, MOVE_LEECH_SEED, AI_SCORE_DEFAULT, target: playerLeft); }
+    }
+}
+
+AI_DOUBLE_BATTLE_TEST("Shared Power off: partner Magic Guard does not lower Leech Seed score")
+{
+    GIVEN {
+        ASSUME(GetMoveEffect(MOVE_LEECH_SEED) == EFFECT_LEECH_SEED);
+        AI_FLAGS(AI_FLAG_CHECK_BAD_MOVE | AI_FLAG_CHECK_VIABILITY | AI_FLAG_OMNISCIENT);
+        PLAYER(SPECIES_WOBBUFFET) { Ability(ABILITY_TELEPATHY); }
+        PLAYER(SPECIES_CLEFAIRY) { Ability(ABILITY_MAGIC_GUARD); }
+        OPPONENT(SPECIES_WOBBUFFET) { Moves(MOVE_LEECH_SEED, MOVE_CELEBRATE); }
+        OPPONENT(SPECIES_WOBBUFFET);
+    } WHEN {
+        TURN { SCORE_GT_VAL(opponentLeft, MOVE_LEECH_SEED, AI_SCORE_DEFAULT, target: playerLeft); }
+    }
+}
+
 AI_SINGLE_BATTLE_TEST("Shared Power AI: pooled Poison Heal prevents poison damage prediction")
 {
     GIVEN {

@@ -240,6 +240,10 @@ Shared Power battle behavior should use the correct ability view at each callsit
 - [x] (2026-06-07T17:46Z) Implemented the AI Foresight Scrappy/Mind's Eye prediction bucket and added focused Shared Power enabled/off score coverage.
 - [x] (2026-06-07T17:50Z) Ran targeted validation for the AI Foresight Scrappy/Mind's Eye prediction bucket and recorded evidence here.
 - [x] (2026-06-07T17:51Z) Ran `git diff --check` after the AI Foresight Scrappy/Mind's Eye prediction bucket; no issues reported.
+- [x] (2026-06-07T22:10Z) Selected the AI Leech Seed Magic Guard prediction bucket, scoped to target active Magic Guard while leaving Liquid Ooze Leech Seed ownership under the existing end-turn clarification queue.
+- [x] (2026-06-07T22:18Z) Implemented the AI Leech Seed Magic Guard prediction bucket and added focused Shared Power enabled/off score coverage.
+- [x] (2026-06-07T22:25Z) Ran targeted validation for the AI Leech Seed Magic Guard prediction bucket and recorded evidence here.
+- [x] (2026-06-07T22:28Z) Ran `git diff --check` after the AI Leech Seed Magic Guard prediction bucket; no issues reported.
 - [x] (2026-06-07T03:05Z) Selected the AI weather/terrain benefit prediction bucket, scoped to shareable active ability heuristics while keeping native-only form/species-style weather abilities native.
 - [x] (2026-06-07T03:12Z) Implemented the AI weather/terrain benefit prediction bucket and added focused Shared Power enabled/off helper coverage for Rain and Electric Terrain.
 - [x] (2026-06-07T03:20Z) Ran targeted validation for the AI weather/terrain benefit prediction bucket and recorded evidence here.
@@ -349,6 +353,15 @@ Shared Power battle behavior should use the correct ability view at each callsit
 
 - Observation: AI Liquid Ooze prediction has both direct-drain and Leech Seed callsites.
   Evidence: `EFFECT_ABSORB` in `AI_CheckBadMove` compares the target ability directly, while Leech Seed callsites also mention Liquid Ooze but remain tied to the audit's end-turn Leech Seed source/target clarification.
+
+- Observation: AI Leech Seed prediction shares a branch with the unresolved Liquid Ooze ownership question, but Magic Guard is already a target-owned active secondary-damage prevention policy.
+  Evidence: `src/battle_ai_main.c` `EFFECT_LEECH_SEED` breaks on target Magic Guard, and `GetBattlerSecondaryDamage` already uses active Magic Guard membership for AI residual-damage prediction.
+
+- Observation: The enabled/off Leech Seed AI scoring split is stable with exact default versus above-default assertions.
+  Evidence: `TESTS="Shared Power AI: pooled Magic Guard lowers Leech Seed score"` passed with `SCORE_EQ_VAL(... AI_SCORE_DEFAULT)`, while `TESTS="Shared Power off: partner Magic Guard does not lower Leech Seed score"` passed with `SCORE_GT_VAL(... AI_SCORE_DEFAULT)`.
+
+- Observation: The AI Leech Seed Magic Guard bucket passed the broader Shared Power AI regression filter.
+  Evidence: `docker run --rm -u "$(id -u):$(id -g)" -v "$PWD:/workspace" -v "/home/bayesartre/dev/pokeemerald-expansion-shared-power:/home/bayesartre/dev/pokeemerald-expansion-shared-power" -w /workspace pokeemerald-expansion:builder make check NO_MULTIBOOT=1 TESTS="Shared Power AI"` passed 37/37 tests.
 
 - Observation: AI Substitute/Shed Tail scoring has a native-only Infiltrator shortcut even though live Substitute bypass is already active-aware.
   Evidence: `EFFECT_SUBSTITUTE` and `EFFECT_SHED_TAIL` in `AI_CheckBadMove` compare `aiData->abilities[battlerDef] == ABILITY_INFILTRATOR`.

@@ -1,3 +1,10 @@
+- Docs/Planning: Record Shared Power AI Leech Seed Magic Guard prediction diff hygiene (commit pending).
+- Docs/Planning: Record Shared Power AI Leech Seed Magic Guard prediction validation evidence (commit pending).
+- Docs/Audit: Note that Shared Power AI Leech Seed prediction handles pooled Magic Guard (commit pending).
+- Docs/Planning: Record Shared Power AI Leech Seed Magic Guard prediction progress (commit pending).
+- Tests/AI: Cover Shared Power AI Leech Seed scoring with pooled Magic Guard enabled and disabled paths (commit pending).
+- Battle/AI: Let Leech Seed prediction see pooled Magic Guard under Shared Power (commit pending).
+- Docs/Planning: Select the Shared Power AI Leech Seed Magic Guard prediction bucket (commit pending).
 - Docs/Planning: Record Shared Power AI Foresight Scrappy/Mind's Eye prediction diff hygiene (commit 6a32b6a41e).
 - Docs/Planning: Record Shared Power AI Foresight Scrappy/Mind's Eye prediction validation evidence (commit 6a32b6a41e).
 - Docs/Planning: Record Shared Power AI Foresight Scrappy/Mind's Eye prediction progress (commit 6a32b6a41e).
