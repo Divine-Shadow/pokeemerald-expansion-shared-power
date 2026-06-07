@@ -388,13 +388,14 @@ Shared Power battle behavior should use the correct ability view at each callsit
 - [x] (2026-06-07T20:12Z) Implemented the AI Prankster Dark-target prediction bucket and added focused Shared Power enabled/off score coverage.
 - [x] (2026-06-07T20:25Z) Ran targeted validation for the AI Prankster Dark-target prediction bucket and recorded evidence here.
 - [x] (2026-06-07T20:28Z) Ran `git diff --check` after the AI Prankster Dark-target prediction bucket; no issues reported.
-- [ ] Continue through the remaining migrate rows, one coherent bucket at a time.
-- [ ] Perform a final audit pass that marks each migrate row implemented or explicitly deferred with rationale.
+- [x] (2026-06-07T08:06Z) Reconciled stale audit language after the AI tail classification so remaining unresolved rows are explicitly clarify-only policy queues, not open migrate rows.
+- [x] (2026-06-07T08:20Z) Ran the broad Shared Power validation filter and recorded the final sweep evidence.
+- [x] (2026-06-07T08:25Z) Performed a final completion audit against the objective before marking the goal complete.
 
 ## Surprises & Discoveries
 
-- Observation: The priority tranche was complete, but the broader sweep remains open.
-  Evidence: `docs/design/shared_power/ability_usage_audit.md` still marks multiple rows as `Migrate`, `Migrate contract`, or `Clarify, then migrate`.
+- Observation: The priority tranche was complete when this umbrella plan began, and the broader sweep has since migrated or explicitly deferred the audit's migrate rows.
+  Evidence: The current audit no longer has open `Migrate`, `Migrate contract`, or `Clarify, then migrate` decision rows; remaining unresolved rows are documented as clarify-only policy questions.
 
 - Observation: `IsMovePowderBlocked` is a small next bucket because the audit names the exact native-only Overcoat check and attribution issue.
   Evidence: The row says `IsMovePowderBlocked` accepts `battlerDef` but records Overcoat against `gBattlerTarget`; the current code also checks `GetBattlerAbility(battlerDef) == ABILITY_OVERCOAT`.
@@ -524,6 +525,9 @@ Shared Power battle behavior should use the correct ability view at each callsit
 
 - Observation: After the Anger Point bucket, the remaining direct cached-ability AI comparisons are not safe migration targets under the audit policy.
   Evidence: The remaining scan finds Shadow Tag/Run Away trapping, Opportunist, Leech Seed Liquid Ooze, Receiver, Truant, Natural Cure, and Stance Change. Live code keeps Opportunist, Natural Cure, Truant move-cancel, Receiver, and Stance Change native-slot or species/form-gated, while trapping and Leech Seed Liquid Ooze already have clarify/defer policy questions.
+
+- Observation: The audit still had stale wording that looked like open migration work after the relevant buckets were completed.
+  Evidence: `GetTotalAccuracyInternal` now uses active Victory Star membership for live accuracy paths, `SetMoveEffect` has implemented buckets for Flame Burst Magic Guard, flinch Inner Focus, and standard confusion/Own Tempo, and the AI known-ability row now has a native/deferred tail table. Remaining unresolved rows are policy questions around damage context, status/contact helper contracts, target-state globals, Neutralizing Gas, order effects, dynamic move type, trapping, preview, and AI damage usability.
 
 - Observation: AI Hone Claws scoring has the same narrow native Contrary branch shape as the Stockpile and Belly Drum buckets.
   Evidence: `EFFECT_ATTACK_ACCURACY_UP` in `src/battle_ai_main.c` checks native `aiData->abilities[battlerAtk] != ABILITY_CONTRARY`, while live stat-change behavior routes Contrary through active membership.
@@ -861,6 +865,10 @@ Shared Power battle behavior should use the correct ability view at each callsit
 
 - Decision: Treat the remaining direct cached-ability AI reads as a documented native/deferred tail.
   Rationale: Each remaining read maps either to an already clarify-deferred row, a live native-only behavior, or a species/form-gated mechanic. Migrating them now would violate the audit's authority constraints by changing trapping policy, Leech Seed Liquid Ooze ownership, AI/live behavior parity for Opportunist/Natural Cure/Truant, native mutation behavior for Receiver, or Stance Change form-gate semantics.
+  Date/Author: 2026-06-07 / Codex
+
+- Decision: Convert remaining ambiguous audit wording into a separate clarify-only queue before final validation.
+  Rationale: The objective allows clarify-only rows to remain deferred when changing them would require broader policy decisions, but they must be documented separately from completed migration work. This keeps completed Shared Power behavior distinct from future design questions.
   Date/Author: 2026-06-07 / Codex
 
 - Decision: Defer the Run Away/trapping row instead of migrating Shadow Tag, Arena Trap, and Magnet Pull trapping in this sweep pass.
@@ -1981,3 +1989,7 @@ Validation (2026-06-07): `git diff --check` passed with no output after the AI p
 Validation (2026-06-07): The remaining direct cached-ability AI scan after the Anger Point bucket reports only classified native/deferred cases: Shadow Tag/Run Away trapping, Opportunist, Leech Seed Liquid Ooze, Receiver, Truant, Natural Cure, and Stance Change.
 
 Validation (2026-06-07): `git diff --check` passed with no output after the AI native/deferred tail classification docs update. No `make check` filter was run for this docs-only classification bucket because it intentionally changes no battle code or tests.
+
+Validation (2026-06-07): `docker run --rm -u "$(id -u):$(id -g)" -v "$PWD:/workspace" -v "/home/bayesartre/dev/pokeemerald-expansion-shared-power:/home/bayesartre/dev/pokeemerald-expansion-shared-power" -w /workspace pokeemerald-expansion:builder make check NO_MULTIBOOT=1 TESTS="Shared Power"` passed 286/286 after the final audit reconciliation.
+
+Validation (2026-06-07): Final completion audit found no remaining open `Migrate`, `Migrate contract`, or `Clarify, then migrate` decision rows in `docs/design/shared_power/ability_usage_audit.md`; unresolved topics are documented in the Remaining Clarify-Only Queue and AI Native / Deferred Tail tables.

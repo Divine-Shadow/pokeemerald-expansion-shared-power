@@ -1,3 +1,6 @@
+- Docs/Planning: Record final Shared Power broad validation and completion audit evidence (commit pending).
+- Docs/Audit: Separate remaining Shared Power clarify-only policy questions from completed migration work (commit pending).
+- Docs/Planning: Record final Shared Power sweep audit reconciliation before broad validation (commit pending).
 - Docs/Planning: Record Shared Power AI remaining-tail diff hygiene (commit 080ebb4f11).
 - Docs/Audit: Classify the remaining direct cached-ability AI reads as native-only or clarify-deferred tail work (commit 080ebb4f11).
 - Docs/Planning: Record the Shared Power AI remaining-tail classification in the sweep ExecPlan (commit 080ebb4f11).
