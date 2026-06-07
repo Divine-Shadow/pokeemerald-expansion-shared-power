@@ -196,6 +196,10 @@ Shared Power battle behavior should use the correct ability view at each callsit
 - [x] (2026-06-07T02:45Z) Implemented the AI Roar Soundproof prediction bucket and added focused Shared Power enabled/off score coverage.
 - [x] (2026-06-07T02:45Z) Ran targeted validation for the AI Roar Soundproof prediction bucket and recorded evidence here.
 - [x] (2026-06-07T02:45Z) Ran `git diff --check` after the AI Roar Soundproof prediction bucket; no issues reported.
+- [x] (2026-06-07T12:20Z) Selected the AI Wonder Guard bad-move scoring bucket for active target membership.
+- [x] (2026-06-07T12:25Z) Implemented the AI Wonder Guard bad-move scoring bucket and added focused Shared Power enabled/off score coverage.
+- [x] (2026-06-07T12:40Z) Ran targeted validation for the AI Wonder Guard bad-move scoring bucket and recorded evidence here.
+- [x] (2026-06-07T12:42Z) Ran `git diff --check` after the AI Wonder Guard bad-move scoring bucket; no issues reported.
 - [x] (2026-06-07T03:05Z) Selected the AI weather/terrain benefit prediction bucket, scoped to shareable active ability heuristics while keeping native-only form/species-style weather abilities native.
 - [x] (2026-06-07T03:12Z) Implemented the AI weather/terrain benefit prediction bucket and added focused Shared Power enabled/off helper coverage for Rain and Electric Terrain.
 - [x] (2026-06-07T03:20Z) Ran targeted validation for the AI weather/terrain benefit prediction bucket and recorded evidence here.
@@ -1436,3 +1440,9 @@ Validation (2026-06-07): `docker run --rm -u "$(id -u):$(id -g)" -v "$PWD:/works
 Validation (2026-06-07): `docker run --rm -u "$(id -u):$(id -g)" -v "$PWD:/workspace" -v "/home/bayesartre/dev/pokeemerald-expansion-shared-power:/home/bayesartre/dev/pokeemerald-expansion-shared-power" -w /workspace pokeemerald-expansion:builder make check NO_MULTIBOOT=1 TESTS="Shared Power off: partner Prankster does not lower status moves into Dark targets"` passed 1/1.
 
 Validation (2026-06-07): `git diff --check` passed with no output after the AI Prankster Dark-target prediction bucket.
+
+Validation (2026-06-07): `docker run --rm -u "$(id -u):$(id -g)" -v "$PWD:/workspace" -v "/home/bayesartre/dev/pokeemerald-expansion-shared-power:/home/bayesartre/dev/pokeemerald-expansion-shared-power" -w /workspace pokeemerald-expansion:builder make check NO_MULTIBOOT=1 TESTS="Shared Power AI"` initially had one assumption failure because Seismic Toss is `EFFECT_LEVEL_DAMAGE`, not `EFFECT_FIXED_HP_DAMAGE`, then two invalid double-battle score fixtures because the score harness treated the default-score argument as a move in that target shape; after switching the coverage to a single-battle switch-into-pooled-Wonder-Guard fixture using Dragon Rage, it passed 26/26.
+
+Validation (2026-06-07): `docker run --rm -u "$(id -u):$(id -g)" -v "$PWD:/workspace" -v "/home/bayesartre/dev/pokeemerald-expansion-shared-power:/home/bayesartre/dev/pokeemerald-expansion-shared-power" -w /workspace pokeemerald-expansion:builder make check NO_MULTIBOOT=1 TESTS="Shared Power off: partner Wonder Guard does not lower fixed damage score"` passed 1/1.
+
+Validation (2026-06-07): `git diff --check` passed with no output after the AI Wonder Guard bad-move scoring bucket.

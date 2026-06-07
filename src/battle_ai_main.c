@@ -1675,7 +1675,7 @@ static s32 AI_CheckBadMove(u32 battlerAtk, u32 battlerDef, u32 move, s32 score)
         case EFFECT_FIXED_HP_DAMAGE:
         case EFFECT_FOCUS_PUNCH:
             // AI_CBM_HighRiskForDamage
-            if (aiData->abilities[battlerDef] == ABILITY_WONDER_GUARD && effectiveness < UQ_4_12(2.0))
+            if (AI_HasActiveAbility(battlerDef, ABILITY_WONDER_GUARD) && effectiveness < UQ_4_12(2.0))
                 ADJUST_SCORE(-10);
             if (HasDamagingMove(battlerDef) && !(gBattleMons[battlerAtk].volatiles.substitute
              || IsBattlerIncapacitated(battlerDef, abilityDef)
@@ -5274,7 +5274,7 @@ case EFFECT_GUARD_SPLIT:
             ADJUST_SCORE(DECENT_EFFECT); // Get some super effective moves
         break;
     case EFFECT_THIRD_TYPE:
-        if (aiData->abilities[battlerDef] == ABILITY_WONDER_GUARD)
+        if (AI_HasActiveAbility(battlerDef, ABILITY_WONDER_GUARD))
             ADJUST_SCORE(DECENT_EFFECT); // Give target more weaknesses
         break;
     case EFFECT_ELECTRIFY:
@@ -6341,7 +6341,7 @@ static s32 AI_PredictSwitch(u32 battlerAtk, u32 battlerDef, u32 move, s32 score)
         ADJUST_SCORE(DECENT_EFFECT);
         if (gAiThinkingStruct->aiFlags[battlerAtk] & AI_FLAG_CHECK_BAD_MOVE)
         {
-            if (aiData->abilities[battlerDef] == ABILITY_WONDER_GUARD && effectiveness < UQ_4_12(2.0))
+            if (AI_HasActiveAbility(battlerDef, ABILITY_WONDER_GUARD) && effectiveness < UQ_4_12(2.0))
                 ADJUST_SCORE(10);
             if (HasDamagingMove(battlerDef) && !(gBattleMons[battlerAtk].volatiles.substitute
              || IsBattlerIncapacitated(battlerDef, aiData->abilities[battlerDef])

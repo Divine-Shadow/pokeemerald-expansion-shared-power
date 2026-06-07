@@ -253,6 +253,35 @@ AI_SINGLE_BATTLE_TEST("Shared Power off: AI does not switch out for partner Wond
     }
 }
 
+AI_SINGLE_BATTLE_TEST("Shared Power AI: scores fixed damage lower into pooled Wonder Guard")
+{
+    GIVEN {
+        BATTLE_TYPE(BATTLE_TYPE_SHARED_POWER);
+        ASSUME(GetMoveEffect(MOVE_DRAGON_RAGE) == EFFECT_FIXED_HP_DAMAGE);
+        AI_FLAGS(AI_FLAG_CHECK_BAD_MOVE);
+        PLAYER(SPECIES_ZIGZAGOON) { Ability(ABILITY_WONDER_GUARD); Moves(MOVE_SPLASH, MOVE_NONE, MOVE_NONE, MOVE_NONE); }
+        PLAYER(SPECIES_WOBBUFFET) { Ability(ABILITY_TELEPATHY); Moves(MOVE_SPLASH, MOVE_NONE, MOVE_NONE, MOVE_NONE); }
+        OPPONENT(SPECIES_WOBBUFFET) { Moves(MOVE_DRAGON_RAGE, MOVE_CELEBRATE, MOVE_NONE, MOVE_NONE); }
+    } WHEN {
+        TURN { SWITCH(player, 1); EXPECT_MOVE(opponent, MOVE_CELEBRATE); }
+        TURN { MOVE(player, MOVE_SPLASH); SCORE_LT_VAL(opponent, MOVE_DRAGON_RAGE, AI_SCORE_DEFAULT); }
+    }
+}
+
+AI_SINGLE_BATTLE_TEST("Shared Power off: partner Wonder Guard does not lower fixed damage score")
+{
+    GIVEN {
+        ASSUME(GetMoveEffect(MOVE_DRAGON_RAGE) == EFFECT_FIXED_HP_DAMAGE);
+        AI_FLAGS(AI_FLAG_CHECK_BAD_MOVE);
+        PLAYER(SPECIES_ZIGZAGOON) { Ability(ABILITY_WONDER_GUARD); Moves(MOVE_SPLASH, MOVE_NONE, MOVE_NONE, MOVE_NONE); }
+        PLAYER(SPECIES_WOBBUFFET) { Ability(ABILITY_TELEPATHY); Moves(MOVE_SPLASH, MOVE_NONE, MOVE_NONE, MOVE_NONE); }
+        OPPONENT(SPECIES_WOBBUFFET) { Moves(MOVE_DRAGON_RAGE, MOVE_CELEBRATE, MOVE_NONE, MOVE_NONE); }
+    } WHEN {
+        TURN { SWITCH(player, 1); EXPECT_MOVE(opponent, MOVE_DRAGON_RAGE); }
+        TURN { MOVE(player, MOVE_SPLASH); SCORE_EQ_VAL(opponent, MOVE_DRAGON_RAGE, AI_SCORE_DEFAULT); }
+    }
+}
+
 AI_SINGLE_BATTLE_TEST("Shared Power AI: pooled Magic Guard prevents secondary damage prediction")
 {
     GIVEN {
