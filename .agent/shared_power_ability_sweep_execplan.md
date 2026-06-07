@@ -228,6 +228,10 @@ Shared Power battle behavior should use the correct ability view at each callsit
 - [x] (2026-06-07T16:38Z) Implemented the AI Rest fast-recovery prediction bucket and added focused Shared Power enabled/off coverage.
 - [x] (2026-06-07T16:45Z) Ran targeted validation for the AI Rest fast-recovery prediction bucket and recorded evidence here.
 - [x] (2026-06-07T16:46Z) Ran `git diff --check` after the AI Rest fast-recovery prediction bucket; no issues reported.
+- [x] (2026-06-07T16:55Z) Selected the AI crit-setup prediction bucket for Focus Energy and Laser Focus with active Super Luck and Sniper membership.
+- [x] (2026-06-07T17:02Z) Implemented the AI crit-setup prediction bucket and added focused Shared Power enabled/off coverage.
+- [x] (2026-06-07T17:08Z) Ran targeted validation for the AI crit-setup prediction bucket and recorded evidence here.
+- [x] (2026-06-07T17:09Z) Ran `git diff --check` after the AI crit-setup prediction bucket; no issues reported.
 - [x] (2026-06-07T03:05Z) Selected the AI weather/terrain benefit prediction bucket, scoped to shareable active ability heuristics while keeping native-only form/species-style weather abilities native.
 - [x] (2026-06-07T03:12Z) Implemented the AI weather/terrain benefit prediction bucket and added focused Shared Power enabled/off helper coverage for Rain and Electric Terrain.
 - [x] (2026-06-07T03:20Z) Ran targeted validation for the AI weather/terrain benefit prediction bucket and recorded evidence here.
@@ -457,6 +461,9 @@ Shared Power battle behavior should use the correct ability view at each callsit
 
 - Observation: AI Rest scoring still treats fast recovery as native-only for Shed Skin, Early Bird, and Hydration.
   Evidence: `src/battle_ai_main.c` adds an extra Rest recovery score for cure items, Sleep Talk/Snore, or native `ABILITY_SHED_SKIN`, `ABILITY_EARLY_BIRD`, and rain `ABILITY_HYDRATION`. Live end-turn Shed Skin/Hydration and sleep decrement Early Bird are already active-aware, so this AI bucket can migrate only the matching Rest prediction checks without changing sleep-clause eligibility or weather/item policy.
+
+- Observation: AI Focus Energy and Laser Focus setup scoring still treats crit payoff abilities as native-only.
+  Evidence: `src/battle_ai_main.c` adds a crit-setup score for native `ABILITY_SUPER_LUCK` or `ABILITY_SNIPER`, even though AI crit damage prediction already uses `AI_HasActiveAbility` for Super Luck and live Sniper damage is a passive modifier. This bucket can migrate only the attacker-owned setup heuristic without changing guaranteed-crit prevention or damage-context policy.
 
 ## Decision Log
 
@@ -1534,3 +1541,11 @@ Validation (2026-06-07): `docker run --rm -u "$(id -u):$(id -g)" -v "$PWD:/works
 Validation (2026-06-07): `docker run --rm -u "$(id -u):$(id -g)" -v "$PWD:/workspace" -v "/home/bayesartre/dev/pokeemerald-expansion-shared-power:/home/bayesartre/dev/pokeemerald-expansion-shared-power" -w /workspace pokeemerald-expansion:builder make check NO_MULTIBOOT=1 TESTS="Shared Power AI"` passed 33/33 after adding the AI Rest fast-recovery prediction bucket.
 
 Validation (2026-06-07): `git diff --check` passed with no output after the AI Rest fast-recovery prediction bucket.
+
+Validation (2026-06-07): `docker run --rm -u "$(id -u):$(id -g)" -v "$PWD:/workspace" -v "/home/bayesartre/dev/pokeemerald-expansion-shared-power:/home/bayesartre/dev/pokeemerald-expansion-shared-power" -w /workspace pokeemerald-expansion:builder make check NO_MULTIBOOT=1 TESTS="Shared Power AI: pooled Super Luck raises Focus Energy score"` initially exposed the AI doubles score harness's self-target limitation, then passed 1/1 after switching the enabled proof to actual move choice: pooled Super Luck makes the Focus Energy user choose Focus Energy.
+
+Validation (2026-06-07): `docker run --rm -u "$(id -u):$(id -g)" -v "$PWD:/workspace" -v "/home/bayesartre/dev/pokeemerald-expansion-shared-power:/home/bayesartre/dev/pokeemerald-expansion-shared-power" -w /workspace pokeemerald-expansion:builder make check NO_MULTIBOOT=1 TESTS="Shared Power off: partner Super Luck is not active for Focus Energy prediction"` passed 1/1.
+
+Validation (2026-06-07): `docker run --rm -u "$(id -u):$(id -g)" -v "$PWD:/workspace" -v "/home/bayesartre/dev/pokeemerald-expansion-shared-power:/home/bayesartre/dev/pokeemerald-expansion-shared-power" -w /workspace pokeemerald-expansion:builder make check NO_MULTIBOOT=1 TESTS="Shared Power AI"` passed 34/34 after adding the AI crit-setup prediction bucket.
+
+Validation (2026-06-07): `git diff --check` passed with no output after the AI crit-setup prediction bucket.

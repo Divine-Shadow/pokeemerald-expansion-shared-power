@@ -725,6 +725,37 @@ AI_DOUBLE_BATTLE_TEST("Shared Power off: partner Shed Skin is not active for Res
     }
 }
 
+AI_DOUBLE_BATTLE_TEST("Shared Power AI: pooled Super Luck raises Focus Energy score")
+{
+    GIVEN {
+        BATTLE_TYPE(BATTLE_TYPE_SHARED_POWER);
+        ASSUME(GetMoveEffect(MOVE_FOCUS_ENERGY) == EFFECT_FOCUS_ENERGY);
+        AI_FLAGS(AI_FLAG_CHECK_VIABILITY | AI_FLAG_OMNISCIENT);
+        PLAYER(SPECIES_WOBBUFFET);
+        PLAYER(SPECIES_WOBBUFFET);
+        OPPONENT(SPECIES_ABSOL) { Ability(ABILITY_SUPER_LUCK); Moves(MOVE_CELEBRATE); }
+        OPPONENT(SPECIES_WOBBUFFET) { Ability(ABILITY_TELEPATHY); Moves(MOVE_FOCUS_ENERGY, MOVE_CELEBRATE); }
+    } WHEN {
+        TURN { EXPECT_MOVE(opponentLeft, MOVE_CELEBRATE); EXPECT_MOVE(opponentRight, MOVE_FOCUS_ENERGY); }
+    }
+}
+
+AI_DOUBLE_BATTLE_TEST("Shared Power off: partner Super Luck is not active for Focus Energy prediction")
+{
+    GIVEN {
+        ASSUME(GetMoveEffect(MOVE_FOCUS_ENERGY) == EFFECT_FOCUS_ENERGY);
+        AI_FLAGS(AI_FLAG_CHECK_VIABILITY | AI_FLAG_OMNISCIENT);
+        PLAYER(SPECIES_WOBBUFFET);
+        PLAYER(SPECIES_WOBBUFFET);
+        OPPONENT(SPECIES_ABSOL) { Ability(ABILITY_SUPER_LUCK); Moves(MOVE_CELEBRATE); }
+        OPPONENT(SPECIES_WOBBUFFET) { Ability(ABILITY_TELEPATHY); Moves(MOVE_FOCUS_ENERGY, MOVE_CELEBRATE); }
+    } WHEN {
+        TURN { EXPECT_MOVE(opponentLeft, MOVE_CELEBRATE); }
+    } THEN {
+        EXPECT(!AI_HasActiveAbility(B_POSITION_OPPONENT_RIGHT, ABILITY_SUPER_LUCK));
+    }
+}
+
 AI_DOUBLE_BATTLE_TEST("Shared Power AI: scores Substitute lower against pooled Infiltrator")
 {
     GIVEN {

@@ -1,3 +1,10 @@
+- Docs/Planning: Record Shared Power AI crit-setup prediction diff hygiene (commit pending).
+- Docs/Planning: Record Shared Power AI crit-setup prediction validation evidence (commit pending).
+- Docs/Planning: Record Shared Power AI crit-setup prediction progress (commit pending).
+- Docs/Audit: Note that Shared Power AI crit-setup prediction handles pooled Super Luck and Sniper (commit pending).
+- Tests/AI: Cover Shared Power AI Focus Energy scoring with pooled Super Luck and disabled membership paths (commit pending).
+- Battle/AI: Let Focus Energy and Laser Focus setup prediction see pooled Super Luck and Sniper under Shared Power (commit pending).
+- Docs/Planning: Select the Shared Power AI crit-setup prediction bucket (commit pending).
 - Docs/Planning: Record Shared Power AI Rest fast-recovery prediction diff hygiene (commit cbc629ad66).
 - Docs/Planning: Record Shared Power AI Rest fast-recovery prediction validation evidence (commit cbc629ad66).
 - Docs/Planning: Record Shared Power AI Rest fast-recovery prediction progress (commit cbc629ad66).
