@@ -1,11 +1,11 @@
-- Docs/Planning: Record Shared Power AI target additional-effect Contrary prediction diff hygiene (commit pending).
-- Docs/Planning: Record Shared Power AI target additional-effect Contrary prediction broad validation evidence (commit pending).
-- Docs/Planning: Record Shared Power AI target additional-effect Contrary prediction validation evidence (commit pending).
-- Docs/Planning: Record Shared Power AI target additional-effect Contrary prediction progress (commit pending).
-- Docs/Audit: Note that Shared Power AI target additional-effect scoring handles pooled Contrary (commit pending).
-- Tests/AI: Cover Shared Power AI target stat-drop additional-effect scoring with pooled Contrary enabled and disabled paths (commit pending).
-- Battle/AI: Let target additional-effect scoring see pooled Contrary under Shared Power (commit pending).
-- Docs/Planning: Select the Shared Power AI target additional-effect Contrary prediction bucket (commit pending).
+- Docs/Planning: Record Shared Power AI target additional-effect Contrary prediction diff hygiene (commit 89abd1702d).
+- Docs/Planning: Record Shared Power AI target additional-effect Contrary prediction broad validation evidence (commit 89abd1702d).
+- Docs/Planning: Record Shared Power AI target additional-effect Contrary prediction validation evidence (commit 89abd1702d).
+- Docs/Planning: Record Shared Power AI target additional-effect Contrary prediction progress (commit 89abd1702d).
+- Docs/Audit: Note that Shared Power AI target additional-effect scoring handles pooled Contrary (commit 89abd1702d).
+- Tests/AI: Cover Shared Power AI target stat-drop additional-effect scoring with pooled Contrary enabled and disabled paths (commit 89abd1702d).
+- Battle/AI: Let target additional-effect scoring see pooled Contrary under Shared Power (commit 89abd1702d).
+- Docs/Planning: Select the Shared Power AI target additional-effect Contrary prediction bucket (commit 89abd1702d).
 - Docs/Planning: Record Shared Power AI self additional-effect Contrary prediction diff hygiene (commit ed90e42cd9).
 - Docs/Planning: Record Shared Power AI self additional-effect Contrary prediction broad validation evidence (commit ed90e42cd9).
 - Docs/Audit: Note that Shared Power AI self additional-effect scoring handles pooled Contrary (commit ed90e42cd9).
