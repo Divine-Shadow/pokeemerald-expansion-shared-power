@@ -1,3 +1,10 @@
+- Docs/Planning: Record Shared Power AI crash-recoil Magic Guard prediction diff hygiene (commit pending).
+- Docs/Planning: Record Shared Power AI crash-recoil Magic Guard prediction validation evidence (commit pending).
+- Docs/Planning: Record Shared Power AI crash-recoil Magic Guard prediction progress (commit pending).
+- Docs/Audit: Note that Shared Power AI crash-recoil prediction handles pooled Magic Guard (commit pending).
+- Tests/AI: Cover Shared Power AI low-accuracy crash-recoil scoring with pooled Magic Guard enabled and disabled paths (commit pending).
+- Battle/AI: Let low-accuracy crash-recoil prediction see pooled Magic Guard under Shared Power (commit pending).
+- Docs/Planning: Select the Shared Power AI crash-recoil Magic Guard prediction bucket (commit pending).
 - Docs/Planning: Record Shared Power AI crit-setup prediction diff hygiene (commit 4f36c9fa7b).
 - Docs/Planning: Record Shared Power AI crit-setup prediction validation evidence (commit 4f36c9fa7b).
 - Docs/Planning: Record Shared Power AI crit-setup prediction progress (commit 4f36c9fa7b).

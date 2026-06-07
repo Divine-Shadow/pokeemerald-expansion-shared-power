@@ -232,6 +232,10 @@ Shared Power battle behavior should use the correct ability view at each callsit
 - [x] (2026-06-07T17:02Z) Implemented the AI crit-setup prediction bucket and added focused Shared Power enabled/off coverage.
 - [x] (2026-06-07T17:08Z) Ran targeted validation for the AI crit-setup prediction bucket and recorded evidence here.
 - [x] (2026-06-07T17:09Z) Ran `git diff --check` after the AI crit-setup prediction bucket; no issues reported.
+- [x] (2026-06-07T17:18Z) Selected the AI crash-recoil Magic Guard prediction bucket for low-accuracy `EFFECT_RECOIL_IF_MISS` moves.
+- [x] (2026-06-07T17:25Z) Implemented the AI crash-recoil Magic Guard prediction bucket and added focused Shared Power enabled/off score coverage.
+- [x] (2026-06-07T17:31Z) Ran targeted validation for the AI crash-recoil Magic Guard prediction bucket and recorded evidence here.
+- [x] (2026-06-07T17:32Z) Ran `git diff --check` after the AI crash-recoil Magic Guard prediction bucket; no issues reported.
 - [x] (2026-06-07T03:05Z) Selected the AI weather/terrain benefit prediction bucket, scoped to shareable active ability heuristics while keeping native-only form/species-style weather abilities native.
 - [x] (2026-06-07T03:12Z) Implemented the AI weather/terrain benefit prediction bucket and added focused Shared Power enabled/off helper coverage for Rain and Electric Terrain.
 - [x] (2026-06-07T03:20Z) Ran targeted validation for the AI weather/terrain benefit prediction bucket and recorded evidence here.
@@ -464,6 +468,9 @@ Shared Power battle behavior should use the correct ability view at each callsit
 
 - Observation: AI Focus Energy and Laser Focus setup scoring still treats crit payoff abilities as native-only.
   Evidence: `src/battle_ai_main.c` adds a crit-setup score for native `ABILITY_SUPER_LUCK` or `ABILITY_SNIPER`, even though AI crit damage prediction already uses `AI_HasActiveAbility` for Super Luck and live Sniper damage is a passive modifier. This bucket can migrate only the attacker-owned setup heuristic without changing guaranteed-crit prevention or damage-context policy.
+
+- Observation: AI crash-recoil prediction still penalizes low-accuracy miss-recoil moves when Magic Guard is pooled onto the attacker.
+  Evidence: `src/battle_ai_main.c` checks `aiData->abilities[battlerAtk] != ABILITY_MAGIC_GUARD` before applying the low-accuracy `EFFECT_RECOIL_IF_MISS` score penalty. Live crash recoil is user-side indirect damage, and Magic Guard has already migrated across nearby recoil/item-damage paths, so this bucket can migrate the matching attacker-owned prediction check.
 
 ## Decision Log
 
@@ -1549,3 +1556,11 @@ Validation (2026-06-07): `docker run --rm -u "$(id -u):$(id -g)" -v "$PWD:/works
 Validation (2026-06-07): `docker run --rm -u "$(id -u):$(id -g)" -v "$PWD:/workspace" -v "/home/bayesartre/dev/pokeemerald-expansion-shared-power:/home/bayesartre/dev/pokeemerald-expansion-shared-power" -w /workspace pokeemerald-expansion:builder make check NO_MULTIBOOT=1 TESTS="Shared Power AI"` passed 34/34 after adding the AI crit-setup prediction bucket.
 
 Validation (2026-06-07): `git diff --check` passed with no output after the AI crit-setup prediction bucket.
+
+Validation (2026-06-07): `docker run --rm -u "$(id -u):$(id -g)" -v "$PWD:/workspace" -v "/home/bayesartre/dev/pokeemerald-expansion-shared-power:/home/bayesartre/dev/pokeemerald-expansion-shared-power" -w /workspace pokeemerald-expansion:builder make check NO_MULTIBOOT=1 TESTS="Shared Power AI: pooled Magic Guard avoids low-accuracy crash-recoil penalty"` initially needed explicit Celebrate moves in the fixed test movesets, then passed 1/1 with calibrated unpenalized Axe Kick score 101.
+
+Validation (2026-06-07): `docker run --rm -u "$(id -u):$(id -g)" -v "$PWD:/workspace" -v "/home/bayesartre/dev/pokeemerald-expansion-shared-power:/home/bayesartre/dev/pokeemerald-expansion-shared-power" -w /workspace pokeemerald-expansion:builder make check NO_MULTIBOOT=1 TESTS="Shared Power off: partner Magic Guard does not avoid low-accuracy crash-recoil penalty"` passed 1/1 with the disabled-path penalized Axe Kick score 95.
+
+Validation (2026-06-07): `docker run --rm -u "$(id -u):$(id -g)" -v "$PWD:/workspace" -v "/home/bayesartre/dev/pokeemerald-expansion-shared-power:/home/bayesartre/dev/pokeemerald-expansion-shared-power" -w /workspace pokeemerald-expansion:builder make check NO_MULTIBOOT=1 TESTS="Shared Power AI"` passed 35/35 after adding the AI crash-recoil Magic Guard prediction bucket.
+
+Validation (2026-06-07): `git diff --check` passed with no output after the AI crash-recoil Magic Guard prediction bucket.
