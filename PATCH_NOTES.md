@@ -1,3 +1,10 @@
+- Docs/Planning: Record Shared Power AI Belly Drum Contrary prediction diff hygiene (commit pending).
+- Docs/Planning: Record Shared Power AI Belly Drum Contrary prediction validation evidence (commit pending).
+- Docs/Audit: Note that Shared Power AI Belly Drum prediction handles pooled Contrary (commit pending).
+- Docs/Planning: Record Shared Power AI Belly Drum Contrary prediction progress (commit pending).
+- Tests/AI: Cover Shared Power AI Belly Drum scoring with pooled Contrary enabled and disabled paths (commit pending).
+- Battle/AI: Let Belly Drum prediction see pooled Contrary under Shared Power (commit pending).
+- Docs/Planning: Select the Shared Power AI Belly Drum Contrary prediction bucket (commit pending).
 - Docs/Planning: Record Shared Power AI Stockpile Contrary prediction diff hygiene (commit fe69226a8f).
 - Docs/Planning: Record Shared Power AI Stockpile Contrary prediction validation evidence (commit fe69226a8f).
 - Docs/Audit: Note that Shared Power AI Stockpile prediction handles pooled Contrary (commit fe69226a8f).

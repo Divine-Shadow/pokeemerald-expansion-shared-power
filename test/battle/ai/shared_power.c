@@ -793,6 +793,35 @@ AI_DOUBLE_BATTLE_TEST("Shared Power off: partner Contrary does not lower Stockpi
     }
 }
 
+AI_DOUBLE_BATTLE_TEST("Shared Power AI: pooled Contrary lowers Belly Drum score")
+{
+    GIVEN {
+        BATTLE_TYPE(BATTLE_TYPE_SHARED_POWER);
+        ASSUME(GetMoveEffect(MOVE_BELLY_DRUM) == EFFECT_BELLY_DRUM);
+        AI_FLAGS(AI_FLAG_CHECK_BAD_MOVE | AI_FLAG_CHECK_VIABILITY | AI_FLAG_OMNISCIENT);
+        PLAYER(SPECIES_WOBBUFFET) { Moves(MOVE_CELEBRATE); }
+        PLAYER(SPECIES_WOBBUFFET);
+        OPPONENT(SPECIES_WOBBUFFET) { Ability(ABILITY_TELEPATHY); HP(100); MaxHP(100); Moves(MOVE_BELLY_DRUM, MOVE_SCRATCH, MOVE_CELEBRATE); }
+        OPPONENT(SPECIES_SHUCKLE) { Ability(ABILITY_CONTRARY); Moves(MOVE_CELEBRATE); }
+    } WHEN {
+        TURN { SCORE_EQ_VAL(opponentLeft, MOVE_BELLY_DRUM, AI_SCORE_DEFAULT, target: playerLeft); }
+    }
+}
+
+AI_DOUBLE_BATTLE_TEST("Shared Power off: partner Contrary does not lower Belly Drum score")
+{
+    GIVEN {
+        ASSUME(GetMoveEffect(MOVE_BELLY_DRUM) == EFFECT_BELLY_DRUM);
+        AI_FLAGS(AI_FLAG_CHECK_BAD_MOVE | AI_FLAG_CHECK_VIABILITY | AI_FLAG_OMNISCIENT);
+        PLAYER(SPECIES_WOBBUFFET) { Moves(MOVE_CELEBRATE); }
+        PLAYER(SPECIES_WOBBUFFET);
+        OPPONENT(SPECIES_WOBBUFFET) { Ability(ABILITY_TELEPATHY); HP(100); MaxHP(100); Moves(MOVE_BELLY_DRUM, MOVE_SCRATCH, MOVE_CELEBRATE); }
+        OPPONENT(SPECIES_SHUCKLE) { Ability(ABILITY_CONTRARY); Moves(MOVE_CELEBRATE); }
+    } WHEN {
+        TURN { SCORE_GT_VAL(opponentLeft, MOVE_BELLY_DRUM, AI_SCORE_DEFAULT, target: playerLeft); }
+    }
+}
+
 AI_DOUBLE_BATTLE_TEST("Shared Power AI: pooled Magic Guard avoids multi-hit Rocky Helmet penalty")
 {
     GIVEN {

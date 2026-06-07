@@ -256,6 +256,11 @@ Shared Power battle behavior should use the correct ability view at each callsit
 - [x] (2026-06-08T00:16Z) Implemented the AI Stockpile Contrary prediction bucket and added focused Shared Power enabled/off score coverage.
 - [x] (2026-06-08T00:22Z) Ran targeted validation for the AI Stockpile Contrary prediction bucket and recorded evidence here.
 - [x] (2026-06-08T00:26Z) Ran `git diff --check` after the AI Stockpile Contrary prediction bucket; no issues reported.
+- [x] (2026-06-08T00:42Z) Selected the AI Belly Drum Contrary prediction bucket, scoped to active attacker Contrary in the Belly Drum setup score guard.
+- [x] (2026-06-08T00:49Z) Implemented the AI Belly Drum Contrary prediction bucket and added focused Shared Power enabled/off score coverage.
+- [x] (2026-06-08T00:54Z) Ran targeted validation for the AI Belly Drum Contrary prediction bucket and recorded evidence here.
+- [x] (2026-06-08T00:58Z) Ran the broader Shared Power AI regression filter for the Belly Drum Contrary prediction bucket and recorded evidence here.
+- [x] (2026-06-08T01:00Z) Ran `git diff --check` after the AI Belly Drum Contrary prediction bucket; no issues reported.
 - [x] (2026-06-07T03:05Z) Selected the AI weather/terrain benefit prediction bucket, scoped to shareable active ability heuristics while keeping native-only form/species-style weather abilities native.
 - [x] (2026-06-07T03:12Z) Implemented the AI weather/terrain benefit prediction bucket and added focused Shared Power enabled/off helper coverage for Rain and Electric Terrain.
 - [x] (2026-06-07T03:20Z) Ran targeted validation for the AI weather/terrain benefit prediction bucket and recorded evidence here.
@@ -401,6 +406,18 @@ Shared Power battle behavior should use the correct ability view at each callsit
 
 - Observation: The AI Stockpile Contrary bucket passed the broader Shared Power AI regression filter.
   Evidence: `docker run --rm -u "$(id -u):$(id -g)" -v "$PWD:/workspace" -v "/home/bayesartre/dev/pokeemerald-expansion-shared-power:/home/bayesartre/dev/pokeemerald-expansion-shared-power" -w /workspace pokeemerald-expansion:builder make check NO_MULTIBOOT=1 TESTS="Shared Power AI"` passed 40/40 tests.
+
+- Observation: AI Belly Drum scoring has the same narrow native Contrary guard shape as the Stockpile bucket.
+  Evidence: `EFFECT_BELLY_DRUM` in `src/battle_ai_main.c` still checks native `aiData->abilities[battlerAtk] != ABILITY_CONTRARY`, while live stat-change behavior routes Contrary through active membership.
+
+- Observation: The Belly Drum score split is stable with active Contrary lowering Belly Drum to default and Shared Power off leaving the setup score above default.
+  Evidence: `TESTS="Shared Power AI: pooled Contrary lowers Belly Drum score"` and `TESTS="Shared Power off: partner Contrary does not lower Belly Drum score"` both passed 1/1.
+
+- Observation: The AI Belly Drum Contrary bucket passed the broader Shared Power AI regression filter.
+  Evidence: `docker run --rm -u "$(id -u):$(id -g)" -v "$PWD:/workspace" -v "/home/bayesartre/dev/pokeemerald-expansion-shared-power:/home/bayesartre/dev/pokeemerald-expansion-shared-power" -w /workspace pokeemerald-expansion:builder make check NO_MULTIBOOT=1 TESTS="Shared Power AI"` passed 41/41 tests.
+
+- Observation: The AI Belly Drum Contrary bucket passed diff hygiene.
+  Evidence: `git diff --check` reported no issues.
 
 - Observation: AI Substitute/Shed Tail scoring has a native-only Infiltrator shortcut even though live Substitute bypass is already active-aware.
   Evidence: `EFFECT_SUBSTITUTE` and `EFFECT_SHED_TAIL` in `AI_CheckBadMove` compare `aiData->abilities[battlerDef] == ABILITY_INFILTRATOR`.
