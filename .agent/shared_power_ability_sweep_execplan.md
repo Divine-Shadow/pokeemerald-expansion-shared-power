@@ -350,6 +350,8 @@ Shared Power battle behavior should use the correct ability view at each callsit
 - [x] (2026-06-07T08:06Z) Ran focused validation for the AI partner-crit Anger Point prediction bucket and recorded evidence here.
 - [x] (2026-06-07T08:06Z) Ran the broader Shared Power AI regression filter for the AI partner-crit Anger Point prediction bucket and recorded evidence here.
 - [x] (2026-06-07T08:06Z) Ran `git diff --check` after the AI partner-crit Anger Point prediction bucket; no issues reported.
+- [x] (2026-06-07T08:06Z) Classified the remaining direct cached-ability AI reads as native-only or clarify-deferred rather than open migrate work.
+- [x] (2026-06-07T08:06Z) Ran `git diff --check` after the AI native/deferred tail classification; no issues reported.
 - [x] (2026-06-07T03:05Z) Selected the AI weather/terrain benefit prediction bucket, scoped to shareable active ability heuristics while keeping native-only form/species-style weather abilities native.
 - [x] (2026-06-07T03:12Z) Implemented the AI weather/terrain benefit prediction bucket and added focused Shared Power enabled/off helper coverage for Rain and Electric Terrain.
 - [x] (2026-06-07T03:20Z) Ran targeted validation for the AI weather/terrain benefit prediction bucket and recorded evidence here.
@@ -519,6 +521,9 @@ Shared Power battle behavior should use the correct ability view at each callsit
 
 - Observation: The Anger Point disabled-path baseline for Earthquake is 101, not the default 100, because other generic AI scoring gives the spread move a small baseline increase.
   Evidence: `TESTS="Shared Power off: partner Anger Point does not raise spread move score with partner crit moves"` first failed with `got 101`; after asserting `AI_SCORE_DEFAULT + 1` for the disabled path and `> AI_SCORE_DEFAULT + 1` for the enabled path, both focused tests passed.
+
+- Observation: After the Anger Point bucket, the remaining direct cached-ability AI comparisons are not safe migration targets under the audit policy.
+  Evidence: The remaining scan finds Shadow Tag/Run Away trapping, Opportunist, Leech Seed Liquid Ooze, Receiver, Truant, Natural Cure, and Stance Change. Live code keeps Opportunist, Natural Cure, Truant move-cancel, Receiver, and Stance Change native-slot or species/form-gated, while trapping and Leech Seed Liquid Ooze already have clarify/defer policy questions.
 
 - Observation: AI Hone Claws scoring has the same narrow native Contrary branch shape as the Stockpile and Belly Drum buckets.
   Evidence: `EFFECT_ATTACK_ACCURACY_UP` in `src/battle_ai_main.c` checks native `aiData->abilities[battlerAtk] != ABILITY_CONTRARY`, while live stat-change behavior routes Contrary through active membership.
@@ -852,6 +857,10 @@ Shared Power battle behavior should use the correct ability view at each callsit
 
 - Decision: Migrate the AI partner-crit Anger Point guard to `AI_HasActiveAbility(battlerAtk, ABILITY_ANGER_POINT)`.
   Rationale: The branch predicts a battler benefiting from its partner's always-critical move, and live Anger Point is dispatched as a move-end effective ability callback rather than a native slot mutation. This keeps the AI aligned with live Shared Power behavior without touching ability-copy, suppression, or species/form-gated mechanics.
+  Date/Author: 2026-06-07 / Codex
+
+- Decision: Treat the remaining direct cached-ability AI reads as a documented native/deferred tail.
+  Rationale: Each remaining read maps either to an already clarify-deferred row, a live native-only behavior, or a species/form-gated mechanic. Migrating them now would violate the audit's authority constraints by changing trapping policy, Leech Seed Liquid Ooze ownership, AI/live behavior parity for Opportunist/Natural Cure/Truant, native mutation behavior for Receiver, or Stance Change form-gate semantics.
   Date/Author: 2026-06-07 / Codex
 
 - Decision: Defer the Run Away/trapping row instead of migrating Shadow Tag, Arena Trap, and Magnet Pull trapping in this sweep pass.
@@ -1968,3 +1977,7 @@ Validation (2026-06-07): `docker run --rm -u "$(id -u):$(id -g)" -v "$PWD:/works
 Validation (2026-06-07): `docker run --rm -u "$(id -u):$(id -g)" -v "$PWD:/workspace" -v "/home/bayesartre/dev/pokeemerald-expansion-shared-power:/home/bayesartre/dev/pokeemerald-expansion-shared-power" -w /workspace pokeemerald-expansion:builder make check NO_MULTIBOOT=1 TESTS="Shared Power AI"` passed 60/60 after adding the AI partner-crit Anger Point prediction bucket.
 
 Validation (2026-06-07): `git diff --check` passed with no output after the AI partner-crit Anger Point prediction bucket.
+
+Validation (2026-06-07): The remaining direct cached-ability AI scan after the Anger Point bucket reports only classified native/deferred cases: Shadow Tag/Run Away trapping, Opportunist, Leech Seed Liquid Ooze, Receiver, Truant, Natural Cure, and Stance Change.
+
+Validation (2026-06-07): `git diff --check` passed with no output after the AI native/deferred tail classification docs update. No `make check` filter was run for this docs-only classification bucket because it intentionally changes no battle code or tests.
