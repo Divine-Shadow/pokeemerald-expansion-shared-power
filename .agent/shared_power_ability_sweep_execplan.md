@@ -224,6 +224,10 @@ Shared Power battle behavior should use the correct ability view at each callsit
 - [x] (2026-06-07T18:28Z) Implemented the AI Lock-On and Laser Focus prediction bucket and added focused Shared Power enabled/off score coverage.
 - [x] (2026-06-07T18:45Z) Ran targeted validation for the AI Lock-On and Laser Focus prediction bucket and recorded evidence here.
 - [x] (2026-06-07T18:50Z) Ran `git diff --check` after the AI Lock-On and Laser Focus prediction bucket; no issues reported.
+- [x] (2026-06-07T19:22Z) Selected the AI Black Sludge Trick Magic Guard prediction bucket, scoped to matching live active Magic Guard holder-damage prevention.
+- [x] (2026-06-07T19:30Z) Implemented the AI Black Sludge Trick Magic Guard prediction bucket and added focused Shared Power enabled/off score coverage.
+- [x] (2026-06-07T19:42Z) Ran targeted validation for the AI Black Sludge Trick Magic Guard prediction bucket and recorded evidence here.
+- [x] (2026-06-07T19:45Z) Ran `git diff --check` after the AI Black Sludge Trick Magic Guard prediction bucket; no issues reported.
 - [ ] Continue through the remaining migrate rows, one coherent bucket at a time.
 - [ ] Perform a final audit pass that marks each migrate row implemented or explicitly deferred with rationale.
 
@@ -1416,3 +1420,9 @@ Validation (2026-06-07): `docker run --rm -u "$(id -u):$(id -g)" -v "$PWD:/works
 Validation (2026-06-07): `docker run --rm -u "$(id -u):$(id -g)" -v "$PWD:/workspace" -v "/home/bayesartre/dev/pokeemerald-expansion-shared-power:/home/bayesartre/dev/pokeemerald-expansion-shared-power" -w /workspace pokeemerald-expansion:builder make check NO_MULTIBOOT=1 TESTS="Shared Power off: partner Battle Armor does not lower Laser Focus score"` passed 1/1.
 
 Validation (2026-06-07): `git diff --check` passed with no output after the AI Lock-On and Laser Focus prediction bucket.
+
+Validation (2026-06-07): `docker run --rm -u "$(id -u):$(id -g)" -v "$PWD:/workspace" -v "/home/bayesartre/dev/pokeemerald-expansion-shared-power:/home/bayesartre/dev/pokeemerald-expansion-shared-power" -w /workspace pokeemerald-expansion:builder make check NO_MULTIBOOT=1 TESTS="Shared Power AI"` passed 24/24 after adding the AI Black Sludge Trick Magic Guard prediction bucket.
+
+Validation (2026-06-07): `docker run --rm -u "$(id -u):$(id -g)" -v "$PWD:/workspace" -v "/home/bayesartre/dev/pokeemerald-expansion-shared-power:/home/bayesartre/dev/pokeemerald-expansion-shared-power" -w /workspace pokeemerald-expansion:builder make check NO_MULTIBOOT=1 TESTS="Shared Power off: partner Magic Guard does not stop Black Sludge Trick scoring"` passed 1/1.
+
+Validation (2026-06-07): `git diff --check` passed with no output after the AI Black Sludge Trick Magic Guard prediction bucket.

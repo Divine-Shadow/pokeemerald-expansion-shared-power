@@ -631,3 +631,34 @@ AI_DOUBLE_BATTLE_TEST("Shared Power off: partner Battle Armor does not lower Las
         TURN { SCORE_EQ_VAL(opponentLeft, MOVE_LASER_FOCUS, AI_SCORE_DEFAULT, target: playerLeft); }
     }
 }
+
+AI_DOUBLE_BATTLE_TEST("Shared Power AI: does not score giving Black Sludge to pooled Magic Guard targets")
+{
+    GIVEN {
+        BATTLE_TYPE(BATTLE_TYPE_SHARED_POWER);
+        ASSUME(GetMoveEffect(MOVE_TRICK) == EFFECT_TRICK);
+        ASSUME(gItemsInfo[ITEM_BLACK_SLUDGE].holdEffect == HOLD_EFFECT_BLACK_SLUDGE);
+        AI_FLAGS(AI_FLAG_CHECK_VIABILITY);
+        PLAYER(SPECIES_WOBBUFFET) { Ability(ABILITY_TELEPATHY); }
+        PLAYER(SPECIES_CLEFAIRY) { Ability(ABILITY_MAGIC_GUARD); }
+        OPPONENT(SPECIES_WOBBUFFET) { Item(ITEM_BLACK_SLUDGE); Moves(MOVE_TRICK, MOVE_CELEBRATE); }
+        OPPONENT(SPECIES_WOBBUFFET);
+    } WHEN {
+        TURN { SCORE_EQ_VAL(opponentLeft, MOVE_TRICK, AI_SCORE_DEFAULT, target: playerLeft); }
+    }
+}
+
+AI_DOUBLE_BATTLE_TEST("Shared Power off: partner Magic Guard does not stop Black Sludge Trick scoring")
+{
+    GIVEN {
+        ASSUME(GetMoveEffect(MOVE_TRICK) == EFFECT_TRICK);
+        ASSUME(gItemsInfo[ITEM_BLACK_SLUDGE].holdEffect == HOLD_EFFECT_BLACK_SLUDGE);
+        AI_FLAGS(AI_FLAG_CHECK_VIABILITY);
+        PLAYER(SPECIES_WOBBUFFET) { Ability(ABILITY_TELEPATHY); }
+        PLAYER(SPECIES_CLEFAIRY) { Ability(ABILITY_MAGIC_GUARD); }
+        OPPONENT(SPECIES_WOBBUFFET) { Item(ITEM_BLACK_SLUDGE); Moves(MOVE_TRICK, MOVE_CELEBRATE); }
+        OPPONENT(SPECIES_WOBBUFFET);
+    } WHEN {
+        TURN { SCORE_GT_VAL(opponentLeft, MOVE_TRICK, AI_SCORE_DEFAULT, target: playerLeft); }
+    }
+}
