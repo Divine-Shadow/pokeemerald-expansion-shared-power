@@ -1,3 +1,10 @@
+- Docs/Planning: Record Shared Power AI Swagger and Flatter Contrary prediction diff hygiene (commit pending).
+- Docs/Planning: Record Shared Power AI Swagger and Flatter Contrary prediction broad validation evidence (commit pending).
+- Docs/Audit: Note that Shared Power AI Swagger and Flatter scoring handles pooled Contrary (commit pending).
+- Docs/Planning: Record Shared Power AI Swagger and Flatter Contrary prediction validation evidence (commit pending).
+- Tests/AI: Cover Shared Power AI Swagger and Flatter target scoring with pooled Contrary enabled and disabled paths (commit pending).
+- Battle/AI: Let Swagger and Flatter scoring see pooled target Contrary under Shared Power (commit pending).
+- Docs/Planning: Select the Shared Power AI Swagger and Flatter Contrary prediction bucket (commit pending).
 - Docs/Planning: Record Shared Power AI target additional-effect Contrary prediction diff hygiene (commit 89abd1702d).
 - Docs/Planning: Record Shared Power AI target additional-effect Contrary prediction broad validation evidence (commit 89abd1702d).
 - Docs/Planning: Record Shared Power AI target additional-effect Contrary prediction validation evidence (commit 89abd1702d).
