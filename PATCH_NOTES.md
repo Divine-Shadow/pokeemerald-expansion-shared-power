@@ -1,10 +1,10 @@
-- Docs/Planning: Record Shared Power AI Foresight Scrappy/Mind's Eye prediction diff hygiene (commit pending).
-- Docs/Planning: Record Shared Power AI Foresight Scrappy/Mind's Eye prediction validation evidence (commit pending).
-- Docs/Planning: Record Shared Power AI Foresight Scrappy/Mind's Eye prediction progress (commit pending).
-- Docs/Audit: Note that Shared Power AI Foresight prediction handles pooled Scrappy and Mind's Eye (commit pending).
-- Tests/AI: Cover Shared Power AI Foresight scoring with pooled Scrappy enabled and disabled paths (commit pending).
-- Battle/AI: Let Foresight prediction see pooled Scrappy and Mind's Eye under Shared Power (commit pending).
-- Docs/Planning: Select the Shared Power AI Foresight Scrappy/Mind's Eye prediction bucket (commit pending).
+- Docs/Planning: Record Shared Power AI Foresight Scrappy/Mind's Eye prediction diff hygiene (commit 6a32b6a41e).
+- Docs/Planning: Record Shared Power AI Foresight Scrappy/Mind's Eye prediction validation evidence (commit 6a32b6a41e).
+- Docs/Planning: Record Shared Power AI Foresight Scrappy/Mind's Eye prediction progress (commit 6a32b6a41e).
+- Docs/Audit: Note that Shared Power AI Foresight prediction handles pooled Scrappy and Mind's Eye (commit 6a32b6a41e).
+- Tests/AI: Cover Shared Power AI Foresight scoring with pooled Scrappy enabled and disabled paths (commit 6a32b6a41e).
+- Battle/AI: Let Foresight prediction see pooled Scrappy and Mind's Eye under Shared Power (commit 6a32b6a41e).
+- Docs/Planning: Select the Shared Power AI Foresight Scrappy/Mind's Eye prediction bucket (commit 6a32b6a41e).
 - Docs/Planning: Record Shared Power AI crash-recoil Magic Guard prediction diff hygiene (commit 45152e910b).
 - Docs/Planning: Record Shared Power AI crash-recoil Magic Guard prediction validation evidence (commit 45152e910b).
 - Docs/Planning: Record Shared Power AI crash-recoil Magic Guard prediction progress (commit 45152e910b).
