@@ -216,6 +216,10 @@ Shared Power battle behavior should use the correct ability view at each callsit
 - [x] (2026-06-07T15:14Z) Implemented the AI Roar Suction Cups prediction bucket and added focused Shared Power enabled/off score coverage.
 - [x] (2026-06-07T15:24Z) Ran targeted validation for the AI Roar Suction Cups prediction bucket and recorded evidence here.
 - [x] (2026-06-07T15:25Z) Ran `git diff --check` after the AI Roar Suction Cups prediction bucket; no issues reported.
+- [x] (2026-06-07T15:40Z) Selected the AI Strength Sap Contrary prediction bucket for active target Contrary checks, scoped away from broader stat-up and status-helper policy.
+- [x] (2026-06-07T15:48Z) Implemented the AI Strength Sap Contrary prediction bucket and added focused Shared Power enabled/off score coverage.
+- [x] (2026-06-07T15:55Z) Ran targeted validation for the AI Strength Sap Contrary prediction bucket and recorded evidence here.
+- [x] (2026-06-07T15:56Z) Ran `git diff --check` after the AI Strength Sap Contrary prediction bucket; no issues reported.
 - [x] (2026-06-07T03:05Z) Selected the AI weather/terrain benefit prediction bucket, scoped to shareable active ability heuristics while keeping native-only form/species-style weather abilities native.
 - [x] (2026-06-07T03:12Z) Implemented the AI weather/terrain benefit prediction bucket and added focused Shared Power enabled/off helper coverage for Rain and Electric Terrain.
 - [x] (2026-06-07T03:20Z) Ran targeted validation for the AI weather/terrain benefit prediction bucket and recorded evidence here.
@@ -436,6 +440,9 @@ Shared Power battle behavior should use the correct ability view at each callsit
 
 - Observation: AI Roar prediction still has native-only Suction Cups checks beside already-migrated active Soundproof checks.
   Evidence: `src/battle_ai_main.c` has native `aiData->abilities[battlerDef] == ABILITY_SUCTION_CUPS` checks in both bad-move and viability Roar scoring. Live Dragon Tail Suction Cups still uses `GetBattlerAbility(gBattlerTarget)`, so this bucket is scoped to AI Roar-style phazing prediction only and leaves live hit-switch-target policy for a later hardcoded-state review.
+
+- Observation: AI Strength Sap prediction has one native Contrary shortcut before the already-active stat-loss helper.
+  Evidence: `src/battle_ai_main.c` checks `aiData->abilities[battlerDef] == ABILITY_CONTRARY` in the `EFFECT_STRENGTH_SAP` bad-move branch, then falls through to `CanLowerStat`, which already uses active ability membership for Contrary and stat-loss blockers. The bucket can migrate that one shortcut without changing live Strength Sap Liquid Ooze behavior or the broader status/stat helper contract.
 
 ## Decision Log
 
@@ -1491,3 +1498,9 @@ Validation (2026-06-07): `docker run --rm -u "$(id -u):$(id -g)" -v "$PWD:/works
 Validation (2026-06-07): `docker run --rm -u "$(id -u):$(id -g)" -v "$PWD:/workspace" -v "/home/bayesartre/dev/pokeemerald-expansion-shared-power:/home/bayesartre/dev/pokeemerald-expansion-shared-power" -w /workspace pokeemerald-expansion:builder make check NO_MULTIBOOT=1 TESTS="Shared Power AI"` passed 30/30 after adding the AI Roar Suction Cups prediction bucket.
 
 Validation (2026-06-07): `git diff --check` passed with no output after the AI Roar Suction Cups prediction bucket.
+
+Validation (2026-06-07): `docker run --rm -u "$(id -u):$(id -g)" -v "$PWD:/workspace" -v "/home/bayesartre/dev/pokeemerald-expansion-shared-power:/home/bayesartre/dev/pokeemerald-expansion-shared-power" -w /workspace pokeemerald-expansion:builder make check NO_MULTIBOOT=1 TESTS="Shared Power off: partner Contrary does not lower Strength Sap score"` initially showed the disabled-path Strength Sap score baseline is `AI_SCORE_DEFAULT`, not above it; after asserting that exact baseline, it passed 1/1.
+
+Validation (2026-06-07): `docker run --rm -u "$(id -u):$(id -g)" -v "$PWD:/workspace" -v "/home/bayesartre/dev/pokeemerald-expansion-shared-power:/home/bayesartre/dev/pokeemerald-expansion-shared-power" -w /workspace pokeemerald-expansion:builder make check NO_MULTIBOOT=1 TESTS="Shared Power AI"` passed 31/31 after adding the AI Strength Sap Contrary prediction bucket.
+
+Validation (2026-06-07): `git diff --check` passed with no output after the AI Strength Sap Contrary prediction bucket.

@@ -636,6 +636,35 @@ AI_DOUBLE_BATTLE_TEST("Shared Power off: partner Liquid Ooze does not affect dir
     }
 }
 
+AI_SINGLE_BATTLE_TEST("Shared Power AI: pooled Contrary lowers Strength Sap score")
+{
+    GIVEN {
+        BATTLE_TYPE(BATTLE_TYPE_SHARED_POWER);
+        ASSUME(GetMoveEffect(MOVE_STRENGTH_SAP) == EFFECT_STRENGTH_SAP);
+        AI_FLAGS(AI_FLAG_CHECK_BAD_MOVE | AI_FLAG_CHECK_VIABILITY | AI_FLAG_TRY_TO_FAINT | AI_FLAG_OMNISCIENT);
+        PLAYER(SPECIES_SHUCKLE) { Ability(ABILITY_CONTRARY); Moves(MOVE_SPLASH); }
+        PLAYER(SPECIES_WOBBUFFET) { Ability(ABILITY_TELEPATHY); Attack(200); Moves(MOVE_SPLASH); }
+        OPPONENT(SPECIES_GASTRODON) { HP(200); MaxHP(400); Moves(MOVE_STRENGTH_SAP, MOVE_CELEBRATE); }
+    } WHEN {
+        TURN { SWITCH(player, 1); }
+        TURN { MOVE(player, MOVE_SPLASH); SCORE_LT_VAL(opponent, MOVE_STRENGTH_SAP, AI_SCORE_DEFAULT); }
+    }
+}
+
+AI_SINGLE_BATTLE_TEST("Shared Power off: partner Contrary does not lower Strength Sap score")
+{
+    GIVEN {
+        ASSUME(GetMoveEffect(MOVE_STRENGTH_SAP) == EFFECT_STRENGTH_SAP);
+        AI_FLAGS(AI_FLAG_CHECK_BAD_MOVE | AI_FLAG_CHECK_VIABILITY | AI_FLAG_TRY_TO_FAINT | AI_FLAG_OMNISCIENT);
+        PLAYER(SPECIES_SHUCKLE) { Ability(ABILITY_CONTRARY); Moves(MOVE_SPLASH); }
+        PLAYER(SPECIES_WOBBUFFET) { Ability(ABILITY_TELEPATHY); Attack(200); Moves(MOVE_SPLASH); }
+        OPPONENT(SPECIES_GASTRODON) { HP(200); MaxHP(400); Moves(MOVE_STRENGTH_SAP, MOVE_CELEBRATE); }
+    } WHEN {
+        TURN { SWITCH(player, 1); }
+        TURN { MOVE(player, MOVE_SPLASH); SCORE_EQ_VAL(opponent, MOVE_STRENGTH_SAP, AI_SCORE_DEFAULT); }
+    }
+}
+
 AI_DOUBLE_BATTLE_TEST("Shared Power AI: scores Substitute lower against pooled Infiltrator")
 {
     GIVEN {
