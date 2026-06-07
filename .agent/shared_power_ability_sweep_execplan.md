@@ -261,6 +261,11 @@ Shared Power battle behavior should use the correct ability view at each callsit
 - [x] (2026-06-08T00:54Z) Ran targeted validation for the AI Belly Drum Contrary prediction bucket and recorded evidence here.
 - [x] (2026-06-08T00:58Z) Ran the broader Shared Power AI regression filter for the Belly Drum Contrary prediction bucket and recorded evidence here.
 - [x] (2026-06-08T01:00Z) Ran `git diff --check` after the AI Belly Drum Contrary prediction bucket; no issues reported.
+- [x] (2026-06-07T05:50Z) Selected the AI Hone Claws Contrary prediction bucket, scoped to active attacker Contrary in the Hone Claws score branch.
+- [x] (2026-06-07T05:56Z) Implemented the AI Hone Claws Contrary prediction bucket and added focused Shared Power enabled/off score coverage.
+- [x] (2026-06-07T06:01Z) Ran targeted validation for the AI Hone Claws Contrary prediction bucket and recorded evidence here.
+- [x] (2026-06-07T06:04Z) Ran the broader Shared Power AI regression filter for the Hone Claws Contrary prediction bucket and recorded evidence here.
+- [x] (2026-06-07T06:06Z) Ran `git diff --check` after the AI Hone Claws Contrary prediction bucket; no issues reported.
 - [x] (2026-06-07T03:05Z) Selected the AI weather/terrain benefit prediction bucket, scoped to shareable active ability heuristics while keeping native-only form/species-style weather abilities native.
 - [x] (2026-06-07T03:12Z) Implemented the AI weather/terrain benefit prediction bucket and added focused Shared Power enabled/off helper coverage for Rain and Electric Terrain.
 - [x] (2026-06-07T03:20Z) Ran targeted validation for the AI weather/terrain benefit prediction bucket and recorded evidence here.
@@ -417,6 +422,18 @@ Shared Power battle behavior should use the correct ability view at each callsit
   Evidence: `docker run --rm -u "$(id -u):$(id -g)" -v "$PWD:/workspace" -v "/home/bayesartre/dev/pokeemerald-expansion-shared-power:/home/bayesartre/dev/pokeemerald-expansion-shared-power" -w /workspace pokeemerald-expansion:builder make check NO_MULTIBOOT=1 TESTS="Shared Power AI"` passed 41/41 tests.
 
 - Observation: The AI Belly Drum Contrary bucket passed diff hygiene.
+  Evidence: `git diff --check` reported no issues.
+
+- Observation: AI Hone Claws scoring has the same narrow native Contrary branch shape as the Stockpile and Belly Drum buckets.
+  Evidence: `EFFECT_ATTACK_ACCURACY_UP` in `src/battle_ai_main.c` checks native `aiData->abilities[battlerAtk] != ABILITY_CONTRARY`, while live stat-change behavior routes Contrary through active membership.
+
+- Observation: The Hone Claws score split is stable with active Contrary lowering Hone Claws below default and Shared Power off leaving the setup score above default.
+  Evidence: `TESTS="Shared Power AI: pooled Contrary lowers Hone Claws score"` and `TESTS="Shared Power off: partner Contrary does not lower Hone Claws score"` both passed 1/1. The initial off-path expectation of default failed with score `102`, confirming the normal non-Contrary setup path is positively scored.
+
+- Observation: The AI Hone Claws Contrary bucket passed the broader Shared Power AI regression filter.
+  Evidence: `docker run --rm -u "$(id -u):$(id -g)" -v "$PWD:/workspace" -v "/home/bayesartre/dev/pokeemerald-expansion-shared-power:/home/bayesartre/dev/pokeemerald-expansion-shared-power" -w /workspace pokeemerald-expansion:builder make check NO_MULTIBOOT=1 TESTS="Shared Power AI"` passed 42/42 tests.
+
+- Observation: The AI Hone Claws Contrary bucket passed diff hygiene.
   Evidence: `git diff --check` reported no issues.
 
 - Observation: AI Substitute/Shed Tail scoring has a native-only Infiltrator shortcut even though live Substitute bypass is already active-aware.
