@@ -4755,7 +4755,7 @@ static enum AIScore IncreaseStatUpScoreInternal(u32 battlerAtk, u32 battlerDef, 
     u32 i;
     u32 statId = GetStatBeingChanged(statChange);
 
-    if (considerContrary && gAiLogicData->abilities[battlerAtk] == ABILITY_CONTRARY)
+    if (considerContrary && AI_HasActiveAbility(battlerAtk, ABILITY_CONTRARY))
         return NO_INCREASE;
 
     // Don't increase stats if opposing battler has Unaware

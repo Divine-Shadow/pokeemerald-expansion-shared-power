@@ -296,6 +296,11 @@ Shared Power battle behavior should use the correct ability view at each callsit
 - [x] (2026-06-07T06:38Z) Ran targeted validation for the AI Swagger/Flatter Contrary prediction bucket and recorded evidence here.
 - [x] (2026-06-07T06:38Z) Ran the broader Shared Power AI regression filter for the Swagger/Flatter Contrary prediction bucket and recorded evidence here.
 - [x] (2026-06-07T06:38Z) Ran `git diff --check` after the AI Swagger/Flatter Contrary prediction bucket; no issues reported.
+- [x] (2026-06-07T06:45Z) Selected the AI generic stat-up Contrary prediction bucket, scoped to `IncreaseStatUpScoreInternal` suppressing setup scores when the attacker has active Contrary.
+- [x] (2026-06-07T06:45Z) Implemented the AI generic stat-up Contrary prediction bucket and added focused Shared Power enabled/off score coverage.
+- [x] (2026-06-07T06:45Z) Ran targeted validation for the AI generic stat-up Contrary prediction bucket and recorded evidence here.
+- [x] (2026-06-07T06:45Z) Ran the broader Shared Power AI regression filter for the generic stat-up Contrary prediction bucket and recorded evidence here.
+- [x] (2026-06-07T06:45Z) Ran `git diff --check` after the AI generic stat-up Contrary prediction bucket; no issues reported.
 - [x] (2026-06-07T03:05Z) Selected the AI weather/terrain benefit prediction bucket, scoped to shareable active ability heuristics while keeping native-only form/species-style weather abilities native.
 - [x] (2026-06-07T03:12Z) Implemented the AI weather/terrain benefit prediction bucket and added focused Shared Power enabled/off helper coverage for Rain and Electric Terrain.
 - [x] (2026-06-07T03:20Z) Ran targeted validation for the AI weather/terrain benefit prediction bucket and recorded evidence here.
@@ -536,6 +541,18 @@ Shared Power battle behavior should use the correct ability view at each callsit
   Evidence: `docker run --rm -u "$(id -u):$(id -g)" -v "$PWD:/workspace" -v "/home/bayesartre/dev/pokeemerald-expansion-shared-power:/home/bayesartre/dev/pokeemerald-expansion-shared-power" -w /workspace pokeemerald-expansion:builder make check NO_MULTIBOOT=1 TESTS="Shared Power AI"` passed 49/49 tests.
 
 - Observation: The AI Swagger/Flatter Contrary bucket passed diff hygiene.
+  Evidence: `git diff --check` reported no issues.
+
+- Observation: AI generic stat-up scoring still suppresses setup scores only when the attacker's native predicted ability is Contrary.
+  Evidence: `IncreaseStatUpScoreInternal` in `src/battle_ai_util.c` checks `considerContrary && gAiLogicData->abilities[battlerAtk] == ABILITY_CONTRARY`, while live stat-change behavior routes Contrary through active membership.
+
+- Observation: The generic stat-up score split is stable with active Contrary suppressing the Swords Dance setup bonus and Shared Power off preserving that bonus.
+  Evidence: `TESTS="Shared Power AI: pooled Contrary lowers generic stat-up score"` and `TESTS="Shared Power off: partner Contrary does not lower generic stat-up score"` both passed 1/1. The enabled path scored `AI_SCORE_DEFAULT`; the off-path scored `AI_SCORE_DEFAULT + GOOD_EFFECT`.
+
+- Observation: The AI generic stat-up Contrary bucket passed the broader Shared Power AI regression filter.
+  Evidence: `docker run --rm -u "$(id -u):$(id -g)" -v "$PWD:/workspace" -v "/home/bayesartre/dev/pokeemerald-expansion-shared-power:/home/bayesartre/dev/pokeemerald-expansion-shared-power" -w /workspace pokeemerald-expansion:builder make check NO_MULTIBOOT=1 TESTS="Shared Power AI"` passed 50/50 tests.
+
+- Observation: The AI generic stat-up Contrary bucket passed diff hygiene.
   Evidence: `git diff --check` reported no issues.
 
 - Observation: AI Substitute/Shed Tail scoring has a native-only Infiltrator shortcut even though live Substitute bypass is already active-aware.

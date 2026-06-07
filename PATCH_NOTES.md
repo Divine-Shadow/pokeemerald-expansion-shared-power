@@ -1,3 +1,10 @@
+- Docs/Planning: Record Shared Power AI generic stat-up Contrary prediction diff hygiene (commit pending).
+- Docs/Planning: Record Shared Power AI generic stat-up Contrary prediction broad validation evidence (commit pending).
+- Docs/Audit: Note that Shared Power AI generic stat-up scoring handles pooled Contrary (commit pending).
+- Docs/Planning: Record Shared Power AI generic stat-up Contrary prediction validation evidence (commit pending).
+- Tests/AI: Cover Shared Power AI generic stat-up scoring with pooled Contrary enabled and disabled paths (commit pending).
+- Battle/AI: Let generic stat-up scoring see pooled attacker Contrary under Shared Power (commit pending).
+- Docs/Planning: Select the Shared Power AI generic stat-up Contrary prediction bucket (commit pending).
 - Docs/Planning: Record Shared Power AI Swagger and Flatter Contrary prediction diff hygiene (commit 45e1ea5d63).
 - Docs/Planning: Record Shared Power AI Swagger and Flatter Contrary prediction broad validation evidence (commit 45e1ea5d63).
 - Docs/Audit: Note that Shared Power AI Swagger and Flatter scoring handles pooled Contrary (commit 45e1ea5d63).
