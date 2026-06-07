@@ -665,6 +665,35 @@ AI_SINGLE_BATTLE_TEST("Shared Power off: partner Contrary does not lower Strengt
     }
 }
 
+AI_DOUBLE_BATTLE_TEST("Shared Power AI: pooled Magic Guard avoids multi-hit Rocky Helmet penalty")
+{
+    GIVEN {
+        BATTLE_TYPE(BATTLE_TYPE_SHARED_POWER);
+        ASSUME(GetMoveEffect(MOVE_DOUBLE_SLAP) == EFFECT_MULTI_HIT);
+        AI_FLAGS(AI_FLAG_CHECK_VIABILITY | AI_FLAG_OMNISCIENT);
+        PLAYER(SPECIES_WOBBUFFET) { Item(ITEM_ROCKY_HELMET); }
+        PLAYER(SPECIES_WOBBUFFET);
+        OPPONENT(SPECIES_WOBBUFFET) { Ability(ABILITY_TELEPATHY); Moves(MOVE_DOUBLE_SLAP, MOVE_CELEBRATE); }
+        OPPONENT(SPECIES_CLEFAIRY) { Ability(ABILITY_MAGIC_GUARD); Moves(MOVE_CELEBRATE); }
+    } WHEN {
+        TURN { SCORE_EQ_VAL(opponentLeft, MOVE_DOUBLE_SLAP, 101, target: playerLeft); }
+    }
+}
+
+AI_DOUBLE_BATTLE_TEST("Shared Power off: partner Magic Guard does not avoid multi-hit Rocky Helmet penalty")
+{
+    GIVEN {
+        ASSUME(GetMoveEffect(MOVE_DOUBLE_SLAP) == EFFECT_MULTI_HIT);
+        AI_FLAGS(AI_FLAG_CHECK_VIABILITY | AI_FLAG_OMNISCIENT);
+        PLAYER(SPECIES_WOBBUFFET) { Item(ITEM_ROCKY_HELMET); }
+        PLAYER(SPECIES_WOBBUFFET);
+        OPPONENT(SPECIES_WOBBUFFET) { Ability(ABILITY_TELEPATHY); Moves(MOVE_DOUBLE_SLAP, MOVE_CELEBRATE); }
+        OPPONENT(SPECIES_CLEFAIRY) { Ability(ABILITY_MAGIC_GUARD); Moves(MOVE_CELEBRATE); }
+    } WHEN {
+        TURN { SCORE_EQ_VAL(opponentLeft, MOVE_DOUBLE_SLAP, 99, target: playerLeft); }
+    }
+}
+
 AI_DOUBLE_BATTLE_TEST("Shared Power AI: scores Substitute lower against pooled Infiltrator")
 {
     GIVEN {

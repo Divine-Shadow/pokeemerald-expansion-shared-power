@@ -220,6 +220,10 @@ Shared Power battle behavior should use the correct ability view at each callsit
 - [x] (2026-06-07T15:48Z) Implemented the AI Strength Sap Contrary prediction bucket and added focused Shared Power enabled/off score coverage.
 - [x] (2026-06-07T15:55Z) Ran targeted validation for the AI Strength Sap Contrary prediction bucket and recorded evidence here.
 - [x] (2026-06-07T15:56Z) Ran `git diff --check` after the AI Strength Sap Contrary prediction bucket; no issues reported.
+- [x] (2026-06-07T16:05Z) Selected the AI multi-hit Rocky Helmet Magic Guard prediction bucket, mirroring the live held-item backlash Magic Guard migration.
+- [x] (2026-06-07T16:12Z) Implemented the AI multi-hit Rocky Helmet Magic Guard prediction bucket and added focused Shared Power enabled/off score coverage.
+- [x] (2026-06-07T16:18Z) Ran targeted validation for the AI multi-hit Rocky Helmet Magic Guard prediction bucket and recorded evidence here.
+- [x] (2026-06-07T16:19Z) Ran `git diff --check` after the AI multi-hit Rocky Helmet Magic Guard prediction bucket; no issues reported.
 - [x] (2026-06-07T03:05Z) Selected the AI weather/terrain benefit prediction bucket, scoped to shareable active ability heuristics while keeping native-only form/species-style weather abilities native.
 - [x] (2026-06-07T03:12Z) Implemented the AI weather/terrain benefit prediction bucket and added focused Shared Power enabled/off helper coverage for Rain and Electric Terrain.
 - [x] (2026-06-07T03:20Z) Ran targeted validation for the AI weather/terrain benefit prediction bucket and recorded evidence here.
@@ -443,6 +447,9 @@ Shared Power battle behavior should use the correct ability view at each callsit
 
 - Observation: AI Strength Sap prediction has one native Contrary shortcut before the already-active stat-loss helper.
   Evidence: `src/battle_ai_main.c` checks `aiData->abilities[battlerDef] == ABILITY_CONTRARY` in the `EFFECT_STRENGTH_SAP` bad-move branch, then falls through to `CanLowerStat`, which already uses active ability membership for Contrary and stat-loss blockers. The bucket can migrate that one shortcut without changing live Strength Sap Liquid Ooze behavior or the broader status/stat helper contract.
+
+- Observation: AI multi-hit contact scoring still penalizes Rocky Helmet contact when Magic Guard is pooled onto the attacker.
+  Evidence: `src/battle_ai_main.c` checks `aiData->abilities[battlerAtk] != ABILITY_MAGIC_GUARD` before applying the multi-hit Rocky Helmet score penalty. Live Rocky Helmet, Jaboca Berry, and Rowap Berry backlash already use active Magic Guard membership on the attacker, so this AI bucket can migrate the matching Rocky Helmet heuristic without changing contact-helper policy or target-held item ownership.
 
 ## Decision Log
 
@@ -1504,3 +1511,11 @@ Validation (2026-06-07): `docker run --rm -u "$(id -u):$(id -g)" -v "$PWD:/works
 Validation (2026-06-07): `docker run --rm -u "$(id -u):$(id -g)" -v "$PWD:/workspace" -v "/home/bayesartre/dev/pokeemerald-expansion-shared-power:/home/bayesartre/dev/pokeemerald-expansion-shared-power" -w /workspace pokeemerald-expansion:builder make check NO_MULTIBOOT=1 TESTS="Shared Power AI"` passed 31/31 after adding the AI Strength Sap Contrary prediction bucket.
 
 Validation (2026-06-07): `git diff --check` passed with no output after the AI Strength Sap Contrary prediction bucket.
+
+Validation (2026-06-07): `docker run --rm -u "$(id -u):$(id -g)" -v "$PWD:/workspace" -v "/home/bayesartre/dev/pokeemerald-expansion-shared-power:/home/bayesartre/dev/pokeemerald-expansion-shared-power" -w /workspace pokeemerald-expansion:builder make check NO_MULTIBOOT=1 TESTS="Shared Power AI"` initially failed because the pooled Magic Guard multi-hit Rocky Helmet fixture expected the neutral default score while the true unpenalized baseline was 101; after calibrating enabled/off expectations to 101 and 99, it passed 32/32.
+
+Validation (2026-06-07): `docker run --rm -u "$(id -u):$(id -g)" -v "$PWD:/workspace" -v "/home/bayesartre/dev/pokeemerald-expansion-shared-power:/home/bayesartre/dev/pokeemerald-expansion-shared-power" -w /workspace pokeemerald-expansion:builder make check NO_MULTIBOOT=1 TESTS="Shared Power AI: pooled Magic Guard avoids multi-hit Rocky Helmet penalty"` passed 1/1.
+
+Validation (2026-06-07): `docker run --rm -u "$(id -u):$(id -g)" -v "$PWD:/workspace" -v "/home/bayesartre/dev/pokeemerald-expansion-shared-power:/home/bayesartre/dev/pokeemerald-expansion-shared-power" -w /workspace pokeemerald-expansion:builder make check NO_MULTIBOOT=1 TESTS="Shared Power off: partner Magic Guard does not avoid multi-hit Rocky Helmet penalty"` passed 1/1.
+
+Validation (2026-06-07): `git diff --check` passed with no output after the AI multi-hit Rocky Helmet Magic Guard prediction bucket.

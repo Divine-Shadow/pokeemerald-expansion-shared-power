@@ -1,3 +1,10 @@
+- Docs/Planning: Record Shared Power AI multi-hit Rocky Helmet Magic Guard prediction diff hygiene (commit pending).
+- Docs/Planning: Record Shared Power AI multi-hit Rocky Helmet Magic Guard prediction validation evidence (commit pending).
+- Docs/Planning: Record Shared Power AI multi-hit Rocky Helmet Magic Guard prediction progress (commit pending).
+- Docs/Audit: Note that Shared Power AI multi-hit Rocky Helmet prediction handles pooled Magic Guard (commit pending).
+- Tests/AI: Cover Shared Power AI multi-hit Rocky Helmet scoring with pooled Magic Guard enabled and disabled paths (commit pending).
+- Battle/AI: Let multi-hit Rocky Helmet prediction see pooled Magic Guard under Shared Power (commit pending).
+- Docs/Planning: Select the Shared Power AI multi-hit Rocky Helmet Magic Guard prediction bucket (commit pending).
 - Docs/Planning: Record Shared Power AI Strength Sap Contrary prediction diff hygiene (commit 988b6ba2ae).
 - Docs/Planning: Record Shared Power AI Strength Sap Contrary prediction validation evidence (commit 988b6ba2ae).
 - Docs/Planning: Record Shared Power AI Strength Sap Contrary prediction progress (commit 988b6ba2ae).
