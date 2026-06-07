@@ -1,10 +1,10 @@
-- Docs/Planning: Record Shared Power AI Shell Smash Contrary bad-move diff hygiene (commit pending).
-- Docs/Planning: Record Shared Power AI Shell Smash Contrary bad-move broad validation evidence (commit pending).
-- Docs/Audit: Note that Shared Power AI Shell Smash scoring handles pooled Contrary (commit pending).
-- Docs/Planning: Record Shared Power AI Shell Smash Contrary bad-move validation evidence (commit pending).
-- Tests/AI: Cover Shared Power AI Shell Smash scoring with pooled Contrary enabled and disabled paths (commit pending).
-- Battle/AI: Let Shell Smash bad-move scoring see pooled attacker Contrary under Shared Power (commit pending).
-- Docs/Planning: Select the Shared Power AI Shell Smash Contrary bad-move bucket (commit pending).
+- Docs/Planning: Record Shared Power AI Shell Smash Contrary bad-move diff hygiene (commit ac03c2d867).
+- Docs/Planning: Record Shared Power AI Shell Smash Contrary bad-move broad validation evidence (commit ac03c2d867).
+- Docs/Audit: Note that Shared Power AI Shell Smash scoring handles pooled Contrary (commit ac03c2d867).
+- Docs/Planning: Record Shared Power AI Shell Smash Contrary bad-move validation evidence (commit ac03c2d867).
+- Tests/AI: Cover Shared Power AI Shell Smash scoring with pooled Contrary enabled and disabled paths (commit ac03c2d867).
+- Battle/AI: Let Shell Smash bad-move scoring see pooled attacker Contrary under Shared Power (commit ac03c2d867).
+- Docs/Planning: Select the Shared Power AI Shell Smash Contrary bad-move bucket (commit ac03c2d867).
 - Docs/Planning: Record Shared Power AI Rototiller foe Contrary effect-score diff hygiene (commit b6fb60ea7b).
 - Docs/Planning: Record Shared Power AI Rototiller foe Contrary effect-score broad validation evidence (commit b6fb60ea7b).
 - Docs/Audit: Note that Shared Power AI Rototiller foe scoring handles pooled Contrary (commit b6fb60ea7b).
