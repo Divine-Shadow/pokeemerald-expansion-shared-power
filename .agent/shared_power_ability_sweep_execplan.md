@@ -301,6 +301,11 @@ Shared Power battle behavior should use the correct ability view at each callsit
 - [x] (2026-06-07T06:45Z) Ran targeted validation for the AI generic stat-up Contrary prediction bucket and recorded evidence here.
 - [x] (2026-06-07T06:45Z) Ran the broader Shared Power AI regression filter for the generic stat-up Contrary prediction bucket and recorded evidence here.
 - [x] (2026-06-07T06:45Z) Ran `git diff --check` after the AI generic stat-up Contrary prediction bucket; no issues reported.
+- [x] (2026-06-07T06:51Z) Selected the AI Defog target Contrary prediction bucket, scoped to active target Contrary in the Defog evasion-lowering bad-move heuristic.
+- [x] (2026-06-07T06:51Z) Implemented the AI Defog target Contrary prediction bucket and added focused Shared Power enabled/off score coverage.
+- [x] (2026-06-07T06:51Z) Ran targeted validation for the AI Defog target Contrary prediction bucket and recorded evidence here.
+- [x] (2026-06-07T06:51Z) Ran the broader Shared Power AI regression filter for the Defog target Contrary prediction bucket and recorded evidence here.
+- [x] (2026-06-07T06:51Z) Ran `git diff --check` after the AI Defog target Contrary prediction bucket; no issues reported.
 - [x] (2026-06-07T03:05Z) Selected the AI weather/terrain benefit prediction bucket, scoped to shareable active ability heuristics while keeping native-only form/species-style weather abilities native.
 - [x] (2026-06-07T03:12Z) Implemented the AI weather/terrain benefit prediction bucket and added focused Shared Power enabled/off helper coverage for Rain and Electric Terrain.
 - [x] (2026-06-07T03:20Z) Ran targeted validation for the AI weather/terrain benefit prediction bucket and recorded evidence here.
@@ -553,6 +558,18 @@ Shared Power battle behavior should use the correct ability view at each callsit
   Evidence: `docker run --rm -u "$(id -u):$(id -g)" -v "$PWD:/workspace" -v "/home/bayesartre/dev/pokeemerald-expansion-shared-power:/home/bayesartre/dev/pokeemerald-expansion-shared-power" -w /workspace pokeemerald-expansion:builder make check NO_MULTIBOOT=1 TESTS="Shared Power AI"` passed 50/50 tests.
 
 - Observation: The AI generic stat-up Contrary bucket passed diff hygiene.
+  Evidence: `git diff --check` reported no issues.
+
+- Observation: AI Defog bad-move scoring still treats target Contrary as native-only when deciding whether Defog would help the opposing target.
+  Evidence: `EFFECT_DEFOG` in `AI_CheckBadMove` checks `aiData->abilities[battlerDef] == ABILITY_CONTRARY` before penalizing foe-targeted Defog, while live stat-change behavior routes Contrary through active membership.
+
+- Observation: The Defog target score split is stable with active Contrary penalizing foe-targeted Defog and Shared Power off preserving the neutral score.
+  Evidence: `TESTS="Shared Power AI: pooled Contrary lowers Defog target score"` and `TESTS="Shared Power off: partner Contrary does not lower Defog target score"` both passed 1/1. The enabled path scored `AI_SCORE_DEFAULT - 10`; the off-path scored `AI_SCORE_DEFAULT`.
+
+- Observation: The AI Defog target Contrary bucket passed the broader Shared Power AI regression filter.
+  Evidence: `docker run --rm -u "$(id -u):$(id -g)" -v "$PWD:/workspace" -v "/home/bayesartre/dev/pokeemerald-expansion-shared-power:/home/bayesartre/dev/pokeemerald-expansion-shared-power" -w /workspace pokeemerald-expansion:builder make check NO_MULTIBOOT=1 TESTS="Shared Power AI"` passed 51/51 tests.
+
+- Observation: The AI Defog target Contrary bucket passed diff hygiene.
   Evidence: `git diff --check` reported no issues.
 
 - Observation: AI Substitute/Shed Tail scoring has a native-only Infiltrator shortcut even though live Substitute bypass is already active-aware.

@@ -853,6 +853,35 @@ AI_DOUBLE_BATTLE_TEST("Shared Power off: partner Contrary does not lower generic
     }
 }
 
+AI_DOUBLE_BATTLE_TEST("Shared Power AI: pooled Contrary lowers Defog target score")
+{
+    GIVEN {
+        BATTLE_TYPE(BATTLE_TYPE_SHARED_POWER);
+        ASSUME(GetMoveEffect(MOVE_DEFOG) == EFFECT_DEFOG);
+        AI_FLAGS(AI_FLAG_CHECK_BAD_MOVE | AI_FLAG_CHECK_VIABILITY | AI_FLAG_OMNISCIENT);
+        PLAYER(SPECIES_WOBBUFFET) { Ability(ABILITY_TELEPATHY); Moves(MOVE_CELEBRATE); }
+        PLAYER(SPECIES_SHUCKLE) { Ability(ABILITY_CONTRARY); Moves(MOVE_CELEBRATE); }
+        OPPONENT(SPECIES_WOBBUFFET) { Ability(ABILITY_TELEPATHY); Moves(MOVE_DEFOG, MOVE_CELEBRATE); }
+        OPPONENT(SPECIES_WOBBUFFET);
+    } WHEN {
+        TURN { SCORE_EQ_VAL(opponentLeft, MOVE_DEFOG, AI_SCORE_DEFAULT - 10, target: playerLeft); }
+    }
+}
+
+AI_DOUBLE_BATTLE_TEST("Shared Power off: partner Contrary does not lower Defog target score")
+{
+    GIVEN {
+        ASSUME(GetMoveEffect(MOVE_DEFOG) == EFFECT_DEFOG);
+        AI_FLAGS(AI_FLAG_CHECK_BAD_MOVE | AI_FLAG_CHECK_VIABILITY | AI_FLAG_OMNISCIENT);
+        PLAYER(SPECIES_WOBBUFFET) { Ability(ABILITY_TELEPATHY); Moves(MOVE_CELEBRATE); }
+        PLAYER(SPECIES_SHUCKLE) { Ability(ABILITY_CONTRARY); Moves(MOVE_CELEBRATE); }
+        OPPONENT(SPECIES_WOBBUFFET) { Ability(ABILITY_TELEPATHY); Moves(MOVE_DEFOG, MOVE_CELEBRATE); }
+        OPPONENT(SPECIES_WOBBUFFET);
+    } WHEN {
+        TURN { SCORE_EQ_VAL(opponentLeft, MOVE_DEFOG, AI_SCORE_DEFAULT, target: playerLeft); }
+    }
+}
+
 AI_DOUBLE_BATTLE_TEST("Shared Power AI: pooled Contrary lowers self stat-boost additional effect score")
 {
     GIVEN {
