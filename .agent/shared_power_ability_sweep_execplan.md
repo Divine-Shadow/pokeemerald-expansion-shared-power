@@ -266,6 +266,11 @@ Shared Power battle behavior should use the correct ability view at each callsit
 - [x] (2026-06-07T06:01Z) Ran targeted validation for the AI Hone Claws Contrary prediction bucket and recorded evidence here.
 - [x] (2026-06-07T06:04Z) Ran the broader Shared Power AI regression filter for the Hone Claws Contrary prediction bucket and recorded evidence here.
 - [x] (2026-06-07T06:06Z) Ran `git diff --check` after the AI Hone Claws Contrary prediction bucket; no issues reported.
+- [x] (2026-06-07T06:01Z) Selected the AI Fell Stinger Contrary prediction bucket, scoped to active attacker Contrary in the KO bonus score guard.
+- [x] (2026-06-07T06:09Z) Implemented the AI Fell Stinger Contrary prediction bucket and added focused Shared Power enabled/off score coverage.
+- [x] (2026-06-07T06:13Z) Ran targeted validation for the AI Fell Stinger Contrary prediction bucket and recorded evidence here.
+- [x] (2026-06-07T06:16Z) Ran the broader Shared Power AI regression filter for the Fell Stinger Contrary prediction bucket and recorded evidence here.
+- [x] (2026-06-07T06:18Z) Ran `git diff --check` after the AI Fell Stinger Contrary prediction bucket; no issues reported.
 - [x] (2026-06-07T03:05Z) Selected the AI weather/terrain benefit prediction bucket, scoped to shareable active ability heuristics while keeping native-only form/species-style weather abilities native.
 - [x] (2026-06-07T03:12Z) Implemented the AI weather/terrain benefit prediction bucket and added focused Shared Power enabled/off helper coverage for Rain and Electric Terrain.
 - [x] (2026-06-07T03:20Z) Ran targeted validation for the AI weather/terrain benefit prediction bucket and recorded evidence here.
@@ -434,6 +439,18 @@ Shared Power battle behavior should use the correct ability view at each callsit
   Evidence: `docker run --rm -u "$(id -u):$(id -g)" -v "$PWD:/workspace" -v "/home/bayesartre/dev/pokeemerald-expansion-shared-power:/home/bayesartre/dev/pokeemerald-expansion-shared-power" -w /workspace pokeemerald-expansion:builder make check NO_MULTIBOOT=1 TESTS="Shared Power AI"` passed 42/42 tests.
 
 - Observation: The AI Hone Claws Contrary bucket passed diff hygiene.
+  Evidence: `git diff --check` reported no issues.
+
+- Observation: AI Fell Stinger scoring has a narrow native Contrary guard in its KO bonus path.
+  Evidence: `EFFECT_FELL_STINGER` in `src/battle_ai_main.c` checks native `aiData->abilities[battlerAtk] != ABILITY_CONTRARY`, while live stat-change behavior routes Contrary through active membership.
+
+- Observation: The Fell Stinger score split is stable with active Contrary suppressing the Fell Stinger KO bonus while leaving the ordinary fainting score, and Shared Power off preserving the higher KO bonus score.
+  Evidence: `TESTS="Shared Power AI: pooled Contrary prevents Fell Stinger KO bonus"` and `TESTS="Shared Power off: partner Contrary does not prevent Fell Stinger KO bonus"` both passed 1/1. The enabled path scored `AI_SCORE_DEFAULT + 5`; the off-path was greater than that reduced score.
+
+- Observation: The AI Fell Stinger Contrary bucket passed the broader Shared Power AI regression filter.
+  Evidence: `docker run --rm -u "$(id -u):$(id -g)" -v "$PWD:/workspace" -v "/home/bayesartre/dev/pokeemerald-expansion-shared-power:/home/bayesartre/dev/pokeemerald-expansion-shared-power" -w /workspace pokeemerald-expansion:builder make check NO_MULTIBOOT=1 TESTS="Shared Power AI"` passed 43/43 tests.
+
+- Observation: The AI Fell Stinger Contrary bucket passed diff hygiene.
   Evidence: `git diff --check` reported no issues.
 
 - Observation: AI Substitute/Shed Tail scoring has a native-only Infiltrator shortcut even though live Substitute bypass is already active-aware.

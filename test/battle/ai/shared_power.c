@@ -762,6 +762,35 @@ AI_SINGLE_BATTLE_TEST("Shared Power off: partner Contrary does not lower Strengt
     }
 }
 
+AI_DOUBLE_BATTLE_TEST("Shared Power AI: pooled Contrary prevents Fell Stinger KO bonus")
+{
+    GIVEN {
+        BATTLE_TYPE(BATTLE_TYPE_SHARED_POWER);
+        ASSUME(GetMoveEffect(MOVE_FELL_STINGER) == EFFECT_FELL_STINGER);
+        AI_FLAGS(AI_FLAG_CHECK_BAD_MOVE | AI_FLAG_CHECK_VIABILITY | AI_FLAG_TRY_TO_FAINT | AI_FLAG_OMNISCIENT);
+        PLAYER(SPECIES_WOBBUFFET) { HP(1); MaxHP(100); Moves(MOVE_CELEBRATE); }
+        PLAYER(SPECIES_WOBBUFFET);
+        OPPONENT(SPECIES_WOBBUFFET) { Ability(ABILITY_TELEPATHY); Attack(999); Moves(MOVE_FELL_STINGER, MOVE_CELEBRATE); }
+        OPPONENT(SPECIES_SHUCKLE) { Ability(ABILITY_CONTRARY); Moves(MOVE_CELEBRATE); }
+    } WHEN {
+        TURN { SCORE_EQ_VAL(opponentLeft, MOVE_FELL_STINGER, AI_SCORE_DEFAULT + 5, target: playerLeft); }
+    }
+}
+
+AI_DOUBLE_BATTLE_TEST("Shared Power off: partner Contrary does not prevent Fell Stinger KO bonus")
+{
+    GIVEN {
+        ASSUME(GetMoveEffect(MOVE_FELL_STINGER) == EFFECT_FELL_STINGER);
+        AI_FLAGS(AI_FLAG_CHECK_BAD_MOVE | AI_FLAG_CHECK_VIABILITY | AI_FLAG_TRY_TO_FAINT | AI_FLAG_OMNISCIENT);
+        PLAYER(SPECIES_WOBBUFFET) { HP(1); MaxHP(100); Moves(MOVE_CELEBRATE); }
+        PLAYER(SPECIES_WOBBUFFET);
+        OPPONENT(SPECIES_WOBBUFFET) { Ability(ABILITY_TELEPATHY); Attack(999); Moves(MOVE_FELL_STINGER, MOVE_CELEBRATE); }
+        OPPONENT(SPECIES_SHUCKLE) { Ability(ABILITY_CONTRARY); Moves(MOVE_CELEBRATE); }
+    } WHEN {
+        TURN { SCORE_GT_VAL(opponentLeft, MOVE_FELL_STINGER, AI_SCORE_DEFAULT + 5, target: playerLeft); }
+    }
+}
+
 AI_DOUBLE_BATTLE_TEST("Shared Power AI: pooled Contrary lowers Hone Claws score")
 {
     GIVEN {
