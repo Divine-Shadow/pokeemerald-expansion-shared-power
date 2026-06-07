@@ -57,6 +57,7 @@ static s32 AI_TryTo2HKO(u32 battlerAtk, u32 battlerDef, u32 move, s32 score);
 static s32 AI_AttacksPartner(u32 battlerAtk, u32 battlerDef, u32 move, s32 score);
 static s32 AI_PreferBatonPass(u32 battlerAtk, u32 battlerDef, u32 move, s32 score);
 static bool32 AI_TargetHealsFromAbsorbAbility(u32 battlerDef, u32 moveType);
+static bool32 AI_BattlerBenefitsFromElectricAbsorb(u32 battler);
 static s32 AI_HPAware(u32 battlerAtk, u32 battlerDef, u32 move, s32 score);
 static s32 AI_Roaming(u32 battlerAtk, u32 battlerDef, u32 move, s32 score);
 static s32 AI_Safari(u32 battlerAtk, u32 battlerDef, u32 move, s32 score);
@@ -5218,10 +5219,7 @@ case EFFECT_GUARD_SPLIT:
         }
         break;
     case EFFECT_ION_DELUGE:
-        if ((aiData->abilities[battlerAtk] == ABILITY_VOLT_ABSORB
-          || aiData->abilities[battlerAtk] == ABILITY_MOTOR_DRIVE
-          || (B_REDIRECT_ABILITY_IMMUNITY >= GEN_5 && aiData->abilities[battlerAtk] == ABILITY_LIGHTNING_ROD))
-          && predictedType == TYPE_NORMAL)
+        if (AI_BattlerBenefitsFromElectricAbsorb(battlerAtk) && predictedType == TYPE_NORMAL)
             ADJUST_SCORE(DECENT_EFFECT);
         break;
     case EFFECT_FLING:
@@ -5278,10 +5276,7 @@ case EFFECT_GUARD_SPLIT:
             ADJUST_SCORE(DECENT_EFFECT); // Give target more weaknesses
         break;
     case EFFECT_ELECTRIFY:
-        if (predictedMove != MOVE_NONE
-         && (aiData->abilities[battlerAtk] == ABILITY_VOLT_ABSORB
-          || aiData->abilities[battlerAtk] == ABILITY_MOTOR_DRIVE
-          || (B_REDIRECT_ABILITY_IMMUNITY >= GEN_5 && aiData->abilities[battlerAtk] == ABILITY_LIGHTNING_ROD)))
+        if (predictedMove != MOVE_NONE && AI_BattlerBenefitsFromElectricAbsorb(battlerAtk))
         {
             ADJUST_SCORE(DECENT_EFFECT);
         }
@@ -6001,6 +5996,13 @@ static bool32 AI_TargetHealsFromAbsorbAbility(u32 battlerDef, u32 moveType)
     default:
         return FALSE;
     }
+}
+
+static bool32 AI_BattlerBenefitsFromElectricAbsorb(u32 battler)
+{
+    return AI_HasActiveAbility(battler, ABILITY_VOLT_ABSORB)
+        || AI_HasActiveAbility(battler, ABILITY_MOTOR_DRIVE)
+        || (B_REDIRECT_ABILITY_IMMUNITY >= GEN_5 && AI_HasActiveAbility(battler, ABILITY_LIGHTNING_ROD));
 }
 
 static s32 AI_HPAware(u32 battlerAtk, u32 battlerDef, u32 move, s32 score)
