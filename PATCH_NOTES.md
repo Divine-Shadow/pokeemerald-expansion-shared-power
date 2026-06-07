@@ -1,3 +1,11 @@
+- Docs/Planning: Record Shared Power AI self additional-effect Contrary prediction diff hygiene (commit pending).
+- Docs/Planning: Record Shared Power AI self additional-effect Contrary prediction broad validation evidence (commit pending).
+- Docs/Audit: Note that Shared Power AI self additional-effect scoring handles pooled Contrary (commit pending).
+- Docs/Planning: Record Shared Power AI self additional-effect Contrary prediction validation evidence (commit pending).
+- Docs/Planning: Record Shared Power AI self additional-effect Contrary prediction progress (commit pending).
+- Tests/AI: Cover Shared Power AI self stat-boost additional-effect scoring with pooled Contrary enabled and disabled paths (commit pending).
+- Battle/AI: Let self additional-effect scoring see pooled Contrary under Shared Power (commit pending).
+- Docs/Planning: Select the Shared Power AI self additional-effect Contrary prediction bucket (commit pending).
 - Docs/Planning: Record Shared Power AI Serene Grace confusion-score prediction diff hygiene (commit 4e1f8586f0).
 - Docs/Planning: Record Shared Power AI Serene Grace confusion-score prediction broad validation evidence (commit 4e1f8586f0).
 - Docs/Audit: Note that Shared Power AI confusion scoring handles pooled Serene Grace (commit 4e1f8586f0).

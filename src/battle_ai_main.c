@@ -5512,7 +5512,7 @@ case EFFECT_GUARD_SPLIT:
         {
             enum StatChange StageStatId;
 
-            if (aiData->abilities[battlerAtk] != ABILITY_CONTRARY)
+            if (!AI_HasActiveAbility(battlerAtk, ABILITY_CONTRARY))
             {
                 switch (additionalEffect->moveEffect)
                 {
