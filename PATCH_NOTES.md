@@ -1,9 +1,9 @@
-- Docs/Planning: Record Shared Power AI stat-loss blocker prediction diff hygiene (commit pending).
-- Docs/Planning: Record Shared Power AI stat-loss blocker prediction validation evidence (commit pending).
-- Docs/Planning: Record Shared Power AI stat-loss blocker prediction progress (commit pending).
-- Docs/Audit: Note that Shared Power AI stat-loss blocker prediction handles pooled Clear Body-style blockers (commit pending).
-- Tests/AI: Cover Shared Power AI Spicy Extract scoring with pooled Clear Body enabled and disabled paths (commit pending).
-- Battle/AI: Let stat-loss blocker prediction see pooled Clear Body, White Smoke, Full Metal Body, and specific stat blockers under Shared Power (commit pending).
+- Docs/Planning: Record Shared Power AI stat-loss blocker prediction diff hygiene (commit e1de383fe6).
+- Docs/Planning: Record Shared Power AI stat-loss blocker prediction validation evidence (commit e1de383fe6).
+- Docs/Planning: Record Shared Power AI stat-loss blocker prediction progress (commit e1de383fe6).
+- Docs/Audit: Note that Shared Power AI stat-loss blocker prediction handles pooled Clear Body-style blockers (commit e1de383fe6).
+- Tests/AI: Cover Shared Power AI Spicy Extract scoring with pooled Clear Body enabled and disabled paths (commit e1de383fe6).
+- Battle/AI: Let stat-loss blocker prediction see pooled Clear Body, White Smoke, Full Metal Body, and specific stat blockers under Shared Power (commit e1de383fe6).
 - Docs/Planning: Record Shared Power AI Electric absorption self-benefit prediction diff hygiene (commit 612ccf2bf3).
 - Docs/Planning: Record Shared Power AI Electric absorption self-benefit prediction validation evidence (commit 612ccf2bf3).
 - Docs/Planning: Record Shared Power AI Electric absorption self-benefit prediction progress (commit 612ccf2bf3).
