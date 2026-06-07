@@ -1,3 +1,436 @@
+- Docs/Release: Resolve Shared Power sweep patch-note ordering after rebasing on main (commit pending).
+- Docs/Planning: Record Shared Power AI Magnitude Levitate prediction diff hygiene (commit pending).
+- Docs/Planning: Record Shared Power AI Magnitude Levitate prediction validation evidence (commit pending).
+- Docs/Planning: Record Shared Power AI Magnitude Levitate prediction implementation progress (commit pending).
+- Docs/Audit: Note that Shared Power AI Magnitude prediction handles pooled Levitate (commit pending).
+- Tests/AI: Cover Shared Power AI Magnitude scoring with pooled Levitate enabled and disabled paths (commit pending).
+- Battle/AI: Let Magnitude prediction see pooled Levitate under Shared Power (commit pending).
+- Docs/Planning: Select the Shared Power AI Magnitude Levitate prediction bucket (commit pending).
+- Docs/Planning: Record Shared Power AI Substitute Infiltrator prediction diff hygiene (commit pending).
+- Docs/Planning: Record Shared Power AI Substitute Infiltrator prediction validation evidence (commit pending).
+- Docs/Planning: Record Shared Power AI Substitute Infiltrator prediction implementation progress (commit pending).
+- Docs/Audit: Note that Shared Power AI Substitute prediction handles pooled Infiltrator (commit pending).
+- Tests/AI: Cover Shared Power AI Substitute scoring with pooled Infiltrator enabled and disabled paths (commit pending).
+- Battle/AI: Let Substitute and Shed Tail prediction see pooled Infiltrator under Shared Power (commit pending).
+- Docs/Planning: Select the Shared Power AI Substitute Infiltrator prediction bucket (commit pending).
+- Docs/Planning: Record Shared Power AI direct-drain Liquid Ooze prediction diff hygiene (commit pending).
+- Docs/Planning: Record Shared Power AI direct-drain Liquid Ooze prediction validation evidence (commit pending).
+- Docs/Planning: Record Shared Power AI direct-drain Liquid Ooze prediction implementation progress (commit pending).
+- Docs/Audit: Note that Shared Power AI direct-drain prediction handles pooled Liquid Ooze (commit pending).
+- Tests/AI: Cover Shared Power AI direct-drain prediction with pooled Liquid Ooze enabled and disabled paths (commit pending).
+- Battle/AI: Let direct-drain prediction see pooled Liquid Ooze under Shared Power (commit pending).
+- Docs/Planning: Select the Shared Power AI direct-drain Liquid Ooze prediction bucket (commit pending).
+- Docs/Planning: Record Shared Power AI Sticky Hold item-loss prediction diff hygiene (commit pending).
+- Docs/Planning: Record Shared Power AI Sticky Hold item-loss prediction validation evidence (commit pending).
+- Docs/Planning: Record Shared Power AI Sticky Hold item-loss prediction implementation progress (commit pending).
+- Docs/Audit: Note that Shared Power AI item-loss prediction handles pooled Sticky Hold (commit pending).
+- Tests/AI: Cover Shared Power AI item-loss prediction with pooled Sticky Hold enabled and disabled paths (commit pending).
+- Battle/AI: Let item-loss prediction see pooled Sticky Hold under Shared Power (commit pending).
+- Docs/Planning: Select the Shared Power AI Sticky Hold item-loss prediction bucket (commit pending).
+- Docs/Planning: Record Shared Power AI ally absorption prediction diff hygiene (commit pending).
+- Docs/Planning: Record Shared Power AI ally absorption prediction validation evidence (commit pending).
+- Tests/AI: Assert the disabled Volt Absorb ally-healing score stays at the native HP-aware baseline (commit pending).
+- Tests/AI: Assert pooled Volt Absorb ally-healing score against the penalized HP-aware baseline (commit pending).
+- Docs/Planning: Record Shared Power AI ally absorption prediction implementation progress (commit pending).
+- Docs/Audit: Note that Shared Power AI ally-targeting prediction handles pooled absorption abilities (commit pending).
+- Tests/AI: Cover Shared Power AI ally-healing scores with pooled Volt Absorb enabled and disabled paths (commit pending).
+- Battle/AI: Let HP-aware ally-targeting prediction see pooled absorption abilities under Shared Power (commit pending).
+- Docs/Planning: Select the Shared Power AI ally absorption prediction bucket (commit pending).
+- Docs/Planning: Record Shared Power AI weather and terrain prediction diff hygiene (commit pending).
+- Docs/Planning: Record Shared Power AI weather and terrain prediction validation evidence (commit pending).
+- Docs/Planning: Record Shared Power AI weather and terrain prediction implementation progress (commit pending).
+- Docs/Audit: Note that Shared Power AI weather and terrain benefit prediction now covers shareable active abilities (commit pending).
+- Tests/AI: Cover Shared Power AI weather and terrain prediction with pooled Swift Swim and Surge Surfer enabled and disabled paths (commit pending).
+- Battle/AI: Let weather and terrain benefit prediction see shareable pooled active abilities under Shared Power (commit pending).
+- Docs/Planning: Record Shared Power AI Roar Soundproof prediction diff hygiene (commit pending).
+- Docs/Planning: Record Shared Power AI Roar Soundproof prediction validation evidence (commit pending).
+- Docs/Planning: Record Shared Power AI Roar Soundproof prediction implementation progress (commit pending).
+- Docs/Gameplay: Note Shared Power AI Roar prediction honors pooled Soundproof (commit pending).
+- Tests/AI: Cover Shared Power Roar prediction with pooled Soundproof enabled and disabled paths (commit pending).
+- Battle/AI: Let Roar prediction see pooled Soundproof on active Shared Power targets (commit pending).
+- Docs/Planning: Record Shared Power AI Perish Song Soundproof prediction diff hygiene (commit pending).
+- Docs/Planning: Record Shared Power AI Perish Song Soundproof prediction validation evidence (commit pending).
+- Docs/Planning: Record Shared Power AI Perish Song Soundproof prediction implementation progress (commit pending).
+- Docs/Gameplay: Note Shared Power AI Perish Song prediction honors pooled Soundproof (commit pending).
+- Tests/AI: Cover Shared Power Perish Song prediction with pooled Soundproof enabled and disabled paths (commit pending).
+- Battle/AI: Let Perish Song prediction see pooled Soundproof on active Shared Power battlers (commit pending).
+- Docs/Planning: Record Shared Power AI powder-move Overcoat prediction diff hygiene (commit pending).
+- Docs/Planning: Record Shared Power AI powder-move Overcoat prediction validation evidence (commit pending).
+- Docs/Planning: Record Shared Power AI powder-move Overcoat prediction implementation progress (commit pending).
+- Docs/Gameplay: Note Shared Power AI powder prediction honors pooled Overcoat (commit pending).
+- Tests/AI: Cover Shared Power powder prediction helper with pooled Overcoat enabled and disabled paths (commit pending).
+- Battle/AI: Let powder-move prediction see pooled Overcoat on active Shared Power targets (commit pending).
+- Docs/Planning: Record Shared Power AI Comatose sleep-state prediction diff hygiene (commit pending).
+- Docs/Planning: Record Shared Power AI Comatose sleep-state prediction validation evidence (commit pending).
+- Docs/Planning: Record Shared Power AI Comatose sleep-state prediction implementation progress (commit pending).
+- Docs/Gameplay: Note Shared Power AI sleep-state prediction honors pooled Comatose (commit pending).
+- Tests/AI: Cover Shared Power sleep-state prediction with pooled Comatose enabled and disabled paths (commit pending).
+- Battle/AI: Let sleep-state prediction see pooled Comatose on active Shared Power battlers (commit pending).
+- Docs/Planning: Record Shared Power AI Heal Bell Soundproof prediction diff hygiene (commit pending).
+- Docs/Planning: Record Shared Power AI Heal Bell Soundproof prediction validation evidence (commit pending).
+- Docs/Planning: Record Shared Power AI Heal Bell Soundproof prediction implementation progress (commit pending).
+- Docs/Gameplay: Note Shared Power AI Heal Bell prediction honors pooled active Soundproof (commit pending).
+- Tests/AI: Cover Shared Power Heal Bell prediction with pooled active Soundproof partners (commit pending).
+- Battle/AI: Let Heal Bell status-cure prediction see pooled active Soundproof partners under Shared Power (commit pending).
+- Docs/Planning: Record Shared Power AI guaranteed-flinch prediction diff hygiene (commit pending).
+- Docs/Planning: Record Shared Power AI guaranteed-flinch prediction validation evidence (commit pending).
+- Tests/AI: Give guaranteed-flinch prediction fixtures explicit Speed on all AI battlers (commit pending).
+- Docs/Planning: Record Shared Power AI guaranteed-flinch prediction implementation progress (commit pending).
+- Docs/Gameplay: Note Shared Power AI guaranteed-flinch prediction honors pooled flinch blockers (commit pending).
+- Tests/AI: Cover Shared Power guaranteed-flinch prediction with pooled Inner Focus enabled and disabled paths (commit pending).
+- Battle/AI: Let guaranteed-flinch prediction see pooled Inner Focus and Shield Dust on active Shared Power targets (commit pending).
+- Docs/Planning: Record Shared Power AI secondary-damage prediction diff hygiene (commit pending).
+- Docs/Gameplay: Note that Shared Power AI accounts for pooled Magic Guard and Poison Heal secondary-damage protection (commit pending).
+- Docs/Planning: Add exact validation commands for Shared Power AI secondary-damage prediction (commit pending).
+- Docs/Planning: Record Shared Power AI secondary-damage prediction validation evidence (commit pending).
+- Tests/AI: Match existing include order for AI secondary-damage prediction coverage (commit pending).
+- Docs/Planning: Record Shared Power AI secondary-damage prediction implementation progress (commit pending).
+- Battle/AI: Let secondary-damage prediction see pooled Magic Guard and Poison Heal (commit pending).
+- Docs/Planning: Select the Shared Power AI secondary-damage prediction bucket (commit pending).
+- Docs/Planning: Add exact validation commands for Shared Power AI Wonder Guard switch recognition (commit pending).
+- Docs/Audit: Mark Shared Power AI known-ability migration as in progress after Wonder Guard switch recognition (commit pending).
+- Docs/Planning: Record Shared Power AI Wonder Guard switch-recognition validation evidence (commit pending).
+- Tests/AI: Avoid trapping the AI in pooled Wonder Guard switch-recognition coverage (commit pending).
+- Docs/Planning: Record Shared Power AI Wonder Guard switch-recognition implementation progress (commit pending).
+- Battle/AI: Let smart switch logic recognize pooled Wonder Guard on active Shared Power targets (commit pending).
+- Docs/Planning: Select the Shared Power AI Wonder Guard switch-recognition bucket (commit pending).
+- Docs/Planning: Record Shared Power audit reconciliation diff hygiene (commit pending).
+- Docs/Audit: Mark completed Shared Power ability buckets as implemented in the audit (commit pending).
+- Docs/Planning: Record Shared Power effectiveness preview defer diff hygiene (commit pending).
+- Docs/Planning: Defer Shared Power effectiveness preview policy pending damage-context semantics (commit pending).
+- Docs/Planning: Record Shared Power trapping defer diff hygiene (commit pending).
+- Docs/Planning: Record the Shared Power trapping defer decision in the sweep ExecPlan (commit pending).
+- Docs/Planning: Defer Shared Power trapping policy pending Shadow Tag self-exemption and attribution decisions (commit pending).
+- Docs/Planning: Record Shared Power Klutz item-suppression validation evidence (commit pending).
+- Tests/Battle: Replace Klutz TODO with native held-item and Poltergeist guardrails (commit pending).
+- Tests/Battle: Force Poltergeist accuracy to hit in Klutz coverage (commit pending).
+- Tests/Battle: Use hit outcome instead of exact Poltergeist reveal text in Klutz off-path (commit pending).
+- Tests/Battle: Avoid brittle Poltergeist failure text in pooled Klutz coverage (commit pending).
+- Docs/Gameplay: Note that pooled Klutz suppresses held-item effects, Fling, and Poltergeist (commit pending).
+- Tests/Battle: Cover pooled Klutz suppressing Leftovers, Fling, and Poltergeist plus disabled off-paths (commit pending).
+- Battle/Shared Power: Let active Klutz suppress held items, Fling, Poltergeist, and AI item-enabled checks (commit pending).
+- Docs/Planning: Select the Shared Power Klutz item-suppression bucket (commit pending).
+- Docs/Audit: Add Klutz item-suppression policy for Shared Power migration (commit pending).
+- Docs/Planning: Record Shared Power Infiltrator bypass validation evidence (commit pending).
+- Tests/Battle: Replace Infiltrator TODO with native Substitute and Mist bypass guardrails (commit pending).
+- Tests/Battle: Use transcript assertions for Infiltrator Mist bypass coverage (commit pending).
+- Docs/Gameplay: Note that pooled Infiltrator bypasses Substitute and Mist (commit pending).
+- Tests/Battle: Cover pooled Infiltrator bypassing Substitute and Mist plus disabled off-paths (commit pending).
+- Battle/Shared Power: Record Infiltrator when it bypasses Mist protection (commit pending).
+- Battle/Shared Power: Let active Infiltrator bypass Substitute and Mist protection (commit pending).
+- Docs/Planning: Select the Shared Power Infiltrator bypass bucket (commit pending).
+- Docs/Audit: Add Infiltrator Substitute and Mist bypass policy for Shared Power migration (commit pending).
+- Docs/Planning: Record Shared Power Lightning Rod and Storm Drain validation evidence (commit pending).
+- Battle/Shared Power: Resolve pooled Lightning Rod and Storm Drain for live direct absorption callsites (commit pending).
+- Tests/Battle: Switch Lightning Rod and Storm Drain sources in before redirection assertions (commit pending).
+- Tests/Battle: Focus Lightning Rod and Storm Drain redirection assertions on attribution instead of HP bar events (commit pending).
+- Docs/Gameplay: Note that pooled Lightning Rod and Storm Drain affect redirection and absorption (commit pending).
+- Tests/Battle: Cover pooled Lightning Rod and Storm Drain redirection plus disabled off-paths (commit pending).
+- Battle/Shared Power: Let active Lightning Rod and Storm Drain control move redirection and attribution (commit pending).
+- Docs/Planning: Select the Shared Power Lightning Rod and Storm Drain redirection bucket (commit pending).
+- Docs/Audit: Add Lightning Rod and Storm Drain redirection policy for Shared Power migration (commit pending).
+- Docs/Planning: Record Shared Power Unseen Fist protect-bypass diff hygiene (commit pending).
+- Docs/Planning: Record Shared Power Unseen Fist protect-bypass validation evidence (commit pending).
+- Tests/Battle: Replace Unseen Fist TODO with native Protect-bypass coverage (commit pending).
+- Tests/Battle: Use NONE_OF for Unseen Fist disabled protect assertions (commit pending).
+- Docs/Gameplay: Note that pooled Unseen Fist lets contact moves bypass Protect (commit pending).
+- Tests/Battle: Cover pooled Unseen Fist protect bypass plus the disabled off-path (commit pending).
+- Battle/Shared Power: Let active Unseen Fist bypass Protect for contact moves (commit pending).
+- Docs/Planning: Record Shared Power Unseen Fist protect-bypass implementation progress (commit pending).
+- Docs/Planning: Select the Shared Power Unseen Fist protect-bypass bucket (commit pending).
+- Docs/Audit: Add Unseen Fist protect-bypass policy for Shared Power migration (commit pending).
+- Docs/Planning: Record Shared Power Poké Flute active Soundproof diff hygiene (commit pending).
+- Docs/Planning: Record Shared Power Poké Flute active Soundproof validation evidence (commit pending).
+- Battle/Shared Power: Keep Poké Flute party updates active-aware for active party slots (commit pending).
+- Tests/Battle: Avoid brittle Poké Flute item-name transcript assertions (commit pending).
+- Docs/Gameplay: Note that pooled Soundproof blocks Poké Flute for active teammates (commit pending).
+- Tests/Battle: Cover pooled Soundproof blocking Poké Flute plus the disabled off-path (commit pending).
+- Battle/Shared Power: Let active Soundproof block Poké Flute active-battler wake-up (commit pending).
+- Docs/Planning: Record Shared Power Poké Flute active Soundproof implementation progress (commit pending).
+- Docs/Planning: Select the Shared Power Poké Flute active Soundproof bucket (commit pending).
+- Docs/Audit: Add Poké Flute active Soundproof policy for Shared Power migration (commit pending).
+- Docs/Planning: Record Shared Power Toxic Chain Knock Off berry-cure diff hygiene (commit pending).
+- Docs/Planning: Record Shared Power Toxic Chain Knock Off berry-cure validation evidence (commit pending).
+- Docs/Gameplay: Note that pooled Toxic Chain works with Knock Off cure-berry timing (commit pending).
+- Tests/Battle: Cover pooled Toxic Chain Knock Off berry cure plus the disabled off-path (commit pending).
+- Battle/Shared Power: Let active Toxic Chain trigger Knock Off cure-berry timing (commit pending).
+- Docs/Planning: Record Shared Power Toxic Chain Knock Off berry-cure implementation progress (commit pending).
+- Docs/Planning: Select the Shared Power Toxic Chain Knock Off berry-cure bucket (commit pending).
+- Docs/Audit: Add Toxic Chain Knock Off berry-cure policy for Shared Power migration (commit pending).
+- Docs/Planning: Record Shared Power Own Tempo standard-confusion diff hygiene (commit pending).
+- Docs/Planning: Record Shared Power Own Tempo standard-confusion validation evidence (commit pending).
+- Tests/Battle: Use bit-field-safe confusion assertions in Own Tempo coverage (commit pending).
+- Docs/Gameplay: Note that pooled Own Tempo blocks standard confusion and Berserk Gene (commit pending).
+- Tests/Battle: Cover pooled Own Tempo confusion blocking plus disabled off-paths (commit pending).
+- Battle/Shared Power: Let active Own Tempo block standard move and Berserk Gene confusion (commit pending).
+- Docs/Planning: Record Shared Power Own Tempo standard-confusion implementation progress (commit pending).
+- Docs/Planning: Select the Shared Power Own Tempo standard-confusion bucket (commit pending).
+- Docs/Audit: Add Own Tempo standard-confusion policy for Shared Power migration (commit pending).
+- Docs/Planning: Record Shared Power Mirror Armor contact-reflection diff hygiene (commit pending).
+- Docs/Planning: Record Shared Power Mirror Armor contact-reflection validation evidence (commit pending).
+- Docs/Gameplay: Note that pooled Mirror Armor reflects Tangling Hair and Gooey Speed drops (commit pending).
+- Tests/Battle: Cover pooled Mirror Armor reflecting Tangling Hair plus the disabled off-path (commit pending).
+- Battle/Shared Power: Let active Mirror Armor reflect Tangling Hair and Gooey at minimum Speed (commit pending).
+- Docs/Planning: Select and implement the Shared Power Mirror Armor contact-reflection bucket (commit pending).
+- Docs/Audit: Add Mirror Armor contact-reflection policy for Shared Power migration (commit pending).
+- Docs/Planning: Record Shared Power Cute Charm Oblivious validation evidence (commit pending).
+- Docs/Planning: Record Shared Power Cute Charm Oblivious implementation progress (commit pending).
+- Docs/Gameplay: Note that pooled Oblivious blocks Cute Charm under Shared Power (commit pending).
+- Tests/Battle: Cover pooled Oblivious blocking Cute Charm plus the disabled off-path (commit pending).
+- Battle/Shared Power: Let active Oblivious block Cute Charm infatuation (commit pending).
+- Docs/Planning: Select the Shared Power Cute Charm Oblivious bucket (commit pending).
+- Docs/Audit: Add Cute Charm Oblivious contact-infatuation policy for Shared Power migration (commit pending).
+- Docs/Planning: Record Shared Power Guard Dog Red Card validation evidence (commit pending).
+- Docs/Planning: Record Shared Power Guard Dog Red Card implementation progress (commit pending).
+- Docs/Gameplay: Note that pooled Guard Dog prevents Red Card forced switches (commit pending).
+- Tests/Battle: Cover pooled Guard Dog blocking Red Card plus the disabled off-path (commit pending).
+- Battle/Shared Power: Let active Guard Dog prevent Red Card forced switches (commit pending).
+- Docs/Planning: Select the Shared Power Guard Dog Red Card bucket (commit pending).
+- Docs/Audit: Add Guard Dog Red Card forced-switch policy for Shared Power migration (commit pending).
+- Docs/Planning: Record Shared Power direct drain Liquid Ooze validation evidence (commit pending).
+- Tests/Battle: Remove trailing whitespace from Shared Power coverage (commit pending).
+- Docs/Planning: Record Shared Power direct drain Liquid Ooze implementation progress (commit pending).
+- Docs/Gameplay: Note that pooled Liquid Ooze punishes direct drain moves under Shared Power (commit pending).
+- Tests/Battle: Cover pooled Liquid Ooze for Absorb and Strength Sap plus disabled off-paths (commit pending).
+- Battle/Shared Power: Let active Liquid Ooze punish direct drain moves (commit pending).
+- Docs/Planning: Select the Shared Power direct drain Liquid Ooze bucket (commit pending).
+- Docs/Audit: Add direct drain move Liquid Ooze policy for Shared Power migration (commit pending).
+- Docs/Planning: Record Shared Power Cheek Pouch validation evidence (commit pending).
+- Docs/Planning: Record Shared Power Cheek Pouch implementation progress (commit pending).
+- Docs/Gameplay: Note that pooled Cheek Pouch restores extra HP after berry consumption (commit pending).
+- Tests/Battle: Cover pooled Cheek Pouch healing after berry consumption plus the disabled off-path (commit pending).
+- Battle/Shared Power: Let active Cheek Pouch trigger after berry consumption (commit pending).
+- Docs/Planning: Select the Shared Power Cheek Pouch holder berry-effect bucket (commit pending).
+- Docs/Audit: Add Cheek Pouch holder berry-effect policy for Shared Power migration (commit pending).
+- Docs/Planning: Record Shared Power Heal Pulse Mega Launcher validation evidence (commit pending).
+- Docs/Planning: Record Shared Power Heal Pulse Mega Launcher implementation progress (commit pending).
+- Docs/Gameplay: Note that pooled Mega Launcher boosts Heal Pulse under Shared Power (commit pending).
+- Tests/Battle: Cover pooled Mega Launcher boosting Heal Pulse plus the disabled off-path (commit pending).
+- Battle/Shared Power: Let active Mega Launcher boost Heal Pulse (commit pending).
+- Docs/Planning: Select the Shared Power Heal Pulse Mega Launcher bucket (commit pending).
+- Docs/Planning: Record Shared Power remaining Ripen berry-effect validation evidence (commit pending).
+- Battle/Shared Power: Let Ripen item scripts test active ability membership for popups (commit pending).
+- Docs/Planning: Record Shared Power remaining Ripen berry-effect implementation progress (commit pending).
+- Docs/Audit: Add holder berry-effect policy for Shared Power Ripen migration (commit pending).
+- Docs/Gameplay: Note that pooled Ripen doubles remaining berry effects under Shared Power (commit pending).
+- Tests/Battle: Cover pooled Ripen for remaining healing berries, Leppa Berry, and Jaboca/Rowap Berry damage (commit pending).
+- Battle/Shared Power: Let active Ripen drive remaining berry-effect doubling and popups (commit pending).
+- Docs/Planning: Select the remaining Shared Power Ripen berry-effect bucket (commit pending).
+- Docs/Planning: Record Shared Power standard HP-restoring Ripen berry validation evidence (commit pending).
+- Docs/Planning: Record Shared Power standard HP-restoring Ripen berry implementation progress (commit pending).
+- Docs/Gameplay: Note that pooled Ripen doubles standard HP-restoring berries under Shared Power (commit pending).
+- Tests/Battle: Cover pooled Ripen doubling Sitrus Berry healing plus the disabled off-path (commit pending).
+- Battle/Shared Power: Let active Ripen double standard HP-restoring berries (commit pending).
+- Docs/Planning: Select the Shared Power standard HP-restoring Ripen berry bucket (commit pending).
+- Docs/Planning: Record Shared Power stat-boosting Ripen berry validation evidence (commit pending).
+- Docs/Planning: Record Shared Power stat-boosting Ripen berry implementation progress (commit pending).
+- Docs/Gameplay: Note that pooled Ripen doubles stat-boosting berries under Shared Power (commit pending).
+- Tests/Battle: Cover pooled Ripen doubling pinch and hit-triggered stat berries plus disabled off-paths (commit pending).
+- Battle/Shared Power: Let active Ripen double stat-boosting berries (commit pending).
+- Docs/Planning: Select the Shared Power stat-boosting Ripen berry bucket (commit pending).
+- Docs/Planning: Record Shared Power Gluttony berry-threshold validation evidence (commit pending).
+- Docs/Planning: Record Shared Power Gluttony berry-threshold implementation progress (commit pending).
+- Docs/Gameplay: Note that pooled Gluttony lets active teammates eat pinch berries at half HP (commit pending).
+- Tests/Battle: Cover pooled Gluttony triggering pinch berries at half HP plus the disabled off-path (commit pending).
+- Battle/Shared Power: Let active Gluttony lower berry activation thresholds (commit pending).
+- Docs/Planning: Select the Shared Power Gluttony berry-threshold bucket (commit pending).
+- Docs/Planning: Record Shared Power Perish Song Soundproof validation evidence (commit pending).
+- Tests/Battle: Match Perish Song's direct Soundproof block message without expecting a popup (commit pending).
+- Docs/Planning: Record Shared Power Perish Song Soundproof implementation progress (commit pending).
+- Docs/Gameplay: Note that pooled Soundproof prevents Perish Song timers under Shared Power (commit pending).
+- Tests/Battle: Cover pooled Soundproof preventing Perish Song timers plus the disabled off-path (commit pending).
+- Battle/Shared Power: Let active Soundproof prevent Perish Song timers (commit pending).
+- Docs/Planning: Select the Shared Power Perish Song Soundproof setup bucket (commit pending).
+- Docs/Planning: Record Shared Power generic Soundproof script-command validation evidence (commit pending).
+- Docs/Planning: Record Shared Power generic Soundproof script-command implementation progress (commit pending).
+- Docs/Gameplay: Note that pooled Soundproof blocks sound-based partner effects under Shared Power (commit pending).
+- Tests/Battle: Cover pooled Soundproof blocking Howl on an active partner plus the disabled off-path (commit pending).
+- Battle/Shared Power: Let active Soundproof membership drive generic script sound blocks (commit pending).
+- Docs/Planning: Select the Shared Power generic Soundproof script-command bucket (commit pending).
+- Docs/Planning: Record Shared Power Pressure PP deduction validation evidence (commit pending).
+- Docs/Planning: Record Shared Power Pressure PP deduction implementation progress (commit pending).
+- Docs/Gameplay: Note that pooled Pressure increases opposing PP usage under Shared Power (commit pending).
+- Tests/Battle: Cover pooled Pressure PP deduction for single-target and spread moves plus disabled off-paths (commit pending).
+- Battle/Shared Power: Let active Pressure membership drive PP deduction (commit pending).
+- Docs/Planning: Select the Shared Power Pressure PP deduction bucket (commit pending).
+- Docs/Planning: Record Shared Power Taunt Oblivious validation evidence (commit pending).
+- Tests/Battle: Avoid illegal forced-move setup in the Shared Power Taunt off-path coverage (commit pending).
+- Docs/Planning: Record Shared Power Taunt Oblivious implementation progress (commit pending).
+- Docs/Gameplay: Note that pooled Oblivious prevents Taunt under Shared Power (commit pending).
+- Tests/Battle: Cover pooled Oblivious blocking Taunt plus the disabled off-path (commit pending).
+- Battle/Shared Power: Let active Oblivious block Taunt (commit pending).
+- Docs/Planning: Select the Shared Power Taunt Oblivious target-protection bucket (commit pending).
+- Docs/Planning: Record Shared Power Powder self-damage Magic Guard validation evidence (commit pending).
+- Tests/Battle: Assert Powder self-damage prevention by final HP rather than suppressing the zero-damage bar (commit pending).
+- Docs/Planning: Record Shared Power Powder self-damage Magic Guard implementation progress (commit pending).
+- Docs/Gameplay: Note that pooled Magic Guard prevents Powder self-damage under Shared Power (commit pending).
+- Tests/Battle: Cover pooled Magic Guard preventing Powder self-damage plus the disabled off-path (commit pending).
+- Battle/Shared Power: Let active Magic Guard prevent Powder self-damage (commit pending).
+- Docs/Planning: Select the Shared Power Powder self-damage Magic Guard bucket (commit pending).
+- Docs/Planning: Record Shared Power entry-hazard damage Magic Guard validation evidence (commit pending).
+- Tests/Battle: Give the Shared Power hazard switch-in fixture an explicit bench Speed (commit pending).
+- Docs/Planning: Record Shared Power entry-hazard damage Magic Guard implementation progress (commit pending).
+- Docs/Gameplay: Note that pooled Magic Guard prevents damaging entry hazards under Shared Power (commit pending).
+- Tests/Battle: Cover pooled Magic Guard preventing Spikes and Stealth Rock switch-in damage plus disabled off-paths (commit pending).
+- Battle/Shared Power: Let active Magic Guard prevent damaging entry hazards (commit pending).
+- Docs/Planning: Select the Shared Power entry-hazard damage Magic Guard bucket (commit pending).
+- Docs/Planning: Record Shared Power holder-side item damage Magic Guard validation evidence (commit pending).
+- Tests/Battle: Match holder item damage transcript ordering in Shared Power Magic Guard off-path coverage (commit pending).
+- Docs/Planning: Record Shared Power holder-side item damage Magic Guard implementation progress (commit pending).
+- Docs/Gameplay: Note that pooled Magic Guard prevents holder-side item damage under Shared Power (commit pending).
+- Tests/Battle: Cover pooled Magic Guard preventing Black Sludge and Sticky Barb holder damage plus disabled off-paths (commit pending).
+- Battle/Shared Power: Let active Magic Guard prevent Black Sludge and Sticky Barb holder damage (commit pending).
+- Docs/Planning: Select the Shared Power holder-side item damage Magic Guard bucket (commit pending).
+- Docs/Planning: Record Shared Power Spiky Shield Magic Guard implementation and validation evidence (commit pending).
+- Docs/Gameplay: Note that pooled Magic Guard prevents Spiky Shield backlash under Shared Power (commit pending).
+- Tests/Battle: Cover pooled Magic Guard preventing Spiky Shield backlash plus the disabled off-path (commit pending).
+- Battle/Shared Power: Let active Magic Guard prevent Spiky Shield contact backlash damage (commit pending).
+- Docs/Planning: Select the Shared Power Spiky Shield Magic Guard bucket (commit pending).
+- Docs/Planning: Record Shared Power half-HP user-loss Magic Guard implementation and validation evidence (commit pending).
+- Docs/Gameplay: Note that pooled Magic Guard prevents half-HP user-loss moves under Shared Power (commit pending).
+- Tests/Battle: Cover pooled Magic Guard preventing Steel Beam and Mind Blown HP loss plus disabled off-paths (commit pending).
+- Battle/Shared Power: Let active Magic Guard prevent half-HP user-loss moves such as Steel Beam and Mind Blown (commit pending).
+- Docs/Planning: Select the Shared Power half-HP user-loss Magic Guard bucket (commit pending).
+- Docs/Planning: Record Shared Power held-item backlash Magic Guard implementation and validation evidence (commit pending).
+- Tests/Battle: Use move-category assumptions for Magic Guard held-item backlash coverage (commit pending).
+- Docs/Gameplay: Note that pooled Magic Guard prevents held-item backlash under Shared Power (commit pending).
+- Tests/Battle: Cover pooled Magic Guard preventing Rocky Helmet, Jaboca, and Rowap backlash plus disabled off-paths (commit pending).
+- Battle/Shared Power: Let active Magic Guard prevent Rocky Helmet, Jaboca, and Rowap backlash damage (commit pending).
+- Docs/Planning: Select the Shared Power held-item backlash Magic Guard bucket (commit pending).
+- Docs/Planning: Record Shared Power Inner Focus flinch implementation and validation evidence (commit pending).
+- Tests/Battle: Use battle transcript assertions instead of cleared volatile state for Inner Focus off-path flinch coverage (commit pending).
+- Docs/Gameplay: Note that pooled Inner Focus prevents flinching under Shared Power (commit pending).
+- Tests/Battle: Cover pooled Inner Focus flinch prevention and the Shared Power disabled off-path (commit pending).
+- Battle/Shared Power: Let active Inner Focus membership prevent flinch effects in SetMoveEffect (commit pending).
+- Docs/Planning: Select the Shared Power SetMoveEffect Inner Focus flinch-prevention bucket (commit pending).
+- Docs/Notes: Consolidate interim Shared Power AI hazard setup patch-note entries (commit pending).
+- Docs/Planning: Record Shared Power AI hazard setup implementation, validation, and testing discoveries (commit pending).
+- Tests/AI: Cover Shared Power AI hazard scoring for pooled active-partner Magic Bounce and the disabled off-path (commit pending).
+- Battle/AI: Let hazard setup scoring use target effective AI ability membership for Magic Bounce and Shield Dust (commit pending).
+- Docs/Planning: Record Shared Power Flame Burst Magic Guard validation evidence (commit pending).
+- Tests/Battle: Remove trailing spaces in existing Shared Power Adaptability tests so diff whitespace validation passes (commit pending).
+- Docs/Planning: Record Shared Power Flame Burst Magic Guard implementation progress before validation (commit pending).
+- Docs/Gameplay: Note pooled Magic Guard prevents Flame Burst splash and other indirect damage (commit pending).
+- Tests/Battle: Cover pooled Magic Guard blocking Flame Burst splash damage and the disabled off-path (commit pending).
+- Battle/Shared Power: Let pooled Magic Guard block Flame Burst splash damage for active partners (commit pending).
+- Docs/Planning: Select the Shared Power SetMoveEffect Flame Burst Magic Guard bucket (commit pending).
+- Docs/Planning: Record Victory Star revalidation after live accuracy duplicate-source guard (commit pending).
+- Battle/Shared Power: Avoid double-counting pooled Victory Star in live accuracy math (commit pending).
+- Docs/Planning: Record Shared Power AccuracyCheck accuracy-math validation evidence (commit pending).
+- Docs/Planning: Record Shared Power AccuracyCheck accuracy-math bucket selection and implementation progress (commit pending).
+- Tests/Battle: Cover pooled Compound Eyes and Sand Veil accuracy calculations plus disabled off-paths (commit pending).
+- Docs/Gameplay: Note that pooled accuracy and evasion abilities affect active teammates under Shared Power (commit pending).
+- Battle/Shared Power: Route live AccuracyCheck math through active ability membership (commit pending).
+- Docs/Planning: Record Shared Power attack-canceler Magic Bounce validation evidence (commit pending).
+- Battle/Shared Power: Attribute pooled Magic Bounce popups to Magic Bounce before reflection scripts run (commit pending).
+- Docs/Planning: Record Shared Power attack-canceler Magic Bounce implementation progress before validation (commit pending).
+- Tests/Battle: Cover pooled Magic Bounce reflecting for a non-Magic-Bounce target and the disabled off-path (commit pending).
+- Battle/Shared Power: Let attack-canceler Magic Bounce checks use effective active target membership (commit pending).
+- Docs/Gameplay: Note that pooled Magic Bounce reflects eligible status moves for active teammates (commit pending).
+- Docs/Planning: Select the Shared Power attack-canceler Magic Bounce ownership bucket (commit pending).
+- Docs/Planning: Record Shared Power Victory Star partner accuracy validation evidence (commit pending).
+- Docs/Planning: Record Shared Power Victory Star partner accuracy implementation progress before validation (commit pending).
+- Tests/Battle: Cover pooled Victory Star accuracy boosting, disabled off-path, and native ally accuracy behavior (commit pending).
+- Battle/Shared Power: Let Victory Star partner accuracy boosts use effective active ally membership (commit pending).
+- Docs/Gameplay: Note that pooled Victory Star partner accuracy auras share under Shared Power (commit pending).
+- Docs/Planning: Select the Shared Power Victory Star partner accuracy aura bucket (commit pending).
+- Docs/Planning: Record Shared Power Flower Gift partner aura validation evidence (commit pending).
+- Tests/Battle: Declare Sunny Day in Flower Gift Shared Power test move lists (commit pending).
+- Docs/Planning: Record Shared Power Flower Gift partner aura implementation progress before validation (commit pending).
+- Tests/Battle: Compare boosted and unboosted Flower Gift Shared Power damage samples (commit pending).
+- Tests/Battle: Cover pooled Flower Gift boosting a partner's physical move and the disabled off-path (commit pending).
+- Battle/Shared Power: Let Flower Gift partner Attack and Sp. Def auras use effective active Cherrim membership (commit pending).
+- Docs/Gameplay: Note that pooled Flower Gift partner auras share without changing Cherrim form rules (commit pending).
+- Docs/Planning: Select the Shared Power Flower Gift partner aura bucket (commit pending).
+- Docs/Planning: Record Shared Power Gorilla Tactics choice-lock validation evidence (commit pending).
+- Tests/Battle: Use the player battler index for the native Gorilla Tactics lock assertion (commit pending).
+- Tests/Battle: Use the player-left battler index for Gorilla Tactics Shared Power lock assertions (commit pending).
+- Docs/Planning: Record Shared Power Gorilla Tactics choice-lock implementation progress before validation (commit pending).
+- Tests/Battle: Cover pooled Gorilla Tactics choice-lock setup and a native choice-lock guard (commit pending).
+- Battle/Shared Power: Let Gorilla Tactics choice-lock paths use effective active ability membership (commit pending).
+- Docs/Planning: Clarify the Sticky Hold script jump migration boundary (commit pending).
+- Docs/Gameplay: Note that pooled Gorilla Tactics applies move-locking behavior under Shared Power (commit pending).
+- Docs/Planning: Select the Shared Power Gorilla Tactics choice-lock bucket (commit pending).
+- Docs/Planning: Record Shared Power Sticky Hold item-protection validation evidence (commit pending).
+- Battle/Shared Power: Declare the Sticky Hold protection helper before early item-effect use (commit pending).
+- Docs/Planning: Record Shared Power Sticky Hold item-protection implementation progress before validation (commit pending).
+- Tests/Battle: Cover pooled Sticky Hold blocking Thief and the disabled off-path under Shared Power (commit pending).
+- Battle/Shared Power: Let Sticky Hold item-protection paths use effective active ability membership (commit pending).
+- Docs/Gameplay: Note that pooled Sticky Hold protects active teammates' held items under Shared Power (commit pending).
+- Docs/Planning: Select the Shared Power Sticky Hold item-protection bucket and leave Gorilla Tactics choice-locking separate (commit pending).
+- Docs/Planning: Record Shared Power Symbiosis validation evidence (commit pending).
+- Tests/Battle: Seed pooled Symbiosis by switching from an active Symbiosis source before item passing (commit pending).
+- Docs/Planning: Record Shared Power Symbiosis implementation progress before validation (commit pending).
+- Tests/Battle: Cover pooled Symbiosis item passing and the disabled off-path under Shared Power (commit pending).
+- Battle/Shared Power: Let Symbiosis trigger from an active partner's effective shared ability membership (commit pending).
+- Docs/Gameplay: Note that pooled Symbiosis can trigger through Shared Power while the active partner donates the item (commit pending).
+- Docs/Planning: Select the Shared Power Symbiosis bucket and record its donor ownership model (commit pending).
+- Docs/Planning: Record Shared Power partner base-power aura validation evidence (commit pending).
+- Tests/Battle: Declare Celebrate alongside Water Gun in Battery test move lists (commit pending).
+- Tests/Battle: Include full Celebrate transcript events in Battery aura coverage (commit pending).
+- Tests/Battle: Make Battery aura coverage explicit and add a native Battery damage guard (commit pending).
+- Docs/Planning: Record Shared Power partner base-power aura implementation progress before validation (commit pending).
+- Docs/Gameplay: Note that pooled partner damage-boosting abilities share for active teammates under Shared Power (commit pending).
+- Tests/Battle: Cover Shared Power pooled Battery boosting an active partner and the disabled off-path (commit pending).
+- Battle/Shared Power: Let Battery, Power Spot, and Steely Spirit partner base-power auras use effective membership (commit pending).
+- Docs/Planning: Select the Shared Power partner base-power aura bucket and record the Flower Gift and Victory Star boundary (commit pending).
+- Docs/Planning: Record Terastal Adaptability validation evidence including the failed-before native lookup result (commit pending).
+- Docs/Planning: Record Terastal Adaptability as an implemented migration after the Tera-specific helper fix (commit pending).
+- Battle/Shared Power: Let Terastal Adaptability multipliers use effective active ability membership (commit pending).
+- Docs/Planning: Record Terastal Adaptability Shared Power regression coverage before validation (commit pending).
+- Docs/Gameplay: Note that pooled Adaptability applies to Terastal same-type attack bonuses under Shared Power (commit pending).
+- Tests/Battle: Cover Shared Power pooled Adaptability with Terastal STAB and the disabled off-path (commit pending).
+- Docs/Planning: Record that Terastal Adaptability already uses active Shared Power membership and select regression coverage (commit pending).
+- Docs/Planning: Record Shared Power accuracy-skip No Guard validation evidence (commit pending).
+- Docs/Planning: Record Shared Power accuracy-skip No Guard implementation progress before validation (commit pending).
+- Tests/Battle: Cover target-side pooled No Guard generic accuracy skips and the disabled off-path (commit pending).
+- Battle/Shared Power: Honor supplied AI abilities in accuracy skips and record live No Guard against its actual owner (commit pending).
+- Docs/Planning: Select the Shared Power accuracy-skip No Guard contract bucket and record its AccuracyCheck boundary (commit pending).
+- Docs/Planning: Record Shared Power Heal Bell Soundproof validation evidence (commit pending).
+- Docs/Planning: Record Shared Power Heal Bell Soundproof implementation progress before validation (commit pending).
+- Docs/Gameplay: Note that pooled Soundproof follows Heal Bell's active-battler blocking rules under Shared Power (commit pending).
+- Tests/Battle: Cover Shared Power pooled Soundproof blocking Heal Bell cures and the disabled off-path (commit pending).
+- Battle/Shared Power: Let Heal Bell Soundproof checks use effective active battler membership with Soundproof attribution (commit pending).
+- Docs/Planning: Select the Shared Power Heal Bell Soundproof bucket and record its active-party boundary (commit pending).
+- Docs/Planning: Record Shared Power infatuation Oblivious validation evidence (commit pending).
+- Docs/Planning: Record Shared Power infatuation Oblivious implementation progress before validation (commit pending).
+- Docs/Gameplay: Note that pooled Oblivious blocks infatuation effects under Shared Power (commit pending).
+- Tests/Battle: Cover Shared Power pooled Oblivious blocking Attract and the disabled off-path (commit pending).
+- Battle/Shared Power: Let direct infatuation Oblivious gates use effective Shared Power membership (commit pending).
+- Docs/Planning: Select the Shared Power infatuation Oblivious script-command bucket and record its callback boundary (commit pending).
+- Docs/Planning: Record Shared Power speed-calculation implementation and validation evidence (commit pending).
+- Docs/Planning: Record the Surge Surfer test species constant validation finding (commit pending).
+- Tests/Battle: Use the repo's canonical Alolan Raichu species constant in Surge Surfer Shared Power tests (commit pending).
+- Docs/Gameplay: Note that pooled speed-calculation abilities share when their conditions are met (commit pending).
+- Tests/Battle: Cover Shared Power pooled Surge Surfer speed calculation and the disabled off-path (commit pending).
+- Battle/Shared Power: Let remaining speed-calculation ability checks use effective Shared Power membership (commit pending).
+- Docs/Planning: Select the Shared Power speed-calculation remainder bucket and record its activation-state boundary (commit pending).
+- Docs/Planning: Record Shared Power Early Bird implementation and validation evidence (commit pending).
+- Docs/Planning: Record the Early Bird off-path test DSL validation finding (commit pending).
+- Tests/Battle: Use a NONE_OF block for the Shared Power Early Bird disabled off-path assertions (commit pending).
+- Docs/Gameplay: Note that pooled Early Bird shortens sleep duration under Shared Power (commit pending).
+- Tests/Battle: Cover Shared Power pooled Early Bird sleep decrement and the disabled off-path (commit pending).
+- Battle/Shared Power: Let pooled Early Bird shorten sleep decrement in normal and Battle Palace status paths (commit pending).
+- Docs/Planning: Select the Shared Power Early Bird sleep-decrement bucket and record its normal and Battle Palace scope (commit pending).
+- Docs/Planning: Record Shared Power move-blocking helper implementation and validation evidence (commit pending).
+- Docs/Gameplay: Note that pooled move-blocking abilities share under Shared Power (commit pending).
+- Tests/Battle: Cover Shared Power pooled Soundproof move blocking and the disabled off-path (commit pending).
+- Battle/Shared Power: Let live move-blocking helpers use effective ability membership with correct blocker attribution (commit pending).
+- Docs/Planning: Select the Shared Power move-blocking helper bucket and record its AI scope decision (commit pending).
+- Docs/Planning: Record Shared Power pooled Overcoat implementation and validation evidence (commit pending).
+- Battle/Shared Power: Preserve Grass-type powder immunity precedence while routing pooled Overcoat popups (commit pending).
+- Docs/Gameplay: Note that pooled Overcoat blocks powder moves under Shared Power (commit pending).
+- Tests/Battle: Cover Shared Power pooled Overcoat powder blocking and the disabled off-path (commit pending).
+- Battle/Shared Power: Let pooled Overcoat block powder moves with correct popup attribution (commit pending).
+- Docs/Planning: Add an umbrella ExecPlan for the broader Shared Power ability-callsite sweep (commit pending).
+- Docs/Planning: Record final Shared Power pooled priority validation evidence (commit pending).
+- Docs/Planning: Record the Shared Power pooled priority test-target validation finding (commit pending).
+- Tests/Battle: Add explicit double-battle targets to the Shared Power pooled priority tests (commit pending).
+- Docs/Planning: Update the Shared Power pooled priority ExecPlan with implementation progress and AI scope decision (commit pending).
+- Docs/Gameplay: Note that pooled priority-changing abilities stack under Shared Power (commit pending).
+- Tests/Battle: Cover Shared Power pooled priority for Prankster, Gale Wings, and stacked Prankster plus Triage (commit pending).
+- Battle/Shared Power: Let pooled Prankster, Gale Wings, and Triage contribute additive move priority modifiers (commit pending).
+- Docs/Planning: Add an ExecPlan for migrating Shared Power pooled priority modifiers from the ability audit (commit pending).
 - Gameplay/NPCs: Add subtle Condition Coach caution text for status-cleanup abilities and document ignored adjacent abilities (commit pending).
 - Tooling/Skills: Document unsupported-map handling for the NPC accessibility checker workflow (commit pending).
 - Tooling/Skills: Treat maps without static entrance seeds as unsupported in NPC accessibility audits (commit pending).

@@ -4746,6 +4746,11 @@ u32 GetBattlerTotalSpeedStatArgs(u32 battler, u32 ability, enum ItemHoldEffect h
     bool32 hasChlorophyll = ability == ABILITY_CHLOROPHYLL;
     bool32 hasSandRush = ability == ABILITY_SAND_RUSH;
     bool32 hasSlushRush = ability == ABILITY_SLUSH_RUSH;
+    bool32 hasSurgeSurfer = ability == ABILITY_SURGE_SURFER;
+    bool32 hasSlowStart = ability == ABILITY_SLOW_START;
+    bool32 hasProtosynthesis = ability == ABILITY_PROTOSYNTHESIS;
+    bool32 hasQuarkDrive = ability == ABILITY_QUARK_DRIVE;
+    bool32 hasUnburden = ability == ABILITY_UNBURDEN;
 
     if (!hasQuickFeet && SharedPower_IsEnabled())
         hasQuickFeet = HasActiveAbility(battler, ABILITY_QUICK_FEET);
@@ -4759,6 +4764,16 @@ u32 GetBattlerTotalSpeedStatArgs(u32 battler, u32 ability, enum ItemHoldEffect h
             hasSandRush = HasActiveAbility(battler, ABILITY_SAND_RUSH);
         if (!hasSlushRush)
             hasSlushRush = HasActiveAbility(battler, ABILITY_SLUSH_RUSH);
+        if (!hasSurgeSurfer)
+            hasSurgeSurfer = HasActiveAbility(battler, ABILITY_SURGE_SURFER);
+        if (!hasSlowStart)
+            hasSlowStart = HasActiveAbility(battler, ABILITY_SLOW_START);
+        if (!hasProtosynthesis)
+            hasProtosynthesis = HasActiveAbility(battler, ABILITY_PROTOSYNTHESIS);
+        if (!hasQuarkDrive)
+            hasQuarkDrive = HasActiveAbility(battler, ABILITY_QUARK_DRIVE);
+        if (!hasUnburden)
+            hasUnburden = HasActiveAbility(battler, ABILITY_UNBURDEN);
     }
 
     // stat stages
@@ -4781,15 +4796,15 @@ u32 GetBattlerTotalSpeedStatArgs(u32 battler, u32 ability, enum ItemHoldEffect h
     // other abilities
     if (hasQuickFeet && gBattleMons[battler].status1 & STATUS1_ANY)
         speed = (speed * 150) / 100;
-    else if (ability == ABILITY_SURGE_SURFER && gFieldStatuses & STATUS_FIELD_ELECTRIC_TERRAIN)
+    else if (hasSurgeSurfer && gFieldStatuses & STATUS_FIELD_ELECTRIC_TERRAIN)
         speed *= 2;
-    else if (ability == ABILITY_SLOW_START && gDisableStructs[battler].slowStartTimer != 0)
+    else if (hasSlowStart && gDisableStructs[battler].slowStartTimer != 0)
         speed /= 2;
-    else if (ability == ABILITY_PROTOSYNTHESIS && !(gBattleMons[battler].volatiles.transformed) && ((gBattleWeather & B_WEATHER_SUN && HasWeatherEffect()) || gDisableStructs[battler].boosterEnergyActivated))
+    else if (hasProtosynthesis && !(gBattleMons[battler].volatiles.transformed) && ((gBattleWeather & B_WEATHER_SUN && HasWeatherEffect()) || gDisableStructs[battler].boosterEnergyActivated))
         speed = (GetHighestStatId(battler) == STAT_SPEED) ? (speed * 150) / 100 : speed;
-    else if (ability == ABILITY_QUARK_DRIVE && !(gBattleMons[battler].volatiles.transformed) && (gFieldStatuses & STATUS_FIELD_ELECTRIC_TERRAIN || gDisableStructs[battler].boosterEnergyActivated))
+    else if (hasQuarkDrive && !(gBattleMons[battler].volatiles.transformed) && (gFieldStatuses & STATUS_FIELD_ELECTRIC_TERRAIN || gDisableStructs[battler].boosterEnergyActivated))
         speed = (GetHighestStatId(battler) == STAT_SPEED) ? (speed * 150) / 100 : speed;
-    else if (ability == ABILITY_UNBURDEN && gDisableStructs[battler].unburdenActive)
+    else if (hasUnburden && gDisableStructs[battler].unburdenActive)
         speed *= 2;
 
     // player's badge boost
@@ -4844,6 +4859,14 @@ s32 GetChosenMovePriority(u32 battler, u32 ability)
     return GetBattleMovePriority(battler, ability, move);
 }
 
+static bool32 HasBattleMovePriorityAbility(u32 battler, u32 ability, u32 abilityToCheck)
+{
+    if (SharedPower_IsEnabled())
+        return HasActiveAbility(battler, abilityToCheck);
+
+    return ability == abilityToCheck;
+}
+
 s32 GetBattleMovePriority(u32 battler, u32 ability, u32 move)
 {
     s32 priority = 0;
@@ -4857,22 +4880,26 @@ s32 GetBattleMovePriority(u32 battler, u32 ability, u32 move)
     if (GetActiveGimmick(battler) == GIMMICK_DYNAMAX && GetMoveCategory(move) == DAMAGE_CATEGORY_STATUS)
         return GetMovePriority(MOVE_MAX_GUARD);
 
-    if (ability == ABILITY_GALE_WINGS
+    if (HasBattleMovePriorityAbility(battler, ability, ABILITY_GALE_WINGS)
         && (GetGenConfig(GEN_CONFIG_GALE_WINGS) < GEN_7 || IsBattlerAtMaxHp(battler))
         && GetMoveType(move) == TYPE_FLYING)
     {
         priority++;
     }
-    else if (IsBattleMoveStatus(move) && IsAbilityAndRecord(battler, ability, ABILITY_PRANKSTER))
+
+    if (IsBattleMoveStatus(move) && HasBattleMovePriorityAbility(battler, ability, ABILITY_PRANKSTER))
     {
+        RecordAbilityBattle(battler, ABILITY_PRANKSTER);
         gProtectStructs[battler].pranksterElevated = 1;
         priority++;
     }
-    else if (GetMoveEffect(move) == EFFECT_GRASSY_GLIDE && IsBattlerTerrainAffected(battler, STATUS_FIELD_GRASSY_TERRAIN) && GetActiveGimmick(gBattlerAttacker) != GIMMICK_DYNAMAX && !IsGimmickSelected(battler, GIMMICK_DYNAMAX))
+
+    if (GetMoveEffect(move) == EFFECT_GRASSY_GLIDE && IsBattlerTerrainAffected(battler, STATUS_FIELD_GRASSY_TERRAIN) && GetActiveGimmick(gBattlerAttacker) != GIMMICK_DYNAMAX && !IsGimmickSelected(battler, GIMMICK_DYNAMAX))
     {
         priority++;
     }
-    else if (ability == ABILITY_TRIAGE && IsHealingMove(move))
+
+    if (HasBattleMovePriorityAbility(battler, ability, ABILITY_TRIAGE) && IsHealingMove(move))
         priority += 3;
 
     if (gProtectStructs[battler].quash)

@@ -116,6 +116,7 @@ bool32 CanTargetFaintAiWithMod(u32 battlerDef, u32 battlerAtk, s32 hpMod, s32 dm
 s32 AI_DecideKnownAbilityForTurn(u32 battlerId);
 enum ItemHoldEffect AI_DecideHoldEffectForTurn(u32 battlerId);
 bool32 DoesBattlerIgnoreAbilityChecks(u32 battlerAtk, u32 atkAbility, u32 move);
+bool32 AI_HasActiveAbility(u32 battler, u32 ability);
 u32 AI_GetWeather(void);
 u32 AI_GetSwitchinWeather(struct BattlePokemon battleMon);
 enum WeatherState IsWeatherActive(u32 flags);
@@ -155,6 +156,7 @@ u32 CountNegativeStatStages(u32 battlerId);
 
 // move checks
 bool32 IsAffectedByPowder(u32 battler, u32 ability, enum ItemHoldEffect holdEffect);
+bool32 AI_IsAffectedByPowder(u32 battler);
 bool32 MovesWithCategoryUnusable(u32 attacker, u32 target, enum DamageCategory category);
 enum MoveComparisonResult AI_WhichMoveBetter(u32 move1, u32 move2, u32 battlerAtk, u32 battlerDef, s32 noOfHitsToKo);
 struct SimulatedDamage AI_CalcDamageSaveBattlers(u32 move, u32 battlerAtk, u32 battlerDef, uq4_12_t *typeEffectiveness, enum AIConsiderGimmick considerGimmickAtk, enum AIConsiderGimmick considerGimmickDef);

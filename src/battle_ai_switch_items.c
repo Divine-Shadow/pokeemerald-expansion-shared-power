@@ -3,6 +3,7 @@
 #include "constants/battle_ai.h"
 #include "battle_ai_main.h"
 #include "battle_ai_util.h"
+#include "battle_shared_power.h"
 #include "battle_util.h"
 #include "battle_anim.h"
 #include "battle_controllers.h"
@@ -447,8 +448,15 @@ static bool32 ShouldSwitchIfWonderGuard(u32 battler)
     if (IsDoubleBattle())
         return FALSE;
 
-    if (gAiLogicData->abilities[opposingBattler] != ABILITY_WONDER_GUARD)
+    if (SharedPower_IsEnabled())
+    {
+        if (!HasActiveAbility(opposingBattler, ABILITY_WONDER_GUARD))
+            return FALSE;
+    }
+    else if (gAiLogicData->abilities[opposingBattler] != ABILITY_WONDER_GUARD)
+    {
         return FALSE;
+    }
 
     // Check if Pokémon has a super effective move.
     for (i = 0; i < MAX_MON_MOVES; i++)

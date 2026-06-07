@@ -16,9 +16,50 @@ These notes cover gameplay rules and move access that are safe to know before st
 - Under Shared Power, Run Away now shares correctly and lets active teammates flee when fleeing is otherwise allowed.
 - Under Shared Power, Shield Dust now shares correctly and blocks secondary effects for active teammates.
 - Under Shared Power, stat-loss prevention abilities such as Clear Body now share correctly and block Intimidate and other stat drops for active teammates.
-- Under Shared Power, Magic Guard now shares correctly and prevents Life Orb recoil for active teammates.
+- Under Shared Power, Magic Guard now shares correctly and prevents indirect damage such as Life Orb recoil, poison damage, damaging entry hazards, Powder self-damage, holder-side item damage, held-item backlash, Spiky Shield backlash, half-HP user-loss moves, and Flame Burst splash damage for active teammates.
 - Under Shared Power, No Guard now shares correctly and lets active teammates bypass accuracy checks, including OHKO moves such as Horn Drill.
+- Under Shared Power, accuracy and evasion abilities such as Compound Eyes and Sand Veil now share correctly for active teammates when calculating whether moves hit.
 - Under Shared Power, weather speed abilities such as Swift Swim now share correctly and double active teammates' Speed in matching weather.
+- Under Shared Power, Surge Surfer and other speed-calculation abilities now share correctly when their field or activation conditions are met.
+- Under Shared Power, priority-changing abilities such as Prankster, Gale Wings, and Triage now share correctly and can stack when multiple modifiers apply to the same move.
+- Under Shared Power, Overcoat now shares correctly and blocks powder moves for active teammates.
+- Under Shared Power, move-blocking abilities such as Soundproof, Bulletproof, and Good as Gold now share correctly for active teammates, including Soundproof blocking sound-based partner effects such as Howl.
+- Under Shared Power, Pressure now shares correctly and increases opposing PP usage for active teammates.
+- Under Shared Power, Gluttony now shares correctly and lets active teammates eat eligible pinch berries at half HP.
+- Under Shared Power, Ripen now shares correctly and doubles berry effects for active teammates, including stat boosts, HP restoration, PP restoration, Enigma Berry healing, and Jaboca/Rowap Berry damage.
+- Under Shared Power, Cheek Pouch now shares correctly and restores extra HP after active teammates consume berries.
+- Under Shared Power, Early Bird now shares correctly and shortens sleep duration for active teammates.
+- Under Shared Power, Inner Focus now shares correctly and prevents flinching for active teammates.
+- Under Shared Power, Own Tempo now shares correctly and blocks standard confusion from moves and Berserk Gene for active teammates.
+- Under Shared Power, Oblivious now shares correctly and blocks infatuation effects such as Attract and Cute Charm, plus Taunt, for active teammates.
+- Under Shared Power, Toxic Chain now shares correctly with Knock Off's cure-berry timing.
+- Under Shared Power, Mirror Armor now shares correctly and reflects Tangling Hair or Gooey Speed drops for active teammates.
+- Under Shared Power, Unseen Fist now shares correctly and lets active teammates' contact moves bypass Protect.
+- Under Shared Power, Lightning Rod and Storm Drain now share correctly for active move redirection and absorption.
+- Under Shared Power, Infiltrator now shares correctly and lets active teammates bypass Substitute and Mist.
+- Under Shared Power, Soundproof now shares correctly with Heal Bell's active-battler sound-blocking rules.
+- Under Shared Power, Soundproof now shares correctly with Poké Flute's active-battler wake-up rules.
+- Under Shared Power, Soundproof now shares correctly and prevents Perish Song timers for active teammates.
+- Under Shared Power, Adaptability now shares correctly with Terastal same-type attack bonuses.
+- Under Shared Power, Magic Bounce now reflects eligible status moves for active teammates that receive it through the shared pool.
+- Under Shared Power, Liquid Ooze now shares correctly and punishes active teammates' direct drain moves such as Absorb and Strength Sap.
+- Under Shared Power, Victory Star's partner accuracy aura now shares correctly from active teammates.
+- Under Shared Power, Flower Gift's partner stat aura now shares correctly from active Sunshine Cherrim without changing Cherrim's form-change rules.
+- Under Shared Power, Gorilla Tactics now applies its move-locking behavior when shared by an active teammate.
+- Under Shared Power, Klutz now shares correctly and suppresses active teammates' held-item effects, Fling, and Poltergeist interactions.
+- Under Shared Power, Guard Dog now shares correctly and prevents Red Card from forcing out active teammates.
+- Under Shared Power, Sticky Hold can now protect active teammates' held items from theft or destruction when shared.
+- Under Shared Power, Symbiosis can now be contributed through the active team's shared ability pool while the active partner still donates the item.
+- Under Shared Power, partner damage-boosting abilities such as Battery, Power Spot, and Steely Spirit now share correctly for active teammates.
+- Under Shared Power, smart switching AI now recognizes pooled Wonder Guard on active opponents.
+- Under Shared Power, AI secondary-damage prediction now accounts for pooled Magic Guard and Poison Heal on active battlers.
+- Under Shared Power, AI guaranteed-flinch prediction now accounts for pooled Inner Focus and Shield Dust on active battlers.
+- Under Shared Power, AI Heal Bell prediction now accounts for pooled Soundproof blocking active partner cures.
+- Under Shared Power, AI sleep-state prediction now accounts for pooled Comatose on active battlers.
+- Under Shared Power, AI powder-move prediction now accounts for pooled Overcoat on active targets.
+- Under Shared Power, AI Perish Song prediction now accounts for pooled Soundproof on active battlers.
+- Under Shared Power, AI Roar prediction now accounts for pooled Soundproof on active targets.
+- Under Shared Power, Mega Launcher now shares correctly and boosts active teammates' Heal Pulse.
 - Under Shared Power, end-turn ability popups for Poison Heal and Liquid Ooze now show the shared ability when they activate on a Pokemon with a different native ability.
 - Under Shared Power, pooled move type-changing abilities such as Pixilate now apply to active teammates' compatible moves and move effectiveness indicators.
 - Under Shared Power, Sturdy popups now show Sturdy even if the Pokemon also has another active ability such as Clear Body.

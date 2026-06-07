@@ -3,6 +3,7 @@
 #include "battle_anim.h"
 #include "battle_controllers.h"
 #include "battle_interface.h"
+#include "battle_shared_power.h"
 #include "battle_terastal.h"
 #include "battle_gimmick.h"
 #include "battle_scripts.h"
@@ -135,7 +136,7 @@ bool32 IsTypeStellarBoosted(u32 battler, u32 type)
 uq4_12_t GetTeraMultiplier(u32 battler, u32 type)
 {
     u32 teraType = GetBattlerTeraType(battler);
-    bool32 hasAdaptability = (GetBattlerAbility(battler) == ABILITY_ADAPTABILITY);
+    bool32 hasAdaptability = HasActiveAbility(battler, ABILITY_ADAPTABILITY);
 
     // Safety check.
     if (GetActiveGimmick(battler) != GIMMICK_TERA)

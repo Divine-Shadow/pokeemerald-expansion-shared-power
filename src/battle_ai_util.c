@@ -25,7 +25,6 @@
 #include "constants/moves.h"
 #include "constants/items.h"
 
-static bool32 AI_HasActiveAbility(u32 battler, u32 ability);
 static u32 AI_GetPriorityAbility(u32 battler, u32 move);
 static u32 AI_GetStatusAbility(u32 battlerDef, enum MoveEffect effect);
 bool32 AI_CanAbilityAbsorbMove(u32 battlerAtk, u32 battlerDef, u32 move, u32 moveType, enum FunctionCallOption option);
@@ -539,6 +538,13 @@ bool32 IsAffectedByPowder(u32 battler, u32 ability, enum ItemHoldEffect holdEffe
         || holdEffect == HOLD_EFFECT_SAFETY_GOGGLES)
         return FALSE;
     return TRUE;
+}
+
+bool32 AI_IsAffectedByPowder(u32 battler)
+{
+    u32 ability = AI_HasActiveAbility(battler, ABILITY_OVERCOAT) ? ABILITY_OVERCOAT : gAiLogicData->abilities[battler];
+
+    return IsAffectedByPowder(battler, ability, gAiLogicData->holdEffects[battler]);
 }
 
 // This function checks if all physical/special moves are either unusable or unreasonable to use.
@@ -3009,7 +3015,7 @@ static u32 GetPoisonDamage(u32 battlerId)
 {
     u32 damage = 0;
 
-    if (gAiLogicData->abilities[battlerId] == ABILITY_POISON_HEAL)
+    if (AI_HasActiveAbility(battlerId, ABILITY_POISON_HEAL))
         return damage;
 
     if (gBattleMons[battlerId].status1 & STATUS1_POISON)
@@ -3092,7 +3098,7 @@ u32 GetBattlerSecondaryDamage(u32 battlerId)
 {
     u32 secondaryDamage;
 
-    if (gAiLogicData->abilities[battlerId] == ABILITY_MAGIC_GUARD)
+    if (AI_HasActiveAbility(battlerId, ABILITY_MAGIC_GUARD))
         return FALSE;
 
     secondaryDamage = GetLeechSeedDamage(battlerId)
@@ -3383,7 +3389,7 @@ bool32 CanKnockOffItem(u32 battler, u32 item)
       )) && IsOnPlayerSide(battler))
         return FALSE;
 
-    if (gAiLogicData->abilities[battler] == ABILITY_STICKY_HOLD)
+    if (AI_HasActiveAbility(battler, ABILITY_STICKY_HOLD))
         return FALSE;
 
     if (!CanBattlerGetOrLoseItem(battler, item))
@@ -3407,7 +3413,7 @@ bool32 IsBattlerIncapacitated(u32 battler, u32 ability)
     return FALSE;
 }
 
-static bool32 AI_HasActiveAbility(u32 battler, u32 ability)
+bool32 AI_HasActiveAbility(u32 battler, u32 ability)
 {
     if (!SharedPower_IsEnabled())
         return gAiLogicData->abilities[battler] == ability;
@@ -3867,7 +3873,7 @@ bool32 IsFlinchGuaranteed(u32 battlerAtk, u32 battlerDef, u32 move)
             if (gAiLogicData->holdEffects[battlerDef] == HOLD_EFFECT_COVERT_CLOAK
             || DoesSubstituteBlockMove(battlerAtk, battlerDef, move)
             || (!IsMoldBreakerTypeAbility(battlerAtk, gAiLogicData->abilities[battlerAtk])
-            && (gAiLogicData->abilities[battlerDef] == ABILITY_SHIELD_DUST || gAiLogicData->abilities[battlerDef] == ABILITY_INNER_FOCUS)))
+            && (AI_HasActiveAbility(battlerDef, ABILITY_SHIELD_DUST) || AI_HasActiveAbility(battlerDef, ABILITY_INNER_FOCUS))))
                 return FALSE;
             else
                 return TRUE;
@@ -3930,7 +3936,7 @@ bool32 AnyPartyMemberStatused(u32 battlerId, bool32 checkSoundproof)
         battlerOnField2 = gBattlerPartyIndexes[GetPartnerBattler(battlerId)];
         // Check partner's status
         if ((GetGenConfig(GEN_CONFIG_HEAL_BELL_SOUNDPROOF) == GEN_5
-            || gAiLogicData->abilities[BATTLE_PARTNER(battlerId)] != ABILITY_SOUNDPROOF
+            || !AI_HasActiveAbility(BATTLE_PARTNER(battlerId), ABILITY_SOUNDPROOF)
             || !checkSoundproof)
          && GetMonData(&party[battlerOnField2], MON_DATA_STATUS) != STATUS1_NONE)
             return TRUE;
@@ -3944,7 +3950,7 @@ bool32 AnyPartyMemberStatused(u32 battlerId, bool32 checkSoundproof)
     // Check attacker's status
     if ((GetGenConfig(GEN_CONFIG_HEAL_BELL_SOUNDPROOF) == GEN_5
       || GetGenConfig(GEN_CONFIG_HEAL_BELL_SOUNDPROOF) >= GEN_8
-      || gAiLogicData->abilities[battlerId] != ABILITY_SOUNDPROOF || !checkSoundproof)
+      || !AI_HasActiveAbility(battlerId, ABILITY_SOUNDPROOF) || !checkSoundproof)
      && GetMonData(&party[battlerOnField1], MON_DATA_STATUS) != STATUS1_NONE)
         return TRUE;
 
@@ -5352,7 +5358,7 @@ enum AIConsiderGimmick ShouldTeraFromCalcs(u32 battler, u32 opposingBattler, str
 
 bool32 AI_IsBattlerAsleepOrComatose(u32 battlerId)
 {
-    return (gBattleMons[battlerId].status1 & STATUS1_SLEEP) || gAiLogicData->abilities[battlerId] == ABILITY_COMATOSE;
+    return (gBattleMons[battlerId].status1 & STATUS1_SLEEP) || AI_HasActiveAbility(battlerId, ABILITY_COMATOSE);
 }
 
 s32 AI_TryToClearStats(u32 battlerAtk, u32 battlerDef, bool32 isDoubleBattle)
@@ -5405,14 +5411,14 @@ bool32 AI_ShouldSetUpHazards(u32 battlerAtk, u32 battlerDef, u32 move, struct Ai
             return FALSE;
         if (DoesBattlerIgnoreAbilityChecks(battlerAtk, aiData->abilities[battlerAtk], move))
             return TRUE;
-        if (aiData->abilities[battlerDef] == ABILITY_MAGIC_BOUNCE)
+        if (AI_HasActiveAbility(battlerDef, ABILITY_MAGIC_BOUNCE))
             return FALSE;
     }
     else
     {
         if (DoesBattlerIgnoreAbilityChecks(battlerAtk, aiData->abilities[battlerAtk], move))
             return TRUE;
-        if (aiData->abilities[battlerDef] == ABILITY_SHIELD_DUST)
+        if (AI_HasActiveAbility(battlerDef, ABILITY_SHIELD_DUST))
             return FALSE;
     }
     return TRUE;
@@ -5528,7 +5534,7 @@ bool32 IsBattlerItemEnabled(u32 battler)
         return FALSE;
     if (gBattleMons[battler].volatiles.embargo)
         return FALSE;
-    if (gBattleMons[battler].ability == ABILITY_KLUTZ && !gBattleMons[battler].volatiles.gastroAcid)
+    if (AI_HasActiveAbility(battler, ABILITY_KLUTZ))
         return FALSE;
     return TRUE;
 }
