@@ -727,6 +727,39 @@ AI_DOUBLE_BATTLE_TEST("Shared Power off: partner Magic Guard does not avoid low-
     }
 }
 
+AI_DOUBLE_BATTLE_TEST("Shared Power AI: pooled Scrappy lowers Foresight score against Ghost targets")
+{
+    GIVEN {
+        BATTLE_TYPE(BATTLE_TYPE_SHARED_POWER);
+        ASSUME(GetMoveEffect(MOVE_FORESIGHT) == EFFECT_FORESIGHT);
+        ASSUME(GetSpeciesType(SPECIES_GASTLY, 0) == TYPE_GHOST);
+        ASSUME(GetMoveType(MOVE_SCRATCH) == TYPE_NORMAL);
+        AI_FLAGS(AI_FLAG_CHECK_VIABILITY | AI_FLAG_OMNISCIENT);
+        PLAYER(SPECIES_GASTLY) { Ability(ABILITY_LEVITATE); }
+        PLAYER(SPECIES_WOBBUFFET);
+        OPPONENT(SPECIES_KANGASKHAN) { Ability(ABILITY_SCRAPPY); Moves(MOVE_CELEBRATE); }
+        OPPONENT(SPECIES_WOBBUFFET) { Ability(ABILITY_TELEPATHY); Moves(MOVE_FORESIGHT, MOVE_SCRATCH, MOVE_CELEBRATE); }
+    } WHEN {
+        TURN { SCORE_EQ_VAL(opponentRight, MOVE_FORESIGHT, AI_SCORE_DEFAULT, target: playerLeft); }
+    }
+}
+
+AI_DOUBLE_BATTLE_TEST("Shared Power off: partner Scrappy does not lower Foresight score against Ghost targets")
+{
+    GIVEN {
+        ASSUME(GetMoveEffect(MOVE_FORESIGHT) == EFFECT_FORESIGHT);
+        ASSUME(GetSpeciesType(SPECIES_GASTLY, 0) == TYPE_GHOST);
+        ASSUME(GetMoveType(MOVE_SCRATCH) == TYPE_NORMAL);
+        AI_FLAGS(AI_FLAG_CHECK_VIABILITY | AI_FLAG_OMNISCIENT);
+        PLAYER(SPECIES_GASTLY) { Ability(ABILITY_LEVITATE); }
+        PLAYER(SPECIES_WOBBUFFET);
+        OPPONENT(SPECIES_KANGASKHAN) { Ability(ABILITY_SCRAPPY); Moves(MOVE_CELEBRATE); }
+        OPPONENT(SPECIES_WOBBUFFET) { Ability(ABILITY_TELEPATHY); Moves(MOVE_FORESIGHT, MOVE_SCRATCH, MOVE_CELEBRATE); }
+    } WHEN {
+        TURN { SCORE_GT_VAL(opponentRight, MOVE_FORESIGHT, AI_SCORE_DEFAULT, target: playerLeft); }
+    }
+}
+
 AI_DOUBLE_BATTLE_TEST("Shared Power AI: pooled Shed Skin raises Rest fast-recovery score")
 {
     GIVEN {

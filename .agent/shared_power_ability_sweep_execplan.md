@@ -236,6 +236,10 @@ Shared Power battle behavior should use the correct ability view at each callsit
 - [x] (2026-06-07T17:25Z) Implemented the AI crash-recoil Magic Guard prediction bucket and added focused Shared Power enabled/off score coverage.
 - [x] (2026-06-07T17:31Z) Ran targeted validation for the AI crash-recoil Magic Guard prediction bucket and recorded evidence here.
 - [x] (2026-06-07T17:32Z) Ran `git diff --check` after the AI crash-recoil Magic Guard prediction bucket; no issues reported.
+- [x] (2026-06-07T17:40Z) Selected the AI Foresight Scrappy/Mind's Eye prediction bucket for active attacker membership.
+- [x] (2026-06-07T17:46Z) Implemented the AI Foresight Scrappy/Mind's Eye prediction bucket and added focused Shared Power enabled/off score coverage.
+- [x] (2026-06-07T17:50Z) Ran targeted validation for the AI Foresight Scrappy/Mind's Eye prediction bucket and recorded evidence here.
+- [x] (2026-06-07T17:51Z) Ran `git diff --check` after the AI Foresight Scrappy/Mind's Eye prediction bucket; no issues reported.
 - [x] (2026-06-07T03:05Z) Selected the AI weather/terrain benefit prediction bucket, scoped to shareable active ability heuristics while keeping native-only form/species-style weather abilities native.
 - [x] (2026-06-07T03:12Z) Implemented the AI weather/terrain benefit prediction bucket and added focused Shared Power enabled/off helper coverage for Rain and Electric Terrain.
 - [x] (2026-06-07T03:20Z) Ran targeted validation for the AI weather/terrain benefit prediction bucket and recorded evidence here.
@@ -471,6 +475,9 @@ Shared Power battle behavior should use the correct ability view at each callsit
 
 - Observation: AI crash-recoil prediction still penalizes low-accuracy miss-recoil moves when Magic Guard is pooled onto the attacker.
   Evidence: `src/battle_ai_main.c` checks `aiData->abilities[battlerAtk] != ABILITY_MAGIC_GUARD` before applying the low-accuracy `EFFECT_RECOIL_IF_MISS` score penalty. Live crash recoil is user-side indirect damage, and Magic Guard has already migrated across nearby recoil/item-damage paths, so this bucket can migrate the matching attacker-owned prediction check.
+
+- Observation: AI Foresight prediction still treats Scrappy and Mind's Eye as native-only attacker abilities.
+  Evidence: `src/battle_ai_main.c` skips Foresight setup when native `aiData->abilities[battlerAtk]` is `ABILITY_SCRAPPY` or `ABILITY_MINDS_EYE`, but live Normal/Fighting into Ghost type-effectiveness already queries active membership for both abilities. This bucket can migrate only the Foresight usefulness heuristic without changing the type-effectiveness or Foresight volatile contracts.
 
 ## Decision Log
 
@@ -1564,3 +1571,11 @@ Validation (2026-06-07): `docker run --rm -u "$(id -u):$(id -g)" -v "$PWD:/works
 Validation (2026-06-07): `docker run --rm -u "$(id -u):$(id -g)" -v "$PWD:/workspace" -v "/home/bayesartre/dev/pokeemerald-expansion-shared-power:/home/bayesartre/dev/pokeemerald-expansion-shared-power" -w /workspace pokeemerald-expansion:builder make check NO_MULTIBOOT=1 TESTS="Shared Power AI"` passed 35/35 after adding the AI crash-recoil Magic Guard prediction bucket.
 
 Validation (2026-06-07): `git diff --check` passed with no output after the AI crash-recoil Magic Guard prediction bucket.
+
+Validation (2026-06-07): `docker run --rm -u "$(id -u):$(id -g)" -v "$PWD:/workspace" -v "/home/bayesartre/dev/pokeemerald-expansion-shared-power:/home/bayesartre/dev/pokeemerald-expansion-shared-power" -w /workspace pokeemerald-expansion:builder make check NO_MULTIBOOT=1 TESTS="Shared Power AI: pooled Scrappy lowers Foresight score against Ghost targets"` passed 1/1.
+
+Validation (2026-06-07): `docker run --rm -u "$(id -u):$(id -g)" -v "$PWD:/workspace" -v "/home/bayesartre/dev/pokeemerald-expansion-shared-power:/home/bayesartre/dev/pokeemerald-expansion-shared-power" -w /workspace pokeemerald-expansion:builder make check NO_MULTIBOOT=1 TESTS="Shared Power off: partner Scrappy does not lower Foresight score against Ghost targets"` passed 1/1.
+
+Validation (2026-06-07): `docker run --rm -u "$(id -u):$(id -g)" -v "$PWD:/workspace" -v "/home/bayesartre/dev/pokeemerald-expansion-shared-power:/home/bayesartre/dev/pokeemerald-expansion-shared-power" -w /workspace pokeemerald-expansion:builder make check NO_MULTIBOOT=1 TESTS="Shared Power AI"` passed 36/36 after adding the AI Foresight Scrappy/Mind's Eye prediction bucket.
+
+Validation (2026-06-07): `git diff --check` passed with no output after the AI Foresight Scrappy/Mind's Eye prediction bucket.
