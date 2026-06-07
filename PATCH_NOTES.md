@@ -1,9 +1,9 @@
-- Docs/Planning: Record Shared Power AI Black Sludge Trick Magic Guard prediction diff hygiene (commit pending).
-- Docs/Planning: Record Shared Power AI Black Sludge Trick Magic Guard prediction validation evidence (commit pending).
-- Docs/Planning: Record Shared Power AI Black Sludge Trick Magic Guard prediction progress (commit pending).
-- Docs/Audit: Note that Shared Power AI Black Sludge Trick prediction handles pooled Magic Guard (commit pending).
-- Tests/AI: Cover Shared Power AI Black Sludge Trick scoring with pooled Magic Guard enabled and disabled paths (commit pending).
-- Battle/AI: Let Black Sludge Trick prediction see pooled Magic Guard under Shared Power (commit pending).
+- Docs/Planning: Record Shared Power AI Black Sludge Trick Magic Guard prediction diff hygiene (commit e823d426ae).
+- Docs/Planning: Record Shared Power AI Black Sludge Trick Magic Guard prediction validation evidence (commit e823d426ae).
+- Docs/Planning: Record Shared Power AI Black Sludge Trick Magic Guard prediction progress (commit e823d426ae).
+- Docs/Audit: Note that Shared Power AI Black Sludge Trick prediction handles pooled Magic Guard (commit e823d426ae).
+- Tests/AI: Cover Shared Power AI Black Sludge Trick scoring with pooled Magic Guard enabled and disabled paths (commit e823d426ae).
+- Battle/AI: Let Black Sludge Trick prediction see pooled Magic Guard under Shared Power (commit e823d426ae).
 - Docs/Planning: Record Shared Power AI Lock-On and Laser Focus prediction diff hygiene (commit 767c6bcac3).
 - Docs/Planning: Record Shared Power AI Lock-On and Laser Focus prediction validation evidence (commit 767c6bcac3).
 - Docs/Planning: Record Shared Power AI Lock-On and Laser Focus prediction progress (commit 767c6bcac3).
