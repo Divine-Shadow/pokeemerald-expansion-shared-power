@@ -336,6 +336,11 @@ Shared Power battle behavior should use the correct ability view at each callsit
 - [x] (2026-06-07T07:39Z) Ran targeted validation for the AI Klutz hold-effect prediction cleanup bucket and recorded evidence here.
 - [x] (2026-06-07T07:39Z) Ran the broader Shared Power AI regression filter for the Klutz hold-effect prediction cleanup bucket and recorded evidence here.
 - [x] (2026-06-07T07:39Z) Ran `git diff --check` after the AI Klutz hold-effect prediction cleanup bucket; no issues reported.
+- [x] (2026-06-07T08:02Z) Selected the AI Utility Umbrella weather-ability scoring bucket, scoped to active attacker Solar Power and Dry Skin checks when deciding whether Trick/Bestow should give away Utility Umbrella.
+- [x] (2026-06-07T08:02Z) Implemented the AI Utility Umbrella weather-ability scoring bucket and added focused Shared Power enabled/off score coverage.
+- [x] (2026-06-07T08:02Z) Ran targeted validation for the AI Utility Umbrella weather-ability scoring bucket and recorded evidence here.
+- [x] (2026-06-07T08:02Z) Ran the broader Shared Power AI regression filter for the Utility Umbrella weather-ability scoring bucket and recorded evidence here.
+- [x] (2026-06-07T08:02Z) Ran `git diff --check` after the AI Utility Umbrella weather-ability scoring bucket; no issues reported.
 - [x] (2026-06-07T03:05Z) Selected the AI weather/terrain benefit prediction bucket, scoped to shareable active ability heuristics while keeping native-only form/species-style weather abilities native.
 - [x] (2026-06-07T03:12Z) Implemented the AI weather/terrain benefit prediction bucket and added focused Shared Power enabled/off helper coverage for Rain and Electric Terrain.
 - [x] (2026-06-07T03:20Z) Ran targeted validation for the AI weather/terrain benefit prediction bucket and recorded evidence here.
@@ -675,6 +680,18 @@ Shared Power battle behavior should use the correct ability view at each callsit
   Evidence: `docker run --rm -u "$(id -u):$(id -g)" -v "$PWD:/workspace" -v "/home/bayesartre/dev/pokeemerald-expansion-shared-power:/home/bayesartre/dev/pokeemerald-expansion-shared-power" -w /workspace pokeemerald-expansion:builder make check NO_MULTIBOOT=1 TESTS="Shared Power AI"` passed 57/57.
 
 - Observation: The AI Klutz hold-effect prediction cleanup bucket passed diff hygiene.
+  Evidence: `git diff --check` reported no issues.
+
+- Observation: AI Trick/Bestow scoring still uses native attacker Solar Power and Dry Skin to decide whether Utility Umbrella should be kept.
+  Evidence: `src/battle_ai_main.c` checks `aiData->abilities[battlerAtk] != ABILITY_SOLAR_POWER && aiData->abilities[battlerAtk] != ABILITY_DRY_SKIN` before scoring Utility Umbrella as useful to give away. Live end-turn weather effects and existing AI weather-benefit helpers already use active membership for these weather abilities, so this bucket can migrate only the attacker-side keep-umbrella guard without touching defender-side Chlorophyll or Flower Gift form/speed policy.
+
+- Observation: Utility Umbrella Trick scoring needs real battle weather setup for the Swift Swim target score branch.
+  Evidence: Directly setting `gBattleWeather` inside the score turn left the disabled-path score at `100`; using an active player-side Drizzle partner made `TESTS="Shared Power off: partner Solar Power does not prevent giving away Utility Umbrella"` pass 1/1 with the expected above-default score, and `TESTS="Shared Power AI: pooled Solar Power prevents giving away Utility Umbrella"` passed 1/1 at the default score.
+
+- Observation: The full Shared Power AI regression slice passes after the Utility Umbrella weather-ability scoring bucket.
+  Evidence: `docker run --rm -u "$(id -u):$(id -g)" -v "$PWD:/workspace" -v "/home/bayesartre/dev/pokeemerald-expansion-shared-power:/home/bayesartre/dev/pokeemerald-expansion-shared-power" -w /workspace pokeemerald-expansion:builder make check NO_MULTIBOOT=1 TESTS="Shared Power AI"` passed 58/58.
+
+- Observation: The AI Utility Umbrella weather-ability scoring bucket passed diff hygiene.
   Evidence: `git diff --check` reported no issues.
 
 - Observation: AI Substitute/Shed Tail scoring has a native-only Infiltrator shortcut even though live Substitute bypass is already active-aware.

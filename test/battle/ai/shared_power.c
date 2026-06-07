@@ -1636,6 +1636,37 @@ AI_DOUBLE_BATTLE_TEST("Shared Power off: partner Magic Guard does not stop Black
     }
 }
 
+AI_DOUBLE_BATTLE_TEST("Shared Power AI: pooled Solar Power prevents giving away Utility Umbrella")
+{
+    GIVEN {
+        BATTLE_TYPE(BATTLE_TYPE_SHARED_POWER);
+        ASSUME(GetMoveEffect(MOVE_TRICK) == EFFECT_TRICK);
+        ASSUME(gItemsInfo[ITEM_UTILITY_UMBRELLA].holdEffect == HOLD_EFFECT_UTILITY_UMBRELLA);
+        AI_FLAGS(AI_FLAG_CHECK_VIABILITY | AI_FLAG_OMNISCIENT);
+        PLAYER(SPECIES_WOBBUFFET) { Ability(ABILITY_SWIFT_SWIM); }
+        PLAYER(SPECIES_KYOGRE) { Ability(ABILITY_DRIZZLE); }
+        OPPONENT(SPECIES_WOBBUFFET) { Ability(ABILITY_TELEPATHY); Item(ITEM_UTILITY_UMBRELLA); Moves(MOVE_TRICK, MOVE_CELEBRATE); }
+        OPPONENT(SPECIES_CHARMANDER) { Ability(ABILITY_SOLAR_POWER); }
+    } WHEN {
+        TURN { SCORE_EQ_VAL(opponentLeft, MOVE_TRICK, AI_SCORE_DEFAULT, target: playerLeft); }
+    }
+}
+
+AI_DOUBLE_BATTLE_TEST("Shared Power off: partner Solar Power does not prevent giving away Utility Umbrella")
+{
+    GIVEN {
+        ASSUME(GetMoveEffect(MOVE_TRICK) == EFFECT_TRICK);
+        ASSUME(gItemsInfo[ITEM_UTILITY_UMBRELLA].holdEffect == HOLD_EFFECT_UTILITY_UMBRELLA);
+        AI_FLAGS(AI_FLAG_CHECK_VIABILITY | AI_FLAG_OMNISCIENT);
+        PLAYER(SPECIES_WOBBUFFET) { Ability(ABILITY_SWIFT_SWIM); }
+        PLAYER(SPECIES_KYOGRE) { Ability(ABILITY_DRIZZLE); }
+        OPPONENT(SPECIES_WOBBUFFET) { Ability(ABILITY_TELEPATHY); Item(ITEM_UTILITY_UMBRELLA); Moves(MOVE_TRICK, MOVE_CELEBRATE); }
+        OPPONENT(SPECIES_CHARMANDER) { Ability(ABILITY_SOLAR_POWER); }
+    } WHEN {
+        TURN { SCORE_GT_VAL(opponentLeft, MOVE_TRICK, AI_SCORE_DEFAULT, target: playerLeft); }
+    }
+}
+
 AI_DOUBLE_BATTLE_TEST("Shared Power AI: scores Prankster status moves lower into Dark targets")
 {
     GIVEN {

@@ -1,3 +1,11 @@
+- Docs/Planning: Record Shared Power AI Utility Umbrella weather-ability scoring diff hygiene (commit pending).
+- Docs/Planning: Record Shared Power AI Utility Umbrella weather-ability scoring broad validation evidence (commit pending).
+- Docs/Planning: Record Shared Power AI Utility Umbrella weather-ability scoring validation evidence (commit pending).
+- Docs/Audit: Note that Shared Power AI Utility Umbrella scoring handles pooled Solar Power and Dry Skin (commit pending).
+- Docs/Planning: Record Shared Power AI Utility Umbrella weather-ability scoring implementation progress (commit pending).
+- Tests/AI: Cover Shared Power AI Utility Umbrella Trick scoring with pooled Solar Power enabled and disabled paths (commit pending).
+- Battle/AI: Let Utility Umbrella Trick scoring see pooled attacker Solar Power under Shared Power (commit pending).
+- Docs/Planning: Select the Shared Power AI Utility Umbrella weather-ability scoring bucket (commit pending).
 - Docs/Planning: Record Shared Power AI Klutz hold-effect prediction diff hygiene (commit 064c6a1016).
 - Docs/Planning: Record Shared Power AI Klutz hold-effect prediction broad validation evidence (commit 064c6a1016).
 - Docs/Planning: Record Shared Power AI Klutz hold-effect prediction validation evidence (commit 064c6a1016).

@@ -4833,7 +4833,7 @@ static u32 AI_CalcMoveEffectScore(u32 battlerAtk, u32 battlerDef, u32 move)
             ADJUST_SCORE(DECENT_EFFECT);
             break;
         case HOLD_EFFECT_UTILITY_UMBRELLA:
-            if (aiData->abilities[battlerAtk] != ABILITY_SOLAR_POWER && aiData->abilities[battlerAtk] != ABILITY_DRY_SKIN)
+            if (!AI_HasActiveAbility(battlerAtk, ABILITY_SOLAR_POWER) && !AI_HasActiveAbility(battlerAtk, ABILITY_DRY_SKIN))
             {
                 switch (aiData->abilities[battlerDef])
                 {
