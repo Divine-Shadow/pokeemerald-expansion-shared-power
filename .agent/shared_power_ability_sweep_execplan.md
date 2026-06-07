@@ -311,6 +311,11 @@ Shared Power battle behavior should use the correct ability view at each callsit
 - [x] (2026-06-07T06:57Z) Ran targeted validation for the AI Belly Drum/Fillet Away bad-move Contrary prediction bucket and recorded evidence here.
 - [x] (2026-06-07T06:57Z) Ran the broader Shared Power AI regression filter for the Belly Drum/Fillet Away bad-move Contrary prediction bucket and recorded evidence here.
 - [x] (2026-06-07T06:57Z) Ran `git diff --check` after the AI Belly Drum/Fillet Away bad-move Contrary prediction bucket; no issues reported.
+- [x] (2026-06-07T07:03Z) Selected the AI Rototiller ally Contrary bad-move bucket, scoped to active Contrary on the AI's Grass partner in the Rototiller validity guard.
+- [x] (2026-06-07T07:03Z) Implemented the AI Rototiller ally Contrary bad-move bucket and added focused Shared Power enabled/off score coverage.
+- [x] (2026-06-07T07:03Z) Ran targeted validation for the AI Rototiller ally Contrary bad-move bucket and recorded evidence here.
+- [x] (2026-06-07T07:03Z) Ran the broader Shared Power AI regression filter for the Rototiller ally Contrary bad-move bucket and recorded evidence here.
+- [x] (2026-06-07T07:03Z) Ran `git diff --check` after the AI Rototiller ally Contrary bad-move bucket; no issues reported.
 - [x] (2026-06-07T03:05Z) Selected the AI weather/terrain benefit prediction bucket, scoped to shareable active ability heuristics while keeping native-only form/species-style weather abilities native.
 - [x] (2026-06-07T03:12Z) Implemented the AI weather/terrain benefit prediction bucket and added focused Shared Power enabled/off helper coverage for Rain and Electric Terrain.
 - [x] (2026-06-07T03:20Z) Ran targeted validation for the AI weather/terrain benefit prediction bucket and recorded evidence here.
@@ -587,6 +592,18 @@ Shared Power battle behavior should use the correct ability view at each callsit
   Evidence: `docker run --rm -u "$(id -u):$(id -g)" -v "$PWD:/workspace" -v "/home/bayesartre/dev/pokeemerald-expansion-shared-power:/home/bayesartre/dev/pokeemerald-expansion-shared-power" -w /workspace pokeemerald-expansion:builder make check NO_MULTIBOOT=1 TESTS="Shared Power AI"` passed 51/51 tests.
 
 - Observation: The AI Belly Drum/Fillet Away bad-move Contrary bucket passed diff hygiene.
+  Evidence: `git diff --check` reported no issues.
+
+- Observation: AI Rototiller bad-move scoring still treats the AI partner's Contrary as native-only before deciding whether Rototiller has a helpful allied Grass target.
+  Evidence: `EFFECT_ROTOTILLER` in `AI_CheckBadMove` checks `aiData->abilities[BATTLE_PARTNER(battlerAtk)] != ABILITY_CONTRARY`, while live stat-change behavior routes Contrary through active membership.
+
+- Observation: The Rototiller ally score split is stable with active Contrary on the AI's Grass partner pushing Rototiller below default and Shared Power off preserving the higher ally-boost score.
+  Evidence: `TESTS="Shared Power AI: pooled Contrary lowers Rototiller ally score"` and `TESTS="Shared Power off: user Contrary does not lower Rototiller ally score"` both passed 1/1. The enabled path scored below `AI_SCORE_DEFAULT`; the off-path scored above `AI_SCORE_DEFAULT`.
+
+- Observation: The AI Rototiller ally Contrary bad-move bucket passed the broader Shared Power AI regression filter.
+  Evidence: `docker run --rm -u "$(id -u):$(id -g)" -v "$PWD:/workspace" -v "/home/bayesartre/dev/pokeemerald-expansion-shared-power:/home/bayesartre/dev/pokeemerald-expansion-shared-power" -w /workspace pokeemerald-expansion:builder make check NO_MULTIBOOT=1 TESTS="Shared Power AI"` passed 52/52 tests.
+
+- Observation: The AI Rototiller ally Contrary bad-move bucket passed diff hygiene.
   Evidence: `git diff --check` reported no issues.
 
 - Observation: AI Substitute/Shed Tail scoring has a native-only Infiltrator shortcut even though live Substitute bypass is already active-aware.

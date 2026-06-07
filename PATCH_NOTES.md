@@ -1,3 +1,10 @@
+- Docs/Planning: Record Shared Power AI Rototiller ally Contrary bad-move diff hygiene (commit pending).
+- Docs/Planning: Record Shared Power AI Rototiller ally Contrary bad-move broad validation evidence (commit pending).
+- Docs/Audit: Note that Shared Power AI Rototiller ally scoring handles pooled Contrary (commit pending).
+- Docs/Planning: Record Shared Power AI Rototiller ally Contrary bad-move validation evidence (commit pending).
+- Tests/AI: Cover Shared Power AI Rototiller ally scoring with pooled Contrary enabled and disabled paths (commit pending).
+- Battle/AI: Let Rototiller ally bad-move scoring see pooled partner Contrary under Shared Power (commit pending).
+- Docs/Planning: Select the Shared Power AI Rototiller ally Contrary bad-move bucket (commit pending).
 - Docs/Planning: Record Shared Power AI Belly Drum and Fillet Away Contrary bad-move diff hygiene (commit b8471bd51a).
 - Docs/Planning: Record Shared Power AI Belly Drum and Fillet Away Contrary bad-move broad validation evidence (commit b8471bd51a).
 - Docs/Audit: Note that Shared Power AI Belly Drum and Fillet Away bad-move scoring handles pooled Contrary (commit b8471bd51a).

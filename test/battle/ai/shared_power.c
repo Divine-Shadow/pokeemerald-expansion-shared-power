@@ -882,6 +882,41 @@ AI_DOUBLE_BATTLE_TEST("Shared Power off: partner Contrary does not lower Defog t
     }
 }
 
+AI_DOUBLE_BATTLE_TEST("Shared Power AI: pooled Contrary lowers Rototiller ally score")
+{
+    GIVEN {
+        BATTLE_TYPE(BATTLE_TYPE_SHARED_POWER);
+        ASSUME(GetMoveEffect(MOVE_ROTOTILLER) == EFFECT_ROTOTILLER);
+        ASSUME(GetSpeciesType(SPECIES_SHUCKLE, 0) != TYPE_GRASS);
+        ASSUME(GetSpeciesType(SPECIES_SHUCKLE, 1) != TYPE_GRASS);
+        ASSUME(GetSpeciesType(SPECIES_TANGELA, 0) == TYPE_GRASS);
+        AI_FLAGS(AI_FLAG_CHECK_BAD_MOVE | AI_FLAG_CHECK_VIABILITY | AI_FLAG_OMNISCIENT);
+        PLAYER(SPECIES_WOBBUFFET) { Moves(MOVE_CELEBRATE); }
+        PLAYER(SPECIES_WOBBUFFET);
+        OPPONENT(SPECIES_SHUCKLE) { Ability(ABILITY_CONTRARY); Moves(MOVE_ROTOTILLER, MOVE_CELEBRATE); }
+        OPPONENT(SPECIES_TANGELA) { Ability(ABILITY_TELEPATHY); Moves(MOVE_POUND, MOVE_ABSORB, MOVE_CELEBRATE); }
+    } WHEN {
+        TURN { SCORE_LT_VAL(opponentLeft, MOVE_ROTOTILLER, AI_SCORE_DEFAULT, target: playerLeft); }
+    }
+}
+
+AI_DOUBLE_BATTLE_TEST("Shared Power off: user Contrary does not lower Rototiller ally score")
+{
+    GIVEN {
+        ASSUME(GetMoveEffect(MOVE_ROTOTILLER) == EFFECT_ROTOTILLER);
+        ASSUME(GetSpeciesType(SPECIES_SHUCKLE, 0) != TYPE_GRASS);
+        ASSUME(GetSpeciesType(SPECIES_SHUCKLE, 1) != TYPE_GRASS);
+        ASSUME(GetSpeciesType(SPECIES_TANGELA, 0) == TYPE_GRASS);
+        AI_FLAGS(AI_FLAG_CHECK_BAD_MOVE | AI_FLAG_CHECK_VIABILITY | AI_FLAG_OMNISCIENT);
+        PLAYER(SPECIES_WOBBUFFET) { Moves(MOVE_CELEBRATE); }
+        PLAYER(SPECIES_WOBBUFFET);
+        OPPONENT(SPECIES_SHUCKLE) { Ability(ABILITY_CONTRARY); Moves(MOVE_ROTOTILLER, MOVE_CELEBRATE); }
+        OPPONENT(SPECIES_TANGELA) { Ability(ABILITY_TELEPATHY); Moves(MOVE_POUND, MOVE_ABSORB, MOVE_CELEBRATE); }
+    } WHEN {
+        TURN { SCORE_GT_VAL(opponentLeft, MOVE_ROTOTILLER, AI_SCORE_DEFAULT, target: playerLeft); }
+    }
+}
+
 AI_DOUBLE_BATTLE_TEST("Shared Power AI: pooled Contrary lowers self stat-boost additional effect score")
 {
     GIVEN {
