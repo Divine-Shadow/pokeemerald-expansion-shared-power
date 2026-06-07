@@ -1,3 +1,10 @@
+- Docs/Planning: Record Shared Power AI Stockpile Contrary prediction diff hygiene (commit pending).
+- Docs/Planning: Record Shared Power AI Stockpile Contrary prediction validation evidence (commit pending).
+- Docs/Audit: Note that Shared Power AI Stockpile prediction handles pooled Contrary (commit pending).
+- Docs/Planning: Record Shared Power AI Stockpile Contrary prediction progress (commit pending).
+- Tests/AI: Cover Shared Power AI Stockpile scoring with pooled Contrary enabled and disabled paths (commit pending).
+- Battle/AI: Let Stockpile prediction see pooled Contrary under Shared Power (commit pending).
+- Docs/Planning: Select the Shared Power AI Stockpile Contrary prediction bucket (commit pending).
 - Docs/Planning: Record Shared Power AI Recycle Ripen prediction diff hygiene (commit e4b6e04d07).
 - Docs/Planning: Record Shared Power AI Recycle Ripen prediction validation evidence (commit e4b6e04d07).
 - Docs/Audit: Note that Shared Power AI Recycle prediction handles pooled Ripen (commit e4b6e04d07).
