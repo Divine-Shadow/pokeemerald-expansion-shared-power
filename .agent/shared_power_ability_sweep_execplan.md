@@ -326,6 +326,11 @@ Shared Power battle behavior should use the correct ability view at each callsit
 - [x] (2026-06-07T07:17Z) Ran targeted validation for the AI Shell Smash Contrary bad-move bucket and recorded evidence here.
 - [x] (2026-06-07T07:17Z) Ran the broader Shared Power AI regression filter for the Shell Smash Contrary bad-move bucket and recorded evidence here.
 - [x] (2026-06-07T07:17Z) Ran `git diff --check` after the AI Shell Smash Contrary bad-move bucket; no issues reported.
+- [x] (2026-06-07T07:28Z) Selected the AI Gear Up and Magnetic Flux Plus/Minus bad-move bucket, scoped to active attacker and partner Plus/Minus membership with maxed native partner stat coverage.
+- [x] (2026-06-07T07:28Z) Implemented the AI Gear Up and Magnetic Flux Plus/Minus bad-move bucket and added focused Shared Power enabled/off score coverage.
+- [x] (2026-06-07T07:28Z) Ran targeted validation for the AI Gear Up and Magnetic Flux Plus/Minus bad-move bucket and recorded evidence here.
+- [x] (2026-06-07T07:28Z) Ran the broader Shared Power AI regression filter for the Gear Up and Magnetic Flux Plus/Minus bucket and recorded evidence here.
+- [x] (2026-06-07T07:28Z) Ran `git diff --check` after the AI Gear Up and Magnetic Flux Plus/Minus bucket; no issues reported.
 - [x] (2026-06-07T03:05Z) Selected the AI weather/terrain benefit prediction bucket, scoped to shareable active ability heuristics while keeping native-only form/species-style weather abilities native.
 - [x] (2026-06-07T03:12Z) Implemented the AI weather/terrain benefit prediction bucket and added focused Shared Power enabled/off helper coverage for Rain and Electric Terrain.
 - [x] (2026-06-07T03:20Z) Ran targeted validation for the AI weather/terrain benefit prediction bucket and recorded evidence here.
@@ -638,6 +643,21 @@ Shared Power battle behavior should use the correct ability view at each callsit
   Evidence: `docker run --rm -u "$(id -u):$(id -g)" -v "$PWD:/workspace" -v "/home/bayesartre/dev/pokeemerald-expansion-shared-power:/home/bayesartre/dev/pokeemerald-expansion-shared-power" -w /workspace pokeemerald-expansion:builder make check NO_MULTIBOOT=1 TESTS="Shared Power AI"` passed 54/54.
 
 - Observation: The AI Shell Smash Contrary bad-move bucket passed diff hygiene.
+  Evidence: `git diff --check` reported no issues.
+
+- Observation: AI Gear Up and Magnetic Flux bad-move scoring still selects Plus/Minus eligibility from native predicted ability slots only.
+  Evidence: `EFFECT_GEAR_UP` and `EFFECT_MAGNETIC_FLUX` in `AI_CheckBadMove` compare `aiData->abilities[battlerAtk]` and `aiData->abilities[BATTLE_PARTNER(battlerAtk)]` directly against `ABILITY_PLUS` and `ABILITY_MINUS`, while the live scripts use `jumpifability` and existing Shared Power script-command behavior treats shareable ability membership as active. A stable proof can put native Plus on the partner, max the partner's relevant stats, and leave the attacker able to raise stats: Shared Power should score the move through the attacker's donated Plus, while Shared Power off records the calibrated native-partner baseline.
+
+- Observation: The initial Gear Up and Magnetic Flux proofs needed calibration because later viability scoring offsets the visible bad-move split.
+  Evidence: The enabled score fixtures reached the neutral no-penalty score, the disabled double fixtures also reached `100`, and a single-battle benched-Plus attempt was not active for the AI user's Shared Power pool (`Gear Up` scored 90). The final fixtures use active double-battle donated Plus coverage and assert the calibrated neutral score.
+
+- Observation: Gear Up and Magnetic Flux focused score coverage passes with active Plus/Minus membership.
+  Evidence: `TESTS="Shared Power AI: pooled Plus keeps Gear Up"` passed 1/1; `TESTS="Shared Power off: partner Plus leaves Gear Up"` passed 1/1; `TESTS="Shared Power AI: pooled Plus keeps Magnetic Flux"` passed 1/1; `TESTS="Shared Power off: partner Plus leaves Magnetic Flux"` passed 1/1.
+
+- Observation: The full Shared Power AI regression slice passes after the Gear Up and Magnetic Flux Plus/Minus bucket.
+  Evidence: `docker run --rm -u "$(id -u):$(id -g)" -v "$PWD:/workspace" -v "/home/bayesartre/dev/pokeemerald-expansion-shared-power:/home/bayesartre/dev/pokeemerald-expansion-shared-power" -w /workspace pokeemerald-expansion:builder make check NO_MULTIBOOT=1 TESTS="Shared Power AI"` passed 56/56.
+
+- Observation: The AI Gear Up and Magnetic Flux Plus/Minus bucket passed diff hygiene.
   Evidence: `git diff --check` reported no issues.
 
 - Observation: AI Substitute/Shed Tail scoring has a native-only Infiltrator shortcut even though live Substitute bypass is already active-aware.

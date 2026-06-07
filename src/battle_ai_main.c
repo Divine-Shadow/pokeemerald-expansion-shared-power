@@ -1528,7 +1528,7 @@ static s32 AI_CheckBadMove(u32 battlerAtk, u32 battlerDef, u32 move, s32 score)
             }
             break;
         case EFFECT_GEAR_UP:
-            if (aiData->abilities[battlerAtk] == ABILITY_PLUS || aiData->abilities[battlerAtk] == ABILITY_MINUS)
+            if (AI_HasActiveAbility(battlerAtk, ABILITY_PLUS) || AI_HasActiveAbility(battlerAtk, ABILITY_MINUS))
             {
                 // same as growth, work up
                 if (!BattlerStatCanRise(battlerAtk, aiData->abilities[battlerAtk], STAT_ATK) || !HasMoveWithCategory(battlerAtk, DAMAGE_CATEGORY_PHYSICAL))
@@ -1544,13 +1544,13 @@ static s32 AI_CheckBadMove(u32 battlerAtk, u32 battlerDef, u32 move, s32 score)
 
             if (hasPartner)
             {
-                if (aiData->abilities[BATTLE_PARTNER(battlerAtk)] == ABILITY_PLUS || aiData->abilities[BATTLE_PARTNER(battlerAtk)] == ABILITY_MINUS)
+                if (AI_HasActiveAbility(BATTLE_PARTNER(battlerAtk), ABILITY_PLUS) || AI_HasActiveAbility(BATTLE_PARTNER(battlerAtk), ABILITY_MINUS))
                 {
                     if ((!BattlerStatCanRise(BATTLE_PARTNER(battlerAtk), aiData->abilities[BATTLE_PARTNER(battlerAtk)], STAT_ATK) || !HasMoveWithCategory(battlerAtk, DAMAGE_CATEGORY_PHYSICAL))
                       && (!BattlerStatCanRise(BATTLE_PARTNER(battlerAtk), aiData->abilities[BATTLE_PARTNER(battlerAtk)], STAT_SPATK) || !HasMoveWithCategory(battlerAtk, DAMAGE_CATEGORY_SPECIAL)))
                         ADJUST_SCORE(-10);
                 }
-                else if (aiData->abilities[battlerAtk] != ABILITY_PLUS && aiData->abilities[battlerAtk] != ABILITY_MINUS)
+                else if (!AI_HasActiveAbility(battlerAtk, ABILITY_PLUS) && !AI_HasActiveAbility(battlerAtk, ABILITY_MINUS))
                 {
                     ADJUST_SCORE(-10);    // nor our or our partner's ability is plus/minus
                 }
@@ -1561,7 +1561,7 @@ static s32 AI_CheckBadMove(u32 battlerAtk, u32 battlerDef, u32 move, s32 score)
                 ADJUST_SCORE(-10);
             break;
         case EFFECT_MAGNETIC_FLUX:
-            if (aiData->abilities[battlerAtk] == ABILITY_PLUS || aiData->abilities[battlerAtk] == ABILITY_MINUS)
+            if (AI_HasActiveAbility(battlerAtk, ABILITY_PLUS) || AI_HasActiveAbility(battlerAtk, ABILITY_MINUS))
             {
                 if (!BattlerStatCanRise(battlerAtk, aiData->abilities[battlerAtk], STAT_DEF))
                     ADJUST_SCORE(-10);
@@ -1575,14 +1575,14 @@ static s32 AI_CheckBadMove(u32 battlerAtk, u32 battlerDef, u32 move, s32 score)
 
             if (hasPartner)
             {
-                if (aiData->abilities[BATTLE_PARTNER(battlerAtk)] == ABILITY_PLUS || aiData->abilities[BATTLE_PARTNER(battlerAtk)] == ABILITY_MINUS)
+                if (AI_HasActiveAbility(BATTLE_PARTNER(battlerAtk), ABILITY_PLUS) || AI_HasActiveAbility(BATTLE_PARTNER(battlerAtk), ABILITY_MINUS))
                 {
                     if (!BattlerStatCanRise(BATTLE_PARTNER(battlerAtk), aiData->abilities[BATTLE_PARTNER(battlerAtk)], STAT_DEF))
                         ADJUST_SCORE(-10);
                     else if (!BattlerStatCanRise(BATTLE_PARTNER(battlerAtk), aiData->abilities[BATTLE_PARTNER(battlerAtk)], STAT_SPDEF))
                         ADJUST_SCORE(-8);
                 }
-                else if (aiData->abilities[battlerAtk] != ABILITY_PLUS && aiData->abilities[battlerAtk] != ABILITY_MINUS)
+                else if (!AI_HasActiveAbility(battlerAtk, ABILITY_PLUS) && !AI_HasActiveAbility(battlerAtk, ABILITY_MINUS))
                 {
                     ADJUST_SCORE(-10);    // nor our or our partner's ability is plus/minus
                 }

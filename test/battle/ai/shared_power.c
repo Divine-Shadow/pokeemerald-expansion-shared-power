@@ -987,6 +987,80 @@ AI_DOUBLE_BATTLE_TEST("Shared Power off: partner Contrary does not lower Shell S
     }
 }
 
+AI_DOUBLE_BATTLE_TEST("Shared Power AI: pooled Plus keeps Gear Up neutral when native partner stats are maxed")
+{
+    GIVEN {
+        BATTLE_TYPE(BATTLE_TYPE_SHARED_POWER);
+        ASSUME(GetMoveEffect(MOVE_GEAR_UP) == EFFECT_GEAR_UP);
+        AI_FLAGS(AI_FLAG_CHECK_BAD_MOVE | AI_FLAG_CHECK_VIABILITY | AI_FLAG_OMNISCIENT);
+        PLAYER(SPECIES_WOBBUFFET) { Moves(MOVE_CELEBRATE); }
+        PLAYER(SPECIES_WOBBUFFET);
+        OPPONENT(SPECIES_WOBBUFFET) { Ability(ABILITY_TELEPATHY); Moves(MOVE_GEAR_UP, MOVE_SCRATCH, MOVE_WATER_GUN, MOVE_CELEBRATE); }
+        OPPONENT(SPECIES_WOBBUFFET) { Ability(ABILITY_PLUS); Moves(MOVE_CELEBRATE); }
+    } WHEN {
+        TURN {
+            gBattleMons[B_POSITION_OPPONENT_RIGHT].statStages[STAT_ATK] = MAX_STAT_STAGE;
+            gBattleMons[B_POSITION_OPPONENT_RIGHT].statStages[STAT_SPATK] = MAX_STAT_STAGE;
+            SCORE_EQ_VAL(opponentLeft, MOVE_GEAR_UP, AI_SCORE_DEFAULT, target: playerLeft);
+        }
+    }
+}
+
+AI_DOUBLE_BATTLE_TEST("Shared Power off: partner Plus leaves Gear Up at its native baseline when partner stats are maxed")
+{
+    GIVEN {
+        ASSUME(GetMoveEffect(MOVE_GEAR_UP) == EFFECT_GEAR_UP);
+        AI_FLAGS(AI_FLAG_CHECK_BAD_MOVE | AI_FLAG_CHECK_VIABILITY | AI_FLAG_OMNISCIENT);
+        PLAYER(SPECIES_WOBBUFFET) { Moves(MOVE_CELEBRATE); }
+        PLAYER(SPECIES_WOBBUFFET);
+        OPPONENT(SPECIES_WOBBUFFET) { Ability(ABILITY_TELEPATHY); Moves(MOVE_GEAR_UP, MOVE_SCRATCH, MOVE_WATER_GUN, MOVE_CELEBRATE); }
+        OPPONENT(SPECIES_WOBBUFFET) { Ability(ABILITY_PLUS); Moves(MOVE_CELEBRATE); }
+    } WHEN {
+        TURN {
+            gBattleMons[B_POSITION_OPPONENT_RIGHT].statStages[STAT_ATK] = MAX_STAT_STAGE;
+            gBattleMons[B_POSITION_OPPONENT_RIGHT].statStages[STAT_SPATK] = MAX_STAT_STAGE;
+            SCORE_EQ_VAL(opponentLeft, MOVE_GEAR_UP, AI_SCORE_DEFAULT, target: playerLeft);
+        }
+    }
+}
+
+AI_DOUBLE_BATTLE_TEST("Shared Power AI: pooled Plus keeps Magnetic Flux neutral when native partner stats are maxed")
+{
+    GIVEN {
+        BATTLE_TYPE(BATTLE_TYPE_SHARED_POWER);
+        ASSUME(GetMoveEffect(MOVE_MAGNETIC_FLUX) == EFFECT_MAGNETIC_FLUX);
+        AI_FLAGS(AI_FLAG_CHECK_BAD_MOVE | AI_FLAG_CHECK_VIABILITY | AI_FLAG_OMNISCIENT);
+        PLAYER(SPECIES_WOBBUFFET) { Moves(MOVE_CELEBRATE); }
+        PLAYER(SPECIES_WOBBUFFET);
+        OPPONENT(SPECIES_WOBBUFFET) { Ability(ABILITY_TELEPATHY); Moves(MOVE_MAGNETIC_FLUX, MOVE_SCRATCH, MOVE_WATER_GUN, MOVE_CELEBRATE); }
+        OPPONENT(SPECIES_WOBBUFFET) { Ability(ABILITY_PLUS); Moves(MOVE_CELEBRATE); }
+    } WHEN {
+        TURN {
+            gBattleMons[B_POSITION_OPPONENT_RIGHT].statStages[STAT_DEF] = MAX_STAT_STAGE;
+            gBattleMons[B_POSITION_OPPONENT_RIGHT].statStages[STAT_SPDEF] = MAX_STAT_STAGE;
+            SCORE_EQ_VAL(opponentLeft, MOVE_MAGNETIC_FLUX, AI_SCORE_DEFAULT, target: playerLeft);
+        }
+    }
+}
+
+AI_DOUBLE_BATTLE_TEST("Shared Power off: partner Plus leaves Magnetic Flux at its native baseline when partner stats are maxed")
+{
+    GIVEN {
+        ASSUME(GetMoveEffect(MOVE_MAGNETIC_FLUX) == EFFECT_MAGNETIC_FLUX);
+        AI_FLAGS(AI_FLAG_CHECK_BAD_MOVE | AI_FLAG_CHECK_VIABILITY | AI_FLAG_OMNISCIENT);
+        PLAYER(SPECIES_WOBBUFFET) { Moves(MOVE_CELEBRATE); }
+        PLAYER(SPECIES_WOBBUFFET);
+        OPPONENT(SPECIES_WOBBUFFET) { Ability(ABILITY_TELEPATHY); Moves(MOVE_MAGNETIC_FLUX, MOVE_SCRATCH, MOVE_WATER_GUN, MOVE_CELEBRATE); }
+        OPPONENT(SPECIES_WOBBUFFET) { Ability(ABILITY_PLUS); Moves(MOVE_CELEBRATE); }
+    } WHEN {
+        TURN {
+            gBattleMons[B_POSITION_OPPONENT_RIGHT].statStages[STAT_DEF] = MAX_STAT_STAGE;
+            gBattleMons[B_POSITION_OPPONENT_RIGHT].statStages[STAT_SPDEF] = MAX_STAT_STAGE;
+            SCORE_EQ_VAL(opponentLeft, MOVE_MAGNETIC_FLUX, AI_SCORE_DEFAULT, target: playerLeft);
+        }
+    }
+}
+
 AI_DOUBLE_BATTLE_TEST("Shared Power AI: pooled Contrary lowers self stat-boost additional effect score")
 {
     GIVEN {

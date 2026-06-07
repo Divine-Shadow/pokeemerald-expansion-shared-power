@@ -1,3 +1,11 @@
+- Docs/Planning: Record Shared Power AI Gear Up and Magnetic Flux Plus/Minus diff hygiene (commit pending).
+- Docs/Planning: Record Shared Power AI Gear Up and Magnetic Flux Plus/Minus broad validation evidence (commit pending).
+- Docs/Planning: Record Shared Power AI Gear Up and Magnetic Flux Plus/Minus validation evidence (commit pending).
+- Docs/Audit: Note that Shared Power AI Gear Up and Magnetic Flux scoring handles pooled Plus and Minus (commit pending).
+- Docs/Planning: Record Shared Power AI Gear Up and Magnetic Flux Plus/Minus implementation progress (commit pending).
+- Tests/AI: Cover Shared Power AI Gear Up and Magnetic Flux scoring with pooled Plus enabled and disabled paths (commit pending).
+- Battle/AI: Let Gear Up and Magnetic Flux bad-move scoring see pooled Plus and Minus under Shared Power (commit pending).
+- Docs/Planning: Select the Shared Power AI Gear Up and Magnetic Flux Plus/Minus bucket (commit pending).
 - Docs/Planning: Record Shared Power AI Shell Smash Contrary bad-move diff hygiene (commit ac03c2d867).
 - Docs/Planning: Record Shared Power AI Shell Smash Contrary bad-move broad validation evidence (commit ac03c2d867).
 - Docs/Audit: Note that Shared Power AI Shell Smash scoring handles pooled Contrary (commit ac03c2d867).
