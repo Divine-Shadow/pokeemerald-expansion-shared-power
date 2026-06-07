@@ -1992,7 +1992,7 @@ static s32 AI_CheckBadMove(u32 battlerAtk, u32 battlerDef, u32 move, s32 score)
         case EFFECT_FILLET_AWAY:
             if (HasBattlerSideAbility(battlerDef, ABILITY_UNAWARE, aiData))
                 ADJUST_SCORE(-10);
-            if (aiData->abilities[battlerAtk] == ABILITY_CONTRARY)
+            if (AI_HasActiveAbility(battlerAtk, ABILITY_CONTRARY))
                 ADJUST_SCORE(-10);
             else if (aiData->hpPercents[battlerAtk] <= 60)
                 ADJUST_SCORE(-10);

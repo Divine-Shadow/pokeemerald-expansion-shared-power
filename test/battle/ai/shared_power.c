@@ -1102,7 +1102,7 @@ AI_DOUBLE_BATTLE_TEST("Shared Power AI: pooled Contrary lowers Belly Drum score"
         OPPONENT(SPECIES_WOBBUFFET) { Ability(ABILITY_TELEPATHY); HP(100); MaxHP(100); Moves(MOVE_BELLY_DRUM, MOVE_SCRATCH, MOVE_CELEBRATE); }
         OPPONENT(SPECIES_SHUCKLE) { Ability(ABILITY_CONTRARY); Moves(MOVE_CELEBRATE); }
     } WHEN {
-        TURN { SCORE_EQ_VAL(opponentLeft, MOVE_BELLY_DRUM, AI_SCORE_DEFAULT, target: playerLeft); }
+        TURN { SCORE_LT_VAL(opponentLeft, MOVE_BELLY_DRUM, AI_SCORE_DEFAULT, target: playerLeft); }
     }
 }
 

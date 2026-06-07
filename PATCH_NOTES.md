@@ -1,3 +1,10 @@
+- Docs/Planning: Record Shared Power AI Belly Drum and Fillet Away Contrary bad-move diff hygiene (commit pending).
+- Docs/Planning: Record Shared Power AI Belly Drum and Fillet Away Contrary bad-move broad validation evidence (commit pending).
+- Docs/Audit: Note that Shared Power AI Belly Drum and Fillet Away bad-move scoring handles pooled Contrary (commit pending).
+- Docs/Planning: Record Shared Power AI Belly Drum and Fillet Away Contrary bad-move validation evidence (commit pending).
+- Tests/AI: Tighten Shared Power AI Belly Drum Contrary scoring coverage for the bad-move penalty (commit pending).
+- Battle/AI: Let Belly Drum and Fillet Away bad-move scoring see pooled attacker Contrary under Shared Power (commit pending).
+- Docs/Planning: Select the Shared Power AI Belly Drum and Fillet Away Contrary bad-move bucket (commit pending).
 - Docs/Planning: Record Shared Power AI Defog target Contrary prediction diff hygiene (commit 279c5ee3cc).
 - Docs/Planning: Record Shared Power AI Defog target Contrary prediction broad validation evidence (commit 279c5ee3cc).
 - Docs/Audit: Note that Shared Power AI Defog target scoring handles pooled Contrary (commit 279c5ee3cc).

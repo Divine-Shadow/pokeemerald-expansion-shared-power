@@ -306,6 +306,11 @@ Shared Power battle behavior should use the correct ability view at each callsit
 - [x] (2026-06-07T06:51Z) Ran targeted validation for the AI Defog target Contrary prediction bucket and recorded evidence here.
 - [x] (2026-06-07T06:51Z) Ran the broader Shared Power AI regression filter for the Defog target Contrary prediction bucket and recorded evidence here.
 - [x] (2026-06-07T06:51Z) Ran `git diff --check` after the AI Defog target Contrary prediction bucket; no issues reported.
+- [x] (2026-06-07T06:57Z) Selected the AI Belly Drum/Fillet Away bad-move Contrary prediction bucket, scoped to active attacker Contrary in the HP-cost self-setup bad-move guard.
+- [x] (2026-06-07T06:57Z) Implemented the AI Belly Drum/Fillet Away bad-move Contrary prediction bucket and tightened focused Shared Power enabled/off Belly Drum score coverage.
+- [x] (2026-06-07T06:57Z) Ran targeted validation for the AI Belly Drum/Fillet Away bad-move Contrary prediction bucket and recorded evidence here.
+- [x] (2026-06-07T06:57Z) Ran the broader Shared Power AI regression filter for the Belly Drum/Fillet Away bad-move Contrary prediction bucket and recorded evidence here.
+- [x] (2026-06-07T06:57Z) Ran `git diff --check` after the AI Belly Drum/Fillet Away bad-move Contrary prediction bucket; no issues reported.
 - [x] (2026-06-07T03:05Z) Selected the AI weather/terrain benefit prediction bucket, scoped to shareable active ability heuristics while keeping native-only form/species-style weather abilities native.
 - [x] (2026-06-07T03:12Z) Implemented the AI weather/terrain benefit prediction bucket and added focused Shared Power enabled/off helper coverage for Rain and Electric Terrain.
 - [x] (2026-06-07T03:20Z) Ran targeted validation for the AI weather/terrain benefit prediction bucket and recorded evidence here.
@@ -570,6 +575,18 @@ Shared Power battle behavior should use the correct ability view at each callsit
   Evidence: `docker run --rm -u "$(id -u):$(id -g)" -v "$PWD:/workspace" -v "/home/bayesartre/dev/pokeemerald-expansion-shared-power:/home/bayesartre/dev/pokeemerald-expansion-shared-power" -w /workspace pokeemerald-expansion:builder make check NO_MULTIBOOT=1 TESTS="Shared Power AI"` passed 51/51 tests.
 
 - Observation: The AI Defog target Contrary bucket passed diff hygiene.
+  Evidence: `git diff --check` reported no issues.
+
+- Observation: AI Belly Drum and Fillet Away bad-move scoring still treats attacker Contrary as native-only before penalizing those self-setup moves.
+  Evidence: `EFFECT_BELLY_DRUM` and `EFFECT_FILLET_AWAY` in `AI_CheckBadMove` check `aiData->abilities[battlerAtk] == ABILITY_CONTRARY`, while live stat-change behavior routes Contrary through active membership.
+
+- Observation: The Belly Drum bad-move score split is stable with active Contrary pushing Belly Drum below default and Shared Power off preserving the higher setup score.
+  Evidence: `TESTS="Shared Power AI: pooled Contrary lowers Belly Drum score"` and `TESTS="Shared Power off: partner Contrary does not lower Belly Drum score"` both passed 1/1. The enabled path scored below `AI_SCORE_DEFAULT`; the off-path scored above `AI_SCORE_DEFAULT`.
+
+- Observation: The AI Belly Drum/Fillet Away bad-move Contrary bucket passed the broader Shared Power AI regression filter.
+  Evidence: `docker run --rm -u "$(id -u):$(id -g)" -v "$PWD:/workspace" -v "/home/bayesartre/dev/pokeemerald-expansion-shared-power:/home/bayesartre/dev/pokeemerald-expansion-shared-power" -w /workspace pokeemerald-expansion:builder make check NO_MULTIBOOT=1 TESTS="Shared Power AI"` passed 51/51 tests.
+
+- Observation: The AI Belly Drum/Fillet Away bad-move Contrary bucket passed diff hygiene.
   Evidence: `git diff --check` reported no issues.
 
 - Observation: AI Substitute/Shed Tail scoring has a native-only Infiltrator shortcut even though live Substitute bypass is already active-aware.
