@@ -91,6 +91,37 @@ AI_SINGLE_BATTLE_TEST("Shared Power off: partner Soundproof does not block Roar 
     }
 }
 
+AI_SINGLE_BATTLE_TEST("Shared Power AI: pooled Suction Cups lowers Roar score")
+{
+    GIVEN {
+        BATTLE_TYPE(BATTLE_TYPE_SHARED_POWER);
+        ASSUME(GetMoveEffect(MOVE_ROAR) == EFFECT_ROAR);
+        ASSUME(GetMoveEffect(MOVE_SWORDS_DANCE) == EFFECT_ATTACK_UP_2);
+        AI_FLAGS(AI_FLAG_CHECK_BAD_MOVE | AI_FLAG_CHECK_VIABILITY | AI_FLAG_OMNISCIENT);
+        PLAYER(SPECIES_OCTILLERY) { Ability(ABILITY_SUCTION_CUPS); Moves(MOVE_SPLASH); }
+        PLAYER(SPECIES_WOBBUFFET) { Ability(ABILITY_TELEPATHY); Moves(MOVE_SWORDS_DANCE, MOVE_SPLASH); }
+        OPPONENT(SPECIES_WOBBUFFET) { Moves(MOVE_ROAR, MOVE_CELEBRATE); }
+    } WHEN {
+        TURN { SWITCH(player, 1); }
+        TURN { MOVE(player, MOVE_SWORDS_DANCE); SCORE_LT_VAL(opponent, MOVE_ROAR, AI_SCORE_DEFAULT); }
+    }
+}
+
+AI_SINGLE_BATTLE_TEST("Shared Power off: partner Suction Cups does not lower Roar score")
+{
+    GIVEN {
+        ASSUME(GetMoveEffect(MOVE_ROAR) == EFFECT_ROAR);
+        ASSUME(GetMoveEffect(MOVE_SWORDS_DANCE) == EFFECT_ATTACK_UP_2);
+        AI_FLAGS(AI_FLAG_CHECK_BAD_MOVE | AI_FLAG_CHECK_VIABILITY | AI_FLAG_OMNISCIENT);
+        PLAYER(SPECIES_OCTILLERY) { Ability(ABILITY_SUCTION_CUPS); Moves(MOVE_SPLASH); }
+        PLAYER(SPECIES_WOBBUFFET) { Ability(ABILITY_TELEPATHY); Moves(MOVE_SWORDS_DANCE, MOVE_SPLASH); }
+        OPPONENT(SPECIES_WOBBUFFET) { Moves(MOVE_ROAR, MOVE_CELEBRATE); }
+    } WHEN {
+        TURN { SWITCH(player, 1); }
+        TURN { MOVE(player, MOVE_SWORDS_DANCE); SCORE_EQ_VAL(opponent, MOVE_ROAR, 90); }
+    }
+}
+
 AI_SINGLE_BATTLE_TEST("Shared Power AI: scores Perish Song as bad against pooled Soundproof")
 {
     GIVEN {

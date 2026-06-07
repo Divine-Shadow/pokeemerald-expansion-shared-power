@@ -1,3 +1,10 @@
+- Docs/Planning: Record Shared Power AI Roar Suction Cups prediction diff hygiene (commit pending).
+- Docs/Planning: Record Shared Power AI Roar Suction Cups prediction validation evidence (commit pending).
+- Docs/Planning: Record Shared Power AI Roar Suction Cups prediction progress (commit pending).
+- Docs/Audit: Note that Shared Power AI Roar prediction handles pooled Suction Cups (commit pending).
+- Tests/AI: Cover Shared Power AI Roar scoring with pooled Suction Cups enabled and disabled paths (commit pending).
+- Battle/AI: Let Roar prediction see pooled Suction Cups under Shared Power (commit pending).
+- Docs/Planning: Select the Shared Power AI Roar Suction Cups prediction bucket (commit pending).
 - Docs/Planning: Record Shared Power AI stat-drop-punish prediction diff hygiene (commit bdce27f656).
 - Docs/Planning: Record Shared Power AI stat-drop-punish prediction validation evidence (commit bdce27f656).
 - Docs/Planning: Record Shared Power AI stat-drop-punish prediction progress (commit bdce27f656).

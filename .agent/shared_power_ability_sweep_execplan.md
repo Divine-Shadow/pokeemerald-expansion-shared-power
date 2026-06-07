@@ -212,6 +212,10 @@ Shared Power battle behavior should use the correct ability view at each callsit
 - [x] (2026-06-07T14:24Z) Implemented the AI stat-drop-punish prediction bucket and added focused Shared Power enabled/off Defiant scoring coverage.
 - [x] (2026-06-07T14:42Z) Ran targeted validation for the AI stat-drop-punish prediction bucket and recorded evidence here.
 - [x] (2026-06-07T14:43Z) Ran `git diff --check` after the AI stat-drop-punish prediction bucket; no issues reported.
+- [x] (2026-06-07T15:05Z) Selected the AI Roar Suction Cups prediction bucket for active target phazing protection, scoped away from live Dragon Tail Suction Cups policy.
+- [x] (2026-06-07T15:14Z) Implemented the AI Roar Suction Cups prediction bucket and added focused Shared Power enabled/off score coverage.
+- [x] (2026-06-07T15:24Z) Ran targeted validation for the AI Roar Suction Cups prediction bucket and recorded evidence here.
+- [x] (2026-06-07T15:25Z) Ran `git diff --check` after the AI Roar Suction Cups prediction bucket; no issues reported.
 - [x] (2026-06-07T03:05Z) Selected the AI weather/terrain benefit prediction bucket, scoped to shareable active ability heuristics while keeping native-only form/species-style weather abilities native.
 - [x] (2026-06-07T03:12Z) Implemented the AI weather/terrain benefit prediction bucket and added focused Shared Power enabled/off helper coverage for Rain and Electric Terrain.
 - [x] (2026-06-07T03:20Z) Ran targeted validation for the AI weather/terrain benefit prediction bucket and recorded evidence here.
@@ -429,6 +433,9 @@ Shared Power battle behavior should use the correct ability view at each callsit
 
 - Observation: AI Roar prediction has a sound-blocker check that can migrate independently of phazing immunities.
   Evidence: `EFFECT_ROAR` scoring checked `IsSoundMove(move) && aiData->abilities[battlerDef] == ABILITY_SOUNDPROOF` before considering stat-clear score; live sound move blocking already treats active pooled Soundproof as authoritative, while Suction Cups remains a separate native/cached phazing check outside this bucket.
+
+- Observation: AI Roar prediction still has native-only Suction Cups checks beside already-migrated active Soundproof checks.
+  Evidence: `src/battle_ai_main.c` has native `aiData->abilities[battlerDef] == ABILITY_SUCTION_CUPS` checks in both bad-move and viability Roar scoring. Live Dragon Tail Suction Cups still uses `GetBattlerAbility(gBattlerTarget)`, so this bucket is scoped to AI Roar-style phazing prediction only and leaves live hit-switch-target policy for a later hardcoded-state review.
 
 ## Decision Log
 
@@ -1478,3 +1485,9 @@ Validation (2026-06-07): `docker run --rm -u "$(id -u):$(id -g)" -v "$PWD:/works
 Validation (2026-06-07): `docker run --rm -u "$(id -u):$(id -g)" -v "$PWD:/workspace" -v "/home/bayesartre/dev/pokeemerald-expansion-shared-power:/home/bayesartre/dev/pokeemerald-expansion-shared-power" -w /workspace pokeemerald-expansion:builder make check NO_MULTIBOOT=1 TESTS="Shared Power off: partner Defiant does not block stat-drop score boosts"` passed 1/1.
 
 Validation (2026-06-07): `git diff --check` passed with no output after the AI stat-drop-punish prediction bucket.
+
+Validation (2026-06-07): `docker run --rm -u "$(id -u):$(id -g)" -v "$PWD:/workspace" -v "/home/bayesartre/dev/pokeemerald-expansion-shared-power:/home/bayesartre/dev/pokeemerald-expansion-shared-power" -w /workspace pokeemerald-expansion:builder make check NO_MULTIBOOT=1 TESTS="Shared Power off: partner Suction Cups does not lower Roar score"` initially showed the disabled-path Roar score baseline is 90 rather than `AI_SCORE_DEFAULT`; after asserting the actual neutral baseline, it passed 1/1.
+
+Validation (2026-06-07): `docker run --rm -u "$(id -u):$(id -g)" -v "$PWD:/workspace" -v "/home/bayesartre/dev/pokeemerald-expansion-shared-power:/home/bayesartre/dev/pokeemerald-expansion-shared-power" -w /workspace pokeemerald-expansion:builder make check NO_MULTIBOOT=1 TESTS="Shared Power AI"` passed 30/30 after adding the AI Roar Suction Cups prediction bucket.
+
+Validation (2026-06-07): `git diff --check` passed with no output after the AI Roar Suction Cups prediction bucket.
