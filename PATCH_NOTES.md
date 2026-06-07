@@ -1,3 +1,11 @@
+- Docs/Planning: Record Shared Power AI Klutz hold-effect prediction diff hygiene (commit pending).
+- Docs/Planning: Record Shared Power AI Klutz hold-effect prediction broad validation evidence (commit pending).
+- Docs/Planning: Record Shared Power AI Klutz hold-effect prediction validation evidence (commit pending).
+- Docs/Audit: Note that Shared Power AI hold-effect prediction routes Klutz through active membership (commit pending).
+- Docs/Planning: Record Shared Power AI Klutz hold-effect prediction implementation progress (commit pending).
+- Tests/AI: Cover Shared Power AI hold-effect prediction with pooled Klutz enabled and disabled paths (commit pending).
+- Battle/AI: Let hold-effect prediction see pooled Klutz under Shared Power (commit pending).
+- Docs/Planning: Select the Shared Power AI Klutz hold-effect prediction cleanup bucket (commit pending).
 - Docs/Planning: Record Shared Power AI Gear Up and Magnetic Flux Plus/Minus diff hygiene (commit 5fa7f36ec9).
 - Docs/Planning: Record Shared Power AI Gear Up and Magnetic Flux Plus/Minus broad validation evidence (commit 5fa7f36ec9).
 - Docs/Planning: Record Shared Power AI Gear Up and Magnetic Flux Plus/Minus validation evidence (commit 5fa7f36ec9).

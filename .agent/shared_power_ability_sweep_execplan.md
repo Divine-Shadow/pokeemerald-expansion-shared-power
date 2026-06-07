@@ -331,6 +331,11 @@ Shared Power battle behavior should use the correct ability view at each callsit
 - [x] (2026-06-07T07:28Z) Ran targeted validation for the AI Gear Up and Magnetic Flux Plus/Minus bad-move bucket and recorded evidence here.
 - [x] (2026-06-07T07:28Z) Ran the broader Shared Power AI regression filter for the Gear Up and Magnetic Flux Plus/Minus bucket and recorded evidence here.
 - [x] (2026-06-07T07:28Z) Ran `git diff --check` after the AI Gear Up and Magnetic Flux Plus/Minus bucket; no issues reported.
+- [x] (2026-06-07T07:39Z) Selected the AI Klutz hold-effect prediction cleanup bucket for the remaining native Klutz check in `AI_DecideHoldEffectForTurn`.
+- [x] (2026-06-07T07:39Z) Implemented the AI Klutz hold-effect prediction cleanup bucket and added focused Shared Power enabled/off helper coverage.
+- [x] (2026-06-07T07:39Z) Ran targeted validation for the AI Klutz hold-effect prediction cleanup bucket and recorded evidence here.
+- [x] (2026-06-07T07:39Z) Ran the broader Shared Power AI regression filter for the Klutz hold-effect prediction cleanup bucket and recorded evidence here.
+- [x] (2026-06-07T07:39Z) Ran `git diff --check` after the AI Klutz hold-effect prediction cleanup bucket; no issues reported.
 - [x] (2026-06-07T03:05Z) Selected the AI weather/terrain benefit prediction bucket, scoped to shareable active ability heuristics while keeping native-only form/species-style weather abilities native.
 - [x] (2026-06-07T03:12Z) Implemented the AI weather/terrain benefit prediction bucket and added focused Shared Power enabled/off helper coverage for Rain and Electric Terrain.
 - [x] (2026-06-07T03:20Z) Ran targeted validation for the AI weather/terrain benefit prediction bucket and recorded evidence here.
@@ -658,6 +663,18 @@ Shared Power battle behavior should use the correct ability view at each callsit
   Evidence: `docker run --rm -u "$(id -u):$(id -g)" -v "$PWD:/workspace" -v "/home/bayesartre/dev/pokeemerald-expansion-shared-power:/home/bayesartre/dev/pokeemerald-expansion-shared-power" -w /workspace pokeemerald-expansion:builder make check NO_MULTIBOOT=1 TESTS="Shared Power AI"` passed 56/56.
 
 - Observation: The AI Gear Up and Magnetic Flux Plus/Minus bucket passed diff hygiene.
+  Evidence: `git diff --check` reported no issues.
+
+- Observation: `AI_DecideHoldEffectForTurn` still suppresses held effects from the predicted native Klutz slot even though the Klutz item-suppression bucket says AI item-enabled checks should use active membership.
+  Evidence: `src/battle_ai_util.c` checks `gAiLogicData->abilities[battlerId] == ABILITY_KLUTZ && !gBattleMons[battlerId].volatiles.gastroAcid`; the rest of the Klutz AI item-enabled surface already uses `AI_HasActiveAbility`, and the audit marks holder item suppression implemented as active membership.
+
+- Observation: AI hold-effect prediction now suppresses items through active Klutz membership and preserves the disabled baseline.
+  Evidence: `TESTS="Shared Power AI: pooled Klutz suppresses hold-effect prediction"` passed 1/1; `TESTS="Shared Power off: partner Klutz does not suppress hold-effect prediction"` passed 1/1.
+
+- Observation: The full Shared Power AI regression slice passes after the Klutz hold-effect prediction cleanup bucket.
+  Evidence: `docker run --rm -u "$(id -u):$(id -g)" -v "$PWD:/workspace" -v "/home/bayesartre/dev/pokeemerald-expansion-shared-power:/home/bayesartre/dev/pokeemerald-expansion-shared-power" -w /workspace pokeemerald-expansion:builder make check NO_MULTIBOOT=1 TESTS="Shared Power AI"` passed 57/57.
+
+- Observation: The AI Klutz hold-effect prediction cleanup bucket passed diff hygiene.
   Evidence: `git diff --check` reported no issues.
 
 - Observation: AI Substitute/Shed Tail scoring has a native-only Infiltrator shortcut even though live Substitute bypass is already active-aware.

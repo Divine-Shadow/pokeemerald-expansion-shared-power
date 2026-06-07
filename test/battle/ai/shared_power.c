@@ -766,6 +766,39 @@ AI_DOUBLE_BATTLE_TEST("Shared Power off: partner Sticky Hold does not prevent it
     }
 }
 
+AI_DOUBLE_BATTLE_TEST("Shared Power AI: pooled Klutz suppresses hold-effect prediction")
+{
+    GIVEN {
+        BATTLE_TYPE(BATTLE_TYPE_SHARED_POWER);
+        ASSUME(gItemsInfo[ITEM_LEFTOVERS].holdEffect == HOLD_EFFECT_LEFTOVERS);
+        AI_FLAGS(AI_FLAG_CHECK_BAD_MOVE | AI_FLAG_CHECK_VIABILITY | AI_FLAG_OMNISCIENT);
+        PLAYER(SPECIES_WOBBUFFET) { Moves(MOVE_CELEBRATE); }
+        PLAYER(SPECIES_WOBBUFFET);
+        OPPONENT(SPECIES_WOBBUFFET) { Ability(ABILITY_TELEPATHY); Item(ITEM_LEFTOVERS); Moves(MOVE_CELEBRATE); }
+        OPPONENT(SPECIES_BUNEARY) { Ability(ABILITY_KLUTZ); Moves(MOVE_CELEBRATE); }
+    } WHEN {
+        TURN { EXPECT_MOVE(opponentLeft, MOVE_CELEBRATE); }
+    } THEN {
+        EXPECT_EQ(AI_DecideHoldEffectForTurn(B_POSITION_OPPONENT_LEFT), HOLD_EFFECT_NONE);
+    }
+}
+
+AI_DOUBLE_BATTLE_TEST("Shared Power off: partner Klutz does not suppress hold-effect prediction")
+{
+    GIVEN {
+        ASSUME(gItemsInfo[ITEM_LEFTOVERS].holdEffect == HOLD_EFFECT_LEFTOVERS);
+        AI_FLAGS(AI_FLAG_CHECK_BAD_MOVE | AI_FLAG_CHECK_VIABILITY | AI_FLAG_OMNISCIENT);
+        PLAYER(SPECIES_WOBBUFFET) { Moves(MOVE_CELEBRATE); }
+        PLAYER(SPECIES_WOBBUFFET);
+        OPPONENT(SPECIES_WOBBUFFET) { Ability(ABILITY_TELEPATHY); Item(ITEM_LEFTOVERS); Moves(MOVE_CELEBRATE); }
+        OPPONENT(SPECIES_BUNEARY) { Ability(ABILITY_KLUTZ); Moves(MOVE_CELEBRATE); }
+    } WHEN {
+        TURN { EXPECT_MOVE(opponentLeft, MOVE_CELEBRATE); }
+    } THEN {
+        EXPECT_EQ(AI_DecideHoldEffectForTurn(B_POSITION_OPPONENT_LEFT), HOLD_EFFECT_LEFTOVERS);
+    }
+}
+
 AI_DOUBLE_BATTLE_TEST("Shared Power AI: scores direct drain moves as bad into pooled Liquid Ooze")
 {
     GIVEN {

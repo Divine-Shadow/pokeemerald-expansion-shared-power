@@ -1721,7 +1721,7 @@ enum ItemHoldEffect AI_DecideHoldEffectForTurn(u32 battlerId)
         return HOLD_EFFECT_NONE;
     if (gFieldStatuses & STATUS_FIELD_MAGIC_ROOM)
         return HOLD_EFFECT_NONE;
-    if (gAiLogicData->abilities[battlerId] == ABILITY_KLUTZ && !gBattleMons[battlerId].volatiles.gastroAcid)
+    if (AI_HasActiveAbility(battlerId, ABILITY_KLUTZ) && !gBattleMons[battlerId].volatiles.gastroAcid)
         return HOLD_EFFECT_NONE;
 
     return holdEffect;
