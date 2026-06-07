@@ -1667,6 +1667,37 @@ AI_DOUBLE_BATTLE_TEST("Shared Power off: partner Solar Power does not prevent gi
     }
 }
 
+AI_DOUBLE_BATTLE_TEST("Shared Power AI: pooled Telepathy prevents Wide Guard partner-damage scoring")
+{
+    GIVEN {
+        BATTLE_TYPE(BATTLE_TYPE_SHARED_POWER);
+        ASSUME(GetMoveTarget(MOVE_EARTHQUAKE) == MOVE_TARGET_FOES_AND_ALLY);
+        ASSUME(GetMoveEffect(MOVE_WIDE_GUARD) == EFFECT_PROTECT);
+        AI_FLAGS(AI_FLAG_CHECK_VIABILITY | AI_FLAG_OMNISCIENT | AI_FLAG_PREDICT_MOVE);
+        PLAYER(SPECIES_WOBBUFFET) { Ability(ABILITY_TELEPATHY); Moves(MOVE_TACKLE); }
+        PLAYER(SPECIES_WOBBUFFET) { Ability(ABILITY_TELEPATHY); Moves(MOVE_CELEBRATE); }
+        OPPONENT(SPECIES_ELGYEM) { Ability(ABILITY_TELEPATHY); Moves(MOVE_EARTHQUAKE); }
+        OPPONENT(SPECIES_WOBBUFFET) { Ability(ABILITY_RUN_AWAY); Moves(MOVE_WIDE_GUARD, MOVE_CELEBRATE); }
+    } WHEN {
+        TURN { MOVE(playerLeft, MOVE_TACKLE, target: opponentRight); SCORE_EQ_VAL(opponentRight, MOVE_WIDE_GUARD, AI_SCORE_DEFAULT, target: playerLeft); }
+    }
+}
+
+AI_DOUBLE_BATTLE_TEST("Shared Power off: partner Telepathy does not prevent Wide Guard partner-damage scoring")
+{
+    GIVEN {
+        ASSUME(GetMoveTarget(MOVE_EARTHQUAKE) == MOVE_TARGET_FOES_AND_ALLY);
+        ASSUME(GetMoveEffect(MOVE_WIDE_GUARD) == EFFECT_PROTECT);
+        AI_FLAGS(AI_FLAG_CHECK_VIABILITY | AI_FLAG_OMNISCIENT | AI_FLAG_PREDICT_MOVE);
+        PLAYER(SPECIES_WOBBUFFET) { Ability(ABILITY_TELEPATHY); Moves(MOVE_TACKLE); }
+        PLAYER(SPECIES_WOBBUFFET) { Ability(ABILITY_TELEPATHY); Moves(MOVE_CELEBRATE); }
+        OPPONENT(SPECIES_ELGYEM) { Ability(ABILITY_TELEPATHY); Moves(MOVE_EARTHQUAKE); }
+        OPPONENT(SPECIES_WOBBUFFET) { Ability(ABILITY_RUN_AWAY); Moves(MOVE_WIDE_GUARD, MOVE_CELEBRATE); }
+    } WHEN {
+        TURN { MOVE(playerLeft, MOVE_TACKLE, target: opponentRight); SCORE_GT_VAL(opponentRight, MOVE_WIDE_GUARD, AI_SCORE_DEFAULT, target: playerLeft); }
+    }
+}
+
 AI_DOUBLE_BATTLE_TEST("Shared Power AI: scores Prankster status moves lower into Dark targets")
 {
     GIVEN {

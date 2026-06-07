@@ -1,3 +1,11 @@
+- Docs/Planning: Record Shared Power AI Wide Guard Telepathy diff hygiene (commit pending).
+- Docs/Planning: Record Shared Power AI Wide Guard Telepathy broad validation evidence (commit pending).
+- Docs/Planning: Record Shared Power AI Wide Guard Telepathy focused validation evidence (commit pending).
+- Docs/Audit: Note that Shared Power AI Wide Guard scoring handles pooled Telepathy (commit pending).
+- Tests/AI: Cover Wide Guard partner-damage scoring with pooled Telepathy enabled and disabled paths (commit pending).
+- Battle/AI: Let Wide Guard partner-damage scoring see pooled Telepathy under Shared Power (commit pending).
+- Docs/Planning: Record Shared Power AI Wide Guard Telepathy implementation progress (commit pending).
+- Docs/Planning: Select the Shared Power AI Wide Guard Telepathy prediction bucket (commit pending).
 - Docs/Planning: Record Shared Power AI Utility Umbrella weather-ability scoring diff hygiene (commit 72388fff73).
 - Docs/Planning: Record Shared Power AI Utility Umbrella weather-ability scoring broad validation evidence (commit 72388fff73).
 - Docs/Planning: Record Shared Power AI Utility Umbrella weather-ability scoring validation evidence (commit 72388fff73).

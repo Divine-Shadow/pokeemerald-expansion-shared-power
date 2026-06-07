@@ -341,6 +341,10 @@ Shared Power battle behavior should use the correct ability view at each callsit
 - [x] (2026-06-07T08:02Z) Ran targeted validation for the AI Utility Umbrella weather-ability scoring bucket and recorded evidence here.
 - [x] (2026-06-07T08:02Z) Ran the broader Shared Power AI regression filter for the Utility Umbrella weather-ability scoring bucket and recorded evidence here.
 - [x] (2026-06-07T08:02Z) Ran `git diff --check` after the AI Utility Umbrella weather-ability scoring bucket; no issues reported.
+- [x] (2026-06-07T07:57Z) Selected the AI Wide Guard partner Telepathy prediction bucket, scoped to active attacker-side Telepathy membership when judging whether an ally spread move can harm the AI battler.
+- [x] (2026-06-07T07:57Z) Implemented the AI Wide Guard partner Telepathy prediction bucket and added focused Shared Power enabled/off score coverage.
+- [x] (2026-06-07T07:57Z) Ran focused and broad validation for the AI Wide Guard partner Telepathy prediction bucket and recorded evidence here.
+- [x] (2026-06-07T07:57Z) Ran `git diff --check` after the AI Wide Guard partner Telepathy prediction bucket; no issues reported.
 - [x] (2026-06-07T03:05Z) Selected the AI weather/terrain benefit prediction bucket, scoped to shareable active ability heuristics while keeping native-only form/species-style weather abilities native.
 - [x] (2026-06-07T03:12Z) Implemented the AI weather/terrain benefit prediction bucket and added focused Shared Power enabled/off helper coverage for Rain and Electric Terrain.
 - [x] (2026-06-07T03:20Z) Ran targeted validation for the AI weather/terrain benefit prediction bucket and recorded evidence here.
@@ -498,6 +502,12 @@ Shared Power battle behavior should use the correct ability view at each callsit
 
 - Observation: The AI Belly Drum Contrary bucket passed diff hygiene.
   Evidence: `git diff --check` reported no issues.
+
+- Observation: The remaining direct Telepathy AI read is not a live behavior-policy question because live type effectiveness already treats Telepathy as active membership for ally spread damage.
+  Evidence: `CalcTypeEffectivenessMultiplierInternal` checks `HasActiveAbility(ctx->battlerDef, ABILITY_TELEPATHY)` when the defender is the attacker's partner, while `src/battle_ai_main.c` still checks only native `aiData->abilities[battlerAtk] != ABILITY_TELEPATHY` in the Wide Guard partner-spread prediction branch.
+
+- Observation: Wide Guard's partner-spread score branch only produced a deterministic score split after the fixture provided both an already-chosen ally spread move and a predicted incoming damaging move.
+  Evidence: The first disabled-path validation kept Wide Guard at score 100 because the AI left battler had no chosen ally move; after moving Wide Guard to the right AI battler and adding a predicted player Tackle for `ProtectChecks`, the enabled and disabled tests both passed with the expected score split.
 
 - Observation: AI Hone Claws scoring has the same narrow native Contrary branch shape as the Stockpile and Belly Drum buckets.
   Evidence: `EFFECT_ATTACK_ACCURACY_UP` in `src/battle_ai_main.c` checks native `aiData->abilities[battlerAtk] != ABILITY_CONTRARY`, while live stat-change behavior routes Contrary through active membership.
@@ -824,6 +834,10 @@ Shared Power battle behavior should use the correct ability view at each callsit
   Evidence: `src/battle_ai_main.c` skips Foresight setup when native `aiData->abilities[battlerAtk]` is `ABILITY_SCRAPPY` or `ABILITY_MINDS_EYE`, but live Normal/Fighting into Ghost type-effectiveness already queries active membership for both abilities. This bucket can migrate only the Foresight usefulness heuristic without changing the type-effectiveness or Foresight volatile contracts.
 
 ## Decision Log
+
+- Decision: Migrate the AI Wide Guard partner-spread Telepathy guard to `AI_HasActiveAbility(battlerAtk, ABILITY_TELEPATHY)`.
+  Rationale: The branch is predicting whether the AI battler would be damaged by its partner's spread move. Live ally spread damage already treats Telepathy as active Shared Power membership on the protected partner, so AI should use the same adapter. This does not touch native mutation, copy, suppression, or form/species-gated mechanics.
+  Date/Author: 2026-06-07 / Codex
 
 - Decision: Defer the Run Away/trapping row instead of migrating Shadow Tag, Arena Trap, and Magnet Pull trapping in this sweep pass.
   Rationale: The audit row is labeled `Clarify`, and the live code cannot preserve correct attribution without a policy decision. A migration would need to define whether donated trapping abilities prevent escape, whether donated Shadow Tag on the trapped battler satisfies the Gen4+ self-exemption rule, and which battler/ability should be displayed and recorded when the trap source is pooled rather than native.
@@ -1923,3 +1937,11 @@ Validation (2026-06-07): `docker run --rm -u "$(id -u):$(id -g)" -v "$PWD:/works
 Validation (2026-06-07): `docker run --rm -u "$(id -u):$(id -g)" -v "$PWD:/workspace" -v "/home/bayesartre/dev/pokeemerald-expansion-shared-power:/home/bayesartre/dev/pokeemerald-expansion-shared-power" -w /workspace pokeemerald-expansion:builder make check NO_MULTIBOOT=1 TESTS="Shared Power AI"` passed 36/36 after adding the AI Foresight Scrappy/Mind's Eye prediction bucket.
 
 Validation (2026-06-07): `git diff --check` passed with no output after the AI Foresight Scrappy/Mind's Eye prediction bucket.
+
+Validation (2026-06-07): `docker run --rm -u "$(id -u):$(id -g)" -v "$PWD:/workspace" -v "/home/bayesartre/dev/pokeemerald-expansion-shared-power:/home/bayesartre/dev/pokeemerald-expansion-shared-power" -w /workspace pokeemerald-expansion:builder make check NO_MULTIBOOT=1 TESTS="Shared Power AI: pooled Telepathy prevents Wide Guard partner-damage scoring"` passed 1/1 after the fixture was corrected to put the spread-move partner on the already-processed AI battler and provide a predicted incoming Tackle.
+
+Validation (2026-06-07): `docker run --rm -u "$(id -u):$(id -g)" -v "$PWD:/workspace" -v "/home/bayesartre/dev/pokeemerald-expansion-shared-power:/home/bayesartre/dev/pokeemerald-expansion-shared-power" -w /workspace pokeemerald-expansion:builder make check NO_MULTIBOOT=1 TESTS="Shared Power off: partner Telepathy does not prevent Wide Guard partner-damage scoring"` initially failed with neutral score 100 before the fixture exposed the branch, then passed 1/1 after the same correction.
+
+Validation (2026-06-07): `docker run --rm -u "$(id -u):$(id -g)" -v "$PWD:/workspace" -v "/home/bayesartre/dev/pokeemerald-expansion-shared-power:/home/bayesartre/dev/pokeemerald-expansion-shared-power" -w /workspace pokeemerald-expansion:builder make check NO_MULTIBOOT=1 TESTS="Shared Power AI"` passed 59/59 after adding the AI Wide Guard partner Telepathy prediction bucket.
+
+Validation (2026-06-07): `git diff --check` passed with no output after the AI Wide Guard partner Telepathy prediction bucket.
