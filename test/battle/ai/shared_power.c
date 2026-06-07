@@ -917,6 +917,41 @@ AI_DOUBLE_BATTLE_TEST("Shared Power off: user Contrary does not lower Rototiller
     }
 }
 
+AI_DOUBLE_BATTLE_TEST("Shared Power AI: pooled Contrary raises Rototiller foe score")
+{
+    GIVEN {
+        BATTLE_TYPE(BATTLE_TYPE_SHARED_POWER);
+        ASSUME(GetMoveEffect(MOVE_ROTOTILLER) == EFFECT_ROTOTILLER);
+        ASSUME(GetSpeciesType(SPECIES_WOBBUFFET, 0) != TYPE_GRASS);
+        ASSUME(GetSpeciesType(SPECIES_WOBBUFFET, 1) != TYPE_GRASS);
+        ASSUME(GetSpeciesType(SPECIES_TANGELA, 0) == TYPE_GRASS);
+        AI_FLAGS(AI_FLAG_CHECK_BAD_MOVE | AI_FLAG_CHECK_VIABILITY | AI_FLAG_OMNISCIENT);
+        PLAYER(SPECIES_TANGELA) { Ability(ABILITY_TELEPATHY); Moves(MOVE_CELEBRATE); }
+        PLAYER(SPECIES_SHUCKLE) { Ability(ABILITY_CONTRARY); Moves(MOVE_CELEBRATE); }
+        OPPONENT(SPECIES_WOBBUFFET) { Ability(ABILITY_TELEPATHY); Moves(MOVE_ROTOTILLER, MOVE_CELEBRATE); }
+        OPPONENT(SPECIES_WOBBUFFET);
+    } WHEN {
+        TURN { SCORE_EQ_VAL(opponentLeft, MOVE_ROTOTILLER, AI_SCORE_DEFAULT - 9, target: playerLeft); }
+    }
+}
+
+AI_DOUBLE_BATTLE_TEST("Shared Power off: partner Contrary does not raise Rototiller foe score")
+{
+    GIVEN {
+        ASSUME(GetMoveEffect(MOVE_ROTOTILLER) == EFFECT_ROTOTILLER);
+        ASSUME(GetSpeciesType(SPECIES_WOBBUFFET, 0) != TYPE_GRASS);
+        ASSUME(GetSpeciesType(SPECIES_WOBBUFFET, 1) != TYPE_GRASS);
+        ASSUME(GetSpeciesType(SPECIES_TANGELA, 0) == TYPE_GRASS);
+        AI_FLAGS(AI_FLAG_CHECK_BAD_MOVE | AI_FLAG_CHECK_VIABILITY | AI_FLAG_OMNISCIENT);
+        PLAYER(SPECIES_TANGELA) { Ability(ABILITY_TELEPATHY); Moves(MOVE_CELEBRATE); }
+        PLAYER(SPECIES_SHUCKLE) { Ability(ABILITY_CONTRARY); Moves(MOVE_CELEBRATE); }
+        OPPONENT(SPECIES_WOBBUFFET) { Ability(ABILITY_TELEPATHY); Moves(MOVE_ROTOTILLER, MOVE_CELEBRATE); }
+        OPPONENT(SPECIES_WOBBUFFET);
+    } WHEN {
+        TURN { SCORE_EQ_VAL(opponentLeft, MOVE_ROTOTILLER, AI_SCORE_DEFAULT - 13, target: playerLeft); }
+    }
+}
+
 AI_DOUBLE_BATTLE_TEST("Shared Power AI: pooled Contrary lowers self stat-boost additional effect score")
 {
     GIVEN {

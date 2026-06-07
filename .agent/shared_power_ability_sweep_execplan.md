@@ -316,6 +316,11 @@ Shared Power battle behavior should use the correct ability view at each callsit
 - [x] (2026-06-07T07:03Z) Ran targeted validation for the AI Rototiller ally Contrary bad-move bucket and recorded evidence here.
 - [x] (2026-06-07T07:03Z) Ran the broader Shared Power AI regression filter for the Rototiller ally Contrary bad-move bucket and recorded evidence here.
 - [x] (2026-06-07T07:03Z) Ran `git diff --check` after the AI Rototiller ally Contrary bad-move bucket; no issues reported.
+- [x] (2026-06-07T07:09Z) Selected the AI Rototiller foe Contrary effect-score bucket, scoped to active Contrary on grounded Grass foes in Rototiller scoring.
+- [x] (2026-06-07T07:09Z) Implemented the AI Rototiller foe Contrary effect-score bucket and added focused Shared Power enabled/off score coverage.
+- [x] (2026-06-07T07:09Z) Ran targeted validation for the AI Rototiller foe Contrary effect-score bucket and recorded evidence here.
+- [x] (2026-06-07T07:09Z) Ran the broader Shared Power AI regression filter for the Rototiller foe Contrary effect-score bucket and recorded evidence here.
+- [x] (2026-06-07T07:09Z) Ran `git diff --check` after the AI Rototiller foe Contrary effect-score bucket; no issues reported.
 - [x] (2026-06-07T03:05Z) Selected the AI weather/terrain benefit prediction bucket, scoped to shareable active ability heuristics while keeping native-only form/species-style weather abilities native.
 - [x] (2026-06-07T03:12Z) Implemented the AI weather/terrain benefit prediction bucket and added focused Shared Power enabled/off helper coverage for Rain and Electric Terrain.
 - [x] (2026-06-07T03:20Z) Ran targeted validation for the AI weather/terrain benefit prediction bucket and recorded evidence here.
@@ -604,6 +609,18 @@ Shared Power battle behavior should use the correct ability view at each callsit
   Evidence: `docker run --rm -u "$(id -u):$(id -g)" -v "$PWD:/workspace" -v "/home/bayesartre/dev/pokeemerald-expansion-shared-power:/home/bayesartre/dev/pokeemerald-expansion-shared-power" -w /workspace pokeemerald-expansion:builder make check NO_MULTIBOOT=1 TESTS="Shared Power AI"` passed 52/52 tests.
 
 - Observation: The AI Rototiller ally Contrary bad-move bucket passed diff hygiene.
+  Evidence: `git diff --check` reported no issues.
+
+- Observation: AI Rototiller effect scoring still treats foe-side Contrary as native-only before deciding whether boosting a grounded Grass foe is helpful or harmful.
+  Evidence: `EFFECT_ROTOTILLER` in `AI_CalcMoveEffectScore` checks `aiData->abilities[FOE(battlerAtk)] == ABILITY_CONTRARY` and `aiData->abilities[BATTLE_PARTNER(FOE(battlerAtk))] == ABILITY_CONTRARY`, while live stat-change behavior routes Contrary through active membership.
+
+- Observation: The Rototiller foe score split is stable with active Contrary on the grounded Grass foe reducing the foe-boost penalty and Shared Power off preserving the lower native-only score.
+  Evidence: `TESTS="Shared Power AI: pooled Contrary raises Rototiller foe score"` and `TESTS="Shared Power off: partner Contrary does not raise Rototiller foe score"` both passed 1/1. The enabled path scored `AI_SCORE_DEFAULT - 9`; the off-path scored `AI_SCORE_DEFAULT - 13`.
+
+- Observation: The AI Rototiller foe Contrary effect-score bucket passed the broader Shared Power AI regression filter.
+  Evidence: `docker run --rm -u "$(id -u):$(id -g)" -v "$PWD:/workspace" -v "/home/bayesartre/dev/pokeemerald-expansion-shared-power:/home/bayesartre/dev/pokeemerald-expansion-shared-power" -w /workspace pokeemerald-expansion:builder make check NO_MULTIBOOT=1 TESTS="Shared Power AI"` passed 53/53 tests.
+
+- Observation: The AI Rototiller foe Contrary effect-score bucket passed diff hygiene.
   Evidence: `git diff --check` reported no issues.
 
 - Observation: AI Substitute/Shed Tail scoring has a native-only Infiltrator shortcut even though live Substitute bypass is already active-aware.

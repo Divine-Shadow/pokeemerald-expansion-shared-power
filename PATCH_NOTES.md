@@ -1,3 +1,10 @@
+- Docs/Planning: Record Shared Power AI Rototiller foe Contrary effect-score diff hygiene (commit pending).
+- Docs/Planning: Record Shared Power AI Rototiller foe Contrary effect-score broad validation evidence (commit pending).
+- Docs/Audit: Note that Shared Power AI Rototiller foe scoring handles pooled Contrary (commit pending).
+- Docs/Planning: Record Shared Power AI Rototiller foe Contrary effect-score validation evidence (commit pending).
+- Tests/AI: Cover Shared Power AI Rototiller foe scoring with pooled Contrary enabled and disabled paths (commit pending).
+- Battle/AI: Let Rototiller foe effect scoring see pooled target Contrary under Shared Power (commit pending).
+- Docs/Planning: Select the Shared Power AI Rototiller foe Contrary effect-score bucket (commit pending).
 - Docs/Planning: Record Shared Power AI Rototiller ally Contrary bad-move diff hygiene (commit 634f948923).
 - Docs/Planning: Record Shared Power AI Rototiller ally Contrary bad-move broad validation evidence (commit 634f948923).
 - Docs/Audit: Note that Shared Power AI Rototiller ally scoring handles pooled Contrary (commit 634f948923).

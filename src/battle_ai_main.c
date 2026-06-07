@@ -4210,14 +4210,14 @@ static u32 AI_CalcMoveEffectScore(u32 battlerAtk, u32 battlerDef, u32 move)
             }
             if (IS_BATTLER_OF_TYPE(FOE(battlerAtk), TYPE_GRASS) && IsBattlerGrounded(FOE(battlerAtk)))
             {
-                if (aiData->abilities[FOE(battlerAtk)] == ABILITY_CONTRARY)
+                if (AI_HasActiveAbility(FOE(battlerAtk), ABILITY_CONTRARY))
                     ADJUST_SCORE(WEAK_EFFECT);
                 else
                     ADJUST_SCORE(AWFUL_EFFECT);
             }
             if (IS_BATTLER_OF_TYPE(BATTLE_PARTNER(FOE(battlerAtk)), TYPE_GRASS) && IsBattlerGrounded(BATTLE_PARTNER(FOE(battlerAtk))))
             {
-                if (aiData->abilities[BATTLE_PARTNER(FOE(battlerAtk))] == ABILITY_CONTRARY)
+                if (AI_HasActiveAbility(BATTLE_PARTNER(FOE(battlerAtk)), ABILITY_CONTRARY))
                     ADJUST_SCORE(WEAK_EFFECT);
                 else
                     ADJUST_SCORE(AWFUL_EFFECT);
