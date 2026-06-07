@@ -1,10 +1,10 @@
-- Docs/Planning: Record Shared Power AI Defog target Contrary prediction diff hygiene (commit pending).
-- Docs/Planning: Record Shared Power AI Defog target Contrary prediction broad validation evidence (commit pending).
-- Docs/Audit: Note that Shared Power AI Defog target scoring handles pooled Contrary (commit pending).
-- Docs/Planning: Record Shared Power AI Defog target Contrary prediction validation evidence (commit pending).
-- Tests/AI: Cover Shared Power AI Defog target scoring with pooled Contrary enabled and disabled paths (commit pending).
-- Battle/AI: Let Defog target scoring see pooled target Contrary under Shared Power (commit pending).
-- Docs/Planning: Select the Shared Power AI Defog target Contrary prediction bucket (commit pending).
+- Docs/Planning: Record Shared Power AI Defog target Contrary prediction diff hygiene (commit 279c5ee3cc).
+- Docs/Planning: Record Shared Power AI Defog target Contrary prediction broad validation evidence (commit 279c5ee3cc).
+- Docs/Audit: Note that Shared Power AI Defog target scoring handles pooled Contrary (commit 279c5ee3cc).
+- Docs/Planning: Record Shared Power AI Defog target Contrary prediction validation evidence (commit 279c5ee3cc).
+- Tests/AI: Cover Shared Power AI Defog target scoring with pooled Contrary enabled and disabled paths (commit 279c5ee3cc).
+- Battle/AI: Let Defog target scoring see pooled target Contrary under Shared Power (commit 279c5ee3cc).
+- Docs/Planning: Select the Shared Power AI Defog target Contrary prediction bucket (commit 279c5ee3cc).
 - Docs/Planning: Record Shared Power AI generic stat-up Contrary prediction diff hygiene (commit 8ac0f8d916).
 - Docs/Planning: Record Shared Power AI generic stat-up Contrary prediction broad validation evidence (commit 8ac0f8d916).
 - Docs/Audit: Note that Shared Power AI generic stat-up scoring handles pooled Contrary (commit 8ac0f8d916).
