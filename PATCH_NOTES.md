@@ -1,3 +1,10 @@
+- Docs/Planning: Record Shared Power AI Recycle Ripen prediction diff hygiene (commit pending).
+- Docs/Planning: Record Shared Power AI Recycle Ripen prediction validation evidence (commit pending).
+- Docs/Audit: Note that Shared Power AI Recycle prediction handles pooled Ripen (commit pending).
+- Docs/Planning: Record Shared Power AI Recycle Ripen prediction progress (commit pending).
+- Tests/AI: Cover Shared Power AI Recycle scoring with pooled Ripen enabled and disabled paths (commit pending).
+- Battle/AI: Let Recycle prediction see pooled Ripen under Shared Power (commit pending).
+- Docs/Planning: Select the Shared Power AI Recycle Ripen prediction bucket (commit pending).
 - Docs/Planning: Record Shared Power AI Sturdy endure prediction diff hygiene (commit f272353554).
 - Docs/Planning: Record Shared Power AI Sturdy endure prediction validation evidence (commit f272353554).
 - Docs/Audit: Note that Shared Power AI Sturdy endure prediction handles pooled Sturdy (commit f272353554).

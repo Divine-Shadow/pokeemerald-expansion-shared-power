@@ -248,6 +248,10 @@ Shared Power battle behavior should use the correct ability view at each callsit
 - [x] (2026-06-07T22:52Z) Implemented the AI Sturdy endure prediction bucket and added focused Shared Power enabled/off helper coverage.
 - [x] (2026-06-07T23:00Z) Ran targeted validation for the AI Sturdy endure prediction bucket and recorded evidence here.
 - [x] (2026-06-07T23:04Z) Ran `git diff --check` after the AI Sturdy endure prediction bucket; no issues reported.
+- [x] (2026-06-07T23:18Z) Selected the AI Recycle Ripen prediction bucket, scoped to active attacker Ripen in the Recycle scoring bonus after the holder has consumed or spent a berry.
+- [x] (2026-06-07T23:28Z) Implemented the AI Recycle Ripen prediction bucket and added focused Shared Power enabled/off score coverage.
+- [x] (2026-06-07T23:35Z) Ran targeted validation for the AI Recycle Ripen prediction bucket and recorded evidence here.
+- [x] (2026-06-07T23:40Z) Ran `git diff --check` after the AI Recycle Ripen prediction bucket; no issues reported.
 - [x] (2026-06-07T03:05Z) Selected the AI weather/terrain benefit prediction bucket, scoped to shareable active ability heuristics while keeping native-only form/species-style weather abilities native.
 - [x] (2026-06-07T03:12Z) Implemented the AI weather/terrain benefit prediction bucket and added focused Shared Power enabled/off helper coverage for Rain and Electric Terrain.
 - [x] (2026-06-07T03:20Z) Ran targeted validation for the AI weather/terrain benefit prediction bucket and recorded evidence here.
@@ -375,6 +379,15 @@ Shared Power battle behavior should use the correct ability view at each callsit
 
 - Observation: The AI Sturdy endure bucket passed the broader Shared Power AI regression filter.
   Evidence: `docker run --rm -u "$(id -u):$(id -g)" -v "$PWD:/workspace" -v "/home/bayesartre/dev/pokeemerald-expansion-shared-power:/home/bayesartre/dev/pokeemerald-expansion-shared-power" -w /workspace pokeemerald-expansion:builder make check NO_MULTIBOOT=1 TESTS="Shared Power AI"` passed 38/38 tests.
+
+- Observation: AI Recycle scoring still has a native Ripen check even though live holder berry effects already use active Ripen membership.
+  Evidence: `EFFECT_RECYCLE` in `src/battle_ai_main.c` compares `aiData->abilities[battlerAtk] == ABILITY_RIPEN`, while the holder berry audit row is implemented and `Cmd_jumpifability` treats Ripen as active membership for item scripts.
+
+- Observation: AI Recycle scoring can be tested deterministically by letting the AI spend its held berry with Fling, then scoring Recycle on the next turn.
+  Evidence: The initial focused validation rejected a forced opponent `MOVE` in an AI test, but using `EXPECT_MOVE` for Fling let both `TESTS="Shared Power AI: pooled Ripen raises Recycle score for spent stat berries"` and `TESTS="Shared Power off: partner Ripen does not raise Recycle score for spent stat berries"` pass 1/1.
+
+- Observation: The AI Recycle Ripen bucket passed the broader Shared Power AI regression filter.
+  Evidence: `docker run --rm -u "$(id -u):$(id -g)" -v "$PWD:/workspace" -v "/home/bayesartre/dev/pokeemerald-expansion-shared-power:/home/bayesartre/dev/pokeemerald-expansion-shared-power" -w /workspace pokeemerald-expansion:builder make check NO_MULTIBOOT=1 TESTS="Shared Power AI"` passed 39/39 tests.
 
 - Observation: AI Substitute/Shed Tail scoring has a native-only Infiltrator shortcut even though live Substitute bypass is already active-aware.
   Evidence: `EFFECT_SUBSTITUTE` and `EFFECT_SHED_TAIL` in `AI_CheckBadMove` compare `aiData->abilities[battlerDef] == ABILITY_INFILTRATOR`.

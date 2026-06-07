@@ -404,6 +404,41 @@ AI_DOUBLE_BATTLE_TEST("Shared Power off: partner Magic Guard does not lower Leec
     }
 }
 
+AI_DOUBLE_BATTLE_TEST("Shared Power AI: pooled Ripen raises Recycle score for spent stat berries")
+{
+    GIVEN {
+        BATTLE_TYPE(BATTLE_TYPE_SHARED_POWER);
+        ASSUME(GetMoveEffect(MOVE_RECYCLE) == EFFECT_RECYCLE);
+        ASSUME(GetMoveEffect(MOVE_FLING) == EFFECT_FLING);
+        ASSUME(IsStatBoostingBerry(ITEM_LIECHI_BERRY));
+        AI_FLAGS(AI_FLAG_CHECK_BAD_MOVE | AI_FLAG_CHECK_VIABILITY | AI_FLAG_OMNISCIENT);
+        PLAYER(SPECIES_WOBBUFFET) { Moves(MOVE_CELEBRATE); }
+        PLAYER(SPECIES_WOBBUFFET);
+        OPPONENT(SPECIES_WOBBUFFET) { Ability(ABILITY_TELEPATHY); Item(ITEM_LIECHI_BERRY); HP(100); MaxHP(100); Moves(MOVE_FLING, MOVE_RECYCLE, MOVE_CELEBRATE); }
+        OPPONENT(SPECIES_APPLIN) { Ability(ABILITY_RIPEN); Moves(MOVE_CELEBRATE); }
+    } WHEN {
+        TURN { MOVE(playerLeft, MOVE_CELEBRATE); MOVE(playerRight, MOVE_CELEBRATE); EXPECT_MOVE(opponentLeft, MOVE_FLING); EXPECT_MOVE(opponentRight, MOVE_CELEBRATE); }
+        TURN { SCORE_GT_VAL(opponentLeft, MOVE_RECYCLE, 102, target: playerLeft); }
+    }
+}
+
+AI_DOUBLE_BATTLE_TEST("Shared Power off: partner Ripen does not raise Recycle score for spent stat berries")
+{
+    GIVEN {
+        ASSUME(GetMoveEffect(MOVE_RECYCLE) == EFFECT_RECYCLE);
+        ASSUME(GetMoveEffect(MOVE_FLING) == EFFECT_FLING);
+        ASSUME(IsStatBoostingBerry(ITEM_LIECHI_BERRY));
+        AI_FLAGS(AI_FLAG_CHECK_BAD_MOVE | AI_FLAG_CHECK_VIABILITY | AI_FLAG_OMNISCIENT);
+        PLAYER(SPECIES_WOBBUFFET) { Moves(MOVE_CELEBRATE); }
+        PLAYER(SPECIES_WOBBUFFET);
+        OPPONENT(SPECIES_WOBBUFFET) { Ability(ABILITY_TELEPATHY); Item(ITEM_LIECHI_BERRY); HP(100); MaxHP(100); Moves(MOVE_FLING, MOVE_RECYCLE, MOVE_CELEBRATE); }
+        OPPONENT(SPECIES_APPLIN) { Ability(ABILITY_RIPEN); Moves(MOVE_CELEBRATE); }
+    } WHEN {
+        TURN { MOVE(playerLeft, MOVE_CELEBRATE); MOVE(playerRight, MOVE_CELEBRATE); EXPECT_MOVE(opponentLeft, MOVE_FLING); EXPECT_MOVE(opponentRight, MOVE_CELEBRATE); }
+        TURN { SCORE_EQ_VAL(opponentLeft, MOVE_RECYCLE, 102, target: playerLeft); }
+    }
+}
+
 AI_SINGLE_BATTLE_TEST("Shared Power AI: pooled Poison Heal prevents poison damage prediction")
 {
     GIVEN {
