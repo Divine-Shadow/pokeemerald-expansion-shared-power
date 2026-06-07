@@ -1,10 +1,10 @@
-- Docs/Planning: Record Shared Power AI Strength Sap Contrary prediction diff hygiene (commit pending).
-- Docs/Planning: Record Shared Power AI Strength Sap Contrary prediction validation evidence (commit pending).
-- Docs/Planning: Record Shared Power AI Strength Sap Contrary prediction progress (commit pending).
-- Docs/Audit: Note that Shared Power AI Strength Sap prediction handles pooled Contrary (commit pending).
-- Tests/AI: Cover Shared Power AI Strength Sap scoring with pooled Contrary enabled and disabled paths (commit pending).
-- Battle/AI: Let Strength Sap prediction see pooled Contrary under Shared Power (commit pending).
-- Docs/Planning: Select the Shared Power AI Strength Sap Contrary prediction bucket (commit pending).
+- Docs/Planning: Record Shared Power AI Strength Sap Contrary prediction diff hygiene (commit 988b6ba2ae).
+- Docs/Planning: Record Shared Power AI Strength Sap Contrary prediction validation evidence (commit 988b6ba2ae).
+- Docs/Planning: Record Shared Power AI Strength Sap Contrary prediction progress (commit 988b6ba2ae).
+- Docs/Audit: Note that Shared Power AI Strength Sap prediction handles pooled Contrary (commit 988b6ba2ae).
+- Tests/AI: Cover Shared Power AI Strength Sap scoring with pooled Contrary enabled and disabled paths (commit 988b6ba2ae).
+- Battle/AI: Let Strength Sap prediction see pooled Contrary under Shared Power (commit 988b6ba2ae).
+- Docs/Planning: Select the Shared Power AI Strength Sap Contrary prediction bucket (commit 988b6ba2ae).
 - Docs/Planning: Record Shared Power AI Roar Suction Cups prediction diff hygiene (commit cfe20a681b).
 - Docs/Planning: Record Shared Power AI Roar Suction Cups prediction validation evidence (commit cfe20a681b).
 - Docs/Planning: Record Shared Power AI Roar Suction Cups prediction progress (commit cfe20a681b).
