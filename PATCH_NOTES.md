@@ -1,9 +1,9 @@
-- Docs/Planning: Record Shared Power AI Electric absorption self-benefit prediction diff hygiene (commit pending).
-- Docs/Planning: Record Shared Power AI Electric absorption self-benefit prediction validation evidence (commit pending).
-- Docs/Planning: Record Shared Power AI Electric absorption self-benefit prediction progress (commit pending).
-- Docs/Audit: Note that Shared Power AI Electric absorption self-benefit prediction handles pooled Volt Absorb (commit pending).
-- Tests/AI: Cover Shared Power AI Electrify scoring with pooled Volt Absorb enabled and disabled paths (commit pending).
-- Battle/AI: Let Electric absorption self-benefit prediction see pooled Volt Absorb, Motor Drive, and Lightning Rod under Shared Power (commit pending).
+- Docs/Planning: Record Shared Power AI Electric absorption self-benefit prediction diff hygiene (commit 612ccf2bf3).
+- Docs/Planning: Record Shared Power AI Electric absorption self-benefit prediction validation evidence (commit 612ccf2bf3).
+- Docs/Planning: Record Shared Power AI Electric absorption self-benefit prediction progress (commit 612ccf2bf3).
+- Docs/Audit: Note that Shared Power AI Electric absorption self-benefit prediction handles pooled Volt Absorb (commit 612ccf2bf3).
+- Tests/AI: Cover Shared Power AI Electrify scoring with pooled Volt Absorb enabled and disabled paths (commit 612ccf2bf3).
+- Battle/AI: Let Electric absorption self-benefit prediction see pooled Volt Absorb, Motor Drive, and Lightning Rod under Shared Power (commit 612ccf2bf3).
 - Docs/Planning: Record Shared Power AI Wonder Guard bad-move scoring diff hygiene (commit 12be7295ed).
 - Docs/Planning: Record Shared Power AI Wonder Guard bad-move scoring validation evidence (commit 12be7295ed).
 - Docs/Planning: Record Shared Power AI Wonder Guard bad-move scoring progress (commit 12be7295ed).
