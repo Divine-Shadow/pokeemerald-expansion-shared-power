@@ -220,6 +220,10 @@ Shared Power battle behavior should use the correct ability view at each callsit
 - [x] (2026-06-07T05:08Z) Implemented the AI Magnitude Levitate prediction bucket and added focused Shared Power enabled/off score coverage.
 - [x] (2026-06-07T05:16Z) Ran targeted validation for the AI Magnitude Levitate prediction bucket and recorded evidence here.
 - [x] (2026-06-07T05:16Z) Ran `git diff --check` after the AI Magnitude Levitate prediction bucket; no issues reported.
+- [x] (2026-06-07T18:20Z) Selected the AI Lock-On and Laser Focus prediction bucket for already-live No Guard and crit-blocker ability semantics.
+- [x] (2026-06-07T18:28Z) Implemented the AI Lock-On and Laser Focus prediction bucket and added focused Shared Power enabled/off score coverage.
+- [x] (2026-06-07T18:45Z) Ran targeted validation for the AI Lock-On and Laser Focus prediction bucket and recorded evidence here.
+- [x] (2026-06-07T18:50Z) Ran `git diff --check` after the AI Lock-On and Laser Focus prediction bucket; no issues reported.
 - [ ] Continue through the remaining migrate rows, one coherent bucket at a time.
 - [ ] Perform a final audit pass that marks each migrate row implemented or explicitly deferred with rationale.
 
@@ -1404,3 +1408,11 @@ Validation (2026-06-07): `docker run --rm -u "$(id -u):$(id -g)" -v "$PWD:/works
 Validation (2026-06-07): `docker run --rm -u "$(id -u):$(id -g)" -v "$PWD:/workspace" -v "/home/bayesartre/dev/pokeemerald-expansion-shared-power:/home/bayesartre/dev/pokeemerald-expansion-shared-power" -w /workspace pokeemerald-expansion:builder make check NO_MULTIBOOT=1 TESTS="Shared Power off: partner Levitate does not lower Magnitude score"` passed 1/1.
 
 Validation (2026-06-07): `git diff --check` passed with no output after the AI Magnitude Levitate prediction bucket.
+
+Validation (2026-06-07): `docker run --rm -u "$(id -u):$(id -g)" -v "$PWD:/workspace" -v "/home/bayesartre/dev/pokeemerald-expansion-shared-power:/home/bayesartre/dev/pokeemerald-expansion-shared-power" -w /workspace pokeemerald-expansion:builder make check NO_MULTIBOOT=1 TESTS="Shared Power AI"` passed 23/23 after adding the AI Lock-On and Laser Focus prediction bucket.
+
+Validation (2026-06-07): `docker run --rm -u "$(id -u):$(id -g)" -v "$PWD:/workspace" -v "/home/bayesartre/dev/pokeemerald-expansion-shared-power:/home/bayesartre/dev/pokeemerald-expansion-shared-power" -w /workspace pokeemerald-expansion:builder make check NO_MULTIBOOT=1 TESTS="Shared Power off: partner No Guard does not lower Lock-On score"` passed 1/1.
+
+Validation (2026-06-07): `docker run --rm -u "$(id -u):$(id -g)" -v "$PWD:/workspace" -v "/home/bayesartre/dev/pokeemerald-expansion-shared-power:/home/bayesartre/dev/pokeemerald-expansion-shared-power" -w /workspace pokeemerald-expansion:builder make check NO_MULTIBOOT=1 TESTS="Shared Power off: partner Battle Armor does not lower Laser Focus score"` passed 1/1.
+
+Validation (2026-06-07): `git diff --check` passed with no output after the AI Lock-On and Laser Focus prediction bucket.

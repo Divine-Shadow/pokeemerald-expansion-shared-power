@@ -573,3 +573,61 @@ AI_DOUBLE_BATTLE_TEST("Shared Power off: partner Levitate does not lower Magnitu
         TURN { SCORE_EQ_VAL(opponentLeft, MOVE_MAGNITUDE, AI_SCORE_DEFAULT, target: playerLeft); }
     }
 }
+
+AI_DOUBLE_BATTLE_TEST("Shared Power AI: scores Lock-On lower when pooled No Guard already guarantees accuracy")
+{
+    GIVEN {
+        BATTLE_TYPE(BATTLE_TYPE_SHARED_POWER);
+        ASSUME(GetMoveEffect(MOVE_LOCK_ON) == EFFECT_LOCK_ON);
+        AI_FLAGS(AI_FLAG_CHECK_BAD_MOVE);
+        PLAYER(SPECIES_WOBBUFFET) { Ability(ABILITY_TELEPATHY); }
+        PLAYER(SPECIES_MACHAMP) { Ability(ABILITY_NO_GUARD); }
+        OPPONENT(SPECIES_WOBBUFFET) { Moves(MOVE_LOCK_ON, MOVE_CELEBRATE); }
+        OPPONENT(SPECIES_WOBBUFFET);
+    } WHEN {
+        TURN { SCORE_LT_VAL(opponentLeft, MOVE_LOCK_ON, AI_SCORE_DEFAULT, target: playerLeft); }
+    }
+}
+
+AI_DOUBLE_BATTLE_TEST("Shared Power off: partner No Guard does not lower Lock-On score")
+{
+    GIVEN {
+        ASSUME(GetMoveEffect(MOVE_LOCK_ON) == EFFECT_LOCK_ON);
+        AI_FLAGS(AI_FLAG_CHECK_BAD_MOVE);
+        PLAYER(SPECIES_WOBBUFFET) { Ability(ABILITY_TELEPATHY); }
+        PLAYER(SPECIES_MACHAMP) { Ability(ABILITY_NO_GUARD); }
+        OPPONENT(SPECIES_WOBBUFFET) { Moves(MOVE_LOCK_ON, MOVE_CELEBRATE); }
+        OPPONENT(SPECIES_WOBBUFFET);
+    } WHEN {
+        TURN { SCORE_EQ_VAL(opponentLeft, MOVE_LOCK_ON, AI_SCORE_DEFAULT, target: playerLeft); }
+    }
+}
+
+AI_DOUBLE_BATTLE_TEST("Shared Power AI: scores Laser Focus lower against pooled Battle Armor")
+{
+    GIVEN {
+        BATTLE_TYPE(BATTLE_TYPE_SHARED_POWER);
+        ASSUME(GetMoveEffect(MOVE_LASER_FOCUS) == EFFECT_LASER_FOCUS);
+        AI_FLAGS(AI_FLAG_CHECK_BAD_MOVE);
+        PLAYER(SPECIES_WOBBUFFET) { Ability(ABILITY_TELEPATHY); }
+        PLAYER(SPECIES_KABUTO) { Ability(ABILITY_BATTLE_ARMOR); }
+        OPPONENT(SPECIES_WOBBUFFET) { Moves(MOVE_LASER_FOCUS, MOVE_CELEBRATE); }
+        OPPONENT(SPECIES_WOBBUFFET);
+    } WHEN {
+        TURN { SCORE_LT_VAL(opponentLeft, MOVE_LASER_FOCUS, AI_SCORE_DEFAULT, target: playerLeft); }
+    }
+}
+
+AI_DOUBLE_BATTLE_TEST("Shared Power off: partner Battle Armor does not lower Laser Focus score")
+{
+    GIVEN {
+        ASSUME(GetMoveEffect(MOVE_LASER_FOCUS) == EFFECT_LASER_FOCUS);
+        AI_FLAGS(AI_FLAG_CHECK_BAD_MOVE);
+        PLAYER(SPECIES_WOBBUFFET) { Ability(ABILITY_TELEPATHY); }
+        PLAYER(SPECIES_KABUTO) { Ability(ABILITY_BATTLE_ARMOR); }
+        OPPONENT(SPECIES_WOBBUFFET) { Moves(MOVE_LASER_FOCUS, MOVE_CELEBRATE); }
+        OPPONENT(SPECIES_WOBBUFFET);
+    } WHEN {
+        TURN { SCORE_EQ_VAL(opponentLeft, MOVE_LASER_FOCUS, AI_SCORE_DEFAULT, target: playerLeft); }
+    }
+}
