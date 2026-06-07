@@ -1,3 +1,9 @@
+- Docs/Planning: Record Shared Power AI Prankster Dark-target prediction diff hygiene (commit pending).
+- Docs/Planning: Record Shared Power AI Prankster Dark-target prediction validation evidence (commit pending).
+- Docs/Planning: Record Shared Power AI Prankster Dark-target prediction progress (commit pending).
+- Docs/Audit: Note that Shared Power AI Prankster Dark-target prediction handles pooled Prankster (commit pending).
+- Tests/AI: Cover Shared Power AI Prankster Dark-target scoring with pooled Prankster enabled and disabled paths (commit pending).
+- Battle/AI: Let Prankster Dark-target prediction see pooled Prankster under Shared Power (commit pending).
 - Docs/Planning: Record Shared Power AI Black Sludge Trick Magic Guard prediction diff hygiene (commit e823d426ae).
 - Docs/Planning: Record Shared Power AI Black Sludge Trick Magic Guard prediction validation evidence (commit e823d426ae).
 - Docs/Planning: Record Shared Power AI Black Sludge Trick Magic Guard prediction progress (commit e823d426ae).

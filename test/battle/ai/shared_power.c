@@ -662,3 +662,34 @@ AI_DOUBLE_BATTLE_TEST("Shared Power off: partner Magic Guard does not stop Black
         TURN { SCORE_GT_VAL(opponentLeft, MOVE_TRICK, AI_SCORE_DEFAULT, target: playerLeft); }
     }
 }
+
+AI_DOUBLE_BATTLE_TEST("Shared Power AI: scores Prankster status moves lower into Dark targets")
+{
+    GIVEN {
+        BATTLE_TYPE(BATTLE_TYPE_SHARED_POWER);
+        ASSUME(B_PRANKSTER_DARK_TYPES >= GEN_7);
+        ASSUME(GetSpeciesType(SPECIES_POOCHYENA, 0) == TYPE_DARK);
+        AI_FLAGS(AI_FLAG_CHECK_BAD_MOVE);
+        PLAYER(SPECIES_POOCHYENA) { Ability(ABILITY_RUN_AWAY); }
+        PLAYER(SPECIES_WOBBUFFET) { Ability(ABILITY_TELEPATHY); }
+        OPPONENT(SPECIES_WOBBUFFET) { Ability(ABILITY_TELEPATHY); Moves(MOVE_SAND_ATTACK, MOVE_CELEBRATE); }
+        OPPONENT(SPECIES_VOLBEAT) { Ability(ABILITY_PRANKSTER); }
+    } WHEN {
+        TURN { SCORE_LT_VAL(opponentLeft, MOVE_SAND_ATTACK, AI_SCORE_DEFAULT, target: playerLeft); }
+    }
+}
+
+AI_DOUBLE_BATTLE_TEST("Shared Power off: partner Prankster does not lower status moves into Dark targets")
+{
+    GIVEN {
+        ASSUME(B_PRANKSTER_DARK_TYPES >= GEN_7);
+        ASSUME(GetSpeciesType(SPECIES_POOCHYENA, 0) == TYPE_DARK);
+        AI_FLAGS(AI_FLAG_CHECK_BAD_MOVE);
+        PLAYER(SPECIES_POOCHYENA) { Ability(ABILITY_RUN_AWAY); }
+        PLAYER(SPECIES_WOBBUFFET) { Ability(ABILITY_TELEPATHY); }
+        OPPONENT(SPECIES_WOBBUFFET) { Ability(ABILITY_TELEPATHY); Moves(MOVE_SAND_ATTACK, MOVE_CELEBRATE); }
+        OPPONENT(SPECIES_VOLBEAT) { Ability(ABILITY_PRANKSTER); }
+    } WHEN {
+        TURN { SCORE_EQ_VAL(opponentLeft, MOVE_SAND_ATTACK, AI_SCORE_DEFAULT, target: playerLeft); }
+    }
+}
