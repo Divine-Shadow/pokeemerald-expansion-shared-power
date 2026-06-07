@@ -952,6 +952,41 @@ AI_DOUBLE_BATTLE_TEST("Shared Power off: partner Contrary does not raise Rototil
     }
 }
 
+AI_DOUBLE_BATTLE_TEST("Shared Power AI: pooled Contrary lowers Shell Smash score when Defense cannot rise")
+{
+    GIVEN {
+        BATTLE_TYPE(BATTLE_TYPE_SHARED_POWER);
+        ASSUME(GetMoveEffect(MOVE_SHELL_SMASH) == EFFECT_SHELL_SMASH);
+        AI_FLAGS(AI_FLAG_CHECK_BAD_MOVE | AI_FLAG_CHECK_VIABILITY | AI_FLAG_OMNISCIENT);
+        PLAYER(SPECIES_WOBBUFFET) { Moves(MOVE_CELEBRATE); }
+        PLAYER(SPECIES_WOBBUFFET);
+        OPPONENT(SPECIES_WOBBUFFET) { Ability(ABILITY_TELEPATHY); Moves(MOVE_SHELL_SMASH, MOVE_SCRATCH, MOVE_WATER_GUN, MOVE_CELEBRATE); }
+        OPPONENT(SPECIES_SHUCKLE) { Ability(ABILITY_CONTRARY); Moves(MOVE_CELEBRATE); }
+    } WHEN {
+        TURN {
+            gBattleMons[B_POSITION_OPPONENT_LEFT].statStages[STAT_DEF] = MAX_STAT_STAGE;
+            SCORE_EQ_VAL(opponentLeft, MOVE_SHELL_SMASH, AI_SCORE_DEFAULT, target: playerLeft);
+        }
+    }
+}
+
+AI_DOUBLE_BATTLE_TEST("Shared Power off: partner Contrary does not lower Shell Smash score when Defense cannot rise")
+{
+    GIVEN {
+        ASSUME(GetMoveEffect(MOVE_SHELL_SMASH) == EFFECT_SHELL_SMASH);
+        AI_FLAGS(AI_FLAG_CHECK_BAD_MOVE | AI_FLAG_CHECK_VIABILITY | AI_FLAG_OMNISCIENT);
+        PLAYER(SPECIES_WOBBUFFET) { Moves(MOVE_CELEBRATE); }
+        PLAYER(SPECIES_WOBBUFFET);
+        OPPONENT(SPECIES_WOBBUFFET) { Ability(ABILITY_TELEPATHY); Moves(MOVE_SHELL_SMASH, MOVE_SCRATCH, MOVE_WATER_GUN, MOVE_CELEBRATE); }
+        OPPONENT(SPECIES_SHUCKLE) { Ability(ABILITY_CONTRARY); Moves(MOVE_CELEBRATE); }
+    } WHEN {
+        TURN {
+            gBattleMons[B_POSITION_OPPONENT_LEFT].statStages[STAT_DEF] = MAX_STAT_STAGE;
+            SCORE_GT_VAL(opponentLeft, MOVE_SHELL_SMASH, AI_SCORE_DEFAULT, target: playerLeft);
+        }
+    }
+}
+
 AI_DOUBLE_BATTLE_TEST("Shared Power AI: pooled Contrary lowers self stat-boost additional effect score")
 {
     GIVEN {

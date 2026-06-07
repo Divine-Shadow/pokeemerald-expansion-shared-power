@@ -321,6 +321,11 @@ Shared Power battle behavior should use the correct ability view at each callsit
 - [x] (2026-06-07T07:09Z) Ran targeted validation for the AI Rototiller foe Contrary effect-score bucket and recorded evidence here.
 - [x] (2026-06-07T07:09Z) Ran the broader Shared Power AI regression filter for the Rototiller foe Contrary effect-score bucket and recorded evidence here.
 - [x] (2026-06-07T07:09Z) Ran `git diff --check` after the AI Rototiller foe Contrary effect-score bucket; no issues reported.
+- [x] (2026-06-07T07:17Z) Selected the AI Shell Smash Contrary bad-move bucket, scoped to active attacker Contrary in the Shell Smash stat-gate branch with max-Defense score coverage.
+- [x] (2026-06-07T07:17Z) Implemented the AI Shell Smash Contrary bad-move bucket and added focused Shared Power enabled/off score coverage.
+- [x] (2026-06-07T07:17Z) Ran targeted validation for the AI Shell Smash Contrary bad-move bucket and recorded evidence here.
+- [x] (2026-06-07T07:17Z) Ran the broader Shared Power AI regression filter for the Shell Smash Contrary bad-move bucket and recorded evidence here.
+- [x] (2026-06-07T07:17Z) Ran `git diff --check` after the AI Shell Smash Contrary bad-move bucket; no issues reported.
 - [x] (2026-06-07T03:05Z) Selected the AI weather/terrain benefit prediction bucket, scoped to shareable active ability heuristics while keeping native-only form/species-style weather abilities native.
 - [x] (2026-06-07T03:12Z) Implemented the AI weather/terrain benefit prediction bucket and added focused Shared Power enabled/off helper coverage for Rain and Electric Terrain.
 - [x] (2026-06-07T03:20Z) Ran targeted validation for the AI weather/terrain benefit prediction bucket and recorded evidence here.
@@ -621,6 +626,18 @@ Shared Power battle behavior should use the correct ability view at each callsit
   Evidence: `docker run --rm -u "$(id -u):$(id -g)" -v "$PWD:/workspace" -v "/home/bayesartre/dev/pokeemerald-expansion-shared-power:/home/bayesartre/dev/pokeemerald-expansion-shared-power" -w /workspace pokeemerald-expansion:builder make check NO_MULTIBOOT=1 TESTS="Shared Power AI"` passed 53/53 tests.
 
 - Observation: The AI Rototiller foe Contrary effect-score bucket passed diff hygiene.
+  Evidence: `git diff --check` reported no issues.
+
+- Observation: AI Shell Smash bad-move scoring still selects its Contrary branch from the attacker's native predicted ability only.
+  Evidence: `EFFECT_SHELL_SMASH` in `AI_CheckBadMove` checks `aiData->abilities[battlerAtk] == ABILITY_CONTRARY`, while live stat-change behavior routes Contrary through active membership. A stable proof can set the AI user's Defense stage to `MAX_STAT_STAGE`: active Contrary then makes Shell Smash unable to raise Defense and triggers the Contrary branch penalty, while Shared Power off remains in the non-Contrary branch and ignores Defense for the bad-move gate.
+
+- Observation: The Shell Smash score split is stable with active Contrary and max Defense lowering the final Shell Smash score to default while Shared Power off preserves the higher setup score.
+  Evidence: The first enabled assertion expected the final score below default but failed with `got 100`, because the new bad-move penalty is exactly offset by later Shell Smash setup scoring. After tightening the assertion, `TESTS="Shared Power AI: pooled Contrary lowers Shell Smash score when Defense cannot rise"` passed 1/1 at `AI_SCORE_DEFAULT`; `TESTS="Shared Power off: partner Contrary does not lower Shell Smash score when Defense cannot rise"` passed 1/1 with the score above `AI_SCORE_DEFAULT`.
+
+- Observation: The full Shared Power AI regression slice passes after the Shell Smash Contrary bad-move bucket.
+  Evidence: `docker run --rm -u "$(id -u):$(id -g)" -v "$PWD:/workspace" -v "/home/bayesartre/dev/pokeemerald-expansion-shared-power:/home/bayesartre/dev/pokeemerald-expansion-shared-power" -w /workspace pokeemerald-expansion:builder make check NO_MULTIBOOT=1 TESTS="Shared Power AI"` passed 54/54.
+
+- Observation: The AI Shell Smash Contrary bad-move bucket passed diff hygiene.
   Evidence: `git diff --check` reported no issues.
 
 - Observation: AI Substitute/Shed Tail scoring has a native-only Infiltrator shortcut even though live Substitute bypass is already active-aware.
