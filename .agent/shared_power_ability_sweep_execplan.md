@@ -345,6 +345,11 @@ Shared Power battle behavior should use the correct ability view at each callsit
 - [x] (2026-06-07T07:57Z) Implemented the AI Wide Guard partner Telepathy prediction bucket and added focused Shared Power enabled/off score coverage.
 - [x] (2026-06-07T07:57Z) Ran focused and broad validation for the AI Wide Guard partner Telepathy prediction bucket and recorded evidence here.
 - [x] (2026-06-07T07:57Z) Ran `git diff --check` after the AI Wide Guard partner Telepathy prediction bucket; no issues reported.
+- [x] (2026-06-07T08:06Z) Selected the AI partner-crit Anger Point prediction bucket, scoped to active attacker Anger Point membership when an already-chosen ally move always crits.
+- [x] (2026-06-07T08:06Z) Implemented the AI partner-crit Anger Point prediction bucket and added focused Shared Power enabled/off score coverage.
+- [x] (2026-06-07T08:06Z) Ran focused validation for the AI partner-crit Anger Point prediction bucket and recorded evidence here.
+- [x] (2026-06-07T08:06Z) Ran the broader Shared Power AI regression filter for the AI partner-crit Anger Point prediction bucket and recorded evidence here.
+- [x] (2026-06-07T08:06Z) Ran `git diff --check` after the AI partner-crit Anger Point prediction bucket; no issues reported.
 - [x] (2026-06-07T03:05Z) Selected the AI weather/terrain benefit prediction bucket, scoped to shareable active ability heuristics while keeping native-only form/species-style weather abilities native.
 - [x] (2026-06-07T03:12Z) Implemented the AI weather/terrain benefit prediction bucket and added focused Shared Power enabled/off helper coverage for Rain and Electric Terrain.
 - [x] (2026-06-07T03:20Z) Ran targeted validation for the AI weather/terrain benefit prediction bucket and recorded evidence here.
@@ -508,6 +513,12 @@ Shared Power battle behavior should use the correct ability view at each callsit
 
 - Observation: Wide Guard's partner-spread score branch only produced a deterministic score split after the fixture provided both an already-chosen ally spread move and a predicted incoming damaging move.
   Evidence: The first disabled-path validation kept Wide Guard at score 100 because the AI left battler had no chosen ally move; after moving Wide Guard to the right AI battler and adding a predicted player Tackle for `ProtectChecks`, the enabled and disabled tests both passed with the expected score split.
+
+- Observation: The remaining Anger Point AI read is a prediction of a live move-end callback that already iterates effective ability events.
+  Evidence: `TryMoveEndAbilityEffect` handles `ABILITY_ANGER_POINT` inside the move-end ability switch, while `AI_CalcMoveEffectScore` still checks only native `aiData->abilities[battlerAtk] == ABILITY_ANGER_POINT` before rewarding spread moves when the partner's chosen move always crits.
+
+- Observation: The Anger Point disabled-path baseline for Earthquake is 101, not the default 100, because other generic AI scoring gives the spread move a small baseline increase.
+  Evidence: `TESTS="Shared Power off: partner Anger Point does not raise spread move score with partner crit moves"` first failed with `got 101`; after asserting `AI_SCORE_DEFAULT + 1` for the disabled path and `> AI_SCORE_DEFAULT + 1` for the enabled path, both focused tests passed.
 
 - Observation: AI Hone Claws scoring has the same narrow native Contrary branch shape as the Stockpile and Belly Drum buckets.
   Evidence: `EFFECT_ATTACK_ACCURACY_UP` in `src/battle_ai_main.c` checks native `aiData->abilities[battlerAtk] != ABILITY_CONTRARY`, while live stat-change behavior routes Contrary through active membership.
@@ -837,6 +848,10 @@ Shared Power battle behavior should use the correct ability view at each callsit
 
 - Decision: Migrate the AI Wide Guard partner-spread Telepathy guard to `AI_HasActiveAbility(battlerAtk, ABILITY_TELEPATHY)`.
   Rationale: The branch is predicting whether the AI battler would be damaged by its partner's spread move. Live ally spread damage already treats Telepathy as active Shared Power membership on the protected partner, so AI should use the same adapter. This does not touch native mutation, copy, suppression, or form/species-gated mechanics.
+  Date/Author: 2026-06-07 / Codex
+
+- Decision: Migrate the AI partner-crit Anger Point guard to `AI_HasActiveAbility(battlerAtk, ABILITY_ANGER_POINT)`.
+  Rationale: The branch predicts a battler benefiting from its partner's always-critical move, and live Anger Point is dispatched as a move-end effective ability callback rather than a native slot mutation. This keeps the AI aligned with live Shared Power behavior without touching ability-copy, suppression, or species/form-gated mechanics.
   Date/Author: 2026-06-07 / Codex
 
 - Decision: Defer the Run Away/trapping row instead of migrating Shadow Tag, Arena Trap, and Magnet Pull trapping in this sweep pass.
@@ -1945,3 +1960,11 @@ Validation (2026-06-07): `docker run --rm -u "$(id -u):$(id -g)" -v "$PWD:/works
 Validation (2026-06-07): `docker run --rm -u "$(id -u):$(id -g)" -v "$PWD:/workspace" -v "/home/bayesartre/dev/pokeemerald-expansion-shared-power:/home/bayesartre/dev/pokeemerald-expansion-shared-power" -w /workspace pokeemerald-expansion:builder make check NO_MULTIBOOT=1 TESTS="Shared Power AI"` passed 59/59 after adding the AI Wide Guard partner Telepathy prediction bucket.
 
 Validation (2026-06-07): `git diff --check` passed with no output after the AI Wide Guard partner Telepathy prediction bucket.
+
+Validation (2026-06-07): `docker run --rm -u "$(id -u):$(id -g)" -v "$PWD:/workspace" -v "/home/bayesartre/dev/pokeemerald-expansion-shared-power:/home/bayesartre/dev/pokeemerald-expansion-shared-power" -w /workspace pokeemerald-expansion:builder make check NO_MULTIBOOT=1 TESTS="Shared Power AI: pooled Anger Point raises spread move score with partner crit moves"` initially failed as invalid until explicit Speed was added to every battler, then passed 1/1.
+
+Validation (2026-06-07): `docker run --rm -u "$(id -u):$(id -g)" -v "$PWD:/workspace" -v "/home/bayesartre/dev/pokeemerald-expansion-shared-power:/home/bayesartre/dev/pokeemerald-expansion-shared-power" -w /workspace pokeemerald-expansion:builder make check NO_MULTIBOOT=1 TESTS="Shared Power off: partner Anger Point does not raise spread move score with partner crit moves"` initially failed because the disabled baseline is `AI_SCORE_DEFAULT + 1`, then passed 1/1 after the assertion was calibrated to that baseline.
+
+Validation (2026-06-07): `docker run --rm -u "$(id -u):$(id -g)" -v "$PWD:/workspace" -v "/home/bayesartre/dev/pokeemerald-expansion-shared-power:/home/bayesartre/dev/pokeemerald-expansion-shared-power" -w /workspace pokeemerald-expansion:builder make check NO_MULTIBOOT=1 TESTS="Shared Power AI"` passed 60/60 after adding the AI partner-crit Anger Point prediction bucket.
+
+Validation (2026-06-07): `git diff --check` passed with no output after the AI partner-crit Anger Point prediction bucket.

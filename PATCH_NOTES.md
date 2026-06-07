@@ -1,3 +1,11 @@
+- Docs/Planning: Record Shared Power AI Anger Point diff hygiene (commit pending).
+- Docs/Planning: Record Shared Power AI Anger Point broad validation evidence (commit pending).
+- Docs/Planning: Record Shared Power AI Anger Point focused validation evidence (commit pending).
+- Docs/Audit: Note that Shared Power AI partner-crit scoring handles pooled Anger Point (commit pending).
+- Tests/AI: Cover partner-crit spread-move scoring with pooled Anger Point enabled and disabled paths (commit pending).
+- Battle/AI: Let partner-crit spread-move scoring see pooled Anger Point under Shared Power (commit pending).
+- Docs/Planning: Record Shared Power AI Anger Point implementation progress (commit pending).
+- Docs/Planning: Select the Shared Power AI Anger Point partner-crit prediction bucket (commit pending).
 - Docs/Planning: Record Shared Power AI Wide Guard Telepathy diff hygiene (commit 89bbd086b5).
 - Docs/Planning: Record Shared Power AI Wide Guard Telepathy broad validation evidence (commit 89bbd086b5).
 - Docs/Planning: Record Shared Power AI Wide Guard Telepathy focused validation evidence (commit 89bbd086b5).

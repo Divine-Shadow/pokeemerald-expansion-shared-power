@@ -1698,6 +1698,37 @@ AI_DOUBLE_BATTLE_TEST("Shared Power off: partner Telepathy does not prevent Wide
     }
 }
 
+AI_DOUBLE_BATTLE_TEST("Shared Power AI: pooled Anger Point raises spread move score with partner crit moves")
+{
+    GIVEN {
+        BATTLE_TYPE(BATTLE_TYPE_SHARED_POWER);
+        ASSUME(MoveAlwaysCrits(MOVE_FROST_BREATH));
+        ASSUME(GetMoveTarget(MOVE_EARTHQUAKE) == MOVE_TARGET_FOES_AND_ALLY);
+        AI_FLAGS(AI_FLAG_CHECK_VIABILITY | AI_FLAG_OMNISCIENT);
+        PLAYER(SPECIES_WOBBUFFET) { Ability(ABILITY_TELEPATHY); Speed(10); }
+        PLAYER(SPECIES_WOBBUFFET) { Ability(ABILITY_TELEPATHY); Speed(10); }
+        OPPONENT(SPECIES_TAUROS) { Ability(ABILITY_ANGER_POINT); Speed(100); Moves(MOVE_FROST_BREATH); }
+        OPPONENT(SPECIES_WOBBUFFET) { Ability(ABILITY_RUN_AWAY); Speed(1); Moves(MOVE_EARTHQUAKE, MOVE_CELEBRATE); }
+    } WHEN {
+        TURN { SCORE_GT_VAL(opponentRight, MOVE_EARTHQUAKE, AI_SCORE_DEFAULT + 1, target: playerLeft); }
+    }
+}
+
+AI_DOUBLE_BATTLE_TEST("Shared Power off: partner Anger Point does not raise spread move score with partner crit moves")
+{
+    GIVEN {
+        ASSUME(MoveAlwaysCrits(MOVE_FROST_BREATH));
+        ASSUME(GetMoveTarget(MOVE_EARTHQUAKE) == MOVE_TARGET_FOES_AND_ALLY);
+        AI_FLAGS(AI_FLAG_CHECK_VIABILITY | AI_FLAG_OMNISCIENT);
+        PLAYER(SPECIES_WOBBUFFET) { Ability(ABILITY_TELEPATHY); Speed(10); }
+        PLAYER(SPECIES_WOBBUFFET) { Ability(ABILITY_TELEPATHY); Speed(10); }
+        OPPONENT(SPECIES_TAUROS) { Ability(ABILITY_ANGER_POINT); Speed(100); Moves(MOVE_FROST_BREATH); }
+        OPPONENT(SPECIES_WOBBUFFET) { Ability(ABILITY_RUN_AWAY); Speed(1); Moves(MOVE_EARTHQUAKE, MOVE_CELEBRATE); }
+    } WHEN {
+        TURN { SCORE_EQ_VAL(opponentRight, MOVE_EARTHQUAKE, AI_SCORE_DEFAULT + 1, target: playerLeft); }
+    }
+}
+
 AI_DOUBLE_BATTLE_TEST("Shared Power AI: scores Prankster status moves lower into Dark targets")
 {
     GIVEN {
