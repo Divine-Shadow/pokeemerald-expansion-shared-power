@@ -271,6 +271,11 @@ Shared Power battle behavior should use the correct ability view at each callsit
 - [x] (2026-06-07T06:13Z) Ran targeted validation for the AI Fell Stinger Contrary prediction bucket and recorded evidence here.
 - [x] (2026-06-07T06:16Z) Ran the broader Shared Power AI regression filter for the Fell Stinger Contrary prediction bucket and recorded evidence here.
 - [x] (2026-06-07T06:18Z) Ran `git diff --check` after the AI Fell Stinger Contrary prediction bucket; no issues reported.
+- [x] (2026-06-07T06:08Z) Selected the AI Merciless poison-score prediction bucket, scoped to active attacker Merciless in the poison status synergy score.
+- [x] (2026-06-07T06:15Z) Implemented the AI Merciless poison-score prediction bucket and added focused Shared Power enabled/off score coverage.
+- [x] (2026-06-07T06:19Z) Ran targeted validation for the AI Merciless poison-score prediction bucket and recorded evidence here.
+- [x] (2026-06-07T06:22Z) Ran the broader Shared Power AI regression filter for the Merciless poison-score prediction bucket and recorded evidence here.
+- [x] (2026-06-07T06:24Z) Ran `git diff --check` after the AI Merciless poison-score prediction bucket; no issues reported.
 - [x] (2026-06-07T03:05Z) Selected the AI weather/terrain benefit prediction bucket, scoped to shareable active ability heuristics while keeping native-only form/species-style weather abilities native.
 - [x] (2026-06-07T03:12Z) Implemented the AI weather/terrain benefit prediction bucket and added focused Shared Power enabled/off helper coverage for Rain and Electric Terrain.
 - [x] (2026-06-07T03:20Z) Ran targeted validation for the AI weather/terrain benefit prediction bucket and recorded evidence here.
@@ -451,6 +456,18 @@ Shared Power battle behavior should use the correct ability view at each callsit
   Evidence: `docker run --rm -u "$(id -u):$(id -g)" -v "$PWD:/workspace" -v "/home/bayesartre/dev/pokeemerald-expansion-shared-power:/home/bayesartre/dev/pokeemerald-expansion-shared-power" -w /workspace pokeemerald-expansion:builder make check NO_MULTIBOOT=1 TESTS="Shared Power AI"` passed 43/43 tests.
 
 - Observation: The AI Fell Stinger Contrary bucket passed diff hygiene.
+  Evidence: `git diff --check` reported no issues.
+
+- Observation: AI poison scoring has a narrow native Merciless synergy check.
+  Evidence: `IncreasePoisonScore` in `src/battle_ai_util.c` checks native `gAiLogicData->abilities[battlerAtk] == ABILITY_MERCILESS`, while live critical-hit behavior treats Merciless as an active attacker ability.
+
+- Observation: The Merciless poison-score split is stable with active Merciless scoring Poison Powder one point higher than the non-shared partner case.
+  Evidence: `TESTS="Shared Power AI: pooled Merciless raises poison score"` and `TESTS="Shared Power off: partner Merciless does not raise poison score"` both passed 1/1. The enabled path scored `AI_SCORE_DEFAULT + 4`; the off-path scored `AI_SCORE_DEFAULT + 3`.
+
+- Observation: The AI Merciless poison-score bucket passed the broader Shared Power AI regression filter.
+  Evidence: `docker run --rm -u "$(id -u):$(id -g)" -v "$PWD:/workspace" -v "/home/bayesartre/dev/pokeemerald-expansion-shared-power:/home/bayesartre/dev/pokeemerald-expansion-shared-power" -w /workspace pokeemerald-expansion:builder make check NO_MULTIBOOT=1 TESTS="Shared Power AI"` passed 44/44 tests.
+
+- Observation: The AI Merciless poison-score bucket passed diff hygiene.
   Evidence: `git diff --check` reported no issues.
 
 - Observation: AI Substitute/Shed Tail scoring has a native-only Infiltrator shortcut even though live Substitute bypass is already active-aware.

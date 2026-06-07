@@ -4921,7 +4921,7 @@ void IncreasePoisonScore(u32 battlerAtk, u32 battlerDef, u32 move, s32 *score)
 
         if (IsPowerBasedOnStatus(battlerAtk, EFFECT_DOUBLE_POWER_ON_ARG_STATUS, STATUS1_PSN_ANY)
          || HasMoveWithEffect(battlerAtk, EFFECT_VENOM_DRENCH)
-         || gAiLogicData->abilities[battlerAtk] == ABILITY_MERCILESS)
+         || AI_HasActiveAbility(battlerAtk, ABILITY_MERCILESS))
             ADJUST_SCORE_PTR(DECENT_EFFECT);
         else
             ADJUST_SCORE_PTR(WEAK_EFFECT);

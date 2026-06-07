@@ -468,6 +468,37 @@ AI_SINGLE_BATTLE_TEST("Shared Power off: partner Poison Heal does not prevent po
     }
 }
 
+AI_DOUBLE_BATTLE_TEST("Shared Power AI: pooled Merciless raises poison score")
+{
+    GIVEN {
+        BATTLE_TYPE(BATTLE_TYPE_SHARED_POWER);
+        ASSUME(GetMoveEffect(MOVE_POISON_POWDER) == EFFECT_NON_VOLATILE_STATUS);
+        ASSUME(GetMoveNonVolatileStatus(MOVE_POISON_POWDER) == MOVE_EFFECT_POISON);
+        AI_FLAGS(AI_FLAG_CHECK_BAD_MOVE | AI_FLAG_CHECK_VIABILITY | AI_FLAG_OMNISCIENT);
+        PLAYER(SPECIES_WOBBUFFET) { HP(100); MaxHP(100); Moves(MOVE_CELEBRATE); }
+        PLAYER(SPECIES_WOBBUFFET);
+        OPPONENT(SPECIES_WOBBUFFET) { Ability(ABILITY_TELEPATHY); Moves(MOVE_POISON_POWDER, MOVE_CELEBRATE); }
+        OPPONENT(SPECIES_MAREANIE) { Ability(ABILITY_MERCILESS); Moves(MOVE_CELEBRATE); }
+    } WHEN {
+        TURN { SCORE_EQ_VAL(opponentLeft, MOVE_POISON_POWDER, AI_SCORE_DEFAULT + 4, target: playerLeft); }
+    }
+}
+
+AI_DOUBLE_BATTLE_TEST("Shared Power off: partner Merciless does not raise poison score")
+{
+    GIVEN {
+        ASSUME(GetMoveEffect(MOVE_POISON_POWDER) == EFFECT_NON_VOLATILE_STATUS);
+        ASSUME(GetMoveNonVolatileStatus(MOVE_POISON_POWDER) == MOVE_EFFECT_POISON);
+        AI_FLAGS(AI_FLAG_CHECK_BAD_MOVE | AI_FLAG_CHECK_VIABILITY | AI_FLAG_OMNISCIENT);
+        PLAYER(SPECIES_WOBBUFFET) { HP(100); MaxHP(100); Moves(MOVE_CELEBRATE); }
+        PLAYER(SPECIES_WOBBUFFET);
+        OPPONENT(SPECIES_WOBBUFFET) { Ability(ABILITY_TELEPATHY); Moves(MOVE_POISON_POWDER, MOVE_CELEBRATE); }
+        OPPONENT(SPECIES_MAREANIE) { Ability(ABILITY_MERCILESS); Moves(MOVE_CELEBRATE); }
+    } WHEN {
+        TURN { SCORE_EQ_VAL(opponentLeft, MOVE_POISON_POWDER, AI_SCORE_DEFAULT + 3, target: playerLeft); }
+    }
+}
+
 AI_SINGLE_BATTLE_TEST("Shared Power AI: pooled Comatose treats active battlers as asleep")
 {
     GIVEN {
