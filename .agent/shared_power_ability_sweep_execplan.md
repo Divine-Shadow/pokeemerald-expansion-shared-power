@@ -208,6 +208,10 @@ Shared Power battle behavior should use the correct ability view at each callsit
 - [x] (2026-06-07T13:52Z) Implemented the AI stat-loss blocker prediction bucket and added focused Shared Power enabled/off Spicy Extract coverage.
 - [x] (2026-06-07T14:05Z) Ran targeted validation for the AI stat-loss blocker prediction bucket and recorded evidence here.
 - [x] (2026-06-07T14:07Z) Ran `git diff --check` after the AI stat-loss blocker prediction bucket; no issues reported.
+- [x] (2026-06-07T14:20Z) Selected the AI stat-drop-punish prediction bucket for active Contrary, Competitive, and Defiant viability scoring.
+- [x] (2026-06-07T14:24Z) Implemented the AI stat-drop-punish prediction bucket and added focused Shared Power enabled/off Defiant scoring coverage.
+- [x] (2026-06-07T14:42Z) Ran targeted validation for the AI stat-drop-punish prediction bucket and recorded evidence here.
+- [x] (2026-06-07T14:43Z) Ran `git diff --check` after the AI stat-drop-punish prediction bucket; no issues reported.
 - [x] (2026-06-07T03:05Z) Selected the AI weather/terrain benefit prediction bucket, scoped to shareable active ability heuristics while keeping native-only form/species-style weather abilities native.
 - [x] (2026-06-07T03:12Z) Implemented the AI weather/terrain benefit prediction bucket and added focused Shared Power enabled/off helper coverage for Rain and Electric Terrain.
 - [x] (2026-06-07T03:20Z) Ran targeted validation for the AI weather/terrain benefit prediction bucket and recorded evidence here.
@@ -1468,3 +1472,9 @@ Validation (2026-06-07): `docker run --rm -u "$(id -u):$(id -g)" -v "$PWD:/works
 Validation (2026-06-07): `docker run --rm -u "$(id -u):$(id -g)" -v "$PWD:/workspace" -v "/home/bayesartre/dev/pokeemerald-expansion-shared-power:/home/bayesartre/dev/pokeemerald-expansion-shared-power" -w /workspace pokeemerald-expansion:builder make check NO_MULTIBOOT=1 TESTS="Shared Power off: partner Clear Body does not make Spicy Extract beneficial"` passed 1/1.
 
 Validation (2026-06-07): `git diff --check` passed with no output after the AI stat-loss blocker prediction bucket.
+
+Validation (2026-06-07): `docker run --rm -u "$(id -u):$(id -g)" -v "$PWD:/workspace" -v "/home/bayesartre/dev/pokeemerald-expansion-shared-power:/home/bayesartre/dev/pokeemerald-expansion-shared-power" -w /workspace pokeemerald-expansion:builder make check NO_MULTIBOOT=1 TESTS="Shared Power AI"` initially failed because the first Defiant switch fixture asserted a tie-broken move choice, then passed 29/29 after focusing the coverage on the post-switch score assertion.
+
+Validation (2026-06-07): `docker run --rm -u "$(id -u):$(id -g)" -v "$PWD:/workspace" -v "/home/bayesartre/dev/pokeemerald-expansion-shared-power:/home/bayesartre/dev/pokeemerald-expansion-shared-power" -w /workspace pokeemerald-expansion:builder make check NO_MULTIBOOT=1 TESTS="Shared Power off: partner Defiant does not block stat-drop score boosts"` passed 1/1.
+
+Validation (2026-06-07): `git diff --check` passed with no output after the AI stat-drop-punish prediction bucket.

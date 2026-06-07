@@ -516,6 +516,35 @@ AI_DOUBLE_BATTLE_TEST("Shared Power off: partner Volt Absorb does not raise Elec
     }
 }
 
+AI_SINGLE_BATTLE_TEST("Shared Power AI: pooled Defiant prevents stat-drop score boosts")
+{
+    GIVEN {
+        BATTLE_TYPE(BATTLE_TYPE_SHARED_POWER);
+        ASSUME(GetMoveEffect(MOVE_GROWL) == EFFECT_ATTACK_DOWN);
+        AI_FLAGS(AI_FLAG_CHECK_VIABILITY | AI_FLAG_OMNISCIENT);
+        PLAYER(SPECIES_MANKEY) { Ability(ABILITY_DEFIANT); Moves(MOVE_SCRATCH); }
+        PLAYER(SPECIES_WOBBUFFET) { Ability(ABILITY_TELEPATHY); Moves(MOVE_SCRATCH); }
+        OPPONENT(SPECIES_WOBBUFFET) { Moves(MOVE_GROWL, MOVE_CELEBRATE, MOVE_NONE, MOVE_NONE); }
+    } WHEN {
+        TURN { SWITCH(player, 1); }
+        TURN { MOVE(player, MOVE_SCRATCH); SCORE_EQ_VAL(opponent, MOVE_GROWL, AI_SCORE_DEFAULT); }
+    }
+}
+
+AI_SINGLE_BATTLE_TEST("Shared Power off: partner Defiant does not block stat-drop score boosts")
+{
+    GIVEN {
+        ASSUME(GetMoveEffect(MOVE_GROWL) == EFFECT_ATTACK_DOWN);
+        AI_FLAGS(AI_FLAG_CHECK_VIABILITY | AI_FLAG_OMNISCIENT);
+        PLAYER(SPECIES_MANKEY) { Ability(ABILITY_DEFIANT); Moves(MOVE_SCRATCH); }
+        PLAYER(SPECIES_WOBBUFFET) { Ability(ABILITY_TELEPATHY); Moves(MOVE_SCRATCH); }
+        OPPONENT(SPECIES_WOBBUFFET) { Moves(MOVE_GROWL, MOVE_CELEBRATE, MOVE_NONE, MOVE_NONE); }
+    } WHEN {
+        TURN { SWITCH(player, 1); }
+        TURN { MOVE(player, MOVE_SCRATCH); SCORE_GT_VAL(opponent, MOVE_GROWL, AI_SCORE_DEFAULT); }
+    }
+}
+
 AI_DOUBLE_BATTLE_TEST("Shared Power AI: pooled Sticky Hold prevents item-loss prediction")
 {
     GIVEN {

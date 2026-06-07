@@ -1,3 +1,9 @@
+- Docs/Planning: Record Shared Power AI stat-drop-punish prediction diff hygiene (commit pending).
+- Docs/Planning: Record Shared Power AI stat-drop-punish prediction validation evidence (commit pending).
+- Docs/Planning: Record Shared Power AI stat-drop-punish prediction progress (commit pending).
+- Docs/Audit: Note that Shared Power AI stat-drop-punish prediction handles pooled Defiant-style abilities (commit pending).
+- Tests/AI: Cover Shared Power AI stat-drop scoring with pooled Defiant enabled and disabled paths (commit pending).
+- Battle/AI: Let stat-drop viability scoring see pooled Contrary, Competitive, and Defiant under Shared Power (commit pending).
 - Docs/Planning: Record Shared Power AI stat-loss blocker prediction diff hygiene (commit e1de383fe6).
 - Docs/Planning: Record Shared Power AI stat-loss blocker prediction validation evidence (commit e1de383fe6).
 - Docs/Planning: Record Shared Power AI stat-loss blocker prediction progress (commit e1de383fe6).

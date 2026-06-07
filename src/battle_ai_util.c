@@ -2132,7 +2132,9 @@ u32 IncreaseStatDownScore(u32 battlerAtk, u32 battlerDef, u32 stat)
     if (HasBattlerSideMoveWithEffect(battlerDef, EFFECT_ENCORE))
         return NO_INCREASE;
 
-    if (DoesAbilityRaiseStatsWhenLowered(gAiLogicData->abilities[battlerDef]))
+    if (AI_HasActiveAbility(battlerDef, ABILITY_CONTRARY)
+     || AI_HasActiveAbility(battlerDef, ABILITY_COMPETITIVE)
+     || AI_HasActiveAbility(battlerDef, ABILITY_DEFIANT))
         return NO_INCREASE;
 
     // TODO: Avoid decreasing stat if
