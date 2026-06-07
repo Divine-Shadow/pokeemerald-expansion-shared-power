@@ -1,6 +1,6 @@
-- Docs/Planning: Record Shared Power AI remaining-tail diff hygiene (commit pending).
-- Docs/Audit: Classify the remaining direct cached-ability AI reads as native-only or clarify-deferred tail work (commit pending).
-- Docs/Planning: Record the Shared Power AI remaining-tail classification in the sweep ExecPlan (commit pending).
+- Docs/Planning: Record Shared Power AI remaining-tail diff hygiene (commit 080ebb4f11).
+- Docs/Audit: Classify the remaining direct cached-ability AI reads as native-only or clarify-deferred tail work (commit 080ebb4f11).
+- Docs/Planning: Record the Shared Power AI remaining-tail classification in the sweep ExecPlan (commit 080ebb4f11).
 - Docs/Planning: Record Shared Power AI Anger Point diff hygiene (commit f8850f2551).
 - Docs/Planning: Record Shared Power AI Anger Point broad validation evidence (commit f8850f2551).
 - Docs/Planning: Record Shared Power AI Anger Point focused validation evidence (commit f8850f2551).
