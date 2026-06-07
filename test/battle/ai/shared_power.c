@@ -75,6 +75,39 @@ AI_SINGLE_BATTLE_TEST("Shared Power AI: pooled Soundproof blocks Roar prediction
     }
 }
 
+AI_DOUBLE_BATTLE_TEST("Shared Power AI: pooled Sturdy predicts surviving lethal hits")
+{
+    GIVEN {
+        BATTLE_TYPE(BATTLE_TYPE_SHARED_POWER);
+        AI_FLAGS(AI_FLAG_CHECK_BAD_MOVE | AI_FLAG_CHECK_VIABILITY | AI_FLAG_OMNISCIENT);
+        ASSUME(B_STURDY >= GEN_5);
+        PLAYER(SPECIES_WOBBUFFET) { Ability(ABILITY_TELEPATHY); MaxHP(100); HP(100); }
+        PLAYER(SPECIES_GEODUDE) { Ability(ABILITY_STURDY); }
+        OPPONENT(SPECIES_WOBBUFFET) { Moves(MOVE_CELEBRATE); }
+        OPPONENT(SPECIES_WOBBUFFET);
+    } WHEN {
+        TURN { EXPECT_MOVE(opponentLeft, MOVE_CELEBRATE); }
+    } THEN {
+        EXPECT(CanEndureHit(B_POSITION_OPPONENT_LEFT, B_POSITION_PLAYER_LEFT, MOVE_SEISMIC_TOSS));
+    }
+}
+
+AI_DOUBLE_BATTLE_TEST("Shared Power off: partner Sturdy does not predict surviving lethal hits")
+{
+    GIVEN {
+        AI_FLAGS(AI_FLAG_CHECK_BAD_MOVE | AI_FLAG_CHECK_VIABILITY | AI_FLAG_OMNISCIENT);
+        ASSUME(B_STURDY >= GEN_5);
+        PLAYER(SPECIES_WOBBUFFET) { Ability(ABILITY_TELEPATHY); MaxHP(100); HP(100); }
+        PLAYER(SPECIES_GEODUDE) { Ability(ABILITY_STURDY); }
+        OPPONENT(SPECIES_WOBBUFFET) { Moves(MOVE_CELEBRATE); }
+        OPPONENT(SPECIES_WOBBUFFET);
+    } WHEN {
+        TURN { EXPECT_MOVE(opponentLeft, MOVE_CELEBRATE); }
+    } THEN {
+        EXPECT(!CanEndureHit(B_POSITION_OPPONENT_LEFT, B_POSITION_PLAYER_LEFT, MOVE_SEISMIC_TOSS));
+    }
+}
+
 AI_SINGLE_BATTLE_TEST("Shared Power off: partner Soundproof does not block Roar prediction")
 {
     GIVEN {

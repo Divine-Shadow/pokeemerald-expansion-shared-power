@@ -244,6 +244,10 @@ Shared Power battle behavior should use the correct ability view at each callsit
 - [x] (2026-06-07T22:18Z) Implemented the AI Leech Seed Magic Guard prediction bucket and added focused Shared Power enabled/off score coverage.
 - [x] (2026-06-07T22:25Z) Ran targeted validation for the AI Leech Seed Magic Guard prediction bucket and recorded evidence here.
 - [x] (2026-06-07T22:28Z) Ran `git diff --check` after the AI Leech Seed Magic Guard prediction bucket; no issues reported.
+- [x] (2026-06-07T22:45Z) Selected the AI Sturdy endure prediction bucket, scoped to active target Sturdy in `CanEndureHit` while preserving existing Mold Breaker suppression and Mimikyu species-state behavior.
+- [x] (2026-06-07T22:52Z) Implemented the AI Sturdy endure prediction bucket and added focused Shared Power enabled/off helper coverage.
+- [x] (2026-06-07T23:00Z) Ran targeted validation for the AI Sturdy endure prediction bucket and recorded evidence here.
+- [x] (2026-06-07T23:04Z) Ran `git diff --check` after the AI Sturdy endure prediction bucket; no issues reported.
 - [x] (2026-06-07T03:05Z) Selected the AI weather/terrain benefit prediction bucket, scoped to shareable active ability heuristics while keeping native-only form/species-style weather abilities native.
 - [x] (2026-06-07T03:12Z) Implemented the AI weather/terrain benefit prediction bucket and added focused Shared Power enabled/off helper coverage for Rain and Electric Terrain.
 - [x] (2026-06-07T03:20Z) Ran targeted validation for the AI weather/terrain benefit prediction bucket and recorded evidence here.
@@ -362,6 +366,15 @@ Shared Power battle behavior should use the correct ability view at each callsit
 
 - Observation: The AI Leech Seed Magic Guard bucket passed the broader Shared Power AI regression filter.
   Evidence: `docker run --rm -u "$(id -u):$(id -g)" -v "$PWD:/workspace" -v "/home/bayesartre/dev/pokeemerald-expansion-shared-power:/home/bayesartre/dev/pokeemerald-expansion-shared-power" -w /workspace pokeemerald-expansion:builder make check NO_MULTIBOOT=1 TESTS="Shared Power AI"` passed 37/37 tests.
+
+- Observation: AI Sturdy endure prediction is a policy-clear active target membership check, while the surrounding suppression and species checks are not part of this bucket.
+  Evidence: Live lethal-damage and OHKO script paths use `HasActiveAbility(..., ABILITY_STURDY)`, but `CanEndureHit` still checks target cached native Sturdy after `DoesBattlerIgnoreAbilityChecks(...)` and separately checks `SPECIES_MIMIKYU_DISGUISED`.
+
+- Observation: The AI Sturdy endure helper now has focused enabled/off coverage with the defender's native ability differing from pooled Sturdy.
+  Evidence: `TESTS="Shared Power AI: pooled Sturdy predicts surviving lethal hits"` and `TESTS="Shared Power off: partner Sturdy does not predict surviving lethal hits"` both passed 1/1.
+
+- Observation: The AI Sturdy endure bucket passed the broader Shared Power AI regression filter.
+  Evidence: `docker run --rm -u "$(id -u):$(id -g)" -v "$PWD:/workspace" -v "/home/bayesartre/dev/pokeemerald-expansion-shared-power:/home/bayesartre/dev/pokeemerald-expansion-shared-power" -w /workspace pokeemerald-expansion:builder make check NO_MULTIBOOT=1 TESTS="Shared Power AI"` passed 38/38 tests.
 
 - Observation: AI Substitute/Shed Tail scoring has a native-only Infiltrator shortcut even though live Substitute bypass is already active-aware.
   Evidence: `EFFECT_SUBSTITUTE` and `EFFECT_SHED_TAIL` in `AI_CheckBadMove` compare `aiData->abilities[battlerDef] == ABILITY_INFILTRATOR`.

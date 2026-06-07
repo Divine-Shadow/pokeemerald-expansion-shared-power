@@ -1,3 +1,10 @@
+- Docs/Planning: Record Shared Power AI Sturdy endure prediction diff hygiene (commit pending).
+- Docs/Planning: Record Shared Power AI Sturdy endure prediction validation evidence (commit pending).
+- Docs/Audit: Note that Shared Power AI Sturdy endure prediction handles pooled Sturdy (commit pending).
+- Docs/Planning: Record Shared Power AI Sturdy endure prediction progress (commit pending).
+- Tests/AI: Cover Shared Power AI Sturdy endure prediction with pooled enabled and disabled paths (commit pending).
+- Battle/AI: Let Sturdy endure prediction see pooled Sturdy under Shared Power (commit pending).
+- Docs/Planning: Select the Shared Power AI Sturdy endure prediction bucket (commit pending).
 - Docs/Planning: Record Shared Power AI Leech Seed Magic Guard prediction diff hygiene (commit 477ada4029).
 - Docs/Planning: Record Shared Power AI Leech Seed Magic Guard prediction validation evidence (commit 477ada4029).
 - Docs/Audit: Note that Shared Power AI Leech Seed prediction handles pooled Magic Guard (commit 477ada4029).

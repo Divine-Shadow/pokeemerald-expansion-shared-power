@@ -1434,7 +1434,7 @@ bool32 CanEndureHit(u32 battler, u32 battlerTarget, u32 move)
 
     if (!DoesBattlerIgnoreAbilityChecks(battler, gAiLogicData->abilities[battler], move))
     {
-        if (B_STURDY >= GEN_5 && gAiLogicData->abilities[battlerTarget] == ABILITY_STURDY)
+        if (B_STURDY >= GEN_5 && AI_HasActiveAbility(battlerTarget, ABILITY_STURDY))
             return TRUE;
         if (gBattleMons[battlerTarget].species == SPECIES_MIMIKYU_DISGUISED)
             return TRUE;
