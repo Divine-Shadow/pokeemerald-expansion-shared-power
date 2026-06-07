@@ -499,6 +499,37 @@ AI_DOUBLE_BATTLE_TEST("Shared Power off: partner Merciless does not raise poison
     }
 }
 
+AI_DOUBLE_BATTLE_TEST("Shared Power AI: pooled Serene Grace raises confusion score with flinch moves")
+{
+    GIVEN {
+        BATTLE_TYPE(BATTLE_TYPE_SHARED_POWER);
+        ASSUME(GetMoveEffect(MOVE_CONFUSE_RAY) == EFFECT_CONFUSE);
+        ASSUME(MoveHasAdditionalEffect(MOVE_AIR_SLASH, MOVE_EFFECT_FLINCH));
+        AI_FLAGS(AI_FLAG_CHECK_BAD_MOVE | AI_FLAG_CHECK_VIABILITY | AI_FLAG_OMNISCIENT);
+        PLAYER(SPECIES_WOBBUFFET) { HP(100); MaxHP(100); Moves(MOVE_CELEBRATE); }
+        PLAYER(SPECIES_WOBBUFFET);
+        OPPONENT(SPECIES_WOBBUFFET) { Ability(ABILITY_TELEPATHY); Moves(MOVE_CONFUSE_RAY, MOVE_AIR_SLASH, MOVE_CELEBRATE); }
+        OPPONENT(SPECIES_WOBBUFFET) { Ability(ABILITY_SERENE_GRACE); Moves(MOVE_CELEBRATE); }
+    } WHEN {
+        TURN { SCORE_EQ_VAL(opponentLeft, MOVE_CONFUSE_RAY, AI_SCORE_DEFAULT + 3, target: playerLeft); }
+    }
+}
+
+AI_DOUBLE_BATTLE_TEST("Shared Power off: partner Serene Grace does not raise confusion score with flinch moves")
+{
+    GIVEN {
+        ASSUME(GetMoveEffect(MOVE_CONFUSE_RAY) == EFFECT_CONFUSE);
+        ASSUME(MoveHasAdditionalEffect(MOVE_AIR_SLASH, MOVE_EFFECT_FLINCH));
+        AI_FLAGS(AI_FLAG_CHECK_BAD_MOVE | AI_FLAG_CHECK_VIABILITY | AI_FLAG_OMNISCIENT);
+        PLAYER(SPECIES_WOBBUFFET) { HP(100); MaxHP(100); Moves(MOVE_CELEBRATE); }
+        PLAYER(SPECIES_WOBBUFFET);
+        OPPONENT(SPECIES_WOBBUFFET) { Ability(ABILITY_TELEPATHY); Moves(MOVE_CONFUSE_RAY, MOVE_AIR_SLASH, MOVE_CELEBRATE); }
+        OPPONENT(SPECIES_WOBBUFFET) { Ability(ABILITY_SERENE_GRACE); Moves(MOVE_CELEBRATE); }
+    } WHEN {
+        TURN { SCORE_EQ_VAL(opponentLeft, MOVE_CONFUSE_RAY, AI_SCORE_DEFAULT + 2, target: playerLeft); }
+    }
+}
+
 AI_SINGLE_BATTLE_TEST("Shared Power AI: pooled Comatose treats active battlers as asleep")
 {
     GIVEN {

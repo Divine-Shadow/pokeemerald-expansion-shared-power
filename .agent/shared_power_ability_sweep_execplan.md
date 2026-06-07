@@ -276,6 +276,11 @@ Shared Power battle behavior should use the correct ability view at each callsit
 - [x] (2026-06-07T06:19Z) Ran targeted validation for the AI Merciless poison-score prediction bucket and recorded evidence here.
 - [x] (2026-06-07T06:22Z) Ran the broader Shared Power AI regression filter for the Merciless poison-score prediction bucket and recorded evidence here.
 - [x] (2026-06-07T06:24Z) Ran `git diff --check` after the AI Merciless poison-score prediction bucket; no issues reported.
+- [x] (2026-06-07T06:14Z) Selected the AI Serene Grace confusion-score prediction bucket, scoped to active attacker Serene Grace in the confusion status synergy score.
+- [x] (2026-06-07T06:21Z) Implemented the AI Serene Grace confusion-score prediction bucket and added focused Shared Power enabled/off score coverage.
+- [x] (2026-06-07T06:25Z) Ran targeted validation for the AI Serene Grace confusion-score prediction bucket and recorded evidence here.
+- [x] (2026-06-07T06:28Z) Ran the broader Shared Power AI regression filter for the Serene Grace confusion-score prediction bucket and recorded evidence here.
+- [x] (2026-06-07T06:30Z) Ran `git diff --check` after the AI Serene Grace confusion-score prediction bucket; no issues reported.
 - [x] (2026-06-07T03:05Z) Selected the AI weather/terrain benefit prediction bucket, scoped to shareable active ability heuristics while keeping native-only form/species-style weather abilities native.
 - [x] (2026-06-07T03:12Z) Implemented the AI weather/terrain benefit prediction bucket and added focused Shared Power enabled/off helper coverage for Rain and Electric Terrain.
 - [x] (2026-06-07T03:20Z) Ran targeted validation for the AI weather/terrain benefit prediction bucket and recorded evidence here.
@@ -468,6 +473,18 @@ Shared Power battle behavior should use the correct ability view at each callsit
   Evidence: `docker run --rm -u "$(id -u):$(id -g)" -v "$PWD:/workspace" -v "/home/bayesartre/dev/pokeemerald-expansion-shared-power:/home/bayesartre/dev/pokeemerald-expansion-shared-power" -w /workspace pokeemerald-expansion:builder make check NO_MULTIBOOT=1 TESTS="Shared Power AI"` passed 44/44 tests.
 
 - Observation: The AI Merciless poison-score bucket passed diff hygiene.
+  Evidence: `git diff --check` reported no issues.
+
+- Observation: AI confusion scoring has a narrow native Serene Grace synergy check when the attacker also has a flinch-effect move.
+  Evidence: `IncreaseConfusionScore` in `src/battle_ai_util.c` checks native `gAiLogicData->abilities[battlerAtk] == ABILITY_SERENE_GRACE`, while live Serene Grace is an active attacker ability.
+
+- Observation: The Serene Grace confusion-score split is stable with active Serene Grace scoring Confuse Ray one point higher than the non-shared partner case when the attacker also knows Air Slash.
+  Evidence: `TESTS="Shared Power AI: pooled Serene Grace raises confusion score with flinch moves"` and `TESTS="Shared Power off: partner Serene Grace does not raise confusion score with flinch moves"` both passed 1/1. The enabled path scored `AI_SCORE_DEFAULT + 3`; the off-path scored `AI_SCORE_DEFAULT + 2`.
+
+- Observation: The AI Serene Grace confusion-score bucket passed the broader Shared Power AI regression filter.
+  Evidence: `docker run --rm -u "$(id -u):$(id -g)" -v "$PWD:/workspace" -v "/home/bayesartre/dev/pokeemerald-expansion-shared-power:/home/bayesartre/dev/pokeemerald-expansion-shared-power" -w /workspace pokeemerald-expansion:builder make check NO_MULTIBOOT=1 TESTS="Shared Power AI"` passed 45/45 tests.
+
+- Observation: The AI Serene Grace confusion-score bucket passed diff hygiene.
   Evidence: `git diff --check` reported no issues.
 
 - Observation: AI Substitute/Shed Tail scoring has a native-only Infiltrator shortcut even though live Substitute bypass is already active-aware.

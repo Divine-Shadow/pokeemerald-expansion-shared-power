@@ -1,3 +1,11 @@
+- Docs/Planning: Record Shared Power AI Serene Grace confusion-score prediction diff hygiene (commit pending).
+- Docs/Planning: Record Shared Power AI Serene Grace confusion-score prediction broad validation evidence (commit pending).
+- Docs/Audit: Note that Shared Power AI confusion scoring handles pooled Serene Grace (commit pending).
+- Docs/Planning: Record Shared Power AI Serene Grace confusion-score prediction validation evidence (commit pending).
+- Docs/Planning: Record Shared Power AI Serene Grace confusion-score prediction progress (commit pending).
+- Tests/AI: Cover Shared Power AI confusion scoring with pooled Serene Grace enabled and disabled paths (commit pending).
+- Battle/AI: Let confusion-status scoring see pooled Serene Grace under Shared Power (commit pending).
+- Docs/Planning: Select the Shared Power AI Serene Grace confusion-score prediction bucket (commit pending).
 - Docs/Planning: Record Shared Power AI Merciless poison-score prediction diff hygiene (commit bcd292d07e).
 - Docs/Planning: Record Shared Power AI Merciless poison-score prediction broad validation evidence (commit bcd292d07e).
 - Docs/Audit: Note that Shared Power AI poison scoring handles pooled Merciless (commit bcd292d07e).
