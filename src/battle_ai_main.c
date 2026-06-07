@@ -2904,8 +2904,8 @@ static s32 AI_CheckBadMove(u32 battlerAtk, u32 battlerDef, u32 move, s32 score)
         case EFFECT_SPICY_EXTRACT:
             if (battlerAtk != BATTLE_PARTNER(battlerDef)
              && (HasMoveWithCategory(battlerDef, DAMAGE_CATEGORY_PHYSICAL)
-              || aiData->abilities[battlerDef] == ABILITY_CLEAR_BODY
-              || aiData->abilities[battlerDef] == ABILITY_GOOD_AS_GOLD
+              || AI_HasActiveAbility(battlerDef, ABILITY_CLEAR_BODY)
+              || AI_HasActiveAbility(battlerDef, ABILITY_GOOD_AS_GOLD)
               || aiData->holdEffects[battlerDef] == HOLD_EFFECT_CLEAR_AMULET))
                 ADJUST_SCORE(-10);
             break;

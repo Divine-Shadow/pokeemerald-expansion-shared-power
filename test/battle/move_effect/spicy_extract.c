@@ -206,3 +206,30 @@ AI_DOUBLE_BATTLE_TEST("Spicy Extract user will not choose the move if it does no
         }
     }
 }
+
+AI_DOUBLE_BATTLE_TEST("Shared Power AI: Spicy Extract sees pooled Clear Body on its partner")
+{
+    GIVEN {
+        BATTLE_TYPE(BATTLE_TYPE_SHARED_POWER);
+        AI_FLAGS(AI_FLAG_CHECK_BAD_MOVE | AI_FLAG_CHECK_VIABILITY | AI_FLAG_TRY_TO_FAINT);
+        PLAYER(SPECIES_WOBBUFFET) { Speed(10); }
+        PLAYER(SPECIES_WOBBUFFET) { Speed(10); }
+        OPPONENT(SPECIES_WOBBUFFET) { Speed(20); Ability(ABILITY_TELEPATHY); Moves(MOVE_SCRATCH); }
+        OPPONENT(SPECIES_METANG) { Speed(40); Ability(ABILITY_CLEAR_BODY); Moves(MOVE_SCRATCH, MOVE_SPICY_EXTRACT); }
+    } WHEN {
+        TURN { EXPECT_MOVE(opponentRight, MOVE_SPICY_EXTRACT); }
+    }
+}
+
+AI_DOUBLE_BATTLE_TEST("Shared Power off: partner Clear Body does not make Spicy Extract beneficial")
+{
+    GIVEN {
+        AI_FLAGS(AI_FLAG_CHECK_BAD_MOVE | AI_FLAG_CHECK_VIABILITY | AI_FLAG_TRY_TO_FAINT);
+        PLAYER(SPECIES_WOBBUFFET) { Speed(10); }
+        PLAYER(SPECIES_WOBBUFFET) { Speed(10); }
+        OPPONENT(SPECIES_WOBBUFFET) { Speed(20); Ability(ABILITY_TELEPATHY); Moves(MOVE_SCRATCH); }
+        OPPONENT(SPECIES_METANG) { Speed(40); Ability(ABILITY_CLEAR_BODY); Moves(MOVE_SCRATCH, MOVE_SPICY_EXTRACT); }
+    } WHEN {
+        TURN { EXPECT_MOVE(opponentRight, MOVE_SCRATCH); }
+    }
+}

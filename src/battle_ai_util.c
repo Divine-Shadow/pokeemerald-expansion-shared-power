@@ -2086,32 +2086,22 @@ bool32 CanLowerStat(u32 battlerAtk, u32 battlerDef, struct AiLogicData *aiData, 
         if (IS_BATTLER_OF_TYPE(battlerDef, TYPE_GRASS) && AI_IsAbilityOnSide(battlerDef, ABILITY_FLOWER_VEIL))
             return FALSE;
 
-        switch (aiData->abilities[battlerDef])
-        {
-        case ABILITY_SPEED_BOOST:
-            if (stat == STAT_SPEED)
-                return FALSE;
-        case ABILITY_HYPER_CUTTER:
-            if (stat == STAT_ATK)
-                return FALSE;
-        case ABILITY_BIG_PECKS:
-            if (stat == STAT_DEF)
-                return FALSE;
-        case ABILITY_ILLUMINATE:
-            if (GetGenConfig(GEN_ILLUMINATE_EFFECT) < GEN_9)
-                break;
-        case ABILITY_KEEN_EYE:
-        case ABILITY_MINDS_EYE:
-            if (stat == STAT_ACC)
-                return FALSE;
-        case ABILITY_CONTRARY:
-        case ABILITY_CLEAR_BODY:
-        case ABILITY_WHITE_SMOKE:
-        case ABILITY_FULL_METAL_BODY:
+        if (stat == STAT_SPEED && AI_HasActiveAbility(battlerDef, ABILITY_SPEED_BOOST))
             return FALSE;
-        default:
-            break;
-        }
+        if (stat == STAT_ATK && AI_HasActiveAbility(battlerDef, ABILITY_HYPER_CUTTER))
+            return FALSE;
+        if (stat == STAT_DEF && AI_HasActiveAbility(battlerDef, ABILITY_BIG_PECKS))
+            return FALSE;
+        if (stat == STAT_ACC
+         && (AI_HasActiveAbility(battlerDef, ABILITY_KEEN_EYE)
+          || AI_HasActiveAbility(battlerDef, ABILITY_MINDS_EYE)
+          || (GetGenConfig(GEN_ILLUMINATE_EFFECT) >= GEN_9 && AI_HasActiveAbility(battlerDef, ABILITY_ILLUMINATE))))
+            return FALSE;
+        if (AI_HasActiveAbility(battlerDef, ABILITY_CONTRARY)
+         || AI_HasActiveAbility(battlerDef, ABILITY_CLEAR_BODY)
+         || AI_HasActiveAbility(battlerDef, ABILITY_WHITE_SMOKE)
+         || AI_HasActiveAbility(battlerDef, ABILITY_FULL_METAL_BODY))
+            return FALSE;
     }
 
     if (stat == STAT_SPEED)

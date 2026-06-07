@@ -204,6 +204,10 @@ Shared Power battle behavior should use the correct ability view at each callsit
 - [x] (2026-06-07T13:12Z) Implemented the AI Electric-absorption self-benefit prediction bucket and added focused Shared Power enabled/off score coverage.
 - [x] (2026-06-07T13:28Z) Ran targeted validation for the AI Electric-absorption self-benefit prediction bucket and recorded evidence here.
 - [x] (2026-06-07T13:30Z) Ran `git diff --check` after the AI Electric-absorption self-benefit prediction bucket; no issues reported.
+- [x] (2026-06-07T13:45Z) Selected the AI stat-loss blocker prediction bucket for active Clear Body-style and specific stat-loss blockers, scoped away from broad status-helper policy.
+- [x] (2026-06-07T13:52Z) Implemented the AI stat-loss blocker prediction bucket and added focused Shared Power enabled/off Spicy Extract coverage.
+- [x] (2026-06-07T14:05Z) Ran targeted validation for the AI stat-loss blocker prediction bucket and recorded evidence here.
+- [x] (2026-06-07T14:07Z) Ran `git diff --check` after the AI stat-loss blocker prediction bucket; no issues reported.
 - [x] (2026-06-07T03:05Z) Selected the AI weather/terrain benefit prediction bucket, scoped to shareable active ability heuristics while keeping native-only form/species-style weather abilities native.
 - [x] (2026-06-07T03:12Z) Implemented the AI weather/terrain benefit prediction bucket and added focused Shared Power enabled/off helper coverage for Rain and Electric Terrain.
 - [x] (2026-06-07T03:20Z) Ran targeted validation for the AI weather/terrain benefit prediction bucket and recorded evidence here.
@@ -1456,3 +1460,11 @@ Validation (2026-06-07): `docker run --rm -u "$(id -u):$(id -g)" -v "$PWD:/works
 Validation (2026-06-07): `docker run --rm -u "$(id -u):$(id -g)" -v "$PWD:/workspace" -v "/home/bayesartre/dev/pokeemerald-expansion-shared-power:/home/bayesartre/dev/pokeemerald-expansion-shared-power" -w /workspace pokeemerald-expansion:builder make check NO_MULTIBOOT=1 TESTS="Shared Power off: partner Volt Absorb does not raise Electrify score"` passed 1/1.
 
 Validation (2026-06-07): `git diff --check` passed with no output after the AI Electric-absorption self-benefit prediction bucket.
+
+Validation (2026-06-07): `docker run --rm -u "$(id -u):$(id -g)" -v "$PWD:/workspace" -v "/home/bayesartre/dev/pokeemerald-expansion-shared-power:/home/bayesartre/dev/pokeemerald-expansion-shared-power" -w /workspace pokeemerald-expansion:builder make check NO_MULTIBOOT=1 TESTS="Spicy Extract"` passed the existing 9/9 Spicy Extract tests; the filter is prefix-based and did not include the new `Shared Power...` test names.
+
+Validation (2026-06-07): `docker run --rm -u "$(id -u):$(id -g)" -v "$PWD:/workspace" -v "/home/bayesartre/dev/pokeemerald-expansion-shared-power:/home/bayesartre/dev/pokeemerald-expansion-shared-power" -w /workspace pokeemerald-expansion:builder make check NO_MULTIBOOT=1 TESTS="Shared Power AI: Spicy Extract"` passed 1/1.
+
+Validation (2026-06-07): `docker run --rm -u "$(id -u):$(id -g)" -v "$PWD:/workspace" -v "/home/bayesartre/dev/pokeemerald-expansion-shared-power:/home/bayesartre/dev/pokeemerald-expansion-shared-power" -w /workspace pokeemerald-expansion:builder make check NO_MULTIBOOT=1 TESTS="Shared Power off: partner Clear Body does not make Spicy Extract beneficial"` passed 1/1.
+
+Validation (2026-06-07): `git diff --check` passed with no output after the AI stat-loss blocker prediction bucket.
