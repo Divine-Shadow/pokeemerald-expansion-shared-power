@@ -1,3 +1,10 @@
+- Docs/Planning: Record Shared Power AI Rest fast-recovery prediction diff hygiene (commit pending).
+- Docs/Planning: Record Shared Power AI Rest fast-recovery prediction validation evidence (commit pending).
+- Docs/Planning: Record Shared Power AI Rest fast-recovery prediction progress (commit pending).
+- Docs/Audit: Note that Shared Power AI Rest fast-recovery prediction handles pooled Shed Skin, Early Bird, and Hydration (commit pending).
+- Tests/AI: Cover Shared Power AI Rest fast-recovery scoring with pooled Shed Skin and disabled membership paths (commit pending).
+- Battle/AI: Let Rest fast-recovery prediction see pooled Shed Skin, Early Bird, and Hydration under Shared Power (commit pending).
+- Docs/Planning: Select the Shared Power AI Rest fast-recovery prediction bucket (commit pending).
 - Docs/Planning: Record Shared Power AI multi-hit Rocky Helmet Magic Guard prediction diff hygiene (commit d3898352a6).
 - Docs/Planning: Record Shared Power AI multi-hit Rocky Helmet Magic Guard prediction validation evidence (commit d3898352a6).
 - Docs/Planning: Record Shared Power AI multi-hit Rocky Helmet Magic Guard prediction progress (commit d3898352a6).

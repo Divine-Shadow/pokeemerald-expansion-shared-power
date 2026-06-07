@@ -224,6 +224,10 @@ Shared Power battle behavior should use the correct ability view at each callsit
 - [x] (2026-06-07T16:12Z) Implemented the AI multi-hit Rocky Helmet Magic Guard prediction bucket and added focused Shared Power enabled/off score coverage.
 - [x] (2026-06-07T16:18Z) Ran targeted validation for the AI multi-hit Rocky Helmet Magic Guard prediction bucket and recorded evidence here.
 - [x] (2026-06-07T16:19Z) Ran `git diff --check` after the AI multi-hit Rocky Helmet Magic Guard prediction bucket; no issues reported.
+- [x] (2026-06-07T16:30Z) Selected the AI Rest fast-recovery prediction bucket for active Shed Skin, Early Bird, and rain Hydration membership.
+- [x] (2026-06-07T16:38Z) Implemented the AI Rest fast-recovery prediction bucket and added focused Shared Power enabled/off coverage.
+- [x] (2026-06-07T16:45Z) Ran targeted validation for the AI Rest fast-recovery prediction bucket and recorded evidence here.
+- [x] (2026-06-07T16:46Z) Ran `git diff --check` after the AI Rest fast-recovery prediction bucket; no issues reported.
 - [x] (2026-06-07T03:05Z) Selected the AI weather/terrain benefit prediction bucket, scoped to shareable active ability heuristics while keeping native-only form/species-style weather abilities native.
 - [x] (2026-06-07T03:12Z) Implemented the AI weather/terrain benefit prediction bucket and added focused Shared Power enabled/off helper coverage for Rain and Electric Terrain.
 - [x] (2026-06-07T03:20Z) Ran targeted validation for the AI weather/terrain benefit prediction bucket and recorded evidence here.
@@ -450,6 +454,9 @@ Shared Power battle behavior should use the correct ability view at each callsit
 
 - Observation: AI multi-hit contact scoring still penalizes Rocky Helmet contact when Magic Guard is pooled onto the attacker.
   Evidence: `src/battle_ai_main.c` checks `aiData->abilities[battlerAtk] != ABILITY_MAGIC_GUARD` before applying the multi-hit Rocky Helmet score penalty. Live Rocky Helmet, Jaboca Berry, and Rowap Berry backlash already use active Magic Guard membership on the attacker, so this AI bucket can migrate the matching Rocky Helmet heuristic without changing contact-helper policy or target-held item ownership.
+
+- Observation: AI Rest scoring still treats fast recovery as native-only for Shed Skin, Early Bird, and Hydration.
+  Evidence: `src/battle_ai_main.c` adds an extra Rest recovery score for cure items, Sleep Talk/Snore, or native `ABILITY_SHED_SKIN`, `ABILITY_EARLY_BIRD`, and rain `ABILITY_HYDRATION`. Live end-turn Shed Skin/Hydration and sleep decrement Early Bird are already active-aware, so this AI bucket can migrate only the matching Rest prediction checks without changing sleep-clause eligibility or weather/item policy.
 
 ## Decision Log
 
@@ -1519,3 +1526,11 @@ Validation (2026-06-07): `docker run --rm -u "$(id -u):$(id -g)" -v "$PWD:/works
 Validation (2026-06-07): `docker run --rm -u "$(id -u):$(id -g)" -v "$PWD:/workspace" -v "/home/bayesartre/dev/pokeemerald-expansion-shared-power:/home/bayesartre/dev/pokeemerald-expansion-shared-power" -w /workspace pokeemerald-expansion:builder make check NO_MULTIBOOT=1 TESTS="Shared Power off: partner Magic Guard does not avoid multi-hit Rocky Helmet penalty"` passed 1/1.
 
 Validation (2026-06-07): `git diff --check` passed with no output after the AI multi-hit Rocky Helmet Magic Guard prediction bucket.
+
+Validation (2026-06-07): `docker run --rm -u "$(id -u):$(id -g)" -v "$PWD:/workspace" -v "/home/bayesartre/dev/pokeemerald-expansion-shared-power:/home/bayesartre/dev/pokeemerald-expansion-shared-power" -w /workspace pokeemerald-expansion:builder make check NO_MULTIBOOT=1 TESTS="Shared Power AI: pooled Shed Skin raises Rest fast-recovery score"` initially exposed the AI doubles score harness's self-target limitation, then passed 1/1 after switching the enabled proof to actual move choice: pooled Shed Skin makes the damaged Rest user choose Rest.
+
+Validation (2026-06-07): `docker run --rm -u "$(id -u):$(id -g)" -v "$PWD:/workspace" -v "/home/bayesartre/dev/pokeemerald-expansion-shared-power:/home/bayesartre/dev/pokeemerald-expansion-shared-power" -w /workspace pokeemerald-expansion:builder make check NO_MULTIBOOT=1 TESTS="Shared Power off: partner Shed Skin is not active for Rest fast-recovery prediction"` passed 1/1. The disabled move-choice fixture tied Rest and Celebrate at score 100, so the final disabled proof asserts the off-path active-membership invariant instead.
+
+Validation (2026-06-07): `docker run --rm -u "$(id -u):$(id -g)" -v "$PWD:/workspace" -v "/home/bayesartre/dev/pokeemerald-expansion-shared-power:/home/bayesartre/dev/pokeemerald-expansion-shared-power" -w /workspace pokeemerald-expansion:builder make check NO_MULTIBOOT=1 TESTS="Shared Power AI"` passed 33/33 after adding the AI Rest fast-recovery prediction bucket.
+
+Validation (2026-06-07): `git diff --check` passed with no output after the AI Rest fast-recovery prediction bucket.

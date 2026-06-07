@@ -694,6 +694,37 @@ AI_DOUBLE_BATTLE_TEST("Shared Power off: partner Magic Guard does not avoid mult
     }
 }
 
+AI_DOUBLE_BATTLE_TEST("Shared Power AI: pooled Shed Skin raises Rest fast-recovery score")
+{
+    GIVEN {
+        BATTLE_TYPE(BATTLE_TYPE_SHARED_POWER);
+        ASSUME(GetMoveEffect(MOVE_REST) == EFFECT_REST);
+        AI_FLAGS(AI_FLAG_CHECK_VIABILITY | AI_FLAG_OMNISCIENT);
+        PLAYER(SPECIES_WOBBUFFET);
+        PLAYER(SPECIES_WOBBUFFET);
+        OPPONENT(SPECIES_SEVIPER) { Ability(ABILITY_SHED_SKIN); Moves(MOVE_CELEBRATE); }
+        OPPONENT(SPECIES_WOBBUFFET) { Ability(ABILITY_TELEPATHY); HP(1); MaxHP(100); Moves(MOVE_REST, MOVE_CELEBRATE); }
+    } WHEN {
+        TURN { EXPECT_MOVE(opponentLeft, MOVE_CELEBRATE); EXPECT_MOVE(opponentRight, MOVE_REST); }
+    }
+}
+
+AI_DOUBLE_BATTLE_TEST("Shared Power off: partner Shed Skin is not active for Rest fast-recovery prediction")
+{
+    GIVEN {
+        ASSUME(GetMoveEffect(MOVE_REST) == EFFECT_REST);
+        AI_FLAGS(AI_FLAG_CHECK_VIABILITY | AI_FLAG_OMNISCIENT);
+        PLAYER(SPECIES_WOBBUFFET);
+        PLAYER(SPECIES_WOBBUFFET);
+        OPPONENT(SPECIES_SEVIPER) { Ability(ABILITY_SHED_SKIN); Moves(MOVE_CELEBRATE); }
+        OPPONENT(SPECIES_WOBBUFFET) { Ability(ABILITY_TELEPATHY); HP(1); MaxHP(100); Moves(MOVE_REST, MOVE_CELEBRATE); }
+    } WHEN {
+        TURN { EXPECT_MOVE(opponentLeft, MOVE_CELEBRATE); }
+    } THEN {
+        EXPECT(!AI_HasActiveAbility(B_POSITION_OPPONENT_RIGHT, ABILITY_SHED_SKIN));
+    }
+}
+
 AI_DOUBLE_BATTLE_TEST("Shared Power AI: scores Substitute lower against pooled Infiltrator")
 {
     GIVEN {
