@@ -855,6 +855,37 @@ AI_DOUBLE_BATTLE_TEST("Shared Power off: partner Contrary does not lower self st
     }
 }
 
+AI_DOUBLE_BATTLE_TEST("Shared Power AI: pooled Contrary lowers target stat-drop additional effect score")
+{
+    GIVEN {
+        BATTLE_TYPE(BATTLE_TYPE_SHARED_POWER);
+        ASSUME(GetMoveAdditionalEffectById(MOVE_ACID_SPRAY, 0)->moveEffect == MOVE_EFFECT_SP_DEF_MINUS_2);
+        ASSUME(GetMoveAdditionalEffectById(MOVE_ACID_SPRAY, 0)->self == FALSE);
+        AI_FLAGS(AI_FLAG_CHECK_BAD_MOVE | AI_FLAG_CHECK_VIABILITY | AI_FLAG_OMNISCIENT);
+        PLAYER(SPECIES_WOBBUFFET) { Ability(ABILITY_TELEPATHY); HP(100); MaxHP(100); Moves(MOVE_CELEBRATE); }
+        PLAYER(SPECIES_SHUCKLE) { Ability(ABILITY_CONTRARY); Moves(MOVE_CELEBRATE); }
+        OPPONENT(SPECIES_WOBBUFFET) { Ability(ABILITY_TELEPATHY); Moves(MOVE_ACID_SPRAY, MOVE_CELEBRATE); }
+        OPPONENT(SPECIES_WOBBUFFET);
+    } WHEN {
+        TURN { SCORE_EQ_VAL(opponentLeft, MOVE_ACID_SPRAY, AI_SCORE_DEFAULT + 1, target: playerLeft); }
+    }
+}
+
+AI_DOUBLE_BATTLE_TEST("Shared Power off: partner Contrary does not lower target stat-drop additional effect score")
+{
+    GIVEN {
+        ASSUME(GetMoveAdditionalEffectById(MOVE_ACID_SPRAY, 0)->moveEffect == MOVE_EFFECT_SP_DEF_MINUS_2);
+        ASSUME(GetMoveAdditionalEffectById(MOVE_ACID_SPRAY, 0)->self == FALSE);
+        AI_FLAGS(AI_FLAG_CHECK_BAD_MOVE | AI_FLAG_CHECK_VIABILITY | AI_FLAG_OMNISCIENT);
+        PLAYER(SPECIES_WOBBUFFET) { Ability(ABILITY_TELEPATHY); HP(100); MaxHP(100); Moves(MOVE_CELEBRATE); }
+        PLAYER(SPECIES_SHUCKLE) { Ability(ABILITY_CONTRARY); Moves(MOVE_CELEBRATE); }
+        OPPONENT(SPECIES_WOBBUFFET) { Ability(ABILITY_TELEPATHY); Moves(MOVE_ACID_SPRAY, MOVE_CELEBRATE); }
+        OPPONENT(SPECIES_WOBBUFFET);
+    } WHEN {
+        TURN { SCORE_GT_VAL(opponentLeft, MOVE_ACID_SPRAY, AI_SCORE_DEFAULT + 1, target: playerLeft); }
+    }
+}
+
 AI_DOUBLE_BATTLE_TEST("Shared Power AI: pooled Contrary prevents Fell Stinger KO bonus")
 {
     GIVEN {

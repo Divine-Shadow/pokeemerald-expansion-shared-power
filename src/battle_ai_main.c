@@ -5607,7 +5607,7 @@ case EFFECT_GUARD_SPLIT:
             case MOVE_EFFECT_SP_DEF_MINUS_1:
             case MOVE_EFFECT_ACC_MINUS_1:
             case MOVE_EFFECT_EVS_MINUS_1:
-                if (aiData->abilities[battlerDef] != ABILITY_CONTRARY)
+                if (!AI_HasActiveAbility(battlerDef, ABILITY_CONTRARY))
                     ADJUST_SCORE(DECENT_EFFECT);
                 break;
             case MOVE_EFFECT_ATK_MINUS_2:
@@ -5616,7 +5616,7 @@ case EFFECT_GUARD_SPLIT:
             case MOVE_EFFECT_SP_DEF_MINUS_2:
             case MOVE_EFFECT_ACC_MINUS_2:
             case MOVE_EFFECT_EVS_MINUS_2:
-                if (aiData->abilities[battlerDef] != ABILITY_CONTRARY)
+                if (!AI_HasActiveAbility(battlerDef, ABILITY_CONTRARY))
                     ADJUST_SCORE(DECENT_EFFECT);
                 break;
             case MOVE_EFFECT_POISON:

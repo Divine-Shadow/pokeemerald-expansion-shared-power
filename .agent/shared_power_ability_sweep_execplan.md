@@ -286,6 +286,11 @@ Shared Power battle behavior should use the correct ability view at each callsit
 - [x] (2026-06-07T06:33Z) Ran targeted validation for the AI self additional-effect Contrary prediction bucket and recorded evidence here.
 - [x] (2026-06-07T06:37Z) Ran the broader Shared Power AI regression filter for the self additional-effect Contrary prediction bucket and recorded evidence here.
 - [x] (2026-06-07T06:39Z) Ran `git diff --check` after the AI self additional-effect Contrary prediction bucket; no issues reported.
+- [x] (2026-06-07T06:30Z) Selected the AI target additional-effect Contrary prediction bucket, scoped to active target Contrary for target stat-lowering additional effects.
+- [x] (2026-06-07T06:38Z) Implemented the AI target additional-effect Contrary prediction bucket and added focused Shared Power enabled/off score coverage.
+- [x] (2026-06-07T06:42Z) Ran targeted validation for the AI target additional-effect Contrary prediction bucket and recorded evidence here.
+- [x] (2026-06-07T06:35Z) Ran the broader Shared Power AI regression filter for the target additional-effect Contrary prediction bucket and recorded evidence here.
+- [x] (2026-06-07T06:35Z) Ran `git diff --check` after the AI target additional-effect Contrary prediction bucket; no issues reported.
 - [x] (2026-06-07T03:05Z) Selected the AI weather/terrain benefit prediction bucket, scoped to shareable active ability heuristics while keeping native-only form/species-style weather abilities native.
 - [x] (2026-06-07T03:12Z) Implemented the AI weather/terrain benefit prediction bucket and added focused Shared Power enabled/off helper coverage for Rain and Electric Terrain.
 - [x] (2026-06-07T03:20Z) Ran targeted validation for the AI weather/terrain benefit prediction bucket and recorded evidence here.
@@ -502,6 +507,18 @@ Shared Power battle behavior should use the correct ability view at each callsit
   Evidence: `docker run --rm -u "$(id -u):$(id -g)" -v "$PWD:/workspace" -v "/home/bayesartre/dev/pokeemerald-expansion-shared-power:/home/bayesartre/dev/pokeemerald-expansion-shared-power" -w /workspace pokeemerald-expansion:builder make check NO_MULTIBOOT=1 TESTS="Shared Power AI"` passed 46/46 tests.
 
 - Observation: The AI self additional-effect Contrary bucket passed diff hygiene.
+  Evidence: `git diff --check` reported no issues.
+
+- Observation: AI target additional-effect scoring has narrow native Contrary guards before scoring target stat-lowering move effects.
+  Evidence: The target-effect path in `AI_CalcMoveEffectScore` checks native `aiData->abilities[battlerDef] != ABILITY_CONTRARY` for stat-lowering additional effects, while live stat-change behavior routes Contrary through active membership.
+
+- Observation: The target additional-effect score split is stable with active Contrary reducing Acid Spray's target Sp. Def drop score and Shared Power off preserving the higher normal stat-drop score.
+  Evidence: `TESTS="Shared Power AI: pooled Contrary lowers target stat-drop additional effect score"` and `TESTS="Shared Power off: partner Contrary does not lower target stat-drop additional effect score"` both passed 1/1. The enabled path scored `AI_SCORE_DEFAULT + 1`; the off-path was greater than that reduced score.
+
+- Observation: The AI target additional-effect Contrary bucket passed the broader Shared Power AI regression filter.
+  Evidence: `docker run --rm -u "$(id -u):$(id -g)" -v "$PWD:/workspace" -v "/home/bayesartre/dev/pokeemerald-expansion-shared-power:/home/bayesartre/dev/pokeemerald-expansion-shared-power" -w /workspace pokeemerald-expansion:builder make check NO_MULTIBOOT=1 TESTS="Shared Power AI"` passed 47/47 tests.
+
+- Observation: The AI target additional-effect Contrary bucket passed diff hygiene.
   Evidence: `git diff --check` reported no issues.
 
 - Observation: AI Substitute/Shed Tail scoring has a native-only Infiltrator shortcut even though live Substitute bypass is already active-aware.
