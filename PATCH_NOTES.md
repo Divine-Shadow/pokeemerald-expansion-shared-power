@@ -1,9 +1,9 @@
-- Docs/Planning: Record Shared Power AI Lock-On and Laser Focus prediction diff hygiene (commit pending).
-- Docs/Planning: Record Shared Power AI Lock-On and Laser Focus prediction validation evidence (commit pending).
-- Docs/Planning: Record Shared Power AI Lock-On and Laser Focus prediction progress (commit pending).
-- Docs/Audit: Note that Shared Power AI Lock-On and Laser Focus prediction handles pooled No Guard and crit blockers (commit pending).
-- Tests/AI: Cover Shared Power AI Lock-On and Laser Focus scoring with pooled abilities enabled and disabled paths (commit pending).
-- Battle/AI: Let Lock-On and Laser Focus prediction see pooled No Guard and crit blockers under Shared Power (commit pending).
+- Docs/Planning: Record Shared Power AI Lock-On and Laser Focus prediction diff hygiene (commit 767c6bcac3).
+- Docs/Planning: Record Shared Power AI Lock-On and Laser Focus prediction validation evidence (commit 767c6bcac3).
+- Docs/Planning: Record Shared Power AI Lock-On and Laser Focus prediction progress (commit 767c6bcac3).
+- Docs/Audit: Note that Shared Power AI Lock-On and Laser Focus prediction handles pooled No Guard and crit blockers (commit 767c6bcac3).
+- Tests/AI: Cover Shared Power AI Lock-On and Laser Focus scoring with pooled abilities enabled and disabled paths (commit 767c6bcac3).
+- Battle/AI: Let Lock-On and Laser Focus prediction see pooled No Guard and crit blockers under Shared Power (commit 767c6bcac3).
 - Docs/Release: Resolve Shared Power sweep patch-note ordering after rebasing on main (commit 15d3430a64).
 - Docs/Planning: Record Shared Power AI Magnitude Levitate prediction diff hygiene (commit 15d3430a64).
 - Docs/Planning: Record Shared Power AI Magnitude Levitate prediction validation evidence (commit 15d3430a64).
